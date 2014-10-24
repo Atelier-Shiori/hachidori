@@ -298,6 +298,7 @@
         NSLog(@"Title is not a movie.");
         DetectedTitleisMovie = false;
     }
+    for (int i = 1; i<3; i++) {
 	for (NSDictionary *searchentry in searchdata) {
 		//Store title from search entry
 		theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
@@ -308,6 +309,12 @@
                 DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
                 idok = true;
             }
+            else if([DetectedEpisode intValue] == 0 && [theshowtype isEqualToString:@"Special"]){
+                //Specials are usually one episode (although there are exceptions
+                DetectedEpisode = @"1";
+                DetectedTitleisMovie = false;
+                idok = true;
+            }
             else {
                 idok = false;
             }
@@ -315,10 +322,17 @@
         else if([theshowtype isEqualToString:@"Movie"]){
             idok = false; // Rejects result, not a movie.
         }
-        else if([theshowtype isEqualToString:@"Music"]){
-            idok = false; // Rejects Hachidori only scrobbles movies, Anime, OVAs or specials
+        else if([theshowtype isEqualToString:@"Music"]|| ([theshowtype isEqualToString:@"ONA"] && !DetectedisStream)){
+            idok = false; // Rejects Hachidori only scrobbles movies, Anime, OVAs or specials. ONAs id most likely from a stream source.
         }
-        else{
+        else if([DetectedEpisode intValue] > 0 && [theshowtype isEqualToString:@"Special"]){
+            //Specials are usually one episode (although there are exceptions
+            idok = false;
+        }
+        else if (([theshowtype isEqualToString:@"Special"] && i == 2)||([theshowtype isEqualToString:@"ONA"] && i == 2)){
+            idok = true;
+        }
+        else if (i == 1){
             //OK to go
             idok = true;
         }
@@ -330,7 +344,7 @@
                 
             }
         }
-		//Test each title until it matches
+    }
 
 	}
 foundtitle:
