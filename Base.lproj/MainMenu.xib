@@ -359,7 +359,7 @@
         </window>
         <menu title="Status" id="724">
             <items>
-                <menuItem title="watching" id="774">
+                <menuItem title="currently-watching" id="774">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="completed" id="773">
@@ -372,7 +372,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="601" y="455.5"/>
+            <point key="canvasLocation" x="293" y="455.5"/>
         </menu>
         <window title="Update Status" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="725">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>

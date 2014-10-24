@@ -277,7 +277,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="377515637">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">Saving a Login will generate a Token used for the scrobbler. The username and password will not be saved.</string>
+							<string key="NSContents">Saving a Login will generate a Token needed for the scrobbler. No passwords will be stored.</string>
 							<reference key="NSSupport" ref="255559681"/>
 							<reference key="NSControlView" ref="72329522"/>
 							<reference key="NSBackgroundColor" ref="625311658"/>

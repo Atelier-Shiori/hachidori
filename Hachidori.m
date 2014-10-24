@@ -376,7 +376,7 @@ foundtitle:
                     TitleScore = [rating objectForKey:@"value"];
                 }
                 NSLog(@"Title Score %@", TitleScore);
-                DetectedCurrentEpisode = [LastScrobbledInfo  objectForKey:@"episodes_watched"];
+                DetectedCurrentEpisode = [d objectForKey:@"episodes_watched"];
                 LastScrobbledInfo = tmpinfo;
                 LastScrobbledTitleNew = false;
                 break;
@@ -512,20 +512,20 @@ foundtitle:
 	// Update the title
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	//Set library/scrobble API
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/animelist/anime/%@", @"https://hbrd-v1.p.mashape.com/", titleid]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", titleid]];
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
                 [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
 	//Set Token
-	[request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@",[defaults objectForKey:@"Token"]]];
+[request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
 	[request setRequestMethod:@"PUT"];
 	//Set current episode
-	[request setPostValue:LastScrobbledEpisode forKey:@"episodes"];
+	//[request setPostValue:LastScrobbledEpisode forKey:@"episodes"];
 	//Set new watch status
 	[request setPostValue:showwatchstatus forKey:@"status"];	
 	//Set new score.
-	[request setPostValue:[NSString stringWithFormat:@"%i", showscore] forKey:@"score"];
+	[request setPostValue:[NSString stringWithFormat:@"%i", showscore] forKey:@"rating"];
 	// Do Update
 	[request startSynchronous];
 	NSLog(@"%i", [request responseStatusCode]);
