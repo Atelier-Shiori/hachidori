@@ -200,8 +200,6 @@
 		29B97314FDCFA39411CA2CEA /* MAL Updater OS X */ = {
 			isa = PBXGroup;
 			children = (
-				8237D56F19F9AF8E00920DDB /* Constants.h */,
-				8237D57019F9AF8E00920DDB /* Constants.m */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -216,6 +214,8 @@
 			children = (
 				5C2B9DC31221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
 				256AC3F00F4B6AF500CF3369 /* MAL_Updater_OS_X_Prefix.pch */,
+				8237D56F19F9AF8E00920DDB /* Constants.h */,
+				8237D57019F9AF8E00920DDB /* Constants.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";

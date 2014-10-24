@@ -37,7 +37,7 @@
 }
 -(int)getWatchStatus
 {
-	if ([WatchStatus isEqualToString:@"watching"])
+	if ([WatchStatus isEqualToString:@"currently-watching"])
 		return 0;
 	else if ([WatchStatus isEqualToString:@"completed"])
 		return 1;
@@ -302,7 +302,6 @@
 		//Store title from search entry
 		theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         theshowtype = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]];
-        NSLog(@"%@ - %@", theshowtitle,theshowtype);
         // Checks to make sure Hachidori is updating the correct type of show
         if (DetectedTitleisMovie) {
             if ([theshowtype isEqualToString:@"Movie"]) {
@@ -315,6 +314,9 @@
         }
         else if([theshowtype isEqualToString:@"Movie"]){
             idok = false; // Rejects result, not a movie.
+        }
+        else if([theshowtype isEqualToString:@"Music"]){
+            idok = false; // Rejects Hachidori only scrobbles movies, Anime, OVAs or specials
         }
         else{
             //OK to go
@@ -353,16 +355,13 @@ foundtitle:
         NSDictionary * tmpinfo;
 		// Initalize JSON parser
 		NSArray *animelist = [response JSONValue];
-        NSLog(@"%@",animelist);
         for (int i = 0; i< [animelist count]; i++) {
             NSDictionary * d = [animelist objectAtIndex:i];
             NSDictionary * tmp = [d objectForKey:@"anime"];
             NSString * tmpslug = [tmp objectForKey:@"slug"];
-            NSLog(@"%@ - %@",titleid, tmpslug);
             if ([titleid isEqualToString:tmpslug]) {
                 // Info is there.
                 tmpinfo = tmp;
-                NSLog(@"found!");
                 NSLog(@"Title on List");
                 WatchStatus = [d objectForKey:@"status"];
                 NSDictionary * rating = [d objectForKey:@"rating"];
@@ -384,6 +383,7 @@ foundtitle:
             else {
             }
             if (i == [animelist count] - 1) {
+                //Title not on list, mark it as new
                 tmpinfo = [self retrieveAnimeInfo:AniID];
                 NSLog(@"Not on List");
                 WatchStatus = @"currently-watching";
@@ -481,7 +481,6 @@ foundtitle:
 		LastScrobbledTitle = DetectedTitle;
 		LastScrobbledEpisode = DetectedEpisode;
 		//NSLog(@"%i", [request responseStatusCode]);
-		NSLog(@"%@", [request responseString]);
         
 		switch ([request responseStatusCode]) {
 			case 201:
@@ -514,11 +513,11 @@ foundtitle:
 	//Set library/scrobble API
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", titleid]];
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-                [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
+    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
 	//Set Token
-[request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
 	[request setRequestMethod:@"PUT"];
 	//Set current episode
 	//[request setPostValue:LastScrobbledEpisode forKey:@"episodes"];
@@ -528,7 +527,6 @@ foundtitle:
 	[request setPostValue:[NSString stringWithFormat:@"%i", showscore] forKey:@"rating"];
 	// Do Update
 	[request startSynchronous];
-	NSLog(@"%i", [request responseStatusCode]);
 	//NSLog(@"%@", [request responseString]);
 	switch ([request responseStatusCode]) {
 		case 200:
