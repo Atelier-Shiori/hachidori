@@ -213,37 +213,20 @@
 		regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$"];
 		DetectedTitle = [regex replaceAllMatchesInString:string
 														 withString:@""];
-        regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d$"];
+        regex = [OGRegularExpression regularExpressionWithString:@"-"];
+        string = [regex replaceAllMatchesInString:string
+                                       withString:@""];
+        regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d+$"];
         DetectedTitle = [regex replaceAllMatchesInString:DetectedTitle
                                               withString:@""];
 		// Set Episode Info
-        NSString * string2 = string;
-        regex = [OGRegularExpression regularExpressionWithString:@" - "];
-		string = [regex replaceAllMatchesInString:string
-									   withString:@""];
-        
 		regex = [OGRegularExpression regularExpressionWithString: DetectedTitle];
 		string = [regex replaceAllMatchesInString:string
 												withString:@""];
 		regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]"];
 		DetectedEpisode = [regex replaceAllMatchesInString:string
 												withString:@""];
-        if (DetectedEpisode.length > 3) { // Detected Episode is malformed and is more than 3
-            regex = [OGRegularExpression regularExpressionWithString:@" - "];
-            string = [regex replaceAllMatchesInString:string2
-                                           withString:@" "];
-            
-            regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d$"];
-            DetectedTitle = [regex replaceAllMatchesInString:string
-                                             withString:@""];
-            regex = [OGRegularExpression regularExpressionWithString: DetectedTitle];
-            string = [regex replaceAllMatchesInString:string
-                                           withString:@""];
-            regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]"];
-            DetectedEpisode = [regex replaceAllMatchesInString:string
-                                                    withString:@""];
-            
-        }
+        
 		// Trim Whitespace
 		DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		DetectedEpisode = [DetectedEpisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -254,8 +237,6 @@
 		// Check if the title was previously scrobbled
 		if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
 			// Do Nothing
-			//[appDelegate setStatusText:@"Scrobble Status: Same Episode Playing, Scrobble not needed."];
-			//[appDelegate setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",DetectedTitle,DetectedEpisode]];
             return 1;
 		}
 		else {
