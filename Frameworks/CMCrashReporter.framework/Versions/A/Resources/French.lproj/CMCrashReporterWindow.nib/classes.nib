@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>dontReport</key>
+				<string>id</string>
+				<key>submitData</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>CMCrashReporterWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>application</key>
+				<string>id</string>
+				<key>commentField</key>
+				<string>id</string>
+				<key>description</key>
+				<string>id</string>
+				<key>dontShowThis</key>
+				<string>id</string>
+				<key>includeRapport</key>
+				<string>id</string>
+				<key>mailaddress</key>
+				<string>id</string>
+				<key>version</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

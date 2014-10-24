@@ -1,0 +1,3 @@
+language: objective-c
+xcode_project: MAL Updater OS X.xcodeproj 
+xcode_scheme: MAL Updater OS X
