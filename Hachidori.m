@@ -95,9 +95,6 @@
                 status = s;
                 
 			}
-				//Set last successful scrobble to statusItem Tooltip
-				//[appDelegate setStatusToolTip:[NSString stringWithFormat:@"Hachidori - Last Scrobble: %@ - %@", LastScrobbledTitle, LastScrobbledEpisode]];
-				//Retain Scrobbled Title, Title ID, Title Score, WatchStatus and Episode
 			}
             else{
                 status = 54;
@@ -119,7 +116,6 @@
 }
 -(NSString *)searchanime{
 	NSLog(@"Searching For Title");
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	//Escape Search Term
 	NSString * searchterm = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
 																				NULL,
@@ -298,7 +294,7 @@
         NSLog(@"Title is not a movie.");
         DetectedTitleisMovie = false;
     }
-    for (int i = 1; i<3; i++) {
+    NSMutableArray * checkAgain = [[NSMutableArray alloc] init];
 	for (NSDictionary *searchentry in searchdata) {
 		//Store title from search entry
 		theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
@@ -321,6 +317,7 @@
         }
         else if([theshowtype isEqualToString:@"Movie"]){
             idok = false; // Rejects result, not a movie.
+            continue;
         }
         else if([theshowtype isEqualToString:@"Music"]|| ([theshowtype isEqualToString:@"ONA"] && !DetectedisStream)){
             idok = false; // Rejects Hachidori only scrobbles movies, Anime, OVAs or specials. ONAs id most likely from a stream source.
@@ -329,10 +326,7 @@
             //Specials are usually one episode (although there are exceptions
             idok = false;
         }
-        else if (([theshowtype isEqualToString:@"Special"] && i == 2)||([theshowtype isEqualToString:@"ONA"] && i == 2)){
-            idok = true;
-        }
-        else if (i == 1){
+        else if ([theshowtype isEqualToString:@"TV"]|| [theshowtype isEqualToString:@"OVA"]){
             //OK to go
             idok = true;
         }
@@ -344,9 +338,18 @@
                 
             }
         }
+        else {[checkAgain addObject:searchentry];}
     }
-
-	}
+    // Check the remaining titles for a match
+    for (NSDictionary * d in checkAgain ) {
+        theshowtitle = [NSString stringWithFormat:@"%@",[d objectForKey:@"title"]];
+        if ([regex matchInString:theshowtitle] != nil) {
+            //Return titleid
+            titleid = [NSString stringWithFormat:@"%@",[d objectForKey:@"slug"]];
+            goto foundtitle;
+            
+        }
+    }
 foundtitle:
 	//Return the AniID
 	return titleid;
