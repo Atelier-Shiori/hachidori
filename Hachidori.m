@@ -53,6 +53,9 @@
 -(BOOL)getSuccess{
     return Success;
 }
+-(NSDictionary *)getLastScrobbledInfo{
+    return LastScrobbledInfo;
+}
 
 /*
  
@@ -246,7 +249,6 @@
 	}
 	else {
 		// Nothing detected
-		//[appDelegate setStatusText:@"Scrobble Status: Idle..."];
         return 0;
 	}
 }
@@ -548,8 +550,6 @@ foundtitle:
 }
     return false;
 }
--(NSDictionary *)getLastScrobbledInfo{
-	return LastScrobbledInfo;
-}
+
     
 @end

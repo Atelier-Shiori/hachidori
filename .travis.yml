@@ -1,3 +1,3 @@
 language: objective-c
-xcode_project: MAL Updater OS X.xcodeproj 
-xcode_scheme: MAL Updater OS X
+xcode_project: Hachidori.xcodeproj 
+xcode_scheme: Hachidori
