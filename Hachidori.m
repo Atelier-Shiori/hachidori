@@ -277,7 +277,8 @@ update:
 	//Set Regular Expressions to omit any preceding words
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",DetectedTitle];
 	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"]; // NSString *findpre = [NSString stringWithFormat:@"^%@",DetectedTitle];
-	regex = [OGRegularExpression regularExpressionWithString:findpre];
+	regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
+
 	//Retrieve the ID. Note that the most matched title will be on the top
     BOOL idok; // Checks the status
     // For Sanity (TV shows and OVAs usually have more than one episode)
