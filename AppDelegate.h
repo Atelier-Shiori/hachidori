@@ -44,7 +44,8 @@
     IBOutlet NSToolbarItem * sharetoolbaritem;
 	IBOutlet NSTextField * showtitle;
 	IBOutlet NSPopUpButton * showstatus;
-	IBOutlet NSPopUpButton * showscore;
+    IBOutlet NSTextField * showscore;
+    IBOutlet NSTextView * notes;
 	NSWindowController *_preferencesWindowController;
 }
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;

@@ -27,6 +27,7 @@
 	NSString * WatchStatus;
 	NSString * TitleScore;
 	NSString * TitleState;
+    NSString * TitleNotes;
     NSString * AniID;
     NSString * RatingType;
     BOOL DetectedisStream;
@@ -43,14 +44,16 @@
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
 -(BOOL)updatestatus:(NSString *)titleid
-              score:(int)showscore
-        watchstatus:(NSString*)showwatchstatus;
+              score:(float)showscore
+        watchstatus:(NSString*)showwatchstatus
+              notes:(NSString*)note;
 -(NSString *)getLastScrobbledTitle;
 -(NSString *)getLastScrobbledEpisode;
 -(NSString *)getAniID;
 -(NSString *)getTotalEpisodes;
 -(int)getScore;
 -(int)getWatchStatus;
+-(NSString *)getNotes;
 -(BOOL)getSuccess;
 -(NSDictionary *)getLastScrobbledInfo;
 -(NSDictionary *)detectStream;

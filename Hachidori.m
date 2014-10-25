@@ -56,6 +56,9 @@
 -(NSDictionary *)getLastScrobbledInfo{
     return LastScrobbledInfo;
 }
+-(NSString *)getNotes{
+    return TitleNotes;
+}
 
 /*
  
@@ -379,6 +382,14 @@ foundtitle:
                 tmpinfo = tmp;
                 NSLog(@"Title on List");
                 WatchStatus = [d objectForKey:@"status"];
+                //Get Notes;
+                if ([d objectForKey:@"notes"] == [NSNull null]) {
+                    TitleNotes = @"";
+                }
+                else {
+                    TitleNotes = [d objectForKey:@"notes"];
+                }
+                // Get Rating
                 NSDictionary * rating = [d objectForKey:@"rating"];
                 if ([rating objectForKey:@"value"] == [NSNull null]){
                     // Score is null, set to 0
@@ -517,8 +528,9 @@ foundtitle:
 	}
 }
 -(BOOL)updatestatus:(NSString *)titleid
-			 score:(int)showscore
+			 score:(float)showscore
 	   watchstatus:(NSString*)showwatchstatus
+              notes:(NSString*)note
 {
 	NSLog(@"Updating Status for %@", titleid);
 	//Set up Delegate
@@ -533,27 +545,28 @@ foundtitle:
 	[request setUseCookiePersistence:NO];
 	//Set Token
     [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
-	[request setRequestMethod:@"PUT"];
 	//Set current episode
 	//[request setPostValue:LastScrobbledEpisode forKey:@"episodes"];
 	//Set new watch status
 	[request setPostValue:showwatchstatus forKey:@"status"];	
 	//Set new score.
-	[request setPostValue:[NSString stringWithFormat:@"%i", showscore] forKey:@"rating"];
+	[request setPostValue:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
+    [request setPostValue:note forKey:@"notes"];
 	// Do Update
 	[request startSynchronous];
 	//NSLog(@"%@", [request responseString]);
 	switch ([request responseStatusCode]) {
-		case 200:
+		case 201:
 			// Update Successful
-			if ([TitleScore intValue] == showscore && [WatchStatus isEqualToString:showwatchstatus])
+			if ([TitleScore floatValue] == showscore && [WatchStatus isEqualToString:showwatchstatus] && [note isEqualToString:TitleNotes])
 			{
 				//Nothing changed, do nothing.
 			}
 			else {
-			//Set New Values
-			TitleScore = [NSString stringWithFormat:@"%i", showscore];
-			WatchStatus = showwatchstatus;
+                //Set New Values
+                TitleScore = [NSString stringWithFormat:@"%f", showscore];
+                WatchStatus = showwatchstatus;
+                TitleNotes = note;
                 return true;
 			break;
 		default:

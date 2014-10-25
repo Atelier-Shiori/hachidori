@@ -567,8 +567,9 @@
 		  contextInfo:(void *)[NSNumber numberWithFloat:choice]];
 	// Set up UI
 	[showtitle setObjectValue:[haengine getLastScrobbledTitle]];
-	[showscore selectItemWithTag:[haengine getScore]];
+    [showscore setStringValue:[NSString stringWithFormat:@"%i", [haengine getScore]]];
 	[showstatus selectItemAtIndex:[haengine getWatchStatus]];
+    [notes setString:[haengine getNotes]];
 	// Stop Timer temporarily if scrobbling is turned on
 	if (scrobbling == TRUE) {
 		[self stoptimer];
@@ -577,7 +578,7 @@
 }
 - (void)myPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
-        BOOL result = [haengine updatestatus:[haengine getAniID] score:[showscore selectedTag] watchstatus:[showstatus titleOfSelectedItem]];
+        BOOL result = [haengine updatestatus:[haengine getAniID] score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string]];
         if (result)
             [self setStatusText:@"Scrobble Status: Updating of Watch Status/Score Successful."];
         else
