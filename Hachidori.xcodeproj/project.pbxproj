@@ -43,8 +43,9 @@
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; };
 		8237D57119F9AF8E00920DDB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8237D57019F9AF8E00920DDB /* Constants.m */; };
 		8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8294C45D19F99B2F009DE98B /* Images.xcassets */; };
-		82B9A55019FAA7E400E36078 /* hachidori-status-hi.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 82B9A54E19FAA7E400E36078 /* hachidori-status-hi.tiff */; };
-		82B9A55119FAA7E400E36078 /* hachidori-status.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 82B9A54F19FAA7E400E36078 /* hachidori-status.tiff */; };
+		82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AD19FB613800E0B17A /* hachidori-status-hi.png */; };
+		82F065B019FB613800E0B17A /* hachidori-status.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AE19FB613800E0B17A /* hachidori-status.png */; };
+		82F065B319FB618E00E0B17A /* detectstream in Resources */ = {isa = PBXBuildFile; fileRef = 82F065B219FB618E00E0B17A /* detectstream */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -120,8 +121,9 @@
 		829FB41E19F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferenceView.xib; sourceTree = "<group>"; };
 		829FB41F19F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginView.xib; sourceTree = "<group>"; };
 		829FB42019F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SoftwareUpdateView.xib; sourceTree = "<group>"; };
-		82B9A54E19FAA7E400E36078 /* hachidori-status-hi.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "hachidori-status-hi.tiff"; sourceTree = "<group>"; };
-		82B9A54F19FAA7E400E36078 /* hachidori-status.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "hachidori-status.tiff"; sourceTree = "<group>"; };
+		82F065AD19FB613800E0B17A /* hachidori-status-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status-hi.png"; sourceTree = "<group>"; };
+		82F065AE19FB613800E0B17A /* hachidori-status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status.png"; sourceTree = "<group>"; };
+		82F065B219FB618E00E0B17A /* detectstream */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = detectstream; path = detectstream/detectstream; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MAL_Updater_OS_X-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MAL_Updater_OS_X-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Hachidori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hachidori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -222,6 +224,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82F065B119FB618300E0B17A /* DetectStream */,
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
 				5C8ACEB919F409F90001A101 /* Images */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
@@ -263,8 +266,8 @@
 		5C8ACEB919F409F90001A101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				82B9A54E19FAA7E400E36078 /* hachidori-status-hi.tiff */,
-				82B9A54F19FAA7E400E36078 /* hachidori-status.tiff */,
+				82F065AD19FB613800E0B17A /* hachidori-status-hi.png */,
+				82F065AE19FB613800E0B17A /* hachidori-status.png */,
 				5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */,
 				5CABD0B31395875800303E08 /* edit.tiff */,
 				5CB1F26E12E22CF5007C5254 /* stopwatch.png */,
@@ -288,6 +291,14 @@
 				5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */,
 			);
 			name = Preferences;
+			sourceTree = "<group>";
+		};
+		82F065B119FB618300E0B17A /* DetectStream */ = {
+			isa = PBXGroup;
+			children = (
+				82F065B219FB618E00E0B17A /* detectstream */,
+			);
+			name = DetectStream;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,19 +357,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				82F065B319FB618E00E0B17A /* detectstream in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
+				82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
 				5C5C1137123681D200A37706 /* movies.tiff in Resources */,
 				5CB1F27012E22CF5007C5254 /* stopwatch.png in Resources */,
-				82B9A55119FAA7E400E36078 /* hachidori-status.tiff in Resources */,
-				82B9A55019FAA7E400E36078 /* hachidori-status-hi.tiff in Resources */,
 				5CABD0B41395875800303E08 /* edit.tiff in Resources */,
 				5C30BC07139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff in Resources */,
 				5CD36B9919F2EA9B007BB6B6 /* MASPreferencesWindow.xib in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
 				5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */,
+				82F065B019FB613800E0B17A /* hachidori-status.png in Resources */,
 				5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

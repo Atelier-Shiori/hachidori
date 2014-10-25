@@ -53,4 +53,5 @@
 -(int)getWatchStatus;
 -(BOOL)getSuccess;
 -(NSDictionary *)getLastScrobbledInfo;
+-(NSDictionary *)detectStream;
 @end

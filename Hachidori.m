@@ -237,20 +237,34 @@
 		regex = nil;
 		enumerator = nil;
 		string = @"";
-		// Check if the title was previously scrobbled
-		if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
-			// Do Nothing
-            return 1;
-		}
-		else {
-			// Not Scrobbled Yet or Unsuccessful
-            return 2;
-		}
+        goto update;
 	}
 	else {
+        NSLog(@"Checking Stream...");
+        NSDictionary * detected = [self detectStream];
+        
+        if ([detected objectForKey:@"result"]  == [NSNull null]){ // Check to see if anything is playing on stream
+            return 0;
+        }
+        else{
+            NSArray * c = [detected objectForKey:@"result"];
+            NSDictionary * d = [c objectAtIndex:0];
+            DetectedTitle = [NSString stringWithFormat:@"%@",[d objectForKey:@"title"]];
+            DetectedEpisode = [NSString stringWithFormat:@"%@",[d objectForKey:@"episode"]];
+            goto update;
+        }
 		// Nothing detected
-        return 0;
 	}
+update:
+    // Check if the title was previously scrobbled
+    if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
+        // Do Nothing
+        return 1;
+    }
+    else {
+        // Not Scrobbled Yet or Unsuccessful
+        return 2;
+    }
 }
 -(NSString *)findaniid:(NSString *)ResponseData {
 	// Initalize JSON parser
@@ -550,6 +564,36 @@ foundtitle:
 }
     return false;
 }
-
+-(NSDictionary *)detectStream{
+    // LSOF mplayer to get the media title and segment
+    NSDictionary * d;
+        //Set Task and Run it
+        NSTask *task;
+        task = [[NSTask alloc] init];
+        NSBundle *myBundle = [NSBundle mainBundle];
+        [task setLaunchPath:[myBundle pathForResource:@"detectstream" ofType:@""]];
+        
+        
+        NSPipe *pipe;
+        pipe = [NSPipe pipe];
+        [task setStandardOutput: pipe];
+        
+        NSFileHandle *file;
+        file = [pipe fileHandleForReading];
+        
+        [task launch];
+        
+        NSData *data;
+        data = [file readDataToEndOfFile];
+        
+        
+        NSString *string;
+        string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+        //Parse it
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        //Create an Array
+        d = [parser objectWithString:string error:nil];
+    return d;
+}
     
 @end
