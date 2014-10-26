@@ -199,8 +199,8 @@
                         <action selector="toggletimer:" target="560" id="658"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Update Now" id="Swq-JZ-crS">
-                    <modifierMask key="keyEquivalentModifierMask"/>
+                <menuItem title="Update Now" keyEquivalent="U" id="Swq-JZ-crS">
+                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                     <connections>
                         <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
                     </connections>
@@ -387,7 +387,7 @@
                     <textField verticalHuggingPriority="750" id="745">
                         <rect key="frame" x="25" y="151" width="92" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Score:" id="757">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Rating" id="757">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -515,44 +515,6 @@ Gw
             <real key="minimum" value="0.0"/>
             <real key="maximum" value="5"/>
         </numberFormatter>
-        <menu title="Score" id="726">
-            <items>
-                <menuItem title="0 - No Score" id="738">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="734"/>
-                <menuItem title="10 - Masterpiece" tag="10" id="737">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="9 - Great" tag="9" id="736">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="8 - Very Good" tag="8" id="735">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="7 - Good" tag="7" id="733">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="6 - Fine" tag="6" id="732">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="5 - Average" tag="5" id="731">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="4 - Bad" tag="4" id="730">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="3 - Very Bad" tag="3" id="729">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="2 - Horrible" tag="2" id="728">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="1 - Unwatchable" tag="1" id="727">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-            </items>
-        </menu>
         <window title="Hachidori" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="StatusWindowPos" animationBehavior="default" id="789" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>

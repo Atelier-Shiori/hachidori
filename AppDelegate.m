@@ -13,7 +13,8 @@
 #import "LoginPref.h"
 #import "SoftwareUpdatesPref.h"
 #import "NSString_stripHtml.h"
-
+#import "DDHotKeyCenter.h"
+#import <Carbon/Carbon.h>
 
 @implementation AppDelegate
 
@@ -180,6 +181,10 @@
 
     //Set Notification Center Delegate
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    
+    //Register Global Hotkey
+    [self registerHotkey];
+    
 	// Disable Update and Share Buttons
 	[updatetoolbaritem setEnabled:NO];
     [sharetoolbaritem setEnabled:NO];
@@ -617,5 +622,15 @@
 }
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
     return YES;
+}
+-(void)registerHotkey{
+    DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
+    if (![c registerHotKeyWithKeyCode:kVK_ANSI_U modifierFlags:(NSShiftKeyMask|NSCommandKeyMask) target:self action:@selector(hotkeyWithEvent:object:) object:@"scrobblenow"])
+        NSLog(@"Global Hotkey is Registered!");
+}
+- (void) hotkeyWithEvent:(NSEvent *)hkEvent object:(id)anObject {
+    if ([[NSString stringWithFormat:@"%@", anObject] isEqualToString:@"scrobblenow"]) {
+        [self firetimer:nil];
+    }
 }
 @end

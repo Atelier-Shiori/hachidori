@@ -40,6 +40,10 @@
 		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; };
 		8237D57119F9AF8E00920DDB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8237D57019F9AF8E00920DDB /* Constants.m */; };
+		824693A319FD334300CFA12A /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8246939E19FD334300CFA12A /* DDHotKeyCenter.m */; };
+		824693A419FD334300CFA12A /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A019FD334300CFA12A /* DDHotKeyTextField.m */; };
+		824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A219FD334300CFA12A /* DDHotKeyUtilities.m */; };
+		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
 		8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8294C45D19F99B2F009DE98B /* Images.xcassets */; };
 		82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AD19FB613800E0B17A /* hachidori-status-hi.png */; };
 		82F065B019FB613800E0B17A /* hachidori-status.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AE19FB613800E0B17A /* hachidori-status.png */; };
@@ -112,6 +116,13 @@
 		5CFC037419F3396E006B4DAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8237D56F19F9AF8E00920DDB /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8237D57019F9AF8E00920DDB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		8246939D19FD334300CFA12A /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
+		8246939E19FD334300CFA12A /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
+		8246939F19FD334300CFA12A /* DDHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyTextField.h; sourceTree = "<group>"; };
+		824693A019FD334300CFA12A /* DDHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyTextField.m; sourceTree = "<group>"; };
+		824693A119FD334300CFA12A /* DDHotKeyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyUtilities.h; sourceTree = "<group>"; };
+		824693A219FD334300CFA12A /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
+		824693A619FD35AE00CFA12A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		8294C45D19F99B2F009DE98B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "MAL Updater OS X/Images.xcassets"; sourceTree = "<group>"; };
 		829FB41D19F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		829FB41E19F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferenceView.xib; sourceTree = "<group>"; };
@@ -129,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */,
 				5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */,
 				3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */,
@@ -236,6 +248,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				824693A619FD35AE00CFA12A /* Carbon.framework */,
 				5CFC037419F3396E006B4DAD /* libz.dylib */,
 				5C2D50611329810700B31C08 /* libxml2.2.dylib */,
 				5C2D505F1329810000B31C08 /* libxml2.dylib */,
@@ -249,6 +262,7 @@
 		5C8ACEB619F409C60001A101 /* Other Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8246939C19FD332F00CFA12A /* DDHotkey */,
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				5C881EF919F462B400E20425 /* NSString_stripHtml.h */,
@@ -285,6 +299,19 @@
 				5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */,
 			);
 			name = Preferences;
+			sourceTree = "<group>";
+		};
+		8246939C19FD332F00CFA12A /* DDHotkey */ = {
+			isa = PBXGroup;
+			children = (
+				8246939D19FD334300CFA12A /* DDHotKeyCenter.h */,
+				8246939E19FD334300CFA12A /* DDHotKeyCenter.m */,
+				8246939F19FD334300CFA12A /* DDHotKeyTextField.h */,
+				824693A019FD334300CFA12A /* DDHotKeyTextField.m */,
+				824693A119FD334300CFA12A /* DDHotKeyUtilities.h */,
+				824693A219FD334300CFA12A /* DDHotKeyUtilities.m */,
+			);
+			name = DDHotkey;
 			sourceTree = "<group>";
 		};
 		82F065B119FB618300E0B17A /* DetectStream */ = {
@@ -378,8 +405,11 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
+				824693A419FD334300CFA12A /* DDHotKeyTextField.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */,
+				824693A319FD334300CFA12A /* DDHotKeyCenter.m in Sources */,
+				824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
 				8237D57119F9AF8E00920DDB /* Constants.m in Sources */,
 				5C2B9DC41221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel in Sources */,

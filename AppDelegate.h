@@ -10,7 +10,6 @@
 #import <CMCrashReporter/CMCrashReporter.h>
 #import "Hachidori.h"
 
-@class PreferenceController;
 @class Hachidori;
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate, NSSharingServicePickerDelegate> {
 	/* Windows */
@@ -23,7 +22,6 @@
     NSStatusItem                *statusItem;
     NSImage                        *statusImage;
     NSImage                        *statusHighlightImage;
-	PreferenceController * preferenceController;
 	NSManagedObjectModel *managedObjectModel;
 	NSManagedObjectContext *managedObjectContext;
 	NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -37,7 +35,7 @@
 	int choice;
 	BOOL scrobbling;
     BOOL scrobbleractive;
-	/* MAL Scrobbling/Updating Class */
+	/* Hachidori Scrobbling/Updating Class */
 	Hachidori * haengine;
 	/* Update Status Sheet Window IBOutlets */
 	IBOutlet NSToolbarItem * updatetoolbaritem;

@@ -114,6 +114,8 @@
 		// Empty out Detected Title/Episode to prevent same title detection
 		DetectedTitle = @"";
 		DetectedEpisode = @"";
+        match = nil;
+        regex = nil;
 		// Release Detected Title/Episode.
         return status;
 	}
