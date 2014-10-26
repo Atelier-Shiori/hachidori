@@ -30,8 +30,6 @@
     NSString * AniID;
     NSString * RatingType;
     BOOL DetectedisStream;
-	OGRegularExpressionMatch    *match;
-	OGRegularExpression    *regex;
 	BOOL Success;
 	int choice;
 }

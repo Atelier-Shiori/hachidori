@@ -114,9 +114,7 @@
 		// Empty out Detected Title/Episode to prevent same title detection
 		DetectedTitle = @"";
 		DetectedEpisode = @"";
-        match = nil;
-        regex = nil;
-		// Release Detected Title/Episode.
+        // Release Detected Title/Episode.
         return status;
 	}
 
@@ -188,9 +186,10 @@
 	if (string.length > 0) {
 		//Regex time
 		//Get the filename first
-		regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm)$"];
+		OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm)$"];
 		NSEnumerator    *enumerator;
-		enumerator = [regex matchEnumeratorInString:string];		
+		enumerator = [regex matchEnumeratorInString:string];
+        OGRegularExpressionMatch    *match;
 		while ((match = [enumerator nextObject]) != nil) {
 			string = [match matchedString];
 		}
@@ -217,13 +216,13 @@
         regex = [OGRegularExpression regularExpressionWithString:@"~"];
         string = [regex replaceAllMatchesInString:string
                                        withString:@""];
+        regex = [OGRegularExpression regularExpressionWithString:@"-"];
+        string = [regex replaceAllMatchesInString:string
+                                       withString:@""];
 		// Set Title Info
 		regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$"];
 		DetectedTitle = [regex replaceAllMatchesInString:string
 														 withString:@""];
-        regex = [OGRegularExpression regularExpressionWithString:@"-"];
-        string = [regex replaceAllMatchesInString:string
-                                       withString:@""];
         regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d+$"];
         DetectedTitle = [regex replaceAllMatchesInString:DetectedTitle
                                               withString:@""];
@@ -238,10 +237,7 @@
 		// Trim Whitespace
 		DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		DetectedEpisode = [DetectedEpisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        //release
-		regex = nil;
-		enumerator = nil;
-		string = @"";
+        DetectedisStream = false;
         goto update;
 	}
 	else {
@@ -256,6 +252,7 @@
             NSDictionary * d = [c objectAtIndex:0];
             DetectedTitle = [NSString stringWithFormat:@"%@",[d objectForKey:@"title"]];
             DetectedEpisode = [NSString stringWithFormat:@"%@",[d objectForKey:@"episode"]];
+            DetectedisStream = true;
             goto update;
         }
 		// Nothing detected
@@ -283,7 +280,7 @@ update:
 	//Set Regular Expressions to omit any preceding words
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",DetectedTitle];
 	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"]; // NSString *findpre = [NSString stringWithFormat:@"^%@",DetectedTitle];
-	regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
+	OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
 
 	//Retrieve the ID. Note that the most matched title will be on the top
     BOOL idok; // Checks the status

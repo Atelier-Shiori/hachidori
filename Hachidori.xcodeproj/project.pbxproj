@@ -131,7 +131,7 @@
 		82F065AD19FB613800E0B17A /* hachidori-status-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status-hi.png"; sourceTree = "<group>"; };
 		82F065AE19FB613800E0B17A /* hachidori-status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status.png"; sourceTree = "<group>"; };
 		82F065B219FB618E00E0B17A /* detectstream */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = detectstream; path = detectstream/detectstream; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* MAL_Updater_OS_X-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MAL_Updater_OS_X-Info.plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Hachidori-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hachidori-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Hachidori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hachidori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -236,7 +236,7 @@
 				5C8ACEB919F409F90001A101 /* Images */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
-				8D1107310486CEB800E47090 /* MAL_Updater_OS_X-Info.plist */,
+				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
@@ -486,11 +486,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MAL_Updater_OS_X_Prefix.pch;
-				INFOPLIST_FILE = "MAL_Updater_OS_X-Info.plist";
+				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Hachidori;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -500,6 +501,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -511,11 +513,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MAL_Updater_OS_X_Prefix.pch;
-				INFOPLIST_FILE = "MAL_Updater_OS_X-Info.plist";
+				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Hachidori;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};
