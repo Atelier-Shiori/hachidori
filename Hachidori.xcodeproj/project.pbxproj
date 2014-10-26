@@ -172,6 +172,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				824693A619FD35AE00CFA12A /* Carbon.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				5C2B9DFB1221EB25006DEF0D /* CoreData.framework */,
@@ -248,7 +249,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				824693A619FD35AE00CFA12A /* Carbon.framework */,
 				5CFC037419F3396E006B4DAD /* libz.dylib */,
 				5C2D50611329810700B31C08 /* libxml2.2.dylib */,
 				5C2D505F1329810000B31C08 /* libxml2.dylib */,
