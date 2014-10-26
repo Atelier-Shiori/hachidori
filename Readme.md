@@ -19,7 +19,6 @@ All the frameworks are included. Just build! Here are the frameworks that are us
 * CMCrashReporter.framework
 * Sparkle.framework
 * OgreKit.framework
-* JSON.framework
 
 ##License
 Copyright © 2009-2014, Atelier Shiori.

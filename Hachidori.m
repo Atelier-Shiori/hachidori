@@ -141,7 +141,7 @@
 	
 	// Get Status Code
 	int statusCode = [request responseStatusCode];
-			NSString *response = [request responseString];
+    NSData *response = [request responseData];
 	switch (statusCode) {
 		case 200:
 			return [self findaniid:response];
@@ -269,10 +269,11 @@ update:
         return 2;
     }
 }
--(NSString *)findaniid:(NSString *)ResponseData {
+-(NSString *)findaniid:(NSData *)ResponseData {
 	// Initalize JSON parser
-	SBJsonParser *parser = [[SBJsonParser alloc] init];
-	NSArray *searchdata = [parser objectWithString:ResponseData error:nil];
+    NSError* error;
+    
+	NSArray *searchdata = [NSJSONSerialization JSONObjectWithData:ResponseData options:kNilOptions error:&error];
 	NSString *titleid = @"";
 	//Initalize NSString to dump the title temporarily
 	NSString *theshowtitle = @"";
@@ -368,11 +369,12 @@ foundtitle:
 	[request startSynchronous];
 	// Get Status Code
 	int statusCode = [request responseStatusCode];
-	NSString *response = [request responseString];
+    NSData *response = [request responseData];
 	if (statusCode == 200 ) {
         NSDictionary * tmpinfo;
 		// Initalize JSON parser
-		NSArray *animelist = [response JSONValue];
+        NSError* error;
+		NSArray *animelist = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
         for (int i = 0; i< [animelist count]; i++) {
             NSDictionary * d = [animelist objectAtIndex:i];
             NSDictionary * tmp = [d objectForKey:@"anime"];
@@ -453,7 +455,8 @@ foundtitle:
     // Get Status Code
     int statusCode = [request responseStatusCode];
     if (statusCode == 200) {
-        NSDictionary * d = [[request responseString] JSONValue];
+        NSError* error;
+        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:&error];
         return d;
     }
     else{
@@ -579,34 +582,34 @@ foundtitle:
     return false;
 }
 -(NSDictionary *)detectStream{
-    // LSOF mplayer to get the media title and segment
+    // Create Dictionary
     NSDictionary * d;
-        //Set Task and Run it
-        NSTask *task;
-        task = [[NSTask alloc] init];
-        NSBundle *myBundle = [NSBundle mainBundle];
-        [task setLaunchPath:[myBundle pathForResource:@"detectstream" ofType:@""]];
+    //Set detectream Task and Run it
+    NSTask *task;
+    task = [[NSTask alloc] init];
+    NSBundle *myBundle = [NSBundle mainBundle];
+    [task setLaunchPath:[myBundle pathForResource:@"detectstream" ofType:@""]];
         
         
-        NSPipe *pipe;
-        pipe = [NSPipe pipe];
-        [task setStandardOutput: pipe];
+    NSPipe *pipe;
+    pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
+    
+    // Reads Output
+    NSFileHandle *file;
+    file = [pipe fileHandleForReading];
+    
+    // Launch Task
+    [task launch];
+    
+    // Parse Data from JSON and return dictionary
+    NSData *data;
+    data = [file readDataToEndOfFile];
         
-        NSFileHandle *file;
-        file = [pipe fileHandleForReading];
         
-        [task launch];
-        
-        NSData *data;
-        data = [file readDataToEndOfFile];
-        
-        
-        NSString *string;
-        string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-        //Parse it
-        SBJsonParser *parser = [[SBJsonParser alloc] init];
-        //Create an Array
-        d = [parser objectWithString:string error:nil];
+    NSError* error;
+
+    d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     return d;
 }
     

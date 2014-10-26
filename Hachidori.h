@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OgreKit/OgreKit.h>
-#import <JSON/JSON.h>
 #import <ASIHTTPRequest/ASIHTTPRequest.h>
 #import <ASIHTTPRequest/ASIHTTPRequest.h>
 #import <ASIHTTPRequest/ASIFormDataRequest.h>
@@ -39,7 +38,7 @@
 - (int)startscrobbling;
 -(int)detectmedia; // 0 - Nothing, 1 - Same, 2 - Update
 -(NSString *)searchanime;
--(NSString *)findaniid:(NSString *)ResponseData;
+-(NSString *)findaniid:(NSData *)ResponseData;
 -(BOOL)checkstatus:(NSString *)titleid;
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
