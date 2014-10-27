@@ -390,6 +390,7 @@ foundtitle:
                     LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
                     DetectedCurrentEpisode = @"0";
                     TitleScore  = @"0";
+                    isPrivate = false;
                     LastScrobbledTitleNew = true;
                 }
 		if ([LastScrobbledInfo objectForKey:@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
