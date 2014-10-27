@@ -56,6 +56,5 @@
 -(BOOL)getPrivate;
 -(NSDictionary *)getLastScrobbledInfo;
 -(NSDictionary *)detectStream;
--(NSDictionary *) getTitlePrivateInfo:(NSString*)aniid;
 -(void)populateStatusData:(NSDictionary *)d;
 @end

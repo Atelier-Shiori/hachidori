@@ -359,51 +359,39 @@ foundtitle:
 	return titleid;
 }
 -(BOOL)checkstatus:(NSString *)titleid {
-	NSLog(@"Checking Status");
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	//Set Search API
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/users/%@/library",@"https://hbrd-v1.p.mashape.com/", [defaults objectForKey:@"Username"]]];
-	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    NSLog(@"Checking %@", titleid);
+    //Set up Delegate
+    
+    // Update the title
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //Set library/scrobble API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", titleid]];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
-	//Ignore Cookies
-	[request setUseCookiePersistence:NO];
-	//Perform Search
-	[request startSynchronous];
-	// Get Status Code
-	int statusCode = [request responseStatusCode];
-    NSData *response = [request responseData];
-	if (statusCode == 200 ) {
-        NSDictionary * tmpinfo;
-		// Initalize JSON parser
-        NSError* error;
-		NSArray *animelist = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
-        for (int i = 0; i< [animelist count]; i++) {
-            NSDictionary * d = [animelist objectAtIndex:i];
-            NSDictionary * tmp = [d objectForKey:@"anime"];
-            NSString * tmpslug = [tmp objectForKey:@"slug"];
-            if ([titleid isEqualToString:tmpslug]) {
-                [self populateStatusData:d];
-                break;
-            }
-            else {
-            }
-            if (i == [animelist count] - 1) {
-                //Title not on list, mark it as new
-                tmpinfo = [self retrieveAnimeInfo:AniID];
-                NSLog(@"Not on List or private");
-                NSDictionary * n = [self getTitlePrivateInfo:AniID];
-                if ([n count] > 0) {
-                    [self populateStatusData:n];
+    //Ignore Cookies
+    [request setUseCookiePersistence:NO];
+    //Set Token
+    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+    // Get Information
+    [request startSynchronous];
+    NSDictionary * d;
+    int statusCode = [request responseStatusCode];
+	if (statusCode == 200 || statusCode == 201 ) {
+        //return Data
+        NSError * error;
+        d = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:&error];
+                if ([d count] > 0) {
+                    NSLog(@"Title on list");
+                    [self populateStatusData:d];
                 }
                 else{
+                    NSLog(@"Title not on list");
                     WatchStatus = @"currently-watching";
-                    LastScrobbledInfo = tmpinfo;
+                    LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
                     DetectedCurrentEpisode = @"0";
+                    TitleScore  = @"0";
                     LastScrobbledTitleNew = true;
                 }
-                break;
-            }
-        }
 		if ([LastScrobbledInfo objectForKey:@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
 			TotalEpisodes = @"0"; // No Episode Total, Set to 0.
 		}
@@ -555,12 +543,6 @@ foundtitle:
 	switch ([request responseStatusCode]) {
         case 200:
 		case 201:
-			// Update Successful
-			if ([TitleScore floatValue] == showscore && [WatchStatus isEqualToString:showwatchstatus] && [note isEqualToString:TitleNotes])
-			{
-				//Nothing changed, do nothing.
-			}
-			else {
                 //Set New Values
                 TitleScore = [NSString stringWithFormat:@"%f", showscore];
                 WatchStatus = showwatchstatus;
@@ -573,8 +555,6 @@ foundtitle:
                 return false;
 			break;
 	}
-	
-}
     return false;
 }
 -(NSDictionary *)detectStream{
@@ -608,43 +588,9 @@ foundtitle:
     d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     return d;
 }
--(NSDictionary *) getTitlePrivateInfo:(NSString*)aniid{
-    
-    NSLog(@"Checking %@", aniid);
-    //Set up Delegate
-    
-    // Update the title
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", aniid]];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
-    //Ignore Cookies
-    [request setUseCookiePersistence:NO];
-    //Set Token
-    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
-    // Get Information
-    [request startSynchronous];
-    NSDictionary * d;
-    switch ([request responseStatusCode]) {
-        case 200:
-        case 201:{
-            //return Data
-            NSError * error;
-            d = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:&error];
-            return d;
-            break;
-        }
-        default:
-            d = [[NSDictionary alloc] init];
-            return d;
-            break;
-    }
-}
 -(void)populateStatusData:(NSDictionary *)d{
     // Info is there.
     NSDictionary * tmpinfo = [d objectForKey:@"anime"];
-    NSLog(@"Title on List");
     WatchStatus = [d objectForKey:@"status"];
     //Get Notes;
     if ([d objectForKey:@"notes"] == [NSNull null]) {
