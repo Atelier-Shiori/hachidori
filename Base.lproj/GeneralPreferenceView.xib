@@ -43,7 +43,7 @@
 					<object class="NSTextField" id="1048592007">
 						<reference key="NSNextResponder" ref="47884378"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 31}, {106, 17}}</string>
+						<string key="NSFrame">{{18, 20}, {106, 17}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
 						<reference key="NSNextKeyView" ref="911725783"/>
 						<bool key="NSEnabled">YES</bool>
@@ -82,7 +82,7 @@
 					<object class="NSButton" id="911725783">
 						<reference key="NSNextResponder" ref="47884378"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{132, 32}, {234, 18}}</string>
+						<string key="NSFrame">{{132, 21}, {234, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="948293303">
@@ -108,7 +108,7 @@
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 				</array>
-				<string key="NSFrameSize">{394, 68}</string>
+				<string key="NSFrameSize">{394, 57}</string>
 				<reference key="NSNextKeyView" ref="1048592007"/>
 				<string key="NSReuseIdentifierKey">_NS:1109</string>
 				<string key="NSClassName">NSView</string>
@@ -218,7 +218,7 @@
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="3.IBNSViewMetadataGestureRecognizers" ref="0"/>
-				<string key="3.IBPersistedLastKnownCanvasPosition">{323, 245}</string>
+				<string key="3.IBPersistedLastKnownCanvasPosition">{323, 239.5}</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSMutableDictionary" key="5.IBAttributePlaceholdersKey">
@@ -235,7 +235,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">28</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

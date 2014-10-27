@@ -59,6 +59,9 @@
 -(NSString *)getNotes{
     return TitleNotes;
 }
+-(BOOL)getPrivate{
+    return isPrivate;
+}
 
 /*
  
@@ -379,32 +382,7 @@ foundtitle:
             NSDictionary * tmp = [d objectForKey:@"anime"];
             NSString * tmpslug = [tmp objectForKey:@"slug"];
             if ([titleid isEqualToString:tmpslug]) {
-                // Info is there.
-                tmpinfo = tmp;
-                NSLog(@"Title on List");
-                WatchStatus = [d objectForKey:@"status"];
-                //Get Notes;
-                if ([d objectForKey:@"notes"] == [NSNull null]) {
-                    TitleNotes = @"";
-                }
-                else {
-                    TitleNotes = [d objectForKey:@"notes"];
-                }
-                // Get Rating
-                NSDictionary * rating = [d objectForKey:@"rating"];
-                if ([rating objectForKey:@"value"] == [NSNull null]){
-                    // Score is null, set to 0
-                    RatingType = @"simple";
-                    TitleScore = @"0";
-                }
-                else {
-                    RatingType = [rating objectForKey:@"type"];
-                    TitleScore = [rating objectForKey:@"value"];
-                }
-                NSLog(@"Title Score %@", TitleScore);
-                DetectedCurrentEpisode = [d objectForKey:@"episodes_watched"];
-                LastScrobbledInfo = tmpinfo;
-                LastScrobbledTitleNew = false;
+                [self populateStatusData:d];
                 break;
             }
             else {
@@ -412,13 +390,17 @@ foundtitle:
             if (i == [animelist count] - 1) {
                 //Title not on list, mark it as new
                 tmpinfo = [self retrieveAnimeInfo:AniID];
-                NSLog(@"Not on List");
-                WatchStatus = @"currently-watching";
-                RatingType = @"simple";
-                TitleScore = @"0";
-                LastScrobbledInfo = tmpinfo;
-                DetectedCurrentEpisode = @"0";
-                LastScrobbledTitleNew = true;
+                NSLog(@"Not on List or private");
+                NSDictionary * n = [self getTitlePrivateInfo:AniID];
+                if ([n count] > 0) {
+                    [self populateStatusData:n];
+                }
+                else{
+                    WatchStatus = @"currently-watching";
+                    LastScrobbledInfo = tmpinfo;
+                    DetectedCurrentEpisode = @"0";
+                    LastScrobbledTitleNew = true;
+                }
                 break;
             }
         }
@@ -502,6 +484,11 @@ foundtitle:
 		}	
 		// Set existing score to prevent the score from being erased.
 		[request setPostValue:TitleScore forKey:@"rating"];
+        //Privacy
+        if (isPrivate)
+            [request setPostValue:@"private" forKey:@"privacy"];
+        else
+            [request setPostValue:@"public" forKey:@"privacy"];
 		// Do Update
 		[request startSynchronous];
 		
@@ -533,6 +520,7 @@ foundtitle:
 			 score:(float)showscore
 	   watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note
+          isPrivate:(BOOL)privatevalue
 {
 	NSLog(@"Updating Status for %@", titleid);
 	//Set up Delegate
@@ -553,11 +541,19 @@ foundtitle:
 	[request setPostValue:showwatchstatus forKey:@"status"];	
 	//Set new score.
 	[request setPostValue:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
+    //Set new note
     [request setPostValue:note forKey:@"notes"];
+    //Privacy
+    if (privatevalue)
+        [request setPostValue:@"private" forKey:@"privacy"];
+    else
+        [request setPostValue:@"public" forKey:@"privacy"];
+        
 	// Do Update
 	[request startSynchronous];
-	//NSLog(@"%@", [request responseString]);
+	NSLog(@"%i", [request responseStatusCode]);
 	switch ([request responseStatusCode]) {
+        case 200:
 		case 201:
 			// Update Successful
 			if ([TitleScore floatValue] == showscore && [WatchStatus isEqualToString:showwatchstatus] && [note isEqualToString:TitleNotes])
@@ -569,6 +565,7 @@ foundtitle:
                 TitleScore = [NSString stringWithFormat:@"%f", showscore];
                 WatchStatus = showwatchstatus;
                 TitleNotes = note;
+                isPrivate = privatevalue;
                 return true;
 			break;
 		default:
@@ -611,5 +608,66 @@ foundtitle:
     d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     return d;
 }
+-(NSDictionary *) getTitlePrivateInfo:(NSString*)aniid{
     
+    NSLog(@"Checking %@", aniid);
+    //Set up Delegate
+    
+    // Update the title
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //Set library/scrobble API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", aniid]];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
+    //Ignore Cookies
+    [request setUseCookiePersistence:NO];
+    //Set Token
+    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+    // Get Information
+    [request startSynchronous];
+    NSDictionary * d;
+    switch ([request responseStatusCode]) {
+        case 200:
+        case 201:{
+            //return Data
+            NSError * error;
+            d = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:&error];
+            return d;
+            break;
+        }
+        default:
+            d = [[NSDictionary alloc] init];
+            return d;
+            break;
+    }
+}
+-(void)populateStatusData:(NSDictionary *)d{
+    // Info is there.
+    NSDictionary * tmpinfo = [d objectForKey:@"anime"];
+    NSLog(@"Title on List");
+    WatchStatus = [d objectForKey:@"status"];
+    //Get Notes;
+    if ([d objectForKey:@"notes"] == [NSNull null]) {
+        TitleNotes = @"";
+    }
+    else {
+        TitleNotes = [d objectForKey:@"notes"];
+    }
+    // Get Rating
+    NSDictionary * rating = [d objectForKey:@"rating"];
+    if ([rating objectForKey:@"value"] == [NSNull null]){
+        // Score is null, set to 0
+        TitleScore = @"0";
+    }
+    else {
+        TitleScore = [rating objectForKey:@"value"];
+    }
+    // Privacy Settings
+    isPrivate = [[d objectForKey:@"private"] boolValue];
+    NSLog(@"Title Score %@", TitleScore);
+    DetectedCurrentEpisode = [d objectForKey:@"episodes_watched"];
+    LastScrobbledInfo = tmpinfo;
+    LastScrobbledTitleNew = false;
+}
+
 @end

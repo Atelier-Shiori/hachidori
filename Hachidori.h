@@ -17,18 +17,18 @@
 	NSString * LastScrobbledTitle;
 	NSString * LastScrobbledEpisode;
     BOOL LastScrobbledTitleNew;
+    BOOL isPrivate;
     NSDictionary * LastScrobbledInfo;
 	NSString * DetectedTitle;
 	NSString * DetectedEpisode;
 	NSString * DetectedCurrentEpisode;
-    BOOL* DetectedTitleisMovie;
+    BOOL DetectedTitleisMovie;
 	NSString * TotalEpisodes;
 	NSString * WatchStatus;
 	NSString * TitleScore;
 	NSString * TitleState;
     NSString * TitleNotes;
     NSString * AniID;
-    NSString * RatingType;
     BOOL DetectedisStream;
 	BOOL Success;
 	int choice;
@@ -43,7 +43,8 @@
 -(BOOL)updatestatus:(NSString *)titleid
               score:(float)showscore
         watchstatus:(NSString*)showwatchstatus
-              notes:(NSString*)note;
+              notes:(NSString*)note
+          isPrivate:(BOOL)privatevalue;
 -(NSString *)getLastScrobbledTitle;
 -(NSString *)getLastScrobbledEpisode;
 -(NSString *)getAniID;
@@ -52,6 +53,9 @@
 -(int)getWatchStatus;
 -(NSString *)getNotes;
 -(BOOL)getSuccess;
+-(BOOL)getPrivate;
 -(NSDictionary *)getLastScrobbledInfo;
 -(NSDictionary *)detectStream;
+-(NSDictionary *) getTitlePrivateInfo:(NSString*)aniid;
+-(void)populateStatusData:(NSDictionary *)d;
 @end

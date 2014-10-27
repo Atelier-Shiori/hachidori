@@ -44,6 +44,7 @@
 	IBOutlet NSPopUpButton * showstatus;
     IBOutlet NSTextField * showscore;
     IBOutlet NSTextView * notes;
+    IBOutlet NSButton * isPrivate;
 	NSWindowController *_preferencesWindowController;
 }
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;

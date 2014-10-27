@@ -238,6 +238,7 @@
                 <outlet property="historytable" destination="595" id="635"/>
                 <outlet property="historywindow" destination="588" id="605"/>
                 <outlet property="img" destination="gfr-73-DLn" id="iLO-3a-xch"/>
+                <outlet property="isPrivate" destination="08J-G1-ibd" id="SgD-vy-2Kq"/>
                 <outlet property="notes" destination="zRV-za-4dp" id="ABq-oY-STM"/>
                 <outlet property="sharetoolbaritem" destination="PDJ-oY-qAN" id="Xw6-jN-k2Z"/>
                 <outlet property="showscore" destination="Mfz-5E-LLG" id="acW-pr-oyF"/>
@@ -378,23 +379,23 @@
         <window title="Update Status" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="725">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="392" width="353" height="224"/>
+            <rect key="contentRect" x="196" y="392" width="353" height="242"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="739">
-                <rect key="frame" x="0.0" y="-6" width="353" height="224"/>
+                <rect key="frame" x="0.0" y="-1" width="353" height="242"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="745">
-                        <rect key="frame" x="25" y="151" width="92" height="17"/>
+                        <rect key="frame" x="25" y="169" width="92" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Rating" id="757">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Rating:" id="757">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="746">
-                        <rect key="frame" x="8" y="200" width="337" height="17"/>
+                        <rect key="frame" x="8" y="218" width="337" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Show Title" id="756">
                             <font key="font" metaFont="smallSystem"/>
@@ -403,7 +404,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="743">
-                        <rect key="frame" x="77" y="178" width="38" height="17"/>
+                        <rect key="frame" x="77" y="196" width="38" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Status:" id="763">
                             <font key="font" metaFont="system"/>
@@ -412,7 +413,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" id="742">
-                        <rect key="frame" x="122" y="174" width="143" height="26"/>
+                        <rect key="frame" x="122" y="192" width="143" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="currently-watching" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="768" id="764">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -430,7 +431,7 @@
                         </connections>
                     </popUpButton>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="BPB-rY-AlI">
-                        <rect key="frame" x="124" y="54" width="209" height="84"/>
+                        <rect key="frame" x="124" y="72" width="209" height="84"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" id="M6k-if-Iu7">
                             <rect key="frame" x="1" y="1" width="223" height="133"/>
@@ -459,7 +460,7 @@
                         </scroller>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="vup-Aw-IJN">
-                        <rect key="frame" x="37" y="121" width="78" height="17"/>
+                        <rect key="frame" x="37" y="139" width="78" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Notes:" id="bRt-tC-Vfa">
                             <font key="font" metaFont="system"/>
@@ -467,8 +468,28 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField verticalHuggingPriority="750" id="Mfz-5E-LLG">
+                        <rect key="frame" x="124" y="164" width="53" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="cRS-st-GU4">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="formatter" destination="zBq-KO-EPV" id="0Bh-4B-ePu"/>
+                        </connections>
+                    </textField>
+                    <button id="08J-G1-ibd">
+                        <rect key="frame" x="122" y="48" width="213" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Private" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aGe-7O-pEg">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                     <button verticalHuggingPriority="750" id="740">
-                        <rect key="frame" x="253" y="13" width="96" height="32"/>
+                        <rect key="frame" x="253" y="8" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="770">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -482,7 +503,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="741">
-                        <rect key="frame" x="157" y="13" width="96" height="32"/>
+                        <rect key="frame" x="157" y="8" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="769">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -495,21 +516,9 @@ Gw
                             <action selector="closeupdatestatus:" target="560" id="782"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" id="Mfz-5E-LLG">
-                        <rect key="frame" x="124" y="146" width="53" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="cRS-st-GU4">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <outlet property="formatter" destination="zBq-KO-EPV" id="0Bh-4B-ePu"/>
-                        </connections>
-                    </textField>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="186.5" y="147"/>
+            <point key="canvasLocation" x="198.5" y="224"/>
         </window>
         <numberFormatter formatterBehavior="custom10_4" positiveFormat="#.##" alwaysShowsDecimalSeparator="YES" minimumIntegerDigits="0" maximumIntegerDigits="5" maximumFractionDigits="2" id="zBq-KO-EPV">
             <real key="minimum" value="0.0"/>

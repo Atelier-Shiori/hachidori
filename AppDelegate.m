@@ -377,13 +377,6 @@
                 [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 break;
             case 21:
-                [self setStatusText:@"Scrobble Status: Title Added..."];
-                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                [self showNotication:@"Adding of Title Successful."message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                //Add History Record
-                [self addrecord:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
-                                break;
             case 22:
                 [self setStatusText:@"Scrobble Status: Scrobble Successful..."];
                 [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
@@ -398,9 +391,6 @@
                 [self showNotication:@"Scrobble Unsuccessful." message:@"Can't find title. Retrying in 5 mins..."];
                 break;
             case 52:
-                [self setStatusText:@"Scrobble Status: Adding of Title Failed. Retrying in 5 mins..."];
-                [self showNotication:@"Adding of Title Unsuccessful." message:@"Retrying in 5 mins..."];
-                break;
             case 53:
                 [self showNotication:@"Scrobble Unsuccessful." message:@"Retrying in 5 mins..."];
                 [self setStatusText:@"Scrobble Status: Scrobble Failed. Retrying in 5 mins..."];
@@ -574,6 +564,7 @@
     [showscore setStringValue:[NSString stringWithFormat:@"%i", [haengine getScore]]];
 	[showstatus selectItemAtIndex:[haengine getWatchStatus]];
     [notes setString:[haengine getNotes]];
+    [isPrivate setState:[haengine getPrivate]];
 	// Stop Timer temporarily if scrobbling is turned on
 	if (scrobbling == TRUE) {
 		[self stoptimer];
@@ -582,7 +573,7 @@
 }
 - (void)myPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
-        BOOL result = [haengine updatestatus:[haengine getAniID] score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string]];
+        BOOL result = [haengine updatestatus:[haengine getAniID] score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:[isPrivate state]];
         if (result)
             [self setStatusText:@"Scrobble Status: Updating of Watch Status/Score Successful."];
         else
