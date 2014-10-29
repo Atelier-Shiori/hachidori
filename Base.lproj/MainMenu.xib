@@ -205,6 +205,26 @@
                         <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Last Scrobbled" hidden="YES" id="ocn-xD-u5l">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Last Scrobbled" id="PEE-eA-4CS">
+                        <items>
+                            <menuItem title="Show Title" id="a2M-Ci-eiK">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Episode" id="JMG-sQ-r6U">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="OZY-jk-gqr"/>
+                            <menuItem title="Update Status" id="dU4-FY-DLP">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="updatestatusmenu:" target="560" id="o8g-zO-qXF"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="574"/>
                 <menuItem title="Show/Hide Status Window" id="573">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -228,7 +248,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="190" y="179.5"/>
+            <point key="canvasLocation" x="-183" y="195.5"/>
         </menu>
         <customObject id="560" customClass="AppDelegate">
             <connections>
@@ -246,6 +266,9 @@
                 <outlet property="showtitle" destination="746" id="788"/>
                 <outlet property="statusMenu" destination="543" id="561"/>
                 <outlet property="togglescrobbler" destination="557" id="657"/>
+                <outlet property="updatedepisode" destination="JMG-sQ-r6U" id="W0x-eW-R9G"/>
+                <outlet property="updatedtitle" destination="a2M-Ci-eiK" id="Ijp-3y-bYv"/>
+                <outlet property="updatedtitlemenu" destination="ocn-xD-u5l" id="WxQ-uv-vrx"/>
                 <outlet property="updatenow" destination="Swq-JZ-crS" id="wbq-Tb-8xl"/>
                 <outlet property="updatepanel" destination="725" id="777"/>
                 <outlet property="updatetoolbaritem" destination="k8g-Fn-fps" id="jAk-kU-cCA"/>
@@ -377,7 +400,7 @@
             <point key="canvasLocation" x="293" y="455.5"/>
         </menu>
         <window title="Update Status" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="725">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="392" width="353" height="242"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
@@ -518,7 +541,7 @@ Gw
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="198.5" y="224"/>
+            <point key="canvasLocation" x="-58.5" y="205"/>
         </window>
         <numberFormatter formatterBehavior="custom10_4" positiveFormat="#.##" alwaysShowsDecimalSeparator="YES" minimumIntegerDigits="0" maximumIntegerDigits="5" maximumFractionDigits="2" id="zBq-KO-EPV">
             <real key="minimum" value="0.0"/>
@@ -666,6 +689,7 @@ Gw
             <contentBorderThickness minY="22"/>
             <point key="canvasLocation" x="14" y="215.5"/>
         </window>
+        <menuItem isSeparatorItem="YES" id="8mp-Nb-QoG"/>
     </objects>
     <resources>
         <image name="NSPreferencesGeneral" width="32" height="32"/>

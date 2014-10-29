@@ -48,12 +48,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{122, 81}, {96, 32}}</string>
 						<reference key="NSSuperview" ref="597384596"/>
+						<reference key="NSNextKeyView" ref="827959374"/>
 						<string key="NSReuseIdentifierKey">_NS:610</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="798408098">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Clear Login</string>
+							<string key="NSContents">Logout</string>
 							<object class="NSFont" key="NSSupport" id="255559681">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>
@@ -75,12 +76,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{236, 81}, {96, 32}}</string>
 						<reference key="NSSuperview" ref="597384596"/>
+						<reference key="NSNextKeyView" ref="821998938"/>
 						<string key="NSReuseIdentifierKey">_NS:610</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="549406922">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Save Login</string>
+							<string key="NSContents">Login</string>
 							<reference key="NSSupport" ref="255559681"/>
 							<string key="NSCellIdentifier">_NS:610</string>
 							<reference key="NSControlView" ref="827959374"/>
@@ -187,6 +189,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{128, 117}, {198, 22}}</string>
 						<reference key="NSSuperview" ref="597384596"/>
+						<reference key="NSNextKeyView" ref="125765782"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="304741853">
 							<int key="NSCellFlags">342884416</int>
@@ -288,6 +291,7 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{394, 238}</string>
+				<reference key="NSNextKeyView" ref="72329522"/>
 				<string key="NSReuseIdentifierKey">_NS:1109</string>
 				<string key="NSClassName">NSView</string>
 			</object>

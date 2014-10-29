@@ -159,8 +159,8 @@
 	NSAlert * alert = [[NSAlert alloc] init] ;
 	[alert addButtonWithTitle:@"Yes"];
 	[alert addButtonWithTitle:@"No"];
-	[alert setMessageText:@"Are you sure you want to remove this token?"];
-	[alert setInformativeText:@"Once done, this action cannot be undone."];
+	[alert setMessageText:@"Do you want to log out?"];
+	[alert setInformativeText:@"Once you logged out, you need to log back in before you can use this application."];
 	// Set Message type to Warning
 	[alert setAlertStyle:NSWarningAlertStyle];	
 	if ([alert runModal]== NSAlertFirstButtonReturn) {

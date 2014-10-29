@@ -28,6 +28,9 @@
 	NSTimer * timer;
 	IBOutlet NSMenuItem * togglescrobbler;
     IBOutlet NSMenuItem * updatenow;
+    IBOutlet NSMenuItem * updatedtitlemenu;
+    IBOutlet NSMenuItem * updatedtitle;
+    IBOutlet NSMenuItem * updatedepisode;
 	IBOutlet NSTextField * ScrobblerStatus;
 	IBOutlet NSTextField * LastScrobbled;
     IBOutlet NSTextView * animeinfo;
@@ -54,7 +57,6 @@
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-
 -(void)showPreferences:(id)sender;
 -(void)showhistory:(id)sender;
 -(IBAction)togglescrobblewindow:(id)sender;
@@ -71,9 +73,13 @@
 -(void)firetimer:(NSTimer *)aTimer;
 -(void)starttimer;
 -(void)stoptimer;
+-(BOOL)checktoken;
 -(void)setStatusText:(NSString*)messagetext;
 -(void)setLastScrobbledTitle:(NSString*)messagetext;
+-(void)setStatusMenuTitleEpisode:(NSString *)title episode:(NSString *) episode;
 -(IBAction)updatestatus:(id)sender;
+-(IBAction)updatestatusmenu:(id)sender;
+-(void)showUpdateDialog:(NSWindow *) w;
 -(IBAction)updatenow:(id)sender;
 -(IBAction)closeupdatestatus:(id)sender;
 -(IBAction)updatetitlestatus:(id)sender;

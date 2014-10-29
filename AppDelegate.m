@@ -131,6 +131,7 @@
 	// Defaults
 	[defaultValues setObject:@"" forKey:@"Token"];
 	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ScrobbleatStartup"];
+    [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"setprivate"];
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -309,11 +310,10 @@
  */
 
 - (IBAction)toggletimer:(id)sender {
-	//Check to see if there is an API Key stored
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if ([[defaults objectForKey:@"Token"] length] == 0) {
-		choice = NSRunCriticalAlertPanel(@"Hachidori was unable to start scrobbling since you have no auth token stored.", @"Verify and save your login in Preferences and then try again.", @"OK", nil, nil, 8);
-	}
+	//Check to see if a token exist
+	if (![self checktoken]) {
+        [self showNotication:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
+    }
 	else {
 		if (scrobbling == FALSE) {
 			[self starttimer];
@@ -375,6 +375,7 @@
                 [self setStatusText:@"Scrobble Status: Same Episode Playing, Scrobble not needed."];
                 [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+                [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
                 break;
             case 21:
             case 22:
@@ -384,7 +385,6 @@
                 [self showNotication:@"Scrobble Successful."message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 //Add History Record
                 [self addrecord:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
-
                 break;
             case 51:
                 [self setStatusText:@"Scrobble Status: Can't find title. Retrying in 5 mins..."];
@@ -405,6 +405,7 @@
 	if ([haengine getSuccess] == 1) {
 		[updatetoolbaritem setEnabled:YES];
         [sharetoolbaritem setEnabled:YES];
+        [updatedtitlemenu setHidden:NO];
         //Show Anime Information
         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
         [self showAnimeInfo:ainfo];
@@ -437,7 +438,11 @@
 	timer = nil;
 }
 -(IBAction)updatenow:(id)sender{
-    [self firetimer:nil];
+    if ([self checktoken]) {
+        [self firetimer:nil];
+    }
+    else
+        [self showNotication:@"Hachidori" message:@"Please log in with your account in Preferences before using this program"];
 }
 -(IBAction)getHelp:(id)sender{
     //Show Help
@@ -461,6 +466,14 @@
     //Image
     NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [d objectForKey:@"cover_image"]]]]; //Downloads Image
     [img setImage:dimg]; //Get the Image for the title
+}
+-(BOOL)checktoken{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults objectForKey:@"Token"] length] == 0) {
+        return false;
+    }
+    else
+        return true;
 }
 
 /*
@@ -546,6 +559,11 @@
 {
 	[LastScrobbled setObjectValue:messagetext];
 }
+-(void)setStatusMenuTitleEpisode:(NSString *)title episode:(NSString *) episode{
+    //Set New Title and Episode
+    [updatedtitle setTitle:title];
+    [updatedepisode setTitle:[NSString stringWithFormat:@"Episode %@", episode]];
+}
 
 /*
  
@@ -554,22 +572,27 @@
  */
 
 -(IBAction)updatestatus:(id)sender {
-	// Show Sheet
-	[NSApp beginSheet:updatepanel
-	   modalForWindow:[self window] modalDelegate:self
-	   didEndSelector:@selector(myPanelDidEnd:returnCode:contextInfo:)
-		  contextInfo:(void *)[NSNumber numberWithFloat:choice]];
-	// Set up UI
-	[showtitle setObjectValue:[haengine getLastScrobbledTitle]];
+    [self showUpdateDialog:[self window]];
+}
+-(IBAction)updatestatusmenu:(id)sender{
+    [self showUpdateDialog:nil];
+}
+-(void)showUpdateDialog:(NSWindow *) w{
+    // Show Sheet
+    [NSApp beginSheet:updatepanel
+       modalForWindow:w modalDelegate:self
+       didEndSelector:@selector(myPanelDidEnd:returnCode:contextInfo:)
+          contextInfo:(void *)[NSNumber numberWithFloat:choice]];
+    // Set up UI
+    [showtitle setObjectValue:[haengine getLastScrobbledTitle]];
     [showscore setStringValue:[NSString stringWithFormat:@"%i", [haengine getScore]]];
-	[showstatus selectItemAtIndex:[haengine getWatchStatus]];
+    [showstatus selectItemAtIndex:[haengine getWatchStatus]];
     [notes setString:[haengine getNotes]];
     [isPrivate setState:[haengine getPrivate]];
-	// Stop Timer temporarily if scrobbling is turned on
-	if (scrobbling == TRUE) {
-		[self stoptimer];
-	}
-	
+    // Stop Timer temporarily if scrobbling is turned on
+    if (scrobbling == TRUE) {
+        [self stoptimer];
+    }
 }
 - (void)myPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
@@ -621,7 +644,9 @@
 }
 - (void) hotkeyWithEvent:(NSEvent *)hkEvent object:(id)anObject {
     if ([[NSString stringWithFormat:@"%@", anObject] isEqualToString:@"scrobblenow"]) {
-        [self firetimer:nil];
+        if ([self checktoken]) {
+            [self firetimer:nil];
+        }
     }
 }
 @end
