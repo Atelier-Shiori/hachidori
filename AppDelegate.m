@@ -447,7 +447,7 @@
 }
 -(IBAction)getHelp:(id)sender{
     //Show Help
- 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/malupdaterosx-cocoa/wiki/Getting-Started"]];
+ 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
 }
 -(void)showAnimeInfo:(NSDictionary *)d{
     //Empty
