@@ -162,10 +162,10 @@
 	//
 	// LSOF mplayer to get the media title and segment
 
-    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"VLC", @"QTKitServer", nil];
+    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QTKitServer", nil];
     NSString *string;
 	
-    for(int i = 0; i <4; i++){
+    for(int i = 0; i <[player count]; i++){
     NSTask *task;
     task = [[NSTask alloc] init];
     [task setLaunchPath: @"/usr/sbin/lsof"];
