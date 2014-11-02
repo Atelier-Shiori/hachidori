@@ -56,4 +56,5 @@
 -(NSDictionary *)getLastScrobbledInfo;
 -(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
+-(NSMutableArray *)sortArray:(NSMutableArray*) a;
 @end

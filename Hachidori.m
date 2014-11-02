@@ -219,9 +219,9 @@
         regex = [OGRegularExpression regularExpressionWithString:@"~"];
         string = [regex replaceAllMatchesInString:string
                                        withString:@""];
-        regex = [OGRegularExpression regularExpressionWithString:@"-"];
+        regex = [OGRegularExpression regularExpressionWithString:@" - "];
         string = [regex replaceAllMatchesInString:string
-                                       withString:@""];
+                                       withString:@" "];
 		// Set Title Info
 		regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$"];
 		DetectedTitle = [regex replaceAllMatchesInString:string
@@ -241,7 +241,6 @@
 		DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		DetectedEpisode = [DetectedEpisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         DetectedisStream = false;
-        goto update;
 	}
 	else {
         NSLog(@"Checking Stream...");
@@ -280,11 +279,11 @@ update:
 	//Initalize NSString to dump the title temporarily
 	NSString *theshowtitle = @"";
     NSString *theshowtype = @"";
-	//Set Regular Expressions to omit any preceding words
+	//Create Regular Expression Strings
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",DetectedTitle];
+    NSString *findinit = [NSString stringWithFormat:@"(%@)",DetectedTitle];
 	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"]; // NSString *findpre = [NSString stringWithFormat:@"^%@",DetectedTitle];
-	OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
-
+    OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
 	//Retrieve the ID. Note that the most matched title will be on the top
     BOOL idok; // Checks the status
     // For Sanity (TV shows and OVAs usually have more than one episode)
@@ -298,63 +297,85 @@ update:
         NSLog(@"Title is not a movie.");
         DetectedTitleisMovie = false;
     }
-    NSMutableArray * checkAgain = [[NSMutableArray alloc] init];
-	for (NSDictionary *searchentry in searchdata) {
-		//Store title from search entry
-		theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        theshowtype = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]];
-        // Checks to make sure Hachidori is updating the correct type of show
-        if (DetectedTitleisMovie) {
-            if ([theshowtype isEqualToString:@"Movie"]) {
-                DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
-                idok = true;
-            }
-            else if([DetectedEpisode intValue] == 0 && [theshowtype isEqualToString:@"Special"]){
-                //Specials are usually one episode (although there are exceptions
+    // Initalize Arrays for each Media Type
+    NSMutableArray * movie = [[NSMutableArray alloc] init];
+    NSMutableArray * tv = [[NSMutableArray alloc] init];
+    NSMutableArray * ova = [[NSMutableArray alloc] init];
+    NSMutableArray * special = [[NSMutableArray alloc] init];
+    NSMutableArray * other = [[NSMutableArray alloc] init];
+    // Organize Them
+    for (NSDictionary *entry in searchdata) {
+        theshowtype = [NSString stringWithFormat:@"%@", [entry objectForKey:@"show_type"]];
+        if ([theshowtype isEqualToString:@"Movie"])
+            [movie addObject:entry];
+        else if ([theshowtype isEqualToString:@"TV"])
+            [tv addObject:entry];
+        else if ([theshowtype isEqualToString:@"OVA"])
+            [ova addObject:entry];
+        else if ([theshowtype isEqualToString:@"Special"])
+            [special addObject:entry];
+        else if (![theshowtype isEqualToString:@"Music"])
+            [other addObject:entry];
+    }
+    // Search
+    if (DetectedTitleisMovie) {
+        //Check movies and Specials First
+        for (NSDictionary *searchentry in movie) {
+        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
+        if ([regex matchInString:theshowtitle] != nil) {
+        }
+            DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
+            //Return titleid
+            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+            goto foundtitle;
+        }
+        //Check movies and Specials First
+        for (NSDictionary *searchentry in special) {
+            theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
+            if ([regex matchInString:theshowtitle] != nil) {
                 DetectedEpisode = @"1";
                 DetectedTitleisMovie = false;
-                idok = true;
-            }
-            else {
-                idok = false;
-            }
-        }
-        else if([theshowtype isEqualToString:@"Movie"]){
-            idok = false; // Rejects result, not a movie.
-            continue;
-        }
-        else if([theshowtype isEqualToString:@"Music"]|| ([theshowtype isEqualToString:@"ONA"] && !DetectedisStream)){
-            idok = false; // Rejects Hachidori only scrobbles movies, Anime, OVAs or specials. ONAs id most likely from a stream source.
-        }
-        else if([DetectedEpisode intValue] > 0 && [theshowtype isEqualToString:@"Special"]){
-            //Specials are usually one episode (although there are exceptions
-            idok = false;
-        }
-        else if ([theshowtype isEqualToString:@"TV"]|| [theshowtype isEqualToString:@"OVA"]){
-            //OK to go
-            idok = true;
-        }
-        if (idok) { // Good to go, check the title with regular expressions
-            if ([regex matchInString:theshowtitle] != nil) {
                 //Return titleid
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
-                
             }
         }
-        else {[checkAgain addObject:searchentry];}
     }
-    // Check the remaining titles for a match
-    for (NSDictionary * d in checkAgain ) {
-        theshowtitle = [NSString stringWithFormat:@"%@",[d objectForKey:@"title"]];
+    // Check TV, Special, OVA, Other
+    for (NSDictionary *searchentry in tv) {
+        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         if ([regex matchInString:theshowtitle] != nil) {
             //Return titleid
-            titleid = [NSString stringWithFormat:@"%@",[d objectForKey:@"slug"]];
+            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
             goto foundtitle;
-            
         }
     }
-foundtitle:
+    for (NSDictionary *searchentry in special) {
+        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
+        if ([regex matchInString:theshowtitle] != nil) {
+            //Return titleid
+            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+            goto foundtitle;
+        }
+    }
+    for (NSDictionary *searchentry in ova) {
+        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
+        if ([regex matchInString:theshowtitle] != nil) {
+            //Return titleid
+            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+            goto foundtitle;
+        }
+    }
+    for (NSDictionary *searchentry in other) {
+        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
+        if ([regex matchInString:theshowtitle] != nil) {
+            //Return titleid
+            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+            goto foundtitle;
+        }
+    }
+    
+    foundtitle:
 	//Return the AniID
 	return titleid;
 }
@@ -616,6 +637,15 @@ foundtitle:
     DetectedCurrentEpisode = [d objectForKey:@"episodes_watched"];
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
+}
+-(NSMutableArray *)sortArray:(NSMutableArray*) a{
+    [a sortWithOptions: 0 usingComparator:(NSComparator)^(NSDictionary *item1, NSDictionary *item2) {
+        NSString *title1 = [item1 objectForKey:@"title"];
+        NSString *title2 = [item2 objectForKey:@"title"];
+        return [title1 compare:title2];
+    }];
+
+    return a;
 }
 
 @end
