@@ -125,15 +125,22 @@
 }
 -(NSString *)searchanime{
 	NSLog(@"Searching For Title");
+    // Set Season for Search Term if any detected.
+    NSString * searchtitle;
+    if (DetectedSeason > 0) {
+        searchtitle = [NSString stringWithFormat:@"%@ %i season", [self desensitizeSeason:DetectedTitle], DetectedSeason];
+    }
+    else
+        searchtitle = DetectedTitle;
 	//Escape Search Term
 	NSString * searchterm = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
 																				NULL,
-																				(CFStringRef)DetectedTitle,
+																				(CFStringRef)searchtitle,
 																				NULL,
 																				(CFStringRef)@"!*'();:@&=+$,/?%#[]",
 																				kCFStringEncodingUTF8 ));
 	//Set Search API
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"https://hbrd-v1.p.mashape.com/", searchterm]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"https://hbrd-v1.p.mashape.com", searchterm]];
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
@@ -236,6 +243,26 @@
 		regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]"];
 		DetectedEpisode = [regex replaceAllMatchesInString:string
 												withString:@""];
+        //Season
+        NSString * tmpseason;
+        OGRegularExpressionMatch * smatch;
+        regex = [OGRegularExpression regularExpressionWithString: @"(?:s?)\\d"];
+        smatch = [regex matchInString:DetectedTitle];
+        if (smatch != nil) {
+            tmpseason = [smatch matchedString];
+            regex = [OGRegularExpression regularExpressionWithString: @"s"];
+            tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
+            DetectedSeason = [tmpseason intValue];
+        }
+        else {
+            regex = [OGRegularExpression regularExpressionWithString: @"(second season| third season|fourth season|fifth season|sixth season|seventh season|eighth season|nineth season)"];
+            smatch = [regex matchInString:DetectedTitle];
+            if (smatch !=nil) {
+                tmpseason = [smatch matchedString];
+                DetectedSeason = [self recognizeSeason:tmpseason];
+            }
+            
+        }
         
 		// Trim Whitespace
 		DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -281,11 +308,10 @@ update:
     NSString *theshowtype = @"";
 	//Create Regular Expression Strings
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",DetectedTitle];
-    NSString *findinit = [NSString stringWithFormat:@"(%@)",DetectedTitle];
+    //NSString *findinit = [NSString stringWithFormat:@"(%@)",DetectedTitle];
 	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"]; // NSString *findpre = [NSString stringWithFormat:@"^%@",DetectedTitle];
     OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
 	//Retrieve the ID. Note that the most matched title will be on the top
-    BOOL idok; // Checks the status
     // For Sanity (TV shows and OVAs usually have more than one episode)
     if(DetectedEpisode.length == 0){
         // Title is a movie
@@ -345,6 +371,13 @@ update:
     for (NSDictionary *searchentry in tv) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         if ([regex matchInString:theshowtitle] != nil) {
+            if (DetectedSeason > 0) {
+                OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"%i(st|nd|rd|th) season", DetectedSeason] options:OgreIgnoreCaseOption];
+                OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
+                if (smatch == nil) {
+                    continue;
+                }
+            }
             //Return titleid
             titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
             goto foundtitle;
@@ -386,7 +419,7 @@ update:
     // Update the title
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", titleid]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
@@ -437,7 +470,7 @@ update:
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug{
     NSLog(@"Getting Additional Info");
     //Set Search API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/anime/%@",@"https://hbrd-v1.p.mashape.com/", slug]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/anime/%@",@"https://hbrd-v1.p.mashape.com", slug]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
@@ -471,7 +504,7 @@ update:
 		// Update the title
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		//Set library/scrobble API
-		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", titleid]];
+		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
 		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
         [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 		//Ignore Cookies
@@ -539,7 +572,7 @@ update:
 	// Update the title
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	//Set library/scrobble API
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com/", titleid]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
@@ -638,14 +671,34 @@ update:
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
 }
--(NSMutableArray *)sortArray:(NSMutableArray*) a{
-    [a sortWithOptions: 0 usingComparator:(NSComparator)^(NSDictionary *item1, NSDictionary *item2) {
-        NSString *title1 = [item1 objectForKey:@"title"];
-        NSString *title2 = [item2 objectForKey:@"title"];
-        return [title1 compare:title2];
-    }];
-
-    return a;
+-(int)recognizeSeason:(NSString *)season{
+    if ([season caseInsensitiveCompare:@"second season"] == NSOrderedSame)
+        return 2;
+    else if ([season caseInsensitiveCompare:@"third season"] == NSOrderedSame)
+        return 3;
+    else if ([season caseInsensitiveCompare:@"fourth season"] == NSOrderedSame)
+        return 4;
+    else if ([season caseInsensitiveCompare:@"fifth season"] == NSOrderedSame)
+        return 5;
+    else if ([season caseInsensitiveCompare:@"sixth season"] == NSOrderedSame)
+        return 6;
+    else if ([season caseInsensitiveCompare:@"seventh season"] == NSOrderedSame)
+        return 7;
+    else if ([season caseInsensitiveCompare:@"eighth season"] == NSOrderedSame)
+        return 8;
+    else if ([season caseInsensitiveCompare:@"ninth season"] == NSOrderedSame)
+        return 9;
+    else
+        return 0;
 }
-
+-(NSString *)desensitizeSeason:(NSString *)title {
+    // Get rid of season references
+    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season)"];
+    title = [regex replaceAllMatchesInString:title withString:@"" options:OgreIgnoreCaseOption];
+    regex = [OGRegularExpression regularExpressionWithString: @"(s|S)\\d"];
+    title = [regex replaceAllMatchesInString:title withString:@"" options:OgreIgnoreCaseOption];
+    // Remove any Whitespace
+    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return title;
+}
 @end

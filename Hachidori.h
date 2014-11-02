@@ -15,11 +15,13 @@
 	NSString * Token;
 	NSString * LastScrobbledTitle;
 	NSString * LastScrobbledEpisode;
+    int LastScrobbledSeason;
     BOOL LastScrobbledTitleNew;
     BOOL isPrivate;
     NSDictionary * LastScrobbledInfo;
 	NSString * DetectedTitle;
 	NSString * DetectedEpisode;
+    int DetectedSeason;
 	NSString * DetectedCurrentEpisode;
     BOOL DetectedTitleisMovie;
 	NSString * TotalEpisodes;
@@ -56,5 +58,5 @@
 -(NSDictionary *)getLastScrobbledInfo;
 -(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
--(NSMutableArray *)sortArray:(NSMutableArray*) a;
+-(int)recognizeSeason:(NSString *)season;
 @end
