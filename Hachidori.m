@@ -145,6 +145,8 @@
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
+    //Set Timeout
+    [request setTimeOutSeconds:15];
 	//Perform Search
 	[request startSynchronous];
 	//Set up Delegate
@@ -308,9 +310,9 @@ update:
     NSString *theshowtype = @"";
 	//Create Regular Expression Strings
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",DetectedTitle];
-    //NSString *findinit = [NSString stringWithFormat:@"(%@)",DetectedTitle];
+    NSString *findinit = [NSString stringWithFormat:@"(%@)",DetectedTitle];
 	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"]; // NSString *findpre = [NSString stringWithFormat:@"^%@",DetectedTitle];
-    OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
+    OGRegularExpression    *regex;
 	//Retrieve the ID. Note that the most matched title will be on the top
     // For Sanity (TV shows and OVAs usually have more than one episode)
     if(DetectedEpisode.length == 0){
@@ -344,6 +346,17 @@ update:
             [other addObject:entry];
     }
     // Search
+    for (int i = 0; i < 2; i++) {
+        switch (i) {
+            case 0:
+                regex = [OGRegularExpression regularExpressionWithString:findinit options:OgreIgnoreCaseOption];
+                break;
+            case 1:
+                regex = [OGRegularExpression regularExpressionWithString:findpre options:OgreIgnoreCaseOption];
+                break;
+            default:
+                break;
+        }
     if (DetectedTitleisMovie) {
         //Check movies and Specials First
         for (NSDictionary *searchentry in movie) {
@@ -407,7 +420,7 @@ update:
             goto foundtitle;
         }
     }
-    
+     }
     foundtitle:
 	//Return the AniID
 	return titleid;
@@ -426,6 +439,8 @@ update:
     [request setUseCookiePersistence:NO];
     //Set Token
     [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+    //Set Timeout
+    [request setTimeOutSeconds:15];
     // Get Information
     [request startSynchronous];
     NSDictionary * d;
@@ -511,6 +526,8 @@ update:
 		[request setUseCookiePersistence:NO];
 		//Set Token
 		[request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+        //Set Timeout
+        [request setTimeOutSeconds:15];
 	    //[request setRequestMethod:@"PUT"];
 	    [request setPostValue:DetectedEpisode forKey:@"episodes_watched"];
 		//Set Status
@@ -592,7 +609,8 @@ update:
         [request setPostValue:@"private" forKey:@"privacy"];
     else
         [request setPostValue:@"public" forKey:@"privacy"];
-        
+    //Set Timeout
+    [request setTimeOutSeconds:15];
 	// Do Update
 	[request startSynchronous];
 	NSLog(@"%i", [request responseStatusCode]);
