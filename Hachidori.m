@@ -78,7 +78,13 @@
 	if (detectstatus == 2) { // Detects Title
 		
 		NSLog(@"Getting AniID");
-		AniID = [self searchanime];
+        if ([self countWordsInTitle:DetectedTitle] == 1) {
+            //Single title, set as ID
+            AniID = DetectedTitle.lowercaseString;
+        }
+        else{
+            AniID = [self searchanime];
+        }
 		if (AniID.length > 0) {
             NSLog(@"Found %@", AniID);
 			// Check Status and Update
@@ -718,5 +724,15 @@ update:
     // Remove any Whitespace
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;
+}
+-(int)countWordsInTitle:(NSString *) title{
+    // Counts amount of words in the title
+    NSCountedSet * count = [NSCountedSet new];
+    [title enumerateSubstringsInRange:NSMakeRange(0, [title length])
+                              options:NSStringEnumerationByWords | NSStringEnumerationLocalized
+                           usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
+                               [count addObject:substring];
+                           }];
+    return [count count];
 }
 @end
