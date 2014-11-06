@@ -1,7 +1,8 @@
+[![Build Status](https://travis-ci.org/chikorita157/hachidori.svg?branch=master)](https://travis-ci.org/chikorita157/hachidori)
 # Hachidori
-Hachidori (はちどり) is an open sourced Hummingbird.me client for OS X based on the same codebase as MAL Updater OS X, but designed for Hummingbird.
+Hachidori (はちどり) is an open sourced Hummingbird.me client for OS X based on the same codebase as MAL Updater OS X, but designed exclusively for Hummingbird.
 
-Warning: Still a work in progress.
+Warning: Still a work in progress since this is an Alpha. 
 
 Requires Mountain Lion SDK. (XCode 5)
 

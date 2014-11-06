@@ -133,6 +133,7 @@
 	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ScrobbleatStartup"];
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"setprivate"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
+    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -390,7 +391,7 @@
                 break;
             case 51:
                 [self setStatusText:@"Scrobble Status: Can't find title. Retrying in 5 mins..."];
-                [self showNotication:@"Scrobble Unsuccessful." message:@"Can't find title. Retrying in 5 mins..."];
+                [self showNotication:@"Scrobble Unsuccessful." message:@"Can't find title."];
                 break;
             case 52:
             case 53:
@@ -650,5 +651,10 @@
             [self firetimer:nil];
         }
     }
+}
+-(IBAction)showAboutWindow:(id)sender{
+    // Properly show the about window in a menu item application
+    [NSApp activateIgnoringOtherApps:YES];
+    [[NSApplication sharedApplication] orderFrontStandardAboutPanel:self];
 }
 @end

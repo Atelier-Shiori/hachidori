@@ -83,27 +83,32 @@
             NSLog(@"Single Title");
             AniID = DetectedTitle.lowercaseString;
         }
-        else{
-            NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-            if (cache.count > 0) {
-                NSString * theid;
-                for (NSDictionary *d in cache) {
-                    NSString * title = [d objectForKey:@"detectedtitle"];
-                    if ([title isEqualToString:DetectedTitle]) {
-                        NSLog(@"%@ found in cache!", title);
-                        theid = [d objectForKey:@"showid"];
-                        break;
+        else {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
+                NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+                if (cache.count > 0) {
+                    NSString * theid;
+                    for (NSDictionary *d in cache) {
+                        NSString * title = [d objectForKey:@"detectedtitle"];
+                        if ([title isEqualToString:DetectedTitle]) {
+                            NSLog(@"%@ found in cache!", title);
+                            theid = [d objectForKey:@"showid"];
+                            break;
+                        }
+                    }
+                    if (theid.length == 0) {
+                        AniID = [self searchanime]; // Not in cache, search
+                    }
+                    else{
+                        AniID = theid; // Set cached show id as AniID
                     }
                 }
-                if (theid.length == 0) {
-                    AniID = [self searchanime]; // Not in cache, search
-                }
                 else{
-                    AniID = theid; // Set cached show id as AniID
+                    AniID = [self searchanime]; // Cache empty, search
                 }
             }
             else{
-                AniID = [self searchanime]; // Cache empty, search
+                AniID = [self searchanime]; // Search Cache Disabled
             }
         }
 		if (AniID.length > 0) {
@@ -458,8 +463,11 @@ update:
     }
      }
     foundtitle:
-    //Save AniID
-    [self addtoCache:DetectedTitle showid:titleid];
+    //Check to see if Seach Cache is enabled. If so, add it to the cache.
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
+        //Save AniID
+        [self addtoCache:DetectedTitle showid:titleid];
+    }
 	//Return the AniID
 	return titleid;
 }
