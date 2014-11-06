@@ -49,4 +49,9 @@
 					 didEndSelector:nil
 						contextInfo:NULL];*/
 }
+-(IBAction)clearSearchCache:(id)sender{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
+    NSLog(@"%@", [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]]);
+}
 @end

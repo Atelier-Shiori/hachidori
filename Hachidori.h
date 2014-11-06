@@ -59,4 +59,6 @@
 -(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
 -(int)recognizeSeason:(NSString *)season;
+-(int)countWordsInTitle:(NSString *) title;
+-(void)addtoCache:(NSString *)title showid:(NSString *)showid;
 @end

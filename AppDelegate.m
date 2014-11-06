@@ -132,6 +132,7 @@
 	[defaultValues setObject:@"" forKey:@"Token"];
 	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ScrobbleatStartup"];
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"setprivate"];
+    [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];

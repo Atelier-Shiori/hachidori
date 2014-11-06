@@ -80,10 +80,31 @@
 		NSLog(@"Getting AniID");
         if ([self countWordsInTitle:DetectedTitle] == 1) {
             //Single title, set as ID
+            NSLog(@"Single Title");
             AniID = DetectedTitle.lowercaseString;
         }
         else{
-            AniID = [self searchanime];
+            NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+            if (cache.count > 0) {
+                NSString * theid;
+                for (NSDictionary *d in cache) {
+                    NSString * title = [d objectForKey:@"detectedtitle"];
+                    if ([title isEqualToString:DetectedTitle]) {
+                        NSLog(@"%@ found in cache!", title);
+                        theid = [d objectForKey:@"showid"];
+                        break;
+                    }
+                }
+                if (theid.length == 0) {
+                    AniID = [self searchanime]; // Not in cache, search
+                }
+                else{
+                    AniID = theid; // Set cached show id as AniID
+                }
+            }
+            else{
+                AniID = [self searchanime]; // Cache empty, search
+            }
         }
 		if (AniID.length > 0) {
             NSLog(@"Found %@", AniID);
@@ -133,7 +154,7 @@
 	NSLog(@"Searching For Title");
     // Set Season for Search Term if any detected.
     NSString * searchtitle;
-    if (DetectedSeason > 0) {
+    if (DetectedSeason > 1) {
         searchtitle = [NSString stringWithFormat:@"%@ %i season", [self desensitizeSeason:DetectedTitle], DetectedSeason];
     }
     else
@@ -254,11 +275,11 @@
         //Season
         NSString * tmpseason;
         OGRegularExpressionMatch * smatch;
-        regex = [OGRegularExpression regularExpressionWithString: @"(?:s?)\\d"];
+        regex = [OGRegularExpression regularExpressionWithString: @"(S|s)\\d"];
         smatch = [regex matchInString:DetectedTitle];
         if (smatch != nil) {
             tmpseason = [smatch matchedString];
-            regex = [OGRegularExpression regularExpressionWithString: @"s"];
+            regex = [OGRegularExpression regularExpressionWithString: @"(S|s)"];
             tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
             DetectedSeason = [tmpseason intValue];
         }
@@ -268,6 +289,9 @@
             if (smatch !=nil) {
                 tmpseason = [smatch matchedString];
                 DetectedSeason = [self recognizeSeason:tmpseason];
+            }
+            else{
+                DetectedSeason = 1;
             }
             
         }
@@ -390,10 +414,16 @@ update:
     for (NSDictionary *searchentry in tv) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         if ([regex matchInString:theshowtitle] != nil) {
-            if (DetectedSeason > 0) {
-                OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"%i(st|nd|rd|th) season", DetectedSeason] options:OgreIgnoreCaseOption];
-                OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
+            // Used for Season Checking
+            OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"%i(st|nd|rd|th) season", DetectedSeason] options:OgreIgnoreCaseOption];
+            OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
+            if (DetectedSeason > 2) { // Season detected, check to see if there is a matcch. If not, continue.
                 if (smatch == nil) {
+                    continue;
+                }
+            }
+            else{
+                if (smatch != nil) { // No Season, check to see if there is a season or not. If so, continue.
                     continue;
                 }
             }
@@ -428,6 +458,8 @@ update:
     }
      }
     foundtitle:
+    //Save AniID
+    [self addtoCache:DetectedTitle showid:titleid];
 	//Return the AniID
 	return titleid;
 }
@@ -734,5 +766,13 @@ update:
                                [count addObject:substring];
                            }];
     return [count count];
+}
+-(void)addtoCache:(NSString *)title showid:(NSString *)showid{
+    //Adds ID to cache
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+    NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"detectedtitle", showid, @"showid", nil];
+    [cache addObject:entry];
+    [defaults setObject:cache forKey:@"searchcache"];
 }
 @end
