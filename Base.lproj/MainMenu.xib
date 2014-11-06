@@ -205,18 +205,18 @@
                         <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Last Scrobbled" hidden="YES" id="ocn-xD-u5l">
+                <menuItem title="Last Scrobbled" enabled="NO" id="ocn-xD-u5l">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Last Scrobbled" id="PEE-eA-4CS">
                         <items>
-                            <menuItem title="Show Title" id="a2M-Ci-eiK">
+                            <menuItem title="Show Title" enabled="NO" id="a2M-Ci-eiK">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="Episode" id="JMG-sQ-r6U">
+                            <menuItem title="Episode" enabled="NO" id="JMG-sQ-r6U">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="OZY-jk-gqr"/>
-                            <menuItem title="Update Status" id="dU4-FY-DLP">
+                            <menuItem title="Update Status" enabled="NO" id="dU4-FY-DLP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="updatestatusmenu:" target="560" id="o8g-zO-qXF"/>

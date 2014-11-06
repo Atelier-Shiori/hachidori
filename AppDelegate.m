@@ -149,7 +149,7 @@
     
     //Allocates and loads the images into the application which will be used for our NSStatusItem
     statusImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"hachidori-status" ofType:@"png"]];
-    statusHighlightImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"Shachidori-status-hi" ofType:@"png"]];
+    statusHighlightImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"hachidori-status-hi" ofType:@"png"]];
     
     //Yosemite Dark Menu Support
     [statusImage setTemplate:YES];
@@ -408,7 +408,7 @@
 	if ([haengine getSuccess] == 1) {
 		[updatetoolbaritem setEnabled:YES];
         [sharetoolbaritem setEnabled:YES];
-        [updatedtitlemenu setHidden:NO];
+        [updatedtitlemenu setEnabled:YES];
         //Show Anime Information
         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
         [self showAnimeInfo:ainfo];
