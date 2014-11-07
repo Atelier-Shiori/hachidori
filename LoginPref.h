@@ -22,6 +22,6 @@
 -(IBAction)clearlogin:(id)sender;
 -(void)showsheetmessage:(NSString *)message
 		   explaination:(NSString *)explaination;
--(IBAction)registermal:(id)sender;
+-(IBAction)registerhummingbird:(id)sender;
 -(void)loadlogin;
 @end

@@ -70,18 +70,6 @@
 		[clearbut setEnabled: NO];
 		[savebut setEnabled: YES];
 	}
-	//NSString *TwitterKey = [defaults objectForKey:@"OAUTH_Hachidori_twitter.com_KEY"];
-	//NSString *TwitterSecret = [defaults objectForKey:@"OAUTH_Hachidori_twitter.com_SECRET"];
-	/*// Check Twitter Auth
-	if (TwitterKey.length > 0 && TwitterSecret.length > 0) {
-		[self enabletwitteroptions];
-	}
-	else {
-		[self disabletwitteroptions];
-	}
-	//Release Keychain Item
-	[TwitterKey release];
-	[TwitterSecret release];*/
 }
 -(IBAction)startlogin:(id)sender
 {
@@ -115,7 +103,6 @@
                 [request setRequestMethod:@"POST"];
 				//Vertify Username/Password
 				[request startSynchronous];
-				NSLog(@"%@",[request responseString]);
 				// Get Status Code
 				int statusCode = [request responseStatusCode];
 				switch (statusCode) {
@@ -148,7 +135,7 @@
 		}
 	}
 }
--(IBAction)registermal:(id)sender
+-(IBAction)registerhummingbird:(id)sender
 {
 	//Show MAL Registration Page
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://hummingbird.me/users/sign_up"]];

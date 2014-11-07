@@ -659,8 +659,7 @@ update:
     [request setTimeOutSeconds:15];
 	// Do Update
 	[request startSynchronous];
-	NSLog(@"%i", [request responseStatusCode]);
-	switch ([request responseStatusCode]) {
+    switch ([request responseStatusCode]) {
         case 200:
 		case 201:
                 //Set New Values
@@ -730,7 +729,6 @@ update:
     }
     // Privacy Settings
     isPrivate = [[d objectForKey:@"private"] boolValue];
-    NSLog(@"Title Score %@", TitleScore);
     DetectedCurrentEpisode = [d objectForKey:@"episodes_watched"];
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;

@@ -205,7 +205,7 @@
                         <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Last Scrobbled" enabled="NO" id="ocn-xD-u5l">
+                <menuItem title="Last Scrobbled" hidden="YES" id="ocn-xD-u5l">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Last Scrobbled" id="PEE-eA-4CS">
                         <items>
@@ -405,7 +405,7 @@
             <rect key="contentRect" x="196" y="392" width="353" height="242"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="739">
-                <rect key="frame" x="0.0" y="-1" width="353" height="242"/>
+                <rect key="frame" x="0.0" y="0.0" width="353" height="242"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="745">
@@ -418,7 +418,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="746">
-                        <rect key="frame" x="8" y="218" width="337" height="17"/>
+                        <rect key="frame" x="8" y="221" width="337" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Show Title" id="756">
                             <font key="font" metaFont="smallSystem"/>
@@ -541,7 +541,7 @@ Gw
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-58.5" y="205"/>
+            <point key="canvasLocation" x="219.5" y="191"/>
         </window>
         <numberFormatter formatterBehavior="custom10_4" positiveFormat="#.##" alwaysShowsDecimalSeparator="YES" minimumIntegerDigits="0" maximumIntegerDigits="5" maximumFractionDigits="2" id="zBq-KO-EPV">
             <real key="minimum" value="0.0"/>
@@ -559,7 +559,7 @@ Gw
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="792">
-                        <rect key="frame" x="10" y="204" width="382" height="40"/>
+                        <rect key="frame" x="10" y="216" width="382" height="28"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Additional Infomation about the last updated title will appear here." id="796">
                             <font key="font" metaFont="system"/>
@@ -689,7 +689,6 @@ Gw
             <contentBorderThickness minY="22"/>
             <point key="canvasLocation" x="14" y="215.5"/>
         </window>
-        <menuItem isSeparatorItem="YES" id="8mp-Nb-QoG"/>
     </objects>
     <resources>
         <image name="NSPreferencesGeneral" width="32" height="32"/>

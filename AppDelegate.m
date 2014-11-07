@@ -219,7 +219,6 @@
 {
     if (_preferencesWindowController == nil)
     {
-		NSLog(@"Load Pref");
         NSViewController *generalViewController = [[GeneralPrefController alloc] init];
         NSViewController *loginViewController = [[LoginPref alloc] init];
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
@@ -375,19 +374,14 @@
                 break;
             case 1:
                 [self setStatusText:@"Scrobble Status: Same Episode Playing, Scrobble not needed."];
-                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
                 break;
             case 21:
             case 22:
                 [self setStatusText:@"Scrobble Status: Scrobble Successful..."];
-                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 [self showNotication:@"Scrobble Successful."message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 //Add History Record
                 [self addrecord:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
-                [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
+                //[self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
                 break;
             case 51:
                 [self setStatusText:@"Scrobble Status: Can't find title. Retrying in 5 mins..."];
@@ -401,24 +395,29 @@
             case 54:
                 [self showNotication:@"Scrobble Unsuccessful." message:@"Retrying in 5 mins..."];
                 [self setStatusText:@"Scrobble Status: Scrobble Failed. Retrying in 5 mins..."];
+                break;
             default:
-                NSLog(@"fail");
                 break;
         }
-	if ([haengine getSuccess] == 1) {
-		[updatetoolbaritem setEnabled:YES];
-        [sharetoolbaritem setEnabled:YES];
-        [updatedtitlemenu setEnabled:YES];
-        //Show Anime Information
-        NSDictionary * ainfo = [haengine getLastScrobbledInfo];
-        [self showAnimeInfo:ainfo];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([haengine getSuccess] == 1) {
+                [updatetoolbaritem setEnabled:YES];
+                [sharetoolbaritem setEnabled:YES];
+                [updatedtitlemenu setHidden:NO];
+                [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
+                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+                [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+                //Show Anime Information
+                NSDictionary * ainfo = [haengine getLastScrobbledInfo];
+                [self showAnimeInfo:ainfo];
         
-	}
-        // Enable Menu Items
-        scrobbleractive = false;
-        [updatenow setEnabled:YES];
-        [togglescrobbler setEnabled:YES];
-        [updatenow setTitle:@"Update Now"];
+            }
+            // Enable Menu Items
+            scrobbleractive = false;
+            [updatenow setEnabled:YES];
+            [togglescrobbler setEnabled:YES];
+            [updatenow setTitle:@"Update Now"];
+	});
     });
     
     }
@@ -642,8 +641,7 @@
 }
 -(void)registerHotkey{
     DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
-    if (![c registerHotKeyWithKeyCode:kVK_ANSI_U modifierFlags:(NSShiftKeyMask|NSCommandKeyMask) target:self action:@selector(hotkeyWithEvent:object:) object:@"scrobblenow"])
-        NSLog(@"Global Hotkey is Registered!");
+    if (![c registerHotKeyWithKeyCode:kVK_ANSI_U modifierFlags:(NSShiftKeyMask|NSCommandKeyMask) target:self action:@selector(hotkeyWithEvent:object:) object:@"scrobblenow"]){}
 }
 - (void) hotkeyWithEvent:(NSEvent *)hkEvent object:(id)anObject {
     if ([[NSString stringWithFormat:@"%@", anObject] isEqualToString:@"scrobblenow"]) {
