@@ -220,7 +220,7 @@
     if (_preferencesWindowController == nil)
     {
         NSViewController *generalViewController = [[GeneralPrefController alloc] init];
-        NSViewController *loginViewController = [[LoginPref alloc] init];
+        NSViewController *loginViewController = [[LoginPref alloc] initwithAppDelegate:self];
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
         NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, loginViewController, suViewController, nil];
         
@@ -617,6 +617,17 @@
 -(IBAction)updatetitlestatus:(id)sender {
 	[updatepanel orderOut:self];
 	[NSApp endSheet:updatepanel returnCode:1];
+}
+/*
+ 
+ Getters
+ 
+ */
+-(bool)getisScrobbling{
+    return scrobbling;
+}
+-(bool)getisScrobblingActive{
+    return scrobbleractive;
 }
 
 //Misc Methods

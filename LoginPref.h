@@ -10,6 +10,7 @@
 #import "MASPreferencesViewController.h"
 #import <ASIHTTPRequest/ASIHTTPRequest.h>
 #import <ASIHTTPRequest/ASIFormDataRequest.h>
+#import "AppDelegate.h"
 
 @interface LoginPref : NSViewController <MASPreferencesViewController> {
 	//Login Preferences
@@ -17,7 +18,9 @@
 	IBOutlet NSTextField * fieldpassword;
 	IBOutlet NSButton * savebut;
 	IBOutlet NSButton * clearbut;
+    AppDelegate * appdelegate;
 }
+- (id)initwithAppDelegate:(AppDelegate *)adelegate;
 -(IBAction)startlogin:(id)sender;
 -(IBAction)clearlogin:(id)sender;
 -(void)showsheetmessage:(NSString *)message

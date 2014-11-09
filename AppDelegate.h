@@ -88,5 +88,6 @@
 -(void)appendToAnimeInfo:(NSString*)text;
 -(void)showNotication:(NSString *)title message:(NSString *) message;
 -(IBAction)showAboutWindow:(id)sender;
-
+-(bool)getisScrobbling;
+-(bool)getisScrobblingActive;
 @end
