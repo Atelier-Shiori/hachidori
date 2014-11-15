@@ -15,6 +15,7 @@
 #import "NSString_stripHtml.h"
 #import "DDHotKeyCenter.h"
 #import <Carbon/Carbon.h>
+#import "FixSearchDialog.h"
 
 @implementation AppDelegate
 
@@ -476,6 +477,41 @@
         return true;
 }
 
+/*
+ 
+ Correction/Exception Search
+ 
+ */
+/*- (IBAction)showSearchWindow:(id)sender{
+    fsdialog = [FixSearchDialog new];
+    [[self window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
+        if (returnCode == NSModalResponseOK) {
+            NSLog(@"OK");
+            NSLog(@"Selected Title %@", [fsdialog getSelectedTitle]);
+        }
+        else{
+            NSLog(@"Cancel");
+        }
+        fsdialog = nil;
+    }];
+    
+}
+- (IBAction)showCorrectionSearchWindow:(id)sender{
+    fsdialog = [FixSearchDialog new];
+    [fsdialog setCorrection:YES];
+    [[self window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
+        if (returnCode == NSModalResponseOK) {
+            NSLog(@"OK");
+            NSLog(@"Selected Title %@", [fsdialog getSelectedTitle]);
+            NSLog(@"Delete: %i", [fsdialog getdeleteTitleonCorrection]);
+        }
+        else{
+            NSLog(@"Cancel");
+        }
+        fsdialog = nil;
+    }];
+    
+}*/
 /*
  
  Scrobble History Window

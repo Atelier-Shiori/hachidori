@@ -10,6 +10,7 @@
 #import "Hachidori.h"
 
 @class Hachidori;
+@class FixSearchDialog;
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate, NSSharingServicePickerDelegate> {
 	/* Windows */
     __unsafe_unretained NSWindow *window;
@@ -56,6 +57,8 @@
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property(strong) FixSearchDialog *fsdialog;
+
 -(void)showPreferences:(id)sender;
 -(void)showhistory:(id)sender;
 -(IBAction)togglescrobblewindow:(id)sender;

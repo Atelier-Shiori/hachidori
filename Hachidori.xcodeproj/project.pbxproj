@@ -43,6 +43,8 @@
 		824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A219FD334300CFA12A /* DDHotKeyUtilities.m */; };
 		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
 		8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8294C45D19F99B2F009DE98B /* Images.xcassets */; };
+		82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */; };
+		82EBBD1E1A17FD5B009F6179 /* FixSearchDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82EBBD1C1A17FD5B009F6179 /* FixSearchDialog.xib */; };
 		82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AD19FB613800E0B17A /* hachidori-status-hi.png */; };
 		82F065B019FB613800E0B17A /* hachidori-status.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AE19FB613800E0B17A /* hachidori-status.png */; };
 		82F065B319FB618E00E0B17A /* detectstream in Resources */ = {isa = PBXBuildFile; fileRef = 82F065B219FB618E00E0B17A /* detectstream */; };
@@ -124,6 +126,9 @@
 		829FB41E19F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferenceView.xib; sourceTree = "<group>"; };
 		829FB41F19F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginView.xib; sourceTree = "<group>"; };
 		829FB42019F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SoftwareUpdateView.xib; sourceTree = "<group>"; };
+		82EBBD1A1A17FD5B009F6179 /* FixSearchDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixSearchDialog.h; sourceTree = "<group>"; };
+		82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixSearchDialog.m; sourceTree = "<group>"; };
+		82EBBD1C1A17FD5B009F6179 /* FixSearchDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FixSearchDialog.xib; sourceTree = "<group>"; };
 		82F065AD19FB613800E0B17A /* hachidori-status-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status-hi.png"; sourceTree = "<group>"; };
 		82F065AE19FB613800E0B17A /* hachidori-status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status.png"; sourceTree = "<group>"; };
 		82F065B219FB618E00E0B17A /* detectstream */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = detectstream; path = detectstream/detectstream; sourceTree = "<group>"; };
@@ -154,6 +159,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				82EBBD191A17FD45009F6179 /* Correction/Exception */,
 				5C8ACEB619F409C60001A101 /* Other Classes */,
 				5CD36B9419F2EA91007BB6B6 /* Preferences */,
 				256AC3D80F4B6AC300CF3369 /* AppDelegate.h */,
@@ -308,6 +314,16 @@
 			name = DDHotkey;
 			sourceTree = "<group>";
 		};
+		82EBBD191A17FD45009F6179 /* Correction/Exception */ = {
+			isa = PBXGroup;
+			children = (
+				82EBBD1A1A17FD5B009F6179 /* FixSearchDialog.h */,
+				82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */,
+				82EBBD1C1A17FD5B009F6179 /* FixSearchDialog.xib */,
+			);
+			name = Correction/Exception;
+			sourceTree = "<group>";
+		};
 		82F065B119FB618300E0B17A /* DetectStream */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +390,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				82F065B319FB618E00E0B17A /* detectstream in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
+				82EBBD1E1A17FD5B009F6179 /* FixSearchDialog.xib in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
 				82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */,
@@ -410,6 +427,7 @@
 				5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
+				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
