@@ -203,7 +203,7 @@
 	//
 	// LSOF mplayer to get the media title and segment
 
-    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QTKitServer", nil];
+    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", nil];
     NSString *string;
 	
     for(int i = 0; i <[player count]; i++){

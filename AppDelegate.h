@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CMCrashReporter/CMCrashReporter.h>
 #import "Hachidori.h"
 
 @class Hachidori;

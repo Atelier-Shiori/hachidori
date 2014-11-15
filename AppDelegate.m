@@ -174,8 +174,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
-	// Check for Crash Reports
-	[CMCrashReporter check];
 	// Insert code here to initialize your application
 	//Check if Application is in the /Applications Folder
 	PFMoveToApplicationsFolderIfNecessary();

@@ -10,10 +10,5 @@
 
 int main(int argc, char *argv[])
 {
-#ifdef DEBUG
-#   define NSLog(...) NSLog(__VA_ARGS__)
-#else
-#   define NSLog(...)
-#endif
     return NSApplicationMain(argc,  (const char **) argv);
 }

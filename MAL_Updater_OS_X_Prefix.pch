@@ -8,3 +8,9 @@
 	//Import Twitter OAuth Key Constants
 	//#import "TwitterOAuthKeys.h"
 #endif
+
+#ifdef DEBUG
+#   define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#   define NSLog(...)
+#endif
