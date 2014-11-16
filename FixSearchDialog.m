@@ -10,7 +10,7 @@
 #import "Constants.h"
 
 @interface FixSearchDialog ()
-@property (strong) IBOutlet NSWindow *window;
+
 @end
 
 @implementation FixSearchDialog
