@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">14B17</string>
+		<string key="IBDocument.SystemVersion">14B23</string>
 		<string key="IBDocument.InterfaceBuilderVersion">6250</string>
-		<string key="IBDocument.AppKitVersion">1343.15</string>
+		<string key="IBDocument.AppKitVersion">1343.16</string>
 		<string key="IBDocument.HIToolboxVersion">755.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -78,7 +78,7 @@
 					<object class="NSButton" id="592836132">
 						<reference key="NSNextResponder" ref="47884378"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{138, 13}, {143, 32}}</string>
+						<string key="NSFrame">{{138, 13}, {149, 32}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>

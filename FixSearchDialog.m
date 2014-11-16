@@ -33,7 +33,25 @@
 }
 -(IBAction)updatesearch:(id)sender {
     NSDictionary * d = [[arraycontroller selectedObjects] objectAtIndex:0];
+    if (correction) {
+        // Set Up Prompt Message Window
+        NSAlert * alert = [[NSAlert alloc] init] ;
+        [alert addButtonWithTitle:@"Yes"];
+        [alert addButtonWithTitle:@"No"];
+        [alert setMessageText:[NSString stringWithFormat:@"Do you want to correct this title as %@?",[d objectForKey:@"title"]]];
+        [alert setInformativeText:@"Once done, you cannot undo this action."];
+        // Set Message type to Warning
+        [alert setAlertStyle:NSWarningAlertStyle];
+        if ([alert runModal]== NSAlertFirstButtonReturn) {
+            goto finish;
+        }
+    }
+    else{
+        goto finish;
+    }
+    finish:
     selectedtitle = [d objectForKey:@"title"];
+    selectedaniid = [d objectForKey:@"slug"];
     [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseOK];
 }
 -(IBAction)search:(id)sender{
@@ -71,6 +89,10 @@
         [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
     }
 }
+-(IBAction)getHelp:(id)sender{
+    //Show Help
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Correction-Exception-Help"]];
+}
 -(void)populateData:(NSData *)data{
     //Remove all existing Data
     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
@@ -96,6 +118,9 @@
 }
 -(NSString *)getSelectedTitle{
     return selectedtitle;
+}
+-(NSString *)getSelectedAniID{
+    return selectedaniid;
 }
 -(bool)getdeleteTitleonCorrection{
     return [deleteoncorrection state];

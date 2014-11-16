@@ -12,6 +12,7 @@
 #import "MASPreferencesWindowController.h"
 #import "LoginPref.h"
 #import "SoftwareUpdatesPref.h"
+#import "ExceptionsPref.h"
 #import "NSString_stripHtml.h"
 #import "DDHotKeyCenter.h"
 #import <Carbon/Carbon.h>
@@ -222,7 +223,8 @@
         NSViewController *generalViewController = [[GeneralPrefController alloc] init];
         NSViewController *loginViewController = [[LoginPref alloc] initwithAppDelegate:self];
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
-        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, loginViewController, suViewController, nil];
+        NSViewController *exceptionsViewController = [[ExceptionsPref alloc] init];
+        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, loginViewController, suViewController, exceptionsViewController, nil];
         
         // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
         //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];
@@ -418,7 +420,6 @@
                 //Show Anime Information
                 NSDictionary * ainfo = [haengine getLastScrobbledInfo];
                 [self showAnimeInfo:ainfo];
-        
             }
             // Enable Menu Items
             scrobbleractive = false;
@@ -538,9 +539,35 @@
     [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
     [[self window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
         if (returnCode == NSModalResponseOK) {
-            NSLog(@"OK");
-            NSLog(@"Selected Title %@", [fsdialog getSelectedTitle]);
-            NSLog(@"Delete: %i", [fsdialog getdeleteTitleonCorrection]);
+            if ([[fsdialog getSelectedAniID] isEqualToString:[haengine getAniID]]) {
+                NSLog(@"ID matches, correction not needed.");
+            }
+            else{
+                [self addtoExceptions:[haengine getLastScrobbledTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID]];
+                if([fsdialog getdeleteTitleonCorrection]){
+                    if([haengine removetitle:[haengine getAniID]]){
+                        NSLog(@"Removal Successful");
+                    }
+                }
+                NSLog(@"Updating corrected title...");
+                int status = [haengine scrobbleagain:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode]];
+                switch (status) {
+                    case 1:
+                    case 21:
+                    case 22:{
+                        [self setStatusText:@"Scrobble Status: Correction Successful..."];
+                        [self showNotication:@"Hachidori" message:@"Correction was successful"];
+                        //Show Anime Correct Information
+                        NSDictionary * ainfo = [haengine getLastScrobbledInfo];
+                        [self showAnimeInfo:ainfo];
+                        break;
+                    }
+                    default:
+                        [self setStatusText:@"Scrobble Status: Correction unsuccessful..."];
+                        [self showNotication:@"Hachidori" message:@"Correction was not successful."];
+                        break;
+                }
+            }
         }
         else{
             NSLog(@"Cancel");
@@ -555,7 +582,27 @@
             [window orderOut:self];
     }];
 }
-
+-(void)addtoExceptions:(NSString *)detectedtitle newtitle:(NSString *)title showid:(NSString *)showid{
+    //Adds correct title and ID to exceptions list
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *exceptions = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"]];
+    NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", title ,@"correcttitle", showid, @"showid", nil];
+    [exceptions addObject:entry];
+    [defaults setObject:exceptions forKey:@"exceptions"];
+    //Check if the title exists in the cache. If so, remove it
+    NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+    if (cache.count > 0) {
+        for (int i=0; i<[cache count]; i++) {
+            NSDictionary * d = [cache objectAtIndex:i];
+            NSString * title = [d objectForKey:@"detectedtitle"];
+            if ([title isEqualToString:detectedtitle]) {
+                NSLog(@"%@ found in cache, remove!", title);
+                [cache removeObject:d];
+                break;
+            }
+        }
+    }
+}
 /*
  
  Scrobble History Window

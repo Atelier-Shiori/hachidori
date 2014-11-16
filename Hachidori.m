@@ -8,6 +8,22 @@
 
 #import "Hachidori.h"
 
+@interface Hachidori ()
+// Private Methods
+-(int)detectmedia; // 0 - Nothing, 1 - Same, 2 - Update
+-(NSString *)searchanime;
+-(NSString *)findaniid:(NSData *)ResponseData;
+-(BOOL)checkstatus:(NSString *)titleid;
+-(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
+-(int)updatetitle:(NSString *)titleid;
+-(NSDictionary *)detectStream;
+-(void)populateStatusData:(NSDictionary *)d;
+-(int)recognizeSeason:(NSString *)season;
+-(int)countWordsInTitle:(NSString *) title;
+-(BOOL)checkillegalcharacters:(NSString *) title;
+-(void)addtoCache:(NSString *)title showid:(NSString *)showid;
+@end
+
 @implementation Hachidori
 
 /* 
@@ -89,12 +105,13 @@
 -(int)scrobble{
     int status;
     NSLog(@"Getting AniID");
-    if ([self countWordsInTitle:DetectedTitle] == 1) {
+    if ([self countWordsInTitle:DetectedTitle] == 1 && ![self checkillegalcharacters:DetectedTitle]) {
         //Single title, set as ID
         NSLog(@"Single Title");
         AniID = DetectedTitle.lowercaseString;
     }
     else {
+        // Regular Search
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
             NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
             if (cache.count > 0) {
@@ -171,11 +188,30 @@
     // Empty out Detected Title/Episode to prevent same title detection
     DetectedTitle = nil;
     DetectedEpisode = nil;
-    DetectedSeason = nil;
+    DetectedCurrentEpisode = nil;
+    
     // Release Detected Title/Episode.
     return status;
 }
 -(NSString *)searchanime{
+    NSLog(@"Check Exceptions List");
+    // Check Exceptions
+    NSMutableArray *exceptions = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"]];
+    if (exceptions.count > 0) {
+        NSString * theid;
+        for (NSDictionary *d in exceptions) {
+            NSString * title = [d objectForKey:@"detectedtitle"];
+            if ([title isEqualToString:DetectedTitle]) {
+                NSLog(@"%@ found on exceptions list as %@!", title, [d objectForKey:@"correcttitle"]);
+                theid = [d objectForKey:@"showid"];
+                break;
+            }
+        }
+        if (theid.length > 0) {
+            return theid;
+        }
+    }
+    // Begin Search
 	NSLog(@"Searching For Title");
     // Set Season for Search Term if any detected.
     NSString * searchtitle;
@@ -834,6 +870,15 @@ update:
                                [count addObject:substring];
                            }];
     return [count count];
+}
+-(BOOL)checkillegalcharacters:(NSString *) title{
+    //Checks if the single word is suitable to be used as a slug.
+    NSCharacterSet * set = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ0123456789"] invertedSet];
+    
+    if ([title rangeOfCharacterFromSet:set].location != NSNotFound) {
+        return true;
+    }
+    return false;
 }
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid{
     //Adds ID to cache

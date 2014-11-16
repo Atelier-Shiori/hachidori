@@ -15,7 +15,6 @@
 	NSString * Token;
 	NSString * LastScrobbledTitle;
 	NSString * LastScrobbledEpisode;
-    int LastScrobbledSeason;
     BOOL LastScrobbledTitleNew;
     BOOL isPrivate;
     BOOL online;
@@ -40,12 +39,6 @@
 -(int)startscrobbling;
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode;
 -(int)scrobble;
--(int)detectmedia; // 0 - Nothing, 1 - Same, 2 - Update
--(NSString *)searchanime;
--(NSString *)findaniid:(NSData *)ResponseData;
--(BOOL)checkstatus:(NSString *)titleid;
--(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
--(int)updatetitle:(NSString *)titleid;
 -(BOOL)updatestatus:(NSString *)titleid
               score:(float)showscore
         watchstatus:(NSString*)showwatchstatus
@@ -62,9 +55,4 @@
 -(BOOL)getSuccess;
 -(BOOL)getPrivate;
 -(NSDictionary *)getLastScrobbledInfo;
--(NSDictionary *)detectStream;
--(void)populateStatusData:(NSDictionary *)d;
--(int)recognizeSeason:(NSString *)season;
--(int)countWordsInTitle:(NSString *) title;
--(void)addtoCache:(NSString *)title showid:(NSString *)showid;
 @end

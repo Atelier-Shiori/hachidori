@@ -15,11 +15,13 @@
     IBOutlet NSButton * deleteoncorrection;
     IBOutlet NSTableView *tb;
     NSString * selectedtitle;
+    NSString * selectedaniid;
     bool correction;
 }
 -(id)init;
 -(void)setCorrection:(BOOL)correct;
 -(NSString *)getSelectedTitle;
+-(NSString *)getSelectedAniID;
 -(bool)getdeleteTitleonCorrection;
 -(void)setSearchField:(NSString *)term;
 @end

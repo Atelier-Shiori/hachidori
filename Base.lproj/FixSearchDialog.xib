@@ -25,7 +25,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="455" height="345"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <view key="contentView" id="02G-J8-xy0">
                 <rect key="frame" x="0.0" y="0.0" width="455" height="345"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -42,11 +42,14 @@
                         </connections>
                     </searchField>
                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dpZ-tS-boT">
-                        <rect key="frame" x="7" y="13" width="25" height="25"/>
+                        <rect key="frame" x="18" y="13" width="25" height="25"/>
                         <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="l43-Cd-8C0">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="getHelp:" target="-2" id="pbI-G9-prD"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTw-RW-zxd">
                         <rect key="frame" x="359" y="9" width="82" height="32"/>
@@ -82,7 +85,7 @@ Gw
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" headerView="u1g-0B-sEm" id="LDc-lb-sJX">
-                                    <rect key="frame" x="0.0" y="0.0" width="238" height="134"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="411" height="19"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -142,10 +145,10 @@ Gw
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="izl-Lr-ejy">
-                            <rect key="frame" x="1" y="117.54685080051422" width="236.99994659423828" height="16"/>
+                            <rect key="frame" x="1" y="117.54685080051422" width="237" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="GqG-4a-mWY">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="GqG-4a-mWY">
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -155,7 +158,7 @@ Gw
                         </tableHeaderView>
                     </scrollView>
                     <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gtx-jO-BkX">
-                        <rect key="frame" x="40" y="18" width="173" height="18"/>
+                        <rect key="frame" x="51" y="18" width="173" height="18"/>
                         <buttonCell key="cell" type="check" title="Delete on Correction" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ss9-k8-9Wi">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
