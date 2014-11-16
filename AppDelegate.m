@@ -487,37 +487,6 @@
  Correction/Exception Search
  
  */
--(IBAction)showSearchWindow:(id)sender{
-    bool isVisible = [window isVisible];
-    if (!isVisible) {
-        // Show Status Window for now
-        [NSApp activateIgnoringOtherApps:YES];
-        [window makeKeyAndOrderFront:self];
-    }
-    // Stop Timer temporarily if scrobbling is turned on
-    if (scrobbling == TRUE) {
-        [self stoptimer];
-    }
-    fsdialog = [FixSearchDialog new];
-    [[self window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
-        if (returnCode == NSModalResponseOK) {
-            NSLog(@"OK");
-            NSLog(@"Selected Title %@", [fsdialog getSelectedTitle]);
-        }
-        else{
-            NSLog(@"Cancel");
-        }
-        fsdialog = nil;
-        //Restart Timer
-        if (scrobbling == TRUE) {
-            [self starttimer];
-        }
-        if (!isVisible)
-            //Hide Window
-            [window orderOut:self];
-    }];
-    
-}
 -(IBAction)showCorrectionSearchWindow:(id)sender{
     bool isVisible = [window isVisible];
     if (!isVisible) {

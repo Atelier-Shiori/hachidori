@@ -7,10 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-@interface ExceptionsPref : NSViewController{
+#import "MASPreferencesViewController.h"
+#import "FixSearchDialog.h"
+@class FixSearchDialog;
+@interface ExceptionsPref : NSViewController <MASPreferencesViewController>{
     IBOutlet NSArrayController * arraycontroller;
     IBOutlet NSTableView * tb;
+    FixSearchDialog *fsdialog;
+    NSWindow *prefw;
 }
-
+@property(strong) FixSearchDialog *fsdialog;
 @end

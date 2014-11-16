@@ -12,7 +12,5 @@
 
 @interface GeneralPrefController : NSViewController <MASPreferencesViewController> {
 }
--(void)showsheetmessage:(NSString *)message
-		   explaination:(NSString *)explaination;
 
 @end

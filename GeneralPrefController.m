@@ -32,23 +32,6 @@
 {
     return NSLocalizedString(@"General", @"Toolbar item name for the General preference pane");
 }
--(void)showsheetmessage:(NSString *)message
-		   explaination:(NSString *)explaination
-{
-	// Set Up Prompt Message Window
-	NSAlert * alert = [[NSAlert alloc] init];
-	[alert addButtonWithTitle:@"OK"];
-	[alert setMessageText:message];
-	[alert setInformativeText:explaination];
-	// Set Message type to Warning
-	[alert setAlertStyle:1];
-	// Show as Sheet on Preference Window
-	[alert runModal];
-	/*[alert beginSheetModalForWindow:[self window]
-					  modalDelegate:self
-					 didEndSelector:nil
-						contextInfo:NULL];*/
-}
 -(IBAction)clearSearchCache:(id)sender{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];

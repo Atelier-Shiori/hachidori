@@ -53,11 +53,10 @@
 	// Set Message type to Warning
 	[alert setAlertStyle:1];
 	// Show as Sheet on Preference Window
-	[alert runModal];
-	/*[alert beginSheetModalForWindow:[self window]
+    [alert beginSheetModalForWindow:[[self view] window]
 					  modalDelegate:self
 					 didEndSelector:nil
-						contextInfo:NULL];*/
+						contextInfo:NULL];
 }
 -(void)loadlogin
 {

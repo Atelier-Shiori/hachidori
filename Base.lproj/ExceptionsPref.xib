@@ -115,7 +115,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="removeSlection:" target="-2" id="KX1-g4-pPl"/>
+                        <action selector="addTitle:" target="-2" id="eOF-jK-qyq"/>
                     </connections>
                 </button>
                 <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdp-EN-k6w">
@@ -124,6 +124,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="getHelp:" target="-2" id="PsY-WM-070"/>
+                    </connections>
                 </button>
                 <button toolTip="Imports an exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-sz-D9M">
                     <rect key="frame" x="309" y="39" width="82" height="32"/>
@@ -131,6 +134,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="importList:" target="-2" id="unf-13-OKo"/>
+                    </connections>
                 </button>
                 <button toolTip="Exports an exception list in JSON format." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-OY-6j2">
                     <rect key="frame" x="390" y="39" width="82" height="32"/>
