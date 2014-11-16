@@ -32,7 +32,6 @@
     IBOutlet NSMenuItem * updatedtitle;
     IBOutlet NSMenuItem * updatedepisode;
     IBOutlet NSMenuItem * showcorrectiondialogMenu;
-    IBOutlet NSMenuItem * showsearchdialogMenu;
 	IBOutlet NSTextField * ScrobblerStatus;
 	IBOutlet NSTextField * LastScrobbled;
     IBOutlet NSTextView * animeinfo;

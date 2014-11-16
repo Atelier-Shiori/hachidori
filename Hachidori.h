@@ -30,8 +30,6 @@
 	NSString * TitleState;
     NSString * TitleNotes;
     NSString * AniID;
-    NSString * FailedTitle;
-    NSString * FailedEpisode;
     BOOL DetectedisStream;
 	BOOL Success;
 	int choice;

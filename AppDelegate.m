@@ -137,6 +137,7 @@
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"setprivate"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
+    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"exceptions"];
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -404,12 +405,6 @@
                 break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (status == 51){
-                [showsearchdialogMenu setHidden:NO];
-            }
-            else{
-                [showsearchdialogMenu setHidden:YES];
-            }
             if ([haengine getSuccess] == 1) {
                 [updatetoolbaritem setEnabled:YES];
                 [sharetoolbaritem setEnabled:YES];

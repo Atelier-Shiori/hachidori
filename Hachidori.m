@@ -177,8 +177,6 @@
         if (online) {
             // Not Successful
             status = 51;
-            FailedTitle  = DetectedTitle;
-            FailedEpisode = DetectedEpisode;
         }
         else{
             status = 55;
@@ -887,9 +885,5 @@ update:
     NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"detectedtitle", showid, @"showid", nil];
     [cache addObject:entry];
     [defaults setObject:cache forKey:@"searchcache"];
-}
--(void)clearFailed{
-    FailedTitle = nil;
-    FailedEpisode = nil;
 }
 @end

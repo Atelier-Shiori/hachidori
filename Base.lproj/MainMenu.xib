@@ -231,12 +231,6 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Find Title" hidden="YES" id="ctG-03-XUb">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="showSearchWindow:" target="560" id="Mz6-wB-FLG"/>
-                    </connections>
-                </menuItem>
                 <menuItem isSeparatorItem="YES" id="574"/>
                 <menuItem title="Show/Hide Status Window" id="573">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -275,7 +269,6 @@
                 <outlet property="sharetoolbaritem" destination="PDJ-oY-qAN" id="Xw6-jN-k2Z"/>
                 <outlet property="showcorrectiondialogMenu" destination="THp-Dy-eKR" id="qMZ-fb-ocx"/>
                 <outlet property="showscore" destination="Mfz-5E-LLG" id="acW-pr-oyF"/>
-                <outlet property="showsearchdialogMenu" destination="ctG-03-XUb" id="IZI-2u-V70"/>
                 <outlet property="showstatus" destination="742" id="785"/>
                 <outlet property="showtitle" destination="746" id="788"/>
                 <outlet property="statusMenu" destination="543" id="561"/>

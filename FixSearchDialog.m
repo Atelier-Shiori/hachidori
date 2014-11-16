@@ -79,7 +79,6 @@
             case 200:
                 [self populateData:response];
                 break;
-            
             default:
                 break;
         }
