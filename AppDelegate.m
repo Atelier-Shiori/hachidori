@@ -22,6 +22,7 @@
 @synthesize window;
 @synthesize historywindow;
 @synthesize updatepanel;
+@synthesize fsdialog;
 /*
  
  Initalization
@@ -395,10 +396,18 @@
                 [self showNotication:@"Scrobble Unsuccessful." message:@"Retrying in 5 mins..."];
                 [self setStatusText:@"Scrobble Status: Scrobble Failed. Retrying in 5 mins..."];
                 break;
+            case 55:
+                [self setStatusText:@"Scrobble Status: Scrobble Failed. Computer is offline."];
             default:
                 break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (status == 51){
+                [showsearchdialogMenu setHidden:NO];
+            }
+            else{
+                [showsearchdialogMenu setHidden:YES];
+            }
             if ([haengine getSuccess] == 1) {
                 [updatetoolbaritem setEnabled:YES];
                 [sharetoolbaritem setEnabled:YES];
@@ -482,7 +491,17 @@
  Correction/Exception Search
  
  */
-/*- (IBAction)showSearchWindow:(id)sender{
+-(IBAction)showSearchWindow:(id)sender{
+    bool isVisible = [window isVisible];
+    if (!isVisible) {
+        // Show Status Window for now
+        [NSApp activateIgnoringOtherApps:YES];
+        [window makeKeyAndOrderFront:self];
+    }
+    // Stop Timer temporarily if scrobbling is turned on
+    if (scrobbling == TRUE) {
+        [self stoptimer];
+    }
     fsdialog = [FixSearchDialog new];
     [[self window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
         if (returnCode == NSModalResponseOK) {
@@ -493,12 +512,30 @@
             NSLog(@"Cancel");
         }
         fsdialog = nil;
+        //Restart Timer
+        if (scrobbling == TRUE) {
+            [self starttimer];
+        }
+        if (!isVisible)
+            //Hide Window
+            [window orderOut:self];
     }];
     
 }
-- (IBAction)showCorrectionSearchWindow:(id)sender{
+-(IBAction)showCorrectionSearchWindow:(id)sender{
+    bool isVisible = [window isVisible];
+    if (!isVisible) {
+        // Show Status Window for now
+        [NSApp activateIgnoringOtherApps:YES];
+        [window makeKeyAndOrderFront:self];
+    }
+    // Stop Timer temporarily if scrobbling is turned on
+    if (scrobbling == TRUE) {
+        [self stoptimer];
+    }
     fsdialog = [FixSearchDialog new];
     [fsdialog setCorrection:YES];
+    [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
     [[self window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
         if (returnCode == NSModalResponseOK) {
             NSLog(@"OK");
@@ -509,9 +546,16 @@
             NSLog(@"Cancel");
         }
         fsdialog = nil;
+        //Restart Timer
+        if (scrobbling == TRUE) {
+            [self starttimer];
+        }
+        if (!isVisible)
+            //Hide Window
+            [window orderOut:self];
     }];
-    
-}*/
+}
+
 /*
  
  Scrobble History Window

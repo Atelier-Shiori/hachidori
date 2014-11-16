@@ -216,14 +216,26 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="OZY-jk-gqr"/>
-                            <menuItem title="Update Status" enabled="NO" id="dU4-FY-DLP">
+                            <menuItem title="Update Status" id="dU4-FY-DLP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="updatestatusmenu:" target="560" id="o8g-zO-qXF"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Correct Title" id="THp-Dy-eKR">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showCorrectionSearchWindow:" target="560" id="Z18-IA-AIJ"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
+                </menuItem>
+                <menuItem title="Find Title" hidden="YES" id="ctG-03-XUb">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSearchWindow:" target="560" id="Mz6-wB-FLG"/>
+                    </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="574"/>
                 <menuItem title="Show/Hide Status Window" id="573">
@@ -248,7 +260,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-183" y="195.5"/>
+            <point key="canvasLocation" x="-86" y="93.5"/>
         </menu>
         <customObject id="560" customClass="AppDelegate">
             <connections>
@@ -261,7 +273,9 @@
                 <outlet property="isPrivate" destination="08J-G1-ibd" id="SgD-vy-2Kq"/>
                 <outlet property="notes" destination="zRV-za-4dp" id="ABq-oY-STM"/>
                 <outlet property="sharetoolbaritem" destination="PDJ-oY-qAN" id="Xw6-jN-k2Z"/>
+                <outlet property="showcorrectiondialogMenu" destination="THp-Dy-eKR" id="qMZ-fb-ocx"/>
                 <outlet property="showscore" destination="Mfz-5E-LLG" id="acW-pr-oyF"/>
+                <outlet property="showsearchdialogMenu" destination="ctG-03-XUb" id="IZI-2u-V70"/>
                 <outlet property="showstatus" destination="742" id="785"/>
                 <outlet property="showtitle" destination="746" id="788"/>
                 <outlet property="statusMenu" destination="543" id="561"/>

@@ -91,6 +91,9 @@
 -(void)setCorrection:(BOOL)correct{
     correction = correct;
 }
+-(void)setSearchField:(NSString *)term{
+    [search setStringValue:term];
+}
 -(NSString *)getSelectedTitle{
     return selectedtitle;
 }

@@ -71,62 +71,73 @@
 
 - (int)startscrobbling {
     // 0 - nothing playing; 1 - same episode playing; 21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed; 
-    int status, detectstatus;
+    int detectstatus;
 	//Set up Delegate
 	
     detectstatus = [self detectmedia];
 	if (detectstatus == 2) { // Detects Title
-		
-		NSLog(@"Getting AniID");
-        if ([self countWordsInTitle:DetectedTitle] == 1) {
-            //Single title, set as ID
-            NSLog(@"Single Title");
-            AniID = DetectedTitle.lowercaseString;
-        }
-        else {
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
-                NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-                if (cache.count > 0) {
-                    NSString * theid;
-                    for (NSDictionary *d in cache) {
-                        NSString * title = [d objectForKey:@"detectedtitle"];
-                        if ([title isEqualToString:DetectedTitle]) {
-                            NSLog(@"%@ found in cache!", title);
-                            theid = [d objectForKey:@"showid"];
-                            break;
-                        }
-                    }
-                    if (theid.length == 0) {
-                        AniID = [self searchanime]; // Not in cache, search
-                    }
-                    else{
-                        AniID = theid; // Set cached show id as AniID
+        return [self scrobble];
+	}
+
+    return detectstatus;
+}
+-(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode{
+    DetectedTitle = showtitle;
+    DetectedEpisode = episode;
+    return [self scrobble];
+}
+-(int)scrobble{
+    int status;
+    NSLog(@"Getting AniID");
+    if ([self countWordsInTitle:DetectedTitle] == 1) {
+        //Single title, set as ID
+        NSLog(@"Single Title");
+        AniID = DetectedTitle.lowercaseString;
+    }
+    else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
+            NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+            if (cache.count > 0) {
+                NSString * theid;
+                for (NSDictionary *d in cache) {
+                    NSString * title = [d objectForKey:@"detectedtitle"];
+                    if ([title isEqualToString:DetectedTitle]) {
+                        NSLog(@"%@ found in cache!", title);
+                        theid = [d objectForKey:@"showid"];
+                        break;
                     }
                 }
+                if (theid.length == 0) {
+                    AniID = [self searchanime]; // Not in cache, search
+                }
                 else{
-                    AniID = [self searchanime]; // Cache empty, search
+                    AniID = theid; // Set cached show id as AniID
                 }
             }
             else{
-                AniID = [self searchanime]; // Search Cache Disabled
+                AniID = [self searchanime]; // Cache empty, search
             }
         }
-		if (AniID.length > 0) {
-            NSLog(@"Found %@", AniID);
-			// Check Status and Update
-			BOOL UpdateBool = [self checkstatus:AniID];
-			if (UpdateBool == 1) {
-			if (LastScrobbledTitleNew) {
-				//Title is not on list. Add Title
-				int s = [self updatetitle:AniID];
+        else{
+            AniID = [self searchanime]; // Search Cache Disabled
+        }
+    }
+    if (AniID.length > 0) {
+        NSLog(@"Found %@", AniID);
+        // Check Status and Update
+        BOOL UpdateBool = [self checkstatus:AniID];
+        if (UpdateBool == 1) {
+            if (LastScrobbledTitleNew) {
+                //Title is not on list. Add Title
+                int s = [self updatetitle:AniID];
                 if (s == 21) {
                     Success = true;}
                 else{
                     Success = false;}
-                    status = s;
-			}
-			else {
-				// Update Title as Usual
+                status = s;
+            }
+            else {
+                // Update Title as Usual
                 int s = [self updatetitle:AniID];
                 if (s == 1 || s == 22) {
                     Success = true;
@@ -134,26 +145,35 @@
                 else{
                     Success = false;}
                 status = s;
-                
-			}
-			}
-            else{
-                status = 54;
             }
-		}
-		else {
-			// Not Successful
+        }
+        else{
+            if (online) {
+                 status = 54;
+            }
+            else{
+                status = 55;
+            }
+        }
+    }
+    else {
+        if (online) {
+            // Not Successful
             status = 51;
-			
-		}
-		// Empty out Detected Title/Episode to prevent same title detection
-		DetectedTitle = @"";
-		DetectedEpisode = @"";
-        // Release Detected Title/Episode.
-        return status;
-	}
-
-    return detectstatus;
+            FailedTitle  = DetectedTitle;
+            FailedEpisode = DetectedEpisode;
+        }
+        else{
+            status = 55;
+        }
+        
+    }
+    // Empty out Detected Title/Episode to prevent same title detection
+    DetectedTitle = nil;
+    DetectedEpisode = nil;
+    DetectedSeason = nil;
+    // Release Detected Title/Episode.
+    return status;
 }
 -(NSString *)searchanime{
 	NSLog(@"Searching For Title");
@@ -187,11 +207,18 @@
 	int statusCode = [request responseStatusCode];
     NSData *response = [request responseData];
 	switch (statusCode) {
+        case 0:
+            online = false;
+            Success = NO;
+            return @"";
+            break;
 		case 200:
+            online = true;
 			return [self findaniid:response];
 			break;
 			
 		default:
+            online = true;
 			Success = NO;
 			return @"";
 			break;
@@ -492,6 +519,7 @@ update:
     NSDictionary * d;
     int statusCode = [request responseStatusCode];
 	if (statusCode == 200 || statusCode == 201 ) {
+        online = true;
         //return Data
         NSError * error;
         d = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:&error];
@@ -518,6 +546,10 @@ update:
 		// Makes sure the values don't get released
 		return YES;
 	}
+    else if (statusCode == 0){
+        online = false;
+        return NO;
+    }
 	else {
 		// Some Error. Abort
 		//Set up Delegate
@@ -676,6 +708,36 @@ update:
 	}
     return false;
 }
+-(bool)removetitle:(NSString *)titleid{
+    NSLog(@"Removing %@", titleid);
+    //Set up Delegate
+    
+    // Update the title
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //Set library/scrobble API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@/remove", @"https://hbrd-v1.p.mashape.com", titleid]];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
+    //Ignore Cookies
+    [request setUseCookiePersistence:NO];
+    //Set Token
+    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+    //Set Timeout
+    [request setTimeOutSeconds:15];
+    // Do Update
+    [request startSynchronous];
+    switch ([request responseStatusCode]) {
+        case 200:
+        case 201:
+            return true;
+            break;
+        default:
+            // Update Unsuccessful
+            return false;
+            break;
+    }
+    return false;
+}
 -(NSDictionary *)detectStream{
     // Create Dictionary
     NSDictionary * d;
@@ -780,5 +842,9 @@ update:
     NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"detectedtitle", showid, @"showid", nil];
     [cache addObject:entry];
     [defaults setObject:cache forKey:@"searchcache"];
+}
+-(void)clearFailed{
+    FailedTitle = nil;
+    FailedEpisode = nil;
 }
 @end

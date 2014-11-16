@@ -21,4 +21,5 @@
 -(void)setCorrection:(BOOL)correct;
 -(NSString *)getSelectedTitle;
 -(bool)getdeleteTitleonCorrection;
+-(void)setSearchField:(NSString *)term;
 @end
