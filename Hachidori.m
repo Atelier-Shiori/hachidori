@@ -421,7 +421,7 @@ update:
             // Used for Season Checking
             OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"%i(st|nd|rd|th) season", DetectedSeason] options:OgreIgnoreCaseOption];
             OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
-            if (DetectedSeason > 2) { // Season detected, check to see if there is a matcch. If not, continue.
+            if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
                 if (smatch == nil) {
                     continue;
                 }
