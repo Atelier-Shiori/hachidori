@@ -137,7 +137,7 @@
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"setprivate"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
-    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"exceptions"];
+    [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
