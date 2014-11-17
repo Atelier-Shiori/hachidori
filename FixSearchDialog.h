@@ -16,6 +16,7 @@
     IBOutlet NSTableView *tb;
     NSString * selectedtitle;
     NSString * selectedaniid;
+    NSString * searchquery;
     bool correction;
 }
 -(id)init;

@@ -7,6 +7,7 @@
 //
 
 #import "Hachidori.h"
+#import "Recognition.h"
 
 @interface Hachidori ()
 // Private Methods
@@ -18,7 +19,7 @@
 -(int)updatetitle:(NSString *)titleid;
 -(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
--(int)recognizeSeason:(NSString *)season;
+//-(int)recognizeSeason:(NSString *)season;
 -(int)countWordsInTitle:(NSString *) title;
 -(BOOL)checkillegalcharacters:(NSString *) title;
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid;
@@ -298,73 +299,10 @@
 		while ((match = [enumerator nextObject]) != nil) {
 			string = [match matchedString];
 		}
-		//Accented e temporary fix
-		regex = [OGRegularExpression regularExpressionWithString:@"e\\\\xcc\\\\x81"];
-		string = [regex replaceAllMatchesInString:string
-									   withString:@"è"];
-		//Cleanup
-		regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
-		string = [regex replaceAllMatchesInString:string
-									   withString:@""];
-		regex = [OGRegularExpression regularExpressionWithString:@"\\.\\w+$"];
-		string = [regex replaceAllMatchesInString:string
-									   withString:@""];
-		regex = [OGRegularExpression regularExpressionWithString:@"[\\s_]*\\[[^\\]]+\\]\\s*"];
-		string = [regex replaceAllMatchesInString:string
-									   withString:@""];
-		regex = [OGRegularExpression regularExpressionWithString:@"[\\s_]*\\([^\\)]+\\)$"];
-		string = [regex replaceAllMatchesInString:string
-									   withString:@""];
-		regex = [OGRegularExpression regularExpressionWithString:@"_"];
-		string = [regex replaceAllMatchesInString:string
-									   withString:@" "];
-        regex = [OGRegularExpression regularExpressionWithString:@"~"];
-        string = [regex replaceAllMatchesInString:string
-                                       withString:@""];
-        regex = [OGRegularExpression regularExpressionWithString:@" - "];
-        string = [regex replaceAllMatchesInString:string
-                                       withString:@" "];
-		// Set Title Info
-		regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$"];
-		DetectedTitle = [regex replaceAllMatchesInString:string
-														 withString:@""];
-        regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d+$"];
-        DetectedTitle = [regex replaceAllMatchesInString:DetectedTitle
-                                              withString:@""];
-		// Set Episode Info
-		regex = [OGRegularExpression regularExpressionWithString: DetectedTitle];
-		string = [regex replaceAllMatchesInString:string
-												withString:@""];
-		regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]"];
-		DetectedEpisode = [regex replaceAllMatchesInString:string
-												withString:@""];
-        //Season
-        NSString * tmpseason;
-        OGRegularExpressionMatch * smatch;
-        regex = [OGRegularExpression regularExpressionWithString: @"(S|s)\\d"];
-        smatch = [regex matchInString:DetectedTitle];
-        if (smatch != nil) {
-            tmpseason = [smatch matchedString];
-            regex = [OGRegularExpression regularExpressionWithString: @"(S|s)"];
-            tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
-            DetectedSeason = [tmpseason intValue];
-        }
-        else {
-            regex = [OGRegularExpression regularExpressionWithString: @"(second season| third season|fourth season|fifth season|sixth season|seventh season|eighth season|nineth season)"];
-            smatch = [regex matchInString:DetectedTitle];
-            if (smatch !=nil) {
-                tmpseason = [smatch matchedString];
-                DetectedSeason = [self recognizeSeason:tmpseason];
-            }
-            else{
-                DetectedSeason = 1;
-            }
-            
-        }
-        
-		// Trim Whitespace
-		DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		DetectedEpisode = [DetectedEpisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSDictionary *d = [[Recognition alloc] recognize:string];
+        DetectedTitle = [NSString stringWithFormat:@"%@", [d objectForKey:@"title"]];
+        DetectedEpisode = [NSString stringWithFormat:@"%@", [d objectForKey:@"episode"]];
+        DetectedSeason = [[d objectForKey:@"season"] intValue];
         DetectedisStream = false;
 	}
 	else {
@@ -829,26 +767,7 @@ update:
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
 }
--(int)recognizeSeason:(NSString *)season{
-    if ([season caseInsensitiveCompare:@"second season"] == NSOrderedSame)
-        return 2;
-    else if ([season caseInsensitiveCompare:@"third season"] == NSOrderedSame)
-        return 3;
-    else if ([season caseInsensitiveCompare:@"fourth season"] == NSOrderedSame)
-        return 4;
-    else if ([season caseInsensitiveCompare:@"fifth season"] == NSOrderedSame)
-        return 5;
-    else if ([season caseInsensitiveCompare:@"sixth season"] == NSOrderedSame)
-        return 6;
-    else if ([season caseInsensitiveCompare:@"seventh season"] == NSOrderedSame)
-        return 7;
-    else if ([season caseInsensitiveCompare:@"eighth season"] == NSOrderedSame)
-        return 8;
-    else if ([season caseInsensitiveCompare:@"ninth season"] == NSOrderedSame)
-        return 9;
-    else
-        return 0;
-}
+
 -(NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
     OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season)"];

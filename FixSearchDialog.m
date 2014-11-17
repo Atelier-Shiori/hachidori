@@ -25,8 +25,13 @@
         [deleteoncorrection setHidden:NO];
     }
     [super windowDidLoad];
+    if ([searchquery length]>0) {
+        [search setStringValue:searchquery];
+        [self search:nil];
+    }
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    
 }
 -(IBAction)closesearch:(id)sender {
     [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
@@ -113,7 +118,7 @@
     correction = correct;
 }
 -(void)setSearchField:(NSString *)term{
-    [search setStringValue:term];
+    searchquery = term;
 }
 -(NSString *)getSelectedTitle{
     return selectedtitle;

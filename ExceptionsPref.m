@@ -7,6 +7,7 @@
 //
 
 #import "ExceptionsPref.h"
+#import "Recognition.h"
 
 @interface ExceptionsPref ()
 
@@ -28,7 +29,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"edit.tiff"];
+    return [NSImage imageNamed:@"rules.tif"];
 }
 
 - (NSString *)toolbarItemLabel
@@ -36,14 +37,44 @@
     return NSLocalizedString(@"Exceptions", @"Toolbar item name for the Exceptions spreference pane");
 }
 -(IBAction)addTitle:(id)sender{
+    //Obtain Detected Title from Media File
+    NSOpenPanel * op = [NSOpenPanel openPanel];
+    [op setAllowedFileTypes:[NSArray arrayWithObjects:@"mkv", @"mp4", @"avi", @"ogm", nil]];
+    [op setTitle:@"Select Media File"];
+    [op setMessage:@"Select a media file you want to create an exception for."];
+    NSInteger result = [op runModal];
+    if (result == NSFileHandlingPanelCancelButton) {
+        return;
+    }
+    NSDictionary * d = [[Recognition alloc] recognize:[[op URL] path]];
+    NSString * detectedtitle = [d objectForKey:@"title"];
+    if ([self checkifexists:detectedtitle]) {
+        // Exists, don't do anything
+        return;
+    }
     fsdialog = [FixSearchDialog new];
+    [fsdialog setCorrection:false];
+    [fsdialog setSearchField:detectedtitle];
     [[[self view] window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
         if (returnCode == NSModalResponseOK) {
-            NSLog(@"OK");
-            NSLog(@"Selected Title %@", [fsdialog getSelectedTitle]);
+            // Add to Array Controller
+            NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", [fsdialog getSelectedTitle] ,@"correcttitle", [fsdialog getSelectedAniID], @"showid", nil];
+            [arraycontroller addObject:entry];
+            //Check if the title exists in the cache. If so, remove it
+            NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+            if (cache.count > 0) {
+                for (int i=0; i<[cache count]; i++) {
+                    NSDictionary * d = [cache objectAtIndex:i];
+                    NSString * title = [d objectForKey:@"detectedtitle"];
+                    if ([title isEqualToString:detectedtitle]) {
+                        NSLog(@"%@ found in cache, remove!", title);
+                        [cache removeObject:d];
+                        break;
+                    }
+                }
+            }
         }
         else{
-            NSLog(@"Cancel");
         }
         fsdialog = nil;
     }];
@@ -72,18 +103,10 @@
     
     NSError *error = nil;
     NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-    NSArray * b = [arraycontroller arrangedObjects];
     for (NSDictionary *d in a) {
         NSString * detectedtitlea = [d objectForKey:@"detectedtitle"];
-        BOOL exists = false;
+        BOOL exists = [self checkifexists:detectedtitlea];
         // Check to see if it exists on the list already
-        for (NSDictionary * e in b){
-            NSString * detectedtitleb = [e objectForKey:@"detectedtitle"];
-            if ([detectedtitlea isEqualToString:detectedtitleb]) {
-                exists = true;
-                break;
-            }
-        }
         if (exists) {
             //Check next title
             continue;
@@ -144,6 +167,17 @@
 -(IBAction)getHelp:(id)sender{
     //Show Help
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Correction-Exception-Help"]];
+}
+-(BOOL)checkifexists:(NSString *) title{
+    // Checks if a title is already on the exception list
+    NSArray * a = [arraycontroller arrangedObjects];
+    for (NSDictionary * d in a){
+        NSString * detectedtitle = [d objectForKey:@"detectedtitle"];
+        if ([title isEqualToString:detectedtitle]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 @end
