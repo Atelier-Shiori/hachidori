@@ -40,129 +40,135 @@
     //Obtain Detected Title from Media File
     NSOpenPanel * op = [NSOpenPanel openPanel];
     [op setAllowedFileTypes:[NSArray arrayWithObjects:@"mkv", @"mp4", @"avi", @"ogm", nil]];
-    [op setTitle:@"Select Media File"];
-    [op setMessage:@"Select a media file you want to create an exception for."];
-    NSInteger result = [op runModal];
-    if (result == NSFileHandlingPanelCancelButton) {
-        return;
-    }
-    NSDictionary * d = [[Recognition alloc] recognize:[[op URL] path]];
-    NSString * detectedtitle = [d objectForKey:@"title"];
-    if ([self checkifexists:detectedtitle]) {
-        // Exists, don't do anything
-        return;
-    }
-    fsdialog = [FixSearchDialog new];
-    [fsdialog setCorrection:false];
-    [fsdialog setSearchField:detectedtitle];
-    [[[self view] window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
-        if (returnCode == NSModalResponseOK) {
-            // Add to Array Controller
-            NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", [fsdialog getSelectedTitle] ,@"correcttitle", [fsdialog getSelectedAniID], @"showid", nil];
-            [arraycontroller addObject:entry];
-            //Check if the title exists in the cache. If so, remove it
-            NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-            if (cache.count > 0) {
-                for (int i=0; i<[cache count]; i++) {
-                    NSDictionary * d = [cache objectAtIndex:i];
-                    NSString * title = [d objectForKey:@"detectedtitle"];
-                    if ([title isEqualToString:detectedtitle]) {
-                        NSLog(@"%@ found in cache, remove!", title);
-                        [cache removeObject:d];
-                        break;
+    [op setMessage:@"Please select a media file you want to create an exception for."];
+    [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelCancelButton) {
+            return;
+        }
+        //Close Open Window
+        [op orderOut:nil];
+        NSDictionary * d = [[Recognition alloc] recognize:[[op URL] path]];
+        NSString * detectedtitle = [d objectForKey:@"title"];
+        if ([self checkifexists:detectedtitle]) {
+            // Exists, don't do anything
+            return;
+        }
+        fsdialog = [FixSearchDialog new];
+        [fsdialog setCorrection:false];
+        [fsdialog setSearchField:detectedtitle];
+        [[[self view] window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
+            if (returnCode == NSModalResponseOK) {
+                // Add to Array Controller
+                NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", [fsdialog getSelectedTitle] ,@"correcttitle", [fsdialog getSelectedAniID], @"showid", nil];
+                [arraycontroller addObject:entry];
+                //Check if the title exists in the cache. If so, remove it
+                NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+                if (cache.count > 0) {
+                    for (int i=0; i<[cache count]; i++) {
+                        NSDictionary * d = [cache objectAtIndex:i];
+                        NSString * title = [d objectForKey:@"detectedtitle"];
+                        if ([title isEqualToString:detectedtitle]) {
+                            NSLog(@"%@ found in cache, remove!", title);
+                            [cache removeObject:d];
+                            break;
+                        }
                     }
                 }
             }
-        }
-        else{
-        }
-        fsdialog = nil;
+            else{
+            }
+            fsdialog = nil;
+        }];
     }];
+  
 }
 -(IBAction)removeSlection:(id)sender{
     //Remove Selected Object
     [arraycontroller removeObject:[[arraycontroller selectedObjects] objectAtIndex:0]];
 }
 -(IBAction)importList:(id)sender{
-    // get the url of a .txt file
+    // Set Open Dialog to get json file.
     NSOpenPanel * op = [NSOpenPanel openPanel];
     [op setAllowedFileTypes:[NSArray arrayWithObjects:@"json", @"JSON file", nil]];
-    [op setTitle:@"Import Exceptions List"];
-    NSInteger result = [op runModal];
-    if (result == NSFileHandlingPanelCancelButton) {
-        return;
-    }
-    NSURL *Url = [op URL];
-    
-    // read the file
-    NSString * str = [NSString stringWithContentsOfURL:Url
-                                               encoding:NSUTF8StringEncoding
-                                                  error:NULL];
-    
-    NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSError *error = nil;
-    NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-    for (NSDictionary *d in a) {
-        NSString * detectedtitlea = [d objectForKey:@"detectedtitle"];
-        BOOL exists = [self checkifexists:detectedtitlea];
-        // Check to see if it exists on the list already
-        if (exists) {
-            //Check next title
-            continue;
+    [op setMessage:@"Please select an exceptions list to import."];
+    [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelCancelButton) {
+            return;
         }
-        else{
-            //Import Object
-            [arraycontroller addObject:d];
-            //Check if the title exists in the cache. If so, remove it
-            NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-            if (cache.count > 0) {
-                for (int i=0; i<[cache count]; i++) {
-                    NSDictionary * d = [cache objectAtIndex:i];
-                    NSString * title = [d objectForKey:@"detectedtitle"];
-                    if ([title isEqualToString:detectedtitlea]) {
-                        NSLog(@"%@ found in cache, remove!", title);
-                        [cache removeObject:d];
-                        break;
+        NSURL *Url = [op URL];
+        
+        // read the file
+        NSString * str = [NSString stringWithContentsOfURL:Url
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:NULL];
+        
+        NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSError *error = nil;
+        NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+        for (NSDictionary *d in a) {
+            NSString * detectedtitlea = [d objectForKey:@"detectedtitle"];
+            BOOL exists = [self checkifexists:detectedtitlea];
+            // Check to see if it exists on the list already
+            if (exists) {
+                //Check next title
+                continue;
+            }
+            else{
+                //Import Object
+                [arraycontroller addObject:d];
+                //Check if the title exists in the cache. If so, remove it
+                NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+                if (cache.count > 0) {
+                    for (int i=0; i<[cache count]; i++) {
+                        NSDictionary * d = [cache objectAtIndex:i];
+                        NSString * title = [d objectForKey:@"detectedtitle"];
+                        if ([title isEqualToString:detectedtitlea]) {
+                            NSLog(@"%@ found in cache, remove!", title);
+                            [cache removeObject:d];
+                            break;
+                        }
                     }
                 }
+                
             }
-
         }
-    }
+    }];
+
     
 }
 -(IBAction)exportList:(id)sender{
-    // Get the file url
+    // Save the json file containing titles
     NSSavePanel * sp = [NSSavePanel savePanel];
     [sp setAllowedFileTypes:[NSArray arrayWithObjects:@"json", @"JSON file", nil]];
-    [sp setTitle:@"Export Exceptions List"];
+    [sp setMessage:@"Where do you want to save your exception list?"];
     [sp setNameFieldStringValue:@"Exceptions List.json"];
-    NSInteger result = [sp runModal];
-    if (result == NSFileHandlingPanelCancelButton) {
-        return;
-    }
-    NSURL *url = [sp URL];
-    //Create JSON string from array controller
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[arraycontroller arrangedObjects]
-                                                       options:0
-                                                         error:&error];
-    if (!jsonData) {
-        return;
-    } else {
-        NSString *JSONString = [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
-
-    
-        //write JSON to file
-        BOOL wresult = [JSONString writeToURL:url
-                             atomically:YES
-                               encoding:NSASCIIStringEncoding
-                                  error:NULL];
-        if (! wresult) {
-            NSLog(@"Export Failed");
+    [sp beginSheetModalForWindow:[[self view]window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelCancelButton) {
+            return;
         }
-    }
+        NSURL *url = [sp URL];
+        //Create JSON string from array controller
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[arraycontroller arrangedObjects]
+                                                           options:0
+                                                             error:&error];
+        if (!jsonData) {
+            return;
+        } else {
+            NSString *JSONString = [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
+            
+            
+            //write JSON to file
+            BOOL wresult = [JSONString writeToURL:url
+                                       atomically:YES
+                                         encoding:NSASCIIStringEncoding
+                                            error:NULL];
+            if (! wresult) {
+                NSLog(@"Export Failed");
+            }
+        }
+    }];
 }
 -(IBAction)getHelp:(id)sender{
     //Show Help

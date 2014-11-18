@@ -304,6 +304,7 @@
         DetectedEpisode = [NSString stringWithFormat:@"%@", [d objectForKey:@"episode"]];
         DetectedSeason = [[d objectForKey:@"season"] intValue];
         DetectedisStream = false;
+        goto update;
 	}
 	else {
         NSLog(@"Checking Stream...");
