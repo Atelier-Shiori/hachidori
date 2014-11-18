@@ -4,7 +4,7 @@ Hachidori (はちどり) is an open sourced Hummingbird.me client for OS X based
 
 Warning: Still a work in progress since this is an Alpha. 
 
-Requires Mountain Lion SDK. (XCode 5)
+Requires latest SDK (10.10) and XCode 6 to compile. Deployment target is 10.8.
 
 ## How to use
 To use, launch Hachidori. Go to the Hachidori icon on the menu bar and Preferences. Save your login info (encoded in Base64 in Preferences) and click Start Scrobbling.

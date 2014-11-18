@@ -196,6 +196,22 @@
 	// Hide Window
 	[window orderOut:self];
 	
+    //Set up Yosemite UI Enhancements
+    if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9)
+    {
+        // OS X 10.10 code here.
+        self.window.titleVisibility = NSWindowTitleHidden;
+        // Fix Window Size
+        NSRect frame = [window frame];
+        frame.size = CGSizeMake(410, 291);
+        [window setFrame:frame display:YES];
+    }
+    else
+    {
+        // OS X < 10.10 code here.
+        
+    }
+    
 	// Notify User if there is no Account Info
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([[defaults objectForKey:@"Token"] length] == 0) {

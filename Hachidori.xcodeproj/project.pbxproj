@@ -535,7 +535,7 @@
 				INSTALL_PATH = "$(HOME)/Documents/Build/Debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Hachidori;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
@@ -562,7 +562,7 @@
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Hachidori;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
