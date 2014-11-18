@@ -1,3 +1,4 @@
 language: objective-c
 xcode_project: Hachidori.xcodeproj 
 xcode_scheme: Hachidori
+osx_image: xcode61
