@@ -206,7 +206,7 @@
     //Set up Yosemite UI Enhancements
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9)
     {
-        if ([defaults boolForKey:@"DisableYosemiteTitleBar"] == 1) {
+        if ([defaults boolForKey:@"DisableYosemiteTitleBar"] != 1) {
             // OS X 10.10 code here.
             //Hide Title Bar
             self.window.titleVisibility = NSWindowTitleHidden;
