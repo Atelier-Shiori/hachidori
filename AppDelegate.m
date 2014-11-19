@@ -138,6 +138,11 @@
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
+    if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
+            //Yosemite Specific Advanced Options
+        	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteTitleBar"];
+        	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteVibrance"];
+    }
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -201,7 +206,7 @@
     //Set up Yosemite UI Enhancements
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9)
     {
-        if ([defaults boolForKey:@"DisableYosemiteTitleBar"] != 1) {
+        if ([defaults boolForKey:@"DisableYosemiteTitleBar"] == 1) {
             // OS X 10.10 code here.
             //Hide Title Bar
             self.window.titleVisibility = NSWindowTitleHidden;
