@@ -183,7 +183,8 @@
 	PFMoveToApplicationsFolderIfNecessary();
 	//Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
 	[NSApp activateIgnoringOtherApps:YES];
-
+    // Set Defaults
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set Notification Center Delegate
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
     
@@ -199,21 +200,27 @@
     //Set up Yosemite UI Enhancements
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9)
     {
-        // OS X 10.10 code here.
-        self.window.titleVisibility = NSWindowTitleHidden;
-        // Fix Window Size
-        NSRect frame = [window frame];
-        frame.size = CGSizeMake(410, 291);
-        [window setFrame:frame display:YES];
-    }
-    else
-    {
-        // OS X < 10.10 code here.
+        if ([defaults boolForKey:@"DisableYosemiteTitleBar"] != 1) {
+            // OS X 10.10 code here.
+            //Hide Title Bar
+            self.window.titleVisibility = NSWindowTitleHidden;
+            // Fix Window Size
+            NSRect frame = [window frame];
+            frame.size = CGSizeMake(440, 291);
+            [window setFrame:frame display:YES];
+         }
+        if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
+            //Add NSVisualEffectView to Window
+            NSVisualEffectView * visualeffect = [[NSVisualEffectView alloc] initWithFrame:CGRectMake(0, 22, 440, 269)];
+            [visualeffect setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
+            [visualeffect setMaterial:NSVisualEffectMaterialLight];
+            [visualeffect setState:NSVisualEffectStateActive];
+            [[[self window] contentView] addSubview:visualeffect positioned:NSWindowBelow relativeTo:nil];
+        }
         
     }
     
 	// Notify User if there is no Account Info
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([[defaults objectForKey:@"Token"] length] == 0) {
 		//Notify the user that there is no login token.
         NSUserNotification *notification = [[NSUserNotification alloc] init];
@@ -426,7 +433,7 @@
                 [sharetoolbaritem setEnabled:YES];
                 [updatedtitlemenu setHidden:NO];
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
-                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 //Show Anime Information
                 NSDictionary * ainfo = [haengine getLastScrobbledInfo];
