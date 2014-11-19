@@ -41,9 +41,6 @@
 		824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A219FD334300CFA12A /* DDHotKeyUtilities.m */; };
 		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
 		8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824924A11A184C4200A01761 /* FixSearchDialog.xib */; };
-		8252ADC01A1C34A600CABBDD /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = 8252ADBF1A1C34A600CABBDD /* history.png */; };
-		8252ADC21A1C34D900CABBDD /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = 8252ADC11A1C34D900CABBDD /* update.png */; };
-		8252ADC41A1C354800CABBDD /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = 8252ADC31A1C354800CABBDD /* correct.png */; };
 		825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 825D878F1A18FD2700C5E1BF /* ExceptionsPref.m */; };
 		825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */; };
 		8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8294C45D19F99B2F009DE98B /* Images.xcassets */; };
@@ -124,9 +121,6 @@
 		824693A219FD334300CFA12A /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
 		824693A619FD35AE00CFA12A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		824924A01A184C4200A01761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FixSearchDialog.xib; sourceTree = "<group>"; };
-		8252ADBF1A1C34A600CABBDD /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history.png; sourceTree = "<group>"; };
-		8252ADC11A1C34D900CABBDD /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
-		8252ADC31A1C354800CABBDD /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
 		825D878E1A18FD2600C5E1BF /* ExceptionsPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsPref.h; sourceTree = "<group>"; };
 		825D878F1A18FD2700C5E1BF /* ExceptionsPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionsPref.m; sourceTree = "<group>"; };
 		825D87941A1912EF00C5E1BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionsPref.xib; sourceTree = "<group>"; };
@@ -287,9 +281,6 @@
 		5C8ACEB919F409F90001A101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				8252ADBF1A1C34A600CABBDD /* history.png */,
-				8252ADC11A1C34D900CABBDD /* update.png */,
-				8252ADC31A1C354800CABBDD /* correct.png */,
 				82F065AD19FB613800E0B17A /* hachidori-status-hi.png */,
 				82F065AE19FB613800E0B17A /* hachidori-status.png */,
 				5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */,
@@ -405,10 +396,8 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				82F065B319FB618E00E0B17A /* detectstream in Resources */,
-				8252ADC41A1C354800CABBDD /* correct.png in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
-				8252ADC21A1C34D900CABBDD /* update.png in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
 				82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */,
@@ -421,7 +410,6 @@
 				5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */,
 				82F065B019FB613800E0B17A /* hachidori-status.png in Resources */,
 				5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */,
-				8252ADC01A1C34A600CABBDD /* history.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

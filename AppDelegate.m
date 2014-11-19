@@ -220,6 +220,14 @@
         }
         
     }
+    // Fix template images
+    // There is a bug where template images are not made even if they are set in XCAssets
+    NSArray *images = [NSArray arrayWithObjects:@"update", @"history", @"correct", nil];
+    NSImage * image;
+    for (NSString *imagename in images){
+            image = [NSImage imageNamed:imagename];
+            [image setTemplate:YES];
+    }
     
 	// Notify User if there is no Account Info
 	if ([[defaults objectForKey:@"Token"] length] == 0) {
