@@ -212,11 +212,12 @@
          }
         if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
             //Add NSVisualEffectView to Window
-            NSVisualEffectView * visualeffect = [[NSVisualEffectView alloc] initWithFrame:CGRectMake(0, 22, 440, 269)];
-            [visualeffect setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
-            [visualeffect setMaterial:NSVisualEffectMaterialLight];
-            [visualeffect setState:NSVisualEffectStateActive];
-            [[[self window] contentView] addSubview:visualeffect positioned:NSWindowBelow relativeTo:nil];
+            [windowcontent setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
+            [windowcontent setMaterial:NSVisualEffectMaterialLight];
+            [windowcontent setState:NSVisualEffectStateActive];
+            // Set Appearence Options Manually
+            [LastScrobbled setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+            [animeinfo setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
         }
         
     }
