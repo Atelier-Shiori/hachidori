@@ -194,6 +194,7 @@
 	// Disable Update and Share Buttons
 	[updatetoolbaritem setEnabled:NO];
     [sharetoolbaritem setEnabled:NO];
+    [correcttoolbaritem setEnabled:NO];
 	// Hide Window
 	[window orderOut:self];
 	
@@ -432,6 +433,7 @@
                 [updatetoolbaritem setEnabled:YES];
                 [sharetoolbaritem setEnabled:YES];
                 [updatedtitlemenu setHidden:NO];
+                [correcttoolbaritem setEnabled:YES];
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
                 [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];

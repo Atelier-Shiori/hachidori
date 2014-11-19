@@ -31,12 +31,10 @@
     IBOutlet NSMenuItem * updatedtitlemenu;
     IBOutlet NSMenuItem * updatedtitle;
     IBOutlet NSMenuItem * updatedepisode;
-    IBOutlet NSMenuItem * showcorrectiondialogMenu;
 	IBOutlet NSTextField * ScrobblerStatus;
 	IBOutlet NSTextField * LastScrobbled;
     IBOutlet NSTextView * animeinfo;
     IBOutlet NSImageView * img;
-    IBOutlet NSToolbar * maintbr;
 	int choice;
 	BOOL scrobbling;
     BOOL scrobbleractive;
@@ -44,6 +42,7 @@
 	Hachidori * haengine;
 	/* Update Status Sheet Window IBOutlets */
 	IBOutlet NSToolbarItem * updatetoolbaritem;
+    IBOutlet NSToolbarItem * correcttoolbaritem;
     IBOutlet NSToolbarItem * sharetoolbaritem;
 	IBOutlet NSTextField * showtitle;
 	IBOutlet NSPopUpButton * showstatus;

@@ -261,11 +261,11 @@
                 <outlet property="LastScrobbled" destination="792" id="805"/>
                 <outlet property="ScrobblerStatus" destination="793" id="806"/>
                 <outlet property="animeinfo" destination="bGm-dl-hOF" id="3tY-bt-kdf"/>
+                <outlet property="correcttoolbaritem" destination="q9Q-0H-wSc" id="2bQ-jw-mDj"/>
                 <outlet property="historytable" destination="595" id="635"/>
                 <outlet property="historywindow" destination="588" id="605"/>
                 <outlet property="img" destination="gfr-73-DLn" id="iLO-3a-xch"/>
                 <outlet property="isPrivate" destination="08J-G1-ibd" id="SgD-vy-2Kq"/>
-                <outlet property="maintbr" destination="790" id="kLK-j8-liW"/>
                 <outlet property="notes" destination="zRV-za-4dp" id="ABq-oY-STM"/>
                 <outlet property="sharetoolbaritem" destination="PDJ-oY-qAN" id="Xw6-jN-k2Z"/>
                 <outlet property="showscore" destination="Mfz-5E-LLG" id="acW-pr-oyF"/>
@@ -278,7 +278,7 @@
                 <outlet property="updatedtitlemenu" destination="ocn-xD-u5l" id="WxQ-uv-vrx"/>
                 <outlet property="updatenow" destination="Swq-JZ-crS" id="wbq-Tb-8xl"/>
                 <outlet property="updatepanel" destination="725" id="777"/>
-                <outlet property="updatetoolbaritem" destination="q9Q-0H-wSc" id="BKi-PG-01a"/>
+                <outlet property="updatetoolbaritem" destination="k8g-Fn-fps" id="A7q-dc-ToK"/>
                 <outlet property="window" destination="789" id="804"/>
             </connections>
         </customObject>
