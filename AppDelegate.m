@@ -590,9 +590,21 @@
     //Adds correct title and ID to exceptions list
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *exceptions = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"]];
-    NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", title ,@"correcttitle", showid, @"showid", nil];
-    [exceptions addObject:entry];
-    [defaults setObject:exceptions forKey:@"exceptions"];
+    //Prevent duplicate
+    BOOL exists = false;
+    for (NSDictionary * d in exceptions){
+        NSString * dt = [d objectForKey:@"detectedtitle"];
+        if (![detectedtitle isEqualToString:dt]) {
+            NSLog(@"Title exists on Exceptions List");
+            exists = true;
+            break;
+        }
+    }
+    if (!exists) {
+        NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", title ,@"correcttitle", showid, @"showid", nil];
+        [exceptions addObject:entry];
+        [defaults setObject:exceptions forKey:@"exceptions"];
+    }
     //Check if the title exists in the cache. If so, remove it
     NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
     if (cache.count > 0) {
