@@ -1,0 +1,545 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CEE7D4E91A1A8EFA005DB9C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7D4E81A1A8EFA005DB9C9 /* Cocoa.framework */; };
+		CEE7D4F31A1A8EFA005DB9C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE7D4F11A1A8EFA005DB9C9 /* InfoPlist.strings */; };
+		CEE7D4FE1A1A8EFA005DB9C9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7D4FD1A1A8EFA005DB9C9 /* XCTest.framework */; };
+		CEE7D4FF1A1A8EFA005DB9C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7D4E81A1A8EFA005DB9C9 /* Cocoa.framework */; };
+		CEE7D5021A1A8EFA005DB9C9 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7D4E51A1A8EFA005DB9C9 /* anitomy-osx.framework */; };
+		CEE7D5081A1A8EFA005DB9C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE7D5061A1A8EFA005DB9C9 /* InfoPlist.strings */; };
+		CEE7D50A1A1A8EFA005DB9C9 /* anitomy_osxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D5091A1A8EFA005DB9C9 /* anitomy_osxTests.m */; };
+		CEE7D5151A1A8F29005DB9C9 /* anitomy-objc-wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D5131A1A8F29005DB9C9 /* anitomy-objc-wrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CEE7D5161A1A8F29005DB9C9 /* anitomy-objc-wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D5141A1A8F29005DB9C9 /* anitomy-objc-wrapper.mm */; };
+		CEE7D5281A1A8F30005DB9C9 /* anitomy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D5181A1A8F30005DB9C9 /* anitomy.cpp */; };
+		CEE7D5291A1A8F30005DB9C9 /* anitomy.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D5191A1A8F30005DB9C9 /* anitomy.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CEE7D52A1A1A8F30005DB9C9 /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D51A1A1A8F30005DB9C9 /* element.cpp */; };
+		CEE7D52B1A1A8F30005DB9C9 /* element.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D51B1A1A8F30005DB9C9 /* element.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CEE7D52C1A1A8F30005DB9C9 /* keyword.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D51C1A1A8F30005DB9C9 /* keyword.cpp */; };
+		CEE7D52D1A1A8F30005DB9C9 /* keyword.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D51D1A1A8F30005DB9C9 /* keyword.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CEE7D52E1A1A8F30005DB9C9 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D51E1A1A8F30005DB9C9 /* parser.cpp */; };
+		CEE7D52F1A1A8F30005DB9C9 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D51F1A1A8F30005DB9C9 /* parser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CEE7D5301A1A8F30005DB9C9 /* parser_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D5201A1A8F30005DB9C9 /* parser_helper.cpp */; };
+		CEE7D5311A1A8F30005DB9C9 /* parser_number.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D5211A1A8F30005DB9C9 /* parser_number.cpp */; };
+		CEE7D5341A1A8F30005DB9C9 /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D5241A1A8F30005DB9C9 /* token.cpp */; };
+		CEE7D5351A1A8F30005DB9C9 /* token.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D5251A1A8F30005DB9C9 /* token.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CEE7D5361A1A8F30005DB9C9 /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D5261A1A8F30005DB9C9 /* tokenizer.cpp */; };
+		CEE7D5371A1A8F30005DB9C9 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D5271A1A8F30005DB9C9 /* tokenizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CEE7D5391A1A8F6B005DB9C9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CEE7D5381A1A8F6B005DB9C9 /* LICENSE */; };
+		CEE7D53C1A1A8FD5005DB9C9 /* string2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE7D53A1A1A8FD5005DB9C9 /* string2.cpp */; };
+		CEE7D53D1A1A8FD5005DB9C9 /* string2.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE7D53B1A1A8FD5005DB9C9 /* string2.h */; settings = {ATTRIBUTES = (Private, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CEE7D5001A1A8EFA005DB9C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEE7D4DC1A1A8EF9005DB9C9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEE7D4E41A1A8EFA005DB9C9;
+			remoteInfo = "anitomy-osx";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CEE7D4E51A1A8EFA005DB9C9 /* anitomy-osx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "anitomy-osx.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE7D4E81A1A8EFA005DB9C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		CEE7D4EB1A1A8EFA005DB9C9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CEE7D4EC1A1A8EFA005DB9C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CEE7D4ED1A1A8EFA005DB9C9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CEE7D4F01A1A8EFA005DB9C9 /* anitomy-osx-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "anitomy-osx-Info.plist"; sourceTree = "<group>"; };
+		CEE7D4F21A1A8EFA005DB9C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CEE7D4F41A1A8EFA005DB9C9 /* anitomy-osx-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "anitomy-osx-Prefix.pch"; sourceTree = "<group>"; };
+		CEE7D4FC1A1A8EFA005DB9C9 /* anitomy-osxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "anitomy-osxTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE7D4FD1A1A8EFA005DB9C9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CEE7D5051A1A8EFA005DB9C9 /* anitomy-osxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "anitomy-osxTests-Info.plist"; sourceTree = "<group>"; };
+		CEE7D5071A1A8EFA005DB9C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CEE7D5091A1A8EFA005DB9C9 /* anitomy_osxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = anitomy_osxTests.m; sourceTree = "<group>"; };
+		CEE7D5131A1A8F29005DB9C9 /* anitomy-objc-wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "anitomy-objc-wrapper.h"; sourceTree = "<group>"; };
+		CEE7D5141A1A8F29005DB9C9 /* anitomy-objc-wrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "anitomy-objc-wrapper.mm"; sourceTree = "<group>"; };
+		CEE7D5181A1A8F30005DB9C9 /* anitomy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = anitomy.cpp; sourceTree = "<group>"; };
+		CEE7D5191A1A8F30005DB9C9 /* anitomy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anitomy.h; sourceTree = "<group>"; };
+		CEE7D51A1A1A8F30005DB9C9 /* element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = element.cpp; sourceTree = "<group>"; };
+		CEE7D51B1A1A8F30005DB9C9 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = element.h; sourceTree = "<group>"; };
+		CEE7D51C1A1A8F30005DB9C9 /* keyword.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = keyword.cpp; sourceTree = "<group>"; };
+		CEE7D51D1A1A8F30005DB9C9 /* keyword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keyword.h; sourceTree = "<group>"; };
+		CEE7D51E1A1A8F30005DB9C9 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		CEE7D51F1A1A8F30005DB9C9 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		CEE7D5201A1A8F30005DB9C9 /* parser_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser_helper.cpp; sourceTree = "<group>"; };
+		CEE7D5211A1A8F30005DB9C9 /* parser_number.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser_number.cpp; sourceTree = "<group>"; };
+		CEE7D5241A1A8F30005DB9C9 /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = "<group>"; };
+		CEE7D5251A1A8F30005DB9C9 /* token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
+		CEE7D5261A1A8F30005DB9C9 /* tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tokenizer.cpp; sourceTree = "<group>"; };
+		CEE7D5271A1A8F30005DB9C9 /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
+		CEE7D5381A1A8F6B005DB9C9 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		CEE7D53A1A1A8FD5005DB9C9 /* string2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string2.cpp; sourceTree = "<group>"; };
+		CEE7D53B1A1A8FD5005DB9C9 /* string2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string2.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CEE7D4E11A1A8EFA005DB9C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D4E91A1A8EFA005DB9C9 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEE7D4F91A1A8EFA005DB9C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D5021A1A8EFA005DB9C9 /* anitomy-osx.framework in Frameworks */,
+				CEE7D4FF1A1A8EFA005DB9C9 /* Cocoa.framework in Frameworks */,
+				CEE7D4FE1A1A8EFA005DB9C9 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CEE7D4DB1A1A8EF9005DB9C9 = {
+			isa = PBXGroup;
+			children = (
+				CEE7D4EE1A1A8EFA005DB9C9 /* anitomy-osx */,
+				CEE7D5031A1A8EFA005DB9C9 /* anitomy-osxTests */,
+				CEE7D4E71A1A8EFA005DB9C9 /* Frameworks */,
+				CEE7D4E61A1A8EFA005DB9C9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CEE7D4E61A1A8EFA005DB9C9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D4E51A1A8EFA005DB9C9 /* anitomy-osx.framework */,
+				CEE7D4FC1A1A8EFA005DB9C9 /* anitomy-osxTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEE7D4E71A1A8EFA005DB9C9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D4E81A1A8EFA005DB9C9 /* Cocoa.framework */,
+				CEE7D4FD1A1A8EFA005DB9C9 /* XCTest.framework */,
+				CEE7D4EA1A1A8EFA005DB9C9 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEE7D4EA1A1A8EFA005DB9C9 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D4EB1A1A8EFA005DB9C9 /* Foundation.framework */,
+				CEE7D4EC1A1A8EFA005DB9C9 /* CoreData.framework */,
+				CEE7D4ED1A1A8EFA005DB9C9 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		CEE7D4EE1A1A8EFA005DB9C9 /* anitomy-osx */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D5171A1A8F30005DB9C9 /* anitomy */,
+				CEE7D5131A1A8F29005DB9C9 /* anitomy-objc-wrapper.h */,
+				CEE7D5141A1A8F29005DB9C9 /* anitomy-objc-wrapper.mm */,
+				CEE7D5381A1A8F6B005DB9C9 /* LICENSE */,
+				CEE7D4EF1A1A8EFA005DB9C9 /* Supporting Files */,
+			);
+			path = "anitomy-osx";
+			sourceTree = "<group>";
+		};
+		CEE7D4EF1A1A8EFA005DB9C9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D4F01A1A8EFA005DB9C9 /* anitomy-osx-Info.plist */,
+				CEE7D4F11A1A8EFA005DB9C9 /* InfoPlist.strings */,
+				CEE7D4F41A1A8EFA005DB9C9 /* anitomy-osx-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CEE7D5031A1A8EFA005DB9C9 /* anitomy-osxTests */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D5091A1A8EFA005DB9C9 /* anitomy_osxTests.m */,
+				CEE7D5041A1A8EFA005DB9C9 /* Supporting Files */,
+			);
+			path = "anitomy-osxTests";
+			sourceTree = "<group>";
+		};
+		CEE7D5041A1A8EFA005DB9C9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D5051A1A8EFA005DB9C9 /* anitomy-osxTests-Info.plist */,
+				CEE7D5061A1A8EFA005DB9C9 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CEE7D5171A1A8F30005DB9C9 /* anitomy */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D5181A1A8F30005DB9C9 /* anitomy.cpp */,
+				CEE7D5191A1A8F30005DB9C9 /* anitomy.h */,
+				CEE7D51A1A1A8F30005DB9C9 /* element.cpp */,
+				CEE7D51B1A1A8F30005DB9C9 /* element.h */,
+				CEE7D51C1A1A8F30005DB9C9 /* keyword.cpp */,
+				CEE7D51D1A1A8F30005DB9C9 /* keyword.h */,
+				CEE7D51E1A1A8F30005DB9C9 /* parser.cpp */,
+				CEE7D51F1A1A8F30005DB9C9 /* parser.h */,
+				CEE7D5201A1A8F30005DB9C9 /* parser_helper.cpp */,
+				CEE7D53A1A1A8FD5005DB9C9 /* string2.cpp */,
+				CEE7D53B1A1A8FD5005DB9C9 /* string2.h */,
+				CEE7D5211A1A8F30005DB9C9 /* parser_number.cpp */,
+				CEE7D5241A1A8F30005DB9C9 /* token.cpp */,
+				CEE7D5251A1A8F30005DB9C9 /* token.h */,
+				CEE7D5261A1A8F30005DB9C9 /* tokenizer.cpp */,
+				CEE7D5271A1A8F30005DB9C9 /* tokenizer.h */,
+			);
+			path = anitomy;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CEE7D4E21A1A8EFA005DB9C9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D5151A1A8F29005DB9C9 /* anitomy-objc-wrapper.h in Headers */,
+				CEE7D52D1A1A8F30005DB9C9 /* keyword.h in Headers */,
+				CEE7D5291A1A8F30005DB9C9 /* anitomy.h in Headers */,
+				CEE7D5371A1A8F30005DB9C9 /* tokenizer.h in Headers */,
+				CEE7D5351A1A8F30005DB9C9 /* token.h in Headers */,
+				CEE7D53D1A1A8FD5005DB9C9 /* string2.h in Headers */,
+				CEE7D52F1A1A8F30005DB9C9 /* parser.h in Headers */,
+				CEE7D52B1A1A8F30005DB9C9 /* element.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CEE7D4E41A1A8EFA005DB9C9 /* anitomy-osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEE7D50D1A1A8EFA005DB9C9 /* Build configuration list for PBXNativeTarget "anitomy-osx" */;
+			buildPhases = (
+				CEE7D4E01A1A8EFA005DB9C9 /* Sources */,
+				CEE7D4E11A1A8EFA005DB9C9 /* Frameworks */,
+				CEE7D4E21A1A8EFA005DB9C9 /* Headers */,
+				CEE7D4E31A1A8EFA005DB9C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "anitomy-osx";
+			productName = "anitomy-osx";
+			productReference = CEE7D4E51A1A8EFA005DB9C9 /* anitomy-osx.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CEE7D4FB1A1A8EFA005DB9C9 /* anitomy-osxTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEE7D5101A1A8EFA005DB9C9 /* Build configuration list for PBXNativeTarget "anitomy-osxTests" */;
+			buildPhases = (
+				CEE7D4F81A1A8EFA005DB9C9 /* Sources */,
+				CEE7D4F91A1A8EFA005DB9C9 /* Frameworks */,
+				CEE7D4FA1A1A8EFA005DB9C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEE7D5011A1A8EFA005DB9C9 /* PBXTargetDependency */,
+			);
+			name = "anitomy-osxTests";
+			productName = "anitomy-osxTests";
+			productReference = CEE7D4FC1A1A8EFA005DB9C9 /* anitomy-osxTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CEE7D4DC1A1A8EF9005DB9C9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Atelier Shiori";
+				TargetAttributes = {
+					CEE7D4FB1A1A8EFA005DB9C9 = {
+						TestTargetID = CEE7D4E41A1A8EFA005DB9C9;
+					};
+				};
+			};
+			buildConfigurationList = CEE7D4DF1A1A8EF9005DB9C9 /* Build configuration list for PBXProject "anitomy-osx" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CEE7D4DB1A1A8EF9005DB9C9;
+			productRefGroup = CEE7D4E61A1A8EFA005DB9C9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEE7D4E41A1A8EFA005DB9C9 /* anitomy-osx */,
+				CEE7D4FB1A1A8EFA005DB9C9 /* anitomy-osxTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CEE7D4E31A1A8EFA005DB9C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D5391A1A8F6B005DB9C9 /* LICENSE in Resources */,
+				CEE7D4F31A1A8EFA005DB9C9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEE7D4FA1A1A8EFA005DB9C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D5081A1A8EFA005DB9C9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CEE7D4E01A1A8EFA005DB9C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D5311A1A8F30005DB9C9 /* parser_number.cpp in Sources */,
+				CEE7D52E1A1A8F30005DB9C9 /* parser.cpp in Sources */,
+				CEE7D5161A1A8F29005DB9C9 /* anitomy-objc-wrapper.mm in Sources */,
+				CEE7D5301A1A8F30005DB9C9 /* parser_helper.cpp in Sources */,
+				CEE7D5361A1A8F30005DB9C9 /* tokenizer.cpp in Sources */,
+				CEE7D52C1A1A8F30005DB9C9 /* keyword.cpp in Sources */,
+				CEE7D52A1A1A8F30005DB9C9 /* element.cpp in Sources */,
+				CEE7D5281A1A8F30005DB9C9 /* anitomy.cpp in Sources */,
+				CEE7D53C1A1A8FD5005DB9C9 /* string2.cpp in Sources */,
+				CEE7D5341A1A8F30005DB9C9 /* token.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEE7D4F81A1A8EFA005DB9C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D50A1A1A8EFA005DB9C9 /* anitomy_osxTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CEE7D5011A1A8EFA005DB9C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEE7D4E41A1A8EFA005DB9C9 /* anitomy-osx */;
+			targetProxy = CEE7D5001A1A8EFA005DB9C9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CEE7D4F11A1A8EFA005DB9C9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEE7D4F21A1A8EFA005DB9C9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CEE7D5061A1A8EFA005DB9C9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEE7D5071A1A8EFA005DB9C9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CEE7D50B1A1A8EFA005DB9C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CEE7D50C1A1A8EFA005DB9C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CEE7D50E1A1A8EFA005DB9C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "anitomy-osx/anitomy-osx-Prefix.pch";
+				INFOPLIST_FILE = "anitomy-osx/anitomy-osx-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		CEE7D50F1A1A8EFA005DB9C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "anitomy-osx/anitomy-osx-Prefix.pch";
+				INFOPLIST_FILE = "anitomy-osx/anitomy-osx-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		CEE7D5111A1A8EFA005DB9C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "anitomy-osx/anitomy-osx-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "anitomy-osxTests/anitomy-osxTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CEE7D5121A1A8EFA005DB9C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "anitomy-osx/anitomy-osx-Prefix.pch";
+				INFOPLIST_FILE = "anitomy-osxTests/anitomy-osxTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CEE7D4DF1A1A8EF9005DB9C9 /* Build configuration list for PBXProject "anitomy-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEE7D50B1A1A8EFA005DB9C9 /* Debug */,
+				CEE7D50C1A1A8EFA005DB9C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEE7D50D1A1A8EFA005DB9C9 /* Build configuration list for PBXNativeTarget "anitomy-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEE7D50E1A1A8EFA005DB9C9 /* Debug */,
+				CEE7D50F1A1A8EFA005DB9C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEE7D5101A1A8EFA005DB9C9 /* Build configuration list for PBXNativeTarget "anitomy-osxTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEE7D5111A1A8EFA005DB9C9 /* Debug */,
+				CEE7D5121A1A8EFA005DB9C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CEE7D4DC1A1A8EF9005DB9C9 /* Project object */;
+}
