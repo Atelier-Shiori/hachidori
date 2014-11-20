@@ -139,6 +139,7 @@
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"UseNewRecognitionEngine"];
+    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"CheckAltTitles"];
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
         	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteTitleBar"];
@@ -220,10 +221,12 @@
             //Add NSVisualEffectView to Window
             [windowcontent setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
             [windowcontent setMaterial:NSVisualEffectMaterialLight];
-            [windowcontent setState:NSVisualEffectStateActive];
-            // Set Appearence Options Manually
-            [LastScrobbled setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
-            [animeinfo setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+            [windowcontent setState:NSVisualEffectStateFollowsWindowActiveState];
+            [windowcontent setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+            //Make Animeinfo textview transparrent
+            [animeinfooutside setDrawsBackground:NO];
+            [animeinfo setBackgroundColor:[NSColor clearColor]];
+        
         }
         
     }

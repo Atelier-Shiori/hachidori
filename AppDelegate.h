@@ -36,6 +36,7 @@
     IBOutlet NSTextView * animeinfo;
     IBOutlet NSImageView * img;
     IBOutlet NSVisualEffectView * windowcontent;
+    IBOutlet NSScrollView *animeinfooutside;
 	int choice;
 	BOOL scrobbling;
     BOOL scrobbleractive;

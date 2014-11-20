@@ -261,6 +261,7 @@
                 <outlet property="LastScrobbled" destination="792" id="805"/>
                 <outlet property="ScrobblerStatus" destination="793" id="806"/>
                 <outlet property="animeinfo" destination="bGm-dl-hOF" id="3tY-bt-kdf"/>
+                <outlet property="animeinfooutside" destination="Flw-vm-3Ig" id="wkc-nr-rYl"/>
                 <outlet property="correcttoolbaritem" destination="q9Q-0H-wSc" id="2bQ-jw-mDj"/>
                 <outlet property="historytable" destination="595" id="635"/>
                 <outlet property="historywindow" destination="588" id="605"/>
@@ -582,7 +583,7 @@ Gw
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Flw-vm-3Ig">
                                 <rect key="frame" x="149" y="-4" width="291" height="190"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <clipView key="contentView" id="ypk-hd-jNn">
+                                <clipView key="contentView" copiesOnScroll="NO" id="ypk-hd-jNn">
                                     <rect key="frame" x="1" y="1" width="269" height="188"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

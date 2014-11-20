@@ -342,11 +342,13 @@ update:
 	NSString *titleid = @"";
 	//Initalize NSString to dump the title temporarily
 	NSString *theshowtitle = @"";
+    NSString *alttitle = @"";
     NSString *theshowtype = @"";
 	//Create Regular Expression Strings
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",DetectedTitle];
     NSString *findinit = [NSString stringWithFormat:@"(%@)",DetectedTitle];
 	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"]; // NSString *findpre = [NSString stringWithFormat:@"^%@",DetectedTitle];
+    bool checkalt = [[NSUserDefaults standardUserDefaults] boolForKey:@"CheckAltTitles"];
     OGRegularExpression    *regex;
 	//Retrieve the ID. Note that the most matched title will be on the top
     // For Sanity (TV shows and OVAs usually have more than one episode)
@@ -396,7 +398,8 @@ update:
         //Check movies and Specials First
         for (NSDictionary *searchentry in movie) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        if ([regex matchInString:theshowtitle] != nil) {
+            alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
         }
             DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
             //Return titleid
@@ -406,7 +409,8 @@ update:
         //Check movies and Specials First
         for (NSDictionary *searchentry in special) {
             theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-            if ([regex matchInString:theshowtitle] != nil) {
+            alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+            if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
                 DetectedEpisode = @"1";
                 DetectedTitleisMovie = false;
                 //Return titleid
@@ -418,7 +422,8 @@ update:
     // Check TV, Special, OVA, Other
     for (NSDictionary *searchentry in tv) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        if ([regex matchInString:theshowtitle] != nil) {
+        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             // Used for Season Checking
             OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"%i(st|nd|rd|th) season", DetectedSeason] options:OgreIgnoreCaseOption];
             OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
@@ -439,7 +444,8 @@ update:
     }
     for (NSDictionary *searchentry in special) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        if ([regex matchInString:theshowtitle] != nil) {
+        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid
             titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
             goto foundtitle;
@@ -447,7 +453,8 @@ update:
     }
     for (NSDictionary *searchentry in ova) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        if ([regex matchInString:theshowtitle] != nil) {
+        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid
             titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
             goto foundtitle;
@@ -455,7 +462,8 @@ update:
     }
     for (NSDictionary *searchentry in other) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        if ([regex matchInString:theshowtitle] != nil) {
+        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid
             titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
             goto foundtitle;
@@ -805,5 +813,15 @@ update:
     NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"detectedtitle", showid, @"showid", nil];
     [cache addObject:entry];
     [defaults setObject:cache forKey:@"searchcache"];
+}
+-(bool)checkMatch:(NSString *)title
+         alttitle:(NSString *)atitle
+    checkalttitle:(bool)checkalttitle
+            regex:(OGRegularExpression *)regex
+           option:(int)i{
+    if ([regex matchInString:title] != nil || ([regex matchInString:atitle] != nil && [atitle length] >0 && checkalttitle && i==0)) {
+        return true;
+    }
+    return false;
 }
 @end
