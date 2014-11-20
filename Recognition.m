@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by 高町なのは on 2014/11/16.
-//
+//  Copyright 2014 Atelier Shiori. All rights reserved. Code licensed under New BSD License
 //
 
 #import "Recognition.h"
@@ -14,46 +14,56 @@
     NSString * DetectedTitle;
     NSString * DetectedEpisode;
     int DetectedSeason;
-    //Accented e temporary fix
-    regex = [OGRegularExpression regularExpressionWithString:@"e\\\\xcc\\\\x81"];
-    string = [regex replaceAllMatchesInString:string
-                                   withString:@"è"];
-    //Cleanup
+    //Get Filename
     regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
     string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString:@"\\.\\w+$"];
-    string = [regex replaceAllMatchesInString:string
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseNewRecognitionEngine"]) {
+        //New Method
+        NSLog(@"Using New Method");
+        NSDictionary * d = [[anitomy_bridge alloc] tokenize:string];
+        DetectedTitle = [d objectForKey:@"title"];
+        DetectedEpisode = [d objectForKey:@"episode"];
+    }
+    else{
+        //Accented e temporary fix
+        regex = [OGRegularExpression regularExpressionWithString:@"e\\\\xcc\\\\x81"];
+        string = [regex replaceAllMatchesInString:string
+                                   withString:@"è"];
+        //Cleanup
+        regex = [OGRegularExpression regularExpressionWithString:@"\\.\\w+$"];
+        string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString:@"[\\s_]*\\[[^\\]]+\\]\\s*"];
-    string = [regex replaceAllMatchesInString:string
+        regex = [OGRegularExpression regularExpressionWithString:@"[\\s_]*\\[[^\\]]+\\]\\s*"];
+        string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString:@"[\\s_]*\\([^\\)]+\\)$"];
-    string = [regex replaceAllMatchesInString:string
+        regex = [OGRegularExpression regularExpressionWithString:@"[\\s_]*\\([^\\)]+\\)$"];
+        string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString:@"_"];
-    string = [regex replaceAllMatchesInString:string
+        regex = [OGRegularExpression regularExpressionWithString:@"_"];
+        string = [regex replaceAllMatchesInString:string
                                    withString:@" "];
-    regex = [OGRegularExpression regularExpressionWithString:@"~"];
-    string = [regex replaceAllMatchesInString:string
+        regex = [OGRegularExpression regularExpressionWithString:@"~"];
+        string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString:@" - "];
-    string = [regex replaceAllMatchesInString:string
+        regex = [OGRegularExpression regularExpressionWithString:@" - "];
+        string = [regex replaceAllMatchesInString:string
                                    withString:@" "];
-    // Set Title Info
-    regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$"];
-    DetectedTitle = [regex replaceAllMatchesInString:string
+        // Set Title Info
+        regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$"];
+        DetectedTitle = [regex replaceAllMatchesInString:string
                                           withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d+$"];
-    DetectedTitle = [regex replaceAllMatchesInString:DetectedTitle
+        regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d+$"];
+        DetectedTitle = [regex replaceAllMatchesInString:DetectedTitle
                                           withString:@""];
-    // Set Episode Info
-    regex = [OGRegularExpression regularExpressionWithString: DetectedTitle];
-    string = [regex replaceAllMatchesInString:string
+        // Set Episode Info
+        regex = [OGRegularExpression regularExpressionWithString: DetectedTitle];
+        string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]"];
-    DetectedEpisode = [regex replaceAllMatchesInString:string
+        regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]"];
+        DetectedEpisode = [regex replaceAllMatchesInString:string
                                             withString:@""];
+    }
     //Season
     NSString * tmpseason;
     OGRegularExpressionMatch * smatch;

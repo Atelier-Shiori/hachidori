@@ -35,6 +35,8 @@
 		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; };
 		8222BB481A19502A003AD38F /* rules.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8222BB471A19502A003AD38F /* rules.tif */; };
+		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
+		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8237D57119F9AF8E00920DDB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8237D57019F9AF8E00920DDB /* Constants.m */; };
 		824693A319FD334300CFA12A /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8246939E19FD334300CFA12A /* DDHotKeyCenter.m */; };
 		824693A419FD334300CFA12A /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A019FD334300CFA12A /* DDHotKeyTextField.m */; };
@@ -61,6 +63,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				5C64F46419F6BA2D00D93064 /* ASIHTTPRequest.framework in CopyFiles */,
 				3A6AB415120F351B00D51D2C /* Sparkle.framework in CopyFiles */,
 				3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */,
@@ -111,6 +114,7 @@
 		5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GeneralPrefController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CFC037419F3396E006B4DAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8222BB471A19502A003AD38F /* rules.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = rules.tif; sourceTree = "<group>"; };
+		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		8237D56F19F9AF8E00920DDB /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8237D57019F9AF8E00920DDB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		8246939D19FD334300CFA12A /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
+				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */,
 				5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */,
 				3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */,
@@ -195,6 +200,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
 				5C64F46219F6BA2600D93064 /* ASIHTTPRequest.framework */,
 				3A6AB40D120F350400D51D2C /* Sparkle.framework */,
 				3A4C61D3120DF3ED0032F63A /* OgreKit.framework */,

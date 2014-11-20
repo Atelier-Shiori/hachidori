@@ -138,6 +138,7 @@
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
+    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"UseNewRecognitionEngine"];
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
         	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteTitleBar"];

@@ -571,9 +571,9 @@ Gw
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" id="792">
-                                <rect key="frame" x="10" y="194" width="412" height="28"/>
+                                <rect key="frame" x="10" y="194" width="425" height="28"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Additional Infomation about the last updated title will appear here." id="796">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Additional Info about the last updated title will appear here." id="796">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -717,7 +717,7 @@ Gw
                 </defaultToolbarItems>
             </toolbar>
             <contentBorderThickness minY="22"/>
-            <point key="canvasLocation" x="252" y="185.5"/>
+            <point key="canvasLocation" x="375" y="139.5"/>
         </window>
     </objects>
     <resources>
