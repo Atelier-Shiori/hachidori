@@ -3,8 +3,8 @@
 Hachidori (はちどり) is an open sourced Hummingbird.me client for OS X based on the same codebase as MAL Updater OS X, but designed exclusively for Hummingbird.
 
 Warning: Still a work in progress since this is an Alpha. 
-
-Requires latest SDK (10.10) and XCode 6 to compile. Deployment target is 10.8.
+ 
+Requires latest SDK (10.10) and XCode 6.1 to compile. Deployment target is 10.8.
 
 ## How to use
 To use, launch Hachidori. Go to the Hachidori icon on the menu bar and Preferences. Save your login info (encoded in Base64 in Preferences) and click Start Scrobbling.
@@ -17,11 +17,13 @@ To use, launch Hachidori. Go to the Hachidori icon on the menu bar and Preferenc
 All the frameworks are included. Just build! Here are the frameworks that are used in this app:
 
 * ASIHTTPRequest.framework (This is a framework version to maintain compatibility when building on later versions of OS X. Source code is in the Framework folder)
-* CMCrashReporter.framework
+* anitomy-osx.framework (Framework version and adapted version of anitomy C++ library. Source code is in Framework folder.)
 * Sparkle.framework
 * OgreKit.framework
 
 ##License
+Unless stated, Source code is licensed under New BSD License
+ 
 Copyright © 2009-2014, Atelier Shiori.
 All rights reserved.
 
