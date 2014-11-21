@@ -241,13 +241,18 @@
     
 	// Notify User if there is no Account Info
 	if ([[defaults objectForKey:@"Token"] length] == 0) {
-		//Notify the user that there is no login token.
-        NSUserNotification *notification = [[NSUserNotification alloc] init];
-        notification.title = @"Hachidori";
-        notification.informativeText = @"Add your login infomation in Preferences before using this program.";
-        notification.soundName = NSUserNotificationDefaultSoundName;
-        
-        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        // First time prompt
+        NSAlert * alert = [[NSAlert alloc] init] ;
+        [alert addButtonWithTitle:@"Yes"];
+        [alert addButtonWithTitle:@"No"];
+        [alert setMessageText:@"Welcome to Hachidori"];
+        [alert setInformativeText:@"Before using this program, you need to login. Do you want to open Preferences to log in now?"];
+        // Set Message type to Warning
+        [alert setAlertStyle:NSInformationalAlertStyle];
+        if ([alert runModal]== NSAlertFirstButtonReturn) {
+            [NSApp activateIgnoringOtherApps:YES];
+            [self.preferencesWindowController showWindow:nil];
+        }
 	}
 	// Autostart Scrobble at Startup
 	if ([defaults boolForKey:@"ScrobbleatStartup"] == 1) {

@@ -95,7 +95,6 @@
 			else {
 				//Set Login URL
 				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hbrd-v1.p.mashape.com/users/authenticate"]];
-                NSLog(@"%@", mashapekey);
 				ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
                 [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 				//Ignore Cookies

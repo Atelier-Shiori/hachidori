@@ -114,7 +114,7 @@
     else {
         // Regular Search
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
-            NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+            NSArray *cache = [[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"];
             if (cache.count > 0) {
                 NSString * theid;
                 for (NSDictionary *d in cache) {
@@ -195,7 +195,7 @@
 -(NSString *)searchanime{
     NSLog(@"Check Exceptions List");
     // Check Exceptions
-    NSMutableArray *exceptions = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"]];
+    NSArray *exceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
     if (exceptions.count > 0) {
         NSString * theid;
         for (NSDictionary *d in exceptions) {
