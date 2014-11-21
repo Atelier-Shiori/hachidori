@@ -34,7 +34,8 @@
     
 }
 -(IBAction)closesearch:(id)sender {
-    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
+    [self.window orderOut:self];
+    [NSApp endSheet:self.window returnCode:0];
 }
 -(IBAction)updatesearch:(id)sender {
     NSDictionary * d = [[arraycontroller selectedObjects] objectAtIndex:0];
@@ -57,7 +58,8 @@
     finish:
     selectedtitle = [d objectForKey:@"title"];
     selectedaniid = [d objectForKey:@"slug"];
-    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseOK];
+    [self.window orderOut:self];
+    [NSApp endSheet:self.window returnCode:1];
 }
 -(IBAction)search:(id)sender{
     if ([[search stringValue] length]> 0) {

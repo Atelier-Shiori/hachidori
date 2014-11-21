@@ -15,6 +15,7 @@
     IBOutlet NSTableView * tb;
     FixSearchDialog *fsdialog;
     NSWindow *prefw;
+    NSString *detectedtitle;
 }
 @property(strong) FixSearchDialog *fsdialog;
 @end

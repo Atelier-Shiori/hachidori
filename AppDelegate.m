@@ -532,11 +532,6 @@
  */
 -(IBAction)showCorrectionSearchWindow:(id)sender{
     bool isVisible = [window isVisible];
-    if (!isVisible) {
-        // Show Status Window for now
-        [NSApp activateIgnoringOtherApps:YES];
-        [window makeKeyAndOrderFront:self];
-    }
     // Stop Timer temporarily if scrobbling is turned on
     if (scrobbling == TRUE) {
         [self stoptimer];
@@ -544,8 +539,22 @@
     fsdialog = [FixSearchDialog new];
     [fsdialog setCorrection:YES];
     [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
-    [[self window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
-        if (returnCode == NSModalResponseOK) {
+    if (isVisible) {
+        [NSApp beginSheet:[fsdialog window]
+           modalForWindow:window modalDelegate:self
+           didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
+              contextInfo:(void *)nil];
+    }
+    else{
+        [NSApp beginSheet:[fsdialog window]
+           modalForWindow:nil modalDelegate:self
+           didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
+              contextInfo:(void *)nil];
+    }
+
+}
+-(void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == 1) {
             if ([[fsdialog getSelectedAniID] isEqualToString:[haengine getAniID]]) {
                 NSLog(@"ID matches, correction not needed.");
             }
@@ -579,15 +588,11 @@
         else{
             NSLog(@"Cancel");
         }
-        fsdialog = nil;
-        //Restart Timer
-        if (scrobbling == TRUE) {
-            [self starttimer];
-        }
-        if (!isVisible)
-            //Hide Window
-            [window orderOut:self];
-    }];
+    fsdialog = nil;
+    //Restart Timer
+    if (scrobbling == TRUE) {
+        [self starttimer];
+    }
 }
 -(void)addtoExceptions:(NSString *)detectedtitle newtitle:(NSString *)title showid:(NSString *)showid{
     //Adds correct title and ID to exceptions list
@@ -728,7 +733,7 @@
     [NSApp beginSheet:updatepanel
        modalForWindow:w modalDelegate:self
        didEndSelector:@selector(myPanelDidEnd:returnCode:contextInfo:)
-          contextInfo:(void *)[NSNumber numberWithFloat:choice]];
+          contextInfo:(void *)nil];
     // Set up UI
     [showtitle setObjectValue:[haengine getLastScrobbledTitle]];
     [showscore setStringValue:[NSString stringWithFormat:@"%i", [haengine getScore]]];

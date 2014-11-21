@@ -48,7 +48,7 @@
         //Close Open Window
         [op orderOut:nil];
         NSDictionary * d = [[Recognition alloc] recognize:[[op URL] path]];
-        NSString * detectedtitle = [d objectForKey:@"title"];
+        detectedtitle = [d objectForKey:@"title"];
         if ([self checkifexists:detectedtitle]) {
             // Exists, don't do anything
             return;
@@ -56,31 +56,35 @@
         fsdialog = [FixSearchDialog new];
         [fsdialog setCorrection:false];
         [fsdialog setSearchField:detectedtitle];
-        [[[self view] window] beginSheet:[fsdialog window] completionHandler:^(NSModalResponse returnCode){
-            if (returnCode == NSModalResponseOK) {
-                // Add to Array Controller
-                NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", [fsdialog getSelectedTitle] ,@"correcttitle", [fsdialog getSelectedAniID], @"showid", nil];
-                [arraycontroller addObject:entry];
-                //Check if the title exists in the cache. If so, remove it
-                NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-                if (cache.count > 0) {
-                    for (int i=0; i<[cache count]; i++) {
-                        NSDictionary * d = [cache objectAtIndex:i];
-                        NSString * title = [d objectForKey:@"detectedtitle"];
-                        if ([title isEqualToString:detectedtitle]) {
-                            NSLog(@"%@ found in cache, remove!", title);
-                            [cache removeObject:d];
-                            break;
-                        }
-                    }
+        [NSApp beginSheet:[fsdialog window]
+           modalForWindow:[[self view] window] modalDelegate:self
+           didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
+              contextInfo:(void *)nil];
+    }];
+}
+-(void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == 1){
+        // Add to Array Controller
+        NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", [fsdialog getSelectedTitle] ,@"correcttitle", [fsdialog getSelectedAniID], @"showid", nil];
+        [arraycontroller addObject:entry];
+        //Check if the title exists in the cache. If so, remove it
+        NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
+        if (cache.count > 0) {
+            for (int i=0; i<[cache count]; i++) {
+                NSDictionary * d = [cache objectAtIndex:i];
+                NSString * title = [d objectForKey:@"detectedtitle"];
+                if ([title isEqualToString:detectedtitle]) {
+                    NSLog(@"%@ found in cache, remove!", title);
+                    [cache removeObject:d];
+                    break;
                 }
             }
-            else{
-            }
-            fsdialog = nil;
-        }];
-    }];
-  
+        }
+    }
+    else{
+    }
+    fsdialog = nil;
+    detectedtitle = nil;
 }
 -(IBAction)removeSlection:(id)sender{
     //Remove Selected Object
@@ -178,8 +182,8 @@
     // Checks if a title is already on the exception list
     NSArray * a = [arraycontroller arrangedObjects];
     for (NSDictionary * d in a){
-        NSString * detectedtitle = [d objectForKey:@"detectedtitle"];
-        if ([title isEqualToString:detectedtitle]) {
+        NSString * dt = [d objectForKey:@"detectedtitle"];
+        if ([title isEqualToString:dt]) {
             return true;
         }
     }

@@ -37,7 +37,6 @@
     IBOutlet NSImageView * img;
     IBOutlet NSVisualEffectView * windowcontent;
     IBOutlet NSScrollView *animeinfooutside;
-	int choice;
 	BOOL scrobbling;
     BOOL scrobbleractive;
 	/* Hachidori Scrobbling/Updating Class */
