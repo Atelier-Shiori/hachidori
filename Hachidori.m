@@ -300,8 +300,21 @@
             string = [match matchedString];
         }
     }
-    //Make sure the file name is valid, even if player is open
-    if ([regex matchInString:string] !=nil) {
+    //Check ignore directories. If on ignore directory, set onIgnoreList to true.
+    NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
+    BOOL onIgnoreList = false;
+    if ([ignoredirectories count] > 0) {
+        for (NSDictionary * d in ignoredirectories) {
+            OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"(%@)", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"]];
+            if ([regex2 matchInString:string]) {
+                NSLog(@"Video being played is in ignored directory");
+                onIgnoreList = true;
+                break;
+            }
+        }
+    }
+    //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
+    if ([regex matchInString:string] !=nil && !onIgnoreList) {
         NSDictionary *d = [[Recognition alloc] recognize:string];
         DetectedTitle = [NSString stringWithFormat:@"%@", [d objectForKey:@"title"]];
         DetectedEpisode = [NSString stringWithFormat:@"%@", [d objectForKey:@"episode"]];

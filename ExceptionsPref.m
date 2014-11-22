@@ -191,5 +191,27 @@
     }
     return false;
 }
+/*
+ Ignore List
+ */
+-(IBAction)addDirectory:(id)sender{
+    //Selects directory to ignore
+    NSOpenPanel * op = [NSOpenPanel openPanel];
+    [op setCanChooseDirectories:YES];
+    [op setCanCreateDirectories:NO];
+    [op setCanChooseFiles:NO];
+    [op setMessage:@"Please a directory for Hachidori to ignore."];
+    [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelCancelButton) {
+            return;
+        }
+        NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys: [[op URL] path], @"directory", nil];
+        [ignorearraycontroller addObject:entry];
+    }];
+}
+-(IBAction)removeDirectory:(id)sender{
+    //Remove Selected Object
+    [ignorearraycontroller removeObject:[[ignorearraycontroller selectedObjects] objectAtIndex:0]];
+}
 
 @end
