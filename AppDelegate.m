@@ -277,8 +277,7 @@
         // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
         //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];
         
-        NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
-        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
+        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers];
     }
     return _preferencesWindowController;
 }
@@ -448,6 +447,7 @@
                 break;
             case 55:
                 [self setStatusText:@"Scrobble Status: Scrobble Failed. Computer is offline."];
+                break;
             default:
                 break;
         }
@@ -627,6 +627,7 @@
             if ([title isEqualToString:detectedtitle]) {
                 NSLog(@"%@ found in cache, remove!", title);
                 [cache removeObject:d];
+                [[NSUserDefaults standardUserDefaults] setObject:cache forKey:@"searchcache"];
                 break;
             }
         }

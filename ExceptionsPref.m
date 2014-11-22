@@ -76,6 +76,7 @@
                 if ([title isEqualToString:detectedtitle]) {
                     NSLog(@"%@ found in cache, remove!", title);
                     [cache removeObject:d];
+                    [[NSUserDefaults standardUserDefaults] setObject:cache forKey:@"searchcache"];
                     break;
                 }
             }
@@ -130,6 +131,7 @@
                         if ([title isEqualToString:detectedtitlea]) {
                             NSLog(@"%@ found in cache, remove!", title);
                             [cache removeObject:d];
+                            [[NSUserDefaults standardUserDefaults] setObject:cache forKey:@"searchcache"];
                             break;
                         }
                     }

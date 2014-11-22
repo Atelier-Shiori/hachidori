@@ -693,7 +693,7 @@ Gw
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="JKl-qD-hH8"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="DUP-IU-qwC"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Kb3-aH-Wfv"/>
-                    <toolbarItem implicitItemIdentifier="F3D6B511-0FC6-4BCC-B92F-013F6A690CE1" label="Correct Title" paletteLabel="Correct Title" toolTip="Correct Title" image="correct" id="q9Q-0H-wSc">
+                    <toolbarItem implicitItemIdentifier="B414DFC0-D725-4DA1-8F47-E3784DAE154E" label="Correct Title" paletteLabel="Correct Title" toolTip="Correct Title" image="correct" id="q9Q-0H-wSc">
                         <size key="minSize" width="32" height="25"/>
                         <size key="maxSize" width="32" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="70X-gD-dGZ">
@@ -712,8 +712,8 @@ Gw
                 <defaultToolbarItems>
                     <toolbarItem reference="wq9-kC-J4D"/>
                     <toolbarItem reference="eo4-15-Ehk"/>
-                    <toolbarItem reference="q9Q-0H-wSc"/>
                     <toolbarItem reference="k8g-Fn-fps"/>
+                    <toolbarItem reference="q9Q-0H-wSc"/>
                     <toolbarItem reference="PDJ-oY-qAN"/>
                 </defaultToolbarItems>
             </toolbar>

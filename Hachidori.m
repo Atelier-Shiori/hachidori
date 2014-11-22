@@ -289,23 +289,25 @@
     if (string.length > 0)
         break;
     }
-	if (string.length > 0) {
-		//Regex time
-		//Get the filename first
-		OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm)$"];
-		NSEnumerator    *enumerator;
-		enumerator = [regex matchEnumeratorInString:string];
+    OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm)$"];
+    if (string.length > 0) {
+        //Regex time
+        //Get the filename first
+        NSEnumerator    *enumerator;
+        enumerator = [regex matchEnumeratorInString:string];
         OGRegularExpressionMatch    *match;
-		while ((match = [enumerator nextObject]) != nil) {
-			string = [match matchedString];
-		}
+        while ((match = [enumerator nextObject]) != nil) {
+            string = [match matchedString];
+        }
+    }
+    //Make sure the file name is valid, even if player is open
+    if ([regex matchInString:string] !=nil) {
         NSDictionary *d = [[Recognition alloc] recognize:string];
         DetectedTitle = [NSString stringWithFormat:@"%@", [d objectForKey:@"title"]];
         DetectedEpisode = [NSString stringWithFormat:@"%@", [d objectForKey:@"episode"]];
         DetectedSeason = [[d objectForKey:@"season"] intValue];
-        DetectedisStream = false;
         goto update;
-	}
+    }
 	else {
         NSLog(@"Checking Stream...");
         NSDictionary * detected = [self detectStream];
@@ -425,7 +427,7 @@ update:
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             // Used for Season Checking
-            OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"%i(st|nd|rd|th) season", DetectedSeason] options:OgreIgnoreCaseOption];
+            OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
             OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
             if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
                 if (smatch == nil) {
