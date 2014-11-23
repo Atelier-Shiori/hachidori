@@ -13,6 +13,7 @@
 @interface ExceptionsPref : NSViewController <MASPreferencesViewController>{
     IBOutlet NSArrayController * arraycontroller;
     IBOutlet NSArrayController * ignorearraycontroller;
+    IBOutlet NSArrayController * ignorefilenamearraycontroller;
     IBOutlet NSTableView * tb;
     FixSearchDialog *fsdialog;
     NSWindow *prefw;

@@ -305,9 +305,21 @@
     BOOL onIgnoreList = false;
     if ([ignoredirectories count] > 0) {
         for (NSDictionary * d in ignoredirectories) {
-            OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"(%@)", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"]];
-            if ([regex2 matchInString:string]) {
+            if ([[OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"(%@)", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"]] matchInString:string]) {
                 NSLog(@"Video being played is in ignored directory");
+                onIgnoreList = true;
+                break;
+            }
+        }
+    }
+    // Get filename only
+    string = [[OGRegularExpression regularExpressionWithString:@"^.+/"] replaceAllMatchesInString:string
+                                   withString:@""];
+    NSArray * ignoredfilenames = [[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"];
+    if ([ignoredfilenames count] > 0) {
+        for (NSDictionary * d in ignoredfilenames) {
+            if ([[OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"%@", [d objectForKey:@"rule"]] options:OgreIgnoreCaseOption] matchInString:string]) {
+                NSLog(@"Video file name is on filename ignore list.");
                 onIgnoreList = true;
                 break;
             }

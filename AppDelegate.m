@@ -141,6 +141,7 @@
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"UseNewRecognitionEngine"]
 ;
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"ignoredirectories"];
+    [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"IgnoreTitleRules"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"CheckAltTitles"];
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options

@@ -192,7 +192,7 @@
     return false;
 }
 /*
- Ignore List
+ Directory Ignore List
  */
 -(IBAction)addDirectory:(id)sender{
     //Selects directory to ignore
@@ -213,5 +213,17 @@
     //Remove Selected Object
     [ignorearraycontroller removeObject:[[ignorearraycontroller selectedObjects] objectAtIndex:0]];
 }
+/*
+ Title Ignore List
+ */
+-(IBAction)addFifleNameIgnoreRule:(id)sender{
+        NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys: @"", @"rule", nil];
+        [ignorefilenamearraycontroller addObject:entry];
+}
+-(IBAction)removeFileNameIgnoreRule:(id)sender{
+    //Remove Selected Object
+    [ignorefilenamearraycontroller removeObject:[[ignorefilenamearraycontroller selectedObjects] objectAtIndex:0]];
+}
+
 
 @end
