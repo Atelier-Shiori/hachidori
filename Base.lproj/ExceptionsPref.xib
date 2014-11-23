@@ -230,7 +230,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCa-6N-gLN">
-                                        <rect key="frame" x="11" y="83" width="446" height="135"/>
+                                        <rect key="frame" x="11" y="83" width="446" height="127"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" misplaced="YES" id="uQX-ol-vKO">
                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -274,7 +274,7 @@
                                     </scrollView>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BVM-6T-RNh">
                                         <rect key="frame" x="9" y="10" width="438" height="34"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="These settings allow you to specify what titles to ignore. You may use Regular Expressions and is case insensitive." id="Fzc-wo-e1v">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="These settings allow you to specify what titles to ignore. You may use Regular Expressions and rules are case insensitive." id="Fzc-wo-e1v">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
