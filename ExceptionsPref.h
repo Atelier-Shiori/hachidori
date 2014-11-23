@@ -14,7 +14,6 @@
     IBOutlet NSArrayController * arraycontroller;
     IBOutlet NSArrayController * ignorearraycontroller;
     IBOutlet NSTableView * tb;
-    IBOutlet NSTableView * itb;
     FixSearchDialog *fsdialog;
     NSWindow *prefw;
     NSString *detectedtitle;

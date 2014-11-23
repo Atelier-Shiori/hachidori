@@ -71,7 +71,7 @@
                                                                                                   kCFStringEncodingUTF8 ));
         //Set Search API
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"https://hbrd-v1.p.mashape.com", searchterm]];
-        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+        __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
         [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
         //Ignore Cookies
         [request setUseCookiePersistence:NO];

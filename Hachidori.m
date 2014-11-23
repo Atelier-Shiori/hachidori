@@ -228,7 +228,7 @@
 																				kCFStringEncodingUTF8 ));
 	//Set Search API
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"https://hbrd-v1.p.mashape.com", searchterm]];
-	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+	__block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
@@ -502,7 +502,7 @@ update:
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    __block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
@@ -560,7 +560,7 @@ update:
     NSLog(@"Getting Additional Info");
     //Set Search API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/anime/%@",@"https://hbrd-v1.p.mashape.com", slug]];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
@@ -594,7 +594,7 @@ update:
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		//Set library/scrobble API
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
-		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+		__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
         [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 		//Ignore Cookies
 		[request setUseCookiePersistence:NO];
@@ -664,7 +664,7 @@ update:
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	//Set library/scrobble API
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
-	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+	__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
@@ -712,7 +712,7 @@ update:
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@/remove", @"https://hbrd-v1.p.mashape.com", titleid]];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    __block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
@@ -791,7 +791,9 @@ update:
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
 }
-
+-(void)clearAnimeInfo{
+    LastScrobbledInfo = nil;
+}
 -(NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
     OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season)"];

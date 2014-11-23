@@ -53,4 +53,5 @@
 -(BOOL)getSuccess;
 -(BOOL)getPrivate;
 -(NSDictionary *)getLastScrobbledInfo;
+-(void)clearAnimeInfo;
 @end

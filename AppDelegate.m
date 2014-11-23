@@ -464,7 +464,9 @@
                 [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 //Show Anime Information
                 NSDictionary * ainfo = [haengine getLastScrobbledInfo];
-                [self showAnimeInfo:ainfo];
+                if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
+                    [self showAnimeInfo:ainfo];
+                }
             }
             // Enable Menu Items
             scrobbleractive = false;
@@ -507,6 +509,12 @@
 -(void)showAnimeInfo:(NSDictionary *)d{
     //Empty
     [animeinfo setString:@""];
+    //Title
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", [d objectForKey:@"title"]]];
+    if ([d objectForKey:@"alternate_title"] !=[NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", [d objectForKey:@"alternate_title"]]];
+    }
+    [self appendToAnimeInfo:@""];
     //Description
     NSString * anidescription = [d objectForKey:@"synopsis"];
     anidescription = [anidescription stripHtml]; //Removes HTML tags
@@ -515,13 +523,19 @@
     //Meta Information
     [self appendToAnimeInfo:@""];
     [self appendToAnimeInfo:@"Other Information"];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", [d objectForKey:@"show_type"]]];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", [d objectForKey:@"started_airing"]]];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", [d objectForKey:@"status"]]];
+    if ([d objectForKey:@"finished_airing"] != [NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", [d objectForKey:@"finished_airing"]]];
+    }
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", [d objectForKey:@"episode_count"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", [d objectForKey:@"show_type"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", [d objectForKey:@"age_rating"]]];
     //Image
     NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [d objectForKey:@"cover_image"]]]]; //Downloads Image
     [img setImage:dimg]; //Get the Image for the title
+    // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
+    [haengine clearAnimeInfo];
 }
 -(BOOL)checktoken{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
