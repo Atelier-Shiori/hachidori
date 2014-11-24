@@ -7,7 +7,7 @@ Warning: Still a work in progress since this is an Alpha.
 Requires latest SDK (10.10) and XCode 6.1 to compile. Deployment target is 10.8.
 
 ## How to use
-To use, launch Hachidori. Go to the Hachidori icon on the menu bar and Preferences. Save your login info (encoded in Base64 in Preferences) and click Start Scrobbling.
+See [Getting Started Guide](https://github.com/chikorita157/hachidori/wiki/Getting-Started).
 
 ## How to Compile in XCode
 1. Get the Source
@@ -20,6 +20,8 @@ All the frameworks are included. Just build! Here are the frameworks that are us
 * anitomy-osx.framework (Framework version and adapted version of anitomy C++ library. Source code is in Framework folder.)
 * Sparkle.framework
 * OgreKit.framework
+ 
+Licenses for these frameworks and related classes can be seen [here](https://github.com/chikorita157/hachidori/wiki/Credits).
 
 ##License
 Unless stated, Source code is licensed under New BSD License
