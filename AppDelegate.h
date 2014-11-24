@@ -29,8 +29,11 @@
 	IBOutlet NSMenuItem * togglescrobbler;
     IBOutlet NSMenuItem * updatenow;
     IBOutlet NSMenuItem * updatedtitlemenu;
+    IBOutlet NSMenu * updatedtitlemenus;
     IBOutlet NSMenuItem * updatedtitle;
     IBOutlet NSMenuItem * updatedepisode;
+    IBOutlet NSMenuItem * updatedcorrecttitle;
+    IBOutlet NSMenuItem * updatedupdatestatus;
 	IBOutlet NSTextField * ScrobblerStatus;
 	IBOutlet NSTextField * LastScrobbled;
     IBOutlet NSTextView * animeinfo;
@@ -39,6 +42,7 @@
     IBOutlet NSScrollView *animeinfooutside;
 	BOOL scrobbling;
     BOOL scrobbleractive;
+    bool panelactive;
     NSDate * previousfiredate;
     NSDate * pausestart;
 	/* Hachidori Scrobbling/Updating Class */

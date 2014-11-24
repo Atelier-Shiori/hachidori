@@ -276,9 +276,12 @@
                 <outlet property="showtitle" destination="746" id="788"/>
                 <outlet property="statusMenu" destination="543" id="561"/>
                 <outlet property="togglescrobbler" destination="557" id="657"/>
+                <outlet property="updatedcorrecttitle" destination="THp-Dy-eKR" id="QoV-Y3-l1M"/>
                 <outlet property="updatedepisode" destination="JMG-sQ-r6U" id="W0x-eW-R9G"/>
                 <outlet property="updatedtitle" destination="a2M-Ci-eiK" id="Ijp-3y-bYv"/>
                 <outlet property="updatedtitlemenu" destination="ocn-xD-u5l" id="WxQ-uv-vrx"/>
+                <outlet property="updatedtitlemenus" destination="PEE-eA-4CS" id="1iu-su-RCP"/>
+                <outlet property="updatedupdatestatus" destination="dU4-FY-DLP" id="eyx-8v-XdS"/>
                 <outlet property="updatenow" destination="Swq-JZ-crS" id="wbq-Tb-8xl"/>
                 <outlet property="updatepanel" destination="725" id="777"/>
                 <outlet property="updatetoolbaritem" destination="k8g-Fn-fps" id="A7q-dc-ToK"/>
@@ -595,15 +598,6 @@ Gw
                         <rect key="frame" x="0.0" y="22" width="440" height="231"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" id="792">
-                                <rect key="frame" x="10" y="194" width="425" height="28"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Additional Info about the last updated title will appear here." id="796">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Flw-vm-3Ig">
                                 <rect key="frame" x="149" y="-4" width="291" height="190"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -638,10 +632,19 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="SDe-v8-QB2"/>
                             </imageView>
+                            <textField verticalHuggingPriority="750" id="792">
+                                <rect key="frame" x="8" y="190" width="424" height="35"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Additional Info about the last updated title will appear here." id="796">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </customView>
                     <textField verticalHuggingPriority="750" id="793">
-                        <rect key="frame" x="4" y="6" width="294" height="12"/>
+                        <rect key="frame" x="4" y="6" width="431" height="12"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Scrobble Status: Stopped" id="795">
                             <font key="font" metaFont="smallSystem"/>

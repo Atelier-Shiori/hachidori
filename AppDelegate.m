@@ -468,6 +468,7 @@
             scrobbleractive = false;
             [updatenow setEnabled:YES];
             [togglescrobbler setEnabled:YES];
+            [statusMenu setAutoenablesItems:YES];
             [updatenow setTitle:@"Update Now"];
 	});
     });
@@ -564,6 +565,7 @@
     [fsdialog setCorrection:YES];
     [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
     if (isVisible) {
+        [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
         [NSApp beginSheet:[fsdialog window]
            modalForWindow:window modalDelegate:self
            didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
@@ -613,6 +615,7 @@
             NSLog(@"Cancel");
         }
     fsdialog = nil;
+    [self enableUpdateItems]; // Enable Update Items
     //Restart Timer
     if (scrobbling == TRUE) {
         [self starttimer];
@@ -749,6 +752,7 @@
 
 -(IBAction)updatestatus:(id)sender {
     [self showUpdateDialog:[self window]];
+    [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
 }
 -(IBAction)updatestatusmenu:(id)sender{
     [self showUpdateDialog:nil];
@@ -802,6 +806,7 @@
 	if (scrobbling == TRUE) {
 		[self starttimer];
 	}
+    [self enableUpdateItems]; //Reenable update items
 }
 
 -(IBAction)closeupdatestatus:(id)sender {
@@ -850,7 +855,7 @@
 }
 - (void) hotkeyWithEvent:(NSEvent *)hkEvent object:(id)anObject {
     if ([[NSString stringWithFormat:@"%@", anObject] isEqualToString:@"scrobblenow"]) {
-        if ([self checktoken]) {
+        if ([self checktoken] && !panelactive) {
             [self firetimer:nil];
         }
     }
@@ -860,4 +865,25 @@
     [NSApp activateIgnoringOtherApps:YES];
     [[NSApplication sharedApplication] orderFrontStandardAboutPanel:self];
 }
+-(void)disableUpdateItems{
+    // Disables update options to prevent erorrs
+    panelactive = true;
+    [statusMenu setAutoenablesItems:NO];
+    [updatedtitlemenus setAutoenablesItems:NO];
+    [updatenow setEnabled:NO];
+    [togglescrobbler setEnabled:NO];
+    [updatedcorrecttitle setEnabled:NO];
+    [updatedupdatestatus setEnabled:NO];
+}
+-(void)enableUpdateItems{
+    // Reenables update options
+    panelactive = false;
+    [updatenow setEnabled:YES];
+    [togglescrobbler setEnabled:YES];
+    [updatedcorrecttitle setEnabled:YES];
+    [updatedupdatestatus setEnabled:YES];
+    [updatedtitlemenus setAutoenablesItems:YES];
+    [statusMenu setAutoenablesItems:YES];
+}
+
 @end
