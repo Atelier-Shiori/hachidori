@@ -840,12 +840,12 @@ update:
 }
 -(bool)checkifIgnored:(NSString *)filename{
     //Checks if file name or directory is on ignore list
-    
+    filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
     //Check ignore directories. If on ignore directory, set onIgnoreList to true.
     NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
     if ([ignoredirectories count] > 0) {
         for (NSDictionary * d in ignoredirectories) {
-            if ([[OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"(%@)", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"]] matchInString:filename]) {
+            if ([[OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"^(%@/)+", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"] options:OgreIgnoreCaseOption] matchInString:filename]) {
                 NSLog(@"Video being played is in ignored directory");
                 return true;
                 break;

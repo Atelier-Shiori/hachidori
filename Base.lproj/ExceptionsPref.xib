@@ -212,6 +212,7 @@
                                                     </tableColumns>
                                                     <connections>
                                                         <binding destination="3Xl-n2-elJ" name="content" keyPath="arrangedObjects" id="jbz-LF-aWx"/>
+                                                        <binding destination="3Xl-n2-elJ" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="jbz-LF-aWx" id="gcf-7e-5P9"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -238,13 +239,13 @@
                                     </button>
                                     <button toolTip="Remove a directory to ignore" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQE-Cy-PgM">
                                         <rect key="frame" x="34" y="16" width="24" height="24"/>
-                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EUY-Df-ApB">
+                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EUY-Df-ApB">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="removeDirectory:" target="-2" id="Edx-Q9-LwY"/>
-                                            <binding destination="3Xl-n2-elJ" name="enabled" keyPath="selection.@count" id="ERg-87-dY4"/>
+                                            <binding destination="3Xl-n2-elJ" name="enabled" keyPath="selectedObjects.@count" id="x5E-W8-E8e"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -346,7 +347,7 @@
             </subviews>
             <point key="canvasLocation" x="223.5" y="244.5"/>
         </customView>
-        <arrayController id="WNZ-Fa-W8F">
+        <arrayController selectsInsertedObjects="NO" id="WNZ-Fa-W8F">
             <declaredKeys>
                 <string>allValues</string>
             </declaredKeys>
@@ -368,7 +369,6 @@
                         <bool key="NSHandlesContentAsCompoundValue" value="YES"/>
                     </dictionary>
                 </binding>
-                <outlet property="content" destination="xDf-U7-Rbg" id="ZAI-PO-tyO"/>
             </connections>
         </arrayController>
         <arrayController id="3VA-hS-t5V" userLabel="IgnoreFileNameRulesList">
