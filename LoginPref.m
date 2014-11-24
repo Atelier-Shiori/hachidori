@@ -94,9 +94,8 @@
 			}
 			else {
 				//Set Login URL
-				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hbrd-v1.p.mashape.com/users/authenticate"]];
+				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/api/v1/users/authenticate"]];
 				__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-                [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 				//Ignore Cookies
 				[request setUseCookiePersistence:NO];
 				//Set Username

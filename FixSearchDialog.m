@@ -7,7 +7,6 @@
 //
 
 #import "FixSearchDialog.h"
-#import "Constants.h"
 
 @interface FixSearchDialog ()
 
@@ -70,9 +69,8 @@
                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                   kCFStringEncodingUTF8 ));
         //Set Search API
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"https://hbrd-v1.p.mashape.com", searchterm]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"http://hummingbird.me/api/v1", searchterm]];
         __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-        [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
         //Ignore Cookies
         [request setUseCookiePersistence:NO];
         //Set Timeout

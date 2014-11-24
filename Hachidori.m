@@ -233,9 +233,8 @@
 																				(CFStringRef)@"!*'();:@&=+$,/?%#[]",
 																				kCFStringEncodingUTF8 ));
 	//Set Search API
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"https://hbrd-v1.p.mashape.com", searchterm]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"http://hummingbird.me/api/v1", searchterm]];
 	__block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
     //Set Timeout
@@ -496,9 +495,8 @@ update:
     // Update the title
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"http://hummingbird.me/api/v1", titleid]];
     __block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
     //Set Token
@@ -551,9 +549,8 @@ update:
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug{
     NSLog(@"Getting Additional Info");
     //Set Search API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/anime/%@",@"https://hbrd-v1.p.mashape.com", slug]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/anime/%@",@"http://hummingbird.me/api/v1", slug]];
     __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
     //Perform Search
@@ -585,9 +582,8 @@ update:
 		// Update the title
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		//Set library/scrobble API
-		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
+		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"http://hummingbird.me/api/v1", titleid]];
 		__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-        [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 		//Ignore Cookies
 		[request setUseCookiePersistence:NO];
 		//Set Token
@@ -656,9 +652,8 @@ update:
 	// Update the title
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	//Set library/scrobble API
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"https://hbrd-v1.p.mashape.com", titleid]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@", @"http://hummingbird.me/api/v1", titleid]];
 	__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
 	//Set Token
@@ -707,9 +702,8 @@ update:
     // Update the title
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@/remove", @"https://hbrd-v1.p.mashape.com", titleid]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/libraries/%@/remove", @"http://hummingbird.me/api/v1", titleid]];
     __block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request addRequestHeader:@"X-Mashape-Key" value:mashapekey];
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
     //Set Token

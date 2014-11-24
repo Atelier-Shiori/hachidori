@@ -35,7 +35,6 @@
 		8222BB481A19502A003AD38F /* rules.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8222BB471A19502A003AD38F /* rules.tif */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8237D57119F9AF8E00920DDB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8237D57019F9AF8E00920DDB /* Constants.m */; };
 		824693A319FD334300CFA12A /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8246939E19FD334300CFA12A /* DDHotKeyCenter.m */; };
 		824693A419FD334300CFA12A /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A019FD334300CFA12A /* DDHotKeyTextField.m */; };
 		824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A219FD334300CFA12A /* DDHotKeyUtilities.m */; };
@@ -113,8 +112,6 @@
 		5CFC037419F3396E006B4DAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8222BB471A19502A003AD38F /* rules.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = rules.tif; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
-		8237D56F19F9AF8E00920DDB /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		8237D57019F9AF8E00920DDB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		8246939D19FD334300CFA12A /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
 		8246939E19FD334300CFA12A /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
 		8246939F19FD334300CFA12A /* DDHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyTextField.h; sourceTree = "<group>"; };
@@ -231,8 +228,6 @@
 			children = (
 				5C2B9DC31221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
 				256AC3F00F4B6AF500CF3369 /* MAL_Updater_OS_X_Prefix.pch */,
-				8237D56F19F9AF8E00920DDB /* Constants.h */,
-				8237D57019F9AF8E00920DDB /* Constants.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -431,7 +426,6 @@
 				824693A319FD334300CFA12A /* DDHotKeyCenter.m in Sources */,
 				824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
-				8237D57119F9AF8E00920DDB /* Constants.m in Sources */,
 				5C2B9DC41221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */,
