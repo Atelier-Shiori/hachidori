@@ -39,12 +39,16 @@
     IBOutlet NSScrollView *animeinfooutside;
 	BOOL scrobbling;
     BOOL scrobbleractive;
+    NSDate * previousfiredate;
+    NSDate * pausestart;
 	/* Hachidori Scrobbling/Updating Class */
 	Hachidori * haengine;
 	/* Update Status Sheet Window IBOutlets */
 	IBOutlet NSToolbarItem * updatetoolbaritem;
     IBOutlet NSToolbarItem * correcttoolbaritem;
     IBOutlet NSToolbarItem * sharetoolbaritem;
+    IBOutlet NSTextField * episodefield;
+    IBOutlet NSNumberFormatter * epiformatter;
 	IBOutlet NSTextField * showtitle;
 	IBOutlet NSPopUpButton * showstatus;
     IBOutlet NSTextField * showscore;

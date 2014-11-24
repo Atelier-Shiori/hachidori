@@ -47,7 +47,6 @@
 		82DA950A1A1E6CE800522724 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82DA95091A1E6CE800522724 /* Sparkle.framework */; };
 		82DA950B1A1E6CF500522724 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82DA95091A1E6CE800522724 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */; };
-		82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AD19FB613800E0B17A /* hachidori-status-hi.png */; };
 		82F065B019FB613800E0B17A /* hachidori-status.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AE19FB613800E0B17A /* hachidori-status.png */; };
 		82F065B319FB618E00E0B17A /* detectstream in Resources */ = {isa = PBXBuildFile; fileRef = 82F065B219FB618E00E0B17A /* detectstream */; };
 		82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7A9A71A195A8300183EF7 /* Recognition.m */; };
@@ -135,7 +134,6 @@
 		82DA95091A1E6CE800522724 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		82EBBD1A1A17FD5B009F6179 /* FixSearchDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixSearchDialog.h; sourceTree = "<group>"; };
 		82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixSearchDialog.m; sourceTree = "<group>"; };
-		82F065AD19FB613800E0B17A /* hachidori-status-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status-hi.png"; sourceTree = "<group>"; };
 		82F065AE19FB613800E0B17A /* hachidori-status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status.png"; sourceTree = "<group>"; };
 		82F065B219FB618E00E0B17A /* detectstream */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = detectstream; path = detectstream/detectstream; sourceTree = "<group>"; };
 		82F7A9A61A195A8300183EF7 /* Recognition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recognition.h; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 		5C8ACEB919F409F90001A101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				82F065AD19FB613800E0B17A /* hachidori-status-hi.png */,
 				82F065AE19FB613800E0B17A /* hachidori-status.png */,
 				5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */,
 				8222BB471A19502A003AD38F /* rules.tif */,
@@ -406,7 +403,6 @@
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
-				82F065AF19FB613800E0B17A /* hachidori-status-hi.png in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
 				8222BB481A19502A003AD38F /* rules.tif in Resources */,
 				825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */,

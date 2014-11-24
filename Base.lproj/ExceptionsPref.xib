@@ -26,12 +26,11 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Anime Title Exceptions" identifier="1" id="dDU-b1-Ua0">
-                            <view key="view" id="mi1-sZ-x1p">
-                                <rect key="frame" x="10" y="33" width="474" height="221"/>
+                            <view key="view" ambiguous="YES" id="mi1-sZ-x1p">
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orw-aQ-yjO">
-                                        <rect key="frame" x="10" y="58" width="447" height="154"/>
+                                        <rect key="frame" x="10" y="-163" width="447" height="154"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" misplaced="YES" id="fLT-H6-Adh">
                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +109,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <button toolTip="Removes title from exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2FI-VL-IAQ">
-                                        <rect key="frame" x="33" y="17" width="24" height="24"/>
+                                        <rect key="frame" x="33" y="-204" width="24" height="24"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Hje-TO-QKF">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -121,7 +120,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Adds a title to the dection list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7es-2w-wEy">
-                                        <rect key="frame" x="10" y="17" width="24" height="24"/>
+                                        <rect key="frame" x="10" y="-204" width="24" height="24"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dqZ-Vv-lY3">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -131,7 +130,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Imports an exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-sz-D9M">
-                                        <rect key="frame" x="299" y="10" width="82" height="32"/>
+                                        <rect key="frame" x="299" y="-211" width="82" height="32"/>
                                         <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ctM-pM-8N2">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -141,7 +140,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Exports an exception list in JSON format." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-OY-6j2">
-                                        <rect key="frame" x="380" y="10" width="82" height="32"/>
+                                        <rect key="frame" x="380" y="-211" width="82" height="32"/>
                                         <buttonCell key="cell" type="push" title="Export" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KLI-rf-IFn">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -154,7 +153,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Directory Ignore" identifier="2" id="uj2-sl-IEV">
-                            <view key="view" ambiguous="YES" id="Pau-QR-GKB">
+                            <view key="view" id="Pau-QR-GKB">
                                 <rect key="frame" x="10" y="33" width="474" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -165,7 +164,6 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="xDf-U7-Rbg">
-                                                    <rect key="frame" x="0.0" y="0.0" width="444" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -198,9 +196,6 @@
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                                <connections>
-                                                                                    <outlet property="representedObject" destination="wqQ-Is-Qm5" id="LRD-h2-QqI"/>
-                                                                                </connections>
                                                                             </textFieldCell>
                                                                             <connections>
                                                                                 <binding destination="bLw-yV-1Hy" name="value" keyPath="objectValue.directory" id="a42-VH-tKF"/>

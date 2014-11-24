@@ -38,6 +38,7 @@
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode;
 -(int)scrobble;
 -(BOOL)updatestatus:(NSString *)titleid
+            episode:(NSString *)episode
               score:(float)showscore
         watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note

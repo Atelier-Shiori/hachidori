@@ -644,6 +644,7 @@ update:
 	}
 }
 -(BOOL)updatestatus:(NSString *)titleid
+            episode:(NSString *)episode
 			 score:(float)showscore
 	   watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note
@@ -663,7 +664,9 @@ update:
 	//Set Token
     [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
 	//Set current episode
-	//[request setPostValue:LastScrobbledEpisode forKey:@"episodes"];
+    if ([episode isEqualToString:LastScrobbledEpisode]) {
+        [request setPostValue:episode forKey:@"episodes"];
+    }
 	//Set new watch status
 	[request setPostValue:showwatchstatus forKey:@"status"];	
 	//Set new score.
@@ -687,6 +690,7 @@ update:
                 WatchStatus = showwatchstatus;
                 TitleNotes = note;
                 isPrivate = privatevalue;
+                LastScrobbledEpisode = episode;
                 return true;
 			break;
 		default:

@@ -1,5 +1,5 @@
 //
-//  MAL_Updater_OS_XAppDelegate.m
+//  AppDelegate.m
 //  Hachidori
 //
 //  Created by James M. on 8/7/10.
@@ -163,15 +163,12 @@
     
     //Allocates and loads the images into the application which will be used for our NSStatusItem
     statusImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"hachidori-status" ofType:@"png"]];
-    statusHighlightImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"hachidori-status-hi" ofType:@"png"]];
     
     //Yosemite Dark Menu Support
     [statusImage setTemplate:YES];
-    [statusHighlightImage setTemplate:YES];
     
     //Sets the images in our NSStatusItem
     [statusItem setImage:statusImage];
-    [statusItem setAlternateImage:statusHighlightImage];
     
     //Tells the NSStatusItem what menu to load
     [statusItem setMenu:statusMenu];
@@ -191,8 +188,6 @@
 	// Insert code here to initialize your application
 	//Check if Application is in the /Applications Folder
 	PFMoveToApplicationsFolderIfNecessary();
-	//Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
-	[NSApp activateIgnoringOtherApps:YES];
     // Set Defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set Notification Center Delegate
@@ -397,7 +392,7 @@
 		[self starttimer];
 		[togglescrobbler setTitle:@"Stop Scrobbling"];
 		[ScrobblerStatus setObjectValue:@"Scrobble Status: Started"];
-        [self showNotication:@"Hachidori" message:@"Auto Scrobble is now turned on."];
+        //[self showNotication:@"Hachidori" message:@"Auto Scrobble is now turned on."];
 		//Set Scrobbling State to true
 		scrobbling = TRUE;
 	}
@@ -481,20 +476,27 @@
 }
 -(void)starttimer {
 	NSLog(@"Timer Started.");
-	//Create Timer
     timer = [NSTimer scheduledTimerWithTimeInterval:300
                                              target:self
                                            selector:@selector(firetimer:)
                                            userInfo:nil
                                             repeats:YES];
+    if (previousfiredate != nil) {
+        NSLog(@"Resuming Timer");
+        float pauseTime = -1*[pausestart timeIntervalSinceNow];
+        [timer setFireDate:[previousfiredate initWithTimeInterval:pauseTime sinceDate:previousfiredate]];
+        pausestart = nil;
+        previousfiredate = nil;
+    }
 
 }
 -(void)stoptimer {
-	NSLog(@"Timer Stopped.");
+	NSLog(@"Pausing Timer.");
 	//Stop Timer
-	// Remove Timer
 	[timer invalidate];
-	timer = nil;
+    //Set Previous Fire and Pause Times
+    pausestart = [NSDate date];
+    previousfiredate = [timer fireDate];
 }
 -(IBAction)updatenow:(id)sender{
     if ([self checktoken]) {
@@ -760,6 +762,10 @@
     // Set up UI
     [showtitle setObjectValue:[haengine getLastScrobbledTitle]];
     [showscore setStringValue:[NSString stringWithFormat:@"%i", [haengine getScore]]];
+    [episodefield setStringValue:[haengine getLastScrobbledEpisode]];
+    if ([[haengine getTotalEpisodes] intValue] !=0) {
+        [epiformatter setMaximum:[NSNumber numberWithInt:[[haengine getTotalEpisodes] intValue]]];
+    }
     [showstatus selectItemAtIndex:[haengine getWatchStatus]];
     [notes setString:[haengine getNotes]];
     [isPrivate setState:[haengine getPrivate]];
@@ -770,9 +776,25 @@
 }
 - (void)myPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
-        BOOL result = [haengine updatestatus:[haengine getAniID] score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:[isPrivate state]];
-        if (result)
+        // Check if Episode field is empty. If so, set it to last scrobbled episode
+        NSString * tmpepisode = [episodefield stringValue];
+        bool episodechanged;
+        if (tmpepisode.length == 0) {
+            tmpepisode = [haengine getLastScrobbledEpisode];
+        }
+        if ([tmpepisode intValue] != [[haengine getLastScrobbledEpisode] intValue]) {
+            episodechanged = true; // Used to update the status window
+        }
+        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:[isPrivate state]];
+        if (result){
             [self setStatusText:@"Scrobble Status: Updating of Watch Status/Score Successful."];
+            if (episodechanged) {
+                // Update the tooltip, menu and last scrobbled title
+                [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
+                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+                [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+            }
+        }
         else
             [self setStatusText:@"Scrobble Status: Unable to update Watch Status/Score."];
     }
