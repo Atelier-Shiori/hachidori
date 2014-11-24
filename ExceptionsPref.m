@@ -219,6 +219,11 @@
 -(IBAction)addFifleNameIgnoreRule:(id)sender{
         NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys: @"", @"rule", nil];
         [ignorefilenamearraycontroller addObject:entry];
+        // Selection Workaround
+    int c = [[NSArray arrayWithArray:[ignorefilenamearraycontroller arrangedObjects]] count];
+    if(c > 0){
+        [iftb editColumn:0 row:c-1 withEvent:nil select:YES];
+    }
 }
 -(IBAction)removeFileNameIgnoreRule:(id)sender{
     //Remove Selected Object

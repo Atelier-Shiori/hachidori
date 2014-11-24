@@ -14,6 +14,10 @@
     NSString * DetectedTitle;
     NSString * DetectedEpisode;
     int DetectedSeason;
+    //Get Filename
+    regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
+    string = [regex replaceAllMatchesInString:string
+                                   withString:@""];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseNewRecognitionEngine"]) {
         //New Method
         NSLog(@"Using New Method");
