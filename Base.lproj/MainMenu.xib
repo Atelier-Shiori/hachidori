@@ -207,7 +207,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Update/Correct" id="PEE-eA-4CS">
                         <items>
-                            <menuItem isSeparatorItem="YES" id="OZY-jk-gqr"/>
                             <menuItem title="Update Status…" id="dU4-FY-DLP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
