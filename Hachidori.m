@@ -58,6 +58,9 @@
 {
     return [TitleScore integerValue];
 }
+-(int)getCurrentEpisode{
+    return [DetectedCurrentEpisode intValue];
+}
 -(int)getWatchStatus
 {
 	if ([WatchStatus isEqualToString:@"currently-watching"])
@@ -193,7 +196,6 @@
     // Empty out Detected Title/Episode to prevent same title detection
     DetectedTitle = nil;
     DetectedEpisode = nil;
-    DetectedCurrentEpisode = nil;
     
     // Release Detected Title/Episode.
     return status;
@@ -659,8 +661,8 @@ update:
 	//Set Token
     [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
 	//Set current episode
-    if ([episode isEqualToString:LastScrobbledEpisode]) {
-        [request setPostValue:episode forKey:@"episodes"];
+    if ([episode intValue] != [DetectedCurrentEpisode intValue]) {
+        [request setPostValue:episode forKey:@"episodes_watched"];
     }
 	//Set new watch status
 	[request setPostValue:showwatchstatus forKey:@"status"];	
@@ -686,6 +688,7 @@ update:
                 TitleNotes = note;
                 isPrivate = privatevalue;
                 LastScrobbledEpisode = episode;
+                DetectedCurrentEpisode = episode;
                 return true;
 			break;
 		default:

@@ -766,7 +766,7 @@
     // Set up UI
     [showtitle setObjectValue:[haengine getLastScrobbledTitle]];
     [showscore setStringValue:[NSString stringWithFormat:@"%i", [haengine getScore]]];
-    [episodefield setStringValue:[haengine getLastScrobbledEpisode]];
+    [episodefield setStringValue:[NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]]];
     if ([[haengine getTotalEpisodes] intValue] !=0) {
         [epiformatter setMaximum:[NSNumber numberWithInt:[[haengine getTotalEpisodes] intValue]]];
     }
@@ -784,9 +784,9 @@
         NSString * tmpepisode = [episodefield stringValue];
         bool episodechanged;
         if (tmpepisode.length == 0) {
-            tmpepisode = [haengine getLastScrobbledEpisode];
+            tmpepisode = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
         }
-        if ([tmpepisode intValue] != [[haengine getLastScrobbledEpisode] intValue]) {
+        if ([tmpepisode intValue] != [haengine getCurrentEpisode]) {
             episodechanged = true; // Used to update the status window
         }
         BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:[isPrivate state]];
