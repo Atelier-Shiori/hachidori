@@ -901,6 +901,7 @@
     NSMenuItem *shareIcon = [[NSMenuItem alloc] init];
     [shareIcon setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
     [shareIcon setHidden:YES];
+    [shareIcon setTitle:@""];
     [shareMenu addItem:shareIcon];
     //Generate Items to Share
     shareItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]] ,nil];

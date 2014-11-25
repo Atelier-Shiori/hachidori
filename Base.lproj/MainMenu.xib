@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
@@ -467,7 +467,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" id="742">
-                        <rect key="frame" x="122" y="219" width="143" height="26"/>
+                        <rect key="frame" x="122" y="219" width="166" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="currently-watching" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="768" id="764">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -739,12 +739,12 @@ Gw
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="72D2C79C-A565-4CAB-B2EA-ADB01365294F" label="Share" paletteLabel="Share" image="NSShareTemplate" id="5pz-cj-enZ">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="19" height="25"/>
-                        <size key="maxSize" width="37" height="25"/>
+                        <size key="minSize" width="30" height="25"/>
+                        <size key="maxSize" width="30" height="25"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="ti5-XJ-kVw">
-                            <rect key="frame" x="23" y="14" width="37" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="30" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="yI8-4s-qpd">
@@ -768,12 +768,12 @@ Gw
                 </defaultToolbarItems>
             </toolbar>
             <contentBorderThickness minY="22"/>
-            <point key="canvasLocation" x="375" y="139.5"/>
+            <point key="canvasLocation" x="308" y="242.5"/>
         </window>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="NSShareTemplate" width="11" height="16"/>
+        <image name="NSShareTemplate" width="18" height="16"/>
         <image name="correct" width="32" height="32"/>
         <image name="history" width="32" height="32"/>
         <image name="update" width="32" height="32"/>
