@@ -216,13 +216,13 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="OZY-jk-gqr"/>
-                            <menuItem title="Update Status" id="dU4-FY-DLP">
+                            <menuItem title="Update Status…" id="dU4-FY-DLP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="updatestatusmenu:" target="560" id="o8g-zO-qXF"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Correct Title" id="THp-Dy-eKR">
+                            <menuItem title="Correct Title…" id="THp-Dy-eKR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showCorrectionSearchWindow:" target="560" id="Z18-IA-AIJ"/>

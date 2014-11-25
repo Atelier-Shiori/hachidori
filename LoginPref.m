@@ -94,7 +94,7 @@
 			}
 			else {
 				//Set Login URL
-				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/api/v1/users/authenticate"]];
+				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/users/authenticate"]];
 				__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
 				//Ignore Cookies
 				[request setUseCookiePersistence:NO];

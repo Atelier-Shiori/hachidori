@@ -69,7 +69,7 @@
                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                   kCFStringEncodingUTF8 ));
         //Set Search API
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/anime?query=%@",@"http://hummingbird.me/api/v1", searchterm]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/search/anime?query=%@", searchterm]];
         __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
         //Ignore Cookies
         [request setUseCookiePersistence:NO];
