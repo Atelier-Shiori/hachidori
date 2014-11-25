@@ -521,7 +521,7 @@
     [animeinfo setString:@""];
     //Title
     [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", [d objectForKey:@"title"]]];
-    if ([d objectForKey:@"alternate_title"] !=[NSNull null]) {
+    if ([[NSString stringWithFormat:@"%@",[d objectForKey:@"alternate_title"]] length] >0) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", [d objectForKey:@"alternate_title"]]];
     }
     [self appendToAnimeInfo:@""];
