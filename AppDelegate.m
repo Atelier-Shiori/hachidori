@@ -342,13 +342,10 @@
 	} 
 }
 -(IBAction)share:(id)sender{
-    //Generate Items to Share
-    NSArray *shareItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]] ,nil];
-    //Get Share Picker
-    NSSharingServicePicker *sharePicker = [[NSSharingServicePicker alloc] initWithItems:shareItems];
-    sharePicker.delegate = nil;
+   // NSSharingServicePicker *sharePicker = [[NSSharingServicePicker alloc] initWithItems:shareItems];
+    //sharePicker.delegate = nil;
     // Show Share Box
-    [sharePicker showRelativeToRect:[sender bounds] ofView:[sharetoolbaritem view] preferredEdge:NSMinYEdge];
+    //[sharePicker showRelativeToRect:[sender bounds] ofView:[sharetoolbaritem view] preferredEdge:NSMinYEdge];
 }
 
 /*
@@ -462,6 +459,7 @@
                 NSDictionary * ainfo = [haengine getLastScrobbledInfo];
                 if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
                     [self showAnimeInfo:ainfo];
+                    [self generateShareMenu];
                 }
             }
             // Enable Menu Items
@@ -884,6 +882,34 @@
     [updatedupdatestatus setEnabled:YES];
     [updatedtitlemenus setAutoenablesItems:YES];
     [statusMenu setAutoenablesItems:YES];
+}
+/*
+ Share Services
+ */
+-(void)generateShareMenu{
+    //Clear Share Menu
+    [shareMenu removeAllItems];
+    // Workaround for Share Toolbar Item
+    NSMenuItem *shareIcon = [[NSMenuItem alloc] init];
+    [shareIcon setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
+    [shareIcon setHidden:YES];
+    [shareMenu addItem:shareIcon];
+    //Generate Items to Share
+    shareItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]] ,nil];
+    //Get Share Services for Items
+    NSArray *shareServiceforItems = [NSSharingService sharingServicesForItems:shareItems];
+    //Generate Share Items and populate Share Menu
+    for (NSSharingService * cservice in shareServiceforItems){
+        NSMenuItem * item = [[NSMenuItem alloc] initWithTitle:[cservice title] action:@selector(shareFromService:) keyEquivalent:@""];
+        [item setRepresentedObject:cservice];
+        [item setImage:[cservice image]];
+        [item setTarget:self];
+        [shareMenu addItem:item];
+    }
+}
+- (IBAction)shareFromService:(id)sender{
+    // Share Item
+    [[sender representedObject] performWithItems:shareItems];
 }
 
 @end

@@ -228,6 +228,14 @@
                                     <action selector="showCorrectionSearchWindow:" target="560" id="Z18-IA-AIJ"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Share" id="21z-ef-0DY">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Share" id="9qZ-L6-NWC">
+                                    <items>
+                                        <menuItem state="on" image="NSShareTemplate" hidden="YES" id="ujU-0s-k5l"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -270,7 +278,8 @@
                 <outlet property="img" destination="gfr-73-DLn" id="iLO-3a-xch"/>
                 <outlet property="isPrivate" destination="08J-G1-ibd" id="SgD-vy-2Kq"/>
                 <outlet property="notes" destination="zRV-za-4dp" id="ABq-oY-STM"/>
-                <outlet property="sharetoolbaritem" destination="PDJ-oY-qAN" id="Xw6-jN-k2Z"/>
+                <outlet property="shareMenu" destination="9qZ-L6-NWC" id="LEK-ar-cdA"/>
+                <outlet property="sharetoolbaritem" destination="5pz-cj-enZ" id="Rno-fh-gsp"/>
                 <outlet property="showscore" destination="Mfz-5E-LLG" id="acW-pr-oyF"/>
                 <outlet property="showstatus" destination="742" id="785"/>
                 <outlet property="showtitle" destination="746" id="788"/>
@@ -701,21 +710,6 @@ Gw
                             <action selector="showhistory:" target="560" id="HCI-hT-Yrn"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="D4D78994-86FE-4D61-81D7-125C5CA16673" label="Share" paletteLabel="Share" toolTip="Share" image="NSShareTemplate" id="PDJ-oY-qAN">
-                        <size key="minSize" width="32" height="25"/>
-                        <size key="maxSize" width="32" height="32"/>
-                        <button key="view" verticalHuggingPriority="750" id="J31-lj-bj2">
-                            <rect key="frame" x="22" y="14" width="32" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSShareTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jaB-zh-5gn">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="share:" target="560" id="v0G-w8-rYF"/>
-                        </connections>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="brg-hf-L73"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="JKl-qD-hH8"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="DUP-IU-qwC"/>
@@ -735,13 +729,34 @@ Gw
                             <action selector="showCorrectionSearchWindow:" target="560" id="gKH-8G-n32"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="72D2C79C-A565-4CAB-B2EA-ADB01365294F" label="Share" paletteLabel="Share" image="NSShareTemplate" id="5pz-cj-enZ">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="19" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <popUpButton key="view" verticalHuggingPriority="750" id="ti5-XJ-kVw">
+                            <rect key="frame" x="23" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" id="yI8-4s-qpd">
+                                    <items>
+                                        <menuItem state="on" image="NSShareTemplate" hidden="YES" id="NYx-Ks-tPL"/>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <outlet property="menu" destination="9qZ-L6-NWC" id="ZaA-5D-Sbn"/>
+                            </connections>
+                        </popUpButton>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="wq9-kC-J4D"/>
                     <toolbarItem reference="eo4-15-Ehk"/>
                     <toolbarItem reference="k8g-Fn-fps"/>
                     <toolbarItem reference="q9Q-0H-wSc"/>
-                    <toolbarItem reference="PDJ-oY-qAN"/>
+                    <toolbarItem reference="5pz-cj-enZ"/>
                 </defaultToolbarItems>
             </toolbar>
             <contentBorderThickness minY="22"/>

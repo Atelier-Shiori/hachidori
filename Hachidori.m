@@ -789,10 +789,10 @@ update:
 }
 -(NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
-    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season)"];
-    title = [regex replaceAllMatchesInString:title withString:@"" options:OgreIgnoreCaseOption];
-    regex = [OGRegularExpression regularExpressionWithString: @"(s|S)\\d"];
-    title = [regex replaceAllMatchesInString:title withString:@"" options:OgreIgnoreCaseOption];
+    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season)" options:OgreIgnoreCaseOption];
+    title = [regex replaceAllMatchesInString:title withString:@""];
+    regex = [OGRegularExpression regularExpressionWithString: @"(s)\\d" options:OgreIgnoreCaseOption];
+    title = [regex replaceAllMatchesInString:title withString:@""];
     // Remove any Whitespace
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;

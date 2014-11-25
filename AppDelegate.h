@@ -34,6 +34,7 @@
     IBOutlet NSMenuItem * updatedepisode;
     IBOutlet NSMenuItem * updatedcorrecttitle;
     IBOutlet NSMenuItem * updatedupdatestatus;
+    IBOutlet NSMenu * shareMenu;
 	IBOutlet NSTextField * ScrobblerStatus;
 	IBOutlet NSTextField * LastScrobbled;
     IBOutlet NSTextView * animeinfo;
@@ -45,6 +46,7 @@
     bool panelactive;
     NSDate * previousfiredate;
     NSDate * pausestart;
+    NSArray * shareItems;
 	/* Hachidori Scrobbling/Updating Class */
 	Hachidori * haengine;
 	/* Update Status Sheet Window IBOutlets */
