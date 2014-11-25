@@ -236,7 +236,8 @@
 																				kCFStringEncodingUTF8 ));
 	//Set Search API
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/search/anime?query=%@", searchterm]];
-	__block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+	ASIHTTPRequest *irequest = [ASIHTTPRequest requestWithURL:url];
+    __weak ASIHTTPRequest *request = irequest;
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
     //Set Timeout
@@ -498,7 +499,8 @@ update:
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
-    __block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
+    __weak ASIFormDataRequest *request = irequest;
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
     //Set Token
@@ -552,7 +554,8 @@ update:
     NSLog(@"Getting Additional Info");
     //Set Search API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/anime/%@", slug]];
-    __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    ASIHTTPRequest *irequest = [ASIHTTPRequest requestWithURL:url];
+    __weak ASIFormDataRequest *request = irequest;
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
     //Perform Search
@@ -585,7 +588,8 @@ update:
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		//Set library/scrobble API
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
-		__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+		ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
+        __weak ASIFormDataRequest *request = irequest;
 		//Ignore Cookies
 		[request setUseCookiePersistence:NO];
 		//Set Token
@@ -655,7 +659,8 @@ update:
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	//Set library/scrobble API
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@",  titleid]];
-	__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+	ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
+    __weak ASIFormDataRequest *request = irequest;
 	//Ignore Cookies
 	[request setUseCookiePersistence:NO];
 	//Set Token
@@ -706,7 +711,8 @@ update:
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@/remove", titleid]];
-    __block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
+    __weak ASIFormDataRequest *request = irequest;
     //Ignore Cookies
     [request setUseCookiePersistence:NO];
     //Set Token

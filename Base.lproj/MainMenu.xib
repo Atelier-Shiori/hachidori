@@ -190,31 +190,23 @@
                         <action selector="showPreferences:" target="560" id="564"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="555">
+                <menuItem isSeparatorItem="YES" hidden="YES" id="555">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
-                <menuItem title="Start Scrobbling" id="557">
+                <menuItem title="Last Scrobbled:" hidden="YES" enabled="NO" id="wRW-vV-uul">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="toggletimer:" target="560" id="658"/>
-                    </connections>
                 </menuItem>
-                <menuItem title="Update Now" keyEquivalent="U" id="Swq-JZ-crS">
-                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                    <connections>
-                        <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Last Scrobbled" hidden="YES" id="ocn-xD-u5l">
+                <menuItem title="Show Title" hidden="YES" enabled="NO" indentationLevel="1" id="a2M-Ci-eiK">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Last Scrobbled" id="PEE-eA-4CS">
+                </menuItem>
+                <menuItem title="Episode" hidden="YES" enabled="NO" indentationLevel="1" id="JMG-sQ-r6U">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" hidden="YES" id="E8T-4Q-mLF"/>
+                <menuItem title="Update/Correct" hidden="YES" id="ocn-xD-u5l">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Update/Correct" id="PEE-eA-4CS">
                         <items>
-                            <menuItem title="Show Title" enabled="NO" id="a2M-Ci-eiK">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Episode" enabled="NO" id="JMG-sQ-r6U">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="OZY-jk-gqr"/>
                             <menuItem title="Update Status…" id="dU4-FY-DLP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -228,16 +220,29 @@
                                     <action selector="showCorrectionSearchWindow:" target="560" id="Z18-IA-AIJ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Share" id="21z-ef-0DY">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Share" id="9qZ-L6-NWC">
-                                    <items>
-                                        <menuItem state="on" image="NSShareTemplate" hidden="YES" id="ujU-0s-k5l"/>
-                                    </items>
-                                </menu>
-                            </menuItem>
                         </items>
                     </menu>
+                </menuItem>
+                <menuItem title="Share" hidden="YES" id="21z-ef-0DY">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Share" id="9qZ-L6-NWC">
+                        <items>
+                            <menuItem state="on" image="NSShareTemplate" hidden="YES" id="ujU-0s-k5l"/>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="e2P-up-0w5"/>
+                <menuItem title="Start Scrobbling" id="557">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggletimer:" target="560" id="658"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Update Now" keyEquivalent="U" id="Swq-JZ-crS">
+                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                    <connections>
+                        <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
+                    </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="574"/>
                 <menuItem title="Show/Hide Status Window" id="573">
@@ -277,19 +282,23 @@
                 <outlet property="historywindow" destination="588" id="605"/>
                 <outlet property="img" destination="gfr-73-DLn" id="iLO-3a-xch"/>
                 <outlet property="isPrivate" destination="08J-G1-ibd" id="SgD-vy-2Kq"/>
+                <outlet property="lastupdateheader" destination="wRW-vV-uul" id="Aoh-J1-uYk"/>
                 <outlet property="notes" destination="zRV-za-4dp" id="ABq-oY-STM"/>
+                <outlet property="seperator" destination="555" id="QKS-yU-V76"/>
+                <outlet property="seperator2" destination="E8T-4Q-mLF" id="HiB-iA-9wo"/>
                 <outlet property="shareMenu" destination="9qZ-L6-NWC" id="LEK-ar-cdA"/>
+                <outlet property="shareMenuItem" destination="21z-ef-0DY" id="eHh-Va-Jmk"/>
                 <outlet property="sharetoolbaritem" destination="5pz-cj-enZ" id="Rno-fh-gsp"/>
                 <outlet property="showscore" destination="Mfz-5E-LLG" id="acW-pr-oyF"/>
                 <outlet property="showstatus" destination="742" id="785"/>
                 <outlet property="showtitle" destination="746" id="788"/>
                 <outlet property="statusMenu" destination="543" id="561"/>
                 <outlet property="togglescrobbler" destination="557" id="657"/>
+                <outlet property="updatecorrect" destination="PEE-eA-4CS" id="JgR-gt-2ZA"/>
+                <outlet property="updatecorrectmenu" destination="ocn-xD-u5l" id="w1E-vA-DLD"/>
                 <outlet property="updatedcorrecttitle" destination="THp-Dy-eKR" id="QoV-Y3-l1M"/>
                 <outlet property="updatedepisode" destination="JMG-sQ-r6U" id="W0x-eW-R9G"/>
                 <outlet property="updatedtitle" destination="a2M-Ci-eiK" id="Ijp-3y-bYv"/>
-                <outlet property="updatedtitlemenu" destination="ocn-xD-u5l" id="WxQ-uv-vrx"/>
-                <outlet property="updatedtitlemenus" destination="PEE-eA-4CS" id="1iu-su-RCP"/>
                 <outlet property="updatedupdatestatus" destination="dU4-FY-DLP" id="eyx-8v-XdS"/>
                 <outlet property="updatenow" destination="Swq-JZ-crS" id="wbq-Tb-8xl"/>
                 <outlet property="updatepanel" destination="725" id="777"/>

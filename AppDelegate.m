@@ -450,8 +450,16 @@
             if ([haengine getSuccess] == 1) {
                 [updatetoolbaritem setEnabled:YES];
                 [sharetoolbaritem setEnabled:YES];
-                [updatedtitlemenu setHidden:NO];
                 [correcttoolbaritem setEnabled:YES];
+                //Show Last Scrobbled Title and operations */
+                [seperator setHidden:NO];
+                [lastupdateheader setHidden:NO];
+                [updatedtitle setHidden:NO];
+                [updatedepisode setHidden:NO];
+                [seperator2 setHidden:NO];
+                [updatecorrectmenu setHidden:NO];
+                [updatedcorrecttitle setHidden:NO];
+                [shareMenuItem setHidden:NO];
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledTitle] episode:[haengine getLastScrobbledEpisode]];
                 [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                 [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
@@ -867,7 +875,7 @@
     // Disables update options to prevent erorrs
     panelactive = true;
     [statusMenu setAutoenablesItems:NO];
-    [updatedtitlemenus setAutoenablesItems:NO];
+    [updatecorrect setAutoenablesItems:NO];
     [updatenow setEnabled:NO];
     [togglescrobbler setEnabled:NO];
     [updatedcorrecttitle setEnabled:NO];
@@ -880,7 +888,7 @@
     [togglescrobbler setEnabled:YES];
     [updatedcorrecttitle setEnabled:YES];
     [updatedupdatestatus setEnabled:YES];
-    [updatedtitlemenus setAutoenablesItems:YES];
+    [updatecorrect setAutoenablesItems:YES];
     [statusMenu setAutoenablesItems:YES];
 }
 /*
