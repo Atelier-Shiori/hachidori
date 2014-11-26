@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <ASIHTTPRequest/ASIHTTPRequest.h>
 
 @interface FixSearchDialog : NSWindowController{
     IBOutlet NSArrayController * arraycontroller;

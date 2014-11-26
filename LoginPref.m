@@ -7,6 +7,7 @@
 //
 
 #import "LoginPref.h"
+#import "EasyNSURLConnection.h"
 
 
 @implementation LoginPref
@@ -95,24 +96,24 @@
 			else {
 				//Set Login URL
 				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/users/authenticate"]];
-				__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+                EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
 				//Ignore Cookies
-				[request setUseCookiePersistence:NO];
+				[request setUseCookies:NO];
 				//Set Username
-                [request setPostValue:[fieldusername stringValue] forKey:@"username"];
-                [request setPostValue:[fieldpassword stringValue] forKey:@"password"];
-                [request setRequestMethod:@"POST"];
+                [request addFormData:[fieldusername stringValue] forKey:@"username"];
+                [request addFormData:[fieldpassword stringValue] forKey:@"password"];
+                [request setPostMethod:@"POST"];
 				//Vertify Username/Password
-				[request startSynchronous];
+                [request startFormRequest];
 				// Get Status Code
-				int statusCode = [request responseStatusCode];
+                int statusCode = [request getStatusCode];
 				switch (statusCode) {
 					case 201:{
 						//Login successful
 						[self showsheetmessage:@"Login Successful" explaination: @"Login Token has been recieved."];
 						// Generate API Key
 						NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-						[defaults setObject:[[request responseString] stringByReplacingOccurrencesOfString:@"\"" withString:@""] forKey:@"Token"];
+						[defaults setObject:[[request getResponseDataString] stringByReplacingOccurrencesOfString:@"\"" withString:@""] forKey:@"Token"];
 						[defaults setObject:[fieldusername stringValue] forKey:@"Username"];
 						[clearbut setEnabled: YES];
 						break;}

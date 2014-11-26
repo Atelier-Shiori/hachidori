@@ -16,7 +16,6 @@ See [Getting Started Guide](https://github.com/chikorita157/hachidori/wiki/Getti
 ## Dependencies
 All the frameworks are included. Just build! Here are the frameworks that are used in this app:
 
-* ASIHTTPRequest.framework (This is a framework version to maintain compatibility when building on later versions of OS X. Source code is in the Framework folder)
 * anitomy-osx.framework (Framework version and adapted version of anitomy C++ library. Source code is in Framework folder.)
 * Sparkle.framework
 * OgreKit.framework

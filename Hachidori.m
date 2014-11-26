@@ -8,6 +8,7 @@
 
 #import "Hachidori.h"
 #import "Recognition.h"
+#import "EasyNSURLConnection.h"
 
 @interface Hachidori ()
 // Private Methods
@@ -236,19 +237,16 @@
 																				kCFStringEncodingUTF8 ));
 	//Set Search API
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/search/anime?query=%@", searchterm]];
-	ASIHTTPRequest *irequest = [ASIHTTPRequest requestWithURL:url];
-    __weak ASIHTTPRequest *request = irequest;
-	//Ignore Cookies
-	[request setUseCookiePersistence:NO];
-    //Set Timeout
-    [request setTimeOutSeconds:15];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+	[request setUseCookies:NO];
 	//Perform Search
-	[request startSynchronous];
+	[request startRequest];
 	//Set up Delegate
 	
 	// Get Status Code
-	int statusCode = [request responseStatusCode];
-    NSData *response = [request responseData];
+	int statusCode = [request getStatusCode];
+    NSData *response = [request getResponseData];
 	switch (statusCode) {
         case 0:
             online = false;
@@ -499,23 +497,20 @@ update:
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
-    ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
-    __weak ASIFormDataRequest *request = irequest;
+   EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
-    [request setUseCookiePersistence:NO];
+    [request setUseCookies:NO];
     //Set Token
-    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
-    //Set Timeout
-    [request setTimeOutSeconds:15];
+    [request addFormData:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
     // Get Information
-    [request startSynchronous];
+    [request startFormRequest];
     NSDictionary * d;
-    int statusCode = [request responseStatusCode];
+    int statusCode = [request getStatusCode];
 	if (statusCode == 200 || statusCode == 201 ) {
         online = true;
         //return Data
         NSError * error;
-        d = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:&error];
+        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
                 if ([d count] > 0) {
                     NSLog(@"Title on list");
                     [self populateStatusData:d];
@@ -554,17 +549,16 @@ update:
     NSLog(@"Getting Additional Info");
     //Set Search API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/anime/%@", slug]];
-    ASIHTTPRequest *irequest = [ASIHTTPRequest requestWithURL:url];
-    __weak ASIFormDataRequest *request = irequest;
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
-    [request setUseCookiePersistence:NO];
+    [request setUseCookies:NO];
     //Perform Search
-    [request startSynchronous];
+    [request startRequest];
     // Get Status Code
-    int statusCode = [request responseStatusCode];
+    int statusCode = [request getStatusCode];
     if (statusCode == 200) {
         NSError* error;
-        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:&error];
+        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
         return d;
     }
     else{
@@ -588,46 +582,44 @@ update:
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		//Set library/scrobble API
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
-		ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
-        __weak ASIFormDataRequest *request = irequest;
+        EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
 		//Ignore Cookies
-		[request setUseCookiePersistence:NO];
+		[request setUseCookies:NO];
 		//Set Token
-		[request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+		[request addFormData:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
         //Set Timeout
-        [request setTimeOutSeconds:15];
 	    //[request setRequestMethod:@"PUT"];
-	    [request setPostValue:DetectedEpisode forKey:@"episodes_watched"];
+	    [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
 		//Set Status
 		if([DetectedEpisode intValue] == [TotalEpisodes intValue]) {
 			//Set Title State for Title (use for Twitter feature)
 			WatchStatus = @"completed";
 			// Since Detected Episode = Total Episode, set the status as "Complete"
-			[request setPostValue:WatchStatus forKey:@"status"];
+			[request addFormData:WatchStatus forKey:@"status"];
 		}
 		else {
 			//Set Title State for Title (use for Twitter feature)
 			WatchStatus = @"currently-watching";
 			// Still Watching
-			[request setPostValue:WatchStatus forKey:@"status"];
+			[request addFormData:WatchStatus forKey:@"status"];
 		}	
 		// Set existing score to prevent the score from being erased.
-		[request setPostValue:TitleScore forKey:@"rating"];
+		[request addFormData:TitleScore forKey:@"rating"];
         //Privacy
         if (isPrivate)
-            [request setPostValue:@"private" forKey:@"privacy"];
+            [request addFormData:@"private" forKey:@"privacy"];
         else
-            [request setPostValue:@"public" forKey:@"privacy"];
+            [request addFormData:@"public" forKey:@"privacy"];
 		// Do Update
-		[request startSynchronous];
-		
-		// Store Scrobbled Title and Episode
-		LastScrobbledTitle = DetectedTitle;
-		LastScrobbledEpisode = DetectedEpisode;
+		[request startFormRequest];
 		//NSLog(@"%i", [request responseStatusCode]);
         
-		switch ([request responseStatusCode]) {
+		switch ([request getStatusCode]) {
 			case 201:
+                // Store Scrobbled Title and Episode
+                LastScrobbledTitle = DetectedTitle;
+                LastScrobbledEpisode = DetectedEpisode;
+                DetectedCurrentEpisode = LastScrobbledEpisode;
                 if (LastScrobbledTitleNew) {
                     return 21;
                 }
@@ -659,32 +651,29 @@ update:
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	//Set library/scrobble API
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@",  titleid]];
-	ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
-    __weak ASIFormDataRequest *request = irequest;
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
 	//Ignore Cookies
-	[request setUseCookiePersistence:NO];
+	[request setUseCookies:NO];
 	//Set Token
-    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+    [request addFormData:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
 	//Set current episode
     if ([episode intValue] != [DetectedCurrentEpisode intValue]) {
-        [request setPostValue:episode forKey:@"episodes_watched"];
+        [request addFormData:episode forKey:@"episodes_watched"];
     }
 	//Set new watch status
-	[request setPostValue:showwatchstatus forKey:@"status"];	
+	[request addFormData:showwatchstatus forKey:@"status"];	
 	//Set new score.
-	[request setPostValue:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
+	[request addFormData:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
     //Set new note
-    [request setPostValue:note forKey:@"notes"];
+    [request addFormData:note forKey:@"notes"];
     //Privacy
     if (privatevalue)
-        [request setPostValue:@"private" forKey:@"privacy"];
+        [request addFormData:@"private" forKey:@"privacy"];
     else
-        [request setPostValue:@"public" forKey:@"privacy"];
-    //Set Timeout
-    [request setTimeOutSeconds:15];
+        [request addFormData:@"public" forKey:@"privacy"];
 	// Do Update
-	[request startSynchronous];
-    switch ([request responseStatusCode]) {
+	[request startFormRequest];
+    switch ([request getStatusCode]) {
         case 200:
 		case 201:
                 //Set New Values
@@ -711,17 +700,14 @@ update:
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@/remove", titleid]];
-    ASIFormDataRequest *irequest = [ASIFormDataRequest requestWithURL:url];
-    __weak ASIFormDataRequest *request = irequest;
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
-    [request setUseCookiePersistence:NO];
+    [request setUseCookies:NO];
     //Set Token
-    [request setPostValue:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
-    //Set Timeout
-    [request setTimeOutSeconds:15];
+    [request addFormData:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
     // Do Update
-    [request startSynchronous];
-    switch ([request responseStatusCode]) {
+    [request startFormRequest];
+    switch ([request getStatusCode]) {
         case 200:
         case 201:
             return true;

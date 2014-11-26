@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OgreKit/OgreKit.h>
-#import <ASIHTTPRequest/ASIHTTPRequest.h>
-#import <ASIHTTPRequest/ASIFormDataRequest.h>
 
 @interface Hachidori : NSObject {
 	NSString * Token;

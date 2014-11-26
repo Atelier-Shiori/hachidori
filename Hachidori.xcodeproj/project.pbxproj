@@ -22,10 +22,9 @@
 		5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D505F1329810000B31C08 /* libxml2.dylib */; };
 		5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D50611329810700B31C08 /* libxml2.2.dylib */; };
 		5C30BC07139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */; };
-		5C64F46319F6BA2600D93064 /* ASIHTTPRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C64F46219F6BA2600D93064 /* ASIHTTPRequest.framework */; };
-		5C64F46419F6BA2D00D93064 /* ASIHTTPRequest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5C64F46219F6BA2600D93064 /* ASIHTTPRequest.framework */; };
 		5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C881EFA19F462B400E20425 /* NSString_stripHtml.m */; };
 		5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */; };
+		5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */; };
 		5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */; };
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
@@ -63,7 +62,6 @@
 			files = (
 				82DA950B1A1E6CF500522724 /* Sparkle.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
-				5C64F46419F6BA2D00D93064 /* ASIHTTPRequest.framework in CopyFiles */,
 				3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,9 +96,10 @@
 		5C2D505F1329810000B31C08 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		5C2D50611329810700B31C08 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = PreferencesSoftwareUpdateIcon.tiff; sourceTree = "<group>"; };
-		5C64F46219F6BA2600D93064 /* ASIHTTPRequest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ASIHTTPRequest.framework; path = Frameworks/ASIHTTPRequest.framework; sourceTree = "<group>"; };
 		5C881EF919F462B400E20425 /* NSString_stripHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_stripHtml.h; sourceTree = "<group>"; };
 		5C881EFA19F462B400E20425 /* NSString_stripHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_stripHtml.m; sourceTree = "<group>"; };
+		5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNSURLConnection.h; sourceTree = "<group>"; };
+		5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNSURLConnection.m; sourceTree = "<group>"; };
 		5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LoginPref.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginPref.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CD36B9519F2EA9B007BB6B6 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
@@ -150,7 +149,6 @@
 				5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */,
 				3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				5C64F46319F6BA2600D93064 /* ASIHTTPRequest.framework in Frameworks */,
 				82DA950A1A1E6CE800522724 /* Sparkle.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
@@ -197,7 +195,6 @@
 			children = (
 				82DA95091A1E6CE800522724 /* Sparkle.framework */,
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
-				5C64F46219F6BA2600D93064 /* ASIHTTPRequest.framework */,
 				3A4C61D3120DF3ED0032F63A /* OgreKit.framework */,
 			);
 			name = "Other Frameworks";
@@ -273,6 +270,8 @@
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				5C881EF919F462B400E20425 /* NSString_stripHtml.h */,
 				5C881EFA19F462B400E20425 /* NSString_stripHtml.m */,
+				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
+				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
@@ -420,6 +419,7 @@
 				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
+				5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */,
 				824693A419FD334300CFA12A /* DDHotKeyTextField.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */,
