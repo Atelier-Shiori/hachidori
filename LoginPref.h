@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MASPreferencesViewController.h"
-#import <ASIHTTPRequest/ASIHTTPRequest.h>
-#import <ASIHTTPRequest/ASIFormDataRequest.h>
 #import "AppDelegate.h"
 
 @interface LoginPref : NSViewController <MASPreferencesViewController> {
