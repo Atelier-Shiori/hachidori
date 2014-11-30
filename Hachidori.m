@@ -547,12 +547,11 @@ update:
 }
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug{
     NSLog(@"Getting Additional Info");
-    //Set Search API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/anime/%@", slug]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
-    //Perform Search
+    //Get Information
     [request startRequest];
     // Get Status Code
     int statusCode = [request getStatusCode];

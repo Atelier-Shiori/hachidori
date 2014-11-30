@@ -17,12 +17,12 @@
 #pragma constructors
 -(id)init{
     // Set Default User Agent
-    useragent =[NSString stringWithFormat:@"%@ %@ (Macintosh)", [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"],[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleVersion"]];
+    useragent =[NSString stringWithFormat:@"%@ %@ (OS X %@)", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], [[NSProcessInfo processInfo] operatingSystemVersionString]];
     return [super init];
 }
 -(id)initWithURL:(NSURL *)address{
     URL = address;
-    return [super init];
+    return [self init];
 }
 #pragma getters
 -(NSData *)getResponseData{
@@ -74,6 +74,8 @@
     NSHTTPURLResponse * rresponse = nil;
     // Do not use Cookies
     [request setHTTPShouldHandleCookies:usecookies];
+    // Set Timeout
+    [request setTimeoutInterval:15];
     // Set User Agent
     [request setValue:useragent forHTTPHeaderField:@"User-Agent"];
     // Set Other headers, if any
@@ -107,6 +109,8 @@
     [request setHTTPShouldHandleCookies:usecookies];
     // Set User Agent
     [request setValue:useragent forHTTPHeaderField:@"User-Agent"];
+    // Set Timeout
+    [request setTimeoutInterval:15];
     //Set Post Data
     [request setHTTPBody:[self encodeArraywithDictionaries:formdata]];
     // Set Other headers, if any
