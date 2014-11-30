@@ -447,36 +447,65 @@ update:
                     continue;
                 }
             }
-            //Return titleid
-            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-            goto foundtitle;
+            //Return titleid if episode is valid
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+                NSLog(@"Valid Episode Count");
+                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+                goto foundtitle;
+            }
+            else{
+                // Detected episodes exceed total episodes
+                continue;
+            }
+
         }
     }
     for (NSDictionary *searchentry in special) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            //Return titleid
-            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-            goto foundtitle;
+            //Return titleid if episode is valid
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+                NSLog(@"Valid Episode Count");
+                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+                goto foundtitle;
+            }
+            else{
+                // Detected episodes exceed total episodes
+                continue;
+            }
         }
     }
     for (NSDictionary *searchentry in ova) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            //Return titleid
-            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-            goto foundtitle;
+            //Return titleid if episode is valid
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+                NSLog(@"Valid Episode Count");
+                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+                goto foundtitle;
+            }
+            else{
+                // Detected episodes exceed total episodes
+                continue;
+            }
         }
     }
     for (NSDictionary *searchentry in other) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            //Return titleid
-            titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-            goto foundtitle;
+            //Return titleid if episode is valid
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+                NSLog(@"Valid Episode Count");
+                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+                goto foundtitle;
+            }
+            else{
+                // Detected episodes exceed total episodes
+                continue;
+            }
         }
     }
      }
