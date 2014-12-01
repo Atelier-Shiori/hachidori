@@ -144,6 +144,7 @@
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"IgnoreTitleRules"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"CheckAltTitles"];
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ConfirmNewTitle"];
+    [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ConfirmUpdates"];
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
         	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteTitleBar"];
@@ -464,8 +465,23 @@
                     [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                     [confirmupdate setHidden:NO];
                 }
-                // Populate Anime Info and Enable Items
-                [self enableitems];
+                [updatetoolbaritem setEnabled:YES];
+                [sharetoolbaritem setEnabled:YES];
+                [correcttoolbaritem setEnabled:YES];
+                //Show Last Scrobbled Title and operations */
+                [seperator setHidden:NO];
+                [lastupdateheader setHidden:NO];
+                [updatedtitle setHidden:NO];
+                [updatedepisode setHidden:NO];
+                [seperator2 setHidden:NO];
+                [updatecorrectmenu setHidden:NO];
+                [updatedcorrecttitle setHidden:NO];
+                [shareMenuItem setHidden:NO];
+                NSDictionary * ainfo = [haengine getLastScrobbledInfo];
+                if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
+                    [self showAnimeInfo:ainfo];
+                    [self generateShareMenu];
+                }
             }
             // Enable Menu Items
             scrobbleractive = false;
@@ -869,15 +885,16 @@
 }
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    if ([notification.title isEqualToString:@"Confirm Update"] && -1*[[notification actualDeliveryDate] timeIntervalSinceNow] < 300) {
+    if ([notification.title isEqualToString:@"Confirm Update"] && !confirmupdate) {
         NSString * title = [notification.userInfo objectForKey:@"title"];
         NSString * episode = [notification.userInfo objectForKey:@"episode"];
+        // Only confirm update if the title and episode is the same with the last scrobbled.
         if ([[haengine getLastScrobbledTitle] isEqualToString:title] && [episode intValue] == [[haengine getLastScrobbledEpisode] intValue]) {
             //Confirm Update
             [self confirmupdate];
         }
         else{
-            [self confirmupdateUserData:title episode:episode];
+            return;
         }
     }
 }
@@ -896,32 +913,6 @@
     else{
         [self showNotication:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
     }
-}
--(void)confirmupdateUserData:(NSString *)title episode:(NSString *) episode{
-    dispatch_queue_t queue = dispatch_get_global_queue(
-                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(queue, ^{
-        int status = [haengine scrobbleagain:title Episode:episode];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            switch (status) {
-                case 1:
-                case 21:
-                case 22:{
-                    [self enableitems];
-                    [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                    [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                    [self addrecord:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
-                    [confirmupdate setHidden:YES];
-                    [self showNotication:@"Hachidori" message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                    break;
-                }
-                default:
-                    [self showNotication:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
-                    break;
-            }
-        	});
-    });
 }
 -(void)registerHotkey{
     DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
@@ -958,25 +949,6 @@
     [updatedupdatestatus setEnabled:YES];
     [updatecorrect setAutoenablesItems:YES];
     [statusMenu setAutoenablesItems:YES];
-}
--(void)enableitems{
-    [updatetoolbaritem setEnabled:YES];
-    [sharetoolbaritem setEnabled:YES];
-    [correcttoolbaritem setEnabled:YES];
-    //Show Last Scrobbled Title and operations */
-    [seperator setHidden:NO];
-    [lastupdateheader setHidden:NO];
-    [updatedtitle setHidden:NO];
-    [updatedepisode setHidden:NO];
-    [seperator2 setHidden:NO];
-    [updatecorrectmenu setHidden:NO];
-    [updatedcorrecttitle setHidden:NO];
-    [shareMenuItem setHidden:NO];
-    NSDictionary * ainfo = [haengine getLastScrobbledInfo];
-    if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
-        [self showAnimeInfo:ainfo];
-        [self generateShareMenu];
-    }
 }
 /*
  Share Services

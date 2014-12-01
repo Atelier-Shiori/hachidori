@@ -33,6 +33,10 @@
 @end
 
 @implementation Hachidori
+-(id)initP{
+    confirmed = true;
+    return [super init];
+}
 
 /* 
  
@@ -61,6 +65,9 @@
 }
 -(int)getCurrentEpisode{
     return [DetectedCurrentEpisode intValue];
+}
+-(BOOL)getConfirmed{
+    return confirmed;
 }
 -(int)getWatchStatus
 {
@@ -168,7 +175,7 @@
             else {
                 // Update Title as Usual
                 int s = [self updatetitle:AniID];
-                if (s == 2 || s == 22) {
+                if (s == 2 || s == 3 ||s == 22 ) {
                     Success = true;
                 }
                 else{
@@ -467,7 +474,7 @@ update:
                 }
             }
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
+            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -484,7 +491,7 @@ update:
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
+            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -500,7 +507,7 @@ update:
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
+            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -516,7 +523,7 @@ update:
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
+            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -580,7 +587,7 @@ update:
 			TotalEpisodes = [LastScrobbledInfo  objectForKey:@"episode_count"];
 		}
         // New Update Confirmation
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew) {
+        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew)) {
             // Manually confirm updates
             confirmed = false;
         }
@@ -630,13 +637,20 @@ update:
         LastScrobbledEpisode = DetectedEpisode;
         return 3;
     }
-	if ([DetectedEpisode intValue] <= [DetectedCurrentEpisode intValue] ) { 
+	if ([DetectedEpisode intValue] <= [DetectedCurrentEpisode intValue] ) {
 		// Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
 		LastScrobbledTitle = DetectedTitle;
 		LastScrobbledEpisode = DetectedEpisode;
+        confirmed = true;
         return 2;
 	}
+    else if (!LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !confirmed && !correcting) {
+        // Confirm before updating title
+        LastScrobbledTitle = DetectedTitle;
+        LastScrobbledEpisode = DetectedEpisode;
+        return 3;
+    }
 	else {
         return [self performupdate:titleid];
 	}
