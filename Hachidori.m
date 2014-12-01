@@ -97,7 +97,7 @@
  */
 
 - (int)startscrobbling {
-    // 0 - nothing playing; 1 - same episode playing; 21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed; 
+    // 0 - nothing playing; 1 - same episode playing; 2 - No Update Needed; 3 - Confirm title before adding  21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed;
     int detectstatus;
 	//Set up Delegate
 	
@@ -109,6 +109,7 @@
     return detectstatus;
 }
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode{
+    correcting = true;
     DetectedTitle = showtitle;
     DetectedEpisode = episode;
     return [self scrobble];
@@ -158,7 +159,7 @@
             if (LastScrobbledTitleNew) {
                 //Title is not on list. Add Title
                 int s = [self updatetitle:AniID];
-                if (s == 21) {
+                if (s == 21 || s == 3) {
                     Success = true;}
                 else{
                     Success = false;}
@@ -167,7 +168,7 @@
             else {
                 // Update Title as Usual
                 int s = [self updatetitle:AniID];
-                if (s == 1 || s == 22) {
+                if (s == 2 || s == 22) {
                     Success = true;
                 }
                 else{
@@ -344,6 +345,24 @@ update:
         return 2;
     }
 }
+-(BOOL)confirmupdate{
+    DetectedTitle = LastScrobbledTitle;
+    DetectedEpisode = LastScrobbledEpisode;
+    int status = [self performupdate:AniID];
+    switch (status) {
+        case 21:
+        case 22:
+            // Clear Detected Episode and Title
+            DetectedTitle = nil;
+            DetectedEpisode = nil;
+            return true;
+            break;
+            
+        default:
+            return false;
+            break;
+    }
+}
 -(NSString *)findaniid:(NSData *)ResponseData {
 	// Initalize JSON parser
     NSError* error;
@@ -448,7 +467,7 @@ update:
                 }
             }
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -465,7 +484,7 @@ update:
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -481,7 +500,7 @@ update:
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -497,7 +516,7 @@ update:
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == nil || ([NSNumber numberWithInt:[searchentry objectForKey:@"episode_count"]] >= [NSNumber numberWithInt:DetectedEpisode])) {
+            if ([searchentry objectForKey:@"episode_count"] == nil || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
@@ -511,7 +530,7 @@ update:
      }
     foundtitle:
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0) {
         //Save AniID
         [self addtoCache:DetectedTitle showid:titleid];
     }
@@ -560,6 +579,15 @@ update:
 		else { // Episode Total Exists
 			TotalEpisodes = [LastScrobbledInfo  objectForKey:@"episode_count"];
 		}
+        // New Update Confirmation
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew) {
+            // Manually confirm updates
+            confirmed = false;
+        }
+        else{
+            // Automatically confirm updates
+            confirmed = true;
+        }
 		// Makes sure the values don't get released
 		return YES;
 	}
@@ -596,74 +624,82 @@ update:
 }
 -(int)updatetitle:(NSString *)titleid {
 	NSLog(@"Updating Title");
-	//Set up Delegate
-	
+    if (LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !confirmed && !correcting) {
+        // Confirm before updating title
+        LastScrobbledTitle = DetectedTitle;
+        LastScrobbledEpisode = DetectedEpisode;
+        return 3;
+    }
 	if ([DetectedEpisode intValue] <= [DetectedCurrentEpisode intValue] ) { 
 		// Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
 		LastScrobbledTitle = DetectedTitle;
 		LastScrobbledEpisode = DetectedEpisode;
-        return 1;
+        return 2;
 	}
 	else {
-		// Update the title
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		//Set library/scrobble API
-		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
-        EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-		//Ignore Cookies
-		[request setUseCookies:NO];
-		//Set Token
-		[request addFormData:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
-        //Set Timeout
-	    //[request setRequestMethod:@"PUT"];
-	    [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
-		//Set Status
-		if([DetectedEpisode intValue] == [TotalEpisodes intValue]) {
-			//Set Title State for Title (use for Twitter feature)
-			WatchStatus = @"completed";
-			// Since Detected Episode = Total Episode, set the status as "Complete"
-			[request addFormData:WatchStatus forKey:@"status"];
-		}
-		else {
-			//Set Title State for Title (use for Twitter feature)
-			WatchStatus = @"currently-watching";
-			// Still Watching
-			[request addFormData:WatchStatus forKey:@"status"];
-		}	
-		// Set existing score to prevent the score from being erased.
-		[request addFormData:TitleScore forKey:@"rating"];
-        //Privacy
-        if (isPrivate)
-            [request addFormData:@"private" forKey:@"privacy"];
-        else
-            [request addFormData:@"public" forKey:@"privacy"];
-		// Do Update
-		[request startFormRequest];
-		//NSLog(@"%i", [request responseStatusCode]);
-        
-		switch ([request getStatusCode]) {
-			case 201:
-                // Store Scrobbled Title and Episode
-                LastScrobbledTitle = DetectedTitle;
-                LastScrobbledEpisode = DetectedEpisode;
-                DetectedCurrentEpisode = LastScrobbledEpisode;
-                if (LastScrobbledTitleNew) {
-                    return 21;
-                }
-				// Update Successful
-                return 22;
-				break;
-			default:
-				// Update Unsuccessful
-                if (LastScrobbledTitleNew) {
-                    return 52;
-                }
-                return 53;
-				break;
-		}
-
+        return [self performupdate:titleid];
 	}
+}
+-(int)performupdate:(NSString *)titleid{
+    // Update the title
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //Set library/scrobble API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    //Set Token
+    [request addFormData:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
+    //Set Timeout
+    //[request setRequestMethod:@"PUT"];
+    [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
+    //Set Status
+    if([DetectedEpisode intValue] == [TotalEpisodes intValue]) {
+        //Set Title State for Title (use for Twitter feature)
+        WatchStatus = @"completed";
+        // Since Detected Episode = Total Episode, set the status as "Complete"
+        [request addFormData:WatchStatus forKey:@"status"];
+    }
+    else {
+        //Set Title State for Title (use for Twitter feature)
+        WatchStatus = @"currently-watching";
+        // Still Watching
+        [request addFormData:WatchStatus forKey:@"status"];
+    }
+    // Set existing score to prevent the score from being erased.
+    [request addFormData:TitleScore forKey:@"rating"];
+    //Privacy
+    if (isPrivate)
+        [request addFormData:@"private" forKey:@"privacy"];
+    else
+        [request addFormData:@"public" forKey:@"privacy"];
+    // Do Update
+    [request startFormRequest];
+    // Set correcting status to off
+    correcting = false;
+    switch ([request getStatusCode]) {
+        case 201:
+            // Store Scrobbled Title and Episode
+            LastScrobbledTitle = DetectedTitle;
+            LastScrobbledEpisode = DetectedEpisode;
+            DetectedCurrentEpisode = LastScrobbledEpisode;
+            confirmed = true;
+            if (LastScrobbledTitleNew) {
+                return 21;
+            }
+            // Update Successful
+            return 22;
+            break;
+        default:
+            // Update Unsuccessful
+            if (LastScrobbledTitleNew) {
+                return 52;
+            }
+            return 53;
+            break;
+    }
+
 }
 -(BOOL)updatestatus:(NSString *)titleid
             episode:(NSString *)episode

@@ -28,13 +28,16 @@
 	NSString * TitleState;
     NSString * TitleNotes;
     NSString * AniID;
+    BOOL confirmed;
     BOOL DetectedisStream;
 	BOOL Success;
+    BOOL correcting;
 	int choice;
 }
 -(int)startscrobbling;
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode;
 -(int)scrobble;
+-(BOOL)confirmupdate;
 -(BOOL)updatestatus:(NSString *)titleid
             episode:(NSString *)episode
               score:(float)showscore

@@ -243,6 +243,12 @@
                         <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Confirm Update" hidden="YES" id="ri5-oa-eh7">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="confirmupdate:" target="560" id="xPI-e8-epU"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="574"/>
                 <menuItem title="Show/Hide Status Window" id="573">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -274,6 +280,7 @@
                 <outlet property="ScrobblerStatus" destination="793" id="806"/>
                 <outlet property="animeinfo" destination="bGm-dl-hOF" id="3tY-bt-kdf"/>
                 <outlet property="animeinfooutside" destination="Flw-vm-3Ig" id="wkc-nr-rYl"/>
+                <outlet property="confirmupdate" destination="ri5-oa-eh7" id="rsP-3s-8gi"/>
                 <outlet property="correcttoolbaritem" destination="q9Q-0H-wSc" id="2bQ-jw-mDj"/>
                 <outlet property="epiformatter" destination="2hd-2h-QFD" id="6K0-Y4-yOj"/>
                 <outlet property="episodefield" destination="KPI-Zr-e4Y" id="uSW-Ej-q4r"/>
