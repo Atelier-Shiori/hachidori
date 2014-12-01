@@ -419,7 +419,7 @@
             case 3:{
                 [self setStatusText:@"Scrobble Status: Please confirm update."];
                 NSDictionary * userinfo = [[NSDictionary alloc] initWithObjectsAndKeys:[haengine getLastScrobbledTitle], @"title",  [haengine getLastScrobbledEpisode], @"episode", nil];
-                [self showConfirmationNotication:@"Confirm Title" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@ or correct the title.",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
+                [self showConfirmationNotication:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
                 break;
             }
             case 21:
@@ -869,7 +869,7 @@
 }
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    if ([notification.title isEqualToString:@"Confirm Title"]) {
+    if ([notification.title isEqualToString:@"Confirm Update"] && -1*[[notification actualDeliveryDate] timeIntervalSinceNow] < 300) {
         NSString * title = [notification.userInfo objectForKey:@"title"];
         NSString * episode = [notification.userInfo objectForKey:@"episode"];
         if ([[haengine getLastScrobbledTitle] isEqualToString:title] && [episode intValue] == [[haengine getLastScrobbledEpisode] intValue]) {
