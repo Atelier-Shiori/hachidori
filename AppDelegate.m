@@ -885,7 +885,7 @@
 }
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    if ([notification.title isEqualToString:@"Confirm Update"] && !confirmupdate) {
+    if ([notification.title isEqualToString:@"Confirm Update"] && !confirmupdate.hidden) {
         NSString * title = [notification.userInfo objectForKey:@"title"];
         NSString * episode = [notification.userInfo objectForKey:@"episode"];
         // Only confirm update if the title and episode is the same with the last scrobbled.
@@ -908,10 +908,12 @@
         [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
         [self addrecord:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
         [confirmupdate setHidden:YES];
+        [self setStatusText:@"Scrobble Status: Update was successful."];
         [self showNotication:@"Hachidori" message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
     }
     else{
         [self showNotication:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
+        [self setStatusText:@"Unable to confirm update."];
     }
 }
 -(void)registerHotkey{
