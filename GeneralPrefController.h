@@ -8,11 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MASPreferencesViewController.h"
+#import "MASShortcutView.h"
+
 
 
 @interface GeneralPrefController : NSViewController <MASPreferencesViewController> {
     IBOutlet NSButton * disablenewtitlebar;
     IBOutlet NSButton * disablevibarency;
 }
-
+@property (nonatomic, weak) IBOutlet MASShortcutView *scrobblenowshortcutView;
+@property (nonatomic, weak) IBOutlet MASShortcutView *statusshortcutView;
 @end

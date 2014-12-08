@@ -14,9 +14,13 @@
 #import "SoftwareUpdatesPref.h"
 #import "ExceptionsPref.h"
 #import "NSString_stripHtml.h"
-#import "DDHotKeyCenter.h"
 #import <Carbon/Carbon.h>
 #import "FixSearchDialog.h"
+#import "MASShortcut.h"
+#import "MASShortcutView+UserDefaults.h"
+#import "MASShortcut+UserDefaults.h"
+#import "MASShortcut+Monitoring.h"
+#import "HotKeyConstants.h"
 
 @implementation AppDelegate
 
@@ -917,15 +921,22 @@
     }
 }
 -(void)registerHotkey{
-    DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
-    if (![c registerHotKeyWithKeyCode:kVK_ANSI_U modifierFlags:(NSShiftKeyMask|NSCommandKeyMask) target:self action:@selector(hotkeyWithEvent:object:) object:@"scrobblenow"]){}
-}
-- (void) hotkeyWithEvent:(NSEvent *)hkEvent object:(id)anObject {
-    if ([[NSString stringWithFormat:@"%@", anObject] isEqualToString:@"scrobblenow"]) {
+    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
+        // Scrobble Now Global Hotkey
         if ([self checktoken] && !panelactive) {
             [self firetimer:nil];
         }
-    }
+    }];
+    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceShowStatusMenuShortcut handler:^{
+        // Status Window Toggle Global Hotkey
+        if ([window isVisible]) {
+            [window orderOut:self];
+        } else {
+            //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
+            [NSApp activateIgnoringOtherApps:YES];
+            [window makeKeyAndOrderFront:self];
+        }
+    }];
 }
 -(IBAction)showAboutWindow:(id)sender{
     // Properly show the about window in a menu item application

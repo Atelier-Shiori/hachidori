@@ -22,6 +22,12 @@
 		5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D505F1329810000B31C08 /* libxml2.dylib */; };
 		5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D50611329810700B31C08 /* libxml2.2.dylib */; };
 		5C30BC07139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */; };
+		5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAB71A36069E00A20229 /* MASShortcut.m */; };
+		5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAB91A36069E00A20229 /* MASShortcut+Monitoring.m */; };
+		5C75EAC21A36069E00A20229 /* MASShortcut+UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EABB1A36069E00A20229 /* MASShortcut+UserDefaults.m */; };
+		5C75EAC31A36069E00A20229 /* MASShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EABD1A36069E00A20229 /* MASShortcutView.m */; };
+		5C75EAC41A36069E00A20229 /* MASShortcutView+UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EABF1A36069E00A20229 /* MASShortcutView+UserDefaults.m */; };
+		5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */; };
 		5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C881EFA19F462B400E20425 /* NSString_stripHtml.m */; };
 		5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */; };
 		5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */; };
@@ -34,9 +40,6 @@
 		8222BB481A19502A003AD38F /* rules.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8222BB471A19502A003AD38F /* rules.tif */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		824693A319FD334300CFA12A /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8246939E19FD334300CFA12A /* DDHotKeyCenter.m */; };
-		824693A419FD334300CFA12A /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A019FD334300CFA12A /* DDHotKeyTextField.m */; };
-		824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 824693A219FD334300CFA12A /* DDHotKeyUtilities.m */; };
 		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
 		8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824924A11A184C4200A01761 /* FixSearchDialog.xib */; };
 		825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 825D878F1A18FD2700C5E1BF /* ExceptionsPref.m */; };
@@ -96,6 +99,18 @@
 		5C2D505F1329810000B31C08 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		5C2D50611329810700B31C08 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = PreferencesSoftwareUpdateIcon.tiff; sourceTree = "<group>"; };
+		5C75EAB61A36069E00A20229 /* MASShortcut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASShortcut.h; sourceTree = "<group>"; };
+		5C75EAB71A36069E00A20229 /* MASShortcut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASShortcut.m; sourceTree = "<group>"; };
+		5C75EAB81A36069E00A20229 /* MASShortcut+Monitoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcut+Monitoring.h"; sourceTree = "<group>"; };
+		5C75EAB91A36069E00A20229 /* MASShortcut+Monitoring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MASShortcut+Monitoring.m"; sourceTree = "<group>"; };
+		5C75EABA1A36069E00A20229 /* MASShortcut+UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcut+UserDefaults.h"; sourceTree = "<group>"; };
+		5C75EABB1A36069E00A20229 /* MASShortcut+UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MASShortcut+UserDefaults.m"; sourceTree = "<group>"; };
+		5C75EABC1A36069E00A20229 /* MASShortcutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASShortcutView.h; sourceTree = "<group>"; };
+		5C75EABD1A36069E00A20229 /* MASShortcutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASShortcutView.m; sourceTree = "<group>"; };
+		5C75EABE1A36069E00A20229 /* MASShortcutView+UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcutView+UserDefaults.h"; sourceTree = "<group>"; };
+		5C75EABF1A36069E00A20229 /* MASShortcutView+UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MASShortcutView+UserDefaults.m"; sourceTree = "<group>"; };
+		5C75EAC51A360C4A00A20229 /* HotKeyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKeyConstants.h; sourceTree = "<group>"; };
+		5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeyConstants.m; sourceTree = "<group>"; };
 		5C881EF919F462B400E20425 /* NSString_stripHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_stripHtml.h; sourceTree = "<group>"; };
 		5C881EFA19F462B400E20425 /* NSString_stripHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_stripHtml.m; sourceTree = "<group>"; };
 		5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNSURLConnection.h; sourceTree = "<group>"; };
@@ -111,12 +126,6 @@
 		5CFC037419F3396E006B4DAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8222BB471A19502A003AD38F /* rules.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = rules.tif; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
-		8246939D19FD334300CFA12A /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
-		8246939E19FD334300CFA12A /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
-		8246939F19FD334300CFA12A /* DDHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyTextField.h; sourceTree = "<group>"; };
-		824693A019FD334300CFA12A /* DDHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyTextField.m; sourceTree = "<group>"; };
-		824693A119FD334300CFA12A /* DDHotKeyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyUtilities.h; sourceTree = "<group>"; };
-		824693A219FD334300CFA12A /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
 		824693A619FD35AE00CFA12A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		824924A01A184C4200A01761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FixSearchDialog.xib; sourceTree = "<group>"; };
 		825D878E1A18FD2600C5E1BF /* ExceptionsPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsPref.h; sourceTree = "<group>"; };
@@ -262,16 +271,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5C75EAB51A36069100A20229 /* Hotkey */ = {
+			isa = PBXGroup;
+			children = (
+				5C75EAB61A36069E00A20229 /* MASShortcut.h */,
+				5C75EAB71A36069E00A20229 /* MASShortcut.m */,
+				5C75EAB81A36069E00A20229 /* MASShortcut+Monitoring.h */,
+				5C75EAB91A36069E00A20229 /* MASShortcut+Monitoring.m */,
+				5C75EABA1A36069E00A20229 /* MASShortcut+UserDefaults.h */,
+				5C75EABB1A36069E00A20229 /* MASShortcut+UserDefaults.m */,
+				5C75EABC1A36069E00A20229 /* MASShortcutView.h */,
+				5C75EABD1A36069E00A20229 /* MASShortcutView.m */,
+				5C75EABE1A36069E00A20229 /* MASShortcutView+UserDefaults.h */,
+				5C75EABF1A36069E00A20229 /* MASShortcutView+UserDefaults.m */,
+			);
+			name = Hotkey;
+			sourceTree = "<group>";
+		};
 		5C8ACEB619F409C60001A101 /* Other Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8246939C19FD332F00CFA12A /* DDHotkey */,
+				5C75EAB51A36069100A20229 /* Hotkey */,
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				5C881EF919F462B400E20425 /* NSString_stripHtml.h */,
 				5C881EFA19F462B400E20425 /* NSString_stripHtml.m */,
 				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
 				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
+				5C75EAC51A360C4A00A20229 /* HotKeyConstants.h */,
+				5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
@@ -303,19 +331,6 @@
 				5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */,
 			);
 			name = Preferences;
-			sourceTree = "<group>";
-		};
-		8246939C19FD332F00CFA12A /* DDHotkey */ = {
-			isa = PBXGroup;
-			children = (
-				8246939D19FD334300CFA12A /* DDHotKeyCenter.h */,
-				8246939E19FD334300CFA12A /* DDHotKeyCenter.m */,
-				8246939F19FD334300CFA12A /* DDHotKeyTextField.h */,
-				824693A019FD334300CFA12A /* DDHotKeyTextField.m */,
-				824693A119FD334300CFA12A /* DDHotKeyUtilities.h */,
-				824693A219FD334300CFA12A /* DDHotKeyUtilities.m */,
-			);
-			name = DDHotkey;
 			sourceTree = "<group>";
 		};
 		82EBBD191A17FD45009F6179 /* Correction/Exception */ = {
@@ -420,17 +435,20 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
 				5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */,
-				824693A419FD334300CFA12A /* DDHotKeyTextField.m in Sources */,
+				5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */,
-				824693A319FD334300CFA12A /* DDHotKeyCenter.m in Sources */,
-				824693A519FD334300CFA12A /* DDHotKeyUtilities.m in Sources */,
+				5C75EAC21A36069E00A20229 /* MASShortcut+UserDefaults.m in Sources */,
+				5C75EAC41A36069E00A20229 /* MASShortcutView+UserDefaults.m in Sources */,
+				5C75EAC31A36069E00A20229 /* MASShortcutView.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
 				5C2B9DC41221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
+				5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
+				5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
 			);

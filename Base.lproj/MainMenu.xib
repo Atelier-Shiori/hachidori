@@ -237,8 +237,8 @@
                         <action selector="toggletimer:" target="560" id="658"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Update Now" keyEquivalent="U" id="Swq-JZ-crS">
-                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                <menuItem title="Update Now" id="Swq-JZ-crS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="updatenow:" target="560" id="UpZ-c0-qe6"/>
                     </connections>
