@@ -51,6 +51,9 @@
 {
     return LastScrobbledEpisode;
 }
+-(NSString *)getLastScrobbledActualTitle{
+    return LastScrobbledActualTitle;
+}
 -(NSString *)getAniID
 {
     return AniID;
@@ -635,6 +638,7 @@ update:
         // Confirm before updating title
         LastScrobbledTitle = DetectedTitle;
         LastScrobbledEpisode = DetectedEpisode;
+        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
         return 3;
     }
 	if ([DetectedEpisode intValue] <= [DetectedCurrentEpisode intValue] ) {
@@ -642,6 +646,7 @@ update:
         // Store Scrobbled Title and Episode
 		LastScrobbledTitle = DetectedTitle;
 		LastScrobbledEpisode = DetectedEpisode;
+        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
         confirmed = true;
         return 2;
 	}
@@ -649,6 +654,7 @@ update:
         // Confirm before updating title
         LastScrobbledTitle = DetectedTitle;
         LastScrobbledEpisode = DetectedEpisode;
+        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
         return 3;
     }
 	else {

@@ -747,11 +747,11 @@ Gw
                     <toolbarItem implicitItemIdentifier="72D2C79C-A565-4CAB-B2EA-ADB01365294F" label="Share" paletteLabel="Share" image="NSShareTemplate" id="5pz-cj-enZ">
                         <nil key="toolTip"/>
                         <size key="minSize" width="30" height="25"/>
-                        <size key="maxSize" width="30" height="25"/>
+                        <size key="maxSize" width="40" height="25"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="ti5-XJ-kVw">
-                            <rect key="frame" x="0.0" y="14" width="30" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="40" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="yI8-4s-qpd">

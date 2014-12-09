@@ -13,6 +13,7 @@
 	NSString * Token;
 	NSString * LastScrobbledTitle;
 	NSString * LastScrobbledEpisode;
+    NSString * LastScrobbledActualTitle;
     BOOL LastScrobbledTitleNew;
     BOOL isPrivate;
     BOOL online;
@@ -47,6 +48,7 @@
 -(bool)removetitle:(NSString *)titleid;
 -(NSString *)getLastScrobbledTitle;
 -(NSString *)getLastScrobbledEpisode;
+-(NSString *)getLastScrobbledActualTitle;
 -(NSString *)getAniID;
 -(NSString *)getTotalEpisodes;
 -(int)getCurrentEpisode;

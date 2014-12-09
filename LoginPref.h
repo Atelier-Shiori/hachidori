@@ -16,7 +16,10 @@
 	IBOutlet NSTextField * fieldpassword;
 	IBOutlet NSButton * savebut;
 	IBOutlet NSButton * clearbut;
+    IBOutlet NSTextField * loggedinuser;
     AppDelegate * appdelegate;
+    IBOutlet NSView * loginview;
+    IBOutlet NSView * loggedinview;
 }
 - (id)initwithAppDelegate:(AppDelegate *)adelegate;
 -(IBAction)startlogin:(id)sender;

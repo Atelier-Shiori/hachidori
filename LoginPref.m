@@ -68,6 +68,9 @@
 	if (Token.length > 0) {
 		[clearbut setEnabled: YES];
 		[savebut setEnabled: NO];
+        [loggedinview setHidden:NO];
+        [loginview setHidden:YES];
+        [loggedinuser setStringValue:[NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"Username"]]];
 	}
 	else {
 		//Disable Clearbut
@@ -116,6 +119,9 @@
 						[defaults setObject:[[request getResponseDataString] stringByReplacingOccurrencesOfString:@"\"" withString:@""] forKey:@"Token"];
 						[defaults setObject:[fieldusername stringValue] forKey:@"Username"];
 						[clearbut setEnabled: YES];
+                        [loggedinuser setStringValue:[fieldusername stringValue]];
+                        [loggedinview setHidden:NO];
+                        [loginview setHidden:YES];
 						break;}
 					case 401:{
 						//Login Failed, show error message
@@ -139,8 +145,13 @@
 }
 -(IBAction)registerhummingbird:(id)sender
 {
-	//Show MAL Registration Page
+	//Show Hummingbird Registration Page
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://hummingbird.me/users/sign_up"]];
+}
+-(IBAction) showgettingstartedpage:(id)sender
+{
+    //Show Getting Started help page
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
 }
 -(IBAction)clearlogin:(id)sender
 {
@@ -161,6 +172,9 @@
             //Disable Clearbut
             [clearbut setEnabled: NO];
             [savebut setEnabled: YES];
+            [loggedinuser setStringValue:@""];
+            [loggedinview setHidden:YES];
+            [loginview setHidden:NO];
         }
     }
     else{
