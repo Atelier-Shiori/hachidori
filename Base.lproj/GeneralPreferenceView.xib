@@ -194,7 +194,7 @@
 						<object class="NSButtonCell" key="NSCell" id="844495267">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Confirm before Updating Title</string>
+							<string key="NSContents">Confirm Before Updating Title</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="824238926"/>
@@ -226,7 +226,7 @@
 						<object class="NSButtonCell" key="NSCell" id="923256455">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Confirm New Titles before Adding</string>
+							<string key="NSContents">Confirm New Titles Before Adding</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="665336977"/>
@@ -301,6 +301,7 @@
 						<string key="NSFrame">{{56, 8}, {316, 49}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
