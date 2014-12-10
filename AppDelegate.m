@@ -583,7 +583,7 @@
     }
     fsdialog = [FixSearchDialog new];
     // Check if Confirm is on for new title. If so, then disable ability to delete title.
-    if (!confirmupdate && [haengine getisNewTitle])
+    if (!confirmupdate.hidden && [haengine getisNewTitle])
         [fsdialog setCorrection:NO];
     else
         [fsdialog setCorrection:YES];
