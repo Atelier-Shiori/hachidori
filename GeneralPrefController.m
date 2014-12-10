@@ -30,6 +30,7 @@
     // Set Shortcut Recorder Viewer Defaults Key
     self.scrobblenowshortcutView.associatedUserDefaultsKey = kPreferenceScrobbleNowShortcut;
     self.statusshortcutView.associatedUserDefaultsKey = kPreferenceShowStatusMenuShortcut;
+    self.toggleautoscrobbleshortcutView.associatedUserDefaultsKey = kPreferenceToggleScrobblingShortcut;
 }
 - (NSString *)identifier
 {

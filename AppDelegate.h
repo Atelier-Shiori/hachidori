@@ -94,7 +94,6 @@
 -(void)firetimer:(NSTimer *)aTimer;
 -(void)starttimer;
 -(void)stoptimer;
--(BOOL)checktoken;
 -(void)setStatusText:(NSString*)messagetext;
 -(void)setLastScrobbledTitle:(NSString*)messagetext;
 -(void)setStatusMenuTitleEpisode:(NSString *)title episode:(NSString *) episode;

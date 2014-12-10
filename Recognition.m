@@ -50,17 +50,17 @@
         string = [regex replaceAllMatchesInString:string
                                    withString:@" "];
         // Set Title Info
-        regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$"];
+        regex = [OGRegularExpression regularExpressionWithString:@"( \\-) (episode |ep |ep|e)?(\\d+)([\\w\\-! ]*)$" options:OgreIgnoreCaseOption];
         DetectedTitle = [regex replaceAllMatchesInString:string
                                           withString:@""];
-        regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d+$"];
+        regex = [OGRegularExpression regularExpressionWithString: @"\\b\\S\\d+$" options:OgreIgnoreCaseOption];
         DetectedTitle = [regex replaceAllMatchesInString:DetectedTitle
                                           withString:@""];
         // Set Episode Info
         regex = [OGRegularExpression regularExpressionWithString: DetectedTitle];
         string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-        regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]"];
+        regex = [OGRegularExpression regularExpressionWithString:@"v[\\d]" options:OgreIgnoreCaseOption];
         DetectedEpisode = [regex replaceAllMatchesInString:string
                                             withString:@""];
     }

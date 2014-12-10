@@ -11,4 +11,5 @@
 @interface HotKeyConstants : NSObject
 extern NSString* const kPreferenceScrobbleNowShortcut;
 extern NSString* const kPreferenceShowStatusMenuShortcut;
+extern NSString* const kPreferenceToggleScrobblingShortcut;
 @end

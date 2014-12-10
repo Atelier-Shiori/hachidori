@@ -18,4 +18,5 @@
 }
 @property (nonatomic, weak) IBOutlet MASShortcutView *scrobblenowshortcutView;
 @property (nonatomic, weak) IBOutlet MASShortcutView *statusshortcutView;
+@property (nonatomic, weak) IBOutlet MASShortcutView *toggleautoscrobbleshortcutView;
 @end

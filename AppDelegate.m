@@ -861,15 +861,11 @@
     return scrobbleractive;
 }
 
-//Misc Methods
-- (void)appendToAnimeInfo:(NSString*)text
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSAttributedString* attr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n", text]];
-        
-        [[animeinfo textStorage] appendAttributedString:attr];
-    });
-}
+/*
+ 
+ Notification Center and Title Confirmwation
+ 
+ */
 -(void)showNotication:(NSString *)title message:(NSString *) message{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
@@ -934,6 +930,10 @@
         // Status Window Toggle Global Hotkey
         [self togglescrobblewindow:nil];
     }];
+    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceToggleScrobblingShortcut handler:^{
+        // Auto Scrobble Toggle Global Hotkey
+        [self toggletimer:nil];
+    }];
 }
 -(IBAction)showAboutWindow:(id)sender{
     // Properly show the about window in a menu item application
@@ -961,7 +961,20 @@
     [statusMenu setAutoenablesItems:YES];
 }
 /*
+ Misc
+ */
+- (void)appendToAnimeInfo:(NSString*)text
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSAttributedString* attr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n", text]];
+        
+        [[animeinfo textStorage] appendAttributedString:attr];
+    });
+}
+/*
+ 
  Share Services
+ 
  */
 -(void)generateShareMenu{
     //Clear Share Menu
