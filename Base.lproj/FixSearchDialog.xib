@@ -159,7 +159,7 @@ Gw
                     </scrollView>
                     <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gtx-jO-BkX">
                         <rect key="frame" x="51" y="18" width="173" height="18"/>
-                        <buttonCell key="cell" type="check" title="Delete on Correction" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ss9-k8-9Wi">
+                        <buttonCell key="cell" type="check" title="Delete on Correction" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ss9-k8-9Wi">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>

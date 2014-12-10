@@ -23,6 +23,7 @@
 - (void)windowDidLoad {
     if (correction) {
         [deleteoncorrection setHidden:NO];
+        [deleteoncorrection setState:NSOnState];
     }
     [super windowDidLoad];
     if ([searchquery length]>0) {

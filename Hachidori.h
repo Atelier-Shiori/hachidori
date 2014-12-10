@@ -10,7 +10,6 @@
 #import <OgreKit/OgreKit.h>
 
 @interface Hachidori : NSObject {
-	NSString * Token;
 	NSString * LastScrobbledTitle;
 	NSString * LastScrobbledEpisode;
     NSString * LastScrobbledActualTitle;
@@ -35,17 +34,6 @@
     BOOL correcting;
 	int choice;
 }
--(int)startscrobbling;
--(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode;
--(int)scrobble;
--(BOOL)confirmupdate;
--(BOOL)updatestatus:(NSString *)titleid
-            episode:(NSString *)episode
-              score:(float)showscore
-        watchstatus:(NSString*)showwatchstatus
-              notes:(NSString*)note
-          isPrivate:(BOOL)privatevalue;
--(bool)removetitle:(NSString *)titleid;
 -(NSString *)getLastScrobbledTitle;
 -(NSString *)getLastScrobbledEpisode;
 -(NSString *)getLastScrobbledActualTitle;
@@ -57,6 +45,19 @@
 -(NSString *)getNotes;
 -(BOOL)getSuccess;
 -(BOOL)getPrivate;
+-(BOOL)getisNewTitle;
 -(NSDictionary *)getLastScrobbledInfo;
+-(BOOL)checktoken;
+-(int)startscrobbling;
+-(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode;
+-(int)scrobble;
+-(BOOL)confirmupdate;
+-(BOOL)updatestatus:(NSString *)titleid
+            episode:(NSString *)episode
+              score:(float)showscore
+        watchstatus:(NSString*)showwatchstatus
+              notes:(NSString*)note
+          isPrivate:(BOOL)privatevalue;
+-(bool)removetitle:(NSString *)titleid;
 -(void)clearAnimeInfo;
 @end

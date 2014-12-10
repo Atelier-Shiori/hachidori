@@ -206,7 +206,7 @@
     [sharetoolbaritem setEnabled:NO];
     [correcttoolbaritem setEnabled:NO];
 	// Hide Window
-	[window orderOut:self];
+	[window close];
 	
     //Set up Yosemite UI Enhancements
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9)
@@ -339,7 +339,7 @@
 -(IBAction)togglescrobblewindow:(id)sender
 {
 	if ([window isVisible]) {
-		[window orderOut:self]; 
+        [window close];
 	} else { 
 		//Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
 		[NSApp activateIgnoringOtherApps:YES];
@@ -355,7 +355,7 @@
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
-	if (![self checktoken]) {
+	if (![haengine checktoken]) {
         [self showNotication:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
     }
 	else {
@@ -522,7 +522,7 @@
     previousfiredate = [timer fireDate];
 }
 -(IBAction)updatenow:(id)sender{
-    if ([self checktoken]) {
+    if ([haengine checktoken]) {
         [self firetimer:nil];
     }
     else
@@ -554,7 +554,12 @@
     if ([d objectForKey:@"finished_airing"] != [NSNull null]) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", [d objectForKey:@"finished_airing"]]];
     }
+    if ([d objectForKey:@"episode_count"] != [NSNull null]){
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", [d objectForKey:@"episode_count"]]];
+    }
+    else{
+        [self appendToAnimeInfo:@"Episodes: Unknown"];
+    }
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", [d objectForKey:@"show_type"]]];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", [d objectForKey:@"age_rating"]]];
     //Image
@@ -563,14 +568,7 @@
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
 }
--(BOOL)checktoken{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([[defaults objectForKey:@"Token"] length] == 0) {
-        return false;
-    }
-    else
-        return true;
-}
+
 
 /*
  
@@ -584,7 +582,12 @@
         [self stoptimer];
     }
     fsdialog = [FixSearchDialog new];
-    [fsdialog setCorrection:YES];
+    // Check if Confirm is on for new title. If so, then disable ability to delete title.
+    if (!confirmupdate && [haengine getisNewTitle])
+        [fsdialog setCorrection:NO];
+    else
+        [fsdialog setCorrection:YES];
+    // Set search field to search for the last scrobbled detected title
     [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
     if (isVisible) {
         [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
@@ -923,19 +926,13 @@
 -(void)registerHotkey{
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
         // Scrobble Now Global Hotkey
-        if ([self checktoken] && !panelactive) {
+        if ([haengine checktoken] && !panelactive) {
             [self firetimer:nil];
         }
     }];
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceShowStatusMenuShortcut handler:^{
         // Status Window Toggle Global Hotkey
-        if ([window isVisible]) {
-            [window orderOut:self];
-        } else {
-            //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
-            [NSApp activateIgnoringOtherApps:YES];
-            [window makeKeyAndOrderFront:self];
-        }
+        [self togglescrobblewindow:nil];
     }];
 }
 -(IBAction)showAboutWindow:(id)sender{

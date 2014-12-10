@@ -72,6 +72,9 @@
 -(BOOL)getConfirmed{
     return confirmed;
 }
+-(BOOL)getisNewTitle{
+    return LastScrobbledTitleNew;
+}
 -(int)getWatchStatus
 {
 	if ([WatchStatus isEqualToString:@"currently-watching"])
@@ -99,7 +102,14 @@
 -(BOOL)getPrivate{
     return isPrivate;
 }
-
+-(BOOL)checktoken{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults objectForKey:@"Token"] length] == 0) {
+        return false;
+    }
+    else
+        return true;
+}
 /*
  
  Update Methods
@@ -404,6 +414,7 @@ update:
     // Initalize Arrays for each Media Type
     NSMutableArray * movie = [[NSMutableArray alloc] init];
     NSMutableArray * tv = [[NSMutableArray alloc] init];
+    NSMutableArray * ona = [[NSMutableArray alloc] init];
     NSMutableArray * ova = [[NSMutableArray alloc] init];
     NSMutableArray * special = [[NSMutableArray alloc] init];
     NSMutableArray * other = [[NSMutableArray alloc] init];
@@ -414,6 +425,8 @@ update:
             [movie addObject:entry];
         else if ([theshowtype isEqualToString:@"TV"])
             [tv addObject:entry];
+        else if ([theshowtype isEqualToString:@"ONA"])
+            [ova addObject:entry];
         else if ([theshowtype isEqualToString:@"OVA"])
             [ova addObject:entry];
         else if ([theshowtype isEqualToString:@"Special"])
@@ -490,6 +503,23 @@ update:
         }
     }
     for (NSDictionary *searchentry in special) {
+        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
+        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
+            //Return titleid if episode is valid
+            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
+                NSLog(@"Valid Episode Count");
+                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+                goto foundtitle;
+            }
+            else{
+                // Detected episodes exceed total episodes
+                continue;
+            }
+        }
+    }
+        
+    for (NSDictionary *searchentry in ona) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
