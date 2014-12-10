@@ -22,6 +22,9 @@
 }
 -(void)loadView{
     [super loadView];
+    // Set Logo
+    [logo setImage:[NSApp applicationIconImage]];
+    // Load Login State
 	[self loadlogin];
 }
 

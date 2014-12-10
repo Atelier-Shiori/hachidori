@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">14A389</string>
+		<string key="IBDocument.SystemVersion">13F34</string>
 		<string key="IBDocument.InterfaceBuilderVersion">6250</string>
-		<string key="IBDocument.AppKitVersion">1343.14</string>
-		<string key="IBDocument.HIToolboxVersion">755.00</string>
+		<string key="IBDocument.AppKitVersion">1265.21</string>
+		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">6250</string>
@@ -100,7 +100,7 @@
 									<integer value="1040" key="formatterBehavior"/>
 									<integer value="1" key="timeStyle"/>
 								</dictionary>
-								<string key="NS.format">y年M月d日EEEE aK:mm</string>
+								<string key="NS.format">y年M月d日EEEE h:mma</string>
 								<bool key="NS.natural">NO</bool>
 							</object>
 							<reference key="NSControlView" ref="943763275"/>
@@ -174,7 +174,7 @@
 						<object class="NSButtonCell" key="NSCell" id="727163927">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Send Anonymous System Profile</string>
+							<string key="NSContents">Send anonymous System Profile</string>
 							<reference key="NSSupport" ref="278672089"/>
 							<reference key="NSControlView" ref="63186957"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -203,7 +203,7 @@
 						<object class="NSButtonCell" key="NSCell" id="715731539">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Automatically Check for Updates</string>
+							<string key="NSContents">Automatically check for updates</string>
 							<reference key="NSSupport" ref="278672089"/>
 							<reference key="NSControlView" ref="794206930"/>
 							<int key="NSButtonFlags">1211912448</int>

@@ -37,7 +37,7 @@
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSCustomView" id="47884378">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSCustomView" id="587219356">
@@ -45,7 +45,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 117}, {184, 22}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="431843146"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">MASShortcutView</string>
@@ -55,7 +54,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 141}, {224, 17}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="587219356"/>
 						<string key="NSReuseIdentifierKey">_NS:526</string>
 						<string key="NSHuggingPriority">{251, 750}</string>
@@ -98,7 +96,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 166}, {184, 22}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1039559317"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">MASShortcutView</string>
@@ -108,7 +105,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 190}, {224, 17}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="312636166"/>
 						<string key="NSReuseIdentifierKey">_NS:526</string>
 						<string key="NSHuggingPriority">{251, 750}</string>
@@ -131,7 +127,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 214}, {184, 22}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="339991049"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">MASShortcutView</string>
@@ -141,7 +136,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 237}, {163, 17}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="592836132"/>
 						<string key="NSReuseIdentifierKey">_NS:526</string>
 						<string key="NSHuggingPriority">{251, 750}</string>
@@ -164,7 +158,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{40, 237}, {81, 17}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="567952378"/>
 						<string key="NSReuseIdentifierKey">_NS:526</string>
 						<string key="NSHuggingPriority">{251, 750}</string>
@@ -187,14 +180,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 309}, {256, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="320449000"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="844495267">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Confirm Before Updating Title</string>
+							<string key="NSContents">Confirm before updating title</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="824238926"/>
@@ -219,14 +211,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 331}, {250, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="824238926"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="923256455">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Confirm New Titles Before Adding</string>
+							<string key="NSContents">Confirm new titles before adding</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="665336977"/>
@@ -246,14 +237,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 352}, {234, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="665336977"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="838912102">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Check Alternative Titles</string>
+							<string key="NSContents">Check alternative titles</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="865061632"/>
@@ -273,14 +263,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 374}, {244, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="865061632"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="807852486">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Use New Recognition Engine</string>
+							<string key="NSContents">Use new Recognition Engine</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="590830967"/>
@@ -300,7 +289,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{56, 8}, {316, 49}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -336,7 +324,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{-5, 88}, {126, 17}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="442733639"/>
 						<string key="NSReuseIdentifierKey">_NS:526</string>
 						<string key="NSHuggingPriority">{251, 750}</string>
@@ -364,7 +351,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 65}, {213, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="842907720"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -391,7 +377,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 87}, {250, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="800443133"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -418,14 +403,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 287}, {223, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="863148832"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="412704639">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Cache Found Show IDs</string>
+							<string key="NSContents">Cache found Show IDs</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="320449000"/>
@@ -445,7 +429,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{138, 253}, {149, 32}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="56707532"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -470,14 +453,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 396}, {256, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="590830967"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="559395449">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Set Newly Scrobbled Titles to Private</string>
+							<string key="NSContents">Set newly scrobbled titles to private</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="729092113"/>
@@ -497,7 +479,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{15, 417}, {106, 17}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="911725783"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1059033628">
@@ -517,13 +498,12 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{132, 418}, {234, 18}}</string>
 						<reference key="NSSuperview" ref="47884378"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="729092113"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="948293303">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Start Scrobbling at Startup</string>
+							<string key="NSContents">Start Auto Scrobble at startup</string>
 							<reference key="NSSupport" ref="458249011"/>
 							<reference key="NSControlView" ref="911725783"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -539,8 +519,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{394, 454}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1048592007"/>
 				<string key="NSReuseIdentifierKey">_NS:1109</string>
 				<string key="NSClassName">NSView</string>
@@ -1179,73 +1157,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">85</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">GeneralPrefController</string>
-					<string key="superclassName">NSViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="disablenewtitlebar">NSButton</string>
-						<string key="disablevibarency">NSButton</string>
-						<string key="scrobblenowshortcutView">MASShortcutView</string>
-						<string key="statusshortcutView">MASShortcutView</string>
-						<string key="toggleautoscrobbleshortcutView">MASShortcutView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="disablenewtitlebar">
-							<string key="name">disablenewtitlebar</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="disablevibarency">
-							<string key="name">disablevibarency</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="scrobblenowshortcutView">
-							<string key="name">scrobblenowshortcutView</string>
-							<string key="candidateClassName">MASShortcutView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="statusshortcutView">
-							<string key="name">statusshortcutView</string>
-							<string key="candidateClassName">MASShortcutView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="toggleautoscrobbleshortcutView">
-							<string key="name">toggleautoscrobbleshortcutView</string>
-							<string key="candidateClassName">MASShortcutView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../GeneralPrefController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">GeneralPrefController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">clearSearchCache:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">clearSearchCache:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">clearSearchCache:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../GeneralPrefController.m</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MASShortcutView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../MASShortcutView.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">NO</bool>

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 
 @interface LoginPref : NSViewController <MASPreferencesViewController> {
+    IBOutlet NSImageView * logo;
 	//Login Preferences
 	IBOutlet NSTextField * fieldusername;
 	IBOutlet NSTextField * fieldpassword;

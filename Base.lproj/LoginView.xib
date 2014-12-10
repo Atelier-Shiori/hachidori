@@ -263,10 +263,6 @@
 						<object class="NSImageCell" key="NSCell" id="732751901">
 							<int key="NSCellFlags">0</int>
 							<int key="NSCellFlags2">33554432</int>
-							<object class="NSCustomResource" key="NSContents">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">hachidori-logo</string>
-							</object>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<int key="NSAlign">0</int>
 							<int key="NSScale">0</int>
@@ -332,7 +328,6 @@
 								<string key="NSFrame">{{140, 39}, {96, 32}}</string>
 								<reference key="NSSuperview" ref="759616887"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:610</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="798408098">
@@ -490,6 +485,14 @@
 						<reference key="destination" ref="670187111"/>
 					</object>
 					<int key="connectionID">62</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">logo</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="274811715"/>
+					</object>
+					<int key="connectionID">63</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -761,7 +764,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">62</int>
+			<int key="maxID">63</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -794,6 +797,7 @@
 						<string key="loggedinuser">NSTextField</string>
 						<string key="loggedinview">NSView</string>
 						<string key="loginview">NSView</string>
+						<string key="logo">NSImageView</string>
 						<string key="savebut">NSButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -820,6 +824,10 @@
 						<object class="IBToOneOutletInfo" key="loginview">
 							<string key="name">loginview</string>
 							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="logo">
+							<string key="name">logo</string>
+							<string key="candidateClassName">NSImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="savebut">
 							<string key="name">savebut</string>
@@ -873,9 +881,5 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">hachidori-logo</string>
-			<string key="NS.object.0">{128, 128}</string>
-		</object>
 	</data>
 </archive>

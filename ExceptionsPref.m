@@ -29,7 +29,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"rules.tif"];
+    return [NSImage imageNamed:@"rules.png"];
 }
 
 - (NSString *)toolbarItemLabel
