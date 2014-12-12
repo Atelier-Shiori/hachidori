@@ -733,7 +733,10 @@ update:
             // Store Scrobbled Title and Episode
             LastScrobbledTitle = DetectedTitle;
             LastScrobbledEpisode = DetectedEpisode;
-            LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
+            if (confirmed) { // Will only store actual title if confirmation feature is not turned on
+                // Store Actual Title
+                LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
+            }
             DetectedCurrentEpisode = LastScrobbledEpisode;
             confirmed = true;
             if (LastScrobbledTitleNew) {
