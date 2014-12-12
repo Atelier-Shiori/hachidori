@@ -461,14 +461,20 @@
                     // Show normal info
                     [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                     [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                    //Enable Update Status functions
+                    [updatetoolbaritem setEnabled:YES];
+                    [updatedupdatestatus setEnabled:YES];
                 }
                 else{
                     // Show that user needs to confirm update
                     [self setLastScrobbledTitle:[NSString stringWithFormat:@"Pending: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                     [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
-                    [confirmupdate setHidden:NO];
+                    if ([haengine getisNewTitle]) {
+                        // Disable Update Status functions for new and unconfirmed titles.
+                        [confirmupdate setHidden:NO];
+                        [updatedupdatestatus setEnabled:NO];
+                    }
                 }
-                [updatetoolbaritem setEnabled:YES];
                 [sharetoolbaritem setEnabled:YES];
                 [correcttoolbaritem setEnabled:YES];
                 //Show Last Scrobbled Title and operations */
@@ -913,6 +919,11 @@
         [confirmupdate setHidden:YES];
         [self setStatusText:@"Scrobble Status: Update was successful."];
         [self showNotication:@"Hachidori" message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        if ([haengine getisNewTitle]) {
+            // Enable Update Status functions for new and unconfirmed titles.
+            [confirmupdate setHidden:YES];
+            [updatedupdatestatus setEnabled:YES];
+        }
     }
     else{
         [self showNotication:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
