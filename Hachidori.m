@@ -20,7 +20,6 @@
 -(int)updatetitle:(NSString *)titleid;
 -(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
-//-(int)recognizeSeason:(NSString *)season;
 -(int)countWordsInTitle:(NSString *) title;
 -(BOOL)checkillegalcharacters:(NSString *) title;
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid;
@@ -712,7 +711,7 @@ update:
         [request addFormData:WatchStatus forKey:@"status"];
     }
     else {
-        //Set Title State for Title (use for Twitter feature)
+        //Set Title State to currently watching
         WatchStatus = @"currently-watching";
         // Still Watching
         [request addFormData:WatchStatus forKey:@"status"];

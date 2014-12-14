@@ -400,6 +400,7 @@
         [statusMenu setAutoenablesItems:NO];
         [updatenow setEnabled:NO];
         [togglescrobbler setEnabled:NO];
+        [confirmupdate setEnabled:NO];
         [updatenow setTitle:@"Updating..."];
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -462,6 +463,7 @@
                     //Enable Update Status functions
                     [updatetoolbaritem setEnabled:YES];
                     [updatedupdatestatus setEnabled:YES];
+                    [confirmupdate setHidden:YES];
                 }
                 else{
                     // Show that user needs to confirm update
@@ -495,6 +497,7 @@
             [updatenow setEnabled:YES];
             [togglescrobbler setEnabled:YES];
             [statusMenu setAutoenablesItems:YES];
+            [confirmupdate setEnabled:YES];
             [updatenow setTitle:@"Update Now"];
 	});
     });
@@ -958,6 +961,7 @@
     [togglescrobbler setEnabled:NO];
     [updatedcorrecttitle setEnabled:NO];
     [updatedupdatestatus setEnabled:NO];
+    [confirmupdate setEnabled:NO];
 }
 -(void)enableUpdateItems{
     // Reenables update options
@@ -968,6 +972,7 @@
     [updatedupdatestatus setEnabled:YES];
     [updatecorrect setAutoenablesItems:YES];
     [statusMenu setAutoenablesItems:YES];
+    [confirmupdate setEnabled:YES];
 }
 /*
  Misc
