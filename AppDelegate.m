@@ -469,9 +469,10 @@
                     // Show that user needs to confirm update
                     [self setLastScrobbledTitle:[NSString stringWithFormat:@"Pending: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                     [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                        [confirmupdate setHidden:NO];
                     if ([haengine getisNewTitle]) {
                         // Disable Update Status functions for new and unconfirmed titles.
-                        [confirmupdate setHidden:NO];
+                        [updatetoolbaritem setEnabled:NO];
                         [updatedupdatestatus setEnabled:NO];
                     }
                 }

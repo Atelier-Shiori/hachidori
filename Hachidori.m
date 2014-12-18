@@ -433,6 +433,19 @@ update:
         else if (![theshowtype isEqualToString:@"Music"])
             [other addObject:entry];
     }
+    // Concatinate Arrays
+    NSMutableArray * sortedArray;
+    if (DetectedTitleisMovie) {
+        sortedArray = [NSMutableArray arrayWithArray:movie];
+        [sortedArray addObjectsFromArray:special];
+    }
+    else{
+        sortedArray = [NSMutableArray arrayWithArray:tv];
+        [sortedArray addObjectsFromArray:ona];
+        [sortedArray addObjectsFromArray:special];
+        [sortedArray addObjectsFromArray:ova];
+        [sortedArray addObjectsFromArray:other];
+    }
     // Search
     for (int i = 0; i < 2; i++) {
         switch (i) {
@@ -447,45 +460,38 @@ update:
         }
     if (DetectedTitleisMovie) {
         //Check movies and Specials First
-        for (NSDictionary *searchentry in movie) {
+        for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
             alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
         }
             DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
+            if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"Special"]) {
+                DetectedTitleisMovie = false;
+            }
             //Return titleid
             titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
             goto foundtitle;
         }
-        //Check movies and Specials First
-        for (NSDictionary *searchentry in special) {
-            theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-            alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-            if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-                DetectedEpisode = @"1";
-                DetectedTitleisMovie = false;
-                //Return titleid
-                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-                goto foundtitle;
-            }
-        }
     }
-    // Check TV, Special, OVA, Other
-    for (NSDictionary *searchentry in tv) {
+    // Check TV, ONA, Special, OVA, Other
+    for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            // Used for Season Checking
-            OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
-            OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
-            if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
-                if (smatch == nil) {
-                    continue;
+            if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"TV"]) { // Check Seasons if the title is a TV show type
+                // Used for Season Checking
+                OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
+                OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
+                if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
+                    if (smatch == nil) {
+                        continue;
+                    }
                 }
-            }
-            else{
-                if (smatch != nil) { // No Season, check to see if there is a season or not. If so, continue.
-                    continue;
+                else{
+                    if (smatch != nil) { // No Season, check to see if there is a season or not. If so, continue.
+                        continue;
+                    }
                 }
             }
             //Return titleid if episode is valid
@@ -501,72 +507,7 @@ update:
 
         }
     }
-    for (NSDictionary *searchentry in special) {
-        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
-                NSLog(@"Valid Episode Count");
-                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-                goto foundtitle;
-            }
-            else{
-                // Detected episodes exceed total episodes
-                continue;
-            }
-        }
     }
-        
-    for (NSDictionary *searchentry in ona) {
-        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
-                NSLog(@"Valid Episode Count");
-                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-                goto foundtitle;
-            }
-            else{
-                // Detected episodes exceed total episodes
-                continue;
-            }
-        }
-    }
-    for (NSDictionary *searchentry in ova) {
-        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
-                NSLog(@"Valid Episode Count");
-                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-                goto foundtitle;
-            }
-            else{
-                // Detected episodes exceed total episodes
-                continue;
-            }
-        }
-    }
-    for (NSDictionary *searchentry in other) {
-        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-        alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
-            //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
-                NSLog(@"Valid Episode Count");
-                titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
-                goto foundtitle;
-            }
-            else{
-                // Detected episodes exceed total episodes
-                continue;
-            }
-        }
-    }
-     }
     foundtitle:
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0) {
