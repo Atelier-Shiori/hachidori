@@ -14,7 +14,7 @@
 // Private Methods
 -(int)detectmedia; // 0 - Nothing, 1 - Same, 2 - Update
 -(NSString *)searchanime;
--(NSString *)findaniid:(NSData *)ResponseData;
+-(NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term;
 -(BOOL)checkstatus:(NSString *)titleid;
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
@@ -222,32 +222,34 @@
     return status;
 }
 -(NSString *)searchanime{
+    NSString * searchtitle;
     NSLog(@"Check Exceptions List");
     // Check Exceptions
     NSArray *exceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
     if (exceptions.count > 0) {
-        NSString * theid;
+        NSString * correcttitle;
         for (NSDictionary *d in exceptions) {
             NSString * title = [d objectForKey:@"detectedtitle"];
             if ([title isEqualToString:DetectedTitle]) {
                 NSLog(@"%@ found on exceptions list as %@!", title, [d objectForKey:@"correcttitle"]);
-                theid = [d objectForKey:@"showid"];
+                correcttitle = [d objectForKey:@"correcttitle"];
                 break;
             }
         }
-        if (theid.length > 0) {
-            return theid;
+        if (correcttitle.length > 0) {
+            searchtitle = correcttitle;
         }
+    }
+    if (searchtitle.length == 0) {
+        // Use detected title for search
+        searchtitle = DetectedTitle;
     }
     // Begin Search
 	NSLog(@"Searching For Title");
     // Set Season for Search Term if any detected.
-    NSString * searchtitle;
     if (DetectedSeason > 1) {
-        searchtitle = [NSString stringWithFormat:@"%@ %i season", [self desensitizeSeason:DetectedTitle], DetectedSeason];
+        searchtitle = [NSString stringWithFormat:@"%@ %i season", [self desensitizeSeason:searchtitle], DetectedSeason];
     }
-    else
-        searchtitle = DetectedTitle;
 	//Escape Search Term
 	NSString * searchterm = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
 																				NULL,
@@ -275,7 +277,7 @@
             break;
 		case 200:
             online = true;
-			return [self findaniid:response];
+			return [self findaniid:response searchterm:searchtitle];
 			break;
 			
 		default:
@@ -315,7 +317,7 @@
     if (string.length > 0)
         break;
     }
-    OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm)$"];
+    OGRegularExpression    *regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm|rm|rmvb|wmv|divx|mov|flv|mpg|3gp)$" options:OgreIgnoreCaseOption];
     if (string.length > 0) {
         //Regex time
         //Get the filename first
@@ -382,7 +384,7 @@ update:
             break;
     }
 }
--(NSString *)findaniid:(NSData *)ResponseData {
+-(NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term{
 	// Initalize JSON parser
     NSError* error;
     
@@ -393,9 +395,9 @@ update:
     NSString *alttitle = @"";
     NSString *theshowtype = @"";
 	//Create Regular Expression Strings
-	NSString *findpre = [NSString stringWithFormat:@"(%@)",DetectedTitle];
-    NSString *findinit = [NSString stringWithFormat:@"(%@)",DetectedTitle];
-	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"]; // NSString *findpre = [NSString stringWithFormat:@"^%@",DetectedTitle];
+	NSString *findpre = [NSString stringWithFormat:@"(%@)",term];
+    NSString *findinit = [NSString stringWithFormat:@"(%@)",term];
+	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"];
     bool checkalt = [[NSUserDefaults standardUserDefaults] boolForKey:@"CheckAltTitles"];
     OGRegularExpression    *regex;
 	//Retrieve the ID. Note that the most matched title will be on the top
@@ -568,7 +570,6 @@ update:
             // Automatically confirm updates
             confirmed = true;
         }
-		// Makes sure the values don't get released
 		return YES;
 	}
     else if (statusCode == 0){
@@ -646,7 +647,7 @@ update:
     [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
     //Set Status
     if([DetectedEpisode intValue] == [TotalEpisodes intValue]) {
-        //Set Title State for Title (use for Twitter feature)
+        //Set Title State
         WatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
         [request addFormData:WatchStatus forKey:@"status"];

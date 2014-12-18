@@ -39,7 +39,7 @@
 -(IBAction)addTitle:(id)sender{
     //Obtain Detected Title from Media File
     NSOpenPanel * op = [NSOpenPanel openPanel];
-    [op setAllowedFileTypes:[NSArray arrayWithObjects:@"mkv", @"mp4", @"avi", @"ogm", nil]];
+    [op setAllowedFileTypes:[NSArray arrayWithObjects:@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"mpg", @"3gp", nil]];
     [op setMessage:@"Please select a media file you want to create an exception for."];
     [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
