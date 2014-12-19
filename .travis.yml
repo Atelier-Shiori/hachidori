@@ -2,5 +2,4 @@ language: objective-c
 xcode_project: Hachidori.xcodeproj 
 xcode_scheme: Hachidori
 osx_image: xcode61
-script:
-	- "xcodebuild -scheme Hachidori  test | xcpretty -c && exit ${PIPESTATUS[0]}"
+script:"xcodebuild -scheme Hachidori  test | xcpretty -c && exit ${PIPESTATUS[0]}"
