@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Hachidori.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5CD7FF3B1A449A140050E6CC"
+               BuildableName = "Hachidori Tests.xctest"
+               BlueprintName = "Hachidori Tests"
+               ReferencedContainer = "container:Hachidori.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +42,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5CD7FF3B1A449A140050E6CC"
+               BuildableName = "Hachidori Tests.xctest"
+               BlueprintName = "Hachidori Tests"
+               ReferencedContainer = "container:Hachidori.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

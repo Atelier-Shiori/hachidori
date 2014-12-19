@@ -60,4 +60,6 @@
           isPrivate:(BOOL)privatevalue;
 -(bool)removetitle:(NSString *)titleid;
 -(void)clearAnimeInfo;
+// Unit Testing Only
+-(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode;
 @end

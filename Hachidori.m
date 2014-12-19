@@ -221,6 +221,16 @@
     // Release Detected Title/Episode.
     return status;
 }
+-(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode{
+    //For unit testing only
+    DetectedTitle = title;
+    DetectedEpisode = episode;
+    NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
+    if ([d objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[d objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
+        NSLog(@"Title has a valid Episode Count");
+    }
+    return d;
+}
 -(NSString *)searchanime{
     NSString * searchtitle;
     NSLog(@"Check Exceptions List");
