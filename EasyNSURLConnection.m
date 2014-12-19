@@ -17,7 +17,7 @@
 #pragma constructors
 -(id)init{
     // Set Default User Agent
-    useragent =[NSString stringWithFormat:@"%@ %@ (OS X %@)", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], [[NSProcessInfo processInfo] operatingSystemVersionString]];
+    useragent =[NSString stringWithFormat:@"%@ %@ (Macintosh; Mac OS X %@; %@)", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], [[NSDictionary dictionaryWithContentsOfFile:@"/System/Library/CoreServices/SystemVersion.plist"] objectForKey:@"ProductVersion"], [[NSLocale currentLocale] localeIdentifier]];
     return [super init];
 }
 -(id)initWithURL:(NSURL *)address{

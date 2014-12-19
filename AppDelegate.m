@@ -458,6 +458,7 @@
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                 if (status != 3){
                     // Show normal info
+                    [lastupdateheader setTitle:@"Last Scrobbled:"];
                     [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                     [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
                     //Enable Update Status functions
@@ -467,6 +468,7 @@
                 }
                 else{
                     // Show that user needs to confirm update
+                    [lastupdateheader setTitle:@"Pending:"];
                     [self setLastScrobbledTitle:[NSString stringWithFormat:@"Pending: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                     [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
                         [confirmupdate setHidden:NO];
@@ -633,6 +635,7 @@
                         [self setStatusText:@"Scrobble Status: Correction Successful..."];
                         [self showNotication:@"Hachidori" message:@"Correction was successful"];
                         [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
+                        [lastupdateheader setTitle:@"Last Scrobbled:"];
                         [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
                         [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
                         //Show Anime Correct Information
@@ -915,6 +918,7 @@
 -(void)confirmupdate{
     BOOL success = [haengine confirmupdate];
     if (success) {
+        [lastupdateheader setTitle:@"Last Scrobbled:"];
         [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
         [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
         [self addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];

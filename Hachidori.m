@@ -572,6 +572,9 @@ update:
         }
 		return YES;
 	}
+    else if (statusCode == 401){
+        return NO;
+    }
     else if (statusCode == 0){
         online = false;
         return NO;
