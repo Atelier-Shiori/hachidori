@@ -33,6 +33,7 @@
 - (void)testRecognition {
     // This tests the title recognition
     // Test an array of file names (Retrieve a JSON file from local drive)
+    int fail = 0;
     NSArray * a = [[NSArray alloc] initWithObjects:@"[Cthuko] Shirobako - 09 [720p H264 AAC][286FB843].mkv", @"[FFF] Love Live! S2 - 01 [954C4CE1].mkv", @"[Underwater-FFF] No Game No Life - 10 (720p) [5F3B4A4B].mkv", nil];
     Recognition * reg = [[Recognition alloc] init];
     for (NSString * filename in a) {
@@ -40,12 +41,17 @@
         NSDictionary * parsedfile = [reg recognize:filename];
         NSDictionary * result = [haengine runUnitTest:[parsedfile objectForKey:@"title"] episode:[parsedfile objectForKey:@"episode"]];
         if ([result count] > 0) {
-            XCTAssert(YES, @"Pass: Title Found");
             NSLog(@"%@", result);
         }
         else{
-            XCTAssert(NO, @"Failed: Title not found");
+            fail = fail+1;
         }
+    }
+    if (fail > 0) {
+        XCTAssert(NO, @"Title not found");
+    }
+    else{
+    XCTAssert(YES, @"Complete");
     }
 }
 
