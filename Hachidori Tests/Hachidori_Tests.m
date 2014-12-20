@@ -14,15 +14,23 @@
 
 @interface Hachidori_Tests : XCTestCase{
     Hachidori * haengine;
+    NSArray * filenames;
 }
 @end
 
 @implementation Hachidori_Tests
-
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     haengine = [[Hachidori alloc] init];
+    // Load Test Data
+    NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+    NSData *dataset = [NSData dataWithContentsOfFile:[mainBundle pathForResource: @"testdata" ofType: @"json"]
+                                                 options:0
+                                                   error:NULL];
+    NSError * error;
+    filenames = [NSArray alloc];
+    filenames = [NSJSONSerialization JSONObjectWithData:dataset options:kNilOptions error:&error];
 }
 
 - (void)tearDown {
@@ -34,9 +42,8 @@
     // This tests the title recognition
     // Test an array of file names (Retrieve a JSON file from local drive)
     int fail = 0;
-    NSArray * a = [[NSArray alloc] initWithObjects:@"[Cthuko] Shirobako - 09 [720p H264 AAC][286FB843].mkv", @"[FFF] Love Live! S2 - 01 [954C4CE1].mkv", @"[Underwater-FFF] No Game No Life - 10 (720p) [5F3B4A4B].mkv", nil];
     Recognition * reg = [[Recognition alloc] init];
-    for (NSString * filename in a) {
+    for (NSString * filename in filenames) {
         NSLog(@"Testing: %@", filename);
         NSDictionary * parsedfile = [reg recognize:filename];
         NSNumber * season = [parsedfile objectForKey:@"season"];
