@@ -13,6 +13,13 @@ See [Getting Started Guide](https://github.com/chikorita157/hachidori/wiki/Getti
 1. Get the Source
 2. Type 'xcodebuild' to build
 
+## Running Unit Tests
+To run unit test, open the XCode Project and then press Cmd + T or type the following in the terminal 
+
+``xcodebuild -scheme Hachidori test``
+
+This will test how Hachidori finds the associated ID for a detected title with a set dataset. Dataset is found under the unit test directory as a file named "testdata.json".
+
 ## Dependencies
 All the frameworks are included. Just build! Here are the frameworks that are used in this app:
 

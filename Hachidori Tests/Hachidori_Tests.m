@@ -43,23 +43,27 @@
     // Test an array of file names (Retrieve a JSON file from local drive)
     int fail = 0;
     Recognition * reg = [[Recognition alloc] init];
+    NSLog(@"Testing a dataset with %lu filenames", (unsigned long)[filenames count]);
+    NSLog(@"Starting Test...\n\n");
     for (NSString * filename in filenames) {
         NSLog(@"Testing: %@", filename);
         NSDictionary * parsedfile = [reg recognize:filename];
         NSNumber * season = [parsedfile objectForKey:@"season"];
         NSDictionary * result = [haengine runUnitTest:[parsedfile objectForKey:@"title"] episode:[parsedfile objectForKey:@"episode"] season:[season intValue]];
         if ([result count] > 0) {
-            NSLog(@"%@", result);
+            NSLog(@"Detected as %@. Slug: %@", [result objectForKey:@"title"], [result objectForKey:@"slug"]);
         }
         else{
+            NSLog(@"Not found");
             fail = fail+1;
         }
     }
     if (fail > 0) {
-        XCTAssert(NO, @"Title not found");
+        NSLog(@"%i failed", fail);
+        XCTAssert(NO, @"There are failed titles");
     }
     else{
-    XCTAssert(YES, @"Complete");
+    XCTAssert(YES, @"No Errors");
     }
 }
 

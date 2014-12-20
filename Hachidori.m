@@ -227,9 +227,6 @@
     DetectedEpisode = episode;
     DetectedSeason = season;
     NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
-    if ([d objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[d objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
-        NSLog(@"Title has a valid Episode Count");
-    }
     return d;
 }
 -(NSString *)searchanime{
