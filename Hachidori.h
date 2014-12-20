@@ -61,5 +61,5 @@
 -(bool)removetitle:(NSString *)titleid;
 -(void)clearAnimeInfo;
 // Unit Testing Only
--(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode;
+-(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season;
 @end

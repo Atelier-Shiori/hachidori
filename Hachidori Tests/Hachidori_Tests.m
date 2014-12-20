@@ -39,7 +39,8 @@
     for (NSString * filename in a) {
         NSLog(@"Testing: %@", filename);
         NSDictionary * parsedfile = [reg recognize:filename];
-        NSDictionary * result = [haengine runUnitTest:[parsedfile objectForKey:@"title"] episode:[parsedfile objectForKey:@"episode"]];
+        NSNumber * season = [parsedfile objectForKey:@"season"];
+        NSDictionary * result = [haengine runUnitTest:[parsedfile objectForKey:@"title"] episode:[parsedfile objectForKey:@"episode"] season:[season intValue]];
         if ([result count] > 0) {
             NSLog(@"%@", result);
         }
