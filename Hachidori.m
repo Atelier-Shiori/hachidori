@@ -544,6 +544,7 @@ update:
     [request startFormRequest];
     NSDictionary * d;
     int statusCode = [request getStatusCode];
+    NSError * error = [request getError];
 	if (statusCode == 200 || statusCode == 201 ) {
         online = true;
         //return Data
@@ -580,12 +581,15 @@ update:
         }
 		return YES;
 	}
-    else if (statusCode == 401){
-        return NO;
-    }
-    else if (statusCode == 0){
-        online = false;
-        return NO;
+    else if (error !=nil){
+        if (error.code == NSURLErrorNotConnectedToInternet) {
+            online = false;
+            return NO;
+        }
+        else {
+            online = true;
+            return NO;
+        }
     }
 	else {
 		// Some Error. Abort

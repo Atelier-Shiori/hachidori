@@ -57,6 +57,7 @@
             NSLog(@"Not found");
             fail = fail+1;
         }
+        NSLog(@"----");
     }
     if (fail > 0) {
         NSLog(@"%i failed", fail);

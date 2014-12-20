@@ -443,11 +443,11 @@
                 [self setStatusText:@"Scrobble Status: Scrobble Failed. Retrying in 5 mins..."];
                 break;
             case 54:
-                [self showNotication:@"Scrobble Unsuccessful." message:@"Retrying in 5 mins..."];
-                [self setStatusText:@"Scrobble Status: Scrobble Failed. Retrying in 5 mins..."];
+                [self showNotication:@"Scrobble Unsuccessful." message:@"Check user credentials in Preferences. You may need to login again."];
+                [self setStatusText:@"Scrobble Status: Scrobble Failed. User credentials might have expired."];
                 break;
             case 55:
-                [self setStatusText:@"Scrobble Status: Scrobble Failed. Computer is offline."];
+                [self setStatusText:@"Scrobble Status: No internet connection."];
                 break;
             default:
                 break;

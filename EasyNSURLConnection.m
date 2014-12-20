@@ -89,7 +89,7 @@
     responsedata = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&rresponse
                                                      error:&rerror];
-    rerror = error;
+    error = rerror;
     response = rresponse;
     
 }
@@ -120,11 +120,11 @@
             [request setValue:[[d allValues] objectAtIndex:0]forHTTPHeaderField:[[d allKeys] objectAtIndex:0]];
         }
     }
-    NSError * rerror = nil;
+    NSError * rerror;
     responsedata = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&rresponse
                                                      error:&rerror];
-    rerror = error;
+    error = rerror;
     response = rresponse;
 }
 
