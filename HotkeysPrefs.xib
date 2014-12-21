@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="HotkeysPrefs">
             <connections>
+                <outlet property="confirmupdateshortcutView" destination="0Nq-jo-QY8" id="XNj-fa-kve"/>
                 <outlet property="scrobblenowshortcutView" destination="92i-Bw-Ikp" id="Te5-aA-DAa"/>
                 <outlet property="statusshortcutView" destination="4sC-b1-PhG" id="UVF-GW-VoM"/>
                 <outlet property="toggleautoscrobbleshortcutView" destination="VIW-ml-Qf0" id="rub-mY-2AS"/>
