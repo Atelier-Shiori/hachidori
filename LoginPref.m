@@ -11,6 +11,7 @@
 
 
 @implementation LoginPref
+@synthesize loginpanel;
 
 - (id)init
 {
@@ -117,9 +118,9 @@
     [request setPostMethod:@"POST"];
 				//Vertify Username/Password
     [request startFormRequest];
-				// Get Status Code
+				// Check for errors
     NSError * error = [request getError];
-    if ([request getStatusCode] == 201) {
+    if ([request getStatusCode] == 201 && error == nil) {
         //Login successful
         [self showsheetmessage:@"Login Successful" explaination: @"Login Token has been recieved."];
         // Generate API Key
@@ -205,8 +206,10 @@
 - (void)reAuthPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
         [self login:[NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"Username"]] password:[passwordinput stringValue]];
-        [passwordinput setStringValue:@""];
     }
+    //Reset and Close
+    [passwordinput setStringValue:@""];
+    [invalidinput setHidden:YES];
     [self.loginpanel close];
 }
 -(IBAction)cancelreauthorization:(id)sender{

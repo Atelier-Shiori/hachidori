@@ -25,14 +25,13 @@
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid;
 -(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
-    checkalttitle:(bool)checkalttitle
             regex:(OGRegularExpression *)regex
            option:(int)i;
 -(bool)checkifIgnored:(NSString *)filename;
 @end
 
 @implementation Hachidori
--(id)initP{
+-(id)init{
     confirmed = true;
     return [super init];
 }
@@ -226,6 +225,7 @@
     DetectedTitle = title;
     DetectedEpisode = episode;
     DetectedSeason = season;
+    unittesting = true;
     NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
     return d;
 }
@@ -406,7 +406,6 @@ update:
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",term];
     NSString *findinit = [NSString stringWithFormat:@"(%@)",term];
 	findpre = [findpre stringByReplacingOccurrencesOfString:@" " withString:@"|"];
-    bool checkalt = [[NSUserDefaults standardUserDefaults] boolForKey:@"CheckAltTitles"];
     OGRegularExpression    *regex;
 	//Retrieve the ID. Note that the most matched title will be on the top
     // For Sanity (TV shows and OVAs usually have more than one episode)
@@ -473,7 +472,7 @@ update:
         for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
             alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
+        if ([self checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
         }
             DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
             if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"Special"]) {
@@ -488,7 +487,7 @@ update:
     for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle checkalttitle:checkalt regex:regex option:i]) {
+        if ([self checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
             if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"TV"]) { // Check Seasons if the title is a TV show type
                 // Used for Season Checking
                 OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
@@ -520,7 +519,7 @@ update:
     }
     foundtitle:
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0 && !unittesting) {
         //Save AniID
         [self addtoCache:DetectedTitle showid:titleid];
     }
@@ -892,11 +891,10 @@ update:
 }
 -(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
-    checkalttitle:(bool)checkalttitle
             regex:(OGRegularExpression *)regex
            option:(int)i{
     //Checks for matches
-    if ([regex matchInString:title] != nil || ([regex matchInString:atitle] != nil && [atitle length] >0 && checkalttitle && i==0)) {
+    if ([regex matchInString:title] != nil || ([regex matchInString:atitle] != nil && [atitle length] >0 && i==0)) {
         return true;
     }
     return false;

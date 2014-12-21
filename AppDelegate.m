@@ -144,7 +144,6 @@
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"ignoredirectories"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"IgnoreTitleRules"];
-    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"CheckAltTitles"];
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ConfirmNewTitle"];
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ConfirmUpdates"];
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
@@ -458,9 +457,7 @@
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                 if (status != 3){
                     // Show normal info
-                    [lastupdateheader setTitle:@"Last Scrobbled:"];
-                    [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                    [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                    [self updateLastScrobbledTitleStatus:false];
                     //Enable Update Status functions
                     [updatetoolbaritem setEnabled:YES];
                     [updatedupdatestatus setEnabled:YES];
@@ -468,9 +465,7 @@
                 }
                 else{
                     // Show that user needs to confirm update
-                    [lastupdateheader setTitle:@"Pending:"];
-                    [self setLastScrobbledTitle:[NSString stringWithFormat:@"Pending: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                    [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                    [self updateLastScrobbledTitleStatus:true];
                         [confirmupdate setHidden:NO];
                     if ([haengine getisNewTitle]) {
                         // Disable Update Status functions for new and unconfirmed titles.
@@ -635,9 +630,8 @@
                         [self setStatusText:@"Scrobble Status: Correction Successful..."];
                         [self showNotication:@"Hachidori" message:@"Correction was successful"];
                         [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
-                        [lastupdateheader setTitle:@"Last Scrobbled:"];
-                        [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                        [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                        [self updateLastScrobbledTitleStatus:false];
+     
                         //Show Anime Correct Information
                         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
                         [self showAnimeInfo:ainfo];
@@ -786,6 +780,18 @@
     [updatedtitle setTitle:title];
     [updatedepisode setTitle:[NSString stringWithFormat:@"Episode %@", episode]];
 }
+-(void)updateLastScrobbledTitleStatus:(BOOL)pending{
+    if (pending) {
+        [lastupdateheader setTitle:@"Pending:"];
+        [self setLastScrobbledTitle:[NSString stringWithFormat:@"Pending: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+        [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+    }
+    else{
+        [lastupdateheader setTitle:@"Last Scrobbled:"];
+        [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
+        [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+    }
+}
 
 /*
  
@@ -838,8 +844,7 @@
             if (episodechanged) {
                 // Update the tooltip, menu and last scrobbled title
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
-                [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-                [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                [self updateLastScrobbledTitleStatus:false];
             }
         }
         else
@@ -918,9 +923,7 @@
 -(void)confirmupdate{
     BOOL success = [haengine confirmupdate];
     if (success) {
-        [lastupdateheader setTitle:@"Last Scrobbled:"];
-        [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
-        [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [self updateLastScrobbledTitleStatus:false];
         [self addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
         [confirmupdate setHidden:YES];
         [self setStatusText:@"Scrobble Status: Update was successful."];

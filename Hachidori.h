@@ -33,6 +33,7 @@
 	BOOL Success;
     BOOL correcting;
 	int choice;
+    BOOL unittesting;
 }
 -(NSString *)getLastScrobbledTitle;
 -(NSString *)getLastScrobbledEpisode;
