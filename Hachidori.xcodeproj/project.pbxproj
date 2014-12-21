@@ -37,6 +37,9 @@
 		5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */; };
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
+		5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */; };
+		5CC744D61A474B0600F65E88 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CC744D41A474B0600F65E88 /* HotkeysPrefs.xib */; };
+		5CC744D81A474BAC00F65E88 /* hotkey.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC744D71A474BAC00F65E88 /* hotkey.png */; };
 		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; };
 		5CD7FF411A449A140050E6CC /* Hachidori_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */; };
@@ -132,6 +135,10 @@
 		5CAFB2571A389E210067DD4F /* rules.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rules.png; sourceTree = "<group>"; };
 		5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LoginPref.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginPref.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotkeysPrefs.h; sourceTree = "<group>"; };
+		5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotkeysPrefs.m; sourceTree = "<group>"; };
+		5CC744D41A474B0600F65E88 /* HotkeysPrefs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotkeysPrefs.xib; sourceTree = "<group>"; };
+		5CC744D71A474BAC00F65E88 /* hotkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotkey.png; sourceTree = "<group>"; };
 		5CD36B9519F2EA9B007BB6B6 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
 		5CD36B9719F2EA9B007BB6B6 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
 		5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
@@ -276,6 +283,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
+				5CC744D41A474B0600F65E88 /* HotkeysPrefs.xib */,
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
 				5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */,
 				5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */,
@@ -332,6 +340,7 @@
 		5C8ACEB919F409F90001A101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5CC744D71A474BAC00F65E88 /* hotkey.png */,
 				82F065AE19FB613800E0B17A /* hachidori-status.png */,
 				5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */,
 				5CAFB2571A389E210067DD4F /* rules.png */,
@@ -342,6 +351,8 @@
 		5CD36B9419F2EA91007BB6B6 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */,
+				5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */,
 				825D878E1A18FD2600C5E1BF /* ExceptionsPref.h */,
 				825D878F1A18FD2700C5E1BF /* ExceptionsPref.m */,
 				5CD36BB819F2ED88007BB6B6 /* GeneralPrefController.h */,
@@ -488,8 +499,10 @@
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
+				5CC744D81A474BAC00F65E88 /* hotkey.png in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
 				825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */,
+				5CC744D61A474B0600F65E88 /* HotkeysPrefs.xib in Resources */,
 				5C30BC07139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff in Resources */,
 				5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
@@ -532,6 +545,7 @@
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
+				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,

@@ -13,6 +13,7 @@
 #import "LoginPref.h"
 #import "SoftwareUpdatesPref.h"
 #import "ExceptionsPref.h"
+#import "HotkeysPrefs.h"
 #import "NSString_stripHtml.h"
 #import <Carbon/Carbon.h>
 #import "FixSearchDialog.h"
@@ -272,7 +273,8 @@
         NSViewController *loginViewController = [[LoginPref alloc] initwithAppDelegate:self];
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
         NSViewController *exceptionsViewController = [[ExceptionsPref alloc] init];
-        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, loginViewController, suViewController, exceptionsViewController, nil];
+        NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
+        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, loginViewController, hotkeyViewController , exceptionsViewController, suViewController, nil];
         
         // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
         //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];
@@ -953,6 +955,12 @@
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceToggleScrobblingShortcut handler:^{
         // Auto Scrobble Toggle Global Hotkey
         [self toggletimer:nil];
+    }];
+    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceConfirmUpdateShortcut handler:^{
+        // Confirm Update Hotkey
+        if (!confirmupdate.hidden) {
+            [self confirmupdate];
+        }
     }];
 }
 -(IBAction)showAboutWindow:(id)sender{

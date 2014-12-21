@@ -230,7 +230,7 @@
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{9, 0}, {376, 158}}</string>
+						<string key="NSFrame">{{37, 0}, {376, 158}}</string>
 						<reference key="NSSuperview" ref="597384596"/>
 						<reference key="NSNextKeyView" ref="72329522"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -247,7 +247,7 @@
 							<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 							<string>NeXT TIFF v4.0 pasteboard type</string>
 						</set>
-						<string key="NSFrame">{{157, 165}, {94, 80}}</string>
+						<string key="NSFrame">{{185, 165}, {94, 80}}</string>
 						<reference key="NSSuperview" ref="597384596"/>
 						<reference key="NSNextKeyView" ref="52620309"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -385,14 +385,14 @@
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{9, 12}, {376, 143}}</string>
+						<string key="NSFrame">{{37, 12}, {376, 143}}</string>
 						<reference key="NSSuperview" ref="597384596"/>
 						<reference key="NSNextKeyView" ref="392929341"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">NSView</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{394, 256}</string>
+				<string key="NSFrameSize">{450, 256}</string>
 				<reference key="NSNextKeyView" ref="274811715"/>
 				<string key="NSReuseIdentifierKey">_NS:1109</string>
 				<string key="NSClassName">NSView</string>

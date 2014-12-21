@@ -10,6 +10,7 @@
 
 @implementation HotKeyConstants
 // Global Hotkey Constants
+NSString *const kPreferenceConfirmUpdateShortcut = @"ConfirmUpdateKey";
 NSString *const kPreferenceScrobbleNowShortcut = @"ScrobbleNow";
 NSString *const kPreferenceShowStatusMenuShortcut = @"ShowStatusWindow";
 NSString *const kPreferenceToggleScrobblingShortcut = @"ToggleAutoScrobbleKey";

@@ -7,9 +7,6 @@
 //
 
 #import "GeneralPrefController.h"
-#import "HotKeyConstants.h"
-#import "MASShortcutView.h"
-#import "MASShortcutView+UserDefaults.h"
 
 
 @implementation GeneralPrefController
@@ -27,10 +24,6 @@
         [disablenewtitlebar setEnabled:NO];
         [disablevibarency setEnabled: NO];
     }
-    // Set Shortcut Recorder Viewer Defaults Key
-    self.scrobblenowshortcutView.associatedUserDefaultsKey = kPreferenceScrobbleNowShortcut;
-    self.statusshortcutView.associatedUserDefaultsKey = kPreferenceShowStatusMenuShortcut;
-    self.toggleautoscrobbleshortcutView.associatedUserDefaultsKey = kPreferenceToggleScrobblingShortcut;
 }
 - (NSString *)identifier
 {
