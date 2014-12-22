@@ -29,7 +29,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BtF-5i-BJZ">
-                    <rect key="frame" x="160" y="140" width="163" height="17"/>
+                    <rect key="frame" x="160" y="134" width="163" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Scrobble Now:" id="ILO-in-6kf">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -37,10 +37,10 @@
                     </textFieldCell>
                 </textField>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92i-Bw-Ikp" customClass="MASShortcutView">
-                    <rect key="frame" x="160" y="117" width="184" height="22"/>
+                    <rect key="frame" x="160" y="111" width="184" height="22"/>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLe-CD-K0D">
-                    <rect key="frame" x="160" y="93" width="224" height="17"/>
+                    <rect key="frame" x="160" y="87" width="224" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Show Status Window:" id="Hkd-8F-FHp">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -48,10 +48,10 @@
                     </textFieldCell>
                 </textField>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4sC-b1-PhG" customClass="MASShortcutView">
-                    <rect key="frame" x="160" y="69" width="184" height="22"/>
+                    <rect key="frame" x="160" y="63" width="184" height="22"/>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLD-75-I9w">
-                    <rect key="frame" x="160" y="44" width="224" height="17"/>
+                    <rect key="frame" x="160" y="38" width="224" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Toggle Automatic Scrobbling:" id="IW9-Km-O4N">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -59,7 +59,7 @@
                     </textFieldCell>
                 </textField>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIW-ml-Qf0" customClass="MASShortcutView">
-                    <rect key="frame" x="160" y="20" width="184" height="22"/>
+                    <rect key="frame" x="160" y="14" width="184" height="22"/>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJc-O7-Vqg">
                     <rect key="frame" x="160" y="181" width="163" height="17"/>
