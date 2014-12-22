@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <CoreServices/CoreServices.h>
 #import "MASPreferencesViewController.h"
 
 
@@ -14,5 +15,6 @@
 @interface GeneralPrefController : NSViewController <MASPreferencesViewController> {
     IBOutlet NSButton * disablenewtitlebar;
     IBOutlet NSButton * disablevibarency;
+    IBOutlet NSButton * startatlogin;
 }
 @end

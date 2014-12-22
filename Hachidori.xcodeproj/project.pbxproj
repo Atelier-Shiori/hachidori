@@ -41,7 +41,7 @@
 		5CC744D61A474B0600F65E88 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CC744D41A474B0600F65E88 /* HotkeysPrefs.xib */; };
 		5CC744D81A474BAC00F65E88 /* hotkey.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC744D71A474BAC00F65E88 /* hotkey.png */; };
 		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; };
+		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD7FF411A449A140050E6CC /* Hachidori_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -55,6 +55,7 @@
 		82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */; };
 		82F065B019FB613800E0B17A /* hachidori-status.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AE19FB613800E0B17A /* hachidori-status.png */; };
 		82F065B319FB618E00E0B17A /* detectstream in Resources */ = {isa = PBXBuildFile; fileRef = 82F065B219FB618E00E0B17A /* detectstream */; };
+		82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4C61C8120DF37D0032F63A /* CoreServices.framework */; };
 		82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7A9A71A195A8300183EF7 /* Recognition.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -182,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */,

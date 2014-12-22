@@ -833,7 +833,7 @@
     if (returnCode == 1) {
         // Check if Episode field is empty. If so, set it to last scrobbled episode
         NSString * tmpepisode = [episodefield stringValue];
-        bool episodechanged;
+        bool episodechanged = false;
         if (tmpepisode.length == 0) {
             tmpepisode = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
         }
