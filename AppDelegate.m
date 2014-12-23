@@ -471,6 +471,7 @@
                         [confirmupdate setHidden:NO];
                     if ([haengine getisNewTitle]) {
                         // Disable Update Status functions for new and unconfirmed titles.
+                        [updatecorrect setAutoenablesItems:NO];
                         [updatetoolbaritem setEnabled:NO];
                         [updatedupdatestatus setEnabled:NO];
                     }
@@ -784,11 +785,13 @@
 }
 -(void)updateLastScrobbledTitleStatus:(BOOL)pending{
     if (pending) {
+        [updatecorrect setAutoenablesItems:NO];
         [lastupdateheader setTitle:@"Pending:"];
         [self setLastScrobbledTitle:[NSString stringWithFormat:@"Pending: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
         [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
     }
     else{
+        [updatecorrect setAutoenablesItems:YES];
         [lastupdateheader setTitle:@"Last Scrobbled:"];
         [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode]]];
         [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
@@ -809,6 +812,7 @@
     [self showUpdateDialog:nil];
 }
 -(void)showUpdateDialog:(NSWindow *) w{
+    [NSApp activateIgnoringOtherApps:YES];
     // Show Sheet
     [NSApp beginSheet:updatepanel
        modalForWindow:w modalDelegate:self
