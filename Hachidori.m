@@ -20,8 +20,6 @@
 -(int)updatetitle:(NSString *)titleid;
 -(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
--(int)countWordsInTitle:(NSString *) title;
--(BOOL)checkillegalcharacters:(NSString *) title;
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid;
 -(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
@@ -135,39 +133,32 @@
 -(int)scrobble{
     int status;
     NSLog(@"Getting AniID");
-    if ([self countWordsInTitle:DetectedTitle] == 1 && ![self checkillegalcharacters:DetectedTitle]) {
-        //Single title, set as ID
-        NSLog(@"Single Title");
-        AniID = DetectedTitle.lowercaseString;
-    }
-    else {
-        // Regular Search
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
-            NSArray *cache = [[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"];
-            if (cache.count > 0) {
-                NSString * theid;
-                for (NSDictionary *d in cache) {
-                    NSString * title = [d objectForKey:@"detectedtitle"];
-                    if ([title isEqualToString:DetectedTitle]) {
-                        NSLog(@"%@ found in cache!", title);
-                        theid = [d objectForKey:@"showid"];
-                        break;
-                    }
-                }
-                if (theid.length == 0) {
-                    AniID = [self searchanime]; // Not in cache, search
-                }
-                else{
-                    AniID = theid; // Set cached show id as AniID
+    // Regular Search
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
+        NSArray *cache = [[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"];
+        if (cache.count > 0) {
+            NSString * theid;
+            for (NSDictionary *d in cache) {
+                NSString * title = [d objectForKey:@"detectedtitle"];
+                if ([title isEqualToString:DetectedTitle]) {
+                    NSLog(@"%@ found in cache!", title);
+                    theid = [d objectForKey:@"showid"];
+                    break;
                 }
             }
+            if (theid.length == 0) {
+                AniID = [self searchanime]; // Not in cache, search
+            }
             else{
-                AniID = [self searchanime]; // Cache empty, search
+                AniID = theid; // Set cached show id as AniID
             }
         }
         else{
-            AniID = [self searchanime]; // Search Cache Disabled
+            AniID = [self searchanime]; // Cache empty, search
         }
+    }
+    else{
+        AniID = [self searchanime]; // Search Cache Disabled
     }
     if (AniID.length > 0) {
         NSLog(@"Found %@", AniID);
@@ -861,25 +852,6 @@ update:
     // Remove any Whitespace
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;
-}
--(int)countWordsInTitle:(NSString *) title{
-    // Counts amount of words in the title
-    NSCountedSet * count = [NSCountedSet new];
-    [title enumerateSubstringsInRange:NSMakeRange(0, [title length])
-                              options:NSStringEnumerationByWords | NSStringEnumerationLocalized
-                           usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
-                               [count addObject:substring];
-                           }];
-    return [count count];
-}
--(BOOL)checkillegalcharacters:(NSString *) title{
-    //Checks if the single word is suitable to be used as a slug.
-    NSCharacterSet * set = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ0123456789"] invertedSet];
-    
-    if ([title rangeOfCharacterFromSet:set].location != NSNotFound) {
-        return true;
-    }
-    return false;
 }
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid{
     //Adds ID to cache
