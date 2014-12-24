@@ -1,31 +1,116 @@
-[
-	"[Chibiki] Puchimas! - 01 [360p][EB76BA61].mkv",
-	"[Commie] Dog Days' - 06 [7537CD64].mkv",
-	"[Commie] Hyperdimension Neptunia The Animation - 01 [F3C5D5B2].mkv",
-	"[Commie] Ore, Twintail ni Narimasu. - 07 [2C085767].mkv",
-	"[CMS] Nogizaka Haruka no Himitsu ~Finale~ 01 [BD][720p-AAC][2100E982].mkv",
-	"[Cthuko] Shirobako - 09 [720p H264 AAC][286FB843].mkv",
-	"[Doki] Fate Kaleid Liner Prisma Illya - 02 (1280x720 Hi10P AAC) [02A6BFA8].mkv",
-	"[Doki] Papa no Iukoto wo Kikinasai! - 05 (1280x720 h264 AAC) [9DEBD32F].mkv",
-	"[EveTaku] AKB0048 - 01 (1280x720 x264 AAC)[3907D306].mkv",
-	"[EveTaku] Ore no Imouto ga Konnani Kawaii Wake ga Nai 2 - 03 (1280x720 x264-Hi10P AAC)[5A838952].mkv",
-	"[FBI] Dog Days S2 - 01v2 [720p] [10bit] [73E358D2].mkv",
-	"[FFF] Love Live! - 01 [BD][720p-AAC][2467B698].mkv",
- 	"[FFF] Love Live! S2 - 01 [954C4CE1].mkv",
-	"[FTW]_Chuunibyou_demo_Koi_ga_Shitai!_Ren_-_01_[720p][9172389F].mkv",
-	"[Hadena] Shining Hearts - Shiawase no Pan - 01 [10bit][720p][2473F141].mkv",
-	"[Kaylith] Glasslip - 11 [720p][48CB279E].mkv",
-	"[Mazui]_Tamako_Market_-_06_[356821EB].mkv",
-	"[Mezashite] Sakura Trick - 03 [2E95E8A0].mkv",
-	"[rori] Natsuiro Kiseki - 06 [4576631C].mkv",
- 	"[Underwater-FFF] No Game No Life - 10 (720p) [5F3B4A4B].mkv",
-	"[Underwater-Vivid] Nagi no Asukara - 03 (720p) [FB964F8F].mkv",
-	"[Underwater] Atelier Escha & Logy - Alchemists of the Dusk Sky - 03v2 (720p) [956D2DD8].mkv",
-	"[URW]_Chuunibyou_demo_Koi_ga_Shitai!_-_06_[720p][7D173283].mkv",
-	"[UTW-Mazui]_Little_Busters!_-_14_[720p][5F82E334].mkv",
-	"[UTW-Vivid]_Suisei_no_Gargantia_-_12_[h264-720p][904D0D0F].mkv",
-	"[UTW]_Kyoukai_no_Kanata_-_08_[h264-720p][0D3504BA].mkv",
-	"[UTW]_Photokano_-_09_[h264-720p][D9BCE23D].mkv",
-	"[Vivid] Amagi Brilliant Park - 02 [EEA5B675].mkv",
-	"[Vivid] Hanayamata - 05 [4E2371A4].mkv",
- ]
+ [
+  {
+  "filename":"[Chibiki] Puchimas! - 01 [360p][EB76BA61].mkv",
+  "expectedtitle":"Puchimas!: Petit iDOLM@STER"
+  },
+  {
+  "filename":"[Commie] Dog Days' - 06 [7537CD64].mkv",
+  "expectedtitle":"Dog Days'"
+  },
+  {
+  "filename":"[Commie] Hyperdimension Neptunia The Animation - 01 [F3C5D5B2].mkv",
+  "expectedtitle":"Choujigen Game Neptune: The Animation"
+  },
+  {
+  "filename":"[Commie] Ore, Twintail ni Narimasu. - 07 [2C085767].mkv",
+  "expectedtitle":"Ore, Twintails ni Narimasu."
+  },
+  {
+  "filename":"[CMS] Nogizaka Haruka no Himitsu ~Finale~ 01 [BD][720p-AAC][2100E982].mkv",
+  "expectedtitle":"Nogizaka Haruka no Himitsu: Finale"
+  },
+  {
+  "filename":"[Cthuko] Shirobako - 09 [720p H264 AAC][286FB843].mkv",
+  "expectedtitle":"Shirobako"
+  },
+  {
+  "filename":"[Doki] Fate Kaleid Liner Prisma Illya - 02 (1280x720 Hi10P AAC) [02A6BFA8].mkv",
+  "expectedtitle":"Fate\/kaleid liner Prisma☆Illya"
+  },
+  {
+  "filename":"[Doki] Papa no Iukoto wo Kikinasai! - 05 (1280x720 h264 AAC) [9DEBD32F].mkv",
+  "expectedtitle":"Papa no Iukoto wo Kikinasai!"
+  },
+  {
+  "filename":"[EveTaku] AKB0048 - 01 (1280x720 x264 AAC)[3907D306].mkv",
+  "expectedtitle":"AKB0048 First Stage"
+  },
+  {
+  "filename":"[EveTaku] Ore no Imouto ga Konnani Kawaii Wake ga Nai 2 - 03 (1280x720 x264-Hi10P AAC)[5A838952].mkv",
+  "expectedtitle":"OreImo Season 2"
+  },
+  {
+  "filename":"[FBI] Dog Days S2 - 01v2 [720p] [10bit] [73E358D2].mkv",
+  "expectedtitle":"Dog Days'"
+  },
+  {
+  "filename":"[FFF] Love Live! - 01 [BD][720p-AAC][2467B698].mkv",
+  "expectedtitle":"Love Live! School Idol Project"},
+  {
+  "filename":"[FFF] Love Live! S2 - 01 [954C4CE1].mkv",
+  "expectedtitle":"Love Live! School Idol Project 2nd Season"
+  },
+  {
+  "filename":"[FTW]_Chuunibyou_demo_Koi_ga_Shitai!_Ren_-_01_[720p][9172389F].mkv",
+  "expectedtitle":"Chuunibyou demo Koi ga Shitai! Ren"
+  },
+  {
+  "filename":"[Hadena] Shining Hearts - Shiawase no Pan - 01 [10bit][720p][2473F141].mkv",
+  "expectedtitle":"Shining Hearts: Shiawase no Pan"
+  },
+  {
+  "filename":"[Kaylith] Glasslip - 11 [720p][48CB279E].mkv",
+  "expectedtitle":"Glasslip"
+  },
+  {
+  "filename":"[Mazui]_Tamako_Market_-_06_[356821EB].mkv",
+  "expectedtitle":"Tamako Market"
+  },
+  {
+  "filename":"[Mezashite] Sakura Trick - 03 [2E95E8A0].mkv",
+  "expectedtitle":"Sakura Trick"
+  },
+  {
+  "filename":"[rori] Natsuiro Kiseki - 06 [4576631C].mkv",
+  "expectedtitle":"Natsuiro Kiseki"
+  },
+  {
+  "filename":"[Underwater-FFF] No Game No Life - 10 (720p) [5F3B4A4B].mkv",
+  "expectedtitle":"No Game No Life"},
+  {
+  "filename":"[Underwater-Vivid] Nagi no Asukara - 03 (720p) [FB964F8F].mkv",
+  "expectedtitle":"Nagi no Asukara"
+  },
+  {
+  "filename":"[Underwater] Atelier Escha & Logy - Alchemists of the Dusk Sky - 03v2 (720p) [956D2DD8].mkv"
+  ,"expectedtitle":"Escha & Logy no Atelier: Tasogare no Sora no Renkinjutsushi"
+  },
+  {
+  "filename":"[URW]_Chuunibyou_demo_Koi_ga_Shitai!_-_06_[720p][7D173283].mkv",
+  "expectedtitle":"Chuunibyou demo Koi ga Shitai!"
+  },
+  {
+  "filename":"[UTW-Mazui]_Little_Busters!_-_14_[720p][5F82E334].mkv",
+  "expectedtitle":"Little Busters!"
+  },
+  {
+  "filename":"[UTW-Vivid]_Suisei_no_Gargantia_-_12_[h264-720p][904D0D0F].mkv",
+  "expectedtitle":"Gargantia on the Verdurous Planet"
+  },
+  {
+  "filename":"[UTW]_Kyoukai_no_Kanata_-_08_[h264-720p][0D3504BA].mkv",
+  "expectedtitle":"Kyoukai no Kanata"
+  },
+  {
+  "filename":"[UTW]_Photokano_-_09_[h264-720p][D9BCE23D].mkv",
+  "expectedtitle":"Photokano"
+  },
+  {
+  "filename":"[Vivid] Amagi Brilliant Park - 02 [EEA5B675].mkv",
+  "expectedtitle":"Amagi Brilliant Park"
+  },
+  {
+  "filename":"[Vivid] Hanayamata - 05 [4E2371A4].mkv",
+  "expectedtitle":"Hanayamata"
+  }
+  ]
