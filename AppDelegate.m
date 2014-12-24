@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by James M. on 8/7/10.
-//  Copyright 2009-2014 Atelier Shiori. All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2015 Atelier Shiori. All rights reserved. Code licensed under New BSD License
 //
 
 #import "AppDelegate.h"
@@ -989,7 +989,9 @@
     [updatenow setEnabled:YES];
     [togglescrobbler setEnabled:YES];
     [updatedcorrecttitle setEnabled:YES];
-    [updatedupdatestatus setEnabled:YES];
+    if (confirmupdate.hidden) {
+        [updatedupdatestatus setEnabled:YES];
+    }
     [updatecorrect setAutoenablesItems:YES];
     [statusMenu setAutoenablesItems:YES];
     [confirmupdate setEnabled:YES];

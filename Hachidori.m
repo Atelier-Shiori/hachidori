@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by James M. on 8/7/10.
-//  Copyright 2009-2014 Atelier Shiori. All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2015 Atelier Shiori. All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori.h"
@@ -434,7 +434,7 @@ update:
         else if ([theshowtype isEqualToString:@"TV"])
             [tv addObject:entry];
         else if ([theshowtype isEqualToString:@"ONA"])
-            [ova addObject:entry];
+            [ona addObject:entry];
         else if ([theshowtype isEqualToString:@"OVA"])
             [ova addObject:entry];
         else if ([theshowtype isEqualToString:@"Special"])

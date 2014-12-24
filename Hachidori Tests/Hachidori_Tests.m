@@ -61,7 +61,7 @@
     }
     if (fail > 0) {
         NSLog(@"%i failed", fail);
-        XCTAssert(NO, @"There are failed titles");
+        XCTAssert(NO, @"There are titles that couldn't be found");
     }
     else{
     XCTAssert(YES, @"No Errors");
