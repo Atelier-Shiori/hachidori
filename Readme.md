@@ -16,7 +16,7 @@ To run unit test, open the XCode Project and then press Cmd + T or type the foll
 
 ``xcodebuild -scheme Hachidori test``
 
-This will test how Hachidori finds the associated ID for a detected title with a set dataset. Dataset is found under the unit test directory as a file named "testdata.json".
+This will test how Hachidori finds the associated ID for a detected title with a set dataset and calculate the accuracy. Dataset is found under the unit test directory as a file named "testdata.json".
 
 ## Dependencies
 All the frameworks are included. Just build! Here are the frameworks that are used in this app:

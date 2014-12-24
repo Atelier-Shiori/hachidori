@@ -1,11 +1,23 @@
- [
+[
+  {
+  "filename":"[Chibiki]_THE_iDOLM@STER_-_06_[720p][D0D8A938].mkv",
+  "expectedtitle":"The iDOLM@STER"
+  },
   {
   "filename":"[Chibiki] Puchimas! - 01 [360p][EB76BA61].mkv",
   "expectedtitle":"Puchimas!: Petit iDOLM@STER"
   },
   {
+  "filename":"[CoalGuys] K-ON! Movie (720p) [D09FC86B].mkv",
+  "expectedtitle":"K-On! Movie"
+  },
+  {
   "filename":"[Commie] Dog Days' - 06 [7537CD64].mkv",
   "expectedtitle":"Dog Days'"
+  },
+  {
+  "filename":"[Commie] Hyouka - 07 [7CA72A38].mkv",
+  "expectedtitle":"Hyouka"
   },
   {
   "filename":"[Commie] Hyperdimension Neptunia The Animation - 01 [F3C5D5B2].mkv",
@@ -24,12 +36,32 @@
   "expectedtitle":"Shirobako"
   },
   {
+  "filename":"[Doki] A Channel - 02 (1280x720 h264 AAC) [6F7B4372].mkv",
+  "expectedtitle":"A-Channel"
+  },
+  {
   "filename":"[Doki] Fate Kaleid Liner Prisma Illya - 02 (1280x720 Hi10P AAC) [02A6BFA8].mkv",
   "expectedtitle":"Fate\/kaleid liner Prisma☆Illya"
   },
+ {
+ "filename":"[Doki]_Mahou_Shoujo_Lyrical_Nanoha_The_Movie_1st_(1280x720_h264_BD_DTS)_[A272588E].mkv",
+ "expectedtitle":"Mahou Shoujo Lyrical Nanoha: The Movie 1st"
+ },
+ {
+ "filename":"[Doki] Nichijou - 06 (1280x720 h264 AAC) [D30C0D2E].mkv",
+ "expectedtitle":"Nichijou"
+ },
   {
   "filename":"[Doki] Papa no Iukoto wo Kikinasai! - 05 (1280x720 h264 AAC) [9DEBD32F].mkv",
   "expectedtitle":"Papa no Iukoto wo Kikinasai!"
+  },
+  {
+  "filename":"[Doki] Pokemon The Origin - 01 (1280x720 h264 AAC) [5CEA8D4D].mkv",
+  "expectedtitle":"Pokemon: The Origin"
+  },
+  {
+  "filename":"[Doki] Tari Tari - 10 (1280x720 Hi10P AAC) [4F478118].mkv",
+  "expectedtitle":"Tari Tari"
   },
   {
   "filename":"[EveTaku] AKB0048 - 01 (1280x720 x264 AAC)[3907D306].mkv",
@@ -45,11 +77,16 @@
   },
   {
   "filename":"[FFF] Love Live! - 01 [BD][720p-AAC][2467B698].mkv",
-  "expectedtitle":"Love Live! School Idol Project"},
+  "expectedtitle":"Love Live! School Idol Project"
+  },
   {
   "filename":"[FFF] Love Live! S2 - 01 [954C4CE1].mkv",
   "expectedtitle":"Love Live! School Idol Project 2nd Season"
   },
+ {
+ "filename":"[FFFpeeps] Working'!! - 09 [720p][22F6168F].mkv",
+ "expectedtitle":"Working'!!"
+ },
   {
   "filename":"[FTW]_Chuunibyou_demo_Koi_ga_Shitai!_Ren_-_01_[720p][9172389F].mkv",
   "expectedtitle":"Chuunibyou demo Koi ga Shitai! Ren"
@@ -58,9 +95,21 @@
   "filename":"[Hadena] Shining Hearts - Shiawase no Pan - 01 [10bit][720p][2473F141].mkv",
   "expectedtitle":"Shining Hearts: Shiawase no Pan"
   },
+ {
+ "filename":"[Hatsuyuki-Tsuki]_Hanasaku_Iroha_-_10_[1280x720][C0ACBA6B].mkv",
+ "expectedtitle":"Hanasaku Iroha"
+ },
+ {
+ "filename":"[IB] Ikoku Meiro no Croisée - 02 [720p] [1F058505].mkv",
+ "expectedtitle":"Ikoku Meiro no Croisée"
+ },
   {
   "filename":"[Kaylith] Glasslip - 11 [720p][48CB279E].mkv",
   "expectedtitle":"Glasslip"
+  },
+  {
+  "filename":"[Mazui]_Boku_Ha_Tomodachi_Ga_Sukunai_NEXT_-_01_[7F653193].mkv",
+  "expectedtitle":"Boku wa Tomodachi ga Sukunai NEXT"
   },
   {
   "filename":"[Mazui]_Tamako_Market_-_06_[356821EB].mkv",
@@ -70,13 +119,30 @@
   "filename":"[Mezashite] Sakura Trick - 03 [2E95E8A0].mkv",
   "expectedtitle":"Sakura Trick"
   },
+ {
+ "filename":"[Meguca]_Puella_Magi_Madoka_Magica_-_02v2_[BD][h264-720p_AAC][8A29CADE].mkv",
+ "expectedtitle":"Mahou Shoujo Madoka★Magica"
+ },
   {
   "filename":"[rori] Natsuiro Kiseki - 06 [4576631C].mkv",
   "expectedtitle":"Natsuiro Kiseki"
   },
+ {
+ "filename":"[Shikkaku]_Oretachi_ni_Tsubasa_wa_Nai_04_[1280x720][AAC][C143CD2E].mkv",
+ "expectedtitle":"Oretachi ni Tsubasa wa Nai: Under the Innocent Sky."
+ },
+  {
+  "filename":"[Toki-D]_Wake_Up,_Girls!_-_01_[BD][720p][AC0DE764].mkv",
+  "expectedtitle":"Wake Up, Girls!"
+  },
+  {
+  "filename":"[umee]_Princess_Jellyfish_-_02_[D96153E6].mkv",
+  "expectedtitle":"Kuragehime"
+  },
   {
   "filename":"[Underwater-FFF] No Game No Life - 10 (720p) [5F3B4A4B].mkv",
-  "expectedtitle":"No Game No Life"},
+  "expectedtitle":"No Game No Life"
+  },
   {
   "filename":"[Underwater-Vivid] Nagi no Asukara - 03 (720p) [FB964F8F].mkv",
   "expectedtitle":"Nagi no Asukara"
@@ -89,6 +155,14 @@
   "filename":"[URW]_Chuunibyou_demo_Koi_ga_Shitai!_-_06_[720p][7D173283].mkv",
   "expectedtitle":"Chuunibyou demo Koi ga Shitai!"
   },
+ {
+ "filename":"[UTW]_Fractale_-_02_[h264-720p][D7961156].mkv",
+ "expectedtitle":"Fractale"
+ },
+ {
+ "filename":"[UTW]_Hidan_no_Aria_-_01_[h264-720p][C0289EFA].mkv",
+ "expectedtitle":"Hidan no Aria"
+ },
   {
   "filename":"[UTW-Mazui]_Little_Busters!_-_14_[720p][5F82E334].mkv",
   "expectedtitle":"Little Busters!"
@@ -97,6 +171,10 @@
   "filename":"[UTW-Vivid]_Suisei_no_Gargantia_-_12_[h264-720p][904D0D0F].mkv",
   "expectedtitle":"Gargantia on the Verdurous Planet"
   },
+ {
+ "filename":"[UTW]_Ano_Hana_-_01_[h264-720p][58F95653].mkv",
+ "expectedtitle":"Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai."
+ },
   {
   "filename":"[UTW]_Kyoukai_no_Kanata_-_08_[h264-720p][0D3504BA].mkv",
   "expectedtitle":"Kyoukai no Kanata"
@@ -105,6 +183,10 @@
   "filename":"[UTW]_Photokano_-_09_[h264-720p][D9BCE23D].mkv",
   "expectedtitle":"Photokano"
   },
+ {
+ "filename":"[Victorique]_Gosick_-_03_[h264-720p][6B8BECCB].mkv",
+ "expectedtitle":"Gosick"
+ },
   {
   "filename":"[Vivid] Amagi Brilliant Park - 02 [EEA5B675].mkv",
   "expectedtitle":"Amagi Brilliant Park"
@@ -112,5 +194,9 @@
   {
   "filename":"[Vivid] Hanayamata - 05 [4E2371A4].mkv",
   "expectedtitle":"Hanayamata"
+  },
+  {
+  "filename":"[WhyNot] Free! - 02 [A45B3AE9].mkv",
+  "expectedtitle":"Free!"
   }
   ]

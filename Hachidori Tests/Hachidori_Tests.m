@@ -61,10 +61,13 @@
         if ([result count] > 0) {
             NSLog(@"Detected as %@. Slug: %@", [result objectForKey:@"title"], [result objectForKey:@"slug"]);
             if (![expectedtitle isEqualToString:[NSString stringWithFormat:@"%@", [result objectForKey:@"title"]]] && [expectedtitle length] > 0) {
+                NSLog(@"Incorrect Match!");
                 incorrect++;
             }
             else if ([expectedtitle length] == 0){
                 // Expected Title missing, subtract it from count.
+                NSLog(@"Note: Title not included in the count. Please add this to the testdata.json file:");
+                NSLog(@"\"expectedtitle\":\"%@\"",[result objectForKey:@"title"]);
                 count--;
             }
         }
