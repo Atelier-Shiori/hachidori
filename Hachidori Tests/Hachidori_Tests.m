@@ -80,7 +80,7 @@
     if (fail > 0) {
         // Test Failed, title couldn't be found
         NSLog(@"%i titles could not be found", fail);
-        XCTAssert(NO, @"Test Failed: There are titles that couldn't be found");
+        XCTAssert(NO, @"Test Failed: There were titles that couldn't be found");
     }
     else{
         // Calculate Results
