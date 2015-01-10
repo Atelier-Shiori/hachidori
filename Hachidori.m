@@ -237,6 +237,8 @@
         }
         if (correcttitle.length > 0) {
             searchtitle = correcttitle;
+            // Remove Season to avoid conflicts
+            DetectedSeason = 0;
         }
     }
     if (searchtitle.length == 0) {
