@@ -91,6 +91,10 @@
   "filename":"[Doki] Tari Tari - 10 (1280x720 Hi10P AAC) [4F478118].mkv",
   "expectedtitle":"Tari Tari"
   },
+  {
+	  "filename":"[Dreamless] Tantei Kageki Milky Holmes TD - 01 (1280x720 x264 AAC).mkv",
+	  "expectedtitle":"Tantei Kageki Milky Holmes TD"
+  },
  {
  "filename":"[Eclipse] Amagami SS - 05 (1280x720 h264) [5E9FAB73].mkv",
  "expectedtitle":"Amagami SS"
@@ -154,6 +158,10 @@
  {
  "filename":"[IB] Ikoku Meiro no Croisée - 02 [720p] [1F058505].mkv",
  "expectedtitle":"Ikoku Meiro no Croisée"
+ },
+ {
+ "filename":"[Kantai] Kantai Collection - 01v2 (1280x720 AAC) [2C97E4C7].mkv",
+ "expectedtitle":"Kantai Collection"	
  },
   {
   "filename":"[Kaylith] Glasslip - 11 [720p][48CB279E].mkv",
