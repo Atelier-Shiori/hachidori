@@ -457,7 +457,7 @@
             if ([haengine getSuccess] == 1) {
 
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
-                if (status != 3){
+                if (status != 3 && [haengine getConfirmed]){
                     // Show normal info
                     [self updateLastScrobbledTitleStatus:false];
                     //Enable Update Status functions

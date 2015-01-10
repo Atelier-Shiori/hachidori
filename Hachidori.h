@@ -41,6 +41,7 @@
 -(NSString *)getAniID;
 -(NSString *)getTotalEpisodes;
 -(int)getCurrentEpisode;
+-(BOOL)getConfirmed;
 -(int)getScore;
 -(int)getWatchStatus;
 -(NSString *)getNotes;
