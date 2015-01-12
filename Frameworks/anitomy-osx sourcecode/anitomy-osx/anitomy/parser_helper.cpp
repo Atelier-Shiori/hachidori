@@ -28,7 +28,6 @@ namespace anitomy {
 ParseOptions::ParseOptions()
     : parse_episode_number(true),
       parse_episode_title(true),
-      parse_extra_keywords(true),
       parse_release_group(true) {
 }
 
@@ -74,7 +73,7 @@ bool Parser::IsResolution(const string_t& str) {
 
   // *###x###*
   if (str.size() >= 3 + 1 + 3) {
-    size_t pos = str.find('x');
+    size_t pos = str.find_first_of(L"x\u00D7");  // multiplication sign
     if (pos != str.npos) {
       for (size_t i = 0; i < str.size(); i++)
         if (i != pos && !IsNumericChar(str.at(i)))
@@ -172,13 +171,23 @@ void Parser::BuildElement(ElementCategory category, bool keep_delimiters,
       case kBracket:
         element += token->content;
         break;
-      case kDelimiter:
+      case kDelimiter: {
+        auto delimiter = token->content.front();
         if (keep_delimiters) {
-          element.push_back(token->content.front());
+          element.push_back(delimiter);
         } else if (token != token_begin && token != token_end) {
-          element.push_back(L' ');
+          switch (delimiter) {
+            case L',':
+            case L'&':
+              element.push_back(delimiter);
+              break;
+            default:
+              element.push_back(L' ');
+              break;
+          }
         }
         break;
+      }
     }
   }
 

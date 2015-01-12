@@ -30,7 +30,6 @@ struct ParseOptions {
 
   bool parse_episode_number;
   bool parse_episode_title;
-  bool parse_extra_keywords;
   bool parse_release_group;
 };
 
@@ -65,6 +64,7 @@ private:
   bool MatchSingleEpisodePattern(const string_t& word, Token& token);
   bool MatchMultiEpisodePattern(const string_t& word, Token& token);
   bool MatchSeasonAndEpisodePattern(const string_t& word, Token& token);
+  bool MatchTypeAndEpisodePattern(const string_t& word, Token& token);
   bool MatchJapaneseCounterPattern(const string_t& word, Token& token);
 
   void SetEpisodeNumber(string_t number, Token& token);

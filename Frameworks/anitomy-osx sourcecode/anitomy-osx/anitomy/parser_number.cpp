@@ -141,7 +141,7 @@ bool Parser::MatchMultiEpisodePattern(const string_t& word, Token& token) {
   if (std::regex_match(word, match_results, pattern)) {
     auto lower_bound = match_results[1].str();
     auto upper_bound = match_results[2].str();
-    // Avoid matching expressions such as "009-1"
+    // Avoid matching expressions such as "009-1" or "5-2"
     if (StringToInt(lower_bound) < StringToInt(upper_bound)) {
       SetEpisodeNumber(lower_bound, token);
       SetEpisodeNumber(upper_bound, token);
@@ -169,6 +169,22 @@ bool Parser::MatchSeasonAndEpisodePattern(const string_t& word, Token& token) {
     SetEpisodeNumber(match_results[3], token);
     if (match_results[4].matched)
       SetEpisodeNumber(match_results[4], token);
+    return true;
+  }
+
+  return false;
+}
+
+bool Parser::MatchTypeAndEpisodePattern(const string_t& word, Token& token) {
+  if (!elements_.empty(kElementAnimeType))
+    return false;
+
+  static const regex_t pattern(L"(ED|NCED|NCOP|OP|OVA|PV)(\\d{1,2})[a-f]?");
+  regex_match_results_t match_results;
+
+  if (std::regex_match(word, match_results, pattern)) {
+    elements_.insert(kElementAnimeType, match_results[1].str());
+    SetEpisodeNumber(match_results[2].str(), token);
     return true;
   }
 
@@ -209,6 +225,10 @@ bool Parser::MatchEpisodePatterns(const string_t& word, Token& token) {
   // e.g. "2x01", "S01E03", "S01-02xE001-150"
   if (numeric_back)
     if (MatchSeasonAndEpisodePattern(word, token))
+      return true;
+  // e.g. "ED1", "OP4a", "OVA2"
+  if (!numeric_front)
+    if (MatchTypeAndEpisodePattern(word, token))
       return true;
   // U+8A71 is used as counter for stories, episodes of TV series, etc.
   if (numeric_front)
