@@ -97,7 +97,7 @@
   },
   {
 	  "filename":"[Dreamless] Tantei Kageki Milky Holmes TD - 01 (1280x720 x264 AAC).mkv",
-	  "expectedtitle":"Tantei Kageki Milky Holmes TD"
+	  "expectedtitle":"Tantei Opera Milky Holmes TD"
   },
  {
  "filename":"[Eclipse] Amagami SS - 05 (1280x720 h264) [5E9FAB73].mkv",
@@ -158,6 +158,10 @@
  {
  "filename":"[Hatsuyuki-Tsuki]_Hanasaku_Iroha_-_10_[1280x720][C0ACBA6B].mkv",
  "expectedtitle":"Hanasaku Iroha"
+ },
+ {
+ "filename":"[Hiryuu] Dog Days'' - 01 [720p H264 AAC][A730218C].mkv",
+ "expectedtitle":"Dog Days''"
  },
  {
  "filename":"[IB] Ikoku Meiro no Croisée - 02 [720p] [1F058505].mkv",
