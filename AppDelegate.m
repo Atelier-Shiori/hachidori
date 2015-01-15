@@ -937,6 +937,7 @@
         if ([haengine getisNewTitle]) {
             // Enable Update Status functions for new and unconfirmed titles.
             [confirmupdate setHidden:YES];
+			[updatetoolbaritem setEnabled:YES];
             [updatedupdatestatus setEnabled:YES];
         }
     }
