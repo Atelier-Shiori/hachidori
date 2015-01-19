@@ -12,20 +12,24 @@
 	<dict>
 		<key>404BD35706280D498D457EF806B3AE541E8B14A8</key>
 		<string>https://github.com/chikorita157/hachidori.git</string>
+		<key>A969EE05C616F468823DDD48BE7B82DFC9463570</key>
+		<string>https://github.com/chikorita157/malupdaterosx-cocoa.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Frameworks/anitomy-osx sourcecode/anitomy-osx.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>404BD35706280D498D457EF806B3AE541E8B14A8</key>
+		<string>../../../../../hachidori</string>
+		<key>A969EE05C616F468823DDD48BE7B82DFC9463570</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/chikorita157/hachidori.git</string>
+	<string>https://github.com/chikorita157/malupdaterosx-cocoa.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>404BD35706280D498D457EF806B3AE541E8B14A8</string>
+	<string>A969EE05C616F468823DDD48BE7B82DFC9463570</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>404BD35706280D498D457EF806B3AE541E8B14A8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>hachidori</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A969EE05C616F468823DDD48BE7B82DFC9463570</string>
+			<key>IDESourceControlWCCName</key>
+			<string>malupdaterosx-cocoa</string>
 		</dict>
 	</array>
 </dict>

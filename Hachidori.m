@@ -50,6 +50,9 @@
 -(NSString *)getLastScrobbledActualTitle{
     return LastScrobbledActualTitle;
 }
+-(NSString *)getLastScrobbledSource{
+    return LastScrobbledSource;
+}
 -(NSString *)getAniID
 {
     return AniID;
@@ -128,6 +131,7 @@
     correcting = true;
     DetectedTitle = showtitle;
     DetectedEpisode = episode;
+    DetectedSource = LastScrobbledSource;
     return [self scrobble];
 }
 -(int)scrobble{
@@ -207,6 +211,7 @@
     // Empty out Detected Title/Episode to prevent same title detection
     DetectedTitle = nil;
     DetectedEpisode = nil;
+    DetectedSource = nil;
     
     // Release Detected Title/Episode.
     return status;
@@ -299,7 +304,7 @@
         NSTask *task;
         task = [[NSTask alloc] init];
         [task setLaunchPath: @"/usr/sbin/lsof"];
-        [task setArguments: [NSArray arrayWithObjects:@"-c", [NSString stringWithFormat:@"%@", [player objectAtIndex:i]], @"-F", @"n", nil]]; 		//lsof -c '<player name>' -Fn
+        [task setArguments: [NSArray arrayWithObjects:@"-c", (NSString *)[player objectAtIndex:i], @"-F", @"n", nil]]; 		//lsof -c '<player name>' -Fn
         NSPipe *pipe;
         pipe = [NSPipe pipe];
         [task setStandardOutput: pipe];
@@ -328,9 +333,27 @@
             //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
             if ([regex matchInString:string] !=nil && !onIgnoreList) {
                 NSDictionary *d = [[Recognition alloc] recognize:string];
-                DetectedTitle = [NSString stringWithFormat:@"%@", [d objectForKey:@"title"]];
-                DetectedEpisode = [NSString stringWithFormat:@"%@", [d objectForKey:@"episode"]];
+                DetectedTitle = (NSString *)[d objectForKey:@"title"];
+                DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
                 DetectedSeason = [[d objectForKey:@"season"] intValue];
+                // Source Detection
+                switch (i) {
+                    case 0:
+                    case 1:
+                    case 3:
+                    case 6:
+                        DetectedSource = (NSString *)[player objectAtIndex:i];
+                        break;
+                    case 2:
+                        DetectedSource = @"SMPlayerX";
+                        break;
+                    case 4:
+                    case 5:
+                        DetectedSource = @"Quicktime";
+                        break;
+                    default:
+                        break;
+                }
                 break;
             }
         }
@@ -349,8 +372,9 @@
         else{
             NSArray * c = [detected objectForKey:@"result"];
             NSDictionary * d = [c objectAtIndex:0];
-            DetectedTitle = [NSString stringWithFormat:@"%@",[d objectForKey:@"title"]];
-            DetectedEpisode = [NSString stringWithFormat:@"%@",[d objectForKey:@"episode"]];
+            DetectedTitle = (NSString *)[d objectForKey:@"title"];
+            DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
+            DetectedSource = [NSString stringWithFormat:@"%@ in %@", (NSString *)[[d objectForKey:@"site"] capitalizedString], [d objectForKey:@"browser"]];
             goto update;
         }
         // Nothing detected
@@ -369,6 +393,7 @@ update:
 -(BOOL)confirmupdate{
     DetectedTitle = LastScrobbledTitle;
     DetectedEpisode = LastScrobbledEpisode;
+    DetectedSource  = LastScrobbledSource;
     int status = [self performupdate:AniID];
     switch (status) {
         case 21:
@@ -376,6 +401,7 @@ update:
             // Clear Detected Episode and Title
             DetectedTitle = nil;
             DetectedEpisode = nil;
+            DetectedSource = nil;
             return true;
             break;
             
@@ -615,6 +641,7 @@ update:
         // Confirm before updating title
         LastScrobbledTitle = DetectedTitle;
         LastScrobbledEpisode = DetectedEpisode;
+        LastScrobbledSource = DetectedSource;
         LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
         return 3;
     }
@@ -623,6 +650,7 @@ update:
         // Store Scrobbled Title and Episode
 		LastScrobbledTitle = DetectedTitle;
 		LastScrobbledEpisode = DetectedEpisode;
+        LastScrobbledSource = DetectedSource;
         LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
         confirmed = true;
         return 2;
@@ -631,6 +659,7 @@ update:
         // Confirm before updating title
         LastScrobbledTitle = DetectedTitle;
         LastScrobbledEpisode = DetectedEpisode;
+        LastScrobbledSource = DetectedSource;
         LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
         return 3;
     }
@@ -685,6 +714,7 @@ update:
                 LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
             }
             DetectedCurrentEpisode = LastScrobbledEpisode;
+            LastScrobbledSource = DetectedSource;
             confirmed = true;
             if (LastScrobbledTitleNew) {
                 return 21;
