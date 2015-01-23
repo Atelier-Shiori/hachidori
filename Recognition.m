@@ -33,14 +33,24 @@
         DetectedSeason = [tmpseason intValue];
     }
     else {
-        regex = [OGRegularExpression regularExpressionWithString: @"(second season|third season|fourth season|fifth season|sixth season|seventh season|eighth season|nineth season)" options:OgreIgnoreCaseOption];
+        regex = [OGRegularExpression regularExpressionWithString:@"\\d+(st|nd|rd|th) season" options:OgreIgnoreCaseOption];
         smatch = [regex matchInString:DetectedTitle];
         if (smatch !=nil) {
             tmpseason = [smatch matchedString];
-            DetectedSeason = [self recognizeSeason:tmpseason];
+            regex = [OGRegularExpression regularExpressionWithString: @"(st|nd|rd|th) season"];
+            tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
+            DetectedSeason = [tmpseason intValue];
         }
         else{
-            DetectedSeason = 1;
+            regex = [OGRegularExpression regularExpressionWithString: @"(second season|third season|fourth season|fifth season|sixth season|seventh season|eighth season|nineth season)" options:OgreIgnoreCaseOption];
+            smatch = [regex matchInString:DetectedTitle];
+            if (smatch !=nil) {
+                tmpseason = [smatch matchedString];
+                DetectedSeason = [self recognizeSeason:tmpseason];
+            }
+            else{
+                DetectedSeason = 1;
+            }
         }
         
     }

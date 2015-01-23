@@ -14,6 +14,7 @@
 // Private Methods
 -(int)detectmedia; // 0 - Nothing, 1 - Same, 2 - Update
 -(NSString *)searchanime;
+-(NSString *)performSearch:(NSString *)searchtitle;
 -(NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term;
 -(BOOL)checkstatus:(NSString *)titleid;
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
@@ -212,6 +213,7 @@
     DetectedTitle = nil;
     DetectedEpisode = nil;
     DetectedSource = nil;
+    DetectedSeason = 0;
     
     // Release Detected Title/Episode.
     return status;
@@ -226,73 +228,72 @@
     return d;
 }
 -(NSString *)searchanime{
-    NSString * searchtitle;
-    NSLog(@"Check Exceptions List");
-    // Check Exceptions
-    NSArray *exceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
-    if (exceptions.count > 0) {
-        NSString * correcttitle;
-        for (NSDictionary *d in exceptions) {
-            NSString * title = [d objectForKey:@"detectedtitle"];
-            if ([title isEqualToString:DetectedTitle]) {
-                NSLog(@"%@ found on exceptions list as %@!", title, [d objectForKey:@"correcttitle"]);
-                correcttitle = [d objectForKey:@"correcttitle"];
-                break;
+    // Searches for ID of associated title
+    NSString * searchtitle = DetectedTitle;
+    if (DetectedSeason > 1) {
+        // Specifically search for season
+        for (int i = 0; i < 2; i++) {
+            NSString * tmpid;
+            switch (i) {
+                case 0:
+                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i", [self desensitizeSeason:searchtitle], DetectedSeason]];
+                    break;
+                case 1:
+                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i season", [self desensitizeSeason:searchtitle], DetectedSeason]];
+                default:
+                    break;
+            }
+            if (tmpid.length > 0) {
+                return tmpid;
             }
         }
-        if (correcttitle.length > 0) {
-            searchtitle = correcttitle;
-            // Remove Season to avoid conflicts
-            DetectedSeason = 0;
-        }
     }
-    if (searchtitle.length == 0) {
-        // Use detected title for search
-        searchtitle = DetectedTitle;
+    else{
+        return [self performSearch:searchtitle]; //Perform Regular Search
     }
+    return [self performSearch:searchtitle];
+}
+-(NSString *)performSearch:(NSString *)searchtitle{
     // Begin Search
-	NSLog(@"Searching For Title");
+    NSLog(@"Searching For Title");
     // Set Season for Search Term if any detected.
-    if (DetectedSeason > 1) {
-        searchtitle = [NSString stringWithFormat:@"%@ %i season", [self desensitizeSeason:searchtitle], DetectedSeason];
-    }
-	//Escape Search Term
-	NSString * searchterm = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-																				NULL,
-																				(CFStringRef)searchtitle,
-																				NULL,
-																				(CFStringRef)@"!*'();:@&=+$,/?%#[]",
-																				kCFStringEncodingUTF8 ));
-	//Set Search API
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/search/anime?query=%@", searchterm]];
+    //Escape Search Term
+    NSString * searchterm = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                  NULL,
+                                                                                                  (CFStringRef)searchtitle,
+                                                                                                  NULL,
+                                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                  kCFStringEncodingUTF8 ));
+    //Set Search API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/search/anime?query=%@", searchterm]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
-	[request setUseCookies:NO];
-	//Perform Search
-	[request startRequest];
-	//Set up Delegate
-	
-	// Get Status Code
-	int statusCode = [request getStatusCode];
+    [request setUseCookies:NO];
+    //Perform Search
+    [request startRequest];
+    //Set up Delegate
+    
+    // Get Status Code
+    int statusCode = [request getStatusCode];
     NSData *response = [request getResponseData];
-	switch (statusCode) {
+    switch (statusCode) {
         case 0:
             online = false;
             Success = NO;
             return @"";
             break;
-		case 200:
+        case 200:
             online = true;
-			return [self findaniid:response searchterm:searchtitle];
-			break;
-			
-		default:
+            return [self findaniid:response searchterm:searchtitle];
+            break;
+            
+        default:
             online = true;
-			Success = NO;
-			return @"";
-			break;
-	}
-	
+            Success = NO;
+            return @"";
+            break;
+    }
+
 }
 -(int)detectmedia {
     // LSOF mplayer to get the media title and segment
@@ -381,6 +382,7 @@
     }
 update:
     // Check if the title was previously scrobbled
+    [self checkExceptions];
     if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
         // Do Nothing
         return 1;
@@ -469,9 +471,11 @@ update:
     else{
         sortedArray = [NSMutableArray arrayWithArray:tv];
         [sortedArray addObjectsFromArray:ona];
-        [sortedArray addObjectsFromArray:special];
-        [sortedArray addObjectsFromArray:ova];
-        [sortedArray addObjectsFromArray:other];
+        if (DetectedSeason == 1 | DetectedSeason == 0) {
+            [sortedArray addObjectsFromArray:special];
+            [sortedArray addObjectsFromArray:ova];
+            [sortedArray addObjectsFromArray:other];
+        }
     }
     // Search
     for (int i = 0; i < 2; i++) {
@@ -501,6 +505,7 @@ update:
             goto foundtitle;
         }
     }
+    else{
     // Check TV, ONA, Special, OVA, Other
     for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
@@ -509,14 +514,14 @@ update:
             if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"TV"]) { // Check Seasons if the title is a TV show type
                 // Used for Season Checking
                 OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
-                OGRegularExpressionMatch * smatch = [regex2 matchInString:theshowtitle];
+                OGRegularExpressionMatch * smatch = [regex2 matchInString:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, [searchentry objectForKey:@"slug"]]];
                 if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
                     if (smatch == nil) {
                         continue;
                     }
                 }
                 else{
-                    if (smatch != nil) { // No Season, check to see if there is a season or not. If so, continue.
+                    if (smatch != nil && DetectedSeason >= 2) { // No Season, check to see if there is a season or not. If so, continue.
                         continue;
                     }
                 }
@@ -533,6 +538,7 @@ update:
             }
 
         }
+    }
     }
     }
     foundtitle:
@@ -876,7 +882,7 @@ update:
 }
 -(NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
-    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season)" options:OgreIgnoreCaseOption];
+    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season|(st|nd|rd|th) Season)" options:OgreIgnoreCaseOption];
     title = [regex replaceAllMatchesInString:title withString:@""];
     regex = [OGRegularExpression regularExpressionWithString: @"(s)\\d" options:OgreIgnoreCaseOption];
     title = [regex replaceAllMatchesInString:title withString:@""];
@@ -930,5 +936,26 @@ update:
         }
     }
     return false;
+}
+-(void)checkExceptions{
+    NSLog(@"Check Exceptions List");
+    // Check Exceptions
+    NSArray *exceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
+    if (exceptions.count > 0) {
+        NSString * correcttitle;
+        for (NSDictionary *d in exceptions) {
+            NSString * title = [d objectForKey:@"detectedtitle"];
+            if ([title isEqualToString:DetectedTitle]) {
+                NSLog(@"%@ found on exceptions list as %@!", title, [d objectForKey:@"correcttitle"]);
+                correcttitle = [d objectForKey:@"correcttitle"];
+                break;
+            }
+        }
+        if (correcttitle.length > 0) {
+            DetectedTitle = correcttitle;
+            // Remove Season to avoid conflicts
+            DetectedSeason = 0;
+        }
+    }
 }
 @end
