@@ -13,6 +13,7 @@
     OGRegularExpression    *regex;
     NSString * DetectedTitle;
     NSString * DetectedEpisode;
+    NSString * DetectedGroup;
     int DetectedSeason;
     //Get Filename
     regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
@@ -21,6 +22,10 @@
     NSDictionary * d = [[anitomy_bridge alloc] tokenize:string];
     DetectedTitle = [d objectForKey:@"title"];
     DetectedEpisode = [d objectForKey:@"episode"];
+    DetectedGroup = [d objectForKey:@"group"];
+    if (DetectedGroup.length == 0) {
+        DetectedGroup = @"Unknown";
+    }
     //Season
     NSString * tmpseason;
     OGRegularExpressionMatch * smatch;
@@ -42,7 +47,7 @@
             DetectedSeason = [tmpseason intValue];
         }
         else{
-            regex = [OGRegularExpression regularExpressionWithString: @"(second season|third season|fourth season|fifth season|sixth season|seventh season|eighth season|nineth season)" options:OgreIgnoreCaseOption];
+            regex = [OGRegularExpression regularExpressionWithString: @"((second|third|fourth|fifth|sixth|seventh|eighth|nineth) season)" options:OgreIgnoreCaseOption];
             smatch = [regex matchInString:DetectedTitle];
             if (smatch !=nil) {
                 tmpseason = [smatch matchedString];
@@ -58,8 +63,8 @@
     // Trim Whitespace
     DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     DetectedEpisode = [DetectedEpisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return [NSDictionary dictionaryWithObjectsAndKeys:DetectedTitle,@"title", DetectedEpisode, @"episode", [NSNumber numberWithInt:DetectedSeason], @"season", nil];
-
+    return [NSDictionary dictionaryWithObjectsAndKeys:DetectedTitle,@"title", DetectedEpisode, @"episode", [NSNumber numberWithInt:DetectedSeason], @"season", DetectedGroup, @"group", nil];
+    
 }
 -(int)recognizeSeason:(NSString *)season{
     if ([season caseInsensitiveCompare:@"second season"] == NSOrderedSame)
@@ -82,3 +87,4 @@
         return 0;
 }
 @end
+

@@ -298,7 +298,7 @@
 -(int)detectmedia {
     // LSOF mplayer to get the media title and segment
     
-    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", nil];
+    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", nil];
     NSString *string;
     OGRegularExpression    *regex;
     for(int i = 0; i <[player count]; i++){
@@ -343,6 +343,7 @@
                     case 1:
                     case 3:
                     case 6:
+					case 7:
                         DetectedSource = (NSString *)[player objectAtIndex:i];
                         break;
                     case 2:
@@ -882,7 +883,7 @@ update:
 }
 -(NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
-    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(Second Season|Third Season|Fourth Season|Fifth Season|Sixth Season|Seventh Season|Eighth Season|Nineth Season|(st|nd|rd|th) Season)" options:OgreIgnoreCaseOption];
+    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"((first|second|third|fourth|fifth|sixth|seventh|eighth|nineth|(st|nd|rd|th)) season)" options:OgreIgnoreCaseOption];
     title = [regex replaceAllMatchesInString:title withString:@""];
     regex = [OGRegularExpression regularExpressionWithString: @"(s)\\d" options:OgreIgnoreCaseOption];
     title = [regex replaceAllMatchesInString:title withString:@""];
