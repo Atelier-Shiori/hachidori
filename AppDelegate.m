@@ -628,6 +628,7 @@
                 int status = [haengine scrobbleagain:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode]];
                 switch (status) {
                     case 1:
+                    case 2:
                     case 21:
                     case 22:{
                         [self setStatusText:@"Scrobble Status: Correction Successful..."];

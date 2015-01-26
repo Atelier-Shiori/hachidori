@@ -214,7 +214,8 @@
     DetectedEpisode = nil;
     DetectedSource = nil;
     DetectedSeason = 0;
-    
+    // Reset correcting Value
+    correcting = false;
     // Release Detected Title/Episode.
     return status;
 }
@@ -595,7 +596,7 @@ update:
 			TotalEpisodes = [LastScrobbledInfo  objectForKey:@"episode_count"];
 		}
         // New Update Confirmation
-        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew)) {
+        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
             // Manually confirm updates
             confirmed = false;
         }
