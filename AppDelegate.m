@@ -640,6 +640,8 @@
                         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
                         [self showAnimeInfo:ainfo];
                         [confirmupdate setHidden:true];
+						//Regenerate Share Items
+						[self generateShareMenu];
                         break;
                     }
                     default:

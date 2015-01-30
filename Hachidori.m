@@ -423,7 +423,6 @@ update:
 	//Initalize NSString to dump the title temporarily
 	NSString *theshowtitle = @"";
     NSString *alttitle = @"";
-    NSString *theshowtype = @"";
 	//Create Regular Expression Strings
 	NSString *findpre = [NSString stringWithFormat:@"(%@)",term];
     NSString *findinit = [NSString stringWithFormat:@"(%@)",term];
@@ -441,42 +440,19 @@ update:
         NSLog(@"Title is not a movie.");
         DetectedTitleisMovie = false;
     }
-    // Initalize Arrays for each Media Type
-    NSMutableArray * movie = [[NSMutableArray alloc] init];
-    NSMutableArray * tv = [[NSMutableArray alloc] init];
-    NSMutableArray * ona = [[NSMutableArray alloc] init];
-    NSMutableArray * ova = [[NSMutableArray alloc] init];
-    NSMutableArray * special = [[NSMutableArray alloc] init];
-    NSMutableArray * other = [[NSMutableArray alloc] init];
-    // Organize Them
-    for (NSDictionary *entry in searchdata) {
-        theshowtype = [NSString stringWithFormat:@"%@", [entry objectForKey:@"show_type"]];
-        if ([theshowtype isEqualToString:@"Movie"])
-            [movie addObject:entry];
-        else if ([theshowtype isEqualToString:@"TV"])
-            [tv addObject:entry];
-        else if ([theshowtype isEqualToString:@"ONA"])
-            [ona addObject:entry];
-        else if ([theshowtype isEqualToString:@"OVA"])
-            [ova addObject:entry];
-        else if ([theshowtype isEqualToString:@"Special"])
-            [special addObject:entry];
-        else if (![theshowtype isEqualToString:@"Music"])
-            [other addObject:entry];
-    }
-    // Concatinate Arrays
+    
+    // Create a filtered Arrays
     NSMutableArray * sortedArray;
     if (DetectedTitleisMovie) {
-        sortedArray = [NSMutableArray arrayWithArray:movie];
-        [sortedArray addObjectsFromArray:special];
+        sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)" , @"Movie"]]];
+        [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
     }
     else{
-        sortedArray = [NSMutableArray arrayWithArray:tv];
-        [sortedArray addObjectsFromArray:ona];
+        sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"TV"]]];
+        [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"ONA"]]];
         if (DetectedSeason == 1 | DetectedSeason == 0) {
-            [sortedArray addObjectsFromArray:special];
-            [sortedArray addObjectsFromArray:ova];
-            [sortedArray addObjectsFromArray:other];
+            [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
+            [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"OVA"]]];
         }
     }
     // Search
