@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,14 +24,6 @@
 #include "string2.h"
 
 namespace anitomy {
-
-ParseOptions::ParseOptions()
-    : parse_episode_number(true),
-      parse_episode_title(true),
-      parse_release_group(true) {
-}
-
-////////////////////////////////////////////////////////////////////////////////
 
 size_t Parser::FindNumberInString(const string_t& str) {
   auto it = std::find_if(str.begin(), str.end(), IsNumericChar);
@@ -130,29 +122,6 @@ bool Parser::IsElementCategorySingular(ElementCategory category) {
   }
 
   return true;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-token_iterator_t Parser::GetPreviousValidToken(token_iterator_t it) const {
-  if (it == tokens_.begin())
-    return tokens_.end();
-
-  // Find the first previous token that's not a delimiter
-  do {
-    --it;
-  } while (it != tokens_.begin() && it->category == kDelimiter);
-
-  return it;
-}
-
-token_iterator_t Parser::GetNextValidToken(token_iterator_t it) const {
-  // Find the first next token that's not a delimiter
-  do {
-    ++it;
-  } while (it != tokens_.end() && it->category == kDelimiter);
-
-  return it;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -7,6 +7,7 @@
 //
 
 #import "GeneralPrefController.h"
+#import "AppDelegate.h"
 
 
 @implementation GeneralPrefController
@@ -105,8 +106,74 @@
     return NSLocalizedString(@"General", @"Toolbar item name for the General preference pane");
 }
 -(IBAction)clearSearchCache:(id)sender{
-    // Clear Search Cache
-    [[NSUserDefaults standardUserDefaults] setObject:[[[NSMutableArray alloc] init] autorelease] forKey:@"searchcache"];
+    // Remove All cache data from Core Data Entity
+    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    NSManagedObjectContext *moc = [delegate getObjectContext];
+    NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
+    [allCaches setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
     
+    NSError * error = nil;
+    NSArray * caches = [moc executeFetchRequest:allCaches error:&error];
+    //error handling goes here
+    for (NSManagedObject * cachentry in caches) {
+        [moc deleteObject:cachentry];
+    }
+    error = nil;
+    [moc save:&error];
+    [allCaches release];
+}
+-(IBAction)updateAutoExceptions:(id)sender{
+    // Updates Auto Exceptions List
+    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    dispatch_queue_t queue = dispatch_get_global_queue(
+                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(queue, ^{
+        // In a queue, download latest Auto Exceptions JSON, disable button until done and show progress wheel
+        [updateexceptionsbtn setEnabled:NO];
+        [updateexceptionschk setEnabled:NO];
+        [indicator startAnimation:self];
+        [delegate updateAutoExceptions];
+        [indicator stopAnimation:self];
+        [updateexceptionsbtn setEnabled:YES];
+        [updateexceptionschk setEnabled:YES];
+        dispatch_release(queue);
+    });
+    
+}
+-(IBAction)disableAutoExceptions:(id)sender{
+    if ([updateexceptionschk state]) {
+        [self updateAutoExceptions:sender];
+    }
+    else{
+    // Clears Exceptions if User chooses
+    // Set Up Prompt Message Window
+    NSAlert * alert = [[NSAlert alloc] init] ;
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"No"];
+    [alert setMessageText:@"Do you want to remove all Auto Exceptions Data?"];
+    [alert setInformativeText:@"Since you are disabling Auto Exceptions, you can delete the Auto Exceptions Data. You will be able to download it again."];
+    // Set Message type to Warning
+    [alert setAlertStyle:NSWarningAlertStyle];
+    if ([alert runModal]== NSAlertFirstButtonReturn) {
+        // Remove All cache data from Auto Exceptions
+        AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+        NSManagedObjectContext *moc = [delegate getObjectContext];
+        NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
+        [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
+        
+        NSError * error = nil;
+        NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
+        //error handling goes here
+        for (NSManagedObject * exception in exceptions) {
+            [moc deleteObject:exception];
+        }
+        error = nil;
+        [moc save:&error];
+        [allExceptions release];
+    }
+        [alert release];
+    }
+
 }
 @end

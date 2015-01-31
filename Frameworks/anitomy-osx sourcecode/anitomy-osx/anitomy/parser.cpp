@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,24 +24,28 @@
 
 namespace anitomy {
 
-Parser::Parser(Elements& elements, token_container_t& tokens)
+Parser::Parser(Elements& elements, Options& options, token_container_t& tokens)
     : elements_(elements),
+      options_(options),
       tokens_(tokens) {
 }
 
 bool Parser::Parse() {
   SearchForKeywords();
 
-  if (parse_options.parse_episode_number)
+  SearchForAnimeSeason();
+  SearchForAnimeYear();
+
+  if (options_.parse_episode_number)
     SearchForEpisodeNumber();
 
   SearchForAnimeTitle();
 
-  if (parse_options.parse_release_group &&
+  if (options_.parse_release_group &&
       elements_.empty(kElementReleaseGroup))
     SearchForReleaseGroup();
 
-  if (parse_options.parse_episode_title)
+  if (options_.parse_episode_title)
     SearchForEpisodeTitle();
 
   return !elements_.empty(kElementAnimeTitle);
@@ -55,19 +59,19 @@ void Parser::SearchForKeywords() {
       continue;
 
     auto word = token.content;
-    TrimString(word);
+    TrimString(word, L" -");
 
     // Don't bother if the word is a number that cannot be CRC
     if (word.size() != 8 && IsNumericString(word))
       continue;
 
     // Performs better than making a case-insensitive Find
-    auto keyword = StringToUpperCopy(word);
+    auto keyword = keyword_manager.Normalize(word);
 
     for (int i = kElementIterateFirst; i < kElementIterateLast; i++) {
       auto category = static_cast<ElementCategory>(i);
 
-      if (!parse_options.parse_release_group)
+      if (!options_.parse_release_group)
         if (category == kElementReleaseGroup)
           continue;
       if (!IsElementCategorySearchable(category))
@@ -204,7 +208,7 @@ void Parser::SearchForReleaseGroup() {
       continue;
 
     // Ignore if it's not the first token in group
-    auto previous_token = GetPreviousValidToken(token_begin);
+    auto previous_token = GetPreviousNonDelimiterToken(tokens_, token_begin);
     if (previous_token != tokens_.end() &&
         previous_token->category != kBracket) {
       continue;
@@ -240,6 +244,61 @@ void Parser::SearchForEpisodeTitle() {
 
   // Build episode title
   BuildElement(kElementEpisodeTitle, false, token_begin, token_end);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void Parser::SearchForAnimeSeason() {
+  for (auto token = tokens_.begin(); token != tokens_.end(); ++token) {
+    if (token->category != kUnknown ||
+        !IsStringEqualTo(token->content, L"Season"))
+      continue;
+
+    auto previous_token = GetPreviousNonDelimiterToken(tokens_, token);
+    if (previous_token != tokens_.end()) {
+      if (IsOrdinalNumber(previous_token->content)) {
+        elements_.insert(kElementAnimeSeason, previous_token->content);
+        previous_token->category = kIdentifier;
+        token->category = kIdentifier;
+        return;
+      }
+    }
+
+    auto next_token = GetNextNonDelimiterToken(tokens_, token);
+    if (next_token != tokens_.end()) {
+      if (IsNumericString(next_token->content)) {
+        elements_.insert(kElementAnimeSeason, next_token->content);
+        next_token->category = kIdentifier;
+        token->category = kIdentifier;
+        return;
+      }
+    }
+  }
+}
+
+void Parser::SearchForAnimeYear() {
+  auto is_bracket_token = [&](token_iterator_t token) {
+    return token != tokens_.end() && token->category == kBracket;
+  };
+
+  for (auto token = tokens_.begin(); token != tokens_.end(); ++token) {
+    if (token->category != kUnknown || !IsNumericString(token->content))
+      continue;
+
+    auto previous_token = GetPreviousNonDelimiterToken(tokens_, token);
+    if (!is_bracket_token(previous_token))
+      continue;
+    auto next_token = GetNextNonDelimiterToken(tokens_, token);
+    if (!is_bracket_token(next_token))
+      continue;
+
+    auto number = StringToInt(token->content);
+    if (number > 1900 && number < 2050) {
+      elements_.insert(kElementAnimeYear, token->content);
+      token->category = kIdentifier;
+      return;
+    }
+  }
 }
 
 }  // namespace anitomy

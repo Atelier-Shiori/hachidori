@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by 高町なのは on 2014/11/16.
-//  Copyright 2014 Atelier Shiori. All rights reserved. Code licensed under New BSD License
+//  Copyright 2014-2015 Atelier Shiori. All rights reserved. Code licensed under New BSD License
 //
 
 #import "ExceptionsPref.h"
@@ -15,9 +15,19 @@
 
 @implementation ExceptionsPref
 @synthesize fsdialog;
+@dynamic managedObjectContext;
+
+- (NSManagedObjectContext *)managedObjectContext {
+   AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    return appDelegate.managedObjectContext;
+}
 - (id)init
 {
     return [super initWithNibName:@"ExceptionsPref" bundle:nil];
+}
+-(void)awakeFromNib{
+    [arraycontroller setManagedObjectContext:self.managedObjectContext];
+    [arraycontroller prepareContent];
 }
 #pragma mark -
 #pragma mark MASPreferencesViewController
@@ -36,10 +46,11 @@
 {
     return NSLocalizedString(@"Exceptions", @"Toolbar item name for the Exceptions spreference pane");
 }
+#pragma mark Anime Exceptions List Functions
 -(IBAction)addTitle:(id)sender{
     //Obtain Detected Title from Media File
     NSOpenPanel * op = [NSOpenPanel openPanel];
-    [op setAllowedFileTypes:[NSArray arrayWithObjects:@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"mpg", @"3gp", nil]];
+    [op setAllowedFileTypes:[NSArray arrayWithObjects:@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"flv", @"mpg", @"3gp", nil]];
     [op setMessage:@"Please select a media file you want to create an exception for."];
     [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
@@ -49,7 +60,7 @@
         [op orderOut:nil];
         NSDictionary * d = [[Recognition alloc] recognize:[[op URL] path]];
         detectedtitle = [d objectForKey:@"title"];
-        if ([self checkifexists:detectedtitle]) {
+        if ([self checkifexists:detectedtitle offset:0 correcttitle:nil]) {
             // Exists, don't do anything
             return;
         }
@@ -64,22 +75,41 @@
 }
 -(void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1){
-        // Add to Array Controller
-        NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", [fsdialog getSelectedTitle] ,@"correcttitle", [fsdialog getSelectedAniID], @"showid", nil];
-        [arraycontroller addObject:entry];
-        //Check if the title exists in the cache. If so, remove it
-        NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-        if (cache.count > 0) {
-            for (int i=0; i<[cache count]; i++) {
-                NSDictionary * d = [cache objectAtIndex:i];
-                NSString * title = [d objectForKey:@"detectedtitle"];
-                if ([title isEqualToString:detectedtitle]) {
-                    NSLog(@"%@ found in cache, remove!", title);
-                    [cache removeObject:d];
-                    [[NSUserDefaults standardUserDefaults] setObject:cache forKey:@"searchcache"];
+        // Check if correct title exists
+        if ([self checkifexists:detectedtitle offset:0 correcttitle:[fsdialog getSelectedTitle]]) {
+            // Exists, don't do anything
+            return;
+        }
+        NSManagedObjectContext * moc = self.managedObjectContext;
+        NSError * error = nil;
+        // Add to Cache in Core Data
+        NSManagedObject *obj = [NSEntityDescription
+                                    insertNewObjectForEntityForName:@"Exceptions"
+                                    inManagedObjectContext: moc];
+        // Set values in the new record
+        [obj setValue:detectedtitle forKey:@"detectedTitle"];
+        [obj setValue:[fsdialog getSelectedTitle] forKey:@"correctTitle"];
+        [obj setValue:[fsdialog getSelectedAniID] forKey:@"id"];
+        [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodeOffset"];
+        [obj setValue:[NSNumber numberWithInt:[[fsdialog getSelectedTotalEpisodes] intValue]] forKey:@"episodethreshold"];
+        //Save
+        [moc save:&error];
+        // Load present cache data
+        NSFetchRequest * allCache = [[NSFetchRequest alloc] init];
+        [allCache setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
+        
+        error = nil;
+        NSArray * caches = [moc executeFetchRequest:allCache error:&error];
+        if (caches.count > 0) {
+            //Check Cache to remove conflicts
+            for (NSManagedObject * cacheentry in caches) {
+                if ([detectedtitle isEqualToString:(NSString *)[cacheentry valueForKey:@"detectedTitle"]]) {
+                    [moc deleteObject:cacheentry];
                     break;
                 }
             }
+            //Save
+            [moc save:&error];
         }
     }
     else{
@@ -111,32 +141,59 @@
         
         NSError *error = nil;
         NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+        NSManagedObjectContext * moc = self.managedObjectContext;
         for (NSDictionary *d in a) {
             NSString * detectedtitlea = [d objectForKey:@"detectedtitle"];
-            BOOL exists = [self checkifexists:detectedtitlea];
+            int doffset;
+            if ([d objectForKey:@"offset"] != nil) {
+                doffset = [(NSNumber *)[d objectForKey:@"offset"] intValue];
+            }
+            else{
+                doffset = 0;
+            }
+            BOOL exists = [self checkifexists:detectedtitlea offset:doffset correcttitle:(NSString *)[d objectForKey:@"correcttitle"]];
             // Check to see if it exists on the list already
             if (exists) {
                 //Check next title
                 continue;
             }
             else{
-                //Import Object
-                [arraycontroller addObject:d];
-                //Check if the title exists in the cache. If so, remove it
-                NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-                if (cache.count > 0) {
-                    for (int i=0; i<[cache count]; i++) {
-                        NSDictionary * d = [cache objectAtIndex:i];
-                        NSString * title = [d objectForKey:@"detectedtitle"];
-                        if ([title isEqualToString:detectedtitlea]) {
-                            NSLog(@"%@ found in cache, remove!", title);
-                            [cache removeObject:d];
-                            [[NSUserDefaults standardUserDefaults] setObject:cache forKey:@"searchcache"];
+                NSError * error = nil;
+                // Add to Cache in Core Data
+                NSManagedObject *obj = [NSEntityDescription
+                                            insertNewObjectForEntityForName:@"Exceptions"
+                                            inManagedObjectContext: moc];
+                // Set values in the new record
+                [obj setValue:[d objectForKey:@"detectedtitle"] forKey:@"detectedTitle"];
+                [obj setValue:[d objectForKey:@"correcttitle"] forKey:@"correctTitle"];
+                [obj setValue:[d objectForKey:@"showid"] forKey:@"id"];
+                [obj setValue:[NSNumber numberWithInt:doffset] forKey:@"episodeOffset"];
+                if ([d objectForKey:@"threshold"] != nil) {
+                    [obj setValue:[d objectForKey:@"threshold"] forKey:@"episodethreshold"];
+                }
+                else{
+                    [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodethreshold"];
+                }
+                //Save
+                [moc save:&error];
+                // Load present cache data
+                NSFetchRequest * allCache = [[NSFetchRequest alloc] init];
+                [allCache setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
+                
+                error = nil;
+                NSArray * caches = [moc executeFetchRequest:allCache error:&error];
+                if (caches.count > 0) {
+                    //Check Cache to remove conflicts
+                    NSString * dtitle = (NSString *)[d objectForKey:@"detectedtitle"];
+                    for (NSManagedObject * cacheentry in caches) {
+                        if ([dtitle isEqualToString:(NSString *)[cacheentry valueForKey:@"detectedTitle"]]) {
+                            [moc deleteObject:cacheentry];
                             break;
                         }
                     }
+                    //Save
+                    [moc save:&error];
                 }
-                
             }
         }
     }];
@@ -156,7 +213,14 @@
         NSURL *url = [sp URL];
         //Create JSON string from array controller
         NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[arraycontroller arrangedObjects]
+        NSMutableArray * jsonOutput = [[NSMutableArray alloc] init];
+        for (NSManagedObject * o in arraycontroller.arrangedObjects) {
+            @autoreleasepool {
+            NSDictionary * d = [[NSDictionary alloc] initWithObjectsAndKeys:[o valueForKey:@"detectedTitle"], @"detectedtitle", [o valueForKey:@"correctTitle"], @"correcttitle", [o valueForKey:@"id"], @"showid", [o valueForKey:@"episodeOffset"], @"offset", [o valueForKey:@"episodethreshold"], @"threshold", nil];
+            [jsonOutput addObject:d];
+            }
+        }
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonOutput
                                                            options:0
                                                              error:&error];
         if (!jsonData) {
@@ -168,32 +232,36 @@
             //write JSON to file
             BOOL wresult = [JSONString writeToURL:url
                                        atomically:YES
-                                         encoding:NSASCIIStringEncoding
-                                            error:NULL];
+                                         encoding:NSUTF8StringEncoding
+                                            error:&error];
             if (! wresult) {
-                NSLog(@"Export Failed");
+                NSLog(@"Export Failed: %@", error);
             }
         }
     }];
 }
+#pragma mark Misc Functions
 -(IBAction)getHelp:(id)sender{
     //Show Help
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Correction-Exception-Help"]];
 }
--(BOOL)checkifexists:(NSString *) title{
+-(BOOL)checkifexists:(NSString *) title offset:(int)offset correcttitle:(NSString *)ctitle{
     // Checks if a title is already on the exception list
     NSArray * a = [arraycontroller arrangedObjects];
-    for (NSDictionary * d in a){
-        NSString * dt = [d objectForKey:@"detectedtitle"];
-        if ([title isEqualToString:dt]) {
-            return true;
+    for (NSManagedObject * entry in a) {
+        int eoffset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
+        if ([detectedtitle isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]] && eoffset == offset) {
+            if (ctitle == nil) {
+                return true;
+            }
+            else if(ctitle != nil && [ctitle isEqualToString:(NSString *)[entry valueForKey:@"correctTitle"]]){
+               return true;
+            }
         }
     }
     return false;
 }
-/*
- Directory Ignore List
- */
+#pragma mark Ignore List
 -(IBAction)addDirectory:(id)sender{
     //Selects directory to ignore
     NSOpenPanel * op = [NSOpenPanel openPanel];
@@ -213,13 +281,11 @@
     //Remove Selected Object
     [ignorearraycontroller removeObject:[[ignorearraycontroller selectedObjects] objectAtIndex:0]];
 }
-/*
- Title Ignore List
- */
+#pragma mark Title Ignore
 -(IBAction)addFifleNameIgnoreRule:(id)sender{
-        NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys: @"", @"rule", nil];
-        [ignorefilenamearraycontroller addObject:entry];
-        // Selection Workaround
+    NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys: @"", @"rule", nil];
+    [ignorefilenamearraycontroller addObject:entry];
+    // Selection Workaround
     int c = [[NSArray arrayWithArray:[ignorefilenamearraycontroller arrangedObjects]] count];
     if(c > 0){
         [iftb editColumn:0 row:c-1 withEvent:nil select:YES];
@@ -229,6 +295,5 @@
     //Remove Selected Object
     [ignorefilenamearraycontroller removeObject:[[ignorefilenamearraycontroller selectedObjects] objectAtIndex:0]];
 }
-
 
 @end

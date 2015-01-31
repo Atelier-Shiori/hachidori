@@ -22,6 +22,7 @@
 #import "MASShortcut+UserDefaults.h"
 #import "MASShortcut+Monitoring.h"
 #import "HotKeyConstants.h"
+#import "EasyNSURLConnection.h"
 
 @implementation AppDelegate
 
@@ -29,11 +30,9 @@
 @synthesize historywindow;
 @synthesize updatepanel;
 @synthesize fsdialog;
-/*
- 
- Initalization
- 
- */
+@synthesize managedObjectContext;
+#pragma mark -
+#pragma mark Initalization
 /**
  Returns the support directory for the application, used to store the Core Data
  store file.  This code uses a directory named "Hachidori" for
@@ -95,16 +94,20 @@
     
     NSURL *url = [NSURL fileURLWithPath: [applicationSupportDirectory stringByAppendingPathComponent: @"Update History.sqlite"]];
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: mom];
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType 
-												  configuration:nil 
-															URL:url 
-														options:nil 
-														  error:&error]){
+    NSDictionary *options = @{
+                              NSMigratePersistentStoresAutomaticallyOption : @YES,
+                              NSInferMappingModelAutomaticallyOption : @YES
+                              };
+    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                  configuration:nil
+                                                            URL:url
+                                                        options:options
+                                                          error:&error]){
         [[NSApplication sharedApplication] presentError:error];
-         persistentStoreCoordinator = nil;
+        persistentStoreCoordinator = nil;
         return nil;
     }    
-	
+    
     return persistentStoreCoordinator;
 }
 
@@ -140,7 +143,6 @@
 	[defaultValues setObject:@"" forKey:@"Token"];
 	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ScrobbleatStartup"];
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"setprivate"];
-    [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"searchcache"];
     [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"ignoredirectories"];
@@ -189,6 +191,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
+	[haengine setManagedObjectContext:managedObjectContext];
 	// Insert code here to initialize your application
 	//Check if Application is in the /Applications Folder
 	PFMoveToApplicationsFolderIfNecessary();
@@ -259,12 +262,10 @@
 	if ([defaults boolForKey:@"ScrobbleatStartup"] == 1) {
 		[self autostarttimer];
 	}
+    // Import existing Exceptions Data
+    [self importToCoreData];
 }
-/*
- 
- General UI Functions
- 
- */
+#pragma mark General UI Functions
 - (NSWindowController *)preferencesWindowController
 {
     if (_preferencesWindowController == nil)
@@ -345,12 +346,59 @@
 		[window makeKeyAndOrderFront:self]; 
 	} 
 }
+-(IBAction)getHelp:(id)sender{
+    //Show Help
+ 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
+}
+-(IBAction)showAboutWindow:(id)sender{
+    // Properly show the about window in a menu item application
+    [NSApp activateIgnoringOtherApps:YES];
+    [[NSApplication sharedApplication] orderFrontStandardAboutPanel:self];
+}
+-(void)disableUpdateItems{
+    // Disables update options to prevent erorrs
+    panelactive = true;
+    [statusMenu setAutoenablesItems:NO];
+    [updatecorrect setAutoenablesItems:NO];
+    [updatenow setEnabled:NO];
+    [togglescrobbler setEnabled:NO];
+    [updatedcorrecttitle setEnabled:NO];
+    [updatedupdatestatus setEnabled:NO];
+    [confirmupdate setEnabled:NO];
+	[findtitle setEnabled:NO];
+}
+-(void)enableUpdateItems{
+    // Reenables update options
+    panelactive = false;
+    [updatenow setEnabled:YES];
+    [togglescrobbler setEnabled:YES];
+    [updatedcorrecttitle setEnabled:YES];
+    if (confirmupdate.hidden) {
+        [updatedupdatestatus setEnabled:YES];
+    }
+    if (!confirmupdate.hidden && ![haengine getisNewTitle]){
+        [updatedupdatestatus setEnabled:YES];
+        [updatecorrect setAutoenablesItems:YES];
+    }
+    [updatecorrect setAutoenablesItems:YES];
+    [statusMenu setAutoenablesItems:YES];
+    [confirmupdate setEnabled:YES];
+    [findtitle setEnabled:YES];
+}
+-(void)unhideMenus{
+    //Show Last Scrobbled Title and operations */
+    [seperator setHidden:NO];
+    [lastupdateheader setHidden:NO];
+    [updatedtitle setHidden:NO];
+    [updatedepisode setHidden:NO];
+    [seperator2 setHidden:NO];
+    [updatecorrectmenu setHidden:NO];
+    [updatedcorrecttitle setHidden:NO];
+    [shareMenuItem setHidden:NO];
+}
 
-/*
- 
- Timer Functions
- 
- */
+
+#pragma mark Timer Functions
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
@@ -379,15 +427,13 @@
 }
 -(void)autostarttimer {
 	//Check to see if there is an API Key stored
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if ([[defaults objectForKey:@"Token"] length] == 0) {
+	if (![haengine checktoken]) {
          [self showNotication:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
 	}
 	else {
 		[self starttimer];
 		[togglescrobbler setTitle:@"Stop Scrobbling"];
 		[ScrobblerStatus setObjectValue:@"Scrobble Status: Started"];
-        //[self showNotication:@"Hachidori" message:@"Auto Scrobble is now turned on."];
 		//Set Scrobbling State to true
 		scrobbling = TRUE;
 	}
@@ -402,11 +448,21 @@
         [updatenow setEnabled:NO];
         [togglescrobbler setEnabled:NO];
         [confirmupdate setEnabled:NO];
+		[findtitle setEnabled:NO];
         [updatenow setTitle:@"Updating..."];
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(queue, ^{
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
+            // Check for latest list of Auto Exceptions automatically each week
+            if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] isEqualTo:nil]) {
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] timeIntervalSinceNow] < -604800) {
+                    // Has been 1 Week, update Auto Exceptions
+                    [self updateAutoExceptions];
+                }
+            }
+        }
         [self setStatusText:@"Scrobble Status: Scrobbling..."];
         int status;
         status = [haengine startscrobbling];
@@ -436,7 +492,7 @@
                 break;
             case 51:
                 [self setStatusText:@"Scrobble Status: Can't find title. Retrying in 5 mins..."];
-                [self showNotication:@"Scrobble Unsuccessful." message:@"Can't find title."];
+                [self showNotication:@"Scrobble Unsuccessful." message:[NSString stringWithFormat:@"Couldn't find %@.", [haengine getFailedTitle]]];
                 break;
             case 52:
             case 53:
@@ -455,7 +511,7 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([haengine getSuccess] == 1) {
-
+				[findtitle setHidden:true];
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                 if (status != 3 && [haengine getConfirmed]){
                     // Show normal info
@@ -478,15 +534,8 @@
                 }
                 [sharetoolbaritem setEnabled:YES];
                 [correcttoolbaritem setEnabled:YES];
-                //Show Last Scrobbled Title and operations */
-                [seperator setHidden:NO];
-                [lastupdateheader setHidden:NO];
-                [updatedtitle setHidden:NO];
-                [updatedepisode setHidden:NO];
-                [seperator2 setHidden:NO];
-                [updatecorrectmenu setHidden:NO];
-                [updatedcorrecttitle setHidden:NO];
-                [shareMenuItem setHidden:NO];
+                // Show hidden menus
+                [self unhideMenus];
                 NSDictionary * ainfo = [haengine getLastScrobbledInfo];
                 if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
                     [self showAnimeInfo:ainfo];
@@ -499,6 +548,7 @@
             [togglescrobbler setEnabled:YES];
             [statusMenu setAutoenablesItems:YES];
             [confirmupdate setEnabled:YES];
+            [findtitle setEnabled:YES];
             [updatenow setTitle:@"Update Now"];
 	});
     });
@@ -529,6 +579,7 @@
     pausestart = [NSDate date];
     previousfiredate = [timer fireDate];
 }
+
 -(IBAction)updatenow:(id)sender{
     if ([haengine checktoken]) {
         [self firetimer:nil];
@@ -536,53 +587,8 @@
     else
         [self showNotication:@"Hachidori" message:@"Please log in with your account in Preferences before using this program"];
 }
--(IBAction)getHelp:(id)sender{
-    //Show Help
- 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
-}
--(void)showAnimeInfo:(NSDictionary *)d{
-    //Empty
-    [animeinfo setString:@""];
-    //Title
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", [d objectForKey:@"title"]]];
-    if ([d objectForKey:@"alternate_title"] != [NSNull null] && [[NSString stringWithFormat:@"%@", [d objectForKey:@"alternate_title"]] length] >0) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", [d objectForKey:@"alternate_title"]]];
-    }
-    [self appendToAnimeInfo:@""];
-    //Description
-    NSString * anidescription = [d objectForKey:@"synopsis"];
-    anidescription = [anidescription stripHtml]; //Removes HTML tags
-    [self appendToAnimeInfo:@"Description"];
-    [self appendToAnimeInfo:anidescription];
-    //Meta Information
-    [self appendToAnimeInfo:@""];
-    [self appendToAnimeInfo:@"Other Information"];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", [d objectForKey:@"started_airing"]]];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", [d objectForKey:@"status"]]];
-    if ([d objectForKey:@"finished_airing"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", [d objectForKey:@"finished_airing"]]];
-    }
-    if ([d objectForKey:@"episode_count"] != [NSNull null]){
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", [d objectForKey:@"episode_count"]]];
-    }
-    else{
-        [self appendToAnimeInfo:@"Episodes: Unknown"];
-    }
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", [d objectForKey:@"show_type"]]];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", [d objectForKey:@"age_rating"]]];
-    //Image
-    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [d objectForKey:@"cover_image"]]]]; //Downloads Image
-    [img setImage:dimg]; //Get the Image for the title
-    // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
-    [haengine clearAnimeInfo];
-}
 
-
-/*
- 
- Correction/Exception Search
- 
- */
+#pragma mark Correction
 -(IBAction)showCorrectionSearchWindow:(id)sender{
     bool isVisible = [window isVisible];
     // Stop Timer temporarily if scrobbling is turned on
@@ -595,6 +601,14 @@
         [fsdialog setCorrection:NO];
     else
         [fsdialog setCorrection:YES];
+    if (!findtitle.hidden) {
+        //Use failed title
+         [fsdialog setSearchField:[haengine getFailedTitle]];
+    }
+    else{
+        //Get last scrobbled title
+        [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
+    }
     // Set search field to search for the last scrobbled detected title
     [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
     if (isVisible) {
@@ -618,14 +632,26 @@
                 NSLog(@"ID matches, correction not needed.");
             }
             else{
-                [self addtoExceptions:[haengine getLastScrobbledTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID]];
+				if (!findtitle.hidden) {
+					 [self addtoExceptions:[haengine getFailedTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue]];
+				}
+				else{
+					 [self addtoExceptions:[haengine getLastScrobbledTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue]];
+				}
                 if([fsdialog getdeleteTitleonCorrection]){
                     if([haengine removetitle:[haengine getAniID]]){
                         NSLog(@"Removal Successful");
                     }
                 }
                 NSLog(@"Updating corrected title...");
-                int status = [haengine scrobbleagain:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode]];
+                int status;
+				if (!findtitle.hidden) {
+					status = [haengine scrobbleagain:[haengine getFailedTitle] Episode:[haengine getFailedEpisode]];
+				}
+				else{
+					[haengine scrobbleagain:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode]];
+				}
+					
                 switch (status) {
                     case 1:
                     case 2:
@@ -635,6 +661,12 @@
                         [self showNotication:@"Hachidori" message:@"Correction was successful"];
                         [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                         [self updateLastScrobbledTitleStatus:false];
+	                    if (!findtitle.hidden) {
+	                        //Unhide menus and enable functions on the toolbar
+	                        [self unhideMenus];
+	                        [sharetoolbaritem setEnabled:YES];
+	                        [correcttoolbaritem setEnabled:YES];
+	                    }
      
                         //Show Anime Correct Information
                         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
@@ -661,48 +693,166 @@
         [self starttimer];
     }
 }
--(void)addtoExceptions:(NSString *)detectedtitle newtitle:(NSString *)title showid:(NSString *)showid{
-    //Adds correct title and ID to exceptions list
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *exceptions = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"]];
-    //Prevent duplicate
+-(void)addtoExceptions:(NSString *)detectedtitle newtitle:(NSString *)title showid:(NSString *)showid threshold:(int)threshold{
+    NSManagedObjectContext * moc = managedObjectContext;
+    NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
+    [allExceptions setEntity:[NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc]];
+    NSError * error = nil;
+    NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
     BOOL exists = false;
-    for (NSDictionary * d in exceptions){
-        NSString * dt = [d objectForKey:@"detectedtitle"];
-        if ([detectedtitle isEqualToString:dt]) {
-            NSLog(@"Title exists on Exceptions List");
+    for (NSManagedObject * entry in exceptions) {
+        int offset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
+        if ([detectedtitle isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]] && offset == 0) {
             exists = true;
             break;
         }
-        else{
-            exists = false;
-        }
     }
     if (!exists) {
-        NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:detectedtitle, @"detectedtitle", title ,@"correcttitle", showid, @"showid", nil];
-        [exceptions addObject:entry];
-        [defaults setObject:exceptions forKey:@"exceptions"];
+        // Add to Cache in Core Data
+        NSManagedObject *obj = [NSEntityDescription
+                                insertNewObjectForEntityForName:@"Exceptions"
+                                inManagedObjectContext: moc];
+        // Set values in the new record
+        [obj setValue:detectedtitle forKey:@"detectedTitle"];
+        [obj setValue:title forKey:@"correctTitle"];
+        [obj setValue:showid forKey:@"id"];
+        [obj setValue:[NSNumber numberWithInt:threshold] forKey:@"episodethreshold"];
+        [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodeOffset"]; // Set afterwards
     }
-    //Check if the title exists in the cache. If so, remove it
-    NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-    if (cache.count > 0) {
-        for (int i=0; i<[cache count]; i++) {
-            NSDictionary * d = [cache objectAtIndex:i];
-            NSString * title = [d objectForKey:@"detectedtitle"];
-            if ([title isEqualToString:detectedtitle]) {
-                NSLog(@"%@ found in cache, remove!", title);
-                [cache removeObject:d];
-                [[NSUserDefaults standardUserDefaults] setObject:cache forKey:@"searchcache"];
+    //Save
+    [moc save:&error];
+    // Load present cache data
+    NSFetchRequest * allCache = [[NSFetchRequest alloc] init];
+    [allCache setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
+    
+    error = nil;
+    NSArray * caches = [moc executeFetchRequest:allCache error:&error];
+    if (caches.count > 0) {
+        //Check Cache to remove conflicts
+        for (NSManagedObject * cacheentry in caches) {
+            if ([detectedtitle isEqualToString:(NSString *)[cacheentry valueForKey:@"detectedTitle"]]) {
+                [moc deleteObject:cacheentry];
                 break;
             }
         }
+        //Save
+        [moc save:&error];
     }
 }
-/*
- 
- Scrobble History Window
- 
- */
+#pragma mark Importing Exceptions and Auto Exceptions
+-(void)importToCoreData{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    // Check Exceptions
+    NSArray *oexceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
+    if (oexceptions.count > 0) {
+        NSLog(@"Importing Exception List");
+        NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
+        [allExceptions setEntity:[NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc]];
+        NSError * error = nil;
+        NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
+        for (NSDictionary *d in oexceptions) {
+            NSString * title = [d objectForKey:@"detectedtitle"];
+            BOOL exists = false;
+            for (NSManagedObject * entry in exceptions) {
+                if ([title isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]]) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                NSString * correcttitle = (NSString *)[d objectForKey:@"correcttitle"];
+                NSString * showid = (NSString *)[d objectForKey:@"showid"];
+                // Add Exceptions to Core Data
+                NSManagedObject *obj = [NSEntityDescription
+                                        insertNewObjectForEntityForName:@"Exceptions"
+                                        inManagedObjectContext: moc];
+                // Set values in the new record
+                [obj setValue:title forKey:@"detectedTitle"];
+                [obj setValue:correcttitle forKey:@"correctTitle"];
+                [obj setValue:showid forKey:@"id"];
+                [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodeOffset"];
+                [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodethreshold"];
+            }
+        }
+        //Save
+        [moc save:&error];
+        // Erase exceptions data from preferences
+        [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
+    }
+}
+-(void)updateAutoExceptions{
+    // This method retrieves the auto exceptions JSON and import new entries
+    NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/chikorita157/c0bd93d061bb4c5fb081/raw/autoexceptions.json"];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    //Test API
+    [request startRequest];
+    // Get Status Code
+    int statusCode = [request getStatusCode];
+    switch (statusCode) {
+        case 200:{
+            NSLog(@"Updating Auto Exceptions!");
+            //Parse and Import
+            NSData *jsonData = [request getResponseData];
+            NSError *error = nil;
+            NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+            NSManagedObjectContext *moc = self.managedObjectContext;
+            for (NSDictionary *d in a) {
+                NSString * detectedtitlea = [d objectForKey:@"detectedtitle"];
+                NSString * groupa = [d objectForKey:@"group"];
+                NSString * correcttitlea = [d objectForKey:@"correcttitle"];
+                BOOL exists = false;
+                NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
+                [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (group == %@) AND (correctTitle == %@)", detectedtitlea, groupa, correcttitlea];
+                [allExceptions setPredicate:predicate];
+                NSError * error = nil;
+                NSArray * aExceptions = [moc executeFetchRequest:allExceptions error:&error];
+                if (aExceptions.count > 0) {
+                    for (NSManagedObject * entry in aExceptions) {
+                        @autoreleasepool {
+                            NSString * title = [entry valueForKey:@"detectedTitle"];
+                            NSString * group = [entry valueForKey:@"group"];
+                            NSString * correcttitle = [entry valueForKey:@"correctTitle"];
+                            if ([title isEqualToString:detectedtitlea]&& [group isEqualToString:groupa] && [correcttitle isEqualToString:correcttitlea]) {
+                                exists = true;
+                            }
+                        }
+                    }
+                }
+                // Check to see if it exists on the list already
+                if (exists) {
+                    //Check next title
+                    continue;
+                }
+                else{
+                    NSError * error = nil;
+                    // Add Entry to Auto Exceptions
+                    NSManagedObject *obj = [NSEntityDescription
+                                            insertNewObjectForEntityForName:@"AutoExceptions"
+                                            inManagedObjectContext: moc];
+                    // Set values in the new record
+                    [obj setValue:[d objectForKey:@"detectedtitle"] forKey:@"detectedTitle"];
+                    [obj setValue:[d objectForKey:@"correcttitle"] forKey:@"correctTitle"];
+                    [obj setValue:[d objectForKey:@"offset"] forKey:@"episodeOffset"];
+                    [obj setValue:[d objectForKey:@"threshold"] forKey:@"episodethreshold"];
+                    [obj setValue:[d objectForKey:@"group"] forKey:@"group"];
+                    //Save
+                    [moc save:&error];
+                }
+            }
+            // Set the last updated date
+            [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"ExceptionsLastUpdated"];
+            break;
+        }
+        default:
+            NSLog(@"Auto Exceptions List Update Failed!");
+            break;
+    }
+}
+
+#pragma mark History Window functions
 
 -(IBAction)showhistory:(id)sender
 {
@@ -763,11 +913,8 @@
 	
 }	
 
-/*
- 
- StatusIconTooltip, Status Text, Last Scrobbled Title Setters
- 
- */
+#pragma mark StatusIconTooltip, Status Text, Last Scrobbled Title Setters
+
 
 -(void)setStatusToolTip:(NSString*)toolTip
 {
@@ -801,11 +948,21 @@
     }
 }
 
-/*
- 
- Update Status Sheet Window Functions
- 
- */
+#pragma mark Getters
+-(bool)getisScrobbling{
+    return scrobbling;
+}
+-(bool)getisScrobblingActive{
+    return scrobbleractive;
+}
+-(NSManagedObjectModel *)getObjectModel{
+    return managedObjectModel;
+}
+-(NSManagedObjectContext *)getObjectContext{
+    return managedObjectContext;
+}
+
+#pragma mark Update Status functions
 
 -(IBAction)updatestatus:(id)sender {
     [self showUpdateDialog:[self window]];
@@ -819,7 +976,7 @@
     // Show Sheet
     [NSApp beginSheet:updatepanel
        modalForWindow:w modalDelegate:self
-       didEndSelector:@selector(myPanelDidEnd:returnCode:contextInfo:)
+       didEndSelector:@selector(updateDidEnd:returnCode:contextInfo:)
           contextInfo:(void *)nil];
     // Set up UI
     [showtitle setObjectValue:[haengine getLastScrobbledActualTitle]];
@@ -836,7 +993,7 @@
         [self stoptimer];
     }
 }
-- (void)myPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)updateDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
         // Check if Episode field is empty. If so, set it to last scrobbled episode
         NSString * tmpepisode = [episodefield stringValue];
@@ -874,23 +1031,9 @@
 	[updatepanel orderOut:self];
 	[NSApp endSheet:updatepanel returnCode:1];
 }
-/*
- 
- Getters
- 
- */
--(bool)getisScrobbling{
-    return scrobbling;
-}
--(bool)getisScrobblingActive{
-    return scrobbleractive;
-}
 
-/*
- 
- Notification Center and Title Confirmwation
- 
- */
+#pragma mark Notification Center and Title/Update Confirmation
+
 -(void)showNotication:(NSString *)title message:(NSString *) message{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
@@ -949,6 +1092,7 @@
         [self setStatusText:@"Unable to confirm update."];
     }
 }
+#pragma mark Hotkeys
 -(void)registerHotkey{
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
         // Scrobble Now Global Hotkey
@@ -971,38 +1115,45 @@
         }
     }];
 }
--(IBAction)showAboutWindow:(id)sender{
-    // Properly show the about window in a menu item application
-    [NSApp activateIgnoringOtherApps:YES];
-    [[NSApplication sharedApplication] orderFrontStandardAboutPanel:self];
-}
--(void)disableUpdateItems{
-    // Disables update options to prevent erorrs
-    panelactive = true;
-    [statusMenu setAutoenablesItems:NO];
-    [updatecorrect setAutoenablesItems:NO];
-    [updatenow setEnabled:NO];
-    [togglescrobbler setEnabled:NO];
-    [updatedcorrecttitle setEnabled:NO];
-    [updatedupdatestatus setEnabled:NO];
-    [confirmupdate setEnabled:NO];
-}
--(void)enableUpdateItems{
-    // Reenables update options
-    panelactive = false;
-    [updatenow setEnabled:YES];
-    [togglescrobbler setEnabled:YES];
-    [updatedcorrecttitle setEnabled:YES];
-    if (confirmupdate.hidden) {
-        [updatedupdatestatus setEnabled:YES];
+
+#pragma mark Misc
+-(void)showAnimeInfo:(NSDictionary *)d{
+    //Empty
+    [animeinfo setString:@""];
+    //Title
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", [d objectForKey:@"title"]]];
+    if ([d objectForKey:@"alternate_title"] != [NSNull null] && [[NSString stringWithFormat:@"%@", [d objectForKey:@"alternate_title"]] length] >0) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", [d objectForKey:@"alternate_title"]]];
     }
-    [updatecorrect setAutoenablesItems:YES];
-    [statusMenu setAutoenablesItems:YES];
-    [confirmupdate setEnabled:YES];
+    [self appendToAnimeInfo:@""];
+    //Description
+    NSString * anidescription = [d objectForKey:@"synopsis"];
+    anidescription = [anidescription stripHtml]; //Removes HTML tags
+    [self appendToAnimeInfo:@"Description"];
+    [self appendToAnimeInfo:anidescription];
+    //Meta Information
+    [self appendToAnimeInfo:@""];
+    [self appendToAnimeInfo:@"Other Information"];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", [d objectForKey:@"started_airing"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", [d objectForKey:@"status"]]];
+    if ([d objectForKey:@"finished_airing"] != [NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", [d objectForKey:@"finished_airing"]]];
+    }
+    if ([d objectForKey:@"episode_count"] != [NSNull null]){
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", [d objectForKey:@"episode_count"]]];
+    }
+    else{
+        [self appendToAnimeInfo:@"Episodes: Unknown"];
+    }
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", [d objectForKey:@"show_type"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", [d objectForKey:@"age_rating"]]];
+    //Image
+    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [d objectForKey:@"cover_image"]]]]; //Downloads Image
+    [img setImage:dimg]; //Get the Image for the title
+    // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
+    [haengine clearAnimeInfo];
 }
-/*
- Misc
- */
+
 - (void)appendToAnimeInfo:(NSString*)text
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -1011,11 +1162,7 @@
         [[animeinfo textStorage] appendAttributedString:attr];
     });
 }
-/*
- 
- Share Services
- 
- */
+#pragma mark Share Services
 -(void)generateShareMenu{
     //Clear Share Menu
     [shareMenu removeAllItems];

@@ -16,5 +16,8 @@
     IBOutlet NSButton * disablenewtitlebar;
     IBOutlet NSButton * disablevibarency;
     IBOutlet NSButton * startatlogin;
+    IBOutlet NSProgressIndicator * indicator;
+    IBOutlet NSButton * updateexceptionsbtn;
+    IBOutlet NSButton * updateexceptionschk;
 }
 @end

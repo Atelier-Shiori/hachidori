@@ -19,9 +19,10 @@
 -(BOOL)checkstatus:(NSString *)titleid;
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
+-(NSString *)desensitizeSeason:(NSString *)title;
 -(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
--(void)addtoCache:(NSString *)title showid:(NSString *)showid;
+-(void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes;
 -(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OGRegularExpression *)regex
@@ -30,11 +31,14 @@
 @end
 
 @implementation Hachidori
+@synthesize managedObjectContext;
 -(id)init{
     confirmed = true;
     return [super init];
 }
-
+-(void)setManagedObjectContext:(NSManagedObjectContext *)context{
+    managedObjectContext = context;
+}
 /* 
  
  Accessors
@@ -53,6 +57,12 @@
 }
 -(NSString *)getLastScrobbledSource{
     return LastScrobbledSource;
+}
+-(NSString *)getFailedTitle{
+    return FailedTitle;
+}
+-(NSString *)getFailedEpisode{
+    return FailedEpisode;
 }
 -(NSString *)getAniID
 {
@@ -132,23 +142,43 @@
     correcting = true;
     DetectedTitle = showtitle;
     DetectedEpisode = episode;
-    DetectedSource = LastScrobbledSource;
+    if (FailedSource == nil) {
+        DetectedSource = LastScrobbledSource;
+    }
+    else{
+        DetectedSource = FailedSource;
+    }
+    // Check Exceptions
+    [self checkExceptions];
+	    // Scrobble and return status code
     return [self scrobble];
 }
 -(int)scrobble{
     int status;
+	NSLog(@"=============");
+	NSLog(@"Scrobbling...");
     NSLog(@"Getting AniID");
     // Regular Search
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
-        NSArray *cache = [[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"];
+        NSManagedObjectContext *moc = managedObjectContext;
+        NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
+        [allCaches setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", DetectedTitle];
+        [allCaches setPredicate:predicate];
+        NSError * error = nil;
+        NSArray * cache = [moc executeFetchRequest:allCaches error:&error];
         if (cache.count > 0) {
             NSString * theid;
-            for (NSDictionary *d in cache) {
-                NSString * title = [d objectForKey:@"detectedtitle"];
+            for (NSManagedObject * cacheentry in cache) {
+                NSString * title = [cacheentry valueForKey:@"detectedTitle"];
                 if ([title isEqualToString:DetectedTitle]) {
                     NSLog(@"%@ found in cache!", title);
-                    theid = [d objectForKey:@"showid"];
-                    break;
+                    // Total Episode check
+                    NSNumber * totalepisodes = [cacheentry valueForKey:@"totalEpisodes"];
+                    if ( [DetectedEpisode intValue] <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
+                        theid = [cacheentry valueForKey:@"id"];
+                        break;
+                    }
                 }
             }
             if (theid.length == 0) {
@@ -167,6 +197,10 @@
     }
     if (AniID.length > 0) {
         NSLog(@"Found %@", AniID);
+        // Nil out Failed Title and Episode
+        FailedTitle = nil;
+        FailedEpisode = nil;
+        FailedSource = nil;
         // Check Status and Update
         BOOL UpdateBool = [self checkstatus:AniID];
         if (UpdateBool == 1) {
@@ -202,6 +236,11 @@
     else {
         if (online) {
             // Not Successful
+            NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", DetectedTitle);
+            // Used for Exception Adding
+            FailedTitle = DetectedTitle;
+            FailedEpisode = DetectedEpisode;
+            FailedSource = DetectedSource;
             status = 51;
         }
         else{
@@ -213,18 +252,24 @@
     DetectedTitle = nil;
     DetectedEpisode = nil;
     DetectedSource = nil;
+    DetectedGroup = nil;
     DetectedSeason = 0;
     // Reset correcting Value
     correcting = false;
+    NSLog(@"Scrobble Complete with Status Code: %i", status);
+    NSLog(@"===========");
     // Release Detected Title/Episode.
     return status;
 }
--(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season{
+-(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group{
     //For unit testing only
     DetectedTitle = title;
     DetectedEpisode = episode;
     DetectedSeason = season;
+    DetectedGroup = group;
     unittesting = true;
+    //Check for Exceptions
+    [self checkExceptions];
     NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
     return d;
 }
@@ -297,11 +342,11 @@
 
 }
 -(int)detectmedia {
-    // LSOF mplayer to get the media title and segment
-    
+	// LSOF mplayer to get the media title and segment
+
     NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", nil];
     NSString *string;
-    OGRegularExpression    *regex;
+	OGRegularExpression    *regex;
     for(int i = 0; i <[player count]; i++){
         NSTask *task;
         task = [[NSTask alloc] init];
@@ -310,61 +355,62 @@
         NSPipe *pipe;
         pipe = [NSPipe pipe];
         [task setStandardOutput: pipe];
-        
+	
         NSFileHandle *file;
         file = [pipe fileHandleForReading];
-        
+	
         [task launch];
-        
+	
         NSData *data;
         data = [file readDataToEndOfFile];
         
         string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-        if (string.length > 0){
-            regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm|rm|rmvb|wmv|divx|mov|flv|mpg|3gp)$" options:OgreIgnoreCaseOption];
-            //Regex time
-            //Get the filename first
-            NSEnumerator    *enumerator;
-            enumerator = [regex matchEnumeratorInString:string];
-            OGRegularExpressionMatch    *match;
-            while ((match = [enumerator nextObject]) != nil) {
-                string = [match matchedString];
-            }
-            //Check if thee file name or directory is on any ignore list
-            BOOL onIgnoreList = [self checkifIgnored:string];
-            //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
-            if ([regex matchInString:string] !=nil && !onIgnoreList) {
-                NSDictionary *d = [[Recognition alloc] recognize:string];
-                DetectedTitle = (NSString *)[d objectForKey:@"title"];
-                DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
-                DetectedSeason = [[d objectForKey:@"season"] intValue];
-                // Source Detection
-                switch (i) {
-                    case 0:
-                    case 1:
-                    case 3:
-                    case 6:
-					case 7:
-                        DetectedSource = (NSString *)[player objectAtIndex:i];
-                        break;
-                    case 2:
-                        DetectedSource = @"SMPlayerX";
-                        break;
-                    case 4:
-                    case 5:
-                        DetectedSource = @"Quicktime";
-                        break;
-                    default:
-                        break;
+            if (string.length > 0){
+                regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm|rm|rmvb|wmv|divx|mov|flv|mpg|3gp)$" options:OgreIgnoreCaseOption];
+                //Regex time
+                //Get the filename first
+                NSEnumerator    *enumerator;
+                enumerator = [regex matchEnumeratorInString:string];
+                OGRegularExpressionMatch    *match;
+                while ((match = [enumerator nextObject]) != nil) {
+                    string = [match matchedString];
                 }
-                break;
+                //Check if thee file name or directory is on any ignore list
+                BOOL onIgnoreList = [self checkifIgnored:string];
+                //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
+                if ([regex matchInString:string] !=nil && !onIgnoreList) {
+                    NSDictionary *d = [[Recognition alloc] recognize:string];
+                    DetectedTitle = (NSString *)[d objectForKey:@"title"];
+                    DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
+                    DetectedSeason = [[d objectForKey:@"season"] intValue];
+                    DetectedGroup = (NSString *)[d objectForKey:@"group"];
+                    // Source Detection
+                    switch (i) {
+                        case 0:
+                        case 1:
+                        case 3:
+                        case 6:
+						case 7:
+                            DetectedSource = (NSString *)[player objectAtIndex:i];
+                            break;
+                        case 2:
+                            DetectedSource = @"SMPlayerX";
+                            break;
+                        case 4:
+                        case 5:
+                            DetectedSource = @"Quicktime";
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                }
             }
-        }
     }
     if (DetectedTitle.length > 0) {
-        goto update;
+         goto update;
     }
-    else {
+	else {
         // Check for Legal Streaming Sites
         NSLog(@"Checking Stream...");
         NSDictionary * detected = [self detectStream];
@@ -376,15 +422,18 @@
             NSArray * c = [detected objectForKey:@"result"];
             NSDictionary * d = [c objectAtIndex:0];
             DetectedTitle = (NSString *)[d objectForKey:@"title"];
-            DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
+            DetectedEpisode = [NSString stringWithFormat:@"%@",[d objectForKey:@"episode"]];
             DetectedSource = [NSString stringWithFormat:@"%@ in %@", (NSString *)[[d objectForKey:@"site"] capitalizedString], [d objectForKey:@"browser"]];
+            DetectedGroup = (NSString *)[d objectForKey:@"site"];
             goto update;
         }
-        // Nothing detected
-    }
+		// Nothing detected
+	}
 update:
     // Check if the title was previously scrobbled
-    [self checkExceptions];
+    if (DetectedTitle.length > 0) {
+        [self checkExceptions];
+    }
     if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
         // Do Nothing
         return 1;
@@ -398,6 +447,8 @@ update:
     DetectedTitle = LastScrobbledTitle;
     DetectedEpisode = LastScrobbledEpisode;
     DetectedSource  = LastScrobbledSource;
+    NSLog(@"=============");
+    NSLog(@"Confirming: %@ - %@",LastScrobbledActualTitle, LastScrobbledEpisode);
     int status = [self performupdate:AniID];
     switch (status) {
         case 21:
@@ -440,7 +491,7 @@ update:
         NSLog(@"Title is not a movie.");
         DetectedTitleisMovie = false;
     }
-    
+    NSDictionary * found;
     // Create a filtered Arrays
     NSMutableArray * sortedArray;
     if (DetectedTitleisMovie) {
@@ -455,6 +506,7 @@ update:
             [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"OVA"]]];
         }
     }
+	searchdata = nil;
     // Search
     for (int i = 0; i < 2; i++) {
         switch (i) {
@@ -480,6 +532,7 @@ update:
             }
             //Return titleid
             titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
+			found = searchentry;
             goto foundtitle;
         }
     }
@@ -507,6 +560,7 @@ update:
             //Return titleid if episode is valid
             if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
+				found = searchentry;
                 titleid = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]];
                 goto foundtitle;
             }
@@ -523,7 +577,7 @@ update:
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0 && !unittesting) {
         //Save AniID
-        [self addtoCache:DetectedTitle showid:titleid];
+        [self addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)[found objectForKey:@"title"] totalepisodes:[(NSNumber *)[found objectForKey:@"episodes"] intValue] ];
     }
 	//Return the AniID
 	return titleid;
@@ -693,12 +747,12 @@ update:
             // Store Scrobbled Title and Episode
             LastScrobbledTitle = DetectedTitle;
             LastScrobbledEpisode = DetectedEpisode;
+            DetectedCurrentEpisode = LastScrobbledEpisode;
+            LastScrobbledSource = DetectedSource;
             if (confirmed) { // Will only store actual title if confirmation feature is not turned on
                 // Store Actual Title
                 LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
             }
-            DetectedCurrentEpisode = LastScrobbledEpisode;
-            LastScrobbledSource = DetectedSource;
             confirmed = true;
             if (LastScrobbledTitleNew) {
                 return 21;
@@ -868,13 +922,22 @@ update:
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;
 }
--(void)addtoCache:(NSString *)title showid:(NSString *)showid{
+-(void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes {
     //Adds ID to cache
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *cache = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchcache"]];
-    NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"detectedtitle", showid, @"showid", nil];
-    [cache addObject:entry];
-    [defaults setObject:cache forKey:@"searchcache"];
+    NSManagedObjectContext *moc = managedObjectContext;
+    // Add to Cache in Core Data
+    NSManagedObject *obj = [NSEntityDescription
+                            insertNewObjectForEntityForName :@"Cache"
+                            inManagedObjectContext: moc];
+    // Set values in the new record
+    [obj setValue:title forKey:@"detectedTitle"];
+    [obj setValue:showid forKey:@"id"];
+    [obj setValue:atitle forKey:@"actualTitle"];
+    [obj setValue:[NSNumber numberWithInt:totalepisodes] forKey:@"totalEpisodes"];
+    NSError * error = nil;
+    // Save
+    [moc save:&error];
+
 }
 -(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
@@ -916,24 +979,65 @@ update:
     return false;
 }
 -(void)checkExceptions{
-    NSLog(@"Check Exceptions List");
     // Check Exceptions
-    NSArray *exceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
-    if (exceptions.count > 0) {
-        NSString * correcttitle;
-        for (NSDictionary *d in exceptions) {
-            NSString * title = [d objectForKey:@"detectedtitle"];
-            if ([title isEqualToString:DetectedTitle]) {
-                NSLog(@"%@ found on exceptions list as %@!", title, [d objectForKey:@"correcttitle"]);
-                correcttitle = [d objectForKey:@"correcttitle"];
+    NSManagedObjectContext * moc = self.managedObjectContext;
+	bool found = false;
+    for (int i = 0; i < 2; i++) {
+        NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
+        NSError * error = nil;
+        if (i == 0) {
+            NSLog(@"Check Exceptions List");
+            [allExceptions setEntity:[NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc]];
+        }
+        else if (i== 1 && ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]||unittesting)){
+                NSLog(@"Checking Auto Exceptions");
+                [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
+        }
+        else{break;}
+        NSPredicate *predicate;
+        switch (i) {
+            case 0:
+                predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", DetectedTitle];
                 break;
+            case 1:
+                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (group == %@)", DetectedTitle, DetectedGroup];
+                break;
+            default:
+                break;
+        }
+        [allExceptions setPredicate:predicate];
+        NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
+        if (exceptions.count > 0) {
+            NSString * correcttitle;
+            for (NSManagedObject * entry in exceptions) {
+                if ([DetectedTitle isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]]) {
+                    correcttitle = (NSString *)[entry valueForKey:@"correctTitle"];
+                    // Set Correct Title and Episode offset (if any)
+                    int threshold = [(NSNumber *)[entry valueForKey:@"episodethreshold"] intValue];
+                    int offset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
+                    int tmpepisode = [DetectedEpisode intValue] - offset;
+                    if ((tmpepisode > threshold && threshold != 0) || tmpepisode <= 0) {
+                        continue;
+                    }
+                    else {
+                        NSLog(@"%@ found on exceptions list as %@!", DetectedTitle, correcttitle);
+                        DetectedTitle = correcttitle;
+                        if (tmpepisode > 0) {
+                            DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
+                        }
+                        DetectedSeason = 0;
+                        found = true;
+						break;
+                    }
+                }
             }
+			if (found){
+				//Break from exceptions check loop
+				break;
+			}
         }
-        if (correcttitle.length > 0) {
-            DetectedTitle = correcttitle;
-            // Remove Season to avoid conflicts
-            DetectedSeason = 0;
-        }
+
     }
 }
+
 @end

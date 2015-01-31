@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ExceptionsPref">
@@ -18,25 +18,77 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="519" height="317"/>
+            <rect key="frame" x="0.0" y="0.0" width="635" height="317"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdp-EN-k6w">
+                    <rect key="frame" x="18" y="12" width="25" height="25"/>
+                    <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qWX-oF-dti">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="getHelp:" target="-2" id="PsY-WM-070"/>
+                    </connections>
+                </button>
                 <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9PH-tH-dMG">
-                    <rect key="frame" x="13" y="38" width="494" height="267"/>
+                    <rect key="frame" x="13" y="38" width="609" height="267"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Anime Title Exceptions" identifier="1" id="dDU-b1-Ua0">
-                            <view key="view" ambiguous="YES" id="mi1-sZ-x1p">
+                            <view key="view" id="mi1-sZ-x1p">
+                                <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
+                                    <button toolTip="Removes title from exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2FI-VL-IAQ">
+                                        <rect key="frame" x="33" y="17" width="24" height="24"/>
+                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Hje-TO-QKF">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="removeSlection:" target="-2" id="O3K-YM-1m6"/>
+                                            <binding destination="WNZ-Fa-W8F" name="enabled" keyPath="selectedObjects.@count" id="SBZ-Hv-BUl"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Adds a title to the dection list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7es-2w-wEy">
+                                        <rect key="frame" x="10" y="17" width="24" height="24"/>
+                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dqZ-Vv-lY3">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addTitle:" target="-2" id="eOF-jK-qyq"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Imports an exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-sz-D9M">
+                                        <rect key="frame" x="417" y="10" width="82" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ctM-pM-8N2">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="importList:" target="-2" id="unf-13-OKo"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Exports an exception list in JSON format." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-OY-6j2">
+                                        <rect key="frame" x="498" y="10" width="82" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Export" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KLI-rf-IFn">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="exportList:" target="-2" id="g5h-Xw-TWx"/>
+                                        </connections>
+                                    </button>
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orw-aQ-yjO">
-                                        <rect key="frame" x="10" y="-163" width="447" height="154"/>
-                                        <clipView key="contentView" focusRingType="none" ambiguous="YES" misplaced="YES" id="fLT-H6-Adh">
+                                        <rect key="frame" x="10" y="58" width="564" height="154"/>
+                                        <clipView key="contentView" focusRingType="none" misplaced="YES" id="fLT-H6-Adh">
                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="nAC-LU-93c" id="gMF-8j-eH4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="445" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="517" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,7 +107,12 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.detectedtitle" id="jCV-ml-XtR"/>
+                                                                <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.detectedTitle" id="oFU-te-7wL">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </tableColumn>
                                                         <tableColumn editable="NO" width="221" minWidth="40" maxWidth="1000" id="AjX-Bc-piW">
@@ -71,7 +128,53 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.correcttitle" id="swR-uA-1Bi"/>
+                                                                <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.correctTitle" id="tds-Qd-ipc"/>
+                                                            </connections>
+                                                        </tableColumn>
+                                                        <tableColumn width="50" minWidth="10" maxWidth="50" id="shT-zK-XYX">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Offset">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="FLd-kj-Qi3">
+                                                                <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="ecT-zt-VXk"/>
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <connections>
+                                                                <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.episodeOffset" id="US4-bt-J5M">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </tableColumn>
+                                                        <tableColumn width="60" minWidth="10" maxWidth="60" id="fEq-C1-gSA">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Threshold">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="byE-yV-edm">
+                                                                <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="B0x-BT-tpi">
+                                                                    <real key="minimum" value="0.0"/>
+                                                                </numberFormatter>
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <connections>
+                                                                <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.episodethreshold" id="AO4-US-KbZ">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -83,7 +186,7 @@
                                             <rect key="frame" x="1" y="119" width="223" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Lp6-QF-eWj">
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Lp6-QF-eWj">
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -92,58 +195,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <button toolTip="Removes title from exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2FI-VL-IAQ">
-                                        <rect key="frame" x="33" y="-204" width="24" height="24"/>
-                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Hje-TO-QKF">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="removeSlection:" target="-2" id="O3K-YM-1m6"/>
-                                            <binding destination="WNZ-Fa-W8F" name="enabled" keyPath="selectedObjects.@count" id="SBZ-Hv-BUl"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="Adds a title to the dection list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7es-2w-wEy">
-                                        <rect key="frame" x="10" y="-204" width="24" height="24"/>
-                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dqZ-Vv-lY3">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="addTitle:" target="-2" id="eOF-jK-qyq"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="Imports an exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-sz-D9M">
-                                        <rect key="frame" x="299" y="-211" width="82" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ctM-pM-8N2">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="importList:" target="-2" id="unf-13-OKo"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="Exports an exception list in JSON format." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-OY-6j2">
-                                        <rect key="frame" x="380" y="-211" width="82" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Export" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KLI-rf-IFn">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="exportList:" target="-2" id="g5h-Xw-TWx"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Directory Ignore" identifier="2" id="uj2-sl-IEV">
                             <view key="view" id="Pau-QR-GKB">
-                                <rect key="frame" x="10" y="33" width="474" height="221"/>
+                                <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiJ-Bo-TEj">
-                                        <rect key="frame" x="11" y="47" width="446" height="162"/>
-                                        <clipView key="contentView" focusRingType="none" ambiguous="YES" misplaced="YES" id="tOB-JE-5PV">
+                                        <rect key="frame" x="11" y="47" width="561" height="162"/>
+                                        <clipView key="contentView" focusRingType="none" misplaced="YES" id="tOB-JE-5PV">
                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -153,7 +215,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn editable="NO" width="441" minWidth="40" maxWidth="1000" id="wqQ-Is-Qm5">
+                                                        <tableColumn editable="NO" width="556" minWidth="40" maxWidth="1000" id="wqQ-Is-Qm5">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -167,7 +229,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="bLw-yV-1Hy">
-                                                                    <rect key="frame" x="1" y="1" width="441" height="17"/>
+                                                                    <rect key="frame" x="1" y="1" width="556" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g88-qa-QcX">
@@ -237,23 +299,23 @@
                         </tabViewItem>
                         <tabViewItem label="Title Ignore" identifier="" id="RJZ-6G-zST">
                             <view key="view" id="aDo-4b-5DM">
-                                <rect key="frame" x="10" y="33" width="474" height="221"/>
+                                <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCa-6N-gLN">
-                                        <rect key="frame" x="11" y="83" width="446" height="127"/>
-                                        <clipView key="contentView" focusRingType="none" ambiguous="YES" misplaced="YES" id="uQX-ol-vKO">
+                                        <rect key="frame" x="11" y="83" width="561" height="127"/>
+                                        <clipView key="contentView" focusRingType="none" misplaced="YES" id="uQX-ol-vKO">
                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="cUG-zP-Xvg">
-                                                    <rect key="frame" x="0.0" y="0.0" width="444" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="506" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="441" minWidth="40" maxWidth="1000" id="rj6-7y-jpp">
+                                                        <tableColumn width="556" minWidth="40" maxWidth="1000" id="rj6-7y-jpp">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -283,16 +345,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BVM-6T-RNh">
-                                        <rect key="frame" x="9" y="10" width="438" height="34"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Fzc-wo-e1v">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <string key="title">These settings allow you to specify what titles to ignore in a filename. You may use Regular Expressions and rules are case insensitive.</string>
-                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <button toolTip="Adds a filename to ignore" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BnS-Ku-SQU">
+                                    <button toolTip="Adds a filename ignore rule" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BnS-Ku-SQU">
                                         <rect key="frame" x="11" y="51" width="24" height="24"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S0a-Yc-Tcc">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -302,7 +355,7 @@
                                             <action selector="addFifleNameIgnoreRule:" target="-2" id="w1e-6b-78R"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="Removes a filename ignore rule" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A54-ad-n80">
+                                    <button toolTip="Removes a file name ignore rule." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A54-ad-n80">
                                         <rect key="frame" x="34" y="51" width="24" height="24"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sfa-BN-T1k">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -313,35 +366,27 @@
                                             <binding destination="3VA-hS-t5V" name="enabled" keyPath="selection.@count" id="LOS-Z6-sUP"/>
                                         </connections>
                                     </button>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BVM-6T-RNh">
+                                        <rect key="frame" x="9" y="10" width="565" height="34"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Fzc-wo-e1v">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <string key="title">These settings allow you to specify what titles to ignore in a filename. You may use Regular Expressions and rules are case insensitive.</string>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </view>
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
-                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdp-EN-k6w">
-                    <rect key="frame" x="18" y="12" width="25" height="25"/>
-                    <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qWX-oF-dti">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="getHelp:" target="-2" id="PsY-WM-070"/>
-                    </connections>
-                </button>
             </subviews>
-            <point key="canvasLocation" x="223.5" y="244.5"/>
+            <point key="canvasLocation" x="281.5" y="244.5"/>
         </customView>
-        <arrayController selectsInsertedObjects="NO" id="WNZ-Fa-W8F">
+        <arrayController mode="entity" entityName="Exceptions" selectsInsertedObjects="NO" id="WNZ-Fa-W8F">
             <declaredKeys>
                 <string>allValues</string>
             </declaredKeys>
-            <connections>
-                <binding destination="smB-oB-DZP" name="contentArray" keyPath="values.exceptions" id="AAI-iX-SGT">
-                    <dictionary key="options">
-                        <bool key="NSHandlesContentAsCompoundValue" value="YES"/>
-                    </dictionary>
-                </binding>
-            </connections>
         </arrayController>
         <arrayController id="3Xl-n2-elJ" userLabel="IgnoreList Array Controller">
             <declaredKeys>
@@ -370,8 +415,8 @@
         <userDefaultsController representsSharedInstance="YES" id="smB-oB-DZP"/>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSFolder" width="32" height="32"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="8" height="8"/>
     </resources>
 </document>

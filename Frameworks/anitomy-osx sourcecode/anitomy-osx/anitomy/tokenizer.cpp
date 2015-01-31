@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -19,13 +19,16 @@
 #include <algorithm>
 #include <set>
 
+#include "keyword.h"
 #include "string2.h"
 #include "tokenizer.h"
 
 namespace anitomy {
 
-Tokenizer::Tokenizer(const string_t& filename, token_container_t& tokens)
-    : filename_(filename),
+Tokenizer::Tokenizer(const string_t& filename, Elements& elements,
+                     token_container_t& tokens)
+    : elements_(elements),
+      filename_(filename),
       tokens_(tokens) {
 }
 
@@ -91,7 +94,7 @@ void Tokenizer::TokenizeByBrackets() {
                            std::distance(char_begin, current_char));
 
     if (range.size > 0)  // Found unknown token
-      TokenizeByDelimiters(is_bracket_open, range);
+      TokenizeByPreidentified(is_bracket_open, range);
 
     if (current_char != char_end) {  // Found bracket
       AddToken(kBracket, true, TokenRange(range.offset + range.size, 1));
@@ -101,10 +104,35 @@ void Tokenizer::TokenizeByBrackets() {
   }
 }
 
+void Tokenizer::TokenizeByPreidentified(bool enclosed, const TokenRange& range) {
+  std::vector<TokenRange> preidentified_tokens;
+  keyword_manager.Peek(filename_, range, elements_, preidentified_tokens);
+
+  size_t offset = range.offset;
+  TokenRange subrange(range.offset, 0);
+
+  while (offset < range.offset + range.size) {
+    for (const auto& preidentified_token : preidentified_tokens) {
+      if (offset == preidentified_token.offset) {
+        if (subrange.size > 0)
+          TokenizeByDelimiters(enclosed, subrange);
+        AddToken(kIdentifier, enclosed, preidentified_token);
+        subrange.offset = preidentified_token.offset + preidentified_token.size;
+        offset = subrange.offset - 1;  // It's going to be incremented below
+        break;
+      }
+    }
+    subrange.size = ++offset - subrange.offset;
+  }
+
+  // Either there was no preidentified token range, or we're now about to
+  // process the tail of our current range.
+  if (subrange.size > 0)
+    TokenizeByDelimiters(enclosed, subrange);
+}
+
 void Tokenizer::TokenizeByDelimiters(bool enclosed, const TokenRange& range) {
-  // Each group occasionally has different delimiters, which is why we can't
-  // analyze the whole filename in one go.
-  string_t delimiters = GetDelimiters(range);
+  const string_t delimiters = GetDelimiters(range);
 
   if (delimiters.empty()) {
     AddToken(kUnknown, enclosed, range);
@@ -119,15 +147,15 @@ void Tokenizer::TokenizeByDelimiters(bool enclosed, const TokenRange& range) {
     current_char = std::find_first_of(current_char, char_end,
                                       delimiters.begin(), delimiters.end());
 
-    const TokenRange sub_range(std::distance(filename_.begin(), char_begin),
-                               std::distance(char_begin, current_char));
+    const TokenRange subrange(std::distance(filename_.begin(), char_begin),
+                              std::distance(char_begin, current_char));
 
-    if (sub_range.size > 0)  // Found unknown token
-      AddToken(kUnknown, enclosed, sub_range);
+    if (subrange.size > 0)  // Found unknown token
+      AddToken(kUnknown, enclosed, subrange);
 
     if (current_char != char_end) {  // Found delimiter
       AddToken(kDelimiter, enclosed,
-               TokenRange(sub_range.offset + sub_range.size, 1));
+               TokenRange(subrange.offset + subrange.size, 1));
       char_begin = ++current_char;
     }
   }
@@ -138,7 +166,7 @@ void Tokenizer::TokenizeByDelimiters(bool enclosed, const TokenRange& range) {
 ////////////////////////////////////////////////////////////////////////////////
 
 string_t Tokenizer::GetDelimiters(const TokenRange& range) const {
-  static const string_t kValidDelimiters = L" &+,._|";
+  static const string_t kValidDelimiters = L" _" L".&+,|";
 
   std::set<char_t> delimiters;
   for (size_t i = range.offset; i < range.offset + range.size; i++) {
@@ -155,59 +183,72 @@ string_t Tokenizer::GetDelimiters(const TokenRange& range) const {
 }
 
 void Tokenizer::ValidateDelimiterTokens() {
-  auto get_previous_valid_token = [&](token_iterator_t it) {
-    if (it == tokens_.begin())
-      return tokens_.end();
-    do {
-      --it;
-    } while (it != tokens_.begin() && it->content.empty());
-    return it;
+  auto is_delimiter_token = [&](token_iterator_t it) {
+    return it != tokens_.end() && it->category == kDelimiter;
   };
-  auto get_next_valid_token = [&](token_iterator_t it) {
-    do {
-      ++it;
-    } while (it != tokens_.end() && it->content.empty());
-    return it;
+  auto is_unknown_token = [&](token_iterator_t it) {
+    return it != tokens_.end() && it->category == kUnknown;
+  };
+  auto is_single_character_token = [&](token_iterator_t it) {
+    return is_unknown_token(it) && it->content.size() == 1;
+  };
+  auto append_token_to = [](token_iterator_t token,
+                            token_iterator_t append_to) {
+    append_to->content.append(token->content);
+    token->category = kInvalid;
   };
 
   for (auto token = tokens_.begin(); token != tokens_.end(); ++token) {
-    if (token == tokens_.begin())
+    if (token->category != kDelimiter)
       continue;
-
-    auto prev_token = get_previous_valid_token(token);
-    auto next_token = get_next_valid_token(token);
+    auto delimiter = token->content.front();
+    auto prev_token = GetPreviousValidToken(tokens_, token);
+    auto next_token = GetNextValidToken(tokens_, token);
 
     // Checking for single-character tokens prevents splitting group names,
     // keywords and the episode number in some cases.
-    if (token->category == kDelimiter && token->content == L".") {
-      if (prev_token->category == kUnknown &&
-          prev_token->content.size() == 1) {
-        prev_token->content.append(token->content);
-        token->content.clear();
-        if (next_token != tokens_.end() &&
-            next_token->category == kUnknown) {
-          prev_token->content.append(next_token->content);
-          next_token->content.clear();
+    switch (delimiter) {
+      case ' ':
+      case '_':
+        break;
+      default:
+        if (is_single_character_token(prev_token)) {
+          append_token_to(token, prev_token);
+          while (is_unknown_token(next_token)) {
+            append_token_to(next_token, prev_token);
+            next_token = GetNextValidToken(tokens_, next_token);
+            if (is_delimiter_token(next_token) &&
+                next_token->content.front() == delimiter) {
+              append_token_to(next_token, prev_token);
+              next_token = GetNextValidToken(tokens_, next_token);
+            }
+          }
           continue;
         }
-      }
-      if (next_token != tokens_.end() &&
-          next_token->category == kUnknown &&
-          next_token->content.size() == 1) {
-        prev_token->content.append(token->content);
-        token->content.clear();
-        prev_token->content.append(next_token->content);
-        next_token->content.clear();
+        if (is_single_character_token(next_token)) {
+          append_token_to(token, prev_token);
+          append_token_to(next_token, prev_token);
+          continue;
+        }
+        break;
+    }
+
+    // Check for adjacent delimiters
+    if (is_unknown_token(prev_token) && is_delimiter_token(next_token)) {
+      auto next_delimiter = next_token->content.front();
+      if (delimiter != next_delimiter && delimiter != ',') {
+        if (next_delimiter == ' ' || next_delimiter == '_') {
+          append_token_to(token, prev_token);
+        }
       }
     }
   }
 
-  // Remove empty tokens
-  for (size_t i = 0; i < tokens_.size(); ++i) {
-    if (tokens_.at(i).content.empty()) {
-      tokens_.erase(tokens_.begin() + i--);
-    }
-  }
+  auto remove_if_invalid = std::remove_if(tokens_.begin(), tokens_.end(),
+      [](const Token& token) -> bool {
+        return token.category == kInvalid;
+      });
+  tokens_.erase(remove_if_invalid, tokens_.end());
 }
 
 }  // namespace anitomy

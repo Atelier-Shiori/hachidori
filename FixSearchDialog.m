@@ -8,6 +8,7 @@
 
 #import "FixSearchDialog.h"
 #import "EasyNSURLConnection.h"
+#import "NSString_stripHtml.h"
 
 @interface FixSearchDialog ()
 
@@ -25,6 +26,9 @@
     if (correction) {
         [deleteoncorrection setHidden:NO];
         [deleteoncorrection setState:NSOnState];
+    }
+    else{
+        [deleteoncorrection setState:0];
     }
     [super windowDidLoad];
     if ([searchquery length]>0) {
@@ -53,6 +57,9 @@
         if ([alert runModal]== NSAlertFirstButtonReturn) {
             goto finish;
         }
+        else{
+            return;
+        }
     }
     else{
         goto finish;
@@ -60,6 +67,7 @@
     finish:
     selectedtitle = [d objectForKey:@"title"];
     selectedaniid = [d objectForKey:@"slug"];
+	selectedtotalepisodes = [d objectForKey:@"episodes"];
     [self.window orderOut:self];
     [NSApp endSheet:self.window returnCode:1];
 }
@@ -122,6 +130,17 @@
     //Deselect Selection
     [tb deselectAll:self];
 }
+-(void)tableViewSelectionDidChange:(NSNotification *)notification{
+    if ([[notification object] selectedRow] != -1) {
+        // Show synopsis
+        NSDictionary * d = [[arraycontroller selectedObjects] objectAtIndex:0];
+        [selectedsynopsis setString:[[NSString stringWithFormat:@"%@", [d objectForKey:@"synopsis"]] stripHtml]];
+    }
+    else{
+        [selectedsynopsis setString:@""];
+    }
+
+}
 -(void)setCorrection:(BOOL)correct{
     correction = correct;
 }
@@ -133,6 +152,9 @@
 }
 -(NSString *)getSelectedAniID{
     return selectedaniid;
+}
+-(NSString *)getSelectedTotalEpisodes{
+    return selectedtotalepisodes;
 }
 -(bool)getdeleteTitleonCorrection{
     return [deleteoncorrection state];

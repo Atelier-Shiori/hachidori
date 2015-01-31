@@ -16,30 +16,18 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ANITOMY_STRING_H
-#define ANITOMY_STRING_H
-
-#include <string>
+#ifndef ANITOMY_OPTIONS_H
+#define ANITOMY_OPTIONS_H
 
 namespace anitomy {
 
-typedef wchar_t char_t;
-typedef std::basic_string<char_t> string_t;
-
-bool IsAlphanumericChar(const char_t c);
-bool IsHexadecimalChar(const char_t c);
-bool IsNumericChar(const char_t c);
-bool IsAlphanumericString(const string_t& str);
-bool IsHexadecimalString(const string_t& str);
-bool IsNumericString(const string_t& str);
-
-bool IsStringEqualTo(const string_t& str1, const string_t& str2);
-
-int StringToInt(const string_t& str);
-
-string_t StringToUpperCopy(string_t str);
-void TrimString(string_t& str, const char_t trim_chars[] = L" ");
+struct Options {
+  bool parse_episode_number = true;
+  bool parse_episode_title = true;
+  bool parse_file_extension = true;
+  bool parse_release_group = true;
+};
 
 }  // namespace anitomy
 
-#endif  // ANITOMY_STRING_H
+#endif  // ANITOMY_OPTIONS_H

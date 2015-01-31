@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 #ifndef ANITOMY_TOKENIZER_H
 #define ANITOMY_TOKENIZER_H
 
+#include "element.h"
 #include "string2.h"
 #include "token.h"
 
@@ -26,7 +27,7 @@ namespace anitomy {
 
 class Tokenizer {
 public:
-  Tokenizer(const string_t& filename, token_container_t& tokens);
+  Tokenizer(const string_t& filename, Elements& elements, token_container_t& tokens);
 
   Tokenizer(const Tokenizer&) = delete;
   Tokenizer& operator=(const Tokenizer&) = delete;
@@ -36,11 +37,13 @@ public:
 private:
   void AddToken(TokenCategory category, bool enclosed, const TokenRange& range);
   void TokenizeByBrackets();
+  void TokenizeByPreidentified(bool enclosed, const TokenRange& range);
   void TokenizeByDelimiters(bool enclosed, const TokenRange& range);
 
   string_t GetDelimiters(const TokenRange& range) const;
   void ValidateDelimiterTokens();
 
+  Elements& elements_;
   const string_t& filename_;
   token_container_t& tokens_;
 };

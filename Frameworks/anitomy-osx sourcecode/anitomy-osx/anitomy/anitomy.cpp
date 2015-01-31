@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -28,25 +28,28 @@ bool Anitomy::Parse(string_t filename) {
   elements_.clear();
   tokens_.clear();
 
-  string_t extension;
-  if (RemoveExtensionFromFilename(filename, extension))
-    elements_.insert(kElementFileExtension, extension);
+  if (options_.parse_file_extension) {
+    string_t extension;
+    if (RemoveExtensionFromFilename(filename, extension))
+      elements_.insert(kElementFileExtension, extension);
+  }
 
   if (filename.empty())
     return false;
-
   elements_.insert(kElementFileName, filename);
 
-  Tokenizer tokenizer(filename, tokens_);
+  Tokenizer tokenizer(filename, elements_, tokens_);
   if (!tokenizer.Tokenize())
     return false;
 
-  Parser parser(elements_, tokens_);
+  Parser parser(elements_, options_, tokens_);
   if (!parser.Parse())
     return false;
 
   return true;
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 bool Anitomy::RemoveExtensionFromFilename(string_t& filename,
                                           string_t& extension) {
@@ -64,8 +67,7 @@ bool Anitomy::RemoveExtensionFromFilename(string_t& filename,
   if (!IsAlphanumericString(extension))
     return false;
 
-  // TODO: Add an option for this
-  auto keyword = StringToUpperCopy(extension);
+  auto keyword = keyword_manager.Normalize(extension);
   if (!keyword_manager.Find(kElementFileExtension, keyword))
     return false;
 
@@ -76,6 +78,10 @@ bool Anitomy::RemoveExtensionFromFilename(string_t& filename,
 
 Elements& Anitomy::elements() {
   return elements_;
+}
+
+Options& Anitomy::options() {
+  return options_;
 }
 
 const token_container_t& Anitomy::tokens() const {

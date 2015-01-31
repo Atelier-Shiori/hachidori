@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <functional>
 
-#include "string2.h"
+#include "string2.h""
 
 namespace anitomy {
 
@@ -57,12 +57,16 @@ bool IsNumericString(const string_t& str) {
 ////////////////////////////////////////////////////////////////////////////////
 
 inline wchar_t ToLower(const wchar_t c) {
-  return (c >= L'A' && c <= L'Z') ? (c + (L'a' - L'A')) : static_cast<wchar_t>(towlower(c));
+  return (c >= L'a' && c <= L'z') ? c :
+         (c >= L'A' && c <= L'Z') ? (c + (L'a' - L'A')) :
+         static_cast<wchar_t>(towlower(c));
 }
 
 struct ToUpper : public std::unary_function<char_t, char_t> {
   wchar_t operator ()(const wchar_t c) const {
-    return (c >= L'a' && c <= L'z') ? (c + (L'A' - L'a')) : static_cast<wchar_t>(towupper(c));
+    return (c >= L'A' && c <= L'Z') ? c :
+           (c >= L'a' && c <= L'z') ? (c + (L'A' - L'a')) :
+           static_cast<wchar_t>(towupper(c));
   }
 };
 
@@ -85,11 +89,7 @@ int StringToInt(const string_t& str) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void StringToUpper(std::string& str) {
-  std::transform(str.begin(), str.end(), str.begin(), ToUpper());
-}
-
-void StringToUpper(std::wstring& str) {
+void StringToUpper(string_t& str) {
   std::transform(str.begin(), str.end(), str.begin(), ToUpper());
 }
 

@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -22,11 +22,14 @@
 #include <initializer_list>
 #include <map>
 #include <unordered_map>
+#include <vector>
 
 #include "element.h"
 #include "string2.h"
 
 namespace anitomy {
+
+class TokenRange;
 
 class KeywordOptions {
 public:
@@ -61,6 +64,10 @@ public:
 
   bool Find(ElementCategory category, const string_t& str) const;
   bool Find(ElementCategory category, const string_t& str, KeywordOptions& options) const;
+
+  void Peek(const string_t& filename, const TokenRange& range, Elements& elements, std::vector<TokenRange>& preidentified_tokens) const;
+
+  string_t Normalize(const string_t& str) const;
 
 private:
   std::map<ElementCategory, KeywordList> keyword_lists_;

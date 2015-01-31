@@ -11,6 +11,7 @@
 #import "Hachidori.h"
 #import "EasyNSURLConnection.h"
 #import "Recognition.h"
+#import "AppDelegate.h"
 
 @interface Hachidori_Tests : XCTestCase{
     Hachidori * haengine;
@@ -23,6 +24,14 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     haengine = [[Hachidori alloc] init];
+    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    //Check for latest Auto Exceptions
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] timeIntervalSinceNow] < -604800 ||[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] == nil ) {
+        // Has been 1 Week, update Auto Exceptions
+        [delegate updateAutoExceptions];
+    }
+    // Set Context
+    [haengine setManagedObjectContext:[delegate getObjectContext]];
     // Load Test Data
     NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
     NSData *dataset = [NSData dataWithContentsOfFile:[mainBundle pathForResource: @"testdata" ofType: @"json"]
@@ -57,7 +66,7 @@
         NSLog(@"Testing: %@", filename);
         NSDictionary * parsedfile = [reg recognize:filename];
         NSNumber * season = [parsedfile objectForKey:@"season"];
-        NSDictionary * result = [haengine runUnitTest:[parsedfile objectForKey:@"title"] episode:[parsedfile objectForKey:@"episode"] season:[season intValue]];
+        NSDictionary * result = [haengine runUnitTest:[parsedfile objectForKey:@"title"] episode:[parsedfile objectForKey:@"episode"] season:[season intValue] group:[parsedfile objectForKey:@"group"]];
         if ([result count] > 0) {
             NSLog(@"Detected as %@. Slug: %@", [result objectForKey:@"title"], [result objectForKey:@"slug"]);
             if (![expectedtitle isEqualToString:[NSString stringWithFormat:@"%@", [result objectForKey:@"title"]]] && [expectedtitle length] > 0) {

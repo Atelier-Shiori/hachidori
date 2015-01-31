@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 
 #include "element.h"
 #include "string2.h"
+#include "options.h"
 #include "token.h"
 
 namespace anitomy {
@@ -30,12 +31,14 @@ public:
   bool Parse(string_t filename);
 
   Elements& elements();
+  Options& options();
   const token_container_t& tokens() const;
 
 private:
   bool RemoveExtensionFromFilename(string_t& filename, string_t& extension);
 
   Elements elements_;
+  Options options_;
   token_container_t tokens_;
 };
 

@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -27,10 +27,7 @@
 namespace anitomy {
 
 void Parser::SetEpisodeNumber(string_t number, Token& token) {
-  TrimString(number);
-
   elements_.insert(kElementEpisodeNumber, number);
-
   token.category = kIdentifier;
 }
 
@@ -38,7 +35,7 @@ void Parser::SetEpisodeNumber(string_t number, Token& token) {
 
 bool Parser::NumberComesAfterEpisodePrefix(Token& token) {
   size_t number_begin = FindNumberInString(token.content);
-  auto prefix = StringToUpperCopy(token.content.substr(0, number_begin));
+  auto prefix = keyword_manager.Normalize(token.content.substr(0, number_begin));
 
   if (keyword_manager.Find(kElementEpisodePrefix, prefix)) {
     auto number = token.content.substr(
@@ -52,11 +49,11 @@ bool Parser::NumberComesAfterEpisodePrefix(Token& token) {
 }
 
 bool Parser::NumberComesAfterEpisodeKeyword(const token_iterator_t& token) {
-  auto previous_token = GetPreviousValidToken(token);
+  auto previous_token = GetPreviousNonDelimiterToken(tokens_, token);
 
   if (previous_token != tokens_.end()) {
     if (previous_token->category == kUnknown) {
-      auto keyword = StringToUpperCopy(previous_token->content);
+      auto keyword = keyword_manager.Normalize(previous_token->content);
 
       if (keyword_manager.Find(kElementEpisodePrefix, keyword)) {
         if (!MatchEpisodePatterns(token->content, *token))
@@ -71,11 +68,11 @@ bool Parser::NumberComesAfterEpisodeKeyword(const token_iterator_t& token) {
 }
 
 bool Parser::NumberComesBeforeTotalNumber(const token_iterator_t& token) {
-  auto next_token = GetNextValidToken(token);
+  auto next_token = GetNextNonDelimiterToken(tokens_, token);
 
   if (next_token != tokens_.end()) {
     if (IsStringEqualTo(next_token->content, L"of")) {
-      auto other_token = GetNextValidToken(next_token);
+      auto other_token = GetNextNonDelimiterToken(tokens_, next_token);
 
       if (other_token != tokens_.end()) {
         if (IsNumericString(other_token->content)) {
@@ -206,10 +203,12 @@ bool Parser::MatchJapaneseCounterPattern(const string_t& word, Token& token) {
   return false;
 }
 
-bool Parser::MatchEpisodePatterns(const string_t& word, Token& token) {
+bool Parser::MatchEpisodePatterns(string_t word, Token& token) {
   // All patterns contain at least one non-numeric character
   if (IsNumericString(word))
     return false;
+
+  TrimString(word, L" -");
 
   const bool numeric_front = IsNumericChar(word.front());
   const bool numeric_back = IsNumericChar(word.back());
@@ -241,32 +240,28 @@ bool Parser::MatchEpisodePatterns(const string_t& word, Token& token) {
 ////////////////////////////////////////////////////////////////////////////////
 
 bool Parser::SearchForIsolatedNumbers(std::vector<size_t>& tokens) {
+  auto is_bracket_token = [&](token_iterator_t token) {
+    return token != tokens_.end() && token->category == kBracket;
+  };
+
   for (auto token_index = tokens.begin();
        token_index != tokens.end(); ++token_index) {
     auto token = tokens_.begin() + *token_index;
-    auto previous_token = GetPreviousValidToken(token);
+    
+    auto previous_token = GetPreviousNonDelimiterToken(tokens_, token);
+    if (!is_bracket_token(previous_token))
+      continue;
+    auto next_token = GetNextNonDelimiterToken(tokens_, token);
+    if (!is_bracket_token(next_token))
+      continue;
 
-    if (previous_token != tokens_.end() &&
-        previous_token->category == kBracket) {
-      auto next_token = GetNextValidToken(token);
-
-      if (next_token != tokens_.end() &&
-          next_token->category == kBracket) {
-        auto number = StringToInt(token->content);
-
-        // While there are about a dozen anime series with more than 1000
-        // episodes (e.g. Doraemon), it's safe to assume that any number within
-        // the interval is not the episode number.
-        if (number > 1900 && number < 2050) {
-          elements_.insert(kElementAnimeYear, token->content);
-          // We don't set token category to identifier here, because there might
-          // be a good reason to keep the year as a part of the title, as in
-          // "Fullmetal Alchemist (2009)".
-        } else if (number <= 1900) {
-          SetEpisodeNumber(token->content, *token);
-          return true;
-        }
-      }
+    auto number = StringToInt(token->content);
+    // While there are about a dozen anime series with more than 1000
+    // episodes (e.g. Doraemon), it's safe to assume that any number above
+    // this line is not the episode number.
+    if (number <= 1900) {
+      SetEpisodeNumber(token->content, *token);
+      return true;
     }
   }
 
@@ -277,7 +272,7 @@ bool Parser::SearchForSeparatedNumbers(std::vector<size_t>& tokens) {
   for (auto token_index = tokens.begin();
        token_index != tokens.end(); ++token_index) {
     auto token = tokens_.begin() + *token_index;
-    auto previous_token = GetPreviousValidToken(token);
+    auto previous_token = GetPreviousNonDelimiterToken(tokens_, token);
 
     // See if the number has a preceding "-" separator
     if (previous_token != tokens_.end() &&
@@ -311,29 +306,13 @@ bool Parser::SearchForLastNumber(std::vector<size_t>& tokens) {
             [](const Token& token) { return token.enclosed; }))
       continue;
 
-    // Ignore if there's an identified token placed before this one
-    if (std::any_of(tokens_.begin(), tokens_.begin() + token_index,
-            [](const Token& token) { return token.category == kIdentifier; }))
-      continue;
-
-    // Check if the previous token is "Season" or "Movie"
-    auto previous_token = GetPreviousValidToken(token);
+    // Check if the previous token is "Movie"
+    auto previous_token = GetPreviousNonDelimiterToken(tokens_, token);
     if (previous_token != tokens_.end() &&
-        previous_token->category == kUnknown) {
-      if (IsStringEqualTo(previous_token->content, L"Season")) {
-        // We can't bail out yet; it can still be in "2nd Season 01" format
-        previous_token = GetPreviousValidToken(previous_token);
-        if (previous_token != tokens_.end()) {
-          if (IsOrdinalNumber(previous_token->content)) {
-            elements_.insert(kElementAnimeSeason, previous_token->content);
-          } else {
-            elements_.insert(kElementAnimeSeason, token->content);
-            continue;
-          }
-        }
-      } else if (IsStringEqualTo(previous_token->content, L"Movie")) {
-        continue;
-      }
+        previous_token->category == kUnknown &&
+        IsStringEqualTo(previous_token->content, L"Movie")) {
+      elements_.insert(kElementAnimeType, previous_token->content);
+      continue;
     }
 
     // We'll use this number after all

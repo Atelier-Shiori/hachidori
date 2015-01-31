@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -30,6 +30,8 @@ TokenRange::TokenRange(size_t offset, size_t size)
       size(size) {
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 Token::Token()
     : category(kUnknown),
       enclosed(false) {
@@ -39,6 +41,61 @@ Token::Token(TokenCategory category, const string_t& content, bool enclosed)
     : category(category),
       content(content),
       enclosed(enclosed) {
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+template<class Predicate>
+token_iterator_t GetPreviousToken(token_container_t& tokens,
+                                  token_iterator_t it,
+                                  Predicate predicate) {
+  if (it == tokens.begin())
+    return tokens.end();
+
+  do {
+    --it;
+  } while (it != tokens.begin() && !predicate(it));
+
+  return it;
+}
+
+template<class Predicate>
+token_iterator_t GetNextToken(token_container_t& tokens,
+                              token_iterator_t it,
+                              Predicate predicate) {
+  do {
+    ++it;
+  } while (it != tokens.end() && !predicate(it));
+
+  return it;
+}
+
+static bool IsTokenNotDelimiter(const token_iterator_t& it) {
+  return it->category != kDelimiter;
+}
+
+static bool IsTokenValid(const token_iterator_t& it) {
+  return it->category != kInvalid;
+}
+
+token_iterator_t GetPreviousNonDelimiterToken(token_container_t& tokens,
+                                              token_iterator_t it) {
+  return GetPreviousToken(tokens, it, IsTokenNotDelimiter);
+}
+
+token_iterator_t GetNextNonDelimiterToken(token_container_t& tokens,
+                                          token_iterator_t it) {
+  return GetNextToken(tokens, it, IsTokenNotDelimiter);
+}
+
+token_iterator_t GetPreviousValidToken(token_container_t& tokens,
+                                       token_iterator_t it) {
+  return GetPreviousToken(tokens, it, IsTokenValid);
+}
+
+token_iterator_t GetNextValidToken(token_container_t& tokens,
+                                   token_iterator_t it) {
+  return GetNextToken(tokens, it, IsTokenValid);
 }
 
 }  // namespace anitomy

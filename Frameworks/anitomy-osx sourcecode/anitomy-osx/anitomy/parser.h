@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,28 +21,19 @@
 
 #include "element.h"
 #include "string2.h"
+#include "options.h"
 #include "token.h"
 
 namespace anitomy {
 
-struct ParseOptions {
-  ParseOptions();
-
-  bool parse_episode_number;
-  bool parse_episode_title;
-  bool parse_release_group;
-};
-
 class Parser {
 public:
-  Parser(Elements& elements, token_container_t& tokens);
+  Parser(Elements& elements, Options& options, token_container_t& tokens);
 
   Parser(const Parser&) = delete;
   Parser& operator=(const Parser&) = delete;
 
   bool Parse();
-
-  ParseOptions parse_options;
 
 private:
   void SearchForKeywords();
@@ -50,6 +41,8 @@ private:
   void SearchForAnimeTitle();
   void SearchForReleaseGroup();
   void SearchForEpisodeTitle();
+  void SearchForAnimeSeason();
+  void SearchForAnimeYear();
 
   bool SearchForEpisodePatterns(std::vector<size_t>& tokens);
   bool SearchForIsolatedNumbers(std::vector<size_t>& tokens);
@@ -60,7 +53,7 @@ private:
   bool NumberComesAfterEpisodeKeyword(const token_iterator_t& token);
   bool NumberComesBeforeTotalNumber(const token_iterator_t& token);
 
-  bool MatchEpisodePatterns(const string_t& word, Token& token);
+  bool MatchEpisodePatterns(string_t word, Token& token);
   bool MatchSingleEpisodePattern(const string_t& word, Token& token);
   bool MatchMultiEpisodePattern(const string_t& word, Token& token);
   bool MatchSeasonAndEpisodePattern(const string_t& word, Token& token);
@@ -77,14 +70,12 @@ private:
   bool IsElementCategorySearchable(ElementCategory category);
   bool IsElementCategorySingular(ElementCategory category);
 
-  token_iterator_t GetPreviousValidToken(token_iterator_t it) const;
-  token_iterator_t GetNextValidToken(token_iterator_t it) const;
-
   void BuildElement(ElementCategory category, bool keep_delimiters,
                     const token_iterator_t& token_begin,
                     const token_iterator_t& token_end) const;
 
   Elements& elements_;
+  Options& options_;
   token_container_t& tokens_;
 };
 

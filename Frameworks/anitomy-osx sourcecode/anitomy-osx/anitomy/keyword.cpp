@@ -1,6 +1,6 @@
 /*
 ** Anitomy
-** Copyright (C) 2014, Eren Okka
+** Copyright (C) 2014-2015, Eren Okka
 ** 
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -16,7 +16,10 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm>
+
 #include "keyword.h"
+#include "token.h"
 
 namespace anitomy {
 
@@ -100,8 +103,8 @@ KeywordManager::KeywordManager() {
       L"EPISODIO", L"FOLGE", L"\x7B2C"});
 
   Add(kElementFileExtension, options_safe, {
-      L"3GP", L"AVI", L"DIVX", L"FLV", L"MKV", L"MOV", L"MP4", L"MPG", L"OGM",
-      L"RM", L"RMVB", L"WMV"});
+      L"3GP", L"AVI", L"DIVX", L"FLV", L"M2TS", L"MKV", L"MOV", L"MP4", L"MPG",
+      L"OGM", L"RM", L"RMVB", L"WMV"});
 
   Add(kElementLanguage, options_safe, {
       L"ENG", L"ENGLISH", L"ESPANOL", L"JAP", L"SPANISH", L"VOSTFR"});
@@ -172,6 +175,39 @@ bool KeywordManager::Find(ElementCategory category, const string_t& str,
     return keyword_list->second.Find(str, options);
 
   return false;
+}
+
+string_t KeywordManager::Normalize(const string_t& str) const {
+  return StringToUpperCopy(str);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void KeywordManager::Peek(const string_t& filename,
+                          const TokenRange& range,
+                          Elements& elements,
+                          std::vector<TokenRange>& preidentified_tokens) const {
+  typedef std::pair<ElementCategory, std::vector<string_t>> entry_t;
+  static const std::vector<entry_t> entries{
+    {kElementAudioTerm, {L"Dual Audio"}},
+    {kElementVideoTerm, {L"H264", L"H.264", L"h264", L"h.264"}},
+    {kElementVideoResolution, {L"480p", L"720p", L"1080p"}},
+    {kElementSource, {L"Blu-Ray"}}
+  };
+
+  auto it_begin = filename.begin() + range.offset;
+  auto it_end = it_begin + range.size;
+
+  for (const auto& entry : entries) {
+    for (const auto& keyword : entry.second) {
+      auto it = std::search(it_begin, it_end, keyword.begin(), keyword.end());
+      if (it != it_end) {
+        auto offset = it - filename.begin();
+        elements.insert(entry.first, keyword);
+        preidentified_tokens.push_back(TokenRange(offset, keyword.size()));
+      }
+    }
+  }
 }
 
 }  // namespace anitomy

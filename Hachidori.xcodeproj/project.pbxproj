@@ -17,7 +17,6 @@
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
 		5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0A2C4A122C7F960096908D /* Credits.rtf */; };
-		5C2B9DC41221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B9DC31221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel */; };
 		5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2B9DFB1221EB25006DEF0D /* CoreData.framework */; };
 		5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D505F1329810000B31C08 /* libxml2.dylib */; };
 		5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D50611329810700B31C08 /* libxml2.2.dylib */; };
@@ -43,6 +42,7 @@
 		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD7FF411A449A140050E6CC /* Hachidori_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */; };
+		6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
@@ -110,7 +110,6 @@
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
 		5C0A2C4A122C7F960096908D /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		5C14563712D52AB900C7031C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		5C2B9DC31221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		5C2B9DFB1221EB25006DEF0D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5C2D505F1329810000B31C08 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		5C2D50611329810700B31C08 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -149,6 +148,8 @@
 		5CD7FF3F1A449A140050E6CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hachidori_Tests.m; sourceTree = "<group>"; };
 		5CFC037419F3396E006B4DAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		6F25323A1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		824693A619FD35AE00CFA12A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		824924A01A184C4200A01761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FixSearchDialog.xib; sourceTree = "<group>"; };
@@ -266,7 +267,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				5C2B9DC31221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
+				6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */,
 				256AC3F00F4B6AF500CF3369 /* MAL_Updater_OS_X_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -537,11 +538,11 @@
 				5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */,
+				6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
 				5C75EAC21A36069E00A20229 /* MASShortcut+UserDefaults.m in Sources */,
 				5C75EAC41A36069E00A20229 /* MASShortcutView+UserDefaults.m in Sources */,
 				5C75EAC31A36069E00A20229 /* MASShortcutView.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
-				5C2B9DC41221E9E5006DEF0D /* MAL_Updater_OS_X_DataModel.xcdatamodel in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
@@ -855,6 +856,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */,
+				6F25323A1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
+			);
+			currentVersion = 6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */;
+			path = MAL_Updater_OS_X_DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }
