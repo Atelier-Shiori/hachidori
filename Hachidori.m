@@ -7,6 +7,7 @@
 //
 
 #import "Hachidori.h"
+#import "Detection.h"
 #import "Recognition.h"
 #import "EasyNSURLConnection.h"
 
@@ -20,14 +21,12 @@
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
 -(NSString *)desensitizeSeason:(NSString *)title;
--(NSDictionary *)detectStream;
 -(void)populateStatusData:(NSDictionary *)d;
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes;
 -(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OGRegularExpression *)regex
            option:(int)i;
--(bool)checkifIgnored:(NSString *)filename;
 @end
 
 @implementation Hachidori
@@ -342,105 +341,28 @@
 
 }
 -(int)detectmedia {
-	// LSOF mplayer to get the media title and segment
-
-    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", nil];
-    NSString *string;
-	OGRegularExpression    *regex;
-    for(int i = 0; i <[player count]; i++){
-        NSTask *task;
-        task = [[NSTask alloc] init];
-        [task setLaunchPath: @"/usr/sbin/lsof"];
-        [task setArguments: [NSArray arrayWithObjects:@"-c", (NSString *)[player objectAtIndex:i], @"-F", @"n", nil]]; 		//lsof -c '<player name>' -Fn
-        NSPipe *pipe;
-        pipe = [NSPipe pipe];
-        [task setStandardOutput: pipe];
-	
-        NSFileHandle *file;
-        file = [pipe fileHandleForReading];
-	
-        [task launch];
-	
-        NSData *data;
-        data = [file readDataToEndOfFile];
-        
-        string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-            if (string.length > 0){
-                regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm|rm|rmvb|wmv|divx|mov|flv|mpg|3gp)$" options:OgreIgnoreCaseOption];
-                //Regex time
-                //Get the filename first
-                NSEnumerator    *enumerator;
-                enumerator = [regex matchEnumeratorInString:string];
-                OGRegularExpressionMatch    *match;
-                while ((match = [enumerator nextObject]) != nil) {
-                    string = [match matchedString];
-                }
-                //Check if thee file name or directory is on any ignore list
-                BOOL onIgnoreList = [self checkifIgnored:string];
-                //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
-                if ([regex matchInString:string] !=nil && !onIgnoreList) {
-                    NSDictionary *d = [[Recognition alloc] recognize:string];
-                    DetectedTitle = (NSString *)[d objectForKey:@"title"];
-                    DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
-                    DetectedSeason = [[d objectForKey:@"season"] intValue];
-                    DetectedGroup = (NSString *)[d objectForKey:@"group"];
-                    // Source Detection
-                    switch (i) {
-                        case 0:
-                        case 1:
-                        case 3:
-                        case 6:
-						case 7:
-                            DetectedSource = (NSString *)[player objectAtIndex:i];
-                            break;
-                        case 2:
-                            DetectedSource = @"SMPlayerX";
-                            break;
-                        case 4:
-                        case 5:
-                            DetectedSource = @"Quicktime";
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            }
-    }
-    if (DetectedTitle.length > 0) {
-         goto update;
-    }
-	else {
-        // Check for Legal Streaming Sites
-        NSLog(@"Checking Stream...");
-        NSDictionary * detected = [self detectStream];
-        
-        if ([detected objectForKey:@"result"]  == [NSNull null]){ // Check to see if anything is playing on stream
-            return 0;
-        }
-        else{
-            NSArray * c = [detected objectForKey:@"result"];
-            NSDictionary * d = [c objectAtIndex:0];
-            DetectedTitle = (NSString *)[d objectForKey:@"title"];
-            DetectedEpisode = [NSString stringWithFormat:@"%@",[d objectForKey:@"episode"]];
-            DetectedSource = [NSString stringWithFormat:@"%@ in %@", (NSString *)[[d objectForKey:@"site"] capitalizedString], [d objectForKey:@"browser"]];
-            DetectedGroup = (NSString *)[d objectForKey:@"site"];
-            goto update;
-        }
-		// Nothing detected
-	}
-update:
-    // Check if the title was previously scrobbled
-    if (DetectedTitle.length > 0) {
+    NSDictionary * result = [Detection detectmedia];
+    if (result !=nil) {
+        //Populate Data
+        DetectedTitle = [result objectForKey:@"detectedtitle"];
+        DetectedEpisode = [result objectForKey:@"detectedepisode"];
+        DetectedSeason = [(NSNumber *)[result objectForKey:@"detectedseason"] intValue];
+        DetectedGroup = [result objectForKey:@"detectedgroup"];
+        DetectedSource = [result objectForKey:@"source"];
+        // Check if the title was previously scrobbled
         [self checkExceptions];
+        
+        if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
+            // Do Nothing
+            return 1;
+        }
+        else {
+            // Not Scrobbled Yet or Unsuccessful
+            return 2;
+        }
     }
-    if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
-        // Do Nothing
-        return 1;
-    }
-    else {
-        // Not Scrobbled Yet or Unsuccessful
-        return 2;
+    else{
+        return 0;
     }
 }
 -(BOOL)confirmupdate{
@@ -859,37 +781,6 @@ update:
     }
     return false;
 }
--(NSDictionary *)detectStream{
-    // Create Dictionary
-    NSDictionary * d;
-    //Set detectream Task and Run it
-    NSTask *task;
-    task = [[NSTask alloc] init];
-    NSBundle *myBundle = [NSBundle mainBundle];
-    [task setLaunchPath:[myBundle pathForResource:@"detectstream" ofType:@""]];
-        
-        
-    NSPipe *pipe;
-    pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
-    
-    // Reads Output
-    NSFileHandle *file;
-    file = [pipe fileHandleForReading];
-    
-    // Launch Task
-    [task launch];
-    
-    // Parse Data from JSON and return dictionary
-    NSData *data;
-    data = [file readDataToEndOfFile];
-        
-        
-    NSError* error;
-
-    d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    return d;
-}
 -(void)populateStatusData:(NSDictionary *)d{
     // Info is there.
     NSDictionary * tmpinfo = [d objectForKey:@"anime"];
@@ -953,35 +844,6 @@ update:
     //Checks for matches
     if ([regex matchInString:title] != nil || ([regex matchInString:atitle] != nil && [atitle length] >0 && i==0)) {
         return true;
-    }
-    return false;
-}
--(bool)checkifIgnored:(NSString *)filename{
-    //Checks if file name or directory is on ignore list
-    filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
-    //Check ignore directories. If on ignore directory, set onIgnoreList to true.
-    NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
-    if ([ignoredirectories count] > 0) {
-        for (NSDictionary * d in ignoredirectories) {
-            if ([[OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"^(%@/)+", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"] options:OgreIgnoreCaseOption] matchInString:filename]) {
-                NSLog(@"Video being played is in ignored directory");
-                return true;
-                break;
-            }
-        }
-    }
-    // Get filename only
-    filename = [[OGRegularExpression regularExpressionWithString:@"^.+/"] replaceAllMatchesInString:filename withString:@""];
-    NSArray * ignoredfilenames = [[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"];
-    if ([ignoredfilenames count] > 0) {
-        for (NSDictionary * d in ignoredfilenames) {
-            NSString * rule = [NSString stringWithFormat:@"%@", [d objectForKey:@"rule"]];
-            if ([[OGRegularExpression regularExpressionWithString:rule options:OgreIgnoreCaseOption] matchInString:filename] && rule.length !=0) { // Blank rules are infinite, thus should not be counted
-                NSLog(@"Video file name is on filename ignore list.");
-                return true;
-                break;
-            }
-        }
     }
     return false;
 }
