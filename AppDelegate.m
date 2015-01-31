@@ -684,7 +684,6 @@
             }
         }
         else{
-            NSLog(@"Cancel");
         }
     fsdialog = nil;
     [self enableUpdateItems]; // Enable Update Items
