@@ -113,5 +113,4 @@
 -(bool)getisScrobblingActive;
 -(NSManagedObjectModel *)getObjectModel;
 -(NSManagedObjectContext *)getObjectContext;
--(void)updateAutoExceptions;
 @end

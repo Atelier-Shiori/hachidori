@@ -12,6 +12,7 @@
 #import "EasyNSURLConnection.h"
 #import "Recognition.h"
 #import "AppDelegate.h"
+#import "AutoExceptions.h"
 
 @interface Hachidori_Tests : XCTestCase{
     Hachidori * haengine;
@@ -28,7 +29,7 @@
     //Check for latest Auto Exceptions
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] timeIntervalSinceNow] < -604800 ||[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] == nil ) {
         // Has been 1 Week, update Auto Exceptions
-        [delegate updateAutoExceptions];
+        [AutoExceptions updateAutoExceptions];
     }
     // Set Context
     [haengine setManagedObjectContext:[delegate getObjectContext]];

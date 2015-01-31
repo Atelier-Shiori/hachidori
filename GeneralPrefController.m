@@ -8,6 +8,7 @@
 
 #import "GeneralPrefController.h"
 #import "AppDelegate.h"
+#import "AutoExceptions.h"
 
 
 @implementation GeneralPrefController
@@ -124,7 +125,6 @@
 }
 -(IBAction)updateAutoExceptions:(id)sender{
     // Updates Auto Exceptions List
-    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -133,7 +133,7 @@
         [updateexceptionsbtn setEnabled:NO];
         [updateexceptionschk setEnabled:NO];
         [indicator startAnimation:self];
-        [delegate updateAutoExceptions];
+        [AutoExceptions updateAutoExceptions];
         [indicator stopAnimation:self];
         [updateexceptionsbtn setEnabled:YES];
         [updateexceptionschk setEnabled:YES];
