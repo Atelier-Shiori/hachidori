@@ -8,7 +8,6 @@
 
 #import "Hachidori.h"
 #import "Detection.h"
-#import "Recognition.h"
 #import "EasyNSURLConnection.h"
 #import "Utility.h"
 #import "ExceptionsCache.h"
@@ -25,6 +24,8 @@
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
 -(void)populateStatusData:(NSDictionary *)d;
+-(NSString *)checkCache;
+-(void)checkExceptions;
 @end
 
 @implementation Hachidori
@@ -117,14 +118,10 @@
 
 - (int)startscrobbling {
     // 0 - nothing playing; 1 - same episode playing; 2 - No Update Needed; 3 - Confirm title before adding  21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed;
-    int detectstatus;
-	//Set up Delegate
-	
-    detectstatus = [self detectmedia];
+    int detectstatus = [self detectmedia];
 	if (detectstatus == 2) { // Detects Title
         return [self scrobble];
 	}
-
     return detectstatus;
 }
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode{
@@ -149,37 +146,12 @@
     NSLog(@"Getting AniID");
     // Regular Search
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
-        NSManagedObjectContext *moc = managedObjectContext;
-        NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
-        [allCaches setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", DetectedTitle];
-        [allCaches setPredicate:predicate];
-        NSError * error = nil;
-        NSArray * cache = [moc executeFetchRequest:allCaches error:&error];
-        if (cache.count > 0) {
-            NSString * theid;
-            for (NSManagedObject * cacheentry in cache) {
-                NSString * title = [cacheentry valueForKey:@"detectedTitle"];
-                if ([title isEqualToString:DetectedTitle]) {
-                    NSLog(@"%@ found in cache!", title);
-                    // Total Episode check
-                    NSNumber * totalepisodes = [cacheentry valueForKey:@"totalEpisodes"];
-                    if ( [DetectedEpisode intValue] <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
-                        theid = [cacheentry valueForKey:@"id"];
-                        break;
-                    }
-                }
-            }
-            if (theid.length == 0) {
-                AniID = [self searchanime]; // Not in cache, search
-            }
-            else{
-                AniID = theid; // Set cached show id as AniID
-            }
-        }
-        else{
-            AniID = [self searchanime]; // Cache empty, search
-        }
+        // Check Cache
+        NSString *theid = [self checkCache];
+        if (theid.length == 0)
+            AniID = [self searchanime]; // Not in cache, search
+        else
+            AniID = theid; // Set cached show id as AniID
     }
     else{
         AniID = [self searchanime]; // Search Cache Disabled
@@ -781,6 +753,29 @@
 }
 -(void)clearAnimeInfo{
     LastScrobbledInfo = nil;
+}
+-(NSString *)checkCache{
+    NSManagedObjectContext *moc = managedObjectContext;
+    NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
+    [allCaches setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", DetectedTitle];
+    [allCaches setPredicate:predicate];
+    NSError * error = nil;
+    NSArray * cache = [moc executeFetchRequest:allCaches error:&error];
+    if (cache.count > 0) {
+        for (NSManagedObject * cacheentry in cache) {
+            NSString * title = [cacheentry valueForKey:@"detectedTitle"];
+            if ([title isEqualToString:DetectedTitle]) {
+                NSLog(@"%@ found in cache!", title);
+                // Total Episode check
+                NSNumber * totalepisodes = [cacheentry valueForKey:@"totalEpisodes"];
+                if ( [DetectedEpisode intValue] <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
+                    return [cacheentry valueForKey:@"id"];
+                }
+            }
+        }
+    }
+    return @"";
 }
 -(void)checkExceptions{
     // Check Exceptions

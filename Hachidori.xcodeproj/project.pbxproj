@@ -37,7 +37,6 @@
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
 		5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */; };
-		5CC744D61A474B0600F65E88 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CC744D41A474B0600F65E88 /* HotkeysPrefs.xib */; };
 		5CC744D81A474BAC00F65E88 /* hotkey.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC744D71A474BAC00F65E88 /* hotkey.png */; };
 		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -47,6 +46,7 @@
 		6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F18658F1A7D6F7F00C74A47 /* Detection.m */; };
 		6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
 		6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */; };
+		6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
@@ -141,7 +141,6 @@
 		5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginPref.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotkeysPrefs.h; sourceTree = "<group>"; };
 		5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotkeysPrefs.m; sourceTree = "<group>"; };
-		5CC744D41A474B0600F65E88 /* HotkeysPrefs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotkeysPrefs.xib; sourceTree = "<group>"; };
 		5CC744D71A474BAC00F65E88 /* hotkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotkey.png; sourceTree = "<group>"; };
 		5CD36B9519F2EA9B007BB6B6 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
 		5CD36B9719F2EA9B007BB6B6 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
@@ -162,6 +161,9 @@
 		6F25323A1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsCache.h; sourceTree = "<group>"; };
 		6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionsCache.m; sourceTree = "<group>"; };
+		6FAA877E1A7EB47800EFFAC1 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		6FAA877F1A7EB57300EFFAC1 /* Hotkeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hotkeys.h; sourceTree = "<group>"; };
+		6FAA87841A7EB70E00EFFAC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HotkeysPrefs.xib; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		824693A619FD35AE00CFA12A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		824924A01A184C4200A01761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FixSearchDialog.xib; sourceTree = "<group>"; };
@@ -215,23 +217,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6FAA87821A7EB6B200EFFAC1 /* Support Classes */,
 				82EBBD191A17FD45009F6179 /* Correction/Exception */,
 				5C8ACEB619F409C60001A101 /* Other Classes */,
 				5CD36B9419F2EA91007BB6B6 /* Preferences */,
 				256AC3D80F4B6AC300CF3369 /* AppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* AppDelegate.m */,
-				6F1290961A7D817000B8C3E6 /* AutoExceptions.h */,
-				6F1290971A7D817000B8C3E6 /* AutoExceptions.m */,
 				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
-				6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */,
-				6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */,
-				82F7A9A61A195A8300183EF7 /* Recognition.h */,
-				82F7A9A71A195A8300183EF7 /* Recognition.m */,
-				6F18658E1A7D6F7F00C74A47 /* Detection.h */,
-				6F18658F1A7D6F7F00C74A47 /* Detection.m */,
-				6F0CF36A1A7DB89300261A43 /* Utility.h */,
-				6F0CF36B1A7DB89300261A43 /* Utility.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -277,7 +270,7 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				5CD7FF3D1A449A140050E6CC /* Hachidori Tests */,
+				5CD7FF3D1A449A140050E6CC /* Hachidori Unit Tests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -306,7 +299,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
-				5CC744D41A474B0600F65E88 /* HotkeysPrefs.xib */,
+				6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */,
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
 				5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */,
 				5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */,
@@ -330,6 +323,7 @@
 		5C75EAB51A36069100A20229 /* Hotkey */ = {
 			isa = PBXGroup;
 			children = (
+				6FAA877F1A7EB57300EFFAC1 /* Hotkeys.h */,
 				5C75EAB61A36069E00A20229 /* MASShortcut.h */,
 				5C75EAB71A36069E00A20229 /* MASShortcut.m */,
 				5C75EAB81A36069E00A20229 /* MASShortcut+Monitoring.h */,
@@ -340,6 +334,8 @@
 				5C75EABD1A36069E00A20229 /* MASShortcutView.m */,
 				5C75EABE1A36069E00A20229 /* MASShortcutView+UserDefaults.h */,
 				5C75EABF1A36069E00A20229 /* MASShortcutView+UserDefaults.m */,
+				5C75EAC51A360C4A00A20229 /* HotKeyConstants.h */,
+				5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */,
 			);
 			name = Hotkey;
 			sourceTree = "<group>";
@@ -354,8 +350,6 @@
 				5C881EFA19F462B400E20425 /* NSString_stripHtml.m */,
 				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
 				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
-				5C75EAC51A360C4A00A20229 /* HotKeyConstants.h */,
-				5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
@@ -374,6 +368,7 @@
 		5CD36B9419F2EA91007BB6B6 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				6FAA877E1A7EB47800EFFAC1 /* Preferences.h */,
 				5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */,
 				5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */,
 				825D878E1A18FD2600C5E1BF /* ExceptionsPref.h */,
@@ -392,12 +387,13 @@
 			name = Preferences;
 			sourceTree = "<group>";
 		};
-		5CD7FF3D1A449A140050E6CC /* Hachidori Tests */ = {
+		5CD7FF3D1A449A140050E6CC /* Hachidori Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
 				5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */,
 				5CD7FF3E1A449A140050E6CC /* Supporting Files */,
 			);
+			name = "Hachidori Unit Tests";
 			path = "Hachidori Tests";
 			sourceTree = "<group>";
 		};
@@ -408,6 +404,23 @@
 				5CD7FF3F1A449A140050E6CC /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6FAA87821A7EB6B200EFFAC1 /* Support Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6F1290961A7D817000B8C3E6 /* AutoExceptions.h */,
+				6F1290971A7D817000B8C3E6 /* AutoExceptions.m */,
+				6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */,
+				6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */,
+				82F7A9A61A195A8300183EF7 /* Recognition.h */,
+				82F7A9A71A195A8300183EF7 /* Recognition.m */,
+				6F18658E1A7D6F7F00C74A47 /* Detection.h */,
+				6F18658F1A7D6F7F00C74A47 /* Detection.m */,
+				6F0CF36A1A7DB89300261A43 /* Utility.h */,
+				6F0CF36B1A7DB89300261A43 /* Utility.m */,
+			);
+			name = "Support Classes";
 			sourceTree = "<group>";
 		};
 		82EBBD191A17FD45009F6179 /* Correction/Exception */ = {
@@ -474,7 +487,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					5CD7FF3B1A449A140050E6CC = {
 						CreatedOnToolsVersion = 6.1;
@@ -525,7 +538,7 @@
 				5CC744D81A474BAC00F65E88 /* hotkey.png in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
 				825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */,
-				5CC744D61A474B0600F65E88 /* HotkeysPrefs.xib in Resources */,
+				6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */,
 				5C30BC07139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff in Resources */,
 				5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
@@ -636,6 +649,14 @@
 				829FB41E19F739700026EAC2 /* Base */,
 			);
 			name = GeneralPreferenceView.xib;
+			sourceTree = "<group>";
+		};
+		6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6FAA87841A7EB70E00EFFAC1 /* Base */,
+			);
+			name = HotkeysPrefs.xib;
 			sourceTree = "<group>";
 		};
 		824924A11A184C4200A01761 /* FixSearchDialog.xib */ = {
@@ -752,6 +773,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -783,6 +805,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -808,7 +831,6 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -818,7 +840,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"${SDKROOT}/usr/include/libxml2\"/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"${SDKROOT}/usr/include/libxml2\"/**";
@@ -828,7 +850,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				CODE_SIGN_IDENTITY = "";

@@ -8,7 +8,6 @@
 
 #import "FixSearchDialog.h"
 #import "EasyNSURLConnection.h"
-#import "NSString_stripHtml.h"
 #import "Utility.h"
 
 @interface FixSearchDialog ()

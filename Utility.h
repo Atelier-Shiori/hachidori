@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <OgreKit/OgreKit.h>
+#import "NSString_stripHtml.h"
 
 @interface Utility : NSObject
 +(bool)checkMatch:(NSString *)title
