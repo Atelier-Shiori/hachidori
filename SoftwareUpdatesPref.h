@@ -8,10 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MASPreferencesViewController.h"
-#import <Sparkle/Sparkle.h>
 
 @interface SoftwareUpdatesPref : NSViewController <MASPreferencesViewController>  {
 
 }
--(IBAction)checkupdates:(id)sender;
 @end

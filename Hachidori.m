@@ -218,7 +218,7 @@
     // Reset correcting Value
     correcting = false;
     NSLog(@"Scrobble Complete with Status Code: %i", status);
-    NSLog(@"===========");
+    NSLog(@"=============");
     // Release Detected Title/Episode.
     return status;
 }
@@ -812,7 +812,7 @@
                         continue;
                     }
                     else {
-                        NSLog(@"%@ found on exceptions list as %@!", DetectedTitle, correcttitle);
+                        NSLog(@"%@ found on exceptions list as %@.", DetectedTitle, correcttitle);
                         DetectedTitle = correcttitle;
                         if (tmpepisode > 0) {
                             DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];

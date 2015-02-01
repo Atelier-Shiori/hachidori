@@ -32,9 +32,4 @@
 {
     return NSLocalizedString(@"Software Updates", @"Toolbar item name for the Software Updatespreference pane");
 }
--(IBAction)checkupdates:(id)sender
-{
-	//Initalize Update
-	[[SUUpdater sharedUpdater] checkForUpdates:sender];
-}
 @end

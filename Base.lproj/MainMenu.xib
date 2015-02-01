@@ -187,7 +187,7 @@
                 <menuItem title="Preferences…" id="552">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="showPreferences:" target="560" id="564"/>
+                        <action selector="showPreferences:" target="560" id="jzy-Ci-YIa"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" hidden="YES" id="555">
@@ -714,7 +714,7 @@ Gw
                             </buttonCell>
                         </button>
                         <connections>
-                            <action selector="showPreferences:" target="560" id="Swi-Pz-pZC"/>
+                            <action selector="showPreferences:" target="560" id="k9d-Zu-OfK"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="9D874849-1C76-4C4D-888C-5339B9C19B4B" label="Update History" paletteLabel="Update History" toolTip="Update History" image="history" id="eo4-15-Ehk">
