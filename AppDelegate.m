@@ -23,6 +23,7 @@
 #import "MASShortcut+Monitoring.h"
 #import "HotKeyConstants.h"
 #import "AutoExceptions.h"
+#import "Utility.h"
 
 @implementation AppDelegate
 
@@ -402,7 +403,7 @@
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
-	if (![haengine checktoken]) {
+	if (![Utility checktoken]) {
         [self showNotication:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
     }
 	else {
@@ -427,7 +428,7 @@
 }
 -(void)autostarttimer {
 	//Check to see if there is an API Key stored
-	if (![haengine checktoken]) {
+	if (![Utility checktoken]) {
          [self showNotication:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
 	}
 	else {
@@ -581,7 +582,7 @@
 }
 
 -(IBAction)updatenow:(id)sender{
-    if ([haengine checktoken]) {
+    if ([Utility checktoken]) {
         [self firetimer:nil];
     }
     else
@@ -983,7 +984,7 @@
 -(void)registerHotkey{
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
         // Scrobble Now Global Hotkey
-        if ([haengine checktoken] && !panelactive) {
+        if ([Utility checktoken] && !panelactive) {
             [self firetimer:nil];
         }
     }];

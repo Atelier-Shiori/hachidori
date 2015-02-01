@@ -60,7 +60,6 @@
 -(NSDictionary *)getLastScrobbledInfo;
 -(NSString *)getFailedTitle;
 -(NSString *)getFailedEpisode;
--(BOOL)checktoken;
 -(int)startscrobbling;
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode;
 -(int)scrobble;

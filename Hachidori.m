@@ -10,6 +10,7 @@
 #import "Detection.h"
 #import "Recognition.h"
 #import "EasyNSURLConnection.h"
+#import "Utility.h"
 
 @interface Hachidori ()
 // Private Methods
@@ -20,13 +21,8 @@
 -(BOOL)checkstatus:(NSString *)titleid;
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
--(NSString *)desensitizeSeason:(NSString *)title;
 -(void)populateStatusData:(NSDictionary *)d;
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes;
--(bool)checkMatch:(NSString *)title
-         alttitle:(NSString *)atitle
-            regex:(OGRegularExpression *)regex
-           option:(int)i;
 @end
 
 @implementation Hachidori
@@ -110,14 +106,6 @@
 }
 -(BOOL)getPrivate{
     return isPrivate;
-}
--(BOOL)checktoken{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([[defaults objectForKey:@"Token"] length] == 0) {
-        return false;
-    }
-    else
-        return true;
 }
 /*
  
@@ -281,10 +269,10 @@
             NSString * tmpid;
             switch (i) {
                 case 0:
-                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i", [self desensitizeSeason:searchtitle], DetectedSeason]];
+                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i", [Utility desensitizeSeason:searchtitle], DetectedSeason]];
                     break;
                 case 1:
-                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i season", [self desensitizeSeason:searchtitle], DetectedSeason]];
+                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i season", [Utility desensitizeSeason:searchtitle], DetectedSeason]];
                 default:
                     break;
             }
@@ -453,7 +441,7 @@
         for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
             alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
+        if ([Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
         }
             DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
             if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"Special"]) {
@@ -470,7 +458,7 @@
     for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([self checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
+        if ([Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
             if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
                 // Used for Season Checking
                 OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
@@ -810,16 +798,6 @@
 -(void)clearAnimeInfo{
     LastScrobbledInfo = nil;
 }
--(NSString *)desensitizeSeason:(NSString *)title {
-    // Get rid of season references
-    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"((first|second|third|fourth|fifth|sixth|seventh|eighth|nineth|(st|nd|rd|th)) season)" options:OgreIgnoreCaseOption];
-    title = [regex replaceAllMatchesInString:title withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString: @"(s)\\d" options:OgreIgnoreCaseOption];
-    title = [regex replaceAllMatchesInString:title withString:@""];
-    // Remove any Whitespace
-    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return title;
-}
 -(void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes {
     //Adds ID to cache
     NSManagedObjectContext *moc = managedObjectContext;
@@ -836,16 +814,6 @@
     // Save
     [moc save:&error];
 
-}
--(bool)checkMatch:(NSString *)title
-         alttitle:(NSString *)atitle
-            regex:(OGRegularExpression *)regex
-           option:(int)i{
-    //Checks for matches
-    if ([regex matchInString:title] != nil || ([regex matchInString:atitle] != nil && [atitle length] >0 && i==0)) {
-        return true;
-    }
-    return false;
 }
 -(void)checkExceptions{
     // Check Exceptions
