@@ -46,6 +46,7 @@
 		6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1290971A7D817000B8C3E6 /* AutoExceptions.m */; };
 		6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F18658F1A7D6F7F00C74A47 /* Detection.m */; };
 		6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
+		6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
@@ -159,6 +160,8 @@
 		6F18658F1A7D6F7F00C74A47 /* Detection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Detection.m; sourceTree = SOURCE_ROOT; };
 		6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		6F25323A1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
+		6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsCache.h; sourceTree = "<group>"; };
+		6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionsCache.m; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		824693A619FD35AE00CFA12A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		824924A01A184C4200A01761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FixSearchDialog.xib; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 				6F1290971A7D817000B8C3E6 /* AutoExceptions.m */,
 				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
+				6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */,
+				6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */,
 				82F7A9A61A195A8300183EF7 /* Recognition.h */,
 				82F7A9A71A195A8300183EF7 /* Recognition.m */,
 				6F18658E1A7D6F7F00C74A47 /* Detection.h */,
@@ -547,6 +552,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
+				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
 				5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */,

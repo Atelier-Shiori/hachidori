@@ -8,6 +8,7 @@
 
 #import "ExceptionsPref.h"
 #import "Recognition.h"
+#import "ExceptionsCache.h"
 
 @interface ExceptionsPref ()
 
@@ -80,39 +81,10 @@
             // Exists, don't do anything
             return;
         }
-        NSManagedObjectContext * moc = self.managedObjectContext;
-        NSError * error = nil;
-        // Add to Cache in Core Data
-        NSManagedObject *obj = [NSEntityDescription
-                                    insertNewObjectForEntityForName:@"Exceptions"
-                                    inManagedObjectContext: moc];
-        // Set values in the new record
-        [obj setValue:detectedtitle forKey:@"detectedTitle"];
-        [obj setValue:[fsdialog getSelectedTitle] forKey:@"correctTitle"];
-        [obj setValue:[fsdialog getSelectedAniID] forKey:@"id"];
-        [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodeOffset"];
-        [obj setValue:[NSNumber numberWithInt:[[fsdialog getSelectedTotalEpisodes] intValue]] forKey:@"episodethreshold"];
-        //Save
-        [moc save:&error];
-        // Load present cache data
-        NSFetchRequest * allCache = [[NSFetchRequest alloc] init];
-        [allCache setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
-        
-        error = nil;
-        NSArray * caches = [moc executeFetchRequest:allCache error:&error];
-        if (caches.count > 0) {
-            //Check Cache to remove conflicts
-            for (NSManagedObject * cacheentry in caches) {
-                if ([detectedtitle isEqualToString:(NSString *)[cacheentry valueForKey:@"detectedTitle"]]) {
-                    [moc deleteObject:cacheentry];
-                    break;
-                }
-            }
-            //Save
-            [moc save:&error];
-        }
-    }
-    else{
+        // Add to Exceptions
+        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:[fsdialog getSelectedTitle] aniid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue] offset:0];
+        //Check Cache
+        [ExceptionsCache checkandRemovefromCache:detectedtitle];
     }
     fsdialog = nil;
     detectedtitle = nil;
@@ -141,7 +113,6 @@
         
         NSError *error = nil;
         NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-        NSManagedObjectContext * moc = self.managedObjectContext;
         for (NSDictionary *d in a) {
             NSString * detectedtitlea = [d objectForKey:@"detectedtitle"];
             int doffset;
@@ -158,47 +129,20 @@
                 continue;
             }
             else{
-                NSError * error = nil;
-                // Add to Cache in Core Data
-                NSManagedObject *obj = [NSEntityDescription
-                                            insertNewObjectForEntityForName:@"Exceptions"
-                                            inManagedObjectContext: moc];
-                // Set values in the new record
-                [obj setValue:[d objectForKey:@"detectedtitle"] forKey:@"detectedTitle"];
-                [obj setValue:[d objectForKey:@"correcttitle"] forKey:@"correctTitle"];
-                [obj setValue:[d objectForKey:@"showid"] forKey:@"id"];
-                [obj setValue:[NSNumber numberWithInt:doffset] forKey:@"episodeOffset"];
+                // Add to Exceptions List
+                int threshold;
                 if ([d objectForKey:@"threshold"] != nil) {
-                    [obj setValue:[d objectForKey:@"threshold"] forKey:@"episodethreshold"];
+                    threshold = [(NSNumber *)[d objectForKey:@"threshold"] intValue];
                 }
                 else{
-                    [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodethreshold"];
+                    threshold = 0;
                 }
-                //Save
-                [moc save:&error];
-                // Load present cache data
-                NSFetchRequest * allCache = [[NSFetchRequest alloc] init];
-                [allCache setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
-                
-                error = nil;
-                NSArray * caches = [moc executeFetchRequest:allCache error:&error];
-                if (caches.count > 0) {
-                    //Check Cache to remove conflicts
-                    NSString * dtitle = (NSString *)[d objectForKey:@"detectedtitle"];
-                    for (NSManagedObject * cacheentry in caches) {
-                        if ([dtitle isEqualToString:(NSString *)[cacheentry valueForKey:@"detectedTitle"]]) {
-                            [moc deleteObject:cacheentry];
-                            break;
-                        }
-                    }
-                    //Save
-                    [moc save:&error];
-                }
+                [ExceptionsCache addtoExceptions:[d objectForKey:@"detectedtitle"] correcttitle:[d objectForKey:@"correcttitle"] aniid:[d objectForKey:@"showid"] threshold:threshold offset:doffset];
+                //Check Cache
+                [ExceptionsCache checkandRemovefromCache:(NSString *)[d objectForKey:@"detectedtitle"]];
             }
         }
     }];
-
-    
 }
 -(IBAction)exportList:(id)sender{
     // Save the json file containing titles

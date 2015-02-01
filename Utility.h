@@ -19,4 +19,5 @@
 +(void)showsheetmessage:(NSString *)message
            explaination:(NSString *)explaination
                  window:(NSWindow *)w;
++(NSString *)urlEncodeString:(NSString *)string;
 @end
