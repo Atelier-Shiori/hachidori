@@ -7,18 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Hachidori.h"
 
 @class Hachidori;
 @class FixSearchDialog;
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate, NSSharingServicePickerDelegate> {
+@class HistoryWindow;
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
 	/* Windows */
     __unsafe_unretained NSWindow *window;
-	__unsafe_unretained NSWindow *historywindow;
 	__unsafe_unretained NSWindow *updatepanel;
 	/* General Stuff */
 	IBOutlet NSMenu *statusMenu;
-	IBOutlet NSTableView *historytable;
     NSStatusItem                *statusItem;
     NSImage                        *statusImage;
     NSImage                        *statusHighlightImage;
@@ -72,22 +70,15 @@
 }
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSWindow *historywindow;
 @property (assign) IBOutlet NSWindow *updatepanel;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property(strong) FixSearchDialog *fsdialog;
+@property (strong) HistoryWindow *historywindowcontroller;
 
 -(void)showhistory:(id)sender;
 -(IBAction)togglescrobblewindow:(id)sender;
--(void)addrecord:(NSString *)title
-		 Episode:(NSString *)episode
-			Date:(NSDate *)date;
--(IBAction)clearhistory:(id)sender;
--(void)clearhistoryended:(NSAlert *)alert
-					code:(int)choice
-				  conext:(void *)v;
 -(void)setStatusToolTip:(NSString*)toolTip;
 -(IBAction)toggletimer:(id)sender;
 -(void)autostarttimer;
