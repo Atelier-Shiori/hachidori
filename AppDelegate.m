@@ -69,7 +69,7 @@
     NSManagedObjectModel *mom = [self managedObjectModel];
     if (!mom) {
         NSAssert(NO, @"Managed object model is nil");
-        NSLog(@"%@:%s No model to generate a store from", [self class], _cmd);
+        NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
         return nil;
     }
 	
@@ -140,8 +140,9 @@
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"ignoredirectories"];
     [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"IgnoreTitleRules"];
-    [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ConfirmNewTitle"];
+    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"ConfirmNewTitle"];
     [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ConfirmUpdates"];
+	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"UseAutoExceptions"];
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
         	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteTitleBar"];
@@ -282,7 +283,7 @@
     if (!managedObjectContext) return NSTerminateNow;
 	
     if (![managedObjectContext commitEditing]) {
-        NSLog(@"%@:%s unable to commit editing to terminate", [self class], _cmd);
+        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
         return NSTerminateCancel;
     }
 	
@@ -442,12 +443,16 @@
     dispatch_async(queue, ^{
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
             // Check for latest list of Auto Exceptions automatically each week
-            if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] isEqualTo:nil]) {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] != nil) {
                 if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] timeIntervalSinceNow] < -604800) {
                     // Has been 1 Week, update Auto Exceptions
                     [AutoExceptions updateAutoExceptions];
                 }
             }
+			else{
+				// First time, populate
+				[AutoExceptions updateAutoExceptions];
+			}
         }
         [self setStatusText:@"Scrobble Status: Scrobbling..."];
         int status;
@@ -978,5 +983,4 @@
     // Share Item
     [[sender representedObject] performWithItems:shareItems];
 }
-
 @end

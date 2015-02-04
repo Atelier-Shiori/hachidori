@@ -164,7 +164,6 @@
             if ([[OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"^(%@/)+", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"] options:OgreIgnoreCaseOption] matchInString:filename]) {
                 NSLog(@"Video being played is in ignored directory");
                 return true;
-                break;
             }
         }
     }
@@ -177,7 +176,6 @@
             if ([[OGRegularExpression regularExpressionWithString:rule options:OgreIgnoreCaseOption] matchInString:filename] && rule.length !=0) { // Blank rules are infinite, thus should not be counted
                 NSLog(@"Video file name is on filename ignore list.");
                 return true;
-                break;
             }
         }
     }
