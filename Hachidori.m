@@ -20,6 +20,7 @@
 -(NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term;
 -(NSString *)foundtitle:(NSString *)titleid info:(NSDictionary *)found;
 -(NSArray *)filterArray:(NSArray *)searchdata;
+-(NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2;
 -(BOOL)checkstatus:(NSString *)titleid;
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
@@ -366,6 +367,9 @@
     // Populate Sorted Array
     NSArray * sortedArray = [self filterArray:searchdata];
 	searchdata = nil;
+	// Used for String Comparison
+	NSDictionary * titlematch1;
+	NSDictionary * titlematch2;
     // Search
     for (int i = 0; i < 2; i++) {
         switch (i) {
@@ -417,7 +421,25 @@
             //Return titleid if episode is valid
             if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
-                return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
+				if (sortedArray.count == 1 || DetectedSeason >= 2){
+					// Only Result, return
+               	 	return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
+				}
+                else if (titlematch1 == nil && sortedArray.count > 1)
+				{
+					titlematch1 = searchentry;
+					continue;
+				}
+                else if (titlematch1 != nil){
+                    titlematch2 = searchentry;
+                    if (titlematch1 != titlematch2) {
+                        return [self comparetitle:term match1:titlematch1 match2:titlematch2];
+                    }
+                    else{
+                        // Only Result, return
+                        return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
+                    }
+				}
             }
             else{
                 // Detected episodes exceed total episodes
@@ -427,6 +449,11 @@
         }
     }
     }
+    }
+    // If one match is found and not null, then return the id.
+    if (titlematch1 != nil) {
+        // Only Result, return
+        return [self foundtitle:[NSString stringWithFormat:@"%@",[titlematch1 objectForKey:@"slug"]] info:titlematch1];
     }
 	// Nothing found, return empty string
     return @"";
@@ -454,6 +481,30 @@
         }
     }
     return sortedArray;
+}
+-(NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2{
+	// Perform string score between two titles to see if one is the correct match or not
+	float score1, score2, ascore1, ascore2;
+	NSNumber * fuzziness = @(0.3);
+	//Score first title
+	score1 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match1 objectForKey:@"title"]] fuzziness:fuzziness];
+	ascore1 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match1 objectForKey:@"alternate_title"]] fuzziness:fuzziness];
+	//Score Second Title
+	score2 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match2 objectForKey:@"title"]] fuzziness:fuzziness];
+	ascore2 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match2 objectForKey:@"alternate_title"]] fuzziness:fuzziness];
+    if (score1 == score2 || ascore1 == ascore2 || score1 == INFINITY) {
+        //Scores can't be reliably compared, just return the first match
+        return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];
+    }
+    else if(score1 > score2 || ascore1 > ascore2)
+	{
+		//Return first title as it has a higher score
+		return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];
+	}
+	else{
+		// Return second title since it has a higher score
+		return [self foundtitle:[NSString stringWithFormat:@"%@",[match2 objectForKey:@"slug"]] info:match2];
+	}
 }
 -(NSString *)foundtitle:(NSString *)titleid info:(NSDictionary *)found{
     //Check to see if Seach Cache is enabled. If so, add it to the cache.

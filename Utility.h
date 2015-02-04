@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <OgreKit/OgreKit.h>
 #import "NSString_stripHtml.h"
+#import "NSString+Score.h"
 
 @interface Utility : NSObject
 +(bool)checkMatch:(NSString *)title
