@@ -382,42 +382,35 @@
             default:
                 break;
         }
-    if (DetectedTitleisMovie) {
-        //Check movies and Specials First
-        for (NSDictionary *searchentry in sortedArray) {
-        theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-            alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
-        }
-            DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
-            if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"Special"]) {
-                DetectedTitleisMovie = false;
-            }
-            //Return titleid
-            return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
-        }
-    }
-    else{
+
     // Check TV, ONA, Special, OVA, Other
     for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
         if ([Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
-            if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
-                // Used for Season Checking
-                OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
-                OGRegularExpressionMatch * smatch = [regex2 matchInString:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, [searchentry objectForKey:@"slug"]]];
-                if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
-                    if (smatch == nil) {
-                        continue;
-                    }
-                }
-                else{
-                    if (smatch != nil && DetectedSeason >= 2) { // No Season, check to see if there is a season or not. If so, continue.
-                        continue;
-                    }
-                }
-            }
+			if (DetectedTitleisMovie) {
+	            DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
+	            if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"Special"]) {
+	                DetectedTitleisMovie = false;
+	            }
+              }
+			else{
+	            if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
+	                // Used for Season Checking
+	                OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
+	                OGRegularExpressionMatch * smatch = [regex2 matchInString:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, [searchentry objectForKey:@"slug"]]];
+	                if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
+	                    if (smatch == nil) {
+	                        continue;
+	                    }
+	                }
+	                else{
+	                    if (smatch != nil && DetectedSeason >= 2) { // No Season, check to see if there is a season or not. If so, continue.
+	                        continue;
+	                    }
+	                }
+	            }
+			}
             //Return titleid if episode is valid
             if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
@@ -447,7 +440,6 @@
             }
 
         }
-    }
     }
     }
     // If one match is found and not null, then return the id.
@@ -878,5 +870,4 @@
         }
     }
 }
-
 @end
