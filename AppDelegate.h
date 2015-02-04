@@ -50,8 +50,6 @@
 	BOOL scrobbling;
     BOOL scrobbleractive;
     bool panelactive;
-    NSDate * previousfiredate;
-    NSDate * pausestart;
     NSArray * shareItems;
 	/* Hachidori Scrobbling/Updating Class */
 	Hachidori * haengine;
