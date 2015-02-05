@@ -156,7 +156,7 @@
         else{
             NSString * DetectedTitle = (NSString *)[result objectForKey:@"title"];
             NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",[result objectForKey:@"episode"]];
-            NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", (NSString *)[[d objectForKey:@"site"] capitalizedString], [result objectForKey:@"browser"]];
+            NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", (NSString *)[[result objectForKey:@"site"] capitalizedString], [result objectForKey:@"browser"]];
             NSString * DetectedGroup = (NSString *)[result objectForKey:@"site"];
             return [[NSDictionary alloc] initWithObjectsAndKeys: DetectedTitle,@"detectedtitle", DetectedEpisode, @"detectedepisode", [NSNumber numberWithInt:0], @"detectedseason", DetectedSource, @"detectedsource", DetectedGroup, @"group", nil];
         }
