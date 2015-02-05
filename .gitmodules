@@ -1,3 +1,6 @@
 [submodule "Frameworks/anitomy-for-cocoa"]
 	path = Frameworks/anitomy-for-cocoa
 	url = https://github.com/chikorita157/anitomy-for-cocoa.git
+[submodule "detectstream/source/detectstream"]
+	path = detectstream/source/detectstream
+	url = https://github.com/chikorita157/detectstream
