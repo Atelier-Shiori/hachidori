@@ -14,6 +14,9 @@
 -(NSDictionary *)detectStream;
 -(NSDictionary *)detectPlayer;
 -(bool)checkifIgnored:(NSString *)filename;
+-(bool)checkifTitleIgnored:(NSString *)filename;
+-(bool)checkifDirectoryIgnored:(NSString *)filename;
+-(bool)checkIgnoredKeywords:(NSString *)filename;
 @end
 
 @implementation Detection
@@ -74,8 +77,9 @@
             }
             //Check if thee file name or directory is on any ignore list
             BOOL onIgnoreList = [self checkifIgnored:string];
+            BOOL invalidepisode = [self checkIgnoredKeywords:string];
             //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
-            if ([regex matchInString:string] !=nil && !onIgnoreList) {
+            if ([regex matchInString:string] !=nil && !onIgnoreList && !invalidepisode) {
                 NSDictionary *d = [[Recognition alloc] recognize:string];
                 NSString * DetectedTitle = (NSString *)[d objectForKey:@"title"];
                 NSString * DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
@@ -146,27 +150,25 @@
     else{
         NSArray * c = [d objectForKey:@"result"];
         NSDictionary * result = [c objectAtIndex:0];
-        NSString * DetectedTitle = (NSString *)[result objectForKey:@"title"];
-        NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",[result objectForKey:@"episode"]];
-        NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", (NSString *)[[d objectForKey:@"site"] capitalizedString], [result objectForKey:@"browser"]];
-        NSString * DetectedGroup = (NSString *)[result objectForKey:@"site"];
-       return [[NSDictionary alloc] initWithObjectsAndKeys: DetectedTitle,@"detectedtitle", DetectedEpisode, @"detectedepisode", [NSNumber numberWithInt:0], @"detectedseason", DetectedSource, @"detectedsource", DetectedGroup, @"group", nil];
-    }
-}
-
--(bool)checkifIgnored:(NSString *)filename{
-    //Checks if file name or directory is on ignore list
-    filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
-    //Check ignore directories. If on ignore directory, set onIgnoreList to true.
-    NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
-    if ([ignoredirectories count] > 0) {
-        for (NSDictionary * d in ignoredirectories) {
-            if ([[OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"^(%@/)+", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"] options:OgreIgnoreCaseOption] matchInString:filename]) {
-                NSLog(@"Video being played is in ignored directory");
-                return true;
-            }
+        if ([self checkifTitleIgnored:(NSString *)[result objectForKey:@"title"]]) {
+            return nil;
+        }
+        else{
+            NSString * DetectedTitle = (NSString *)[result objectForKey:@"title"];
+            NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",[result objectForKey:@"episode"]];
+            NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", (NSString *)[[d objectForKey:@"site"] capitalizedString], [result objectForKey:@"browser"]];
+            NSString * DetectedGroup = (NSString *)[result objectForKey:@"site"];
+            return [[NSDictionary alloc] initWithObjectsAndKeys: DetectedTitle,@"detectedtitle", DetectedEpisode, @"detectedepisode", [NSNumber numberWithInt:0], @"detectedseason", DetectedSource, @"detectedsource", DetectedGroup, @"group", nil];
         }
     }
+}
+-(bool)checkifIgnored:(NSString *)filename{
+    if ([self checkifTitleIgnored:filename] || [self checkifDirectoryIgnored:filename]) {
+        return true;
+    }
+    return false;
+}
+-(bool)checkifTitleIgnored:(NSString *)filename{
     // Get filename only
     filename = [[OGRegularExpression regularExpressionWithString:@"^.+/"] replaceAllMatchesInString:filename withString:@""];
     NSArray * ignoredfilenames = [[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"];
@@ -181,5 +183,27 @@
     }
     return false;
 }
-
+-(bool)checkifDirectoryIgnored:(NSString *)filename{
+    //Checks if file name or directory is on ignore list
+    filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
+    //Check ignore directories. If on ignore directory, set onIgnoreList to true.
+    NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
+    if ([ignoredirectories count] > 0) {
+        for (NSDictionary * d in ignoredirectories) {
+            if ([[OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"^(%@/)+", [d objectForKey:@"directory"]] stringByReplacingOccurrencesOfString:@"/" withString:@"\\/"] options:OgreIgnoreCaseOption] matchInString:filename]) {
+                NSLog(@"Video being played is in ignored directory");
+                return true;
+            }
+        }
+    }
+    return false;
+}
+-(bool)checkIgnoredKeywords:(NSString *)filename{
+    // Check for potentially invalid episode numbers
+    filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
+    if ([[OGRegularExpression regularExpressionWithString:@"- (OP|ED|PV|NCED)" options:OgreIgnoreCaseOption] matchInString:filename]) {
+        return true;
+    }
+    return false;
+}
 @end

@@ -19,18 +19,19 @@
     regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
     string = [regex replaceAllMatchesInString:string
                                    withString:@""];
-    NSDictionary * d = [[anitomy_bridge alloc] tokenize:string];
+    NSDictionary * d = [[anitomy_bridge new] tokenize:string];
     DetectedTitle = [d objectForKey:@"title"];
     DetectedEpisode = [d objectForKey:@"episode"];
     DetectedGroup = [d objectForKey:@"group"];
     if (DetectedGroup.length == 0) {
         DetectedGroup = @"Unknown";
     }
-    //Season
+    //Season Checking
     NSString * tmpseason;
+    NSString * tmptitle = [NSString stringWithFormat:@"%@ %@", DetectedTitle, [d objectForKey:@"season"]];
     OGRegularExpressionMatch * smatch;
     regex = [OGRegularExpression regularExpressionWithString: @"(S|s)\\d"];
-    smatch = [regex matchInString:DetectedTitle];
+    smatch = [regex matchInString:tmptitle];
     if (smatch != nil) {
         tmpseason = [smatch matchedString];
         regex = [OGRegularExpression regularExpressionWithString: @"(S|s)"];
@@ -38,17 +39,17 @@
         DetectedSeason = [tmpseason intValue];
     }
     else {
-        regex = [OGRegularExpression regularExpressionWithString:@"\\d+(st|nd|rd|th) season" options:OgreIgnoreCaseOption];
-        smatch = [regex matchInString:DetectedTitle];
+        regex = [OGRegularExpression regularExpressionWithString:@"\\d+(st|nd|rd|th)" options:OgreIgnoreCaseOption];
+        smatch = [regex matchInString:tmptitle];
         if (smatch !=nil) {
             tmpseason = [smatch matchedString];
-            regex = [OGRegularExpression regularExpressionWithString: @"(st|nd|rd|th) season"];
+            regex = [OGRegularExpression regularExpressionWithString: @"(st|nd|rd|th)"];
             tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
             DetectedSeason = [tmpseason intValue];
         }
         else{
-            regex = [OGRegularExpression regularExpressionWithString: @"((second|third|fourth|fifth|sixth|seventh|eighth|nineth) season)" options:OgreIgnoreCaseOption];
-            smatch = [regex matchInString:DetectedTitle];
+            regex = [OGRegularExpression regularExpressionWithString: @"(second|third|fourth|fifth|sixth|seventh|eighth|nineth)" options:OgreIgnoreCaseOption];
+            smatch = [regex matchInString:tmptitle];
             if (smatch !=nil) {
                 tmpseason = [smatch matchedString];
                 DetectedSeason = [self recognizeSeason:tmpseason];
@@ -67,24 +68,23 @@
     
 }
 -(int)recognizeSeason:(NSString *)season{
-    if ([season caseInsensitiveCompare:@"second season"] == NSOrderedSame)
+    if ([season caseInsensitiveCompare:@"second"] == NSOrderedSame)
         return 2;
-    else if ([season caseInsensitiveCompare:@"third season"] == NSOrderedSame)
+    else if ([season caseInsensitiveCompare:@"third"] == NSOrderedSame)
         return 3;
-    else if ([season caseInsensitiveCompare:@"fourth season"] == NSOrderedSame)
+    else if ([season caseInsensitiveCompare:@"fourth"] == NSOrderedSame)
         return 4;
-    else if ([season caseInsensitiveCompare:@"fifth season"] == NSOrderedSame)
+    else if ([season caseInsensitiveCompare:@"fifth"] == NSOrderedSame)
         return 5;
-    else if ([season caseInsensitiveCompare:@"sixth season"] == NSOrderedSame)
+    else if ([season caseInsensitiveCompare:@"sixth"] == NSOrderedSame)
         return 6;
-    else if ([season caseInsensitiveCompare:@"seventh season"] == NSOrderedSame)
+    else if ([season caseInsensitiveCompare:@"seventh"] == NSOrderedSame)
         return 7;
-    else if ([season caseInsensitiveCompare:@"eighth season"] == NSOrderedSame)
+    else if ([season caseInsensitiveCompare:@"eighth"] == NSOrderedSame)
         return 8;
-    else if ([season caseInsensitiveCompare:@"ninth season"] == NSOrderedSame)
+    else if ([season caseInsensitiveCompare:@"ninth"] == NSOrderedSame)
         return 9;
     else
         return 0;
 }
 @end
-

@@ -21,7 +21,7 @@ This will test how Hachidori finds the associated ID for a detected title with a
 ## Dependencies
 All the frameworks are included. Just build! Here are the frameworks that are used in this app:
 
-* anitomy-osx.framework (Framework version and adapted version of anitomy C++ library. Source code is in Framework folder.)
+* anitomy-osx.framework (Included as a submodule)
 * Sparkle.framework
 * OgreKit.framework
  
