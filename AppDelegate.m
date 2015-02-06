@@ -437,6 +437,7 @@
         [confirmupdate setEnabled:NO];
 		[findtitle setEnabled:NO];
         [updatenow setTitle:@"Updating..."];
+        [self setStatusText:@"Scrobble Status: Scrobbling..."];
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -454,9 +455,9 @@
 				[AutoExceptions updateAutoExceptions];
 			}
         }
-        [self setStatusText:@"Scrobble Status: Scrobbling..."];
         int status;
         status = [haengine startscrobbling];
+    dispatch_async(dispatch_get_main_queue(), ^{
 	//Enable the Update button if a title is detected
         switch (status) { // 0 - nothing playing; 1 - same episode playing; 21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed; 
             case 0:
@@ -500,7 +501,6 @@
             default:
                 break;
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
             if ([haengine getSuccess] == 1) {
 				[findtitle setHidden:true];
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
@@ -950,11 +950,9 @@
 
 - (void)appendToAnimeInfo:(NSString*)text
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
         NSAttributedString* attr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n", text]];
         
         [[animeinfo textStorage] appendAttributedString:attr];
-    });
 }
 #pragma mark Share Services
 -(void)generateShareMenu{
