@@ -20,15 +20,15 @@
 #define ANITOMY_PARSER_H
 
 #include "element.h"
-#include "string2.h"
 #include "options.h"
+#include "string2.h"
 #include "token.h"
 
 namespace anitomy {
 
 class Parser {
 public:
-  Parser(Elements& elements, Options& options, token_container_t& tokens);
+  Parser(Elements& elements, const Options& options, token_container_t& tokens);
 
   Parser(const Parser&) = delete;
   Parser& operator=(const Parser&) = delete;
@@ -41,7 +41,6 @@ private:
   void SearchForAnimeTitle();
   void SearchForReleaseGroup();
   void SearchForEpisodeTitle();
-  void SearchForAnimeSeason();
   void SearchForAnimeYear();
 
   bool SearchForEpisodePatterns(std::vector<size_t>& tokens);
@@ -50,8 +49,7 @@ private:
   bool SearchForLastNumber(std::vector<size_t>& tokens);
 
   bool NumberComesAfterEpisodePrefix(Token& token);
-  bool NumberComesAfterEpisodeKeyword(const token_iterator_t& token);
-  bool NumberComesBeforeTotalNumber(const token_iterator_t& token);
+  bool NumberComesBeforeTotalNumber(const token_iterator_t token);
 
   bool MatchEpisodePatterns(string_t word, Token& token);
   bool MatchSingleEpisodePattern(const string_t& word, Token& token);
@@ -60,22 +58,31 @@ private:
   bool MatchTypeAndEpisodePattern(const string_t& word, Token& token);
   bool MatchJapaneseCounterPattern(const string_t& word, Token& token);
 
-  void SetEpisodeNumber(string_t number, Token& token);
+  bool SetEpisodeNumber(const string_t& number, Token& token, bool validate);
 
   size_t FindNumberInString(const string_t& str);
+  string_t GetNumberFromOrdinal(const string_t& word);
   bool IsCrc32(const string_t& str);
   bool IsDashCharacter(const string_t& str);
-  bool IsOrdinalNumber(const string_t& word);
   bool IsResolution(const string_t& str);
   bool IsElementCategorySearchable(ElementCategory category);
   bool IsElementCategorySingular(ElementCategory category);
 
+  bool CheckAnimeSeasonKeyword(const token_iterator_t token);
+  bool CheckEpisodeKeyword(const token_iterator_t token);
+
   void BuildElement(ElementCategory category, bool keep_delimiters,
-                    const token_iterator_t& token_begin,
-                    const token_iterator_t& token_end) const;
+                    const token_iterator_t token_begin,
+                    const token_iterator_t token_end) const;
+
+  bool IsTokenIsolated(const token_iterator_t token) const;
+
+  const int kAnimeYearMin = 1900;
+  const int kAnimeYearMax = 2050;
+  const int kEpisodeNumberMax = kAnimeYearMin - 1;
 
   Elements& elements_;
-  Options& options_;
+  const Options& options_;
   token_container_t& tokens_;
 };
 

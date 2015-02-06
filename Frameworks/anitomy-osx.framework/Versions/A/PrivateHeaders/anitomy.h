@@ -20,8 +20,8 @@
 #define ANITOMY_ANITOMY_H
 
 #include "element.h"
-#include "string2.h"
 #include "options.h"
+#include "string2.h"
 #include "token.h"
 
 namespace anitomy {
@@ -35,7 +35,8 @@ public:
   const token_container_t& tokens() const;
 
 private:
-  bool RemoveExtensionFromFilename(string_t& filename, string_t& extension);
+  bool RemoveExtensionFromFilename(string_t& filename, string_t& extension) const;
+  void RemoveIgnoredStrings(string_t& filename) const;
 
   Elements elements_;
   Options options_;
