@@ -370,6 +370,7 @@
 	// Used for String Comparison
 	NSDictionary * titlematch1;
 	NSDictionary * titlematch2;
+    int mstatus = 0;
     // Search
     for (int i = 0; i < 2; i++) {
         switch (i) {
@@ -387,7 +388,8 @@
     for (NSDictionary *searchentry in sortedArray) {
         theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
         alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
-        if ([Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i]) {
+        int matchstatus = [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i];
+        if (matchstatus == 1 || matchstatus == 2) {
 			if (DetectedTitleisMovie) {
 	            DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
 	            if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"Special"]) {
@@ -418,21 +420,25 @@
 					// Only Result, return
                	 	return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
 				}
-                else if (titlematch1 == nil && sortedArray.count > 1)
-				{
+                else if (titlematch1 == nil && sortedArray.count > 1 && ((term.length < theshowtitle.length)||(term.length + 2 < alttitle.length && alttitle.length > 0 && matchstatus == 2))){
+                    mstatus = matchstatus;
 					titlematch1 = searchentry;
 					continue;
 				}
                 else if (titlematch1 != nil){
                     titlematch2 = searchentry;
                     if (titlematch1 != titlematch2) {
-                        return [self comparetitle:term match1:titlematch1 match2:titlematch2];
+                        return [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus];
                     }
                     else{
                         // Only Result, return
                         return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
                     }
 				}
+                else{
+                    // Only Result, return
+                    return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
+                }
             }
             else{
                 // Detected episodes exceed total episodes
@@ -474,21 +480,32 @@
     }
     return sortedArray;
 }
--(NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2{
+-(NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2 mstatus:(int)a mstatus2:(int)b{
 	// Perform string score between two titles to see if one is the correct match or not
 	float score1, score2, ascore1, ascore2;
-	NSNumber * fuzziness = @(0.3);
+	double fuzziness = 0.3;
 	//Score first title
-	score1 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match1 objectForKey:@"title"]] fuzziness:fuzziness];
-	ascore1 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match1 objectForKey:@"alternate_title"]] fuzziness:fuzziness];
+    score1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match1 objectForKey:@"title"]] UTF8String], fuzziness);
+    ascore1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match1 objectForKey:@"alternate_title"]] UTF8String], fuzziness);
 	//Score Second Title
-	score2 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match2 objectForKey:@"title"]] fuzziness:fuzziness];
-	ascore2 = [title scoreAgainst:[NSString stringWithFormat:@"%@", [match2 objectForKey:@"alternate_title"]] fuzziness:fuzziness];
+    score2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match2 objectForKey:@"title"]] UTF8String], fuzziness);
+    ascore2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match2 objectForKey:@"alternate_title"]] UTF8String], fuzziness);
     if (score1 == score2 || ascore1 == ascore2 || score1 == INFINITY) {
         //Scores can't be reliably compared, just return the first match
         return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];
     }
-    else if(score1 > score2 || ascore1 > ascore2)
+    else if(a == 2 || b == 2){
+        if(ascore1 > ascore2)
+        {
+            //Return first title as it has a higher score
+            return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];
+        }
+        else{
+            // Return second title since it has a higher score
+            return [self foundtitle:[NSString stringWithFormat:@"%@",[match2 objectForKey:@"slug"]] info:match2];
+        }
+    }
+    else if(score1 > score2)
 	{
 		//Return first title as it has a higher score
 		return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];

@@ -9,15 +9,18 @@
 #import "Utility.h"
 
 @implementation Utility
-+(bool)checkMatch:(NSString *)title
++(int)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OGRegularExpression *)regex
            option:(int)i{
     //Checks for matches
-    if ([regex matchInString:title] != nil || ([regex matchInString:atitle] != nil && [atitle length] >0 && i==0)) {
-        return true;
+    if ([regex matchInString:title] != nil) {
+        return 1;
     }
-    return false;
+    else if([regex matchInString:atitle] != nil && [atitle length] >0 && i==0){
+        return 2;
+    }
+    return 0;
 }
 +(NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references

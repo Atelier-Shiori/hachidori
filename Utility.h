@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <OgreKit/OgreKit.h>
 #import "NSString_stripHtml.h"
-#import "NSString+Score.h"
+#import "string_score.h"
 
 @interface Utility : NSObject
-+(bool)checkMatch:(NSString *)title
++(int)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OGRegularExpression *)regex
            option:(int)i;
