@@ -943,7 +943,9 @@
         [self appendToAnimeInfo:@"Episodes: Unknown"];
     }
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", [d objectForKey:@"show_type"]]];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", [d objectForKey:@"age_rating"]]];
+    if ([d objectForKey:@"age_rating"] != [NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", [d objectForKey:@"age_rating"]]];
+    }
     //Image
     NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [d objectForKey:@"cover_image"]]]]; //Downloads Image
     [img setImage:dimg]; //Get the Image for the title
