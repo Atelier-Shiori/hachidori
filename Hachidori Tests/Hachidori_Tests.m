@@ -98,7 +98,7 @@
         // Calculate Results
         float acc = ((count - incorrect)/(float)count);
         NSLog(@"There are %i incorrect title(s) out of %i title(s). Accuracy: %f", incorrect, count, acc * 100);
-        if (acc < 95) {
+        if (acc < 0.95) {
             XCTAssert(NO, @"Failed: Accuracy is bellow the 95 percent accuracy threshold");
         }
         else{
