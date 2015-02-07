@@ -20,7 +20,7 @@
 -(NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term;
 -(NSString *)foundtitle:(NSString *)titleid info:(NSDictionary *)found;
 -(NSArray *)filterArray:(NSArray *)searchdata;
--(NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2;
+-(NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2 mstatus:(int)a mstatus2:(int)b;
 -(BOOL)checkstatus:(NSString *)titleid;
 -(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
 -(int)updatetitle:(NSString *)titleid;
