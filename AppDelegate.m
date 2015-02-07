@@ -182,8 +182,11 @@
     haengine = [[Hachidori alloc] init];
 	[haengine setManagedObjectContext:managedObjectContext];
 	// Insert code here to initialize your application
-	//Check if Application is in the /Applications Folder
+	//Check if Application is in the /Applications Folder, but not on debug releases
+    #ifdef DEBUG
+    #else
 	PFMoveToApplicationsFolderIfNecessary();
+    #endif
     // Set Defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set Notification Center Delegate

@@ -59,6 +59,7 @@
     NSLog(@"Testing a dataset with %i filenames", count);
     NSLog(@"Starting Test...\n\n");
     for (NSDictionary *d in testdata) {
+        @autoreleasepool {
         NSString * filename = [d objectForKey:@"filename"];
         NSString * expectedtitle;
         if ([d objectForKey:@"expectedtitle"] != [NSNull null]) {
@@ -86,6 +87,7 @@
             fail = fail+1;
         }
         NSLog(@"----");
+        }
     }
     if (fail > 0) {
         // Test Failed, title couldn't be found
@@ -96,7 +98,12 @@
         // Calculate Results
         float acc = ((count - incorrect)/(float)count);
         NSLog(@"There are %i incorrect title(s) out of %i title(s). Accuracy: %f", incorrect, count, acc * 100);
-        XCTAssert(YES, @"No Errors");
+        if (acc < 95) {
+            XCTAssert(NO, @"Failed: Accuracy is bellow the 95 percent accuracy threshold");
+        }
+        else{
+            XCTAssert(YES, @"No Errors");
+        }
     }
 }
 
