@@ -414,7 +414,16 @@
 	            }
 			}
             //Return titleid if episode is valid
-            if ([searchentry objectForKey:@"episode_count"] == [NSNull null] || ([[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"episode_count"]] intValue] >= [DetectedEpisode intValue])) {
+            int episodecount;
+            if ([searchentry objectForKey:@"episode_count"] == [NSNull null]) {
+                // No episode Count, set episode count to zero
+                episodecount = 0;
+            }
+            else{
+                //Set Episode Count
+                episodecount = [[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"episode_count"]] intValue];
+            }
+            if (episodecount == 0 || ( episodecount >= [DetectedEpisode intValue])) {
                 NSLog(@"Valid Episode Count");
 				if (sortedArray.count == 1 || DetectedSeason >= 2){
 					// Only Result, return

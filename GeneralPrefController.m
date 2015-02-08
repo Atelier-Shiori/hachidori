@@ -130,13 +130,16 @@
     
     dispatch_async(queue, ^{
         // In a queue, download latest Auto Exceptions JSON, disable button until done and show progress wheel
-        [updateexceptionsbtn setEnabled:NO];
-        [updateexceptionschk setEnabled:NO];
-        [indicator startAnimation:self];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [updateexceptionsbtn setEnabled:NO];
+            [updateexceptionschk setEnabled:NO];
+            [indicator startAnimation:self];});
         [AutoExceptions updateAutoExceptions];
-        [indicator stopAnimation:self];
-        [updateexceptionsbtn setEnabled:YES];
-        [updateexceptionschk setEnabled:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [indicator stopAnimation:self];
+            [updateexceptionsbtn setEnabled:YES];
+            [updateexceptionschk setEnabled:YES];
+        });
         dispatch_release(queue);
     });
     

@@ -41,19 +41,25 @@
 #pragma mutators
 -(void)addHeader:(id)object
          forKey:(NSString *)key{
+    NSLock * lock = [NSLock new]; // NSMutableArray is not Thread Safe, lock before performing operation
+    [lock lock];
     if (formdata == nil) {
         //Initalize Header Data Array
         headers = [[NSMutableArray alloc] init];
     }
     [headers addObject:[NSDictionary dictionaryWithObjectsAndKeys:object,key, nil]];
+    [lock unlock]; //Finished operation, unlock
 }
 -(void)addFormData:(id)object
            forKey:(NSString *)key{
+    NSLock * lock = [NSLock new]; // NSMutableArray is not Thread Safe, lock before performing operation
+    [lock lock];
     if (formdata == nil) {
         //Initalize Form Data Array
         formdata = [[NSMutableArray alloc] init];
     }
     [formdata addObject:[NSDictionary dictionaryWithObjectsAndKeys:object,key, nil]];
+    [lock unlock]; //Finished operation, unlock
 }
 -(void)setUserAgent:(NSString *)string{
     useragent = [NSString stringWithFormat:@"%@",string];
@@ -78,6 +84,8 @@
     [request setTimeoutInterval:15];
     // Set User Agent
     [request setValue:useragent forHTTPHeaderField:@"User-Agent"];
+    NSLock * lock = [NSLock new]; // NSMutableArray is not Thread Safe, lock before performing operation
+    [lock lock];
     // Set Other headers, if any
     if (headers != nil) {
         for (NSDictionary *d in headers ) {
@@ -85,6 +93,7 @@
             [request setValue:[[d allValues] objectAtIndex:0]forHTTPHeaderField:[[d allKeys] objectAtIndex:0]];
         }
     }
+    [lock unlock];
     NSError * rerror = nil;
     responsedata = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&rresponse
@@ -111,6 +120,8 @@
     [request setValue:useragent forHTTPHeaderField:@"User-Agent"];
     // Set Timeout
     [request setTimeoutInterval:15];
+    NSLock * lock = [NSLock new]; // NSMutableArray is not Thread Safe, lock before performing operation
+    [lock lock];
     //Set Post Data
     [request setHTTPBody:[self encodeArraywithDictionaries:formdata]];
     // Set Other headers, if any
@@ -120,6 +131,7 @@
             [request setValue:[[d allValues] objectAtIndex:0]forHTTPHeaderField:[[d allKeys] objectAtIndex:0]];
         }
     }
+    [lock unlock];
     NSError * rerror;
     responsedata = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&rresponse

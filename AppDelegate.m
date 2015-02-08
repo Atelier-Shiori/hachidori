@@ -536,6 +536,10 @@
                     [self generateShareMenu];
                 }
             }
+            if (status == 51) {
+                //Show option to find title
+                [findtitle setHidden:false];
+            }
             // Enable Menu Items
             scrobbleractive = false;
             [updatenow setEnabled:YES];
@@ -592,8 +596,6 @@
         //Get last scrobbled title
         [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
     }
-    // Set search field to search for the last scrobbled detected title
-    [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
     if (isVisible) {
         [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
         [NSApp beginSheet:[fsdialog window]
