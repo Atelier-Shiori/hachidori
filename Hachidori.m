@@ -862,7 +862,7 @@
         else if (i== 1 && [[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]){
                 NSLog(@"Checking Auto Exceptions");
                 [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
-				predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (group == %@)", DetectedTitle, DetectedGroup];
+				predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (group == %@) OR (group == %@)", DetectedTitle, DetectedGroup, @"ALL"];
         }
         else{break;}
 		// Set Predicate and filter exceiptions array
