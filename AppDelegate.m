@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Hachidori.h"
+#import "Hachidori+Hachidori_Update.h"
 #import "PFMoveApplication.h"
 #import "Preferences.h"
 #import "FixSearchDialog.h"

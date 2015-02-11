@@ -64,13 +64,6 @@
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
 -(int)scrobble;
 -(BOOL)confirmupdate;
--(BOOL)updatestatus:(NSString *)titleid
-            episode:(NSString *)episode
-              score:(float)showscore
-        watchstatus:(NSString*)showwatchstatus
-              notes:(NSString*)note
-          isPrivate:(BOOL)privatevalue;
--(bool)removetitle:(NSString *)titleid;
 -(void)clearAnimeInfo;
 // Unit Testing Only
 -(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group;
