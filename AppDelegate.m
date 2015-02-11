@@ -386,6 +386,20 @@
     [updatedcorrecttitle setHidden:NO];
     [shareMenuItem setHidden:NO];
 }
+-(void)toggleScrobblingUIEnable:(BOOL)enable{
+    [statusMenu setAutoenablesItems:enable];
+    [updatenow setEnabled:enable];
+    [togglescrobbler setEnabled:enable];
+    [confirmupdate setEnabled:enable];
+    [findtitle setEnabled:enable];
+    if (!enable) {
+        [updatenow setTitle:@"Updating..."];
+        [self setStatusText:@"Scrobble Status: Scrobbling..."];
+    }
+    else{
+        [updatenow setTitle:@"Update Now"];
+    }
+}
 
 #pragma mark Timer Functions
 
@@ -433,13 +447,8 @@
     if (!scrobbleractive) {
         scrobbleractive = true;
         // Disable toggle scrobbler and update now menu items
-        [statusMenu setAutoenablesItems:NO];
-        [updatenow setEnabled:NO];
-        [togglescrobbler setEnabled:NO];
-        [confirmupdate setEnabled:NO];
-		[findtitle setEnabled:NO];
-        [updatenow setTitle:@"Updating..."];
-        [self setStatusText:@"Scrobble Status: Scrobbling..."];
+        [self toggleScrobblingUIEnable:false];
+
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -541,12 +550,7 @@
             }
             // Enable Menu Items
             scrobbleractive = false;
-            [updatenow setEnabled:YES];
-            [togglescrobbler setEnabled:YES];
-            [statusMenu setAutoenablesItems:YES];
-            [confirmupdate setEnabled:YES];
-            [findtitle setEnabled:YES];
-            [updatenow setTitle:@"Update Now"];
+            [self toggleScrobblingUIEnable:true];
 	});
     });
     }
@@ -662,7 +666,6 @@
 	                        [sharetoolbaritem setEnabled:YES];
 	                        [correcttoolbaritem setEnabled:YES];
 	                    }
-     
                         //Show Anime Correct Information
                         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
                         [self showAnimeInfo:ainfo];
