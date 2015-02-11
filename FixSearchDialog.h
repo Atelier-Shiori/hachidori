@@ -8,13 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FixSearchDialog : NSWindowController <NSTableViewDelegate>{
+@interface FixSearchDialog : NSWindowController{
     IBOutlet NSArrayController * arraycontroller;
     IBOutlet NSTextField *search;
     IBOutlet NSButton * deleteoncorrection;
     IBOutlet NSButton * onetimecorrection;
     IBOutlet NSTableView *tb;
-	IBOutlet NSTextView *selectedsynopsis;
     NSString * selectedtitle;
     NSString * selectedaniid;
 	NSString * selectedtotalepisodes;

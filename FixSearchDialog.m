@@ -133,17 +133,6 @@
     //Deselect Selection
     [tb deselectAll:self];
 }
--(void)tableViewSelectionDidChange:(NSNotification *)notification{
-    if ([[notification object] selectedRow] != -1) {
-        // Show synopsis
-        NSDictionary * d = [[arraycontroller selectedObjects] objectAtIndex:0];
-        [selectedsynopsis setString:[[NSString stringWithFormat:@"%@", [d objectForKey:@"synopsis"]] stripHtml]];
-    }
-    else{
-        [selectedsynopsis setString:@""];
-    }
-
-}
 -(void)setCorrection:(BOOL)correct{
     correction = correct;
 }

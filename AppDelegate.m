@@ -939,10 +939,8 @@
     }
     [self appendToAnimeInfo:@""];
     //Description
-    NSString * anidescription = [d objectForKey:@"synopsis"];
-    anidescription = [anidescription stripHtml]; //Removes HTML tags
     [self appendToAnimeInfo:@"Description"];
-    [self appendToAnimeInfo:anidescription];
+    [self appendToAnimeInfo:[d objectForKey:@"synopsis"]];
     //Meta Information
     [self appendToAnimeInfo:@""];
     [self appendToAnimeInfo:@"Other Information"];

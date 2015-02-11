@@ -30,7 +30,6 @@
 		5C75EAC31A36069E00A20229 /* MASShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EABD1A36069E00A20229 /* MASShortcutView.m */; };
 		5C75EAC41A36069E00A20229 /* MASShortcutView+UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EABF1A36069E00A20229 /* MASShortcutView+UserDefaults.m */; };
 		5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */; };
-		5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C881EFA19F462B400E20425 /* NSString_stripHtml.m */; };
 		5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C22EE1A85E80000D2FCC5 /* string_score.c */; };
 		5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */; };
 		5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */; };
@@ -137,8 +136,6 @@
 		5C75EABF1A36069E00A20229 /* MASShortcutView+UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MASShortcutView+UserDefaults.m"; sourceTree = "<group>"; };
 		5C75EAC51A360C4A00A20229 /* HotKeyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKeyConstants.h; sourceTree = "<group>"; };
 		5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeyConstants.m; sourceTree = "<group>"; };
-		5C881EF919F462B400E20425 /* NSString_stripHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_stripHtml.h; sourceTree = "<group>"; };
-		5C881EFA19F462B400E20425 /* NSString_stripHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_stripHtml.m; sourceTree = "<group>"; };
 		5C8C22EE1A85E80000D2FCC5 /* string_score.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_score.c; sourceTree = "<group>"; };
 		5C8C22EF1A85E80000D2FCC5 /* string_score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_score.h; sourceTree = "<group>"; };
 		5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNSURLConnection.h; sourceTree = "<group>"; };
@@ -384,8 +381,6 @@
 				5C75EAB51A36069100A20229 /* Hotkey */,
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
-				5C881EF919F462B400E20425 /* NSString_stripHtml.h */,
-				5C881EFA19F462B400E20425 /* NSString_stripHtml.m */,
 				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
 				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
 			);
@@ -605,7 +600,6 @@
 				5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */,
 				5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
-				5C881EFB19F462B400E20425 /* NSString_stripHtml.m in Sources */,
 				6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */,
 				6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,

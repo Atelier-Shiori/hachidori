@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <OgreKit/OgreKit.h>
-#import "NSString_stripHtml.h"
 #import "string_score.h"
 
 @interface Utility : NSObject
