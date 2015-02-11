@@ -45,7 +45,7 @@
 	IBOutlet NSTextField * LastScrobbled;
     IBOutlet NSTextView * animeinfo;
     IBOutlet NSImageView * img;
-    IBOutlet NSVisualEffectView * windowcontent;
+    IBOutlet NSView * windowcontent;
     IBOutlet NSScrollView *animeinfooutside;
 	BOOL scrobbling;
     BOOL scrobbleractive;

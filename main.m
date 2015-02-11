@@ -11,11 +11,6 @@
 
 int main(int argc, char *argv[])
 {
-    //Load VisualEffect as NSView on Operating Systems < 10.10
-    if (![NSVisualEffectView class]) {
-        Class NSVisualEffectViewClass = objc_allocateClassPair([NSView class], "NSVisualEffectView", 0);
-        objc_registerClassPair(NSVisualEffectViewClass);
-    }
     return NSApplicationMain(argc,  (const char **) argv);
 }
 

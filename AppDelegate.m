@@ -147,7 +147,6 @@
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
         	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteTitleBar"];
-        	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteVibrance"];
     }
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
@@ -213,17 +212,6 @@
             frame.size = CGSizeMake(440, 291);
             [window setFrame:frame display:YES];
          }
-        if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
-            //Add NSVisualEffectView to Window
-            [windowcontent setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
-            [windowcontent setMaterial:NSVisualEffectMaterialLight];
-            [windowcontent setState:NSVisualEffectStateFollowsWindowActiveState];
-            [windowcontent setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
-            //Make Animeinfo textview transparrent
-            [animeinfooutside setDrawsBackground:NO];
-            [animeinfo setBackgroundColor:[NSColor clearColor]];
-        
-        }
         
     }
     // Fix template images

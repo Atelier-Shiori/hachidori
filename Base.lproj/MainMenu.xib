@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14C81h" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -400,10 +400,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="223" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="192" height="82"/>
+                                    <size key="minSize" width="207" height="82"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="192" height="82"/>
+                                    <size key="minSize" width="207" height="82"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                 </textView>
                             </subviews>
@@ -516,7 +516,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="440" height="253"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView id="OrG-mG-eHz" customClass="NSVisualEffectView">
+                    <customView id="OrG-mG-eHz">
                         <rect key="frame" x="0.0" y="22" width="440" height="231"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
@@ -531,10 +531,10 @@ Gw
                                             <rect key="frame" x="0.0" y="0.0" width="269" height="188"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="274" height="188"/>
+                                            <size key="minSize" width="289" height="188"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="274" height="188"/>
+                                            <size key="minSize" width="289" height="188"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
@@ -678,7 +678,7 @@ Gw
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="NSShareTemplate" width="18" height="16"/>
+        <image name="NSShareTemplate" width="11" height="16"/>
         <image name="correct" width="32" height="32"/>
         <image name="history" width="32" height="32"/>
         <image name="update" width="32" height="32"/>
