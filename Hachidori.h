@@ -61,7 +61,7 @@
 -(NSString *)getFailedTitle;
 -(NSString *)getFailedEpisode;
 -(int)startscrobbling;
--(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode;
+-(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
 -(int)scrobble;
 -(BOOL)confirmupdate;
 -(BOOL)updatestatus:(NSString *)titleid

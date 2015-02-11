@@ -387,7 +387,6 @@
     [shareMenuItem setHidden:NO];
 }
 
-
 #pragma mark Timer Functions
 
 - (IBAction)toggletimer:(id)sender {
@@ -550,7 +549,6 @@
             [updatenow setTitle:@"Update Now"];
 	});
     });
-    
     }
 }
 -(void)starttimer {
@@ -584,10 +582,13 @@
     }
     fsdialog = [FixSearchDialog new];
     // Check if Confirm is on for new title. If so, then disable ability to delete title.
-    if (!confirmupdate.hidden && [haengine getisNewTitle])
-        [fsdialog setCorrection:NO];
-    else
+    if ((!confirmupdate.hidden && [haengine getisNewTitle]) || !findtitle.hidden){
         [fsdialog setCorrection:YES];
+        [fsdialog setAllowDelete:NO];
+    }
+    else{
+        [fsdialog setCorrection:YES];
+    }
     if (!findtitle.hidden) {
         //Use failed title
          [fsdialog setSearchField:[haengine getFailedTitle]];
@@ -617,10 +618,16 @@
                 NSLog(@"ID matches, correction not needed.");
             }
             else{
+                BOOL correctonce = [fsdialog getcorrectonce];
 				if (!findtitle.hidden) {
 					 [self addtoExceptions:[haengine getFailedTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue]];
 				}
-				else{
+                else if ([[haengine getLastScrobbledEpisode] intValue] == [[fsdialog getSelectedTotalEpisodes] intValue]){
+                    // Detected episode equals the total episodes, do not add a rule and only do a correction just once.
+                    correctonce = true;
+                }
+				else if (!correctonce){
+                    // Add to Exceptions
 					 [self addtoExceptions:[haengine getLastScrobbledTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue]];
 				}
                 if([fsdialog getdeleteTitleonCorrection]){
@@ -631,10 +638,13 @@
                 NSLog(@"Updating corrected title...");
                 int status;
 				if (!findtitle.hidden) {
-					status = [haengine scrobbleagain:[haengine getFailedTitle] Episode:[haengine getFailedEpisode]];
+					status = [haengine scrobbleagain:[haengine getFailedTitle] Episode:[haengine getFailedEpisode] correctonce:false];
 				}
+                else if (correctonce){
+                    status = [haengine scrobbleagain:[fsdialog getSelectedTitle] Episode:[haengine getLastScrobbledEpisode] correctonce:true];
+                }
 				else{
-					[haengine scrobbleagain:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode]];
+                    status = [haengine scrobbleagain:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode] correctonce:false];
 				}
 					
                 switch (status) {

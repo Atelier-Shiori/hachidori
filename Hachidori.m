@@ -125,8 +125,12 @@
 	}
     return detectstatus;
 }
--(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode{
+-(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)correctonce{
     correcting = true;
+    NSString * lasttitle;
+    if (correctonce) {
+        lasttitle = LastScrobbledTitle;
+    }
     DetectedTitle = showtitle;
     DetectedEpisode = episode;
     if (FailedSource == nil) {
@@ -137,8 +141,12 @@
     }
     // Check Exceptions
     [self checkExceptions];
-	    // Scrobble and return status code
-    return [self scrobble];
+    // Scrobble and return status code
+    int status = [self scrobble];
+    if (correctonce) {
+        LastScrobbledTitle = lasttitle; //Set the Last Scrobbled Title to exact title.
+    }
+    return status;
 }
 -(int)scrobble{
     int status;

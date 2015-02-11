@@ -24,8 +24,11 @@
 }
 - (void)windowDidLoad {
     if (correction) {
-        [deleteoncorrection setHidden:NO];
-        [deleteoncorrection setState:NSOnState];
+        if (allowdelete) {
+            [deleteoncorrection setHidden:NO];
+            [deleteoncorrection setState:NSOnState];
+        }
+        [onetimecorrection setHidden:NO];
     }
     else{
         [deleteoncorrection setState:0];
@@ -144,6 +147,9 @@
 -(void)setCorrection:(BOOL)correct{
     correction = correct;
 }
+-(void)setAllowDelete:(BOOL)deleteallowed{
+    allowdelete = deleteallowed;
+}
 -(void)setSearchField:(NSString *)term{
     searchquery = term;
 }
@@ -158,6 +164,9 @@
 }
 -(bool)getdeleteTitleonCorrection{
     return [deleteoncorrection state];
+}
+-(bool)getcorrectonce{
+    return [onetimecorrection state];
 }
 
 @end

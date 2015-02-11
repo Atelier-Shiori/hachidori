@@ -12,6 +12,7 @@
     IBOutlet NSArrayController * arraycontroller;
     IBOutlet NSTextField *search;
     IBOutlet NSButton * deleteoncorrection;
+    IBOutlet NSButton * onetimecorrection;
     IBOutlet NSTableView *tb;
 	IBOutlet NSTextView *selectedsynopsis;
     NSString * selectedtitle;
@@ -19,12 +20,15 @@
 	NSString * selectedtotalepisodes;
     NSString * searchquery;
     bool correction;
+    bool allowdelete;
 }
 -(id)init;
 -(void)setCorrection:(BOOL)correct;
+-(void)setAllowDelete:(BOOL)deleteallowed;
 -(NSString *)getSelectedTitle;
 -(NSString *)getSelectedAniID;
 -(NSString *)getSelectedTotalEpisodes;
 -(bool)getdeleteTitleonCorrection;
+-(bool)getcorrectonce;
 -(void)setSearchField:(NSString *)term;
 @end
