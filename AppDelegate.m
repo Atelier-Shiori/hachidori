@@ -158,11 +158,8 @@
     //Create the NSStatusBar and set its length
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
-    //Used to detect where our files are
-    NSBundle *bundle = [NSBundle mainBundle];
-    
     //Allocates and loads the images into the application which will be used for our NSStatusItem
-    statusImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"hachidori-status" ofType:@"png"]];
+    statusImage = [NSImage imageNamed:@"hachidori-status"];
     
     //Yosemite Dark Menu Support
     [statusImage setTemplate:YES];
@@ -172,8 +169,10 @@
     
     //Tells the NSStatusItem what menu to load
     [statusItem setMenu:statusMenu];
+    
     //Sets the tooptip for our item
     [statusItem setToolTip:@"Hachidori"];
+    
     //Enables highlighting
     [statusItem setHighlightMode:YES];
 }

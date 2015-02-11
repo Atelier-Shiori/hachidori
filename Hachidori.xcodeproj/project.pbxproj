@@ -23,7 +23,6 @@
 		5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D505F1329810000B31C08 /* libxml2.dylib */; };
 		5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D50611329810700B31C08 /* libxml2.2.dylib */; };
 		5C2E54181A45046B006858B3 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C2E54171A45046B006858B3 /* testdata.json */; };
-		5C30BC07139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */; };
 		5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C54FFF81A369A4D00020C87 /* MASPreferencesWindow.xib */; };
 		5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAB71A36069E00A20229 /* MASShortcut.m */; };
 		5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAB91A36069E00A20229 /* MASShortcut+Monitoring.m */; };
@@ -40,7 +39,6 @@
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
 		5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */; };
-		5CC744D81A474BAC00F65E88 /* hotkey.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC744D71A474BAC00F65E88 /* hotkey.png */; };
 		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD7FF411A449A140050E6CC /* Hachidori_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */; };
@@ -60,7 +58,6 @@
 		82DA950A1A1E6CE800522724 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82DA95091A1E6CE800522724 /* Sparkle.framework */; };
 		82DA950B1A1E6CF500522724 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82DA95091A1E6CE800522724 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */; };
-		82F065B019FB613800E0B17A /* hachidori-status.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F065AE19FB613800E0B17A /* hachidori-status.png */; };
 		82F065B319FB618E00E0B17A /* detectstream in Resources */ = {isa = PBXBuildFile; fileRef = 82F065B219FB618E00E0B17A /* detectstream */; };
 		82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4C61C8120DF37D0032F63A /* CoreServices.framework */; };
 		82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7A9A71A195A8300183EF7 /* Recognition.m */; };
@@ -124,7 +121,6 @@
 		5C2D505F1329810000B31C08 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		5C2D50611329810700B31C08 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		5C2E54171A45046B006858B3 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
-		5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = PreferencesSoftwareUpdateIcon.tiff; sourceTree = "<group>"; };
 		5C54FFF71A369A4D00020C87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MASPreferencesWindow.xib; sourceTree = "<group>"; };
 		5C75EAB61A36069E00A20229 /* MASShortcut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASShortcut.h; sourceTree = "<group>"; };
 		5C75EAB71A36069E00A20229 /* MASShortcut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASShortcut.m; sourceTree = "<group>"; };
@@ -149,7 +145,6 @@
 		5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginPref.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotkeysPrefs.h; sourceTree = "<group>"; };
 		5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotkeysPrefs.m; sourceTree = "<group>"; };
-		5CC744D71A474BAC00F65E88 /* hotkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotkey.png; sourceTree = "<group>"; };
 		5CD36B9519F2EA9B007BB6B6 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
 		5CD36B9719F2EA9B007BB6B6 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
 		5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
@@ -186,7 +181,6 @@
 		82DA95091A1E6CE800522724 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		82EBBD1A1A17FD5B009F6179 /* FixSearchDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixSearchDialog.h; sourceTree = "<group>"; };
 		82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixSearchDialog.m; sourceTree = "<group>"; };
-		82F065AE19FB613800E0B17A /* hachidori-status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hachidori-status.png"; sourceTree = "<group>"; };
 		82F065B219FB618E00E0B17A /* detectstream */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = detectstream; path = detectstream/detectstream; sourceTree = "<group>"; };
 		82F7A9A61A195A8300183EF7 /* Recognition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recognition.h; sourceTree = "<group>"; };
 		82F7A9A71A195A8300183EF7 /* Recognition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recognition.m; sourceTree = "<group>"; };
@@ -386,9 +380,6 @@
 		5C8ACEB919F409F90001A101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				5CC744D71A474BAC00F65E88 /* hotkey.png */,
-				82F065AE19FB613800E0B17A /* hachidori-status.png */,
-				5C30BC06139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff */,
 				5CAFB2571A389E210067DD4F /* rules.png */,
 			);
 			name = Images;
@@ -565,16 +556,13 @@
 				5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
-				5CC744D81A474BAC00F65E88 /* hotkey.png in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
 				825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */,
 				6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */,
-				5C30BC07139A9DD1000B83C5 /* PreferencesSoftwareUpdateIcon.tiff in Resources */,
 				5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
 				5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */,
 				5CAFB2581A389E210067DD4F /* rules.png in Resources */,
-				82F065B019FB613800E0B17A /* hachidori-status.png in Resources */,
 				5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

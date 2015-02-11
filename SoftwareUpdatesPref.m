@@ -25,7 +25,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"PreferencesSoftwareUpdateIcon.tiff"];
+    return [NSImage imageNamed:@"SoftwareUpdates"];
 }
 
 - (NSString *)toolbarItemLabel

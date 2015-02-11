@@ -38,7 +38,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"hotkey.png"];
+    return [NSImage imageNamed:@"Hotkeys"];
 }
 
 - (NSString *)toolbarItemLabel
