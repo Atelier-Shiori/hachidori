@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <objc/objc-runtime.h>
 
 int main(int argc, char *argv[])
 {

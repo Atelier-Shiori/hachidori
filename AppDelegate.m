@@ -222,7 +222,11 @@
             //Make Animeinfo textview transparrent
             [animeinfooutside setDrawsBackground:NO];
             [animeinfo setBackgroundColor:[NSColor clearColor]];
-        
+        }
+        else{
+            [windowcontent setState:NSVisualEffectStateInactive];
+            [animeinfooutside setDrawsBackground:NO];
+            [animeinfo setBackgroundColor:[NSColor clearColor]];
         }
         
     }
@@ -234,7 +238,7 @@
             image = [NSImage imageNamed:imagename];
             [image setTemplate:YES];
     }
-    
+
 	// Notify User if there is no Account Info
 	if ([[defaults objectForKey:@"Token"] length] == 0) {
         // First time prompt
