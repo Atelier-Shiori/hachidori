@@ -1,15 +1,15 @@
 //
-//  Hachidori+Hachidori_UserStatus.m
+//  Hachidori+UserStatus.m
 //  Hachidori
 //
 //  Created by 高町なのは on 2015/02/11.
 //
 //
 
-#import "Hachidori+Hachidori_UserStatus.h"
+#import "Hachidori+UserStatus.h"
 #import "EasyNSURLConnection.h"
 
-@implementation Hachidori (Hachidori_UserStatus)
+@implementation Hachidori (UserStatus)
 -(BOOL)checkstatus:(NSString *)titleid {
     NSLog(@"Checking %@", titleid);
     // Update the title

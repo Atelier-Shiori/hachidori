@@ -49,9 +49,9 @@
 		6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8245D7611A8B265900B1ED73 /* Hachidori+Hachidori_Search.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7601A8B265900B1ED73 /* Hachidori+Hachidori_Search.m */; };
-		8245D7641A8B27AA00B1ED73 /* Hachidori+Hachidori_Update.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7631A8B27AA00B1ED73 /* Hachidori+Hachidori_Update.m */; };
-		8245D7671A8B294100B1ED73 /* Hachidori+Hachidori_UserStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7661A8B294100B1ED73 /* Hachidori+Hachidori_UserStatus.m */; };
+		8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7601A8B265900B1ED73 /* Hachidori+Search.m */; };
+		8245D7641A8B27AA00B1ED73 /* Hachidori+Update.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */; };
+		8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */; };
 		824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824693A619FD35AE00CFA12A /* Carbon.framework */; };
 		8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824924A11A184C4200A01761 /* FixSearchDialog.xib */; };
 		825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 825D878F1A18FD2700C5E1BF /* ExceptionsPref.m */; };
@@ -168,12 +168,12 @@
 		6FAA877F1A7EB57300EFFAC1 /* Hotkeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hotkeys.h; sourceTree = "<group>"; };
 		6FAA87841A7EB70E00EFFAC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HotkeysPrefs.xib; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
-		8245D75F1A8B265900B1ED73 /* Hachidori+Hachidori_Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Hachidori_Search.h"; sourceTree = "<group>"; };
-		8245D7601A8B265900B1ED73 /* Hachidori+Hachidori_Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Hachidori_Search.m"; sourceTree = "<group>"; };
-		8245D7621A8B27AA00B1ED73 /* Hachidori+Hachidori_Update.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Hachidori_Update.h"; sourceTree = "<group>"; };
-		8245D7631A8B27AA00B1ED73 /* Hachidori+Hachidori_Update.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Hachidori_Update.m"; sourceTree = "<group>"; };
-		8245D7651A8B294100B1ED73 /* Hachidori+Hachidori_UserStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Hachidori_UserStatus.h"; sourceTree = "<group>"; };
-		8245D7661A8B294100B1ED73 /* Hachidori+Hachidori_UserStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Hachidori_UserStatus.m"; sourceTree = "<group>"; };
+		8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Search.h"; sourceTree = "<group>"; };
+		8245D7601A8B265900B1ED73 /* Hachidori+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Search.m"; sourceTree = "<group>"; };
+		8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Update.h"; sourceTree = "<group>"; };
+		8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Update.m"; sourceTree = "<group>"; };
+		8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+UserStatus.h"; sourceTree = "<group>"; };
+		8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+UserStatus.m"; sourceTree = "<group>"; };
 		824693A619FD35AE00CFA12A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		824924A01A184C4200A01761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FixSearchDialog.xib; sourceTree = "<group>"; };
 		825D878E1A18FD2600C5E1BF /* ExceptionsPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsPref.h; sourceTree = "<group>"; };
@@ -233,12 +233,12 @@
 				256AC3D90F4B6AC300CF3369 /* AppDelegate.m */,
 				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
-				8245D7651A8B294100B1ED73 /* Hachidori+Hachidori_UserStatus.h */,
-				8245D7661A8B294100B1ED73 /* Hachidori+Hachidori_UserStatus.m */,
-				8245D7621A8B27AA00B1ED73 /* Hachidori+Hachidori_Update.h */,
-				8245D7631A8B27AA00B1ED73 /* Hachidori+Hachidori_Update.m */,
-				8245D75F1A8B265900B1ED73 /* Hachidori+Hachidori_Search.h */,
-				8245D7601A8B265900B1ED73 /* Hachidori+Hachidori_Search.m */,
+				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
+				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
+				8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */,
+				8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */,
+				8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */,
+				8245D7601A8B265900B1ED73 /* Hachidori+Search.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -607,20 +607,20 @@
 				5C75EAC41A36069E00A20229 /* MASShortcutView+UserDefaults.m in Sources */,
 				5C75EAC31A36069E00A20229 /* MASShortcutView.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
-				8245D7671A8B294100B1ED73 /* Hachidori+Hachidori_UserStatus.m in Sources */,
+				8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
 				6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */,
-				8245D7611A8B265900B1ED73 /* Hachidori+Hachidori_Search.m in Sources */,
+				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
 				5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
-				8245D7641A8B27AA00B1ED73 /* Hachidori+Hachidori_Update.m in Sources */,
+				8245D7641A8B27AA00B1ED73 /* Hachidori+Update.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

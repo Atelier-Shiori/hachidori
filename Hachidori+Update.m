@@ -1,15 +1,15 @@
 //
-//  Hachidori+Hachidori_Update.m
+//  Hachidori+Update.m
 //  Hachidori
 //
 //  Created by 高町なのは on 2015/02/11.
 //
 //
 
-#import "Hachidori+Hachidori_Update.h"
+#import "Hachidori+Update.h"
 #import "EasyNSURLConnection.h"
 
-@implementation Hachidori (Hachidori_Update)
+@implementation Hachidori (Update)
 -(int)updatetitle:(NSString *)titleid {
     NSLog(@"Updating Title");
     if (LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !confirmed && !correcting) {

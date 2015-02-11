@@ -10,9 +10,9 @@
 #import "Detection.h"
 #import "EasyNSURLConnection.h"
 #import "Utility.h"
-#import "Hachidori+Hachidori_Search.h"
-#import "Hachidori+Hachidori_Update.h"
-#import "Hachidori+Hachidori_UserStatus.h"
+#import "Hachidori+Search.h"
+#import "Hachidori+Update.h"
+#import "Hachidori+UserStatus.h"
 
 @interface Hachidori ()
 // Private Methods

@@ -1,17 +1,17 @@
 //
-//  Hachidori+Hachidori_Search.m
+//  Hachidori+Search.m
 //  Hachidori
 //
 //  Created by 高町なのは on 2015/02/11.
 //
 //
 
-#import "Hachidori+Hachidori_Search.h"
+#import "Hachidori+Search.h"
 #import "Utility.h"
 #import "EasyNSURLConnection.h"
 #import "ExceptionsCache.h"
 
-@implementation Hachidori (Hachidori_Search)
+@implementation Hachidori (Search)
 -(NSString *)searchanime{
     // Searches for ID of associated title
     NSString * searchtitle = DetectedTitle;
@@ -196,24 +196,24 @@
     return @"";
 }
 -(NSArray *)filterArray:(NSArray *)searchdata{
-    NSMutableArray * sortedArray;
+    NSArray * sortedArray;
     // Filter array based on if the title is a movie or if there is a season detected
     if (DetectedTitleisMovie) {
-        sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)" , @"Movie"]]];
-        [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
+        sortedArray = [NSArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)" , @"Movie"]]];
+        sortedArray = [sortedArray arrayByAddingObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
     }
     else{
         // Check if there is any type keywords. If so, only focus on that show type
         OGRegularExpression * check = [OGRegularExpression regularExpressionWithString:@"(Special|OVA|ONA)" options:OgreIgnoreCaseOption];
         if ([check matchInString:DetectedTitle]) {
-            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type LIKE %@)", [[check matchInString:DetectedTitle] matchedString]]]];
+            sortedArray = [NSArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type LIKE %@)", [[check matchInString:DetectedTitle] matchedString]]]];
         }
         else{
-            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"TV"]]];
-            [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"ONA"]]];
+            sortedArray = [NSArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"TV"]]];
+            sortedArray = [sortedArray arrayByAddingObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"ONA"]]];
             if (DetectedSeason == 1 | DetectedSeason == 0) {
-                [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
-                [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"OVA"]]];
+                sortedArray = [sortedArray arrayByAddingObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
+                sortedArray = [sortedArray arrayByAddingObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"OVA"]]];
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  Hachidori+Hachidori_Search.h
+//  Hachidori+Search.h
 //  Hachidori
 //
 //  Created by 高町なのは on 2015/02/11.
@@ -8,7 +8,7 @@
 
 #import "Hachidori.h"
 
-@interface Hachidori (Hachidori_Search)
+@interface Hachidori (Search)
 -(NSString *)searchanime;
 -(NSString *)performSearch:(NSString *)searchtitle;
 -(NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term;
