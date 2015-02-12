@@ -63,7 +63,7 @@
     NSArray *loginItems = (NSArray *)LSSharedFileListCopySnapshot(loginItemsRef, nil);
     for (int currentIndex = 0; currentIndex < [loginItems count]; currentIndex++) {
         // Get the current LoginItem and resolve its URL.
-        LSSharedFileListItemRef currentItemRef = (LSSharedFileListItemRef)[loginItems objectAtIndex:currentIndex];
+        LSSharedFileListItemRef currentItemRef = (LSSharedFileListItemRef)loginItems[currentIndex];
         if (LSSharedFileListItemResolve(currentItemRef, 0, (CFURLRef *) &itemUrl, NULL) == noErr) {
             // Compare the URLs for the current LoginItem and the app.
             if ([itemUrl isEqual:appUrl]) {

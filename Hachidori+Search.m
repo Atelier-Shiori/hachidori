@@ -112,21 +112,21 @@
         
         // Check TV, ONA, Special, OVA, Other
         for (NSDictionary *searchentry in sortedArray) {
-            theshowtitle = [NSString stringWithFormat:@"%@",[searchentry objectForKey:@"title"]];
-            alttitle = [NSString stringWithFormat:@"%@", [searchentry objectForKey:@"alternate_title"]];
+            theshowtitle = [NSString stringWithFormat:@"%@",searchentry[@"title"]];
+            alttitle = [NSString stringWithFormat:@"%@", searchentry[@"alternate_title"]];
             int matchstatus = [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i];
             if (matchstatus == 1 || matchstatus == 2) {
                 if (DetectedTitleisMovie) {
                     DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
-                    if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"Special"]) {
+                    if ([[NSString stringWithFormat:@"%@", searchentry[@"show_type"]] isEqualToString:@"Special"]) {
                         DetectedTitleisMovie = false;
                     }
                 }
                 else{
-                    if ([[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"show_type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
+                    if ([[NSString stringWithFormat:@"%@", searchentry[@"show_type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"show_type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
                         // Used for Season Checking
                         OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
-                        OGRegularExpressionMatch * smatch = [regex2 matchInString:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, [searchentry objectForKey:@"slug"]]];
+                        OGRegularExpressionMatch * smatch = [regex2 matchInString:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, searchentry[@"slug"]]];
                         if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
                             if (smatch == nil) {
                                 continue;
@@ -141,19 +141,19 @@
                 }
                 //Return titleid if episode is valid
                 int episodecount;
-                if ([searchentry objectForKey:@"episode_count"] == [NSNull null]) {
+                if (searchentry[@"episode_count"] == [NSNull null]) {
                     // No episode Count, set episode count to zero
                     episodecount = 0;
                 }
                 else{
                     //Set Episode Count
-                    episodecount = [[NSString stringWithFormat:@"%@", [searchentry objectForKey:@"episode_count"]] intValue];
+                    episodecount = [[NSString stringWithFormat:@"%@", searchentry[@"episode_count"]] intValue];
                 }
                 if (episodecount == 0 || ( episodecount >= [DetectedEpisode intValue])) {
                     NSLog(@"Valid Episode Count");
                     if (sortedArray.count == 1 || DetectedSeason >= 2){
                         // Only Result, return
-                        return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
+                        return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"slug"]] info:searchentry];
                     }
                     else if (titlematch1 == nil && sortedArray.count > 1 && ((term.length + 2 < theshowtitle.length)||(term.length + 2 < alttitle.length && alttitle.length > 0 && matchstatus == 2))){
                         mstatus = matchstatus;
@@ -167,12 +167,12 @@
                         }
                         else{
                             // Only Result, return
-                            return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
+                            return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"slug"]] info:searchentry];
                         }
                     }
                     else{
                         // Only Result, return
-                        return [self foundtitle:[NSString stringWithFormat:@"%@",[searchentry objectForKey:@"slug"]] info:searchentry];
+                        return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"slug"]] info:searchentry];
                     }
                 }
                 else{
@@ -186,7 +186,7 @@
     // If one match is found and not null, then return the id.
     if (titlematch1 != nil) {
         // Only Result, return
-        return [self foundtitle:[NSString stringWithFormat:@"%@",[titlematch1 objectForKey:@"slug"]] info:titlematch1];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",titlematch1[@"slug"]] info:titlematch1];
     }
     // Nothing found, return empty string
     return @"";
@@ -220,41 +220,41 @@
     float score1, score2, ascore1, ascore2;
     double fuzziness = 0.3;
     //Score first title
-    score1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match1 objectForKey:@"title"]] UTF8String], fuzziness);
-    ascore1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match1 objectForKey:@"alternate_title"]] UTF8String], fuzziness);
+    score1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match1[@"title"]] UTF8String], fuzziness);
+    ascore1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match1[@"alternate_title"]] UTF8String], fuzziness);
     //Score Second Title
-    score2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match2 objectForKey:@"title"]] UTF8String], fuzziness);
-    ascore2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", [match2 objectForKey:@"alternate_title"]] UTF8String], fuzziness);
+    score2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match2[@"title"]] UTF8String], fuzziness);
+    ascore2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match2[@"alternate_title"]] UTF8String], fuzziness);
     if (score1 == score2 || ascore1 == ascore2 || score1 == INFINITY) {
         //Scores can't be reliably compared, just return the first match
-        return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"slug"]] info:match1];
     }
     else if(a == 2 || b == 2){
         if(ascore1 > ascore2)
         {
             //Return first title as it has a higher score
-            return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];
+            return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"slug"]] info:match1];
         }
         else{
             // Return second title since it has a higher score
-            return [self foundtitle:[NSString stringWithFormat:@"%@",[match2 objectForKey:@"slug"]] info:match2];
+            return [self foundtitle:[NSString stringWithFormat:@"%@",match2[@"slug"]] info:match2];
         }
     }
     else if(score1 > score2)
     {
         //Return first title as it has a higher score
-        return [self foundtitle:[NSString stringWithFormat:@"%@",[match1 objectForKey:@"slug"]] info:match1];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"slug"]] info:match1];
     }
     else{
         // Return second title since it has a higher score
-        return [self foundtitle:[NSString stringWithFormat:@"%@",[match2 objectForKey:@"slug"]] info:match2];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",match2[@"slug"]] info:match2];
     }
 }
 -(NSString *)foundtitle:(NSString *)titleid info:(NSDictionary *)found{
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0 && !unittesting) {
         //Save AniID
-        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)[found objectForKey:@"title"] totalepisodes:[(NSNumber *)[found objectForKey:@"episodes"] intValue] ];
+        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes:[(NSNumber *)found[@"episodes"] intValue] ];
     }
     //Return the AniID
     return titleid;

@@ -49,7 +49,7 @@
 -(NSString *)getTotalEpisodes;
 -(int)getCurrentEpisode;
 -(BOOL)getConfirmed;
--(int)getScore;
+-(float)getScore;
 -(int)getWatchStatus;
 -(NSString *)getNotes;
 -(BOOL)getSuccess;

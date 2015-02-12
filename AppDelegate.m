@@ -37,7 +37,7 @@
 - (NSString *)applicationSupportDirectory {
 	
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+    NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
     return [basePath stringByAppendingPathComponent:@"Hachidori"];
 }
 
@@ -134,20 +134,20 @@
 	NSMutableDictionary * defaultValues = [NSMutableDictionary dictionary];
 	
 	// Defaults
-	[defaultValues setObject:@"" forKey:@"Token"];
-	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ScrobbleatStartup"];
-    [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"setprivate"];
-    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"useSearchCache"];
-    [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
-    [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"ignoredirectories"];
-    [defaultValues setObject:[[NSMutableArray alloc] init] forKey:@"IgnoreTitleRules"];
-    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"ConfirmNewTitle"];
-    [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"ConfirmUpdates"];
-	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"UseAutoExceptions"];
+	defaultValues[@"Token"] = @"";
+	defaultValues[@"ScrobbleatStartup"] = @NO;
+    defaultValues[@"setprivate"] = @NO;
+    defaultValues[@"useSearchCache"] = @YES;
+    defaultValues[@"exceptions"] = [[NSMutableArray alloc] init];
+    defaultValues[@"ignoredirectories"] = [[NSMutableArray alloc] init];
+    defaultValues[@"IgnoreTitleRules"] = [[NSMutableArray alloc] init];
+    defaultValues[@"ConfirmNewTitle"] = @YES;
+    defaultValues[@"ConfirmUpdates"] = @NO;
+	defaultValues[@"UseAutoExceptions"] = @YES;
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
-        	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteTitleBar"];
-        	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"DisableYosemiteVibrance"];
+        	defaultValues[@"DisableYosemiteTitleBar"] = @NO;
+        	defaultValues[@"DisableYosemiteVibrance"] = @NO;
     }
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
@@ -232,7 +232,7 @@
     }
     // Fix template images
     // There is a bug where template images are not made even if they are set in XCAssets
-    NSArray *images = [NSArray arrayWithObjects:@"update", @"history", @"correct", nil];
+    NSArray *images = @[@"update", @"history", @"correct"];
     NSImage * image;
     for (NSString *imagename in images){
             image = [NSImage imageNamed:imagename];
@@ -273,7 +273,7 @@
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
         NSViewController *exceptionsViewController = [[ExceptionsPref alloc] init];
         NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
-        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, loginViewController, hotkeyViewController , exceptionsViewController, suViewController, nil];
+        NSArray *controllers = @[generalViewController, loginViewController, hotkeyViewController , exceptionsViewController, suViewController];
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers];
     }
     return _preferencesWindowController;
@@ -485,7 +485,7 @@
                 break;
             case 3:{
                 [self setStatusText:@"Scrobble Status: Please confirm update."];
-                NSDictionary * userinfo = [[NSDictionary alloc] initWithObjectsAndKeys:[haengine getLastScrobbledTitle], @"title",  [haengine getLastScrobbledEpisode], @"episode", nil];
+                NSDictionary * userinfo = @{@"title": [haengine getLastScrobbledTitle],  @"episode": [haengine getLastScrobbledEpisode]};
                 [self showConfirmationNotication:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
                 break;
             }
@@ -792,10 +792,10 @@
           contextInfo:(void *)nil];
     // Set up UI
     [showtitle setObjectValue:[haengine getLastScrobbledActualTitle]];
-    [showscore setStringValue:[NSString stringWithFormat:@"%i", [haengine getScore]]];
+    [showscore setStringValue:[NSString stringWithFormat:@"%f", [haengine getScore]]];
     [episodefield setStringValue:[NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]]];
     if ([[haengine getTotalEpisodes] intValue] !=0) {
-        [epiformatter setMaximum:[NSNumber numberWithInt:[[haengine getTotalEpisodes] intValue]]];
+        [epiformatter setMaximum:@([[haengine getTotalEpisodes] intValue])];
     }
     [showstatus selectItemAtIndex:[haengine getWatchStatus]];
     [notes setString:[haengine getNotes]];
@@ -869,8 +869,8 @@
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
     if ([notification.title isEqualToString:@"Confirm Update"] && !confirmupdate.hidden) {
-        NSString * title = [notification.userInfo objectForKey:@"title"];
-        NSString * episode = [notification.userInfo objectForKey:@"episode"];
+        NSString * title = (notification.userInfo)[@"title"];
+        NSString * episode = (notification.userInfo)[@"episode"];
         // Only confirm update if the title and episode is the same with the last scrobbled.
         if ([[haengine getLastScrobbledTitle] isEqualToString:title] && [episode intValue] == [[haengine getLastScrobbledEpisode] intValue]) {
             //Confirm Update
@@ -933,34 +933,34 @@
     //Empty
     [animeinfo setString:@""];
     //Title
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", [d objectForKey:@"title"]]];
-    if ([d objectForKey:@"alternate_title"] != [NSNull null] && [[NSString stringWithFormat:@"%@", [d objectForKey:@"alternate_title"]] length] >0) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", [d objectForKey:@"alternate_title"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", d[@"title"]]];
+    if (d[@"alternate_title"] != [NSNull null] && [[NSString stringWithFormat:@"%@", d[@"alternate_title"]] length] >0) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", d[@"alternate_title"]]];
     }
     [self appendToAnimeInfo:@""];
     //Description
     [self appendToAnimeInfo:@"Description"];
-    [self appendToAnimeInfo:[d objectForKey:@"synopsis"]];
+    [self appendToAnimeInfo:d[@"synopsis"]];
     //Meta Information
     [self appendToAnimeInfo:@""];
     [self appendToAnimeInfo:@"Other Information"];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", [d objectForKey:@"started_airing"]]];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", [d objectForKey:@"status"]]];
-    if ([d objectForKey:@"finished_airing"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", [d objectForKey:@"finished_airing"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"started_airing"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", d[@"status"]]];
+    if (d[@"finished_airing"] != [NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"finished_airing"]]];
     }
-    if ([d objectForKey:@"episode_count"] != [NSNull null]){
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", [d objectForKey:@"episode_count"]]];
+    if (d[@"episode_count"] != [NSNull null]){
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episode_count"]]];
     }
     else{
         [self appendToAnimeInfo:@"Episodes: Unknown"];
     }
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", [d objectForKey:@"show_type"]]];
-    if ([d objectForKey:@"age_rating"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", [d objectForKey:@"age_rating"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", d[@"show_type"]]];
+    if (d[@"age_rating"] != [NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", d[@"age_rating"]]];
     }
     //Image
-    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [d objectForKey:@"cover_image"]]]]; //Downloads Image
+    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", d[@"cover_image"]]]]; //Downloads Image
     [img setImage:dimg]; //Get the Image for the title
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
@@ -983,7 +983,7 @@
     [shareIcon setTitle:@""];
     [shareMenu addItem:shareIcon];
     //Generate Items to Share
-    shareItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]] ,nil];
+    shareItems = @[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]]];
     //Get Share Services for Items
     NSArray *shareServiceforItems = [NSSharingService sharingServicesForItems:shareItems];
     //Generate Share Items and populate Share Menu

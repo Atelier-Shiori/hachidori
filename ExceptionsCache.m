@@ -24,8 +24,8 @@
     [obj setValue:detectedtitle forKey:@"detectedTitle"];
     [obj setValue:title forKey:@"correctTitle"];
     [obj setValue:showid forKey:@"id"];
-    [obj setValue:[NSNumber numberWithInt:threshold] forKey:@"episodethreshold"];
-    [obj setValue:[NSNumber numberWithInt:offset] forKey:@"episodeOffset"];
+    [obj setValue:@(threshold) forKey:@"episodethreshold"];
+    [obj setValue:@(offset) forKey:@"episodeOffset"];
     //Save
     [moc save:&error];
 }
@@ -62,7 +62,7 @@
     [obj setValue:title forKey:@"detectedTitle"];
     [obj setValue:showid forKey:@"id"];
     [obj setValue:atitle forKey:@"actualTitle"];
-    [obj setValue:[NSNumber numberWithInt:totalepisodes] forKey:@"totalEpisodes"];
+    [obj setValue:@(totalepisodes) forKey:@"totalEpisodes"];
     NSError * error = nil;
     // Save
     [moc save:&error];

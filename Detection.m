@@ -44,14 +44,14 @@
     NSDictionary * result;
     // LSOF mplayer to get the media title and segment
     
-    NSArray * player = [NSArray arrayWithObjects:@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", nil];
+    NSArray * player = @[@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist"];
     NSString *string;
     OGRegularExpression    *regex;
     for(int i = 0; i <[player count]; i++){
         NSTask *task;
         task = [[NSTask alloc] init];
         [task setLaunchPath: @"/usr/sbin/lsof"];
-        [task setArguments: [NSArray arrayWithObjects:@"-c", (NSString *)[player objectAtIndex:i], @"-F", @"n", nil]]; 		//lsof -c '<player name>' -Fn
+        [task setArguments: @[@"-c", (NSString *)player[i], @"-F", @"n"]]; 		//lsof -c '<player name>' -Fn
         NSPipe *pipe;
         pipe = [NSPipe pipe];
         [task setStandardOutput: pipe];
@@ -81,10 +81,10 @@
             //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
             if ([regex matchInString:string] !=nil && !onIgnoreList && !invalidepisode) {
                 NSDictionary *d = [[Recognition alloc] recognize:string];
-                NSString * DetectedTitle = (NSString *)[d objectForKey:@"title"];
-                NSString * DetectedEpisode = (NSString *)[d objectForKey:@"episode"];
-                NSNumber * DetectedSeason = [d objectForKey:@"season"];
-                NSString * DetectedGroup = (NSString *)[d objectForKey:@"group"];
+                NSString * DetectedTitle = (NSString *)d[@"title"];
+                NSString * DetectedEpisode = (NSString *)d[@"episode"];
+                NSNumber * DetectedSeason = d[@"season"];
+                NSString * DetectedGroup = (NSString *)d[@"group"];
                 NSString * DetectedSource;
                 // Source Detection
                 switch (i) {
@@ -93,7 +93,7 @@
                     case 3:
                     case 6:
                     case 7:
-                    DetectedSource = (NSString *)[player objectAtIndex:i];
+                    DetectedSource = (NSString *)player[i];
                     break;
                     case 2:
                     DetectedSource = @"SMPlayerX";
@@ -107,7 +107,7 @@
                 }
                 if (DetectedTitle.length > 0) {
                     //Return result
-                    result = [[NSDictionary alloc] initWithObjectsAndKeys: DetectedTitle,@"detectedtitle", DetectedEpisode, @"detectedepisode", DetectedSeason, @"detectedseason", DetectedSource, @"detectedsource", DetectedGroup, @"group", nil];
+                    result = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
                     return result;
                 }
             }
@@ -144,21 +144,21 @@
     NSError* error;
     
     d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    if ([d objectForKey:@"result"]  == [NSNull null]){ // Check to see if anything is playing on stream
+    if (d[@"result"]  == [NSNull null]){ // Check to see if anything is playing on stream
         return nil;
     }
     else{
-        NSArray * c = [d objectForKey:@"result"];
-        NSDictionary * result = [c objectAtIndex:0];
-        if ([self checkifTitleIgnored:(NSString *)[result objectForKey:@"title"]]) {
+        NSArray * c = d[@"result"];
+        NSDictionary * result = c[0];
+        if ([self checkifTitleIgnored:(NSString *)result[@"title"]]) {
             return nil;
         }
         else{
-            NSString * DetectedTitle = (NSString *)[result objectForKey:@"title"];
-            NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",[result objectForKey:@"episode"]];
-            NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [[result objectForKey:@"site"] capitalizedString], [result objectForKey:@"browser"]];
-            NSString * DetectedGroup = (NSString *)[result objectForKey:@"site"];
-            return [[NSDictionary alloc] initWithObjectsAndKeys: DetectedTitle,@"detectedtitle", DetectedEpisode, @"detectedepisode", [NSNumber numberWithInt:0], @"detectedseason", DetectedSource, @"detectedsource", DetectedGroup, @"group", nil];
+            NSString * DetectedTitle = (NSString *)result[@"title"];
+            NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",result[@"episode"]];
+            NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
+            NSString * DetectedGroup = (NSString *)result[@"site"];
+            return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": @0, @"detectedsource": DetectedSource, @"group": DetectedGroup};
         }
     }
 }
@@ -174,7 +174,7 @@
     NSArray * ignoredfilenames = [[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"];
     if ([ignoredfilenames count] > 0) {
         for (NSDictionary * d in ignoredfilenames) {
-            NSString * rule = [NSString stringWithFormat:@"%@", [d objectForKey:@"rule"]];
+            NSString * rule = [NSString stringWithFormat:@"%@", d[@"rule"]];
             if ([[OGRegularExpression regularExpressionWithString:rule options:OgreIgnoreCaseOption] matchInString:filename] && rule.length !=0) { // Blank rules are infinite, thus should not be counted
                 NSLog(@"Video file name is on filename ignore list.");
                 return true;
@@ -192,7 +192,7 @@
     NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
     if ([ignoredirectories count] > 0) {
         for (NSDictionary * d in ignoredirectories) {
-            if ([filename isEqualToString:[d objectForKey:@"directory"]]) {
+            if ([filename isEqualToString:d[@"directory"]]) {
                 NSLog(@"Video being played is in ignored directory");
                 return true;
             }

@@ -47,13 +47,13 @@
     [NSApp endSheet:self.window returnCode:0];
 }
 -(IBAction)updatesearch:(id)sender {
-    NSDictionary * d = [[arraycontroller selectedObjects] objectAtIndex:0];
+    NSDictionary * d = [arraycontroller selectedObjects][0];
     if (correction) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
-        [alert setMessageText:[NSString stringWithFormat:@"Do you want to correct this title as %@?",[d objectForKey:@"title"]]];
+        [alert setMessageText:[NSString stringWithFormat:@"Do you want to correct this title as %@?",d[@"title"]]];
         [alert setInformativeText:@"Once done, you cannot undo this action."];
         // Set Message type to Warning
         [alert setAlertStyle:NSWarningAlertStyle];
@@ -69,10 +69,10 @@
     }   
 }
 -(void)finish:(NSDictionary *)d{
-    selectedtitle = [d objectForKey:@"title"];
-    selectedaniid = [d objectForKey:@"slug"];
-    if ([d objectForKey:@"episodes"] != [NSNull null]) {
-        selectedtotalepisodes = [d objectForKey:@"episodes"];
+    selectedtitle = d[@"title"];
+    selectedaniid = d[@"slug"];
+    if (d[@"episodes"] != [NSNull null]) {
+        selectedtotalepisodes = d[@"episodes"];
     }
     else{
         selectedtotalepisodes = @"0";

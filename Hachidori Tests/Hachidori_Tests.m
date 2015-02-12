@@ -59,25 +59,25 @@
     NSLog(@"Starting Test...\n\n");
     for (NSDictionary *d in testdata) {
         @autoreleasepool {
-        NSString * filename = [d objectForKey:@"filename"];
+        NSString * filename = d[@"filename"];
         NSString * expectedtitle;
-        if ([d objectForKey:@"expectedtitle"] != [NSNull null]) {
-            expectedtitle = [d objectForKey:@"expectedtitle"];
+        if (d[@"expectedtitle"] != [NSNull null]) {
+            expectedtitle = d[@"expectedtitle"];
         }
         NSLog(@"Testing: %@", filename);
         NSDictionary * parsedfile = [reg recognize:filename];
-        NSNumber * season = [parsedfile objectForKey:@"season"];
-        NSDictionary * result = [haengine runUnitTest:[parsedfile objectForKey:@"title"] episode:[parsedfile objectForKey:@"episode"] season:[season intValue] group:[parsedfile objectForKey:@"group"]];
+        NSNumber * season = parsedfile[@"season"];
+        NSDictionary * result = [haengine runUnitTest:parsedfile[@"title"] episode:parsedfile[@"episode"] season:[season intValue] group:parsedfile[@"group"]];
         if ([result count] > 0) {
-            NSLog(@"Detected as %@. Slug: %@", [result objectForKey:@"title"], [result objectForKey:@"slug"]);
-            if (![expectedtitle isEqualToString:[NSString stringWithFormat:@"%@", [result objectForKey:@"title"]]] && [expectedtitle length] > 0) {
+            NSLog(@"Detected as %@. Slug: %@", result[@"title"], result[@"slug"]);
+            if (![expectedtitle isEqualToString:[NSString stringWithFormat:@"%@", result[@"title"]]] && [expectedtitle length] > 0) {
                 NSLog(@"Incorrect Match!");
                 incorrect++;
             }
             else if ([expectedtitle length] == 0){
                 // Expected Title missing, subtract it from count.
                 NSLog(@"Note: Title not included in the count. Please add this to the testdata.json file:");
-                NSLog(@"\"expectedtitle\":\"%@\"",[result objectForKey:@"title"]);
+                NSLog(@"\"expectedtitle\":\"%@\"",result[@"title"]);
                 count--;
             }
         }

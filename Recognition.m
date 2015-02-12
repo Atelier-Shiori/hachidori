@@ -20,15 +20,15 @@
     string = [regex replaceAllMatchesInString:string
                                    withString:@""];
     NSDictionary * d = [[anitomy_bridge new] tokenize:string];
-    DetectedTitle = [d objectForKey:@"title"];
-    DetectedEpisode = [d objectForKey:@"episode"];
-    DetectedGroup = [d objectForKey:@"group"];
+    DetectedTitle = d[@"title"];
+    DetectedEpisode = d[@"episode"];
+    DetectedGroup = d[@"group"];
     if (DetectedGroup.length == 0) {
         DetectedGroup = @"Unknown";
     }
     //Season Checking
     NSString * tmpseason;
-    NSString * tmptitle = [NSString stringWithFormat:@"%@ %@", DetectedTitle, [d objectForKey:@"season"]];
+    NSString * tmptitle = [NSString stringWithFormat:@"%@ %@", DetectedTitle, d[@"season"]];
     OGRegularExpressionMatch * smatch;
     regex = [OGRegularExpression regularExpressionWithString: @"((S|s)\\d|\\d)"]; //Check the only Season Notation that Anitomy does not currently support
     smatch = [regex matchInString:tmptitle];
@@ -45,7 +45,7 @@
     // Trim Whitespace
     DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     DetectedEpisode = [DetectedEpisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return [NSDictionary dictionaryWithObjectsAndKeys:DetectedTitle,@"title", DetectedEpisode, @"episode", [NSNumber numberWithInt:DetectedSeason], @"season", DetectedGroup, @"group", nil];
+    return @{@"title": DetectedTitle, @"episode": DetectedEpisode, @"season": @(DetectedSeason), @"group": DetectedGroup};
     
 }
 @end

@@ -17,7 +17,7 @@
         LastScrobbledTitle = DetectedTitle;
         LastScrobbledEpisode = DetectedEpisode;
         LastScrobbledSource = DetectedSource;
-        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
+        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",LastScrobbledInfo[@"title"]];
         return 3;
     }
     if ([DetectedEpisode intValue] <= [DetectedCurrentEpisode intValue] ) {
@@ -26,7 +26,7 @@
         LastScrobbledTitle = DetectedTitle;
         LastScrobbledEpisode = DetectedEpisode;
         LastScrobbledSource = DetectedSource;
-        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
+        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",LastScrobbledInfo[@"title"]];
         confirmed = true;
         return 2;
     }
@@ -35,7 +35,7 @@
         LastScrobbledTitle = DetectedTitle;
         LastScrobbledEpisode = DetectedEpisode;
         LastScrobbledSource = DetectedSource;
-        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
+        LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",LastScrobbledInfo[@"title"]];
         return 3;
     }
     else {
@@ -87,7 +87,7 @@
             LastScrobbledSource = DetectedSource;
             if (confirmed) { // Will only store actual title if confirmation feature is not turned on
                 // Store Actual Title
-                LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",[LastScrobbledInfo objectForKey:@"title"]];
+                LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",LastScrobbledInfo[@"title"]];
             }
             confirmed = true;
             if (LastScrobbledTitleNew) {

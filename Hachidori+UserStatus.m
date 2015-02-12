@@ -45,11 +45,11 @@
             TitleNotes = @"";
             LastScrobbledTitleNew = true;
         }
-        if ([LastScrobbledInfo objectForKey:@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
+        if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
             TotalEpisodes = @"0"; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists
-            TotalEpisodes = [LastScrobbledInfo  objectForKey:@"episode_count"];
+            TotalEpisodes = LastScrobbledInfo[@"episode_count"];
         }
         // New Update Confirmation
         if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
@@ -101,27 +101,27 @@
 }
 -(void)populateStatusData:(NSDictionary *)d{
     // Info is there.
-    NSDictionary * tmpinfo = [d objectForKey:@"anime"];
-    WatchStatus = [d objectForKey:@"status"];
+    NSDictionary * tmpinfo = d[@"anime"];
+    WatchStatus = d[@"status"];
     //Get Notes;
-    if ([d objectForKey:@"notes"] == [NSNull null]) {
+    if (d[@"notes"] == [NSNull null]) {
         TitleNotes = @"";
     }
     else {
-        TitleNotes = [d objectForKey:@"notes"];
+        TitleNotes = d[@"notes"];
     }
     // Get Rating
-    NSDictionary * rating = [d objectForKey:@"rating"];
-    if ([rating objectForKey:@"value"] == [NSNull null]){
+    NSDictionary * rating = d[@"rating"];
+    if (rating[@"value"] == [NSNull null]){
         // Score is null, set to 0
         TitleScore = @"0";
     }
     else {
-        TitleScore = [rating objectForKey:@"value"];
+        TitleScore = rating[@"value"];
     }
     // Privacy Settings
-    isPrivate = [[d objectForKey:@"private"] boolValue];
-    DetectedCurrentEpisode = [d objectForKey:@"episodes_watched"];
+    isPrivate = [d[@"private"] boolValue];
+    DetectedCurrentEpisode = d[@"episodes_watched"];
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
 }

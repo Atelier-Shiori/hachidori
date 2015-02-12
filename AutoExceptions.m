@@ -24,7 +24,7 @@
         NSError * error = nil;
         NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
         for (NSDictionary *d in oexceptions) {
-            NSString * title = [d objectForKey:@"detectedtitle"];
+            NSString * title = d[@"detectedtitle"];
             BOOL exists = false;
             for (NSManagedObject * entry in exceptions) {
                 if ([title isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]]) {
@@ -33,8 +33,8 @@
                 }
             }
             if (!exists) {
-                NSString * correcttitle = (NSString *)[d objectForKey:@"correcttitle"];
-                NSString * showid = (NSString *)[d objectForKey:@"showid"];
+                NSString * correcttitle = (NSString *)d[@"correcttitle"];
+                NSString * showid = (NSString *)d[@"showid"];
                 // Add Exceptions to Core Data
                 NSManagedObject *obj = [NSEntityDescription
                                         insertNewObjectForEntityForName:@"Exceptions"
@@ -43,8 +43,8 @@
                 [obj setValue:title forKey:@"detectedTitle"];
                 [obj setValue:correcttitle forKey:@"correctTitle"];
                 [obj setValue:showid forKey:@"id"];
-                [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodeOffset"];
-                [obj setValue:[NSNumber numberWithInt:0] forKey:@"episodethreshold"];
+                [obj setValue:@0 forKey:@"episodeOffset"];
+                [obj setValue:@0 forKey:@"episodethreshold"];
             }
         }
         //Save
@@ -73,9 +73,9 @@
             AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
             NSManagedObjectContext *moc = [delegate getObjectContext];
             for (NSDictionary *d in a) {
-                NSString * detectedtitlea = [d objectForKey:@"detectedtitle"];
-                NSString * groupa = [d objectForKey:@"group"];
-                NSString * correcttitlea = [d objectForKey:@"correcttitle"];
+                NSString * detectedtitlea = d[@"detectedtitle"];
+                NSString * groupa = d[@"group"];
+                NSString * correcttitlea = d[@"correcttitle"];
                 BOOL exists = false;
                 NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
                 [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
@@ -107,11 +107,11 @@
                                             insertNewObjectForEntityForName:@"AutoExceptions"
                                             inManagedObjectContext: moc];
                     // Set values in the new record
-                    [obj setValue:[d objectForKey:@"detectedtitle"] forKey:@"detectedTitle"];
-                    [obj setValue:[d objectForKey:@"correcttitle"] forKey:@"correctTitle"];
-                    [obj setValue:[d objectForKey:@"offset"] forKey:@"episodeOffset"];
-                    [obj setValue:[d objectForKey:@"threshold"] forKey:@"episodethreshold"];
-                    [obj setValue:[d objectForKey:@"group"] forKey:@"group"];
+                    [obj setValue:d[@"detectedtitle"] forKey:@"detectedTitle"];
+                    [obj setValue:d[@"correcttitle"] forKey:@"correctTitle"];
+                    [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
+                    [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
+                    [obj setValue:d[@"group"] forKey:@"group"];
                     //Save
                     [moc save:&error];
                 }

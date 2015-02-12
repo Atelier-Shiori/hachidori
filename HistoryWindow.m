@@ -24,8 +24,7 @@
 -(void)awakeFromNib{
     [arraycontroller setManagedObjectContext:self.managedObjectContext];
     [arraycontroller prepareContent];
-    [historytable setSortDescriptors:[NSArray arrayWithObject:
-                                      [[NSSortDescriptor alloc] initWithKey:@"Date" ascending:NO]]];
+    [historytable setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Date" ascending:NO]]];
     [arraycontroller setSortDescriptors:[historytable sortDescriptors]];
 }
 - (void)windowDidLoad {
