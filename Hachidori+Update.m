@@ -20,7 +20,7 @@
         LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",LastScrobbledInfo[@"title"]];
         return 3;
     }
-    if ([DetectedEpisode intValue] <= [DetectedCurrentEpisode intValue] ) {
+    if ([DetectedEpisode intValue] <= DetectedCurrentEpisode ) {
         // Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
         LastScrobbledTitle = DetectedTitle;
@@ -55,7 +55,7 @@
     //[request setRequestMethod:@"PUT"];
     [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
     //Set Status
-    if([DetectedEpisode intValue] == [TotalEpisodes intValue]) {
+    if([DetectedEpisode intValue] == TotalEpisodes) {
         //Set Title State
         WatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
@@ -68,7 +68,7 @@
         [request addFormData:WatchStatus forKey:@"status"];
     }
     // Set existing score to prevent the score from being erased.
-    [request addFormData:TitleScore forKey:@"rating"];
+    [request addFormData:[NSNumber numberWithFloat:TitleScore] forKey:@"rating"];
     //Privacy
     if (isPrivate)
         [request addFormData:@"private" forKey:@"privacy"];
@@ -83,7 +83,7 @@
             // Store Scrobbled Title and Episode
             LastScrobbledTitle = DetectedTitle;
             LastScrobbledEpisode = DetectedEpisode;
-            DetectedCurrentEpisode = LastScrobbledEpisode;
+            DetectedCurrentEpisode = [LastScrobbledEpisode intValue];
             LastScrobbledSource = DetectedSource;
             if (confirmed) { // Will only store actual title if confirmation feature is not turned on
                 // Store Actual Title
@@ -121,7 +121,7 @@
     //Set Token
     [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
     //Set current episode
-    if ([episode intValue] != [DetectedCurrentEpisode intValue]) {
+    if ([episode intValue] != DetectedCurrentEpisode) {
         [request addFormData:episode forKey:@"episodes_watched"];
     }
     //Set new watch status
@@ -141,12 +141,12 @@
         case 200:
         case 201:
             //Set New Values
-            TitleScore = [NSString stringWithFormat:@"%f", showscore];
+            TitleScore = showscore;
             WatchStatus = showwatchstatus;
             TitleNotes = note;
             isPrivate = privatevalue;
             LastScrobbledEpisode = episode;
-            DetectedCurrentEpisode = episode;
+            DetectedCurrentEpisode = [episode intValue];
             return true;
         default:
             // Update Unsuccessful

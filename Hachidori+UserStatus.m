@@ -39,17 +39,17 @@
             NSLog(@"Title not on list");
             WatchStatus = @"currently-watching";
             LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
-            DetectedCurrentEpisode = @"0";
-            TitleScore  = @"0";
+            DetectedCurrentEpisode = 0;
+            TitleScore  = 0;
             isPrivate = [defaults boolForKey:@"setprivate"];
             TitleNotes = @"";
             LastScrobbledTitleNew = true;
         }
         if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
-            TotalEpisodes = @"0"; // No Episode Total, Set to 0.
+            TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists
-            TotalEpisodes = LastScrobbledInfo[@"episode_count"];
+            TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episode_count"] intValue];
         }
         // New Update Confirmation
         if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
@@ -114,14 +114,14 @@
     NSDictionary * rating = d[@"rating"];
     if (rating[@"value"] == [NSNull null]){
         // Score is null, set to 0
-        TitleScore = @"0";
+        TitleScore = 0;
     }
     else {
-        TitleScore = rating[@"value"];
+        TitleScore = [(NSNumber *)rating[@"value"] floatValue];
     }
     // Privacy Settings
     isPrivate = [d[@"private"] boolValue];
-    DetectedCurrentEpisode = d[@"episodes_watched"];
+    DetectedCurrentEpisode = [(NSNumber *)d[@"episodes_watched"] intValue];
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
 }

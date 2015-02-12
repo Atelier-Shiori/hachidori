@@ -26,11 +26,11 @@
     NSString * FailedEpisode;
     NSString * FailedSource;
     int DetectedSeason;
-	NSString * DetectedCurrentEpisode;
+	int DetectedCurrentEpisode;
     BOOL DetectedTitleisMovie;
-	NSString * TotalEpisodes;
+	int TotalEpisodes;
 	NSString * WatchStatus;
-	NSString * TitleScore;
+	float TitleScore;
     NSString * TitleNotes;
     NSString * AniID;
     BOOL confirmed;
@@ -46,7 +46,7 @@
 -(NSString *)getLastScrobbledActualTitle;
 -(NSString *)getLastScrobbledSource;
 -(NSString *)getAniID;
--(NSString *)getTotalEpisodes;
+-(int)getTotalEpisodes;
 -(int)getCurrentEpisode;
 -(BOOL)getConfirmed;
 -(float)getScore;

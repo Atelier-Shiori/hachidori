@@ -794,8 +794,8 @@
     [showtitle setObjectValue:[haengine getLastScrobbledActualTitle]];
     [showscore setStringValue:[NSString stringWithFormat:@"%f", [haengine getScore]]];
     [episodefield setStringValue:[NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]]];
-    if ([[haengine getTotalEpisodes] intValue] !=0) {
-        [epiformatter setMaximum:@([[haengine getTotalEpisodes] intValue])];
+    if ([haengine getTotalEpisodes]  !=0) {
+        [epiformatter setMaximum:@([haengine getTotalEpisodes])];
     }
     [showstatus selectItemAtIndex:[haengine getWatchStatus]];
     [notes setString:[haengine getNotes]];
