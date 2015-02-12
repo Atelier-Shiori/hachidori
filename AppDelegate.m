@@ -627,15 +627,15 @@
             else{
                 BOOL correctonce = [fsdialog getcorrectonce];
 				if (!findtitle.hidden) {
-					 [self addtoExceptions:[haengine getFailedTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue]];
+					 [self addtoExceptions:[haengine getFailedTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[fsdialog getSelectedTotalEpisodes]];
 				}
-                else if ([[haengine getLastScrobbledEpisode] intValue] == [[fsdialog getSelectedTotalEpisodes] intValue]){
+                else if ([[haengine getLastScrobbledEpisode] intValue] == [fsdialog getSelectedTotalEpisodes]){
                     // Detected episode equals the total episodes, do not add a rule and only do a correction just once.
                     correctonce = true;
                 }
 				else if (!correctonce){
                     // Add to Exceptions
-					 [self addtoExceptions:[haengine getLastScrobbledTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue]];
+					 [self addtoExceptions:[haengine getLastScrobbledTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[fsdialog getSelectedTotalEpisodes]];
 				}
                 if([fsdialog getdeleteTitleonCorrection]){
                     if([haengine removetitle:[haengine getAniID]]){

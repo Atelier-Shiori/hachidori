@@ -68,7 +68,7 @@
         [request addFormData:WatchStatus forKey:@"status"];
     }
     // Set existing score to prevent the score from being erased.
-    [request addFormData:[NSNumber numberWithFloat:TitleScore] forKey:@"rating"];
+    [request addFormData:@(TitleScore) forKey:@"rating"];
     //Privacy
     if (isPrivate)
         [request addFormData:@"private" forKey:@"privacy"];

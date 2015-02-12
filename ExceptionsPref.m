@@ -82,7 +82,7 @@
             return;
         }
         // Add to Exceptions
-        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:[fsdialog getSelectedTitle] aniid:[fsdialog getSelectedAniID] threshold:[[fsdialog getSelectedTotalEpisodes] intValue] offset:0];
+        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:[fsdialog getSelectedTitle] aniid:[fsdialog getSelectedAniID] threshold:[fsdialog getSelectedTotalEpisodes] offset:0];
         //Check Cache
         [ExceptionsCache checkandRemovefromCache:detectedtitle];
     }

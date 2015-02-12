@@ -254,7 +254,7 @@
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0 && !unittesting) {
         //Save AniID
-        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes:[(NSNumber *)found[@"episodes"] intValue] ];
+        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes:[(NSNumber *)found[@"episode_count"] intValue] ];
     }
     //Return the AniID
     return titleid;

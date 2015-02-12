@@ -71,11 +71,11 @@
 -(void)finish:(NSDictionary *)d{
     selectedtitle = d[@"title"];
     selectedaniid = d[@"slug"];
-    if (d[@"episodes"] != [NSNull null]) {
-        selectedtotalepisodes = d[@"episodes"];
+    if (d[@"episode_count"] != [NSNull null]) {
+        selectedtotalepisodes = [(NSNumber *)d[@"episode_count"] intValue];
     }
     else{
-        selectedtotalepisodes = @"0";
+        selectedtotalepisodes = 0;
     }
     [self.window orderOut:self];
     [NSApp endSheet:self.window returnCode:1];
@@ -148,7 +148,7 @@
 -(NSString *)getSelectedAniID{
     return selectedaniid;
 }
--(NSString *)getSelectedTotalEpisodes{
+-(int)getSelectedTotalEpisodes{
     return selectedtotalepisodes;
 }
 -(bool)getdeleteTitleonCorrection{
