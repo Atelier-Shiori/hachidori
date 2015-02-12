@@ -3,5 +3,9 @@ build/**
 dsa_priv.pem
 .DS_Store
 Frameworks/.DS_Store
-.idea/*.*
 Hachidori.xcodeproj/project.xcworkspace/xcuserdata/*.*
+.idea/*.*
+.idea/inspectionProfiles/*.*
+.idea/runConfigurations/*.*
+.idea/runConfigurations/Hachidori_test.xml
+.idea/scopes/*.*
