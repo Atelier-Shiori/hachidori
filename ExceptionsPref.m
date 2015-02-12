@@ -194,7 +194,7 @@
     NSArray * a = [arraycontroller arrangedObjects];
     for (NSManagedObject * entry in a) {
         int eoffset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
-        if ([detectedtitle isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]] && eoffset == offset) {
+        if ([title isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]] && eoffset == offset) {
             if (ctitle == nil) {
                 return true;
             }
@@ -230,7 +230,7 @@
     NSDictionary * entry = [[NSDictionary alloc] initWithObjectsAndKeys: @"", @"rule", nil];
     [ignorefilenamearraycontroller addObject:entry];
     // Selection Workaround
-    int c = [[NSArray arrayWithArray:[ignorefilenamearraycontroller arrangedObjects]] count];
+    int c = (int) [[NSArray arrayWithArray:[ignorefilenamearraycontroller arrangedObjects]] count];
     if(c > 0){
         [iftb editColumn:0 row:c-1 withEvent:nil select:YES];
     }

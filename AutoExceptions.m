@@ -81,7 +81,7 @@
                 [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
                 NSPredicate *predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (group == %@) AND (correctTitle == %@)", detectedtitlea, groupa, correcttitlea];
                 [allExceptions setPredicate:predicate];
-                NSError * error = nil;
+                error= nil;
                 NSArray * aExceptions = [moc executeFetchRequest:allExceptions error:&error];
                 if (aExceptions.count > 0) {
                     for (NSManagedObject * entry in aExceptions) {

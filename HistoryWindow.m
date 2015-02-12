@@ -8,11 +8,6 @@
 
 #import "HistoryWindow.h"
 
-@interface HistoryWindow ()
-- (NSManagedObjectContext *)managedObjectContext;
-
-@end
-
 @implementation HistoryWindow
 @dynamic managedObjectContext;
 

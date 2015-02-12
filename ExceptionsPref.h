@@ -17,8 +17,6 @@
     IBOutlet NSArrayController * ignorefilenamearraycontroller;
     IBOutlet NSTableView * tb;
     IBOutlet NSTableView * iftb;
-    FixSearchDialog *fsdialog;
-    NSWindow *prefw;
     NSString *detectedtitle;
     NSManagedObjectContext *managedObjectContext;
 }

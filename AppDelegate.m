@@ -322,8 +322,7 @@
         [alert addButtonWithTitle:cancelButton];
 		
         NSInteger answer = [alert runModal];
-        alert = nil;
-        
+
         if (answer == NSAlertAlternateReturn) return NSTerminateCancel;
 		
     }
@@ -771,9 +770,6 @@
 -(bool)getisScrobblingActive{
     return scrobbleractive;
 }
--(NSManagedObjectModel *)getObjectModel{
-    return managedObjectModel;
-}
 -(NSManagedObjectContext *)getObjectContext{
     return managedObjectContext;
 }
@@ -820,7 +816,7 @@
         if ([tmpepisode intValue] != [haengine getCurrentEpisode]) {
             episodechanged = true; // Used to update the status window
         }
-        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:[isPrivate state]];
+        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:(BOOL) [isPrivate state]];
         if (result){
             [self setStatusText:@"Scrobble Status: Updating of Watch Status/Score Successful."];
             if (episodechanged) {

@@ -59,17 +59,13 @@
             online = false;
             Success = NO;
             return @"";
-            break;
         case 200:
             online = true;
             return [self findaniid:[request getResponseData] searchterm:searchtitle];
-            break;
-            
         default:
             online = true;
             Success = NO;
             return @"";
-            break;
     }
     
 }

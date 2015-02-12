@@ -1,27 +1,7 @@
 # Ignore Builds Directory
 build/**
-MAL Updater OS X.xcodeproj/tohnominagi.pbxuser
-MAL Updater OS X.xcodeproj/tohnominagi.perspectivev3
-MAL Updater OS X.xcodeproj/ashe.mode1v3
-MAL Updater OS X.xcodeproj/ashe.pbxuser
-MAL Updater OS X.xcodeproj/ashe.perspectivev3
 dsa_priv.pem
-TwitterOAuthKeys.m
-
-MAL Updater OS X.xcodeproj/project.xcworkspace/xcuserdata/ashe.xcuserdatad/UserInterfaceState.xcuserstate
-
-MAL Updater OS X.xcodeproj/project.xcworkspace/xcuserdata/ashe.xcuserdatad/UserInterfaceState.xcuserstate
-
-MAL Updater OS X.xcodeproj/project.xcworkspace/xcuserdata/ashe.xcuserdatad/UserInterfaceState.xcuserstate
-
-TwitterOAuthKeys.m
-
-TwitterOAuthKeys.m
-
-MAL Updater OS X.xcodeproj/project.xcworkspace/xcuserdata/ashe.xcuserdatad/UserInterfaceState.xcuserstate
-
-TwitterOAuthKeys.m
-
-TwitterOAuthKeys.m
 .DS_Store
 Frameworks/.DS_Store
+.idea/*.*
+Hachidori.xcodeproj/project.xcworkspace/xcuserdata/*.*

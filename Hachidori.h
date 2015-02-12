@@ -31,13 +31,11 @@
 	NSString * TotalEpisodes;
 	NSString * WatchStatus;
 	NSString * TitleScore;
-	NSString * TitleState;
     NSString * TitleNotes;
     NSString * AniID;
     BOOL confirmed;
 	BOOL Success;
     BOOL correcting;
-	int choice;
     BOOL unittesting;
 	NSManagedObjectContext *managedObjectContext;
 }

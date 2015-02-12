@@ -24,13 +24,13 @@
     // Get Information
     [request startFormRequest];
     NSDictionary * d;
-    int statusCode = [request getStatusCode];
+    long statusCode = [request getStatusCode];
     NSError * error = [request getError];
     if (statusCode == 200 || statusCode == 201 ) {
         online = true;
         //return Data
-        NSError * error;
-        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
+        NSError * jerror;
+        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
         if ([d count] > 0) {
             NSLog(@"Title on list");
             [self populateStatusData:d];
@@ -88,7 +88,7 @@
     //Get Information
     [request startRequest];
     // Get Status Code
-    int statusCode = [request getStatusCode];
+    long statusCode = [request getStatusCode];
     if (statusCode == 200) {
         NSError* error;
         NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];

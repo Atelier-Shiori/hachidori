@@ -8,18 +8,9 @@
 
 #import "Hachidori.h"
 #import "Detection.h"
-#import "EasyNSURLConnection.h"
-#import "Utility.h"
 #import "Hachidori+Search.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+UserStatus.h"
-
-@interface Hachidori ()
-// Private Methods
--(int)detectmedia; // 0 - Nothing, 1 - Same, 2 - Update
--(NSString *)checkCache;
--(void)checkExceptions;
-@end
 
 @implementation Hachidori
 @synthesize managedObjectContext;
@@ -65,7 +56,7 @@
 }
 -(int)getScore
 {
-    return [TitleScore integerValue];
+    return [TitleScore intValue];
 }
 -(int)getCurrentEpisode{
     return [DetectedCurrentEpisode intValue];
@@ -275,11 +266,8 @@
             DetectedEpisode = nil;
             DetectedSource = nil;
             return true;
-            break;
-            
         default:
             return false;
-            break;
     }
 }
 -(void)clearAnimeInfo{

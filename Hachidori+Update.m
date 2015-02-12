@@ -95,14 +95,12 @@
             }
             // Update Successful
             return 22;
-            break;
         default:
             // Update Unsuccessful
             if (LastScrobbledTitleNew) {
                 return 52;
             }
             return 53;
-            break;
     }
     
 }
@@ -150,7 +148,6 @@
             LastScrobbledEpisode = episode;
             DetectedCurrentEpisode = episode;
             return true;
-            break;
         default:
             // Update Unsuccessful
             return false;
@@ -174,11 +171,9 @@
         case 200:
         case 201:
             return true;
-            break;
         default:
             // Update Unsuccessful
             return false;
-            break;
     }
     return false;
 }

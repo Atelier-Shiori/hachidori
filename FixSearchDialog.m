@@ -94,7 +94,7 @@
         //Perform Search
         [request startRequest];
         // Get Status Code
-        int statusCode = [request getStatusCode];
+        long statusCode = [request getStatusCode];
         NSData *response = [request getResponseData];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     switch (statusCode) {
@@ -152,10 +152,10 @@
     return selectedtotalepisodes;
 }
 -(bool)getdeleteTitleonCorrection{
-    return [deleteoncorrection state];
+    return (bool) [deleteoncorrection state];
 }
 -(bool)getcorrectonce{
-    return [onetimecorrection state];
+    return (bool) [onetimecorrection state];
 }
 
 @end
