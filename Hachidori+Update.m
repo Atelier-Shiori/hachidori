@@ -68,7 +68,7 @@
         [request addFormData:WatchStatus forKey:@"status"];
     }
     // Set existing score to prevent the score from being erased.
-    [request addFormData:@(TitleScore) forKey:@"rating"];
+    [request addFormData:@(TitleScore).stringValue forKey:@"rating"];
     //Privacy
     if (isPrivate)
         [request addFormData:@"private" forKey:@"privacy"];
