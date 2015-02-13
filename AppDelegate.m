@@ -900,7 +900,6 @@
         [self showNotication:@"Hachidori" message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
         if ([haengine getisNewTitle]) {
             // Enable Update Status functions for new and unconfirmed titles.
-            [confirmupdate setHidden:YES];
 			[self EnableStatusUpdating:YES];
         }
     }
