@@ -88,13 +88,6 @@
                 NSString * DetectedSource;
                 // Source Detection
                 switch (i) {
-                    case 0:
-                    case 1:
-                    case 3:
-                    case 6:
-                    case 7:
-                    DetectedSource = (NSString *)player[i];
-                    break;
                     case 2:
                     DetectedSource = @"SMPlayerX";
                     break;
@@ -103,6 +96,7 @@
                     DetectedSource = @"Quicktime";
                     break;
                     default:
+                    DetectedSource = (NSString *)player[i];
                     break;
                 }
                 if (DetectedTitle.length > 0) {
@@ -158,7 +152,8 @@
             NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",result[@"episode"]];
             NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
             NSString * DetectedGroup = (NSString *)result[@"site"];
-            return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": @0, @"detectedsource": DetectedSource, @"group": DetectedGroup};
+            NSNumber * DetectedSeason = (NSNumber *)result[@"season"];
+            return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
         }
     }
 }
