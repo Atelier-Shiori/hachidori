@@ -527,7 +527,8 @@
                     // Show normal info
                     [self updateLastScrobbledTitleStatus:false];
                     //Enable Update Status functions
-                     [self EnableStatusUpdating:YES];
+                    [self EnableStatusUpdating:YES];
+                    [confirmupdate setHidden:YES];
                 }
                 else{
                     // Show that user needs to confirm update
