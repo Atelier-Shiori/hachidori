@@ -15,14 +15,14 @@
     NSString * postmethod;
     NSMutableArray * headers;
     NSMutableArray * formdata;
-    NSHTTPURLResponse * response;
+    __weak NSHTTPURLResponse * response;
     NSData * responsedata;
-    NSError * error;
+    __weak NSError * error;
     NSURL * URL;
     BOOL usecookies;
 }
-@property(strong) NSURLResponse * response;
-@property(strong) NSError * error;
+@property(weak) NSURLResponse * response;
+@property(weak) NSError * error;
 -(id)init;
 -(id)initWithURL:(NSURL *)address;
 -(NSData *)getResponseData;
