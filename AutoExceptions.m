@@ -49,6 +49,8 @@
         }
         //Save
         [moc save:&error];
+        // Clear Core Data Objects from Memory
+        [moc reset];
         // Erase exceptions data from preferences
         [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
     }
@@ -118,6 +120,8 @@
             }
             // Set the last updated date
             [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"ExceptionsLastUpdated"];
+            // Clear Core Data Objects from Memory
+            [moc reset];
             break;
         }
         default:

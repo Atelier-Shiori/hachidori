@@ -49,6 +49,8 @@
         //Save
         [moc save:&error];
     }
+    // Clear Core Data Objects from Memory
+    [moc reset];
 }
 +(void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes {
     //Adds ID to cache

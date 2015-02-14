@@ -225,6 +225,17 @@
     //Score Second Title
     score2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match2[@"title"]] UTF8String], fuzziness);
     ascore2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match2[@"alternate_title"]] UTF8String], fuzziness);
+    //First Season Score Bonus
+    if (DetectedSeason == 0 || DetectedSeason == 1) {
+        if ([(NSString *)match1[@"title"] rangeOfString:@"First"].location != NSNotFound || [(NSString *)match1[@"title"] rangeOfString:@"1st"].location != NSNotFound) {
+            score1 = score1 + .25;
+            ascore1 = ascore1 + .25;
+        }
+        else if ([(NSString *)match2[@"title"] rangeOfString:@"First"].location != NSNotFound || [(NSString *)match2[@"title"] rangeOfString:@"1st"].location != NSNotFound){
+            score2 = score2 + .25;
+            ascore2 = ascore2 + .25;
+        }
+    }
     if (score1 == score2 || ascore1 == ascore2 || score1 == INFINITY) {
         //Scores can't be reliably compared, just return the first match
         return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"slug"]] info:match1];
