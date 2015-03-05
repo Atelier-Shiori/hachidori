@@ -84,7 +84,12 @@
                                             inManagedObjectContext: moc];
                 // Set values in the new record
                 [obj setValue:d[@"detectedtitle"] forKey:@"detectedTitle"];
-                [obj setValue:d[@"correcttitle"] forKey:@"correctTitle"];
+                if (d[@"hcorrecttitle"] !=nil) {
+                    [obj setValue:d[@"hcorrecttitle"] forKey:@"correctTitle"]; // Use Correct Hummingbird Title
+                }
+                else{
+                    [obj setValue:d[@"correcttitle"] forKey:@"correctTitle"]; // Use Universal Correct Title
+                }
                 [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
                 [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                 [obj setValue:d[@"group"] forKey:@"group"];
