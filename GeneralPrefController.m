@@ -159,21 +159,7 @@
     // Set Message type to Warning
     [alert setAlertStyle:NSWarningAlertStyle];
     if ([alert runModal]== NSAlertFirstButtonReturn) {
-        // Remove All cache data from Auto Exceptions
-        AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
-        NSManagedObjectContext *moc = [delegate getObjectContext];
-        NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
-        [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
-        
-        NSError * error = nil;
-        NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
-        //error handling goes here
-        for (NSManagedObject * exception in exceptions) {
-            [moc deleteObject:exception];
-        }
-        error = nil;
-        [moc save:&error];
-        [allExceptions release];
+        [AutoExceptions clearAutoExceptions];
     }
         [alert release];
     }

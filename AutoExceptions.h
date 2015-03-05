@@ -11,4 +11,5 @@
 @interface AutoExceptions : NSObject
 +(void)importToCoreData;
 +(void)updateAutoExceptions;
++(void)clearAutoExceptions;
 @end
