@@ -157,7 +157,7 @@
                         // Only Result, return
                         return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"slug"]] info:searchentry];
                     }
-                    else if (titlematch1 == nil && sortedArray.count > 1 && ((term.length < theshowtitle.length)||(term.length + 2 < alttitle.length && alttitle.length > 0 && matchstatus == 2))){
+                    else if (titlematch1 == nil && sortedArray.count > 1 && ((term.length < theshowtitle.length)||(term.length< alttitle.length && alttitle.length > 0 && matchstatus == 2))){
                         mstatus = matchstatus;
                         titlematch1 = searchentry;
                         continue;
