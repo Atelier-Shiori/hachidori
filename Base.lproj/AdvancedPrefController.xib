@@ -26,7 +26,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gnC-PW-UbL">
                     <rect key="frame" x="37" y="172" width="103" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Address:" id="Sfk-hk-xua">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="Sfk-hk-xua">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -59,15 +59,6 @@
                         <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiport" id="Srg-xe-kCX"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-ss-Mwe">
-                    <rect key="frame" x="149" y="109" width="268" height="56"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="7G9-zR-zjL">
-                        <font key="font" metaFont="smallSystem"/>
-                        <string key="title">The address is usually an IP address that is running Plex Theater. If you running Plex Theater/Kodi on the same machine, specify localhost as the address</string>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-U0-q8z">
                     <rect key="frame" x="49" y="82" width="91" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="pU8-xG-g07">
@@ -98,6 +89,15 @@
                     <rect key="frame" x="77" y="11" width="340" height="34"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="In order to make Kodi/Plex Theater JSON RPC API detection work, you need to have HTTP JSON-RPC enabled." id="Agl-d8-C1u">
                         <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-ss-Mwe">
+                    <rect key="frame" x="149" y="109" width="268" height="56"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="7G9-zR-zjL">
+                        <font key="font" metaFont="smallSystem"/>
+                        <string key="title">The host is usually an IP address that is running Plex Theater. If you running Plex Theater/Kodi on the same machine, specify localhost as the host.</string>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
