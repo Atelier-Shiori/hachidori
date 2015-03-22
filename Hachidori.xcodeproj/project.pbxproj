@@ -48,7 +48,7 @@
 		6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
 		6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */; };
 		6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */; };
-		6FC4F1AA1ABE343200056532 /* AdvancedPrefController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC4F1A91ABE343200056532 /* AdvancedPrefController.xib */; };
+		6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7601A8B265900B1ED73 /* Hachidori+Search.m */; };
@@ -171,7 +171,7 @@
 		6FAA877E1A7EB47800EFFAC1 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		6FAA877F1A7EB57300EFFAC1 /* Hotkeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hotkeys.h; sourceTree = "<group>"; };
 		6FAA87841A7EB70E00EFFAC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HotkeysPrefs.xib; sourceTree = "<group>"; };
-		6FC4F1A91ABE343200056532 /* AdvancedPrefController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedPrefController.xib; sourceTree = "<group>"; };
+		6FBA5A0E1ABE486500B6DB79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefController.xib; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Search.h"; sourceTree = "<group>"; };
 		8245D7601A8B265900B1ED73 /* Hachidori+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Search.m"; sourceTree = "<group>"; };
@@ -316,7 +316,7 @@
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				6FC4F1A91ABE343200056532 /* AdvancedPrefController.xib */,
+				6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
 				6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */,
@@ -570,7 +570,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				82F065B319FB618E00E0B17A /* detectstream in Resources */,
-				6FC4F1AA1ABE343200056532 /* AdvancedPrefController.xib in Resources */,
+				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
 				5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */,
@@ -724,6 +724,14 @@
 				6FAA87841A7EB70E00EFFAC1 /* Base */,
 			);
 			name = HotkeysPrefs.xib;
+			sourceTree = "<group>";
+		};
+		6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6FBA5A0E1ABE486500B6DB79 /* Base */,
+			);
+			name = AdvancedPrefController.xib;
 			sourceTree = "<group>";
 		};
 		824924A11A184C4200A01761 /* FixSearchDialog.xib */ = {

@@ -191,8 +191,13 @@
             NSNumber * DetectedSeason = d[@"season"];
             NSString * DetectedGroup = @"";
             NSString * DetectedSource = @"Kodi/Plex";
-            NSDictionary * output = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
-            return output;
+            if ([self checkifTitleIgnored:(NSString *)DetectedTitle]) {
+                return nil;
+            }
+            else{
+                NSDictionary * output = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
+                return output;
+            }
         }
         else{
             // Unexpected Output or Kodi/Plex not playing anything, return nil object
