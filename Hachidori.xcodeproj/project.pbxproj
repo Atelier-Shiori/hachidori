@@ -44,9 +44,11 @@
 		6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0CF36B1A7DB89300261A43 /* Utility.m */; };
 		6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1290971A7D817000B8C3E6 /* AutoExceptions.m */; };
 		6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F18658F1A7D6F7F00C74A47 /* Detection.m */; };
+		6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */; };
 		6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
 		6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */; };
 		6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */; };
+		6FC4F1AA1ABE343200056532 /* AdvancedPrefController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC4F1A91ABE343200056532 /* AdvancedPrefController.xib */; };
 		8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; };
 		8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8227C1131A1D89FB005F3301 /* anitomy-osx.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = 8245D7601A8B265900B1ED73 /* Hachidori+Search.m */; };
@@ -160,6 +162,8 @@
 		6F1290971A7D817000B8C3E6 /* AutoExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoExceptions.m; sourceTree = "<group>"; };
 		6F18658E1A7D6F7F00C74A47 /* Detection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Detection.h; sourceTree = SOURCE_ROOT; };
 		6F18658F1A7D6F7F00C74A47 /* Detection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Detection.m; sourceTree = SOURCE_ROOT; };
+		6F2366491ABE31EF00FDC844 /* AdvancedPrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvancedPrefController.h; sourceTree = "<group>"; };
+		6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedPrefController.m; sourceTree = "<group>"; };
 		6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		6F25323A1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsCache.h; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 		6FAA877E1A7EB47800EFFAC1 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		6FAA877F1A7EB57300EFFAC1 /* Hotkeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hotkeys.h; sourceTree = "<group>"; };
 		6FAA87841A7EB70E00EFFAC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HotkeysPrefs.xib; sourceTree = "<group>"; };
+		6FC4F1A91ABE343200056532 /* AdvancedPrefController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedPrefController.xib; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Search.h"; sourceTree = "<group>"; };
 		8245D7601A8B265900B1ED73 /* Hachidori+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Search.m"; sourceTree = "<group>"; };
@@ -311,6 +316,7 @@
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				6FC4F1A91ABE343200056532 /* AdvancedPrefController.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
 				6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */,
@@ -399,6 +405,8 @@
 			isa = PBXGroup;
 			children = (
 				6FAA877E1A7EB47800EFFAC1 /* Preferences.h */,
+				6F2366491ABE31EF00FDC844 /* AdvancedPrefController.h */,
+				6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */,
 				5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */,
 				5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */,
 				825D878E1A18FD2600C5E1BF /* ExceptionsPref.h */,
@@ -562,6 +570,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				82F065B319FB618E00E0B17A /* detectstream in Resources */,
+				6FC4F1AA1ABE343200056532 /* AdvancedPrefController.xib in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
 				5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */,
@@ -635,6 +644,7 @@
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */,
+				6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
 				8245D7641A8B27AA00B1ED73 /* Hachidori+Update.m in Sources */,

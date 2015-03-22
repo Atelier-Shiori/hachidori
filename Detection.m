@@ -8,6 +8,7 @@
 
 #import "Detection.h"
 #import "Recognition.h"
+#import "EasyNSURLConnection.h"
 
 @interface Detection()
 #pragma Private Methods
@@ -24,6 +25,12 @@
 +(NSDictionary *)detectmedia{
     Detection * d = [[self alloc] init];
     NSDictionary * result;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]) {
+        result = [d detectKodi];
+        if (result != nil) {
+            return result;
+        }
+    }
     result = [d detectPlayer];
     if (result == nil) {
         // Check Stream
@@ -155,6 +162,45 @@
             NSNumber * DetectedSeason = (NSNumber *)result[@"season"];
             return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
         }
+    }
+}
+-(NSDictionary *)detectKodi{
+    // Kodi/Plex Theater Detection
+    NSString * address = [[NSUserDefaults standardUserDefaults] objectForKey:@"kodiaddress"];
+    NSString * port = [[NSUserDefaults standardUserDefaults] objectForKey:@"kodiport"];
+    if (address.length == 0) {
+        return nil;
+    }
+    if (port.length == 0) {
+        port = @"3005";
+    }
+    EasyNSURLConnection * request = [[EasyNSURLConnection alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/jsonrpc", address,port]]];
+    [request startJSONRequest:@"{\"jsonrpc\": \"2.0\", \"method\": \"Player.GetItem\", \"params\": { \"properties\": [\"title\", \"season\", \"episode\", \"showtitle\", \"tvshowid\", \"thumbnail\", \"file\", \"fanart\", \"streamdetails\"], \"playerid\": 1 }, \"id\": \"VideoGetItem\"}"];
+    if (request.getStatusCode == 200) {
+        NSDictionary * result;
+        NSError * error = nil;
+        result = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
+        if (result[@"result"] != nil) {
+            //Valid Result, parse title
+            NSDictionary * items = result[@"result"];
+            NSDictionary * item = items[@"item"];
+            NSString * label = item[@"label"];
+            NSDictionary * d=[[Recognition alloc] recognize:label];
+            NSString * DetectedTitle = (NSString *)d[@"title"];
+            NSString * DetectedEpisode = (NSString *)d[@"episode"];
+            NSNumber * DetectedSeason = d[@"season"];
+            NSString * DetectedGroup = @"";
+            NSString * DetectedSource = @"Kodi/Plex";
+            NSDictionary * output = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
+            return output;
+        }
+        else{
+            // Unexpected Output or Kodi/Plex not playing anything, return nil object
+            return nil;
+        }
+    }
+    else{
+        return nil;
     }
 }
 -(bool)checkifIgnored:(NSString *)filename{

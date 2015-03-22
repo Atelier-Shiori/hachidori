@@ -15,5 +15,6 @@
 #import "HotkeysPrefs.h"
 #import "ExceptionsPref.h"
 #import "SoftwareUpdatesPref.h"
+#import "AdvancedPrefController.h"
 
 #endif

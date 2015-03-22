@@ -144,6 +144,9 @@
     defaultValues[@"ConfirmNewTitle"] = @YES;
     defaultValues[@"ConfirmUpdates"] = @NO;
 	defaultValues[@"UseAutoExceptions"] = @YES;
+    defaultValues[@"enablekodiapi"] = @NO;
+    defaultValues[@"kodiaddress"] = @"";
+    defaultValues[@"kodiport"] = @"3005";
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
         	defaultValues[@"DisableYosemiteTitleBar"] = @NO;
@@ -273,7 +276,8 @@
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
         NSViewController *exceptionsViewController = [[ExceptionsPref alloc] init];
         NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
-        NSArray *controllers = @[generalViewController, loginViewController, hotkeyViewController , exceptionsViewController, suViewController];
+        NSViewController *advancedViewController = [[AdvancedPrefController alloc] init];
+        NSArray *controllers = @[generalViewController, loginViewController, hotkeyViewController , exceptionsViewController, suViewController, advancedViewController];
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers];
     }
     return _preferencesWindowController;
