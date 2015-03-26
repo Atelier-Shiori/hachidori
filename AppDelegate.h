@@ -42,6 +42,7 @@
     /* Status Window */
 	IBOutlet NSTextField * ScrobblerStatus;
 	IBOutlet NSTextField * LastScrobbled;
+    IBOutlet NSToolbarItem * openAnimePage;
     IBOutlet NSTextView * animeinfo;
     IBOutlet NSImageView * img;
     IBOutlet NSVisualEffectView * windowcontent;

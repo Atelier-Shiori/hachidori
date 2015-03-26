@@ -201,6 +201,7 @@
 	[updatetoolbaritem setEnabled:NO];
     [sharetoolbaritem setEnabled:NO];
     [correcttoolbaritem setEnabled:NO];
+    [openAnimePage setEnabled:NO];
 	// Hide Window
 	[window close];
 	
@@ -235,7 +236,7 @@
     }
     // Fix template images
     // There is a bug where template images are not made even if they are set in XCAssets
-    NSArray *images = @[@"update", @"history", @"correct"];
+    NSArray *images = @[@"update", @"history", @"correct", @"Info"];
     NSImage * image;
     for (NSString *imagename in images){
             image = [NSImage imageNamed:imagename];
@@ -548,6 +549,7 @@
                 }
                 [sharetoolbaritem setEnabled:YES];
                 [correcttoolbaritem setEnabled:YES];
+                [openAnimePage setEnabled:YES];
                 // Show hidden menus
                 [self unhideMenus];
                 NSDictionary * ainfo = [haengine getLastScrobbledInfo];
@@ -678,6 +680,7 @@
 	                        [sharetoolbaritem setEnabled:YES];
 	                        [correcttoolbaritem setEnabled:YES];
 							 [self EnableStatusUpdating:YES];
+                                [openAnimePage setEnabled:YES];
 	                    }
                         //Show Anime Correct Information
                         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
@@ -1006,5 +1009,9 @@
 - (IBAction)shareFromService:(id)sender{
     // Share Item
     [[sender representedObject] performWithItems:shareItems];
+}
+-(IBAction)showLastScrobbledInformation:(id)sender{
+    //Open the anime's page on MyAnimeList in the default web browser
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]]];
 }
 @end
