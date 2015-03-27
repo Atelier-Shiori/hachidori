@@ -95,7 +95,7 @@
 -(IBAction)showPreferences:(id)sender;
 -(IBAction)getHelp:(id)sender;
 -(void)appendToAnimeInfo:(NSString*)text;
--(void)showNotication:(NSString *)title message:(NSString *) message;
+-(void)showNotification:(NSString *)title message:(NSString *) message;
 -(IBAction)showAboutWindow:(id)sender;
 -(bool)getisScrobbling;
 -(bool)getisScrobblingActive;

@@ -419,13 +419,13 @@
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
 	if (![Utility checktoken]) {
-        [self showNotication:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
+        [self showNotification:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
     }
 	else {
 		if (scrobbling == FALSE) {
 			[self starttimer];
 			[togglescrobbler setTitle:@"Stop Scrobbling"];
-            [self showNotication:@"Hachidori" message:@"Auto Scrobble is now turned on."];
+            [self showNotification:@"Hachidori" message:@"Auto Scrobble is now turned on."];
 			[ScrobblerStatus setObjectValue:@"Scrobble Status: Started"];
 			//Set Scrobbling State to true
 			scrobbling = TRUE;
@@ -434,7 +434,7 @@
 			[self stoptimer];
 			[togglescrobbler setTitle:@"Start Scrobbling"];
 			[ScrobblerStatus setObjectValue:@"Scrobble Status: Stopped"];
-            [self showNotication:@"Hachidori" message:@"Auto Scrobble is now turned off."];
+            [self showNotification:@"Hachidori" message:@"Auto Scrobble is now turned off."];
 			//Set Scrobbling State to false
 			scrobbling = FALSE;
 		}
@@ -444,7 +444,7 @@
 -(void)autostarttimer {
 	//Check to see if there is an API Key stored
 	if (![Utility checktoken]) {
-         [self showNotication:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
+         [self showNotification:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
 	}
 	else {
 		[self starttimer];
@@ -496,27 +496,27 @@
             case 3:{
                 [self setStatusText:@"Scrobble Status: Please confirm update."];
                 NSDictionary * userinfo = @{@"title": [haengine getLastScrobbledTitle],  @"episode": [haengine getLastScrobbledEpisode]};
-                [self showConfirmationNotication:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
+                [self showConfirmationNotification:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
                 break;
             }
             case 21:
             case 22:
                 [self setStatusText:@"Scrobble Status: Scrobble Successful..."];
-                [self showNotication:@"Scrobble Successful."message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                [self showNotification:@"Scrobble Successful."message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
                 //Add History Record
                 [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
                 break;
             case 51:
                 [self setStatusText:@"Scrobble Status: Can't find title. Retrying in 5 mins..."];
-                [self showNotication:@"Scrobble Unsuccessful." message:[NSString stringWithFormat:@"Couldn't find %@.", [haengine getFailedTitle]]];
+                [self showNotification:@"Couldn't find title." message:[NSString stringWithFormat:@"Click here to find %@ manually.", [haengine getFailedTitle]]];
                 break;
             case 52:
             case 53:
-                [self showNotication:@"Scrobble Unsuccessful." message:@"Retrying in 5 mins..."];
+                [self showNotification:@"Scrobble Unsuccessful." message:@"Retrying in 5 mins..."];
                 [self setStatusText:@"Scrobble Status: Scrobble Failed. Retrying in 5 mins..."];
                 break;
             case 54:
-                [self showNotication:@"Scrobble Unsuccessful." message:@"Check user credentials in Preferences. You may need to login again."];
+                [self showNotification:@"Scrobble Unsuccessful." message:@"Check user credentials in Preferences. You may need to login again."];
                 [self setStatusText:@"Scrobble Status: Scrobble Failed. User credentials might have expired."];
                 break;
             case 55:
@@ -588,7 +588,7 @@
         [self firetimer:nil];
     }
     else
-        [self showNotication:@"Hachidori" message:@"Please log in with your account in Preferences before using this program"];
+        [self showNotification:@"Hachidori" message:@"Please log in with your account in Preferences before using this program"];
 }
 
 #pragma mark Correction
@@ -671,7 +671,7 @@
                     case 21:
                     case 22:{
                         [self setStatusText:@"Scrobble Status: Correction Successful..."];
-                        [self showNotication:@"Hachidori" message:@"Correction was successful"];
+                        [self showNotification:@"Hachidori" message:@"Correction was successful"];
                         [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                         [self updateLastScrobbledTitleStatus:false];
 	                    if (!findtitle.hidden) {
@@ -692,7 +692,7 @@
                     }
                     default:
                         [self setStatusText:@"Scrobble Status: Correction unsuccessful..."];
-                        [self showNotication:@"Hachidori" message:@"Correction was not successful."];
+                        [self showNotification:@"Hachidori" message:@"Correction was not successful."];
                         break;
                 }
             }
@@ -859,7 +859,7 @@
 
 #pragma mark Notification Center and Title/Update Confirmation
 
--(void)showNotication:(NSString *)title message:(NSString *) message{
+-(void)showNotification:(NSString *)title message:(NSString *) message{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = message;
@@ -867,7 +867,7 @@
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
--(void)showConfirmationNotication:(NSString *)title message:(NSString *) message updateData:(NSDictionary *)d{
+-(void)showConfirmationNotification:(NSString *)title message:(NSString *) message updateData:(NSDictionary *)d{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = message;
@@ -893,6 +893,10 @@
             return;
         }
     }
+    else if ([notification.title isEqualToString:@"Couldn't find title."] && !findtitle.hidden){
+        //Find title
+        [self showCorrectionSearchWindow:nil];
+    }
 }
 -(IBAction)confirmupdate:(id)sender{
     [self confirmupdate];
@@ -904,14 +908,14 @@
         [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
         [confirmupdate setHidden:YES];
         [self setStatusText:@"Scrobble Status: Update was successful."];
-        [self showNotication:@"Hachidori" message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [self showNotification:@"Hachidori" message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
         if ([haengine getisNewTitle]) {
             // Enable Update Status functions for new and unconfirmed titles.
 			[self EnableStatusUpdating:YES];
         }
     }
     else{
-        [self showNotication:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
+        [self showNotification:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
         [self setStatusText:@"Unable to confirm update."];
     }
 }
