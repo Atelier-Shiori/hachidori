@@ -116,6 +116,10 @@
         for (NSDictionary *searchentry in sortedArray) {
             theshowtitle = [NSString stringWithFormat:@"%@",searchentry[@"title"]];
             alttitle = [NSString stringWithFormat:@"%@", searchentry[@"alternate_title"]];
+            // Remove colons as they are invalid characters for filenames and to improve accuracy
+            theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+            alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+            // Perform Recognition
             int matchstatus = [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i];
             if (matchstatus == 1 || matchstatus == 2) {
                 if (DetectedTitleisMovie) {

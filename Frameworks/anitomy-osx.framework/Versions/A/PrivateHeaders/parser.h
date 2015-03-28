@@ -41,7 +41,7 @@ private:
   void SearchForAnimeTitle();
   void SearchForReleaseGroup();
   void SearchForEpisodeTitle();
-  void SearchForAnimeYear();
+  void SearchForIsolatedNumbers();
 
   bool SearchForEpisodePatterns(std::vector<size_t>& tokens);
   bool SearchForIsolatedNumbers(std::vector<size_t>& tokens);
@@ -56,6 +56,8 @@ private:
   bool MatchMultiEpisodePattern(const string_t& word, Token& token);
   bool MatchSeasonAndEpisodePattern(const string_t& word, Token& token);
   bool MatchTypeAndEpisodePattern(const string_t& word, Token& token);
+  bool MatchFractionalEpisodePattern(const string_t& word, Token& token);
+  bool MatchPartialEpisodePattern(const string_t& word, Token& token);
   bool MatchJapaneseCounterPattern(const string_t& word, Token& token);
 
   bool SetEpisodeNumber(const string_t& number, Token& token, bool validate);
