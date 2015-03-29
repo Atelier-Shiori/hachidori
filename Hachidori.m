@@ -223,10 +223,10 @@
     DetectedSeason = season;
     DetectedGroup = group;
     unittesting = true;
-    //Check for Exceptions
-    [self checkExceptions];
     //Check for zero episode as the detected episode
     [self checkzeroEpisode];
+    //Check for Exceptions
+    [self checkExceptions];
     //Retrieve Info
     NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
     return d;
@@ -240,11 +240,10 @@
         DetectedSeason = [(NSNumber *)result[@"detectedseason"] intValue];
         DetectedGroup = result[@"group"];
         DetectedSource = result[@"detectedsource"];
+        //Check for zero episode as the detected episode
+        [self checkzeroEpisode];
         // Check if the title was previously scrobbled
         [self checkExceptions];
-        
-        // Check 00 episodes
-        [self checkzeroEpisode];
         
         if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
             // Do Nothing
@@ -355,6 +354,7 @@
                             DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
                         }
                         DetectedSeason = 0;
+                        DetectedTitleisEpisodeZero = false;
                         found = true;
 						break;
                     }
