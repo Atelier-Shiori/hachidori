@@ -225,6 +225,9 @@
     unittesting = true;
     //Check for Exceptions
     [self checkExceptions];
+    //Check for zero episode as the detected episode
+    [self checkzeroEpisode];
+    //Retrieve Info
     NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
     return d;
 }
@@ -240,6 +243,9 @@
         // Check if the title was previously scrobbled
         [self checkExceptions];
         
+        // Check 00 episodes
+        [self checkzeroEpisode];
+        
         if ([DetectedTitle isEqualToString:LastScrobbledTitle] && [DetectedEpisode isEqualToString: LastScrobbledEpisode] && Success == 1) {
             // Do Nothing
             return 1;
@@ -252,6 +258,16 @@
     else{
         return 0;
     }
+}
+-(void)checkzeroEpisode{
+    // For 00 Episodes
+    if ([DetectedEpisode isEqualToString:@"00"]||[DetectedEpisode isEqualToString:@"0"]) {
+        // Specify it in the title instead
+        DetectedTitle = [NSString stringWithFormat:@"%@ Episode 0", DetectedTitle];
+        DetectedEpisode = @"1";
+        DetectedTitleisEpisodeZero = true;
+    }
+    else{DetectedTitleisEpisodeZero = false;}
 }
 -(BOOL)confirmupdate{
     DetectedTitle = LastScrobbledTitle;

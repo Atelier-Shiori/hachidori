@@ -28,6 +28,7 @@
     int DetectedSeason;
 	int DetectedCurrentEpisode;
     BOOL DetectedTitleisMovie;
+    BOOL DetectedTitleisEpisodeZero;
 	int TotalEpisodes;
 	NSString * WatchStatus;
 	float TitleScore;

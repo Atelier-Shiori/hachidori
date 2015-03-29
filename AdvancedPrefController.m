@@ -36,4 +36,8 @@
 {
     return NSLocalizedString(@"Advanced", @"Toolbar item name for the Advanced preference pane");
 }
+-(IBAction)getHelp:(id)sender{
+    //Show Help
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Advanced-Options"]];
+}
 @end
