@@ -40,8 +40,12 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiaddress" id="Nux-VX-GGG">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                            </dictionary>
+                        </binding>
                         <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="ae6-Nl-7pY"/>
-                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiaddress" id="Hou-FI-h3R"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-m2-aJf">
@@ -55,8 +59,12 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiport" id="LgS-P2-eRO">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                            </dictionary>
+                        </binding>
                         <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="EAc-nW-b6i"/>
-                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiport" id="Srg-xe-kCX"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-U0-q8z">
