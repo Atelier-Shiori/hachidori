@@ -19,6 +19,9 @@
     regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
     string = [regex replaceAllMatchesInString:string
                                    withString:@""];
+    regex = [OGRegularExpression regularExpressionWithString:@"^.+\\\\"]; //for Plex
+    string = [regex replaceAllMatchesInString:string
+                                   withString:@""];
     NSDictionary * d = [[anitomy_bridge new] tokenize:string];
     DetectedTitle = d[@"title"];
     DetectedEpisode = d[@"episode"];

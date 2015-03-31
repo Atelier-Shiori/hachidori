@@ -184,12 +184,21 @@
             //Valid Result, parse title
             NSDictionary * items = result[@"result"];
             NSDictionary * item = items[@"item"];
-            NSString * label = item[@"label"];
+            NSString * label;
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kodiusefilename"])
+            {
+                // Use filename for recognition
+                label = item[@"file"];
+            }
+            else{
+                // Use the label
+                label = item[@"label"];
+            }
             NSDictionary * d=[[Recognition alloc] recognize:label];
             NSString * DetectedTitle = (NSString *)d[@"title"];
             NSString * DetectedEpisode = (NSString *)d[@"episode"];
             NSNumber * DetectedSeason = d[@"season"];
-            NSString * DetectedGroup = @"";
+            NSString * DetectedGroup = d[@"group"];
             NSString * DetectedSource = @"Kodi/Plex";
             if ([self checkifTitleIgnored:(NSString *)DetectedTitle]) {
                 return nil;
