@@ -88,7 +88,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="nAC-LU-93c" id="gMF-8j-eH4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="517" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="561" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -309,7 +309,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="cUG-zP-Xvg">
-                                                    <rect key="frame" x="0.0" y="0.0" width="506" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="559" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -383,10 +383,13 @@
             </subviews>
             <point key="canvasLocation" x="281.5" y="244.5"/>
         </customView>
-        <arrayController mode="entity" entityName="Exceptions" selectsInsertedObjects="NO" id="WNZ-Fa-W8F">
+        <arrayController mode="entity" entityName="Exceptions" automaticallyPreparesContent="YES" selectsInsertedObjects="NO" id="WNZ-Fa-W8F">
             <declaredKeys>
                 <string>allValues</string>
             </declaredKeys>
+            <connections>
+                <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="IiX-BC-c8e"/>
+            </connections>
         </arrayController>
         <arrayController id="3Xl-n2-elJ" userLabel="IgnoreList Array Controller">
             <declaredKeys>

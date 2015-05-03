@@ -26,10 +26,6 @@
 {
     return [super initWithNibName:@"ExceptionsPref" bundle:nil];
 }
--(void)awakeFromNib{
-    [arraycontroller setManagedObjectContext:self.managedObjectContext];
-    [arraycontroller prepareContent];
-}
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
@@ -86,6 +82,8 @@
         //Check Cache
         [ExceptionsCache checkandRemovefromCache:detectedtitle];
     }
+    // Refetch Exceptions Data
+    [arraycontroller fetch:self];
     fsdialog = nil;
     detectedtitle = nil;
 }
@@ -141,6 +139,8 @@
                 //Check Cache
                 [ExceptionsCache checkandRemovefromCache:(NSString *)d[@"detectedtitle"]];
             }
+            // Refetch Exceptions Data
+            [arraycontroller fetch:self];
         }
     }];
 }
