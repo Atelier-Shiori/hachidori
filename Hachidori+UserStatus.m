@@ -44,6 +44,8 @@
             isPrivate = [defaults boolForKey:@"setprivate"];
             TitleNotes = @"";
             LastScrobbledTitleNew = true;
+            rewatching = false;
+            rewatchcount = 0;
         }
         if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
             TotalEpisodes = 0; // No Episode Total, Set to 0.
@@ -119,6 +121,9 @@
     else {
         TitleScore = [(NSNumber *)rating[@"value"] floatValue];
     }
+    // Rewatch Information
+    rewatching = [d[@"rewatching"] boolValue];
+    rewatchcount = [d[@"rewatched_times"] longValue];
     // Privacy Settings
     isPrivate = [d[@"private"] boolValue];
     DetectedCurrentEpisode = [(NSNumber *)d[@"episodes_watched"] intValue];

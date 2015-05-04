@@ -17,7 +17,7 @@
         [self storeLastScrobbled];
         return 3;
     }
-    if ([DetectedEpisode intValue] <= DetectedCurrentEpisode ) {
+    if ([DetectedEpisode intValue] <= DetectedCurrentEpisode && (![WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
         // Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
         [self storeLastScrobbled];
@@ -43,20 +43,43 @@
     //Set Token
     [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
     //Set Timeout
-    //[request setRequestMethod:@"PUT"];
     [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
     //Set Status
+    BOOL tmprewatching;
+    long tmprewatchedcount;
+    NSString * tmpWatchStatus;
     if([DetectedEpisode intValue] == TotalEpisodes) {
         //Set Title State
-        WatchStatus = @"completed";
+        tmpWatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
-        [request addFormData:WatchStatus forKey:@"status"];
+        [request addFormData:tmpWatchStatus forKey:@"status"];
+        if (rewatching){
+            //Set rewatch status to false
+            tmprewatching = false;
+            [request addFormData:@"false" forKey:@"rewatching"];
+            // Increment rewatch count
+            tmprewatchedcount = rewatchcount + 1;
+            [request addFormData:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"rewatched_times"];
+        }
+        if (DetectedCurrentEpisode == TotalEpisodes && [WatchStatus isEqualToString:@"completeed"]){
+            //Increment Rewatch Count only
+            tmprewatchedcount = rewatchcount + 1;
+            [request addFormData:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"rewatched_times"];
+        }
+    }
+    else if ([WatchStatus isEqualToString:@"completed"] && [DetectedEpisode intValue] < TotalEpisodes){
+        //Set rewatch status to true
+        tmprewatching = true;
+        [request addFormData:@"true" forKey:@"rewatching"];
+        //Set Title State to currently watching
+        tmpWatchStatus = @"currently-watching";
+        [request addFormData:tmpWatchStatus forKey:@"status"];
     }
     else {
         //Set Title State to currently watching
-        WatchStatus = @"currently-watching";
+        tmpWatchStatus = @"currently-watching";
         // Still Watching
-        [request addFormData:WatchStatus forKey:@"status"];
+        [request addFormData:tmpWatchStatus forKey:@"status"];
     }
     // Set existing score to prevent the score from being erased.
     [request addFormData:@(TitleScore).stringValue forKey:@"rating"];
@@ -76,6 +99,8 @@
             LastScrobbledEpisode = DetectedEpisode;
             DetectedCurrentEpisode = [LastScrobbledEpisode intValue];
             LastScrobbledSource = DetectedSource;
+            rewatching = tmprewatching;
+            WatchStatus = tmpWatchStatus;
             if (confirmed) { // Will only store actual title if confirmation feature is not turned on
                 // Store Actual Title
                 LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",LastScrobbledInfo[@"title"]];
@@ -145,6 +170,42 @@
             break;
     }
     return false;
+}
+-(BOOL)stopRewatching:(NSString *)titleid{
+    NSLog(@"Reverting rewatch for %@", titleid);
+    // Update the title
+    //Set library/scrobble API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@",  titleid]];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    //Set Token
+    [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
+    //Set current episode to total episodes
+    [request addFormData:[[NSNumber numberWithInt:TotalEpisodes] stringValue] forKey:@"episodes_watched"];
+    //Revert watch status to complete
+    [request addFormData:@"completed" forKey:@"status"];
+    //Set Rewatch status to false
+    [request addFormData:@"false" forKey:@"rewatching"];
+    
+    // Do Update
+    [request startFormRequest];
+    switch ([request getStatusCode]) {
+        case 200:
+        case 201:
+            //Set New Values
+            rewatching = false;
+            WatchStatus = @"completed";
+            LastScrobbledEpisode = [[NSNumber numberWithInt:TotalEpisodes] stringValue];
+            DetectedCurrentEpisode = TotalEpisodes;
+            return true;
+        default:
+            // Rewatch revert unsuccessful
+            return false;
+            break;
+    }
+    return false;
+
 }
 -(bool)removetitle:(NSString *)titleid{
     NSLog(@"Removing %@", titleid);

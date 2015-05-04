@@ -37,6 +37,7 @@
     IBOutlet NSMenuItem * seperator2;
     IBOutlet NSMenuItem * updatedcorrecttitle;
     IBOutlet NSMenuItem * updatedupdatestatus;
+    IBOutlet NSMenuItem * revertrewatch;
     IBOutlet NSMenuItem *shareMenuItem;
     IBOutlet NSMenu * shareMenu;
     /* Status Window */

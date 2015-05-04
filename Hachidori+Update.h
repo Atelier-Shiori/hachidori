@@ -17,5 +17,6 @@
         watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note
           isPrivate:(BOOL)privatevalue;
+-(BOOL)stopRewatching:(NSString *)titleid;
 -(bool)removetitle:(NSString *)titleid;
 @end

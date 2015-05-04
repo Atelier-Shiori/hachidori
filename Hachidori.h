@@ -32,6 +32,8 @@
 	int TotalEpisodes;
 	NSString * WatchStatus;
 	float TitleScore;
+    long rewatchcount;
+    BOOL rewatching;
     NSString * TitleNotes;
     NSString * AniID;
     BOOL confirmed;
@@ -52,6 +54,7 @@
 -(BOOL)getConfirmed;
 -(float)getScore;
 -(int)getWatchStatus;
+-(BOOL)getRewatching;
 -(NSString *)getNotes;
 -(BOOL)getSuccess;
 -(BOOL)getPrivate;

@@ -64,6 +64,9 @@
 -(BOOL)getConfirmed{
     return confirmed;
 }
+-(BOOL)getRewatching{
+    return rewatching;
+}
 -(BOOL)getisNewTitle{
     return LastScrobbledTitleNew;
 }

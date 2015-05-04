@@ -145,6 +145,7 @@
     defaultValues[@"ConfirmUpdates"] = @NO;
 	defaultValues[@"UseAutoExceptions"] = @YES;
     defaultValues[@"enablekodiapi"] = @NO;
+    defaultValues[@"RewatchEnabled"] = @YES;
     defaultValues[@"kodiaddress"] = @"";
     defaultValues[@"kodiport"] = @"3005";
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
@@ -362,6 +363,7 @@
     [togglescrobbler setEnabled:NO];
     [updatedcorrecttitle setEnabled:NO];
     [updatedupdatestatus setEnabled:NO];
+    [revertrewatch setEnabled:NO];
     [confirmupdate setEnabled:NO];
 	[findtitle setEnabled:NO];
 }
@@ -377,6 +379,7 @@
     if (!confirmupdate.hidden && ![haengine getisNewTitle]){
         [updatedupdatestatus setEnabled:YES];
         [updatecorrect setAutoenablesItems:YES];
+        [revertrewatch setEnabled:YES];
     }
     [updatecorrect setAutoenablesItems:YES];
     [statusMenu setAutoenablesItems:YES];
@@ -400,6 +403,7 @@
     [togglescrobbler setEnabled:enable];
     [confirmupdate setEnabled:enable];
     [findtitle setEnabled:enable];
+    [revertrewatch setEnabled:enable];
     if (!enable) {
         [updatenow setTitle:@"Updating..."];
         [self setStatusText:@"Scrobble Status: Scrobbling..."];
@@ -412,6 +416,7 @@
 	[updatecorrect setAutoenablesItems:enable];
     [updatetoolbaritem setEnabled:enable];
     [updatedupdatestatus setEnabled:enable];
+    [revertrewatch setEnabled:enable];
 }
 
 #pragma mark Timer Functions
@@ -500,12 +505,20 @@
                 break;
             }
             case 21:
-            case 22:
+            case 22:{
                 [self setStatusText:@"Scrobble Status: Scrobble Successful..."];
-                [self showNotification:@"Scrobble Successful."message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                NSString * notificationmsg;
+                if ([haengine getRewatching]){
+                    notificationmsg = [NSString stringWithFormat:@"Rewatching %@ Episode %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]];
+                }
+                else{
+                    notificationmsg = [NSString stringWithFormat:@"%@ Episode %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]];
+                }
+                [self showNotification:@"Scrobble Successful." message:notificationmsg];
                 //Add History Record
                 [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
                 break;
+            }
             case 51:
                 [self setStatusText:@"Scrobble Status: Can't find title. Retrying in 5 mins..."];
                 [self showNotification:@"Couldn't find title." message:[NSString stringWithFormat:@"Click here to find %@ manually.", [haengine getFailedTitle]]];
@@ -534,6 +547,7 @@
                     //Enable Update Status functions
                     [self EnableStatusUpdating:YES];
                     [confirmupdate setHidden:YES];
+                    [self showRevertRewatchMenu];
                 }
                 else{
                     // Show that user needs to confirm update
@@ -542,9 +556,11 @@
                     if ([haengine getisNewTitle]) {
                         // Disable Update Status functions for new and unconfirmed titles.
                         [self EnableStatusUpdating:NO];
+                        [revertrewatch setHidden:YES];
                     }
 					else{
-						 [self EnableStatusUpdating:YES];
+                        [self EnableStatusUpdating:YES];
+                        [self showRevertRewatchMenu];
 					}
                 }
                 [sharetoolbaritem setEnabled:YES];
@@ -681,6 +697,7 @@
 	                        [correcttoolbaritem setEnabled:YES];
 							 [self EnableStatusUpdating:YES];
                                 [openAnimePage setEnabled:YES];
+                            [self showRevertRewatchMenu];
 	                    }
                         //Show Anime Correct Information
                         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
@@ -770,8 +787,14 @@
     }
     else{
         [updatecorrect setAutoenablesItems:YES];
-        [lastupdateheader setTitle:@"Last Scrobbled:"];
-        [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@ playing from %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+        if ([haengine getRewatching]){
+            [lastupdateheader setTitle:@"Rewatching:"];
+            [self setLastScrobbledTitle:[NSString stringWithFormat:@"Rewatching: %@ - Episode %@ playing from %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+        }
+        else{
+            [lastupdateheader setTitle:@"Last Scrobbled:"];
+            [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@ playing from %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+        }
         [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
     }
 }
@@ -857,6 +880,27 @@
 	[NSApp endSheet:updatepanel returnCode:1];
 }
 
+-(IBAction)revertRewatch:(id)sender{
+    //Show Prompt
+    NSAlert * alert = [[NSAlert alloc] init] ;
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"No"];
+    [alert setMessageText:[NSString stringWithFormat:@"Do you want to stop rewatching %@?",[haengine getLastScrobbledTitle]]];
+    [alert setInformativeText:@"This will revert the title status back to it's completed state."];
+    // Set Message type to Informational
+    [alert setAlertStyle:NSInformationalAlertStyle];
+    if ([alert runModal]== NSAlertFirstButtonReturn) {
+        // Revert title
+        BOOL success = [haengine stopRewatching:[haengine getAniID]];
+        if (success){
+            [self showNotification:@"Hachidori" message:[NSString stringWithFormat:@"%@'s rewatch status has been reverted.", [haengine getLastScrobbledTitle]]];
+        }
+        else{
+            [self showNotification:@"Hachidori" message:@"Rewatch revert was unsuccessful."];
+        }
+    }
+}
+
 #pragma mark Notification Center and Title/Update Confirmation
 
 -(void)showNotification:(NSString *)title message:(NSString *) message{
@@ -913,6 +957,7 @@
             // Enable Update Status functions for new and unconfirmed titles.
 			[self EnableStatusUpdating:YES];
         }
+        [self showRevertRewatchMenu];
     }
     else{
         [self showNotification:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
@@ -986,6 +1031,14 @@
         NSAttributedString* attr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n", text]];
         
         [[animeinfo textStorage] appendAttributedString:attr];
+}
+-(void)showRevertRewatchMenu{
+    if ([haengine getRewatching]){
+        [revertrewatch setHidden:NO];
+    }
+    else{
+        [revertrewatch setHidden:YES];
+    }
 }
 #pragma mark Share Services
 -(void)generateShareMenu{
