@@ -42,7 +42,6 @@
     [request setUseCookies:NO];
     //Set Token
     [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
-    //Set Timeout
     [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
     //Set Status
     BOOL tmprewatching;
@@ -61,7 +60,7 @@
             tmprewatchedcount = rewatchcount + 1;
             [request addFormData:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"rewatched_times"];
         }
-        if (DetectedCurrentEpisode == TotalEpisodes && [WatchStatus isEqualToString:@"completeed"]){
+        else if ([DetectedEpisode intValue] == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes){
             //Increment Rewatch Count only
             tmprewatchedcount = rewatchcount + 1;
             [request addFormData:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"rewatched_times"];
