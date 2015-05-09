@@ -14,8 +14,8 @@
 #pragma Private Methods
 -(NSDictionary *)detectStream;
 -(NSDictionary *)detectPlayer;
--(bool)checkifIgnored:(NSString *)filename;
--(bool)checkifTitleIgnored:(NSString *)filename;
+-(bool)checkifIgnored:(NSString *)filename source:(NSString *)source;
+-(bool)checkifTitleIgnored:(NSString *)filename source:(NSString *)source;
 -(bool)checkifDirectoryIgnored:(NSString *)filename;
 -(bool)checkIgnoredKeywords:(NSString *)filename;
 @end
@@ -82,30 +82,32 @@
             while ((match = [enumerator nextObject]) != nil) {
                 string = [match matchedString];
             }
+            // Populate Source
+            NSString * DetectedSource;
+            // Source Detection
+            switch (i) {
+                case 2:
+                    DetectedSource = @"SMPlayerX";
+                    break;
+                case 4:
+                case 5:
+                    DetectedSource = @"Quicktime";
+                    break;
+                default:
+                    DetectedSource = (NSString *)player[i];
+                    break;
+            }
             //Check if thee file name or directory is on any ignore list
-            BOOL onIgnoreList = [self checkifIgnored:string];
+            BOOL onIgnoreList = [self checkifIgnored:string source:DetectedSource];
             BOOL invalidepisode = [self checkIgnoredKeywords:string];
             //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
+            
             if ([regex matchInString:string] !=nil && !onIgnoreList && !invalidepisode) {
                 NSDictionary *d = [[Recognition alloc] recognize:string];
                 NSString * DetectedTitle = (NSString *)d[@"title"];
                 NSString * DetectedEpisode = (NSString *)d[@"episode"];
                 NSNumber * DetectedSeason = d[@"season"];
                 NSString * DetectedGroup = (NSString *)d[@"group"];
-                NSString * DetectedSource;
-                // Source Detection
-                switch (i) {
-                    case 2:
-                    DetectedSource = @"SMPlayerX";
-                    break;
-                    case 4:
-                    case 5:
-                    DetectedSource = @"Quicktime";
-                    break;
-                    default:
-                    DetectedSource = (NSString *)player[i];
-                    break;
-                }
                 if (DetectedTitle.length > 0) {
                     //Return result
                     result = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
@@ -151,7 +153,7 @@
     else{
         NSArray * c = d[@"result"];
         NSDictionary * result = c[0];
-        if ([self checkifTitleIgnored:(NSString *)result[@"title"]]) {
+        if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
             return nil;
         }
         else{
@@ -200,7 +202,7 @@
             NSNumber * DetectedSeason = d[@"season"];
             NSString * DetectedGroup = d[@"group"];
             NSString * DetectedSource = @"Kodi/Plex";
-            if ([self checkifTitleIgnored:(NSString *)DetectedTitle]) {
+            if ([self checkifTitleIgnored:(NSString *)DetectedTitle source:DetectedSource]) {
                 return nil;
             }
             else{
@@ -217,16 +219,17 @@
         return nil;
     }
 }
--(bool)checkifIgnored:(NSString *)filename{
-    if ([self checkifTitleIgnored:filename] || [self checkifDirectoryIgnored:filename]) {
+-(bool)checkifIgnored:(NSString *)filename source:(NSString *)source{
+    if ([self checkifTitleIgnored:filename source:source] || [self checkifDirectoryIgnored:filename]) {
         return true;
     }
     return false;
 }
--(bool)checkifTitleIgnored:(NSString *)filename{
+-(bool)checkifTitleIgnored:(NSString *)filename source:(NSString *)source{
     // Get filename only
     filename = [[OGRegularExpression regularExpressionWithString:@"^.+/"] replaceAllMatchesInString:filename withString:@""];
-    NSArray * ignoredfilenames = [[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"];
+    NSArray * ignoredfilenames = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(rulesource == %@) OR (rulesource ==[c] %@)" , @"All Sources", source]];
+    
     if ([ignoredfilenames count] > 0) {
         for (NSDictionary * d in ignoredfilenames) {
             NSString * rule = [NSString stringWithFormat:@"%@", d[@"rule"]];

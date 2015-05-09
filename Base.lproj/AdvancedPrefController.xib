@@ -122,7 +122,7 @@
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLR-wg-ocK">
                     <rect key="frame" x="103" y="60" width="306" height="18"/>
-                    <string key="toolTip">Uses the filename of the media being played in Kodi/Plex Theater for recognition instead of the title. Enable this if you use a Plex Agent. Not compatable with uPnP.</string>
+                    <string key="toolTip">Uses the filename of the media being played in Kodi/Plex Theater for recognition instead of the title. Enable this if you use a Plex Agent. Not compatable with transcoded media files.</string>
                     <buttonCell key="cell" type="check" title="Use Filename for Recognition" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7GS-84-pZU">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>

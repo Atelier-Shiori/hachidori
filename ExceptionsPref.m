@@ -227,7 +227,7 @@
 }
 #pragma mark Title Ignore
 -(IBAction)addFifleNameIgnoreRule:(id)sender{
-    NSDictionary * entry = @{@"rule": @""};
+    NSDictionary * entry = @{@"rule": @"", @"rulesource": @"All Sources"};
     [ignorefilenamearraycontroller addObject:entry];
     // Selection Workaround
     int c = (int) [[NSArray arrayWithArray:[ignorefilenamearraycontroller arrangedObjects]] count];

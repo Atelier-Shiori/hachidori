@@ -37,11 +37,10 @@
                     <tabViewItems>
                         <tabViewItem label="Anime Title Exceptions" identifier="1" id="dDU-b1-Ua0">
                             <view key="view" id="mi1-sZ-x1p">
-                                <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="Removes title from exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2FI-VL-IAQ">
-                                        <rect key="frame" x="33" y="17" width="24" height="24"/>
+                                        <rect key="frame" x="33" y="-204" width="24" height="24"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Hje-TO-QKF">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -52,7 +51,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Adds a title to the dection list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7es-2w-wEy">
-                                        <rect key="frame" x="10" y="17" width="24" height="24"/>
+                                        <rect key="frame" x="10" y="-204" width="24" height="24"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dqZ-Vv-lY3">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -62,7 +61,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Imports an exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-sz-D9M">
-                                        <rect key="frame" x="417" y="10" width="82" height="32"/>
+                                        <rect key="frame" x="417" y="-211" width="82" height="32"/>
                                         <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ctM-pM-8N2">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -72,7 +71,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Exports an exception list in JSON format." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-OY-6j2">
-                                        <rect key="frame" x="498" y="10" width="82" height="32"/>
+                                        <rect key="frame" x="498" y="-211" width="82" height="32"/>
                                         <buttonCell key="cell" type="push" title="Export" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KLI-rf-IFn">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -82,7 +81,7 @@
                                         </connections>
                                     </button>
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orw-aQ-yjO">
-                                        <rect key="frame" x="10" y="58" width="564" height="154"/>
+                                        <rect key="frame" x="10" y="-163" width="564" height="154"/>
                                         <clipView key="contentView" focusRingType="none" misplaced="YES" id="fLT-H6-Adh">
                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -308,15 +307,15 @@
                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="cUG-zP-Xvg">
+                                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="Y7w-8K-yca" id="cUG-zP-Xvg">
                                                     <rect key="frame" x="0.0" y="0.0" width="559" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="556" minWidth="40" maxWidth="1000" id="rj6-7y-jpp">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                        <tableColumn width="400" minWidth="40" maxWidth="400" id="rj6-7y-jpp">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Rule">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -329,6 +328,75 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
                                                                 <binding destination="3VA-hS-t5V" name="value" keyPath="arrangedObjects.rule" id="n8z-Dr-DfK"/>
+                                                            </connections>
+                                                        </tableColumn>
+                                                        <tableColumn width="153" minWidth="10" maxWidth="3.4028234663852886e+38" id="als-gq-RmQ">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Source">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                            </tableHeaderCell>
+                                                            <popUpButtonCell key="dataCell" type="bevel" title="AnimeLab" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Yv7-Cs-hvX" id="9VN-kZ-GfV">
+                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="menu"/>
+                                                                <menu key="menu" id="f5B-ZJ-OBx">
+                                                                    <items>
+                                                                        <menuItem title="All Sources" id="2bS-50-LW2">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem isSeparatorItem="YES" id="Jc9-U8-9aP"/>
+                                                                        <menuItem title="mplayer" id="L7q-SB-SaQ">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="mpv" id="5TO-CG-rc6">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="VLC" id="IL3-8N-EC1">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="SMPlayer" id="a4U-X4-kWA">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Kodi" id="71P-mF-erW">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Kodi/Plex" id="Uq5-pQ-wTu">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Movist" id="ck1-wU-kgL">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem isSeparatorItem="YES" id="zeX-r5-Ux4"/>
+                                                                        <menuItem title="AnimeNewsNetwork" id="01Q-Xx-pgR">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="AnimeLab" state="on" id="Yv7-Cs-hvX">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="AnimeSols" id="Pow-fG-CJq">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Crunchyroll" id="oCS-IM-cwZ">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Daisuki" id="iZI-Ut-9SY">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Plex" id="97Q-8b-gQ2">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Viz" id="0km-Tv-A1k">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="Wakanim" id="dbp-6u-MBO">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                    </items>
+                                                                </menu>
+                                                            </popUpButtonCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <connections>
+                                                                <binding destination="3VA-hS-t5V" name="selectedValue" keyPath="arrangedObjects.rulesource" id="RX1-EQ-Sr0"/>
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -344,6 +412,10 @@
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
+                                        <tableHeaderView key="headerView" id="Y7w-8K-yca">
+                                            <rect key="frame" x="0.0" y="0.0" width="10000" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableHeaderView>
                                     </scrollView>
                                     <button toolTip="Adds a filename ignore rule" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BnS-Ku-SQU">
                                         <rect key="frame" x="11" y="51" width="24" height="24"/>
