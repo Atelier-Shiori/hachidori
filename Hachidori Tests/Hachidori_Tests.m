@@ -67,7 +67,14 @@
         NSLog(@"Testing: %@", filename);
         NSDictionary * parsedfile = [reg recognize:filename];
         NSNumber * season = parsedfile[@"season"];
-        NSDictionary * result = [haengine runUnitTest:parsedfile[@"title"] episode:parsedfile[@"episode"] season:[season intValue] group:parsedfile[@"group"]];
+        NSString * type;
+        if ([(NSArray *)parsedfile[@"types"] count] > 0) {
+            type = [parsedfile[@"types"] objectAtIndex:0];
+        }
+        else{
+            type = @"";
+        }
+        NSDictionary * result = [haengine runUnitTest:parsedfile[@"title"] episode:parsedfile[@"episode"] season:[season intValue] group:parsedfile[@"group"] type:type];
         if ([result count] > 0) {
             NSLog(@"Detected as %@. Slug: %@", result[@"title"], result[@"slug"]);
             if (![expectedtitle isEqualToString:[NSString stringWithFormat:@"%@", result[@"title"]]] && [expectedtitle length] > 0) {

@@ -214,6 +214,7 @@
     DetectedEpisode = nil;
     DetectedSource = nil;
     DetectedGroup = nil;
+    DetectedType = nil;
     DetectedSeason = 0;
     // Clear Core Data Objects from Memory
     [managedObjectContext reset];
@@ -224,12 +225,13 @@
     // Release Detected Title/Episode.
     return status;
 }
--(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group{
+-(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type{
     //For unit testing only
     DetectedTitle = title;
     DetectedEpisode = episode;
     DetectedSeason = season;
     DetectedGroup = group;
+    DetectedType = type;
     unittesting = true;
     //Check for zero episode as the detected episode
     [self checkzeroEpisode];
@@ -248,6 +250,12 @@
         DetectedSeason = [(NSNumber *)result[@"detectedseason"] intValue];
         DetectedGroup = result[@"group"];
         DetectedSource = result[@"detectedsource"];
+        if ([(NSArray *)result[@"types"] count] > 0) {
+            DetectedType = [result[@"types"] objectAtIndex:0];
+        }
+        else{
+            DetectedType = @"";
+        }
         //Check for zero episode as the detected episode
         [self checkzeroEpisode];
         // Check if the title was previously scrobbled

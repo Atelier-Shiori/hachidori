@@ -442,7 +442,7 @@
                                         <rect key="frame" x="9" y="10" width="565" height="34"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Fzc-wo-e1v">
                                             <font key="font" metaFont="smallSystem"/>
-                                            <string key="title">These settings allow you to specify what titles to ignore in a filename. You may use Regular Expressions and rules are case insensitive.</string>
+                                            <string key="title">These settings allow you to specify what titles to ignore in a filename or title from a specific source. You may use Regular Expressions and rules are case insensitive.</string>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>

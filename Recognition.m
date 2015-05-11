@@ -14,6 +14,7 @@
     NSString * DetectedTitle;
     NSString * DetectedEpisode;
     NSString * DetectedGroup;
+    
     int DetectedSeason;
     //Get Filename
     regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
@@ -29,6 +30,8 @@
     if (DetectedGroup.length == 0) {
         DetectedGroup = @"Unknown";
     }
+    NSArray * DetectedTypes = [Recognition populateAnimeTypes:d[@"type"]];
+    
     //Season Checking
     NSString * tmpseason;
     NSString * tmptitle = [NSString stringWithFormat:@"%@ %@", DetectedTitle, d[@"season"]];
@@ -48,7 +51,29 @@
     // Trim Whitespace
     DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     DetectedEpisode = [DetectedEpisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return @{@"title": DetectedTitle, @"episode": DetectedEpisode, @"season": @(DetectedSeason), @"group": DetectedGroup};
+    return @{@"title": DetectedTitle, @"episode": DetectedEpisode, @"season": @(DetectedSeason), @"group": DetectedGroup, @"types":DetectedTypes};
     
 }
++(NSArray*)populateAnimeTypes:(NSArray *)types{
+    NSMutableArray * ftypes = [NSMutableArray new];
+    for (NSString * type in types ) {
+        if ([type caseInsensitiveCompare:@"Genkijouban"] == NSOrderedSame) {
+            [ftypes addObject:@"Movie"];
+        }
+        else if ([type caseInsensitiveCompare:@"OAD"] == NSOrderedSame) {
+            [ftypes addObject:@"OVA"];
+        }
+        else if ([type caseInsensitiveCompare:@"OAV"] == NSOrderedSame) {
+            [ftypes addObject:@"OVA"];
+        }
+        else if ([type caseInsensitiveCompare:@"Specials"] == NSOrderedSame) {
+            [ftypes addObject:@"Special"];
+        }
+        else{
+            [ftypes addObject:type];
+        }
+    }
+    return ftypes;
+}
+
 @end

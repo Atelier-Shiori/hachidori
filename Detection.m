@@ -17,7 +17,7 @@
 -(bool)checkifIgnored:(NSString *)filename source:(NSString *)source;
 -(bool)checkifTitleIgnored:(NSString *)filename source:(NSString *)source;
 -(bool)checkifDirectoryIgnored:(NSString *)filename;
--(bool)checkIgnoredKeywords:(NSString *)filename;
+-(bool)checkIgnoredKeywords:(NSArray *)types;
 @end
 
 @implementation Detection
@@ -99,19 +99,21 @@
             }
             //Check if thee file name or directory is on any ignore list
             BOOL onIgnoreList = [self checkifIgnored:string source:DetectedSource];
-            BOOL invalidepisode = [self checkIgnoredKeywords:string];
             //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
             
-            if ([regex matchInString:string] !=nil && !onIgnoreList && !invalidepisode) {
+            if ([regex matchInString:string] !=nil && !onIgnoreList) {
                 NSDictionary *d = [[Recognition alloc] recognize:string];
-                NSString * DetectedTitle = (NSString *)d[@"title"];
-                NSString * DetectedEpisode = (NSString *)d[@"episode"];
-                NSNumber * DetectedSeason = d[@"season"];
-                NSString * DetectedGroup = (NSString *)d[@"group"];
-                if (DetectedTitle.length > 0) {
-                    //Return result
-                    result = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
-                    return result;
+                BOOL invalidepisode = [self checkIgnoredKeywords:d[@"types"]];
+                if (!invalidepisode) {
+                    NSString * DetectedTitle = (NSString *)d[@"title"];
+                    NSString * DetectedEpisode = (NSString *)d[@"episode"];
+                    NSNumber * DetectedSeason = d[@"season"];
+                    NSString * DetectedGroup = (NSString *)d[@"group"];
+                    if (DetectedTitle.length > 0) {
+                        //Return result
+                        result = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": d[@"types"]};
+                        return result;
+                    }
                 }
             }
         }
@@ -156,13 +158,17 @@
         if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
             return nil;
         }
+        else if (result[@"episode"] == nil){
+            //Episode number is missing. Do not use the stream data as a failsafe to keep the program from crashing
+            return nil;
+        }
         else{
             NSString * DetectedTitle = (NSString *)result[@"title"];
             NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",result[@"episode"]];
             NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
             NSString * DetectedGroup = (NSString *)result[@"site"];
             NSNumber * DetectedSeason = (NSNumber *)result[@"season"];
-            return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
+            return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": [NSArray new]};
         }
     }
 }
@@ -197,17 +203,23 @@
                 label = item[@"label"];
             }
             NSDictionary * d=[[Recognition alloc] recognize:label];
-            NSString * DetectedTitle = (NSString *)d[@"title"];
-            NSString * DetectedEpisode = (NSString *)d[@"episode"];
-            NSNumber * DetectedSeason = d[@"season"];
-            NSString * DetectedGroup = d[@"group"];
-            NSString * DetectedSource = @"Kodi/Plex";
-            if ([self checkifTitleIgnored:(NSString *)DetectedTitle source:DetectedSource]) {
-                return nil;
+            BOOL invalidepisode = [self checkIgnoredKeywords:d[@"types"]];
+            if (!invalidepisode){
+                NSString * DetectedTitle = (NSString *)d[@"title"];
+                NSString * DetectedEpisode = (NSString *)d[@"episode"];
+                NSNumber * DetectedSeason = d[@"season"];
+                NSString * DetectedGroup = d[@"group"];
+                NSString * DetectedSource = @"Kodi/Plex";
+                if ([self checkifTitleIgnored:(NSString *)DetectedTitle source:DetectedSource]) {
+                    return nil;
+                }
+                else{
+                    NSDictionary * output = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": d[@"types"]};
+                    return output;
+                }
             }
             else{
-                NSDictionary * output = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup};
-                return output;
+                return nil;
             }
         }
         else{
@@ -228,6 +240,7 @@
 -(bool)checkifTitleIgnored:(NSString *)filename source:(NSString *)source{
     // Get filename only
     filename = [[OGRegularExpression regularExpressionWithString:@"^.+/"] replaceAllMatchesInString:filename withString:@""];
+    source = [[OGRegularExpression regularExpressionWithString:@"\\sin\\s\\w+"] replaceAllMatchesInString:source withString:@""];
     NSArray * ignoredfilenames = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(rulesource == %@) OR (rulesource ==[c] %@)" , @"All Sources", source]];
     
     if ([ignoredfilenames count] > 0) {
@@ -258,11 +271,12 @@
     }
     return false;
 }
--(bool)checkIgnoredKeywords:(NSString *)filename{
-    // Check for potentially invalid episode numbers
-    filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
-    if ([[OGRegularExpression regularExpressionWithString:@"- (OP|ED|PV|NCED)" options:OgreIgnoreCaseOption] matchInString:filename]) {
-        return true;
+-(bool)checkIgnoredKeywords:(NSArray *)types{
+    // Check for potentially invalid types
+    for (NSString * type in types) {
+        if ([[OGRegularExpression regularExpressionWithString:@"(ED|Ending|NCED|NCOP|OP|Opening|Preview|PV)" options:OgreIgnoreCaseOption] matchInString:type]) {
+            return true;
+        }
     }
     return false;
 }
