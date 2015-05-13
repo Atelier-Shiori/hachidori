@@ -65,6 +65,10 @@
             tmprewatchedcount = rewatchcount + 1;
             [request addFormData:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"rewatched_times"];
         }
+        else{
+            tmprewatching = false;
+            [request addFormData:@"false" forKey:@"rewatching"];
+        }
     }
     else if ([WatchStatus isEqualToString:@"completed"] && [DetectedEpisode intValue] < TotalEpisodes){
         //Set rewatch status to true
@@ -79,6 +83,7 @@
         tmpWatchStatus = @"currently-watching";
         // Still Watching
         [request addFormData:tmpWatchStatus forKey:@"status"];
+        tmprewatching = rewatching;
     }
     // Set existing score to prevent the score from being erased.
     [request addFormData:@(TitleScore).stringValue forKey:@"rating"];

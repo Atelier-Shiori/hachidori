@@ -129,5 +129,8 @@
     DetectedCurrentEpisode = [(NSNumber *)d[@"episodes_watched"] intValue];
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
+    if (rewatching) {
+        NSLog(@"Title is being rewatched.");
+    }
 }
 @end
