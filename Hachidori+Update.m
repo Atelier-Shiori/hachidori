@@ -52,10 +52,9 @@
         tmpWatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
         [request addFormData:tmpWatchStatus forKey:@"status"];
+        //Set rewatch status to false
+        tmprewatching = false;
         if (rewatching){
-            //Set rewatch status to false
-            tmprewatching = false;
-            [request addFormData:@"false" forKey:@"rewatching"];
             // Increment rewatch count
             tmprewatchedcount = rewatchcount + 1;
             [request addFormData:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"rewatched_times"];
@@ -65,15 +64,10 @@
             tmprewatchedcount = rewatchcount + 1;
             [request addFormData:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"rewatched_times"];
         }
-        else{
-            tmprewatching = false;
-            [request addFormData:@"false" forKey:@"rewatching"];
-        }
     }
     else if ([WatchStatus isEqualToString:@"completed"] && [DetectedEpisode intValue] < TotalEpisodes){
         //Set rewatch status to true
         tmprewatching = true;
-        [request addFormData:@"true" forKey:@"rewatching"];
         //Set Title State to currently watching
         tmpWatchStatus = @"currently-watching";
         [request addFormData:tmpWatchStatus forKey:@"status"];
@@ -84,6 +78,13 @@
         // Still Watching
         [request addFormData:tmpWatchStatus forKey:@"status"];
         tmprewatching = rewatching;
+    }
+    // Set rewatch status in form data
+    if (tmprewatching) {
+        [request addFormData:@"true" forKey:@"rewatching"];
+    }
+    else{
+        [request addFormData:@"false" forKey:@"rewatching"];
     }
     // Set existing score to prevent the score from being erased.
     [request addFormData:@(TitleScore).stringValue forKey:@"rating"];
@@ -122,7 +123,6 @@
             }
             return 53;
     }
-    
 }
 -(BOOL)updatestatus:(NSString *)titleid
             episode:(NSString *)episode

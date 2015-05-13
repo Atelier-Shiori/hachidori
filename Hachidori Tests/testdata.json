@@ -1,5 +1,9 @@
 [
  {
+ "filename":"[caffeine] Nagato Yuki-chan no Shoushitsu - 02 [720p][99F4BE11].mkv",
+ "expectedtitle":"Nagato Yuki-chan no Shoushitsu"
+ },
+ {
  "filename":"[Chibiki]_THE_iDOLM@STER_-_06_[720p][D0D8A938].mkv",
  "expectedtitle":"The iDOLM@STER"
  },
@@ -132,12 +136,20 @@
  "expectedtitle":"Dog Days'"
  },
  {
+ "filename":"[FFF] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka - 05 [E11C36C7].mkv",
+ "expectedtitle":"Dungeon ni Deai wo Motomeru no wa Machigatteiru no Darou ka"
+ },
+ {
  "filename":"[FFF] Love Live! - 01 [BD][720p-AAC][2467B698].mkv",
  "expectedtitle":"Love Live! School Idol Project"
  },
  {
  "filename":"[FFF] Love Live! S2 - 01 [954C4CE1].mkv",
  "expectedtitle":"Love Live! School Idol Project 2nd Season"
+ },
+ {
+ "filename":"[FFF] Mahou Shoujo Lyrical Nanoha ViVid - 02 [416DD50A].mkv",
+ "expectedtitle":"Mahou Shoujo Lyrical Nanoha ViVid"
  },
  {
  "filename":"[Frostii]_K-On!!_-_06_[EF7D2B0B].mkv",
@@ -310,6 +322,10 @@
  {
  "filename":"[Vivid-Watashi] Aldnoah Zero - 14 [B13B00A2].mkv",
  "expectedtitle":"Aldnoah.Zero 2"
+ },
+ {
+ "filename":"[UTW]_Amagami_SS_-_26_[BD][h264-1080p_FLAC][97882523].mkv",
+ "expectedtitle":"Amagami SS: Imouto"
  },
  {
  "filename":"[UTW]_Ano_Hana_-_01_[h264-720p][58F95653].mkv",
