@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Reachability.h"
 
 @class Hachidori;
 @class FixSearchDialog;
@@ -66,6 +67,8 @@
     IBOutlet NSTextView * notes;
     IBOutlet NSButton * isPrivate;
 	NSWindowController *_preferencesWindowController;
+    /* XMBC RPC API Reachability */
+    Reachability * xmbcreach;
 }
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 @property (assign) IBOutlet NSWindow *window;
