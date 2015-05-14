@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "AppDelegate+AppDelegate_Reachability.h"
 #import "Hachidori.h"
 #import "Hachidori+Update.h"
 #import "PFMoveApplication.h"
@@ -463,8 +462,6 @@
 -(void)firetimer:(NSTimer *)aTimer {
 	//Tell haengine to detect and scrobble if necessary.
 	NSLog(@"Starting...");
-    //Renew Reachability
-    [self updateReachability];
     if (!scrobbleractive) {
         scrobbleractive = true;
         // Disable toggle scrobbler and update now menu items

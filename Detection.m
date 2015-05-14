@@ -9,8 +9,6 @@
 #import "Detection.h"
 #import "Recognition.h"
 #import "EasyNSURLConnection.h"
-#import "AppDelegate.h"
-#import "AppDelegate+AppDelegate_Reachability.h"
 
 @interface Detection()
 #pragma Private Methods
@@ -27,8 +25,7 @@
 +(NSDictionary *)detectmedia{
     Detection * d = [[self alloc] init];
     NSDictionary * result;
-    AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"] && [appDelegate getreachabilitystatus]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]) {
         result = [d detectKodi];
         if (result != nil) {
             return result;
