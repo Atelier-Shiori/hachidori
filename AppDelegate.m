@@ -695,13 +695,14 @@
 	                        [self unhideMenus];
 	                        [sharetoolbaritem setEnabled:YES];
 	                        [correcttoolbaritem setEnabled:YES];
-							 [self EnableStatusUpdating:YES];
-                                [openAnimePage setEnabled:YES];
+                            [self EnableStatusUpdating:YES];
+                            [openAnimePage setEnabled:YES];
                             [self showRevertRewatchMenu];
 	                    }
                         //Show Anime Correct Information
                         NSDictionary * ainfo = [haengine getLastScrobbledInfo];
                         [self showAnimeInfo:ainfo];
+                        [findtitle setHidden:YES];
                         [confirmupdate setHidden:true];
 						//Regenerate Share Items
 						[self generateShareMenu];
