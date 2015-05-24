@@ -336,7 +336,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <popUpButtonCell key="dataCell" type="bevel" title="AnimeLab" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Yv7-Cs-hvX" id="9VN-kZ-GfV">
+                                                            <popUpButtonCell key="dataCell" type="bevel" title="SMPlayerX" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="a4U-X4-kWA" id="9VN-kZ-GfV">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" id="f5B-ZJ-OBx">
@@ -354,7 +354,7 @@
                                                                         <menuItem title="VLC" id="IL3-8N-EC1">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="SMPlayer" id="a4U-X4-kWA">
+                                                                        <menuItem title="SMPlayerX" state="on" id="a4U-X4-kWA">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem title="Kodi" id="71P-mF-erW">
@@ -370,7 +370,7 @@
                                                                         <menuItem title="AnimeNewsNetwork" id="01Q-Xx-pgR">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="AnimeLab" state="on" id="Yv7-Cs-hvX">
+                                                                        <menuItem title="AnimeLab" id="Yv7-Cs-hvX">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem title="AnimeSols" id="Pow-fG-CJq">
