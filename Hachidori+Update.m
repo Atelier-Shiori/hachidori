@@ -24,6 +24,12 @@
         confirmed = true;
         return 2;
     }
+    else if ([DetectedEpisode intValue] == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes && TotalEpisodes > 1 && [WatchStatus isEqualToString:@"completed"]){
+       //Do not set rewatch status for current episode equal to total episodes.
+        [self storeLastScrobbled];
+        confirmed = true;
+        return 2;
+    }
     else if (!LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !confirmed && !correcting) {
         // Confirm before updating title
         [self storeLastScrobbled];
