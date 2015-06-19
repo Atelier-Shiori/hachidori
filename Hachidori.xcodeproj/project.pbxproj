@@ -42,6 +42,8 @@
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD7FF411A449A140050E6CC /* Hachidori_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */; };
 		6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0CF36B1A7DB89300261A43 /* Utility.m */; };
+		6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0F84A11B34699F00EEEC32 /* HachidoriScripting.m */; };
+		6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6F0F84A31B3469A800EEEC32 /* hachidori.sdef */; };
 		6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1290971A7D817000B8C3E6 /* AutoExceptions.m */; };
 		6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F18658F1A7D6F7F00C74A47 /* Detection.m */; };
 		6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */; };
@@ -158,6 +160,9 @@
 		5CFC037419F3396E006B4DAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6F0CF36A1A7DB89300261A43 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		6F0CF36B1A7DB89300261A43 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		6F0F84A01B34699F00EEEC32 /* HachidoriScripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HachidoriScripting.h; sourceTree = "<group>"; };
+		6F0F84A11B34699F00EEEC32 /* HachidoriScripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HachidoriScripting.m; sourceTree = "<group>"; };
+		6F0F84A31B3469A800EEEC32 /* hachidori.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hachidori.sdef; sourceTree = "<group>"; };
 		6F1290961A7D817000B8C3E6 /* AutoExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoExceptions.h; sourceTree = "<group>"; };
 		6F1290971A7D817000B8C3E6 /* AutoExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoExceptions.m; sourceTree = "<group>"; };
 		6F18658E1A7D6F7F00C74A47 /* Detection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Detection.h; sourceTree = SOURCE_ROOT; };
@@ -230,6 +235,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6F0F849F1B34699100EEEC32 /* Scripting Support */,
 				5C07DA691A815C2C0003A827 /* Window Controllers */,
 				6FAA87821A7EB6B200EFFAC1 /* Support Classes */,
 				5C8ACEB619F409C60001A101 /* Other Classes */,
@@ -309,6 +315,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6F0F84A31B3469A800EEEC32 /* hachidori.sdef */,
 				82F065B119FB618300E0B17A /* DetectStream */,
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
 				5C8ACEB919F409F90001A101 /* Images */,
@@ -444,6 +451,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6F0F849F1B34699100EEEC32 /* Scripting Support */ = {
+			isa = PBXGroup;
+			children = (
+				6F0F84A01B34699F00EEEC32 /* HachidoriScripting.h */,
+				6F0F84A11B34699F00EEEC32 /* HachidoriScripting.m */,
+			);
+			name = "Scripting Support";
+			sourceTree = "<group>";
+		};
 		6FAA87821A7EB6B200EFFAC1 /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,6 +587,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				82F065B319FB618E00E0B17A /* detectstream in Resources */,
 				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
+				6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
 				5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */,
@@ -642,6 +659,7 @@
 				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
 				5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
+				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */,
 				6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */,

@@ -101,4 +101,5 @@
 -(bool)getisScrobbling;
 -(bool)getisScrobblingActive;
 -(NSManagedObjectContext *)getObjectContext;
+-(NSDictionary *)getNowPlaying;
 @end

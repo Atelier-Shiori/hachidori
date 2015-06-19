@@ -1041,6 +1041,18 @@
         [revertrewatch setHidden:YES];
     }
 }
+-(NSDictionary *)getNowPlaying{
+	// Outputs Currently Playing information into JSON
+	NSMutableDictionary * output = [NSMutableDictionary new];
+	if ([haengine.getLastScrobbledTitle length] > 0){
+		[output setObject:[haengine getAniID] forKey:@"id"];
+		[output setObject:[haengine getLastScrobbledTitle] forKey:@"scrobbledtitle"];
+		[output setObject:[haengine getLastScrobbledActualTitle] forKey:@"scrobbledactualtitle"];
+		[output setObject:[haengine getLastScrobbledEpisode] forKey:@"scrobbledEpisode"];
+		[output setObject:[haengine getLastScrobbledSource] forKey:@"source"];
+	}
+	return output;
+}
 #pragma mark Share Services
 -(void)generateShareMenu{
     //Clear Share Menu
