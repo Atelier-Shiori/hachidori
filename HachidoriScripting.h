@@ -1,5 +1,5 @@
 //
-//  ScriptingGetStatus.h
+//  HachidoriScripting.h
 //  Hachidori
 //
 //  Created by Tail Red on 6/19/15.
@@ -13,5 +13,9 @@
 @end
 
 @interface ScriptingScrobbleNow: NSScriptCommand
+
+@end
+
+@interface ScriptingToggleAutoScrobble: NSScriptCommand
 
 @end

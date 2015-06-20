@@ -2,13 +2,16 @@
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
 
 <dictionary title="Hachidori">
-    <suite name="Hachidori Suite" code="HaAp" description="Hachidori Apple Script support">
+    <suite name="Hachidori Suite" code="HaAp" description="Hachidori AppleScript support">
         <command name="getstatus" code="GetStatu" description="Returns the currently playing status information.">
             <cocoa class="ScriptingGetStatus"/>
 			<result type="text" description="Currently playing information in JSON. If there is nothing playing, it will return a blank array." />
         </command>
         <command name="scrobblenow" code="Scrobble" description="Tells Hachidori to perform an on demand scrobble.">
                     <cocoa class="ScriptingScrobbleNow"/>
+        </command>
+        <command name="toggleautoscrobble" code="toggleas" description="Tells Hachidori to toggle the auto scrobble state.">
+            <cocoa class="ScriptingToggleAutoScrobble"/>
         </command>
     </suite>
 </dictionary>

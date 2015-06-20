@@ -10,10 +10,8 @@
 #import "AppDelegate.h"
 
 @implementation ScriptingGetStatus
-
+// AppleScript command for GetStatus
 -(id)performDefaultImplementation {
-
-    // Implement your code logic (in this example, I'm just posting an internal notification)
     AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[delegate getNowPlaying] options:0 error:&error];
@@ -28,9 +26,19 @@
 @end
 
 @implementation ScriptingScrobbleNow
+// AppleScript command for ScrobbleNow
 -(id)performDefaultImplementation {
     AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
-    [delegate firetimer:nil];
+    [delegate updatenow:nil];
+    return nil;
+}
+@end
+
+@implementation ScriptingToggleAutoScrobble
+// AppleScript command for ToggleAutoScrobble
+-(id)performDefaultImplementation{
+     AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    [delegate toggletimer:nil];
     return nil;
 }
 @end
