@@ -175,7 +175,7 @@
 -(NSDictionary *)detectKodi{
     // Kodi/Plex Theater Detection
     NSString * address = [[NSUserDefaults standardUserDefaults] objectForKey:@"kodiaddress"];
-    NSString * port = [[NSUserDefaults standardUserDefaults] objectForKey:@"kodiport"];
+    NSString * port = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"kodiport"]];
     if (address.length == 0) {
         return nil;
     }

@@ -895,6 +895,9 @@
         BOOL success = [haengine stopRewatching:[haengine getAniID]];
         if (success){
             [self showNotification:@"Hachidori" message:[NSString stringWithFormat:@"%@'s rewatch status has been reverted.", [haengine getLastScrobbledTitle]]];
+            // Show Correct State in the UI
+            [self showRevertRewatchMenu];
+            [self updateLastScrobbledTitleStatus:false];
         }
         else{
             [self showNotification:@"Hachidori" message:@"Rewatch revert was unsuccessful."];
