@@ -110,6 +110,7 @@
                     NSNumber * DetectedSeason = d[@"season"];
                     NSString * DetectedGroup = (NSString *)d[@"group"];
                     if (DetectedTitle.length > 0) {
+                        NSLog(@"Debug: Title: %@ Episode: %@ Season: %@ Group: %@ Source: %@", DetectedTitle, DetectedEpisode, DetectedGroup, DetectedSeason, DetectedSource);
                         //Return result
                         result = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": d[@"types"]};
                         return result;
@@ -168,6 +169,7 @@
             NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
             NSString * DetectedGroup = (NSString *)result[@"site"];
             NSNumber * DetectedSeason = (NSNumber *)result[@"season"];
+            NSLog(@"Debug: Title: %@ Episode: %@ Season: %@ Group: %@ Source: %@", DetectedTitle, DetectedEpisode, DetectedGroup, DetectedSeason, DetectedSource);
             return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": [NSArray new]};
         }
     }
@@ -210,6 +212,7 @@
                 NSNumber * DetectedSeason = d[@"season"];
                 NSString * DetectedGroup = d[@"group"];
                 NSString * DetectedSource = @"Kodi/Plex";
+                NSLog(@"Debug: Title: %@ Episode: %@ Season: %@ Group: %@ Source: %@", DetectedTitle, DetectedEpisode, DetectedGroup, DetectedSeason, DetectedSource);
                 if ([self checkifTitleIgnored:(NSString *)DetectedTitle source:DetectedSource]) {
                     return nil;
                 }
@@ -242,7 +245,7 @@
     filename = [[OGRegularExpression regularExpressionWithString:@"^.+/"] replaceAllMatchesInString:filename withString:@""];
     source = [[OGRegularExpression regularExpressionWithString:@"\\sin\\s\\w+"] replaceAllMatchesInString:source withString:@""];
     NSArray * ignoredfilenames = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(rulesource == %@) OR (rulesource ==[c] %@)" , @"All Sources", source]];
-    
+    NSLog(@"Debug: %@", filename);
     if ([ignoredfilenames count] > 0) {
         for (NSDictionary * d in ignoredfilenames) {
             NSString * rule = [NSString stringWithFormat:@"%@", d[@"rule"]];
@@ -255,10 +258,15 @@
     return false;
 }
 -(bool)checkifDirectoryIgnored:(NSString *)filename{
+    NSLog(@"Debug: %@", filename);
     //Checks if file name or directory is on ignore list
     filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
     // Get only the path
     filename = [[[NSURL fileURLWithPath:filename] path] stringByDeletingLastPathComponent];
+    NSLog(@"Debug: %@", filename);
+    if (filename == nil){
+        return false;
+    }
     //Check ignore directories. If on ignore directory, set onIgnoreList to true.
     NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
     if ([ignoredirectories count] > 0) {

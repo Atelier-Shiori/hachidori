@@ -8,6 +8,7 @@ Requires latest SDK (10.10) and XCode 6.1 to compile. Deployment target is 10.8.
 See [Getting Started Guide](https://github.com/chikorita157/hachidori/wiki/Getting-Started).
 
 ## How to Compile in XCode
+Warning: This won't work if you don't have a Developer ID installed. If you don't have one, obtain one by joining the Apple Developer Program or turn off code signing.
 1. Get the Source
 2. Type 'xcodebuild' to build
 
