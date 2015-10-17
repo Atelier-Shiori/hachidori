@@ -8,9 +8,11 @@
 
 #import "Hachidori.h"
 #import "Detection.h"
+#import "Hachidori+Keychain.h"
 #import "Hachidori+Search.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+UserStatus.h"
+
 
 @implementation Hachidori
 @synthesize managedObjectContext;

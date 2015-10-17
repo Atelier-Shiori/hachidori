@@ -8,6 +8,7 @@
 
 #import "Hachidori+Update.h"
 #import "EasyNSURLConnection.h"
+#import "Hachidori+Keychain.h"
 
 @implementation Hachidori (Update)
 -(int)updatetitle:(NSString *)titleid {
@@ -47,7 +48,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
+    [request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
     [request addFormData:DetectedEpisode forKey:@"episodes_watched"];
     //Set Status
     BOOL tmprewatching;
@@ -145,7 +146,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
+    [request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
     //Set current episode
     if ([episode intValue] != DetectedCurrentEpisode) {
         [request addFormData:episode forKey:@"episodes_watched"];
@@ -190,7 +191,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
+    [request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
     //Set current episode to total episodes
     [request addFormData:[[NSNumber numberWithInt:TotalEpisodes] stringValue] forKey:@"episodes_watched"];
     //Revert watch status to complete
@@ -226,7 +227,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    [request addFormData:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Token"]] forKey:@"auth_token"];
+    [request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
     // Do Update
     [request startFormRequest];
     switch ([request getStatusCode]) {

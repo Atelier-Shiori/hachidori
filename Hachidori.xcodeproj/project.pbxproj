@@ -15,6 +15,9 @@
 		3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4C61D3120DF3ED0032F63A /* OgreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4C61D3120DF3ED0032F63A /* OgreKit.framework */; };
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
+		599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B361BBC817B00FF466E /* SSKeychain.m */; settings = {ASSET_TAGS = (); }; };
+		599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B381BBC817B00FF466E /* SSKeychainQuery.m */; settings = {ASSET_TAGS = (); }; };
+		599E9B451BBCA2A600FF466E /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */; settings = {ASSET_TAGS = (); }; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
 		5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C07DA6E1A815C8B0003A827 /* HistoryWindow.m */; };
 		5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C07DA741A815F4B0003A827 /* HistoryWindow.xib */; };
@@ -116,6 +119,12 @@
 		3A4C61D3120DF3ED0032F63A /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = Frameworks/OgreKit.framework; sourceTree = "<group>"; };
 		3AFEF127120DF8CE0098B59D /* Hachidori.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hachidori.h; sourceTree = "<group>"; };
 		3AFEF128120DF8CE0098B59D /* Hachidori.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Hachidori.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		599E9B351BBC817B00FF466E /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		599E9B361BBC817B00FF466E /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		599E9B371BBC817B00FF466E /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
+		599E9B381BBC817B00FF466E /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
+		599E9B431BBCA2A600FF466E /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
+		599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Keychain.m"; sourceTree = "<group>"; };
 		5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftwareUpdatesPref.h; sourceTree = "<group>"; };
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
 		5C07DA6D1A815C8B0003A827 /* HistoryWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryWindow.h; sourceTree = "<group>"; };
@@ -244,6 +253,8 @@
 				256AC3D90F4B6AC300CF3369 /* AppDelegate.m */,
 				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
+				599E9B431BBCA2A600FF466E /* Hachidori+Keychain.h */,
+				599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */,
 				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
 				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
 				8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */,
@@ -463,6 +474,10 @@
 		6FAA87821A7EB6B200EFFAC1 /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
+				599E9B351BBC817B00FF466E /* SSKeychain.h */,
+				599E9B361BBC817B00FF466E /* SSKeychain.m */,
+				599E9B371BBC817B00FF466E /* SSKeychainQuery.h */,
+				599E9B381BBC817B00FF466E /* SSKeychainQuery.m */,
 				6F1290961A7D817000B8C3E6 /* AutoExceptions.h */,
 				6F1290971A7D817000B8C3E6 /* AutoExceptions.m */,
 				6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */,
@@ -639,6 +654,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
+				599E9B451BBCA2A600FF466E /* Hachidori+Keychain.m in Sources */,
+				599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
@@ -663,6 +680,7 @@
 				5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
+				599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */,
 				6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */,
@@ -868,8 +886,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -901,6 +920,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;

@@ -30,14 +30,6 @@
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;
 }
-+(BOOL)checktoken{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([[defaults objectForKey:@"Token"] length] == 0) {
-        return false;
-    }
-    else
-        return true;
-}
 +(void)showsheetmessage:(NSString *)message
            explaination:(NSString *)explaination
                  window:(NSWindow *)w {

@@ -14,6 +14,7 @@
 	NSString * LastScrobbledEpisode;
     NSString * LastScrobbledActualTitle;
     NSString * LastScrobbledSource;
+    NSString * username;
 	NSDictionary * LastScrobbledInfo;
     BOOL LastScrobbledTitleNew;
     BOOL isPrivate;

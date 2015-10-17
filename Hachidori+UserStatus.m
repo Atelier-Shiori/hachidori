@@ -8,75 +8,87 @@
 
 #import "Hachidori+UserStatus.h"
 #import "EasyNSURLConnection.h"
+#import "Hachidori+Keychain.h"
 
 @implementation Hachidori (UserStatus)
 -(BOOL)checkstatus:(NSString *)titleid {
     NSLog(@"Checking %@", titleid);
-    // Update the title
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    //Set Token
-    [request addFormData:[NSString stringWithFormat:@"%@",[defaults objectForKey:@"Token"]] forKey:@"auth_token"];
-    // Get Information
-    [request startFormRequest];
-    NSDictionary * d;
-    long statusCode = [request getStatusCode];
-    NSError * error = [request getError];
-    if (statusCode == 200 || statusCode == 201 ) {
-        online = true;
-        //return Data
-        NSError * jerror;
-        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
-        if ([d count] > 0) {
-            NSLog(@"Title on list");
-            [self populateStatusData:d];
+    for (int i=0; i<2 ; i++) {
+        // Update the title
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        //Set library/scrobble API
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
+        EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+        //Ignore Cookies
+        [request setUseCookies:NO];
+        //Set Token
+        [request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
+        // Get Information
+        [request startFormRequest];
+        NSDictionary * d;
+        long statusCode = [request getStatusCode];
+        NSError * error = [request getError];
+        if (statusCode == 200 || statusCode == 201 ) {
+            online = true;
+            //return Data
+            NSError * jerror;
+            d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+            if ([d count] > 0) {
+                NSLog(@"Title on list");
+                [self populateStatusData:d];
+            }
+            else{
+                NSLog(@"Title not on list");
+                WatchStatus = @"currently-watching";
+                LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
+                DetectedCurrentEpisode = 0;
+                TitleScore  = 0;
+                isPrivate = [defaults boolForKey:@"setprivate"];
+                TitleNotes = @"";
+                LastScrobbledTitleNew = true;
+                rewatching = false;
+                rewatchcount = 0;
+            }
+            if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
+                TotalEpisodes = 0; // No Episode Total, Set to 0.
+            }
+            else { // Episode Total Exists
+                TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episode_count"] intValue];
+            }
+            // New Update Confirmation
+            if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
+                // Manually confirm updates
+                confirmed = false;
+            }
+            else{
+                // Automatically confirm updates
+                confirmed = true;
+            }
+            return YES;
         }
-        else{
-            NSLog(@"Title not on list");
-            WatchStatus = @"currently-watching";
-            LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
-            DetectedCurrentEpisode = 0;
-            TitleScore  = 0;
-            isPrivate = [defaults boolForKey:@"setprivate"];
-            TitleNotes = @"";
-            LastScrobbledTitleNew = true;
-            rewatching = false;
-            rewatchcount = 0;
-        }
-        if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
-            TotalEpisodes = 0; // No Episode Total, Set to 0.
-        }
-        else { // Episode Total Exists
-            TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episode_count"] intValue];
-        }
-        // New Update Confirmation
-        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
-            // Manually confirm updates
-            confirmed = false;
-        }
-        else{
-            // Automatically confirm updates
-            confirmed = true;
-        }
-        return YES;
-    }
-    else if (error !=nil){
-        if (error.code == NSURLErrorNotConnectedToInternet) {
-            online = false;
-            return NO;
+        else if (error !=nil){
+            if (error.code == NSURLErrorNotConnectedToInternet) {
+                online = false;
+                return NO;
+            }
+            else {
+                // Generate new token and retry
+                int statuscode = [self generatetoken];
+                if (statuscode == 201) {
+                    // Successfully generated token, retry
+                    continue;
+                }
+                else{
+                    // Token generation failed, users credentials incorrect.
+                    online = true;
+                    return NO;
+                }
+            }
         }
         else {
-            online = true;
+            // Some Error. Abort
             return NO;
         }
-    }
-    else {
-        // Some Error. Abort
-        return NO;
     }
     //Should never happen, but...
     return NO;

@@ -16,7 +16,6 @@
             regex:(OGRegularExpression *)regex
            option:(int)i;
 +(NSString *)desensitizeSeason:(NSString *)title;
-+(BOOL)checktoken;
 +(void)showsheetmessage:(NSString *)message
            explaination:(NSString *)explaination
                  window:(NSWindow *)w;

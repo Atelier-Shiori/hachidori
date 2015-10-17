@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "MASPreferencesViewController.h"
 #import "AppDelegate.h"
+#import "Hachidori.h"
 
 @interface LoginPref : NSViewController <MASPreferencesViewController> {
     IBOutlet NSImageView * logo;
@@ -25,6 +26,8 @@
     __unsafe_unretained NSWindow *loginpanel;
     IBOutlet NSTextField * passwordinput;
     IBOutlet NSImageView * invalidinput;
+    //Hachidori instance
+    Hachidori * haengine;
 }
 @property (assign) IBOutlet NSWindow *loginpanel;
 - (id)initwithAppDelegate:(AppDelegate *)adelegate;

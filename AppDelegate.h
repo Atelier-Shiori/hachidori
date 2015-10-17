@@ -102,4 +102,5 @@
 -(bool)getisScrobblingActive;
 -(NSManagedObjectContext *)getObjectContext;
 -(NSDictionary *)getNowPlaying;
+-(Hachidori *)getHachidoriInstance;
 @end

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Hachidori.h"
 #import "Hachidori+Update.h"
+#import "Hachidori+Keychain.h"
 #import "PFMoveApplication.h"
 #import "Preferences.h"
 #import "FixSearchDialog.h"
@@ -245,13 +246,13 @@
     }
 
 	// Notify User if there is no Account Info
-	if ([[defaults objectForKey:@"Token"] length] == 0) {
+	if (![haengine checkaccount]) {
         // First time prompt
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
         [alert setMessageText:@"Welcome to Hachidori"];
-        [alert setInformativeText:@"Before using this program, you need to login. Do you want to open Preferences to log in now?"];
+        [alert setInformativeText:@"Before using this program, you need to login. Do you want to open Preferences to log in now? Please note that Hachidori now stores user information in the Keychain and therefore, you must login again."];
         // Set Message type to Warning
         [alert setAlertStyle:NSInformationalAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {
@@ -423,7 +424,7 @@
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
-	if (![Utility checktoken]) {
+	if (![haengine checkaccount]) {
         [self showNotification:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
     }
 	else {
@@ -448,7 +449,7 @@
 }
 -(void)autostarttimer {
 	//Check to see if there is an API Key stored
-	if (![Utility checktoken]) {
+	if (![haengine checkaccount]) {
          [self showNotification:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
 	}
 	else {
@@ -600,7 +601,7 @@
 }
 
 -(IBAction)updatenow:(id)sender{
-    if ([Utility checktoken]) {
+    if ([haengine checkaccount]) {
         [self firetimer:nil];
     }
     else
@@ -972,7 +973,7 @@
 -(void)registerHotkey{
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
         // Scrobble Now Global Hotkey
-        if ([Utility checktoken] && !panelactive) {
+        if ([haengine checkaccount] && !panelactive) {
             [self firetimer:nil];
         }
     }];
@@ -1055,6 +1056,9 @@
 		[output setObject:[haengine getLastScrobbledSource] forKey:@"source"];
 	}
 	return output;
+}
+-(Hachidori *)getHachidoriInstance{
+    return haengine;
 }
 #pragma mark Share Services
 -(void)generateShareMenu{

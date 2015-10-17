@@ -9,6 +9,7 @@
 #import "LoginPref.h"
 #import "EasyNSURLConnection.h"
 #import "Utility.h"
+#import "Hachidori+Keychain.h"
 
 @implementation LoginPref
 @synthesize loginpanel;
@@ -49,16 +50,17 @@
 
 -(void)loadlogin
 {
+    //Load Hachidori Engine Instance from AppDelegate
+    haengine = appdelegate.getHachidoriInstance;
+    
 	// Load Username
-	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *Token = [defaults objectForKey:@"Token"];
-	if (Token.length > 0) {
+    BOOL * accountexists = [haengine checkaccount];
+	if (accountexists) {
 		[clearbut setEnabled: YES];
 		[savebut setEnabled: NO];
         [loggedinview setHidden:NO];
         [loginview setHidden:YES];
-        [loggedinuser setStringValue:[NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"Username"]]];
+        [loggedinuser setStringValue:[NSString stringWithFormat:@"%@", [haengine getusername]]];
 	}
 	else {
 		//Disable Clearbut
@@ -107,10 +109,10 @@
     if ([request getStatusCode] == 201 && error == nil) {
         //Login successful
         [Utility showsheetmessage:@"Login Successful" explaination: @"Login Token has been recieved." window:[[self view] window]];
-        // Generate API Key
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[[request getResponseDataString] stringByReplacingOccurrencesOfString:@"\"" withString:@""] forKey:@"Token"];
-        [defaults setObject:username forKey:@"Username"];
+        // Store auth token in Keychain
+        bool success = [haengine storetoken:[[request getResponseDataString] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
+        //Store Account in Keychain
+        [haengine storeaccount:username password:password];
         [clearbut setEnabled: YES];
         [loggedinuser setStringValue:username];
         [loggedinview setHidden:NO];
@@ -157,10 +159,10 @@
         // Set Message type to Warning
         [alert setAlertStyle:NSWarningAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setObject:@"" forKey:@"Token"];
-            // Clear Username
-            [defaults setObject:@"" forKey:@"Username"];
+            // Remove token
+            [haengine removetoken];
+            // Remove account from Keychain
+            [haengine removeaccount];
             //Disable Clearbut
             [clearbut setEnabled: NO];
             [savebut setEnabled: YES];
