@@ -14,7 +14,7 @@
     // This method checks for any accounts that Hachidori can use
     NSArray * accounts = [SSKeychain accountsForService:@"Hachidori"];
     if (accounts > 0){
-        //retrieve first account
+        //retrieve first valid account
         for (NSDictionary * account in accounts){
             if ([(NSString *)account[@"acct"] isEqualToString:@"htoken"]) {
                 // Do not retrieve htoken account as username, it's meant to store the token from Hummingbird
@@ -67,6 +67,8 @@
     return [SSKeychain setPassword:password forService:@"Hachidori" account:uname];
 }
 -(BOOL)removeaccount{
+    // Set Username to blank
+    username = @"";
     return [SSKeychain deletePasswordForService:@"Hachidori" account:username];
 }
 -(NSString *)gettoken{
