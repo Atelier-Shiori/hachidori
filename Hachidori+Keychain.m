@@ -15,9 +15,18 @@
     NSArray * accounts = [SSKeychain accountsForService:@"Hachidori"];
     if (accounts > 0){
         //retrieve first account
-        NSDictionary * user = [accounts objectAtIndex:0];
-        username = (NSString *)user[@"acct"];
-        return true;
+        for (NSDictionary * account in accounts){
+            if ([(NSString *)account[@"acct"] isEqualToString:@"htoken"]) {
+                // Do not retrieve htoken account as username, it's meant to store the token from Hummingbird
+                continue;
+            }
+            else{
+                username = (NSString *)account[@"acct"];
+                return true;
+            }
+        }
+        
+        
     }
     username = @"";
     return false;
