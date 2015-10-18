@@ -252,7 +252,7 @@
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
         [alert setMessageText:@"Welcome to Hachidori"];
-        [alert setInformativeText:@"Before using this program, you need to login. Do you want to open Preferences to log in now? Please note that Hachidori now stores user information in the Keychain and therefore, you must login again."];
+        [alert setInformativeText:@"Before using this program, you need to login. Do you want to open Preferences to log in now? \r\rPlease note that Hachidori now stores user information in the Keychain and therefore, you must login again."];
         // Set Message type to Warning
         [alert setAlertStyle:NSInformationalAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {

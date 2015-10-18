@@ -76,9 +76,10 @@
     return [SSKeychain setPassword:password forService:@"Hachidori" account:uname];
 }
 -(BOOL)removeaccount{
+    bool success = [SSKeychain deletePasswordForService:@"Hachidori" account:username];
     // Set Username to blank
     username = @"";
-    return [SSKeychain deletePasswordForService:@"Hachidori" account:username];
+    return success;
 }
 -(NSString *)gettoken{
     return [SSKeychain passwordForService:@"Hachidori" account:@"htoken"];
