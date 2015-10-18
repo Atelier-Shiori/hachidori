@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by アナスタシア on 2015/09/30.
-//
+//  Copyright 2009-2015 Atelier Shiori. All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori+Keychain.h"
@@ -48,7 +48,12 @@
     if ([request getStatusCode] == 201 && error == nil) {
         //Login successful
         bool success = [self storetoken:[[request getResponseDataString] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
-        return 201;
+        if (success) {
+            return 201;
+        }
+        else{
+            return 401;
+        }
     }
     else{
         if (error.code == NSURLErrorNotConnectedToInternet) {
@@ -64,6 +69,10 @@
     return username;
 }
 -(BOOL)storeaccount:(NSString *)uname password:(NSString *)password{
+    //Clear Account Information in the plist file if it hasn't been done already
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"" forKey:@"Token"];
+    [defaults setObject:@"" forKey:@"Username"];
     return [SSKeychain setPassword:password forService:@"Hachidori" account:uname];
 }
 -(BOOL)removeaccount{

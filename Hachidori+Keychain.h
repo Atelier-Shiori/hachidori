@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by アナスタシア on 2015/09/30.
-//
+//  Copyright 2009-2015 Atelier Shiori. All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori.h"
