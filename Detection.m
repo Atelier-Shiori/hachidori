@@ -141,22 +141,31 @@
     
     // Launch Task
     [task launch];
-    
+    [task waitUntilExit];
     // Parse Data from JSON and return dictionary
     NSData *data;
     data = [file readDataToEndOfFile];
     
     
     NSError* error;
+    //Check if detectstream successfully exited. If not, ignore detection to prevent the program from crashing
+    if ([task terminationStatus] != 0){
+        NSLog(@"detectstream crashed, ignoring stream detection");
+        return nil;
+    }
     
     d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    
     if (d[@"result"]  == [NSNull null]){ // Check to see if anything is playing on stream
         return nil;
     }
     else{
         NSArray * c = d[@"result"];
         NSDictionary * result = c[0];
-        if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
+        if (result[@"title"] == nil) {
+            return nil;
+        }
+        else if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
             return nil;
         }
         else if (result[@"episode"] == nil){
@@ -169,7 +178,6 @@
             NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
             NSString * DetectedGroup = (NSString *)result[@"site"];
             NSNumber * DetectedSeason = (NSNumber *)result[@"season"];
-            NSLog(@"Debug: Title: %@ Episode: %@ Season: %@ Group: %@ Source: %@", DetectedTitle, DetectedEpisode, DetectedGroup, DetectedSeason, DetectedSource);
             return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": [NSArray new]};
         }
     }
