@@ -1,19 +1,9 @@
 /*
-** Anitomy
-** Copyright (C) 2014-2015, Eren Okka
-** 
-** This program is free software: you can redistribute it and/or modify
-** it under the terms of the GNU General Public License as published by
-** the Free Software Foundation, either version 3 of the License, or
-** (at your option) any later version.
-** 
-** This program is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-** GNU General Public License for more details.
-** 
-** You should have received a copy of the GNU General Public License
-** along with this program.  If not, see <http://www.gnu.org/licenses/>.
+** Copyright (c) 2014-2016, Eren Okka
+**
+** This Source Code Form is subject to the terms of the Mozilla Public
+** License, v. 2.0. If a copy of the MPL was not distributed with this
+** file, You can obtain one at https://mozilla.org/MPL/2.0/.
 */
 
 #ifndef ANITOMY_PARSER_H
@@ -42,6 +32,7 @@ private:
   void SearchForReleaseGroup();
   void SearchForEpisodeTitle();
   void SearchForIsolatedNumbers();
+  void ValidateElements();
 
   bool SearchForEpisodePatterns(std::vector<size_t>& tokens);
   bool SearchForEquivalentNumbers(std::vector<size_t>& tokens);
@@ -49,7 +40,7 @@ private:
   bool SearchForSeparatedNumbers(std::vector<size_t>& tokens);
   bool SearchForLastNumber(std::vector<size_t>& tokens);
 
-  bool NumberComesAfterEpisodePrefix(Token& token);
+  bool NumberComesAfterPrefix(ElementCategory category, Token& token);
   bool NumberComesBeforeTotalNumber(const token_iterator_t token);
 
   bool MatchEpisodePatterns(string_t word, Token& token);
@@ -62,8 +53,16 @@ private:
   bool MatchNumberSignPattern(const string_t& word, Token& token);
   bool MatchJapaneseCounterPattern(const string_t& word, Token& token);
 
+  bool MatchVolumePatterns(string_t word, Token& token);
+  bool MatchSingleVolumePattern(const string_t& word, Token& token);
+  bool MatchMultiVolumePattern(const string_t& word, Token& token);
+
   bool IsValidEpisodeNumber(const string_t& number);
   bool SetEpisodeNumber(const string_t& number, Token& token, bool validate);
+  bool SetAlternativeEpisodeNumber(const string_t& number, Token& token);
+
+  bool IsValidVolumeNumber(const string_t& number);
+  bool SetVolumeNumber(const string_t& number, Token& token, bool validate);
 
   size_t FindNumberInString(const string_t& str);
   string_t GetNumberFromOrdinal(const string_t& word);
@@ -74,21 +73,27 @@ private:
   bool IsElementCategorySingular(ElementCategory category);
 
   bool CheckAnimeSeasonKeyword(const token_iterator_t token);
-  bool CheckEpisodeKeyword(const token_iterator_t token);
+  bool CheckExtentKeyword(ElementCategory category,
+                          const token_iterator_t token);
 
   void BuildElement(ElementCategory category, bool keep_delimiters,
                     const token_iterator_t token_begin,
                     const token_iterator_t token_end) const;
 
+  bool CheckTokenCategory(const token_iterator_t token,
+                          TokenCategory category) const;
   bool IsTokenIsolated(const token_iterator_t token) const;
 
   const int kAnimeYearMin = 1900;
   const int kAnimeYearMax = 2050;
   const int kEpisodeNumberMax = kAnimeYearMin - 1;
+  const int kVolumeNumberMax = 20;
 
   Elements& elements_;
   const Options& options_;
   token_container_t& tokens_;
+
+  bool found_episode_keywords_ = false;
 };
 
 }  // namespace anitomy
