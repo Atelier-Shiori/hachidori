@@ -191,7 +191,7 @@
 }
 - (void)reAuthPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
-        [self login:[NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"Username"]] password:[passwordinput stringValue]];
+        [self login:[NSString stringWithFormat:@"%@", [haengine getusername]] password:[passwordinput stringValue]];
     }
     //Reset and Close
     [passwordinput setStringValue:@""];
