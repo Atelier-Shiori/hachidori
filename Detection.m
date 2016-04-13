@@ -51,7 +51,7 @@
     NSDictionary * result;
     // LSOF mplayer to get the media title and segment
     
-    NSArray * player = @[@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist"];
+    NSArray * player = @[@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", @"ffmpeg"];
     NSString *string;
     OGRegularExpression    *regex;
     for(int i = 0; i <[player count]; i++){
@@ -93,6 +93,8 @@
                 case 5:
                     DetectedSource = @"Quicktime";
                     break;
+                case 8:
+                    DetectedSource = @"Beamer/ffmpeg";
                 default:
                     DetectedSource = (NSString *)player[i];
                     break;
