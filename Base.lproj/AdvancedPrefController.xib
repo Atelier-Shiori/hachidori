@@ -1,139 +1,365 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AdvancedPrefController">
             <connections>
+                <outlet property="clearbut" destination="0H3-1a-q8S" id="vzS-cH-z0Z"/>
+                <outlet property="fieldmalapi" destination="9dE-Id-hM6" id="Jtw-eU-DNH"/>
+                <outlet property="fieldpassword" destination="rcb-zN-ybo" id="5AF-kQ-2nO"/>
+                <outlet property="fieldusername" destination="FeQ-2d-0UB" id="MVZ-qx-NuU"/>
+                <outlet property="loggedinuser" destination="oTJ-M0-3Mc" id="sbm-E0-2PT"/>
+                <outlet property="loggedinview" destination="sE7-OH-iBA" id="Kvd-9c-RJp"/>
+                <outlet property="loginview" destination="6ds-Av-lqq" id="Eh7-Ok-Gh6"/>
+                <outlet property="savebut" destination="GkH-Ij-yQW" id="n2R-KA-f70"/>
                 <outlet property="view" destination="c22-O7-iKe" id="n4d-Z2-zna"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="299"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="343"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SdD-lo-LfZ">
-                    <rect key="frame" x="35" y="269" width="291" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Kodi/Plex Theater JSON RPC API" id="q5t-Pd-3f0">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gnC-PW-UbL">
-                    <rect key="frame" x="37" y="215" width="103" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="Sfk-hk-xua">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSC-qD-cvb">
-                    <rect key="frame" x="152" y="210" width="263" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8SV-i3-wT0">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="ae6-Nl-7pY"/>
-                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiaddress" id="Nux-VX-GGG">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-m2-aJf">
-                    <rect key="frame" x="152" y="122" width="96" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ch8-ks-Y5e">
-                        <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="tme-m8-2zX">
-                            <real key="minimum" value="1"/>
-                        </numberFormatter>
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="EAc-nW-b6i"/>
-                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiport" id="LgS-P2-eRO">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-U0-q8z">
-                    <rect key="frame" x="49" y="125" width="91" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="pU8-xG-g07">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zuh-Gd-n0d">
-                    <rect key="frame" x="77" y="241" width="347" height="18"/>
-                    <buttonCell key="cell" type="check" title="Enable Kodi/Plex Theater RPC API Detection" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="58w-YA-ei0">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.enablekodiapi" id="6p3-6F-lKA"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3P-ov-X8s">
-                    <rect key="frame" x="77" y="20" width="340" height="34"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="In order to make Kodi/Plex Theater JSON RPC API detection work, you need to have HTTP JSON-RPC enabled." id="Agl-d8-C1u">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxp-Ed-WKM">
-                    <rect key="frame" x="149" y="90" width="275" height="28"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The default port number is 3005 in Plex Theater and 80 in Kodi." id="XKP-As-iQI">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-Mp-fU3">
-                    <rect key="frame" x="18" y="7" width="25" height="25"/>
-                    <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tfu-ok-Pcb">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="getHelp:" target="-2" id="gGL-VE-4gZ"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-ss-Mwe">
-                    <rect key="frame" x="149" y="152" width="268" height="56"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="7G9-zR-zjL">
-                        <font key="font" metaFont="smallSystem"/>
-                        <string key="title">The host is usually an IP address that is running Kodi or Plex Theater. If you are running Kodi or Plex Theater on the same machine, please specify localhost as the host.</string>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLR-wg-ocK">
-                    <rect key="frame" x="103" y="60" width="306" height="18"/>
-                    <string key="toolTip">Uses the filename of the media being played in Kodi/Plex Theater for recognition instead of the title. Enable this if you use a Plex Agent. Not compatable with transcoded media files.</string>
-                    <buttonCell key="cell" type="check" title="Use Filename for Recognition" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7GS-84-pZU">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="5FA-sw-LZv"/>
-                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiusefilename" id="7nu-sU-rJ2"/>
-                    </connections>
-                </button>
+                <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9c6-yL-tcO">
+                    <rect key="frame" x="0.0" y="-1" width="451" height="341"/>
+                    <animations/>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="Kodi/Plex Theater RPC" identifier="1" id="Raw-cz-FaZ">
+                            <view key="view" id="uxH-VE-ISN">
+                                <rect key="frame" x="10" y="33" width="131" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SdD-lo-LfZ">
+                                        <rect key="frame" x="21" y="-26" width="291" height="17"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Kodi/Plex Theater JSON RPC API" id="q5t-Pd-3f0">
+                                            <font key="font" metaFont="systemBold"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gnC-PW-UbL">
+                                        <rect key="frame" x="23" y="-80" width="103" height="17"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="Sfk-hk-xua">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSC-qD-cvb">
+                                        <rect key="frame" x="138" y="-85" width="263" height="22"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8SV-i3-wT0">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="ae6-Nl-7pY"/>
+                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiaddress" id="Nux-VX-GGG">
+                                                <dictionary key="options">
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-m2-aJf">
+                                        <rect key="frame" x="138" y="-173" width="96" height="22"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ch8-ks-Y5e">
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="tme-m8-2zX">
+                                                <real key="minimum" value="1"/>
+                                            </numberFormatter>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="EAc-nW-b6i"/>
+                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiport" id="LgS-P2-eRO">
+                                                <dictionary key="options">
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-U0-q8z">
+                                        <rect key="frame" x="35" y="-170" width="91" height="17"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="pU8-xG-g07">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zuh-Gd-n0d">
+                                        <rect key="frame" x="63" y="-54" width="347" height="18"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="check" title="Enable Kodi/Plex Theater RPC API Detection" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="58w-YA-ei0">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.enablekodiapi" id="6p3-6F-lKA"/>
+                                        </connections>
+                                    </button>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3P-ov-X8s">
+                                        <rect key="frame" x="63" y="-275" width="340" height="34"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="In order to make Kodi/Plex Theater JSON RPC API detection work, you need to have HTTP JSON-RPC enabled." id="Agl-d8-C1u">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxp-Ed-WKM">
+                                        <rect key="frame" x="135" y="-205" width="275" height="28"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The default port number is 3005 in Plex Theater and 80 in Kodi." id="XKP-As-iQI">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-Mp-fU3">
+                                        <rect key="frame" x="4" y="-288" width="25" height="25"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tfu-ok-Pcb">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="getHelp:" target="-2" id="gGL-VE-4gZ"/>
+                                        </connections>
+                                    </button>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-ss-Mwe">
+                                        <rect key="frame" x="135" y="-143" width="268" height="56"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="7G9-zR-zjL">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <string key="title">The host is usually an IP address that is running Kodi or Plex Theater. If you are running Kodi or Plex Theater on the same machine, please specify localhost as the host.</string>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLR-wg-ocK">
+                                        <rect key="frame" x="89" y="-235" width="306" height="18"/>
+                                        <string key="toolTip">Uses the filename of the media being played in Kodi/Plex Theater for recognition instead of the title. Enable this if you use a Plex Agent. Not compatable with transcoded media files.</string>
+                                        <animations/>
+                                        <buttonCell key="cell" type="check" title="Use Filename for Recognition" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7GS-84-pZU">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enablekodiapi" id="5FA-sw-LZv"/>
+                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.kodiusefilename" id="7nu-sU-rJ2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="MyAnimeList Sync" identifier="2" id="OFg-cA-88Q">
+                            <view key="view" ambiguous="YES" id="1Sa-gR-NS9">
+                                <rect key="frame" x="10" y="33" width="431" height="295"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ4-pK-03b">
+                                        <rect key="frame" x="10" y="238" width="411" height="48"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="These settings allow you to update your MyAnimeList after Hachidori scrobbled the Anime you are watching. This is experimental." id="GjG-Wc-weL">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q8O-iP-Q0g">
+                                        <rect key="frame" x="47" y="217" width="94" height="17"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="API URL:" id="Ygm-YV-IFl">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField toolTip="API URL to the Unofficial MAL API" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-Id-hM6">
+                                        <rect key="frame" x="149" y="217" width="232" height="22"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="https://malapi.ateliershiori.moe" drawsBackground="YES" id="nYn-yC-Irq">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.MALAPIURL" id="XB1-rS-iJ5">
+                                                <dictionary key="options">
+                                                    <bool key="NSValidatesImmediately" value="YES"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <button toolTip="Resets the MAL API URL to it's original values." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="guW-ye-UUR">
+                                        <rect key="frame" x="143" y="183" width="127" height="32"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="push" title="Reset API URL" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QgG-x1-Uv4">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="resetMALAPI:" target="-2" id="Ygh-ju-PE4"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Tests the current API URL." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LfW-yE-ZYK">
+                                        <rect key="frame" x="270" y="183" width="117" height="32"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="push" title="Test API" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vTO-Wr-OVD">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="testMALAPI:" target="-2" id="67h-L4-U8c"/>
+                                        </connections>
+                                    </button>
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sE7-OH-iBA">
+                                        <rect key="frame" x="82" y="57" width="299" height="129"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0H3-1a-q8S">
+                                                <rect key="frame" x="71" y="51" width="146" height="32"/>
+                                                <animations/>
+                                                <buttonCell key="cell" type="push" title="Remove Account" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DfF-in-lVt">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="clearlogin:" target="-2" id="XBc-lv-nz7"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WvB-cd-fOy">
+                                                <rect key="frame" x="75" y="93" width="158" height="18"/>
+                                                <animations/>
+                                                <buttonCell key="cell" type="check" title="Enable MAL Sync" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="iAw-RJ-24L">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <connections>
+                                                        <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.MALSyncEnabled" id="MKI-8i-sja"/>
+                                                    </connections>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.MALSyncEnabled" id="Xmv-Ou-tQs"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YC4-JS-E0u">
+                                                <rect key="frame" x="75" y="33" width="138" height="17"/>
+                                                <animations/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="MAL Account:" id="hA0-GX-Di4">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oTJ-M0-3Mc">
+                                                <rect key="frame" x="41" y="14" width="206" height="17"/>
+                                                <animations/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="&lt;Username&gt;" id="GYr-Fh-Aee">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <animations/>
+                                    </customView>
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ds-Av-lqq" userLabel="Logged out View">
+                                        <rect key="frame" x="18" y="28" width="376" height="158"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B0R-rC-3s6">
+                                                <rect key="frame" x="136" y="13" width="118" height="32"/>
+                                                <animations/>
+                                                <buttonCell key="cell" type="push" title="Register" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Vx-3c-95E">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="registermal:" target="-2" id="avs-aB-kgQ"/>
+                                                </connections>
+                                            </button>
+                                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdj-0x-tTe">
+                                                <rect key="frame" x="12" y="81" width="115" height="17"/>
+                                                <animations/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="odu-0E-B04">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5b3-gE-QAX">
+                                                <rect key="frame" x="44" y="51" width="83" height="17"/>
+                                                <animations/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="e8N-bb-aPa">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeQ-2d-0UB">
+                                                <rect key="frame" x="142" y="79" width="198" height="22"/>
+                                                <animations/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="YUu-ng-L95">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rcb-zN-ybo">
+                                                <rect key="frame" x="142" y="49" width="198" height="22"/>
+                                                <animations/>
+                                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="rnt-6V-V5F">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <allowedInputSourceLocales>
+                                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                    </allowedInputSourceLocales>
+                                                </secureTextFieldCell>
+                                            </secureTextField>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GkH-Ij-yQW">
+                                                <rect key="frame" x="250" y="13" width="96" height="32"/>
+                                                <animations/>
+                                                <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WKI-g0-CyC">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="startlogin:" target="-2" id="Qja-wG-yf7"/>
+                                                </connections>
+                                            </button>
+                                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j5b-M3-DzL">
+                                                <rect key="frame" x="13" y="98" width="353" height="50"/>
+                                                <animations/>
+                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="To enable MyAnimeList syncing, you must login. Credentials will be stored in the login Keychain." id="sMp-bM-vte">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <animations/>
+                                    </customView>
+                                </subviews>
+                                <animations/>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
             </subviews>
-            <point key="canvasLocation" x="137" y="210.5"/>
+            <animations/>
+            <point key="canvasLocation" x="137" y="232.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="8ch-Z3-2Y0"/>
     </objects>

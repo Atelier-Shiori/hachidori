@@ -15,6 +15,7 @@
     NSString * LastScrobbledActualTitle;
     NSString * LastScrobbledSource;
     NSString * username;
+    NSString * malusername;
 	NSDictionary * LastScrobbledInfo;
     BOOL LastScrobbledTitleNew;
     BOOL isPrivate;
@@ -38,6 +39,8 @@
     BOOL rewatching;
     NSString * TitleNotes;
     NSString * AniID;
+    NSString * MALID;
+    NSString * MALApiUrl;
     BOOL confirmed;
 	BOOL Success;
     BOOL correcting;

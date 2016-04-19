@@ -18,4 +18,10 @@
 -(NSString *)gettoken;
 -(BOOL)storetoken:(NSString *)token;
 -(BOOL)removetoken;
+-(BOOL)checkmalaccount;
+-(BOOL)storemalaccount:(NSString *)uname password:(NSString *)password;
+-(BOOL)removemalaccount;
+-(NSString *)getmalusername;
+-(NSString *)getBase64;
 @end
+

@@ -40,6 +40,7 @@
     IBOutlet NSMenuItem * revertrewatch;
     IBOutlet NSMenuItem *shareMenuItem;
     IBOutlet NSMenu * shareMenu;
+    IBOutlet NSMenuItem  *  ForceMALSync;
     /* Status Window */
 	IBOutlet NSTextField * ScrobblerStatus;
 	IBOutlet NSTextField * LastScrobbled;

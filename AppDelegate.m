@@ -10,6 +10,7 @@
 #import "Hachidori.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+Keychain.h"
+#import "Hachidori+MALSync.h"
 #import "PFMoveApplication.h"
 #import "Preferences.h"
 #import "FixSearchDialog.h"
@@ -149,6 +150,7 @@
     defaultValues[@"RewatchEnabled"] = @YES;
     defaultValues[@"kodiaddress"] = @"";
     defaultValues[@"kodiport"] = @"3005";
+    defaultValues[@"MALAPIURL"] = @"https://malapi.ateliershiori.moe";
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9){
             //Yosemite Specific Advanced Options
         	defaultValues[@"DisableYosemiteTitleBar"] = @NO;
@@ -279,7 +281,7 @@
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
         NSViewController *exceptionsViewController = [[ExceptionsPref alloc] init];
         NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
-        NSViewController *advancedViewController = [[AdvancedPrefController alloc] init];
+        NSViewController *advancedViewController = [[AdvancedPrefController alloc] initwithAppDelegate:self];
         NSArray *controllers = @[generalViewController, loginViewController, hotkeyViewController , exceptionsViewController, suViewController, advancedViewController];
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers];
     }
@@ -399,6 +401,7 @@
     [shareMenuItem setHidden:NO];
 }
 -(void)toggleScrobblingUIEnable:(BOOL)enable{
+    [ForceMALSync setEnabled:enable];
     [statusMenu setAutoenablesItems:enable];
     [updatenow setEnabled:enable];
     [togglescrobbler setEnabled:enable];
@@ -414,6 +417,7 @@
     }
 }
 -(void)EnableStatusUpdating:(BOOL)enable{
+    [ForceMALSync setEnabled:enable];
 	[updatecorrect setAutoenablesItems:enable];
     [updatetoolbaritem setEnabled:enable];
     [updatedupdatestatus setEnabled:enable];
@@ -516,6 +520,13 @@
                     notificationmsg = [NSString stringWithFormat:@"%@ Episode %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]];
                 }
                 [self showNotification:@"Scrobble Successful." message:notificationmsg];
+                // Sync with MAL if Enabled
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
+                    BOOL * malsyncsuccess = [haengine sync];
+                    if (!malsyncsuccess) {
+                        [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                    }
+                }
                 //Add History Record
                 [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
                 break;
@@ -623,6 +634,7 @@
     }
     else{
         [fsdialog setCorrection:YES];
+        [fsdialog setAllowDelete:YES];
     }
     if (!findtitle.hidden) {
         //Use failed title
@@ -707,6 +719,13 @@
                         [confirmupdate setHidden:true];
 						//Regenerate Share Items
 						[self generateShareMenu];
+                        // Sync with MAL if Enabled
+                        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
+                            BOOL * malsyncsuccess = [haengine sync];
+                            if (!malsyncsuccess) {
+                                [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                            }
+                        }
                         break;
                     }
                     default:
@@ -862,6 +881,13 @@
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                 [self updateLastScrobbledTitleStatus:false];
             }
+            // Sync MyAnimeList
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
+                BOOL * malsyncsuccess = [haengine sync];
+                if (!malsyncsuccess) {
+                    [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                }
+            }
         }
         else
             [self setStatusText:@"Scrobble Status: Unable to update Watch Status/Score."];
@@ -899,6 +925,13 @@
             // Show Correct State in the UI
             [self showRevertRewatchMenu];
             [self updateLastScrobbledTitleStatus:false];
+            // Sync with MAL if Enabled
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
+                BOOL * malsyncsuccess = [haengine sync];
+                if (!malsyncsuccess) {
+                    [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                }
+            }
         }
         else{
             [self showNotification:@"Hachidori" message:@"Rewatch revert was unsuccessful."];
@@ -963,6 +996,13 @@
 			[self EnableStatusUpdating:YES];
         }
         [self showRevertRewatchMenu];
+        // Sync with MAL if Enabled
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
+            BOOL * malsyncsuccess = [haengine sync];
+            if (!malsyncsuccess) {
+                [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+            }
+        }
     }
     else{
         [self showNotification:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
@@ -1090,5 +1130,20 @@
 -(IBAction)showLastScrobbledInformation:(id)sender{
     //Open the anime's page on MyAnimeList in the default web browser
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]]];
+}
+-(IBAction)forceMALSync:(id)sender{
+    [ForceMALSync setEnabled:NO];
+    dispatch_queue_t queue = dispatch_get_global_queue(
+                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(queue, ^{
+        BOOL * malsyncsuccess = [haengine sync];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             if (!malsyncsuccess) {
+                 [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+             }
+             [ForceMALSync setEnabled:YES];
+            });
+        });
 }
 @end

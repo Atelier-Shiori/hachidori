@@ -48,6 +48,8 @@
                 LastScrobbledTitleNew = true;
                 rewatching = false;
                 rewatchcount = 0;
+                // MAL ID for MAL Syncing
+                MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
             }
             if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
                 TotalEpisodes = 0; // No Episode Total, Set to 0.
@@ -144,5 +146,7 @@
     if (rewatching) {
         NSLog(@"Title is being rewatched.");
     }
+    // MAL ID for MAL Syncing
+    MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
 }
 @end
