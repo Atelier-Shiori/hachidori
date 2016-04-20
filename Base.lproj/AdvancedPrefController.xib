@@ -31,11 +31,11 @@
                     <tabViewItems>
                         <tabViewItem label="Kodi/Plex Theater RPC" identifier="1" id="Raw-cz-FaZ">
                             <view key="view" id="uxH-VE-ISN">
-                                <rect key="frame" x="10" y="33" width="131" height="0.0"/>
+                                <rect key="frame" x="10" y="33" width="431" height="295"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SdD-lo-LfZ">
-                                        <rect key="frame" x="21" y="-26" width="291" height="17"/>
+                                        <rect key="frame" x="21" y="269" width="291" height="17"/>
                                         <animations/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Kodi/Plex Theater JSON RPC API" id="q5t-Pd-3f0">
                                             <font key="font" metaFont="systemBold"/>
@@ -44,7 +44,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gnC-PW-UbL">
-                                        <rect key="frame" x="23" y="-80" width="103" height="17"/>
+                                        <rect key="frame" x="23" y="215" width="103" height="17"/>
                                         <animations/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="Sfk-hk-xua">
                                             <font key="font" metaFont="system"/>
@@ -53,7 +53,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSC-qD-cvb">
-                                        <rect key="frame" x="138" y="-85" width="263" height="22"/>
+                                        <rect key="frame" x="138" y="210" width="263" height="22"/>
                                         <animations/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8SV-i3-wT0">
                                             <font key="font" metaFont="system"/>
@@ -70,7 +70,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-m2-aJf">
-                                        <rect key="frame" x="138" y="-173" width="96" height="22"/>
+                                        <rect key="frame" x="138" y="122" width="96" height="22"/>
                                         <animations/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ch8-ks-Y5e">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="tme-m8-2zX">
@@ -90,7 +90,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-U0-q8z">
-                                        <rect key="frame" x="35" y="-170" width="91" height="17"/>
+                                        <rect key="frame" x="35" y="125" width="91" height="17"/>
                                         <animations/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="pU8-xG-g07">
                                             <font key="font" metaFont="system"/>
@@ -99,7 +99,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zuh-Gd-n0d">
-                                        <rect key="frame" x="63" y="-54" width="347" height="18"/>
+                                        <rect key="frame" x="63" y="241" width="347" height="18"/>
                                         <animations/>
                                         <buttonCell key="cell" type="check" title="Enable Kodi/Plex Theater RPC API Detection" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="58w-YA-ei0">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -110,7 +110,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3P-ov-X8s">
-                                        <rect key="frame" x="63" y="-275" width="340" height="34"/>
+                                        <rect key="frame" x="63" y="20" width="340" height="34"/>
                                         <animations/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="In order to make Kodi/Plex Theater JSON RPC API detection work, you need to have HTTP JSON-RPC enabled." id="Agl-d8-C1u">
                                             <font key="font" metaFont="smallSystem"/>
@@ -119,7 +119,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxp-Ed-WKM">
-                                        <rect key="frame" x="135" y="-205" width="275" height="28"/>
+                                        <rect key="frame" x="135" y="90" width="275" height="28"/>
                                         <animations/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The default port number is 3005 in Plex Theater and 80 in Kodi." id="XKP-As-iQI">
                                             <font key="font" metaFont="smallSystem"/>
@@ -128,7 +128,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-Mp-fU3">
-                                        <rect key="frame" x="4" y="-288" width="25" height="25"/>
+                                        <rect key="frame" x="4" y="7" width="25" height="25"/>
                                         <animations/>
                                         <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tfu-ok-Pcb">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,7 +139,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-ss-Mwe">
-                                        <rect key="frame" x="135" y="-143" width="268" height="56"/>
+                                        <rect key="frame" x="135" y="152" width="268" height="56"/>
                                         <animations/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="7G9-zR-zjL">
                                             <font key="font" metaFont="smallSystem"/>
@@ -149,7 +149,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLR-wg-ocK">
-                                        <rect key="frame" x="89" y="-235" width="306" height="18"/>
+                                        <rect key="frame" x="89" y="60" width="306" height="18"/>
                                         <string key="toolTip">Uses the filename of the media being played in Kodi/Plex Theater for recognition instead of the title. Enable this if you use a Plex Agent. Not compatable with transcoded media files.</string>
                                         <animations/>
                                         <buttonCell key="cell" type="check" title="Use Filename for Recognition" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7GS-84-pZU">
@@ -171,7 +171,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ4-pK-03b">
-                                        <rect key="frame" x="10" y="238" width="411" height="48"/>
+                                        <rect key="frame" x="26" y="237" width="411" height="48"/>
                                         <animations/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="These settings allow you to update your MyAnimeList after Hachidori scrobbled the Anime you are watching. This is experimental." id="GjG-Wc-weL">
                                             <font key="font" metaFont="system"/>
@@ -351,6 +351,17 @@
                                         </subviews>
                                         <animations/>
                                     </customView>
+                                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JUW-qm-i0V">
+                                        <rect key="frame" x="4" y="7" width="25" height="25"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r3T-2Z-Ujy">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="getHelp:" target="-2" id="eJ7-VU-8fW"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                             </view>
