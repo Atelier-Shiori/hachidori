@@ -882,12 +882,7 @@
                 [self updateLastScrobbledTitleStatus:false];
             }
             // Sync MyAnimeList
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-                BOOL * malsyncsuccess = [haengine sync];
-                if (!malsyncsuccess) {
-                    [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
-                }
-            }
+            [self syncMyAnimeList];
         }
         else
             [self setStatusText:@"Scrobble Status: Unable to update Watch Status/Score."];
@@ -926,12 +921,7 @@
             [self showRevertRewatchMenu];
             [self updateLastScrobbledTitleStatus:false];
             // Sync with MAL if Enabled
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-                BOOL * malsyncsuccess = [haengine sync];
-                if (!malsyncsuccess) {
-                    [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
-                }
-            }
+            [self syncMyAnimeList];
         }
         else{
             [self showNotification:@"Hachidori" message:@"Rewatch revert was unsuccessful."];
@@ -997,12 +987,7 @@
         }
         [self showRevertRewatchMenu];
         // Sync with MAL if Enabled
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-            BOOL * malsyncsuccess = [haengine sync];
-            if (!malsyncsuccess) {
-                [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
-            }
-        }
+        [self syncMyAnimeList];
     }
     else{
         [self showNotification:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
@@ -1131,6 +1116,7 @@
     //Open the anime's page on MyAnimeList in the default web browser
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]]];
 }
+#pragma mark MyAnimeList Syncing
 -(IBAction)forceMALSync:(id)sender{
     [ForceMALSync setEnabled:NO];
     dispatch_queue_t queue = dispatch_get_global_queue(
@@ -1145,5 +1131,13 @@
              [ForceMALSync setEnabled:YES];
             });
         });
+}
+-(void)syncMyAnimeList{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
+        BOOL * malsyncsuccess = [haengine sync];
+        if (!malsyncsuccess) {
+            [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+        }
+    }
 }
 @end
