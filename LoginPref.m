@@ -103,7 +103,7 @@
     [request addFormData:password forKey:@"password"];
     [request setPostMethod:@"POST"];
 				//Vertify Username/Password
-    [request startFormRequest];
+    [request startJSONFormRequest];
 				// Check for errors
     NSError * error = [request getError];
     if ([request getStatusCode] == 201 && error == nil) {

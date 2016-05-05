@@ -39,5 +39,6 @@
 -(void)setPostMethod:(NSString *)method;
 -(void)startRequest;
 -(void)startFormRequest;
+-(void)startJSONFormRequest;
 -(void)startJSONRequest:(NSString *)body;
 @end

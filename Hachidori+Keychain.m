@@ -42,9 +42,9 @@
     [request addFormData:username forKey:@"username"];
     [request addFormData:[SSKeychain passwordForService:@"Hachidori" account:username] forKey:@"password"];
     [request setPostMethod:@"POST"];
-				//Vertify Username/Password
-    [request startFormRequest];
-				// Check for errors
+    //Verify Username/Password
+    [request startJSONFormRequest];
+    // Check for errors
     NSError * error = [request getError];
     if ([request getStatusCode] == 201 && error == nil) {
         //Login successful
