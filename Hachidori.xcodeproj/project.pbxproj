@@ -15,12 +15,12 @@
 		3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4C61D3120DF3ED0032F63A /* OgreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4C61D3120DF3ED0032F63A /* OgreKit.framework */; };
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
-		593B55841CC41DC200B7B254 /* Base64Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55831CC41DC200B7B254 /* Base64Category.m */; settings = {ASSET_TAGS = (); }; };
-		593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */; settings = {ASSET_TAGS = (); }; };
-		599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B361BBC817B00FF466E /* SSKeychain.m */; settings = {ASSET_TAGS = (); }; };
-		599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B381BBC817B00FF466E /* SSKeychainQuery.m */; settings = {ASSET_TAGS = (); }; };
-		599E9B451BBCA2A600FF466E /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */; settings = {ASSET_TAGS = (); }; };
-		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ASSET_TAGS = (); }; };
+		593B55841CC41DC200B7B254 /* Base64Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55831CC41DC200B7B254 /* Base64Category.m */; };
+		593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */; };
+		599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B361BBC817B00FF466E /* SSKeychain.m */; };
+		599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B381BBC817B00FF466E /* SSKeychainQuery.m */; };
+		599E9B451BBCA2A600FF466E /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */; };
+		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
 		5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C07DA6E1A815C8B0003A827 /* HistoryWindow.m */; };
