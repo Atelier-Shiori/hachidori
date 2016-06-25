@@ -1134,10 +1134,16 @@
 }
 -(void)syncMyAnimeList{
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-        BOOL * malsyncsuccess = [haengine sync];
-        if (!malsyncsuccess) {
-            [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
-        }
+        dispatch_queue_t queue = dispatch_get_global_queue(
+                                                           DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_async(queue, ^{
+            BOOL * malsyncsuccess = [haengine sync];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 if (!malsyncsuccess) {
+                     [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                 }
+             });
+        });
     }
 }
 @end
