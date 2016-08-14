@@ -79,9 +79,11 @@
             NSEnumerator    *enumerator;
             enumerator = [regex matchEnumeratorInString:string];
             OGRegularExpressionMatch    *match;
+            NSMutableArray * filenames = [NSMutableArray new];
             while ((match = [enumerator nextObject]) != nil) {
-                string = [match matchedString];
+                [filenames addObject:[match matchedString]];
             }
+            NSLog(@"%@",filenames);
             // Populate Source
             NSString * DetectedSource;
             // Source Detection
@@ -100,23 +102,32 @@
                     break;
             }
             //Check if thee file name or directory is on any ignore list
-            BOOL onIgnoreList = [self checkifIgnored:string source:DetectedSource];
-            //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
-            
-            if ([regex matchInString:string] !=nil && !onIgnoreList) {
-                NSDictionary *d = [[Recognition alloc] recognize:string];
-                BOOL invalidepisode = [self checkIgnoredKeywords:d[@"types"]];
-                if (!invalidepisode) {
-                    NSString * DetectedTitle = (NSString *)d[@"title"];
-                    NSString * DetectedEpisode = (NSString *)d[@"episode"];
-                    NSNumber * DetectedSeason = d[@"season"];
-                    NSString * DetectedGroup = (NSString *)d[@"group"];
-                    if (DetectedTitle.length > 0) {
-                        NSLog(@"Debug: Title: %@ Episode: %@ Season: %@ Group: %@ Source: %@", DetectedTitle, DetectedEpisode, DetectedGroup, DetectedSeason, DetectedSource);
-                        //Return result
-                        result = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": d[@"types"]};
-                        return result;
+            for (int i = [filenames count]-1;i >= 0;i--) {
+                //Check every possible match
+                string = [filenames objectAtIndex:i];
+                BOOL onIgnoreList = [self checkifIgnored:string source:DetectedSource];
+                //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
+                
+                if ([regex matchInString:string] !=nil && !onIgnoreList) {
+                    NSDictionary *d = [[Recognition alloc] recognize:string];
+                    BOOL invalidepisode = [self checkIgnoredKeywords:d[@"types"]];
+                    if (!invalidepisode) {
+                        NSString * DetectedTitle = (NSString *)d[@"title"];
+                        NSString * DetectedEpisode = (NSString *)d[@"episode"];
+                        NSNumber * DetectedSeason = d[@"season"];
+                        NSString * DetectedGroup = (NSString *)d[@"group"];
+                        if (DetectedTitle.length > 0) {
+                            //Return result
+                            result = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": d[@"types"]};
+                            return result;
+                        }
                     }
+                    else{
+                        continue;
+                    }
+                }
+                else{
+                    continue;
                 }
             }
         }
