@@ -3,24 +3,11 @@
 //  SSKeychain
 //
 //  Created by Caleb Davenport on 3/19/13.
-//  Copyright (c) 2013-2014 Sam Soffes. All rights reserved.
+//  Copyright (c) 2013 Sam Soffes. All rights reserved.
 //
 
-@import Foundation;
-@import Security;
-
-#if __IPHONE_7_0 || __MAC_10_9
-	// Keychain synchronization available at compile time
-	#define SSKEYCHAIN_SYNCHRONIZATION_AVAILABLE 1
-#endif
-
-#ifdef SSKEYCHAIN_SYNCHRONIZATION_AVAILABLE
-typedef NS_ENUM(NSUInteger, SSKeychainQuerySynchronizationMode) {
-	SSKeychainQuerySynchronizationModeAny,
-	SSKeychainQuerySynchronizationModeNo,
-	SSKeychainQuerySynchronizationModeYes
-};
-#endif
+#import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 /**
  Simple interface for querying or modifying keychain items.
@@ -41,11 +28,6 @@ typedef NS_ENUM(NSUInteger, SSKeychainQuerySynchronizationMode) {
 @property (nonatomic, copy) NSString *accessGroup;
 #endif
 
-#ifdef SSKEYCHAIN_SYNCHRONIZATION_AVAILABLE
-/** kSecAttrSynchronizable */
-@property (nonatomic) SSKeychainQuerySynchronizationMode synchronizationMode;
-#endif
-
 /** Root storage for password information */
 @property (nonatomic, copy) NSData *passwordData;
 
@@ -61,11 +43,6 @@ typedef NS_ENUM(NSUInteger, SSKeychainQuerySynchronizationMode) {
  */
 @property (nonatomic, copy) NSString *password;
 
-
-///------------------------
-/// @name Saving & Deleting
-///------------------------
-
 /**
  Save the receiver's attributes as a keychain item. Existing items with the
  given account, service, and access group will first be deleted.
@@ -77,18 +54,13 @@ typedef NS_ENUM(NSUInteger, SSKeychainQuerySynchronizationMode) {
 - (BOOL)save:(NSError **)error;
 
 /**
- Delete keychain items that match the given account, service, and access group.
+ Dete keychain items that match the given account, service, and access group.
 
  @param error Populated should an error occur.
 
  @return `YES` if saving was successful, `NO` otherwise.
  */
-- (BOOL)deleteItem:(NSError **)error;
-
-
-///---------------
-/// @name Fetching
-///---------------
+- (BOOL)delete:(NSError **)error;
 
 /**
  Fetch all keychain items that match the given account, service, and access
@@ -113,21 +85,5 @@ typedef NS_ENUM(NSUInteger, SSKeychainQuerySynchronizationMode) {
  @return `YES` if fetching was successful, `NO` otherwise.
  */
 - (BOOL)fetch:(NSError **)error;
-
-
-///-----------------------------
-/// @name Synchronization Status
-///-----------------------------
-
-#ifdef SSKEYCHAIN_SYNCHRONIZATION_AVAILABLE
-/**
- Returns a boolean indicating if keychain synchronization is available on the device at runtime. The #define 
- SSKEYCHAIN_SYNCHRONIZATION_AVAILABLE is only for compile time. If you are checking for the presence of synchronization,
- you should use this method.
- 
- @return A value indicating if keychain synchronization is available
- */
-+ (BOOL)isSynchronizationAvailable;
-#endif
 
 @end

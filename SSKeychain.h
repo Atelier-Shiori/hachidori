@@ -3,7 +3,7 @@
 //  SSKeychain
 //
 //  Created by Sam Soffes on 5/19/10.
-//  Copyright (c) 2010-2014 Sam Soffes. All rights reserved.
+//  Copyright (c) 2010-2013 Sam Soffes. All rights reserved.
 //
 
 #import "SSKeychainQuery.h"
@@ -13,10 +13,12 @@
  For codes returned by the operating system, refer to SecBase.h for your
  platform.
  */
-typedef NS_ENUM(OSStatus, SSKeychainErrorCode) {
+typedef enum {
+
 	/** Some of the arguments were invalid. */
 	SSKeychainErrorBadArguments = -1001,
-};
+
+} SSKeychainErrorCode;
 
 /** SSKeychain error domain */
 extern NSString *const kSSKeychainErrorDomain;
@@ -72,21 +74,7 @@ extern NSString *const kSSKeychainWhereKey;
  have a password for the given parameters.
  */
 + (NSString *)passwordForService:(NSString *)serviceName account:(NSString *)account;
-+ (NSString *)passwordForService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error __attribute__((swift_error(none)));
-
-/**
- Returns a nsdata containing the password for a given account and service, or `nil` if the Keychain doesn't have a
- password for the given parameters.
-
- @param serviceName The service for which to return the corresponding password.
-
- @param account The account for which to return the corresponding password.
-
- @return Returns a nsdata containing the password for a given account and service, or `nil` if the Keychain doesn't
- have a password for the given parameters.
- */
-+ (NSData *)passwordDataForService:(NSString *)serviceName account:(NSString *)account;
-+ (NSData *)passwordDataForService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error __attribute__((swift_error(none)));
++ (NSString *)passwordForService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error;
 
 
 /**
@@ -99,7 +87,7 @@ extern NSString *const kSSKeychainWhereKey;
  @return Returns `YES` on success, or `NO` on failure.
  */
 + (BOOL)deletePasswordForService:(NSString *)serviceName account:(NSString *)account;
-+ (BOOL)deletePasswordForService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error __attribute__((swift_error(none)));
++ (BOOL)deletePasswordForService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error;
 
 
 /**
@@ -114,21 +102,8 @@ extern NSString *const kSSKeychainWhereKey;
  @return Returns `YES` on success, or `NO` on failure.
  */
 + (BOOL)setPassword:(NSString *)password forService:(NSString *)serviceName account:(NSString *)account;
-+ (BOOL)setPassword:(NSString *)password forService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error __attribute__((swift_error(none)));
++ (BOOL)setPassword:(NSString *)password forService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error;
 
-/**
- Sets a password in the Keychain.
-
- @param password The password to store in the Keychain.
-
- @param serviceName The service for which to set the corresponding password.
-
- @param account The account for which to set the corresponding password.
-
- @return Returns `YES` on success, or `NO` on failure.
- */
-+ (BOOL)setPasswordData:(NSData *)password forService:(NSString *)serviceName account:(NSString *)account;
-+ (BOOL)setPasswordData:(NSData *)password forService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error __attribute__((swift_error(none)));
 
 /**
  Returns an array containing the Keychain's accounts, or `nil` if the Keychain has no accounts.
@@ -140,7 +115,6 @@ extern NSString *const kSSKeychainWhereKey;
  accounts. The order of the objects in the array isn't defined.
  */
 + (NSArray *)allAccounts;
-+ (NSArray *)allAccounts:(NSError *__autoreleasing *)error __attribute__((swift_error(none)));
 
 
 /**
@@ -152,11 +126,10 @@ extern NSString *const kSSKeychainWhereKey;
 
  @param serviceName The service for which to return the corresponding accounts.
 
- @return An array of dictionaries containing the Keychain's accounts for a given `serviceName`, or `nil` if the Keychain
+ @return An array of dictionaries containing the Keychain's accountsfor a given `serviceName`, or `nil` if the Keychain
  doesn't have any accounts for the given `serviceName`. The order of the objects in the array isn't defined.
  */
 + (NSArray *)accountsForService:(NSString *)serviceName;
-+ (NSArray *)accountsForService:(NSString *)serviceName error:(NSError *__autoreleasing *)error __attribute__((swift_error(none)));
 
 
 #pragma mark - Configuration

@@ -3,7 +3,7 @@
 //  SSKeychain
 //
 //  Created by Sam Soffes on 5/19/10.
-//  Copyright (c) 2010-2014 Sam Soffes. All rights reserved.
+//  Copyright (c) 2010-2013 Sam Soffes. All rights reserved.
 //
 
 #import "SSKeychain.h"
@@ -18,7 +18,7 @@ NSString *const kSSKeychainLastModifiedKey = @"mdat";
 NSString *const kSSKeychainWhereKey = @"svce";
 
 #if __IPHONE_4_0 && TARGET_OS_IPHONE
-	static CFTypeRef SSKeychainAccessibilityType = NULL;
+    static CFTypeRef SSKeychainAccessibilityType = NULL;
 #endif
 
 @implementation SSKeychain
@@ -29,24 +29,11 @@ NSString *const kSSKeychainWhereKey = @"svce";
 
 
 + (NSString *)passwordForService:(NSString *)serviceName account:(NSString *)account error:(NSError *__autoreleasing *)error {
-	SSKeychainQuery *query = [[SSKeychainQuery alloc] init];
-	query.service = serviceName;
-	query.account = account;
-	[query fetch:error];
-	return query.password;
-}
-
-+ (NSData *)passwordDataForService:(NSString *)serviceName account:(NSString *)account {
-	return [self passwordDataForService:serviceName account:account error:nil];
-}
-
-+ (NSData *)passwordDataForService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error {
     SSKeychainQuery *query = [[SSKeychainQuery alloc] init];
     query.service = serviceName;
     query.account = account;
     [query fetch:error];
-
-    return query.passwordData;
+    return query.password;
 }
 
 
@@ -56,10 +43,10 @@ NSString *const kSSKeychainWhereKey = @"svce";
 
 
 + (BOOL)deletePasswordForService:(NSString *)serviceName account:(NSString *)account error:(NSError *__autoreleasing *)error {
-	SSKeychainQuery *query = [[SSKeychainQuery alloc] init];
-	query.service = serviceName;
-	query.account = account;
-	return [query deleteItem:error];
+    SSKeychainQuery *query = [[SSKeychainQuery alloc] init];
+    query.service = serviceName;
+    query.account = account;
+    return [query delete:error];
 }
 
 
@@ -69,45 +56,23 @@ NSString *const kSSKeychainWhereKey = @"svce";
 
 
 + (BOOL)setPassword:(NSString *)password forService:(NSString *)serviceName account:(NSString *)account error:(NSError *__autoreleasing *)error {
-	SSKeychainQuery *query = [[SSKeychainQuery alloc] init];
-	query.service = serviceName;
-	query.account = account;
-	query.password = password;
-	return [query save:error];
-}
-
-+ (BOOL)setPasswordData:(NSData *)password forService:(NSString *)serviceName account:(NSString *)account {
-	return [self setPasswordData:password forService:serviceName account:account error:nil];
-}
-
-
-+ (BOOL)setPasswordData:(NSData *)password forService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error {
     SSKeychainQuery *query = [[SSKeychainQuery alloc] init];
     query.service = serviceName;
     query.account = account;
-    query.passwordData = password;
+    query.password = password;
     return [query save:error];
 }
 
+
 + (NSArray *)allAccounts {
-	return [self allAccounts:nil];
-}
-
-
-+ (NSArray *)allAccounts:(NSError *__autoreleasing *)error {
-    return [self accountsForService:nil error:error];
+    return [self accountsForService:nil];
 }
 
 
 + (NSArray *)accountsForService:(NSString *)serviceName {
-	return [self accountsForService:serviceName error:nil];
-}
-
-
-+ (NSArray *)accountsForService:(NSString *)serviceName error:(NSError *__autoreleasing *)error {
     SSKeychainQuery *query = [[SSKeychainQuery alloc] init];
     query.service = serviceName;
-    return [query fetchAll:error];
+    return [query fetchAll:nil];
 }
 
 
