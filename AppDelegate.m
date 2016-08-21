@@ -188,12 +188,15 @@
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
 	[haengine setManagedObjectContext:managedObjectContext];
-	// Insert code here to initialize your application
-	//Check if Application is in the /Applications Folder, but not on debug releases
+    if (floor(NSAppKitVersionNumber) < 1485){
     #ifdef DEBUG
     #else
-	PFMoveToApplicationsFolderIfNecessary();
+        // Check if Application is in the /Applications Folder
+        // Only Activate in OS X/macOS is 10.11 or earlier due to Gatekeeper changes in macOS Sierra
+        // Note: Sierra Appkit Version is 1485
+        PFMoveToApplicationsFolderIfNecessary();
     #endif
+    }
     // Set Defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set Notification Center Delegate
