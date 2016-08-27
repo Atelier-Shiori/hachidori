@@ -46,7 +46,7 @@
 	<key>SUEnableSystemProfiling</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://chikorita157.com/tools/hachidorisparkle/profileInfo.php</string>
+	<string>https://updates.ateliershiori.moe/hachidori/profileInfo.php</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 </dict>
