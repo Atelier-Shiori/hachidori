@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
+		2DC022501E01AF9300A7E928 /* OAuth2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC0224F1E01AF9300A7E928 /* OAuth2.framework */; };
 		3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3A20383112122B2B003813B2 /* dsa_pub.pem */; };
 		3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2DCCBD1210B3D900C920F1 /* Security.framework */; };
@@ -112,6 +113,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2DC0224F1E01AF9300A7E928 /* OAuth2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OAuth2.framework; sourceTree = "<group>"; };
 		3A20383112122B2B003813B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
 		3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
+				2DC022501E01AF9300A7E928 /* OAuth2.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
@@ -292,6 +295,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2DC0224F1E01AF9300A7E928 /* OAuth2.framework */,
 				59D5037A1CB016840002532D /* Sparkle.framework */,
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
 				3A4C61D3120DF3ED0032F63A /* OgreKit.framework */,
@@ -339,9 +343,9 @@
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
 				5C8ACEB919F409F90001A101 /* Images */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
-				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
@@ -413,9 +417,9 @@
 				5C75EAB51A36069100A20229 /* Hotkey */,
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
 				593B55821CC41DC200B7B254 /* Base64Category.h */,
+				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
 				593B55831CC41DC200B7B254 /* Base64Category.m */,
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
-				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
 				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
 			);
 			name = "Other Classes";
@@ -927,7 +931,7 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Debug";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -961,7 +965,7 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;

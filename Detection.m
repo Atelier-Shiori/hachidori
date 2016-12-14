@@ -97,6 +97,7 @@
                     break;
                 case 8:
                     DetectedSource = @"Beamer/ffmpeg";
+                    break;
                 default:
                     DetectedSource = (NSString *)player[i];
                     break;

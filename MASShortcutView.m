@@ -330,7 +330,7 @@ void *kUserDataHint = &kUserDataHint;
     else if (data == kUserDataHint) {
         return NSLocalizedString(@"Delete shortcut", @"Tooltip for hint button near the non-empty shortcut");
     }
-    return nil;
+    return @"";
 }
 
 #pragma mark - Event monitoring
@@ -375,7 +375,7 @@ void *kUserDataHint = &kUserDataHint;
                             [weakSelf activateEventMonitoring:NO];
                             NSString *format = NSLocalizedString(@"The key combination %@ cannot be used",
                                                                  @"Title for alert when shortcut is already used");
-                            NSRunCriticalAlertPanel([NSString stringWithFormat:format, shortcut], error.localizedDescription,
+                            NSRunCriticalAlertPanel([NSString stringWithFormat:format, shortcut], @"%@", error.localizedDescription,
                                                     NSLocalizedString(@"OK", @"Alert button when shortcut is already used"),
                                                     nil, nil);
                             weakSelf.shortcutPlaceholder = nil;
