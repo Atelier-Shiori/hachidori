@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OgreKit/OgreKit.h>
+#import <OAuth2Client/NXOAuth2.h>
 
 @interface Hachidori : NSObject {
 	NSString * LastScrobbledTitle;
@@ -72,6 +73,7 @@
 -(int)scrobble;
 -(BOOL)confirmupdate;
 -(void)clearAnimeInfo;
+-(NXOAuth2Account *)getFirstAccount;
 // Unit Testing Only
 -(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end

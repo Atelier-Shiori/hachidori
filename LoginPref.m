@@ -9,7 +9,6 @@
 #import "LoginPref.h"
 #import "EasyNSURLConnection.h"
 #import "Utility.h"
-#import "Hachidori+Keychain.h"
 
 @implementation LoginPref
 @synthesize loginpanel;
@@ -101,7 +100,7 @@
                                                        queue:nil
                                                   usingBlock:^(NSNotification *aNotification){
                                                       // Update your UI
-                                                              [Utility showsheetmessage:@"Login Successful" explaination: @"Login Token has been recieved." window:[[self view] window]];
+                                                              [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:[[self view] window]];
                                                       [[self getFirstAccount] setUserData:@{@"Username" : [fieldusername stringValue]}];
                                                       [clearbut setEnabled: YES];
                                                       [loggedinuser setStringValue:username];
@@ -175,10 +174,12 @@
 }
 - (void)reAuthPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
+        // Get Username
+        NSString * username = [self getUsername];
         // Remove Oauth Account
         [[NXOAuth2AccountStore sharedStore]  removeAccount:[self getFirstAccount]];
         //Perform Login
-        [self login:[NSString stringWithFormat:@"%@", [haengine getusername]] password:[passwordinput stringValue]];
+        [self login:username password:[passwordinput stringValue]];
     }
     //Reset and Close
     [passwordinput setStringValue:@""];
@@ -205,6 +206,13 @@
 -(NXOAuth2Account *)getFirstAccount{
     for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
         return account;
+    };
+    return nil;
+}
+-(NSString *)getUsername{
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+        NSDictionary * userdata = (NSDictionary *)account.userData;
+        return userdata[@"username"];
     };
     return nil;
 }

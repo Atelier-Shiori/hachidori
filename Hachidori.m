@@ -387,4 +387,10 @@
         }
     }
 }
+-(NXOAuth2Account *)getFirstAccount{
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+        return account;
+    };
+    return nil;
+}
 @end

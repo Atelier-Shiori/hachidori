@@ -45,7 +45,7 @@
     //Escape Search Term
     NSString * searchterm = [Utility urlEncodeString:searchtitle];
     //Set Search API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/search/anime?query=%@", searchterm]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
@@ -72,7 +72,14 @@
 -(NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term{
     // Initalize JSON parser
     NSError* error;
-    NSArray *searchdata = [NSJSONSerialization JSONObjectWithData:ResponseData options:kNilOptions error:&error];
+    NSDictionary *data = [NSJSONSerialization JSONObjectWithData:ResponseData options:kNilOptions error:&error];
+    NSArray * tmpa = data[@"data"];
+    tmpa = [NSArray arrayWithArray:[tmpa filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)" , @"anime"]]];
+    NSMutableArray * searchdata = [NSMutableArray new];
+    for (NSDictionary * a in tmpa){
+        [searchdata addObject:a[@"attributes"]];
+    }
+    tmpa = nil;
     //Initalize NSString to dump the title temporarily
     NSString *theshowtitle = @"";
     NSString *alttitle = @"";
@@ -114,8 +121,10 @@
         
         // Check TV, ONA, Special, OVA, Other
         for (NSDictionary *searchentry in sortedArray) {
-            theshowtitle = [NSString stringWithFormat:@"%@",searchentry[@"title"]];
-            alttitle = [NSString stringWithFormat:@"%@", searchentry[@"alternate_title"]];
+            NSDictionary * titles = searchentry[@"titles"];
+
+            theshowtitle = [NSString stringWithFormat:@"%@",titles[@"en_jp"]];
+            alttitle = [NSString stringWithFormat:@"%@", titles[@"en"]];
             // Remove colons as they are invalid characters for filenames and to improve accuracy
             theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
             alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
@@ -124,12 +133,12 @@
             if (matchstatus == 1 || matchstatus == 2) {
                 if (DetectedTitleisMovie) {
                     DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
-                    if ([[NSString stringWithFormat:@"%@", searchentry[@"show_type"]] isEqualToString:@"Special"]) {
+                    if ([[NSString stringWithFormat:@"%@", searchentry[@"showType"]] isEqualToString:@"Special"]) {
                         DetectedTitleisMovie = false;
                     }
                 }
                 else{
-                    if ([[NSString stringWithFormat:@"%@", searchentry[@"show_type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"show_type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
+                    if ([[NSString stringWithFormat:@"%@", searchentry[@"showType"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"showType"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
                         // Used for Season Checking
                         OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
                         OGRegularExpressionMatch * smatch = [regex2 matchInString:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, searchentry[@"slug"]]];
@@ -147,7 +156,7 @@
                 }
                 //Return titleid if episode is valid
                 int episodecount;
-                if (searchentry[@"episode_count"] == [NSNull null]) {
+                if (searchentry[@"episodeCount"] == [NSNull null]) {
                     // No episode Count, set episode count to zero
                     episodecount = 0;
                 }
@@ -201,22 +210,22 @@
     NSMutableArray * sortedArray;
     // Filter array based on if the title is a movie or if there is a season detected
     if (DetectedTitleisMovie) {
-        sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)" , @"Movie"]]];
-        [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
+        sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(showType == %@)" , @"Movie"]]];
+        [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(showType == %@)", @"Special"]]];
     }
     else if (DetectedTitleisEpisodeZero){
         sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(title CONTAINS %@)" , @"Episode 0"]]];
     }
     else{
         if (DetectedType.length > 0) {
-            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type ==[c] %@)", DetectedType]]];
+            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(showType ==[c] %@)", DetectedType]]];
         }
         else{
-            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"TV"]]];
+            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(showType == %@)", @"TV"]]];
             [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"ONA"]]];
             if (DetectedSeason == 1 | DetectedSeason == 0) {
-                [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"Special"]]];
-                [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(show_type == %@)", @"OVA"]]];
+                [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(showType == %@)", @"Special"]]];
+                [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(showType == %@)", @"OVA"]]];
             }
         }
     }
@@ -226,19 +235,21 @@
     // Perform string score between two titles to see if one is the correct match or not
     float score1, score2, ascore1, ascore2;
     double fuzziness = 0.3;
+    NSDictionary * mtitle1 = match1[@"titles"];
+    NSDictionary * mtitle2 = match2[@"titles"];
     //Score first title
-    score1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match1[@"title"]] UTF8String], fuzziness);
-    ascore1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match1[@"alternate_title"]] UTF8String], fuzziness);
+    score1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@",mtitle1[@"en_jp"]] UTF8String], fuzziness);
+    ascore1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", mtitle1[@"en"]] UTF8String], fuzziness);
     //Score Second Title
-    score2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match2[@"title"]] UTF8String], fuzziness);
-    ascore2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", match2[@"alternate_title"]] UTF8String], fuzziness);
+    score2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", mtitle2[@"en_jp"]] UTF8String], fuzziness);
+    ascore2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", mtitle2[@"en"]] UTF8String], fuzziness);
     //First Season Score Bonus
     if (DetectedSeason == 0 || DetectedSeason == 1) {
-        if ([(NSString *)match1[@"title"] rangeOfString:@"First"].location != NSNotFound || [(NSString *)match1[@"title"] rangeOfString:@"1st"].location != NSNotFound) {
+        if ([(NSString *)mtitle1[@"en_jp"] rangeOfString:@"First"].location != NSNotFound || [(NSString *)mtitle1[@"en_jp"] rangeOfString:@"1st"].location != NSNotFound) {
             score1 = score1 + .25;
             ascore1 = ascore1 + .25;
         }
-        else if ([(NSString *)match2[@"title"] rangeOfString:@"First"].location != NSNotFound || [(NSString *)match2[@"title"] rangeOfString:@"1st"].location != NSNotFound){
+        else if ([(NSString *)mtitle2[@"en_jp"] rangeOfString:@"First"].location != NSNotFound || [(NSString *)mtitle2[@"en_jp"] rangeOfString:@"1st"].location != NSNotFound){
             score2 = score2 + .25;
             ascore2 = ascore2 + .25;
         }
@@ -273,13 +284,14 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0 && !unittesting) {
         NSNumber * totalepisodes;
         if (found[@"episode_count"] != [NSNull null]) {
-            totalepisodes = (NSNumber *)found[@"episode_count"];
+            totalepisodes = (NSNumber *)found[@"episodeCount"];
         }
         else{
             totalepisodes = @(0);
         }
         //Save AniID
-        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes: [totalepisodes intValue]];
+        NSDictionary * title = found[@"titles"];
+        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)title[@"en_jp"] totalepisodes: [totalepisodes intValue]];
     }
     //Return the AniID
     return titleid;

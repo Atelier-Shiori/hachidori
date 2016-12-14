@@ -22,7 +22,7 @@
         //Ignore Cookies
         [request setUseCookies:NO];
         //Set Token
-        [request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
+        //[request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
         // Get Information
         [request startFormRequest];
         NSDictionary * d;
@@ -74,17 +74,9 @@
                 return NO;
             }
             else {
-                // Generate new token and retry
-                int statuscode = [self generatetoken];
-                if (statuscode == 201) {
-                    // Successfully generated token, retry
-                    continue;
-                }
-                else{
-                    // Token generation failed, users credentials incorrect.
-                    online = true;
-                    return NO;
-                }
+                // Token generation failed, users credentials incorrect.
+                online = true;
+                return NO;
             }
         }
         else {

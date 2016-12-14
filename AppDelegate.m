@@ -258,13 +258,13 @@
     }
 
 	// Notify User if there is no Account Info
-	if (![haengine checkaccount]) {
+	if (![haengine getFirstAccount]) {
         // First time prompt
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
         [alert setMessageText:@"Welcome to Hachidori"];
-        [alert setInformativeText:@"Before using this program, you need to login. Do you want to open Preferences to log in now? \r\rPlease note that Hachidori now stores user information in the Keychain and therefore, you must login again."];
+        [alert setInformativeText:@"Before using this program, you need to add an account. Do you want to open Preferences to authenticate an account now? \r\rPlease note that Hachidori has transitioned to Kitsu and therefore, you must reauthenticate."];
         // Set Message type to Warning
         [alert setAlertStyle:NSInformationalAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {
@@ -438,7 +438,7 @@
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
-	if (![haengine checkaccount]) {
+	if (![haengine getFirstAccount]) {
         [self showNotification:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
     }
 	else {
@@ -463,7 +463,7 @@
 }
 -(void)autostarttimer {
 	//Check to see if there is an API Key stored
-	if (![haengine checkaccount]) {
+	if (![haengine getFirstAccount]) {
          [self showNotification:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
 	}
 	else {
@@ -622,7 +622,7 @@
 }
 
 -(IBAction)updatenow:(id)sender{
-    if ([haengine checkaccount]) {
+    if ([haengine getFirstAccount]) {
         [self firetimer:nil];
     }
     else
@@ -1008,7 +1008,7 @@
 -(void)registerHotkey{
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
         // Scrobble Now Global Hotkey
-        if ([haengine checkaccount] && !panelactive) {
+        if ([haengine getFirstAccount] && !panelactive) {
             [self firetimer:nil];
         }
     }];
