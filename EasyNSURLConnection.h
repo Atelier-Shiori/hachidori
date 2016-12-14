@@ -9,6 +9,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <OAuth2Client/NXOAuth2.h>
 
 @interface EasyNSURLConnection : NSObject{
     NSString * useragent;
@@ -38,6 +39,7 @@
 -(void)setURL:(NSURL *)address;
 -(void)setPostMethod:(NSString *)method;
 -(void)startRequest;
+-(void)startoAuthRequest;
 -(void)startFormRequest;
 -(void)startJSONFormRequest;
 -(void)startJSONRequest:(NSString *)body;

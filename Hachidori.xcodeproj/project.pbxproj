@@ -421,8 +421,8 @@
 				593B55821CC41DC200B7B254 /* Base64Category.h */,
 				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
 				593B55831CC41DC200B7B254 /* Base64Category.m */,
-				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
+				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
