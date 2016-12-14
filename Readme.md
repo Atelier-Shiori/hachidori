@@ -28,7 +28,7 @@ All the frameworks are included. Just build! Here are the frameworks that are us
 * anitomy-osx.framework (Included as a submodule)
 * Sparkle.framework
 * OgreKit.framework
-* OAuth2.framework
+* OAuth2Client.framework
  
 Licenses for these frameworks and related classes can be seen [here](https://github.com/chikorita157/Atelier-Shiori/wiki/Credits).
 
