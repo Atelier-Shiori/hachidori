@@ -159,7 +159,13 @@
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
-	
+	//OAuth Settings
+    [[NXOAuth2AccountStore sharedStore] setClientID:@"dd031b32d2f56c990b1425efe6c42ad847e7fe3ab46bf1299f05ecd856bdb7dd"
+                                             secret:@"54d7307928f63414defd96399fc31ba847961ceaecef3a5fd93144e960c0e151"
+                                   authorizationURL:[NSURL URLWithString:@"https://kitsu.io/api/oauth/authorize"]
+                                           tokenURL:[NSURL URLWithString:@"https://kitsu.io/api/oauth/token"]
+                                        redirectURL:nil
+                                     forAccountType:@"Hachidori"];
 }
 - (void) awakeFromNib{
     

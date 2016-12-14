@@ -19,8 +19,10 @@
 	return [super initWithNibName:@"LoginView" bundle:nil];
 }
 - (id)initwithAppDelegate:(AppDelegate *)adelegate{
+    
     appdelegate = adelegate;
     return [super initWithNibName:@"LoginView" bundle:nil];
+    
 }
 -(void)loadView{
     [super loadView];
@@ -50,6 +52,7 @@
 
 -(void)loadlogin
 {
+    /*
     //Load Hachidori Engine Instance from AppDelegate
     haengine = appdelegate.getHachidoriInstance;
     
@@ -66,7 +69,7 @@
 		//Disable Clearbut
 		[clearbut setEnabled: NO];
 		[savebut setEnabled: YES];
-	}
+	}*/
 }
 -(IBAction)startlogin:(id)sender
 {
@@ -90,10 +93,32 @@
                     [self login:[fieldusername stringValue] password:[fieldpassword stringValue]];
                 }
 		}
-	}
+       	}
 }
 -(void)login:(NSString *)username password:(NSString *)password{
-    //Set Login URL
+    [[NXOAuth2AccountStore sharedStore] requestAccessToAccountWithType:@"Hachidori"
+                                                              username:[fieldusername stringValue]
+                                                              password:[fieldpassword stringValue]];
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreAccountsDidChangeNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+                                                      // Update your UI
+                                                              [Utility showsheetmessage:@"Login Successful" explaination: @"Login Token has been recieved." window:[[self view] window]];
+                                                  }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreDidFailToRequestAccessNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+                                                      NSError *error = [aNotification.userInfo objectForKey:NXOAuth2AccountStoreErrorKey];
+                                                      // Do something with the error
+                                                      //Login Failed, show error message
+                                                      [Utility showsheetmessage:@"Hachidori was unable to log you in since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:[[self view] window]];
+                                                      [savebut setEnabled: YES];
+                                                      [savebut setKeyEquivalent:@"\r"];
+                                                  }];
+
+    /*//Set Login URL
 				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/users/authenticate"]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
 				//Ignore Cookies
@@ -125,17 +150,14 @@
             [savebut setKeyEquivalent:@"\r"];
         }
         else{
-            //Login Failed, show error message
-            [Utility showsheetmessage:@"Hachidori was unable to log you in since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:[[self view] window]];
-            [savebut setEnabled: YES];
-            [savebut setKeyEquivalent:@"\r"];
+
         }
     }
 
     //release
     request = nil;
     url = nil;
-
+*/
 }
 -(IBAction)registerhummingbird:(id)sender
 {

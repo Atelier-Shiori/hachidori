@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
 #import "MASPreferencesViewController.h"
 #import "AppDelegate.h"
 #import "Hachidori.h"

@@ -5,19 +5,17 @@
 	<key>BuildMachineOSBuild</key>
 	<string>16B2555</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>OAuth2</string>
+	<string>OAuth2Client</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.github.p2.OAuth2</string>
+	<string>com.nxtbgthng.OAuth2Client</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>OAuth2</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.1</string>
+	<string>1.2.7</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -40,12 +38,5 @@
 	<string>0800</string>
 	<key>DTXcodeBuild</key>
 	<string>8A218a</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2016 Pascal Pfiffner.</string>
-	<key>UIDeviceFamily</key>
-	<array>
-		<integer>1</integer>
-		<integer>2</integer>
-	</array>
 </dict>
 </plist>
