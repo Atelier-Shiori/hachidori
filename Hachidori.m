@@ -289,6 +289,9 @@
         DetectedEpisode = @"1";
         DetectedTitleisEpisodeZero = true;
     }
+    if ([DetectedType isLike:@"Movie"] && ([DetectedEpisode isEqualToString:@"0"] || DetectedEpisode.length == 0)){
+        DetectedEpisode = @"1";
+    }
     else{DetectedTitleisEpisodeZero = false;}
 }
 -(BOOL)confirmupdate{
@@ -367,7 +370,7 @@
                     int threshold = [(NSNumber *)[entry valueForKey:@"episodethreshold"] intValue];
                     int offset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
                     int tmpepisode = [DetectedEpisode intValue] - offset;
-                    if ((tmpepisode > threshold && threshold != 0) || tmpepisode <= 0) {
+                    if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1)) {
                         continue;
                     }
                     else {

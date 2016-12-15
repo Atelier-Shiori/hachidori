@@ -34,7 +34,7 @@
             //return Data
             NSError * jerror;
             d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
-            if ([[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0]) {
+            if ([(NSArray *)d[@"data"] count] > 0) {
                 d = [[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0];
                 EntryID = d[@"id"];
                 d = d[@"attributes"];

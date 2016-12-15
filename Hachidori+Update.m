@@ -8,7 +8,6 @@
 
 #import "Hachidori+Update.h"
 #import "EasyNSURLConnection.h"
-#import "Hachidori+Keychain.h"
 
 @implementation Hachidori (Update)
 -(int)updatetitle:(NSString *)titleid {
@@ -57,9 +56,7 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
-    //Set Token
-    //[request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
-    //Set Status
+        //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
     NSString * tmpWatchStatus;
@@ -182,8 +179,6 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
-    //Set Token
-    //[request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
     //Set current episode
     if ([episode intValue] != DetectedCurrentEpisode) {
         [request addFormData:episode forKey:@"episodes_watched"];
@@ -227,8 +222,6 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
-    //Set Token
-    //[request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
     //Set current episode to total episodes
     [request addFormData:[[NSNumber numberWithInt:TotalEpisodes] stringValue] forKey:@"episodes_watched"];
     //Revert watch status to complete
@@ -259,17 +252,15 @@
     NSLog(@"Removing %@", titleid);
     // Update the title
     //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@/remove", titleid]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", EntryID]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
-    //Set Token
-    //[request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
-    // Do Update
+    [request setPostMethod:@"DELETE"];
+        // Do Update
     [request startFormRequest];
     switch ([request getStatusCode]) {
-        case 200:
-        case 201:
+        case 204:
             return true;
         default:
             // Update Unsuccessful
