@@ -36,7 +36,7 @@
             d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
             if ([[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0]) {
                 d = [[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0];
-                DetectedEntryID = d[@"id"];
+                EntryID = d[@"id"];
                 d = d[@"attributes"];
                 NSLog(@"%@",d);
                 NSLog(@"Title on list");
@@ -44,7 +44,7 @@
             }
             else{
                 NSLog(@"Title not on list");
-                DetectedEntryID = nil;
+                EntryID = nil;
                 WatchStatus = @"current";
                 LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
                 DetectedCurrentEpisode = 0;

@@ -15,7 +15,6 @@
 	NSString * LastScrobbledEpisode;
     NSString * LastScrobbledActualTitle;
     NSString * LastScrobbledSource;
-    NSString * LastScrobbledEntryID;
     NSString * username;
     NSString * malusername;
 	NSDictionary * LastScrobbledInfo;
@@ -27,7 +26,6 @@
     __weak NSString * DetectedSource;
     __weak NSString * DetectedGroup;
     __weak NSString * DetectedType;
-    __weak NSString * DetectedEntryID;
     NSString * FailedTitle;
     NSString * FailedEpisode;
     NSString * FailedSource;
@@ -42,6 +40,7 @@
     BOOL rewatching;
     NSString * TitleNotes;
     NSString * AniID;
+    NSString * EntryID;
     NSString * MALID;
     NSString * MALApiUrl;
     BOOL confirmed;
