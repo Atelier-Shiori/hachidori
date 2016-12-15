@@ -68,6 +68,11 @@
     }
     else{
         [request setPostMethod:@"POST"];
+        //Create relationship JSON for a new library entry
+        NSDictionary * userd =  @{@"data" : @{@"id" : [self getUserid], @"type" : @"users"}};
+        NSDictionary * mediad = @{@"data" : @{@"id" : AniID, @"type" : @"anime"}};
+        NSDictionary * relationshipsd = @{@"user" : userd, @"media" : mediad};
+        [tmpd setObject:relationshipsd forKey:@"relationships"];
     }
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
         [attributes setValue:DetectedEpisode forKey:@"progress"];
