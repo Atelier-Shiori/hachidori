@@ -128,7 +128,6 @@
     // Set correcting status to off
     correcting = false;
     long statuscode = [request getStatusCode];
-    NSLog(@"%@",[request getResponseDataString]);
     switch (statuscode) {
         case 201:
         case 200:
@@ -175,27 +174,41 @@
     NSLog(@"Updating Status for %@", titleid);
     // Update the title
     //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@",  titleid]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", EntryID]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
+    //generate json
+    NSMutableDictionary * attributes = [NSMutableDictionary new];
+    NSMutableDictionary * tmpd = [NSMutableDictionary new];
+    [request setPostMethod:@"PATCH"];
+    [tmpd setValue:EntryID forKey:@"id"];
+    [tmpd setValue:@"libraryEntries" forKey:@"type"];
     //Set current episode
     if ([episode intValue] != DetectedCurrentEpisode) {
-        [request addFormData:episode forKey:@"episodes_watched"];
+        [attributes setValue:episode forKey:@"progress"];
     }
     //Set new watch status
-    [request addFormData:showwatchstatus forKey:@"status"];
+    [attributes setValue:showwatchstatus forKey:@"status"];
     //Set new score.
-    [request addFormData:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
+    if (showscore > 0){
+        [attributes setValue:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
+    }
+    else{
+        [attributes setValue:[NSNull null] forKey:@"rating"];
+    }
     //Set new note
-    [request addFormData:note forKey:@"notes"];
+    [attributes setValue:note forKey:@"notes"];
     //Privacy
     if (privatevalue)
-        [request addFormData:@"private" forKey:@"privacy"];
+        [attributes setValue:@"true" forKey:@"private"];
     else
-        [request addFormData:@"public" forKey:@"privacy"];
+        [attributes setValue:@"false" forKey:@"private"];
+    // Assemble JSON
+    [tmpd setValue:attributes forKey:@"attributes"];
+    [request addFormData:tmpd forKey:@"data"];
     // Do Update
-    [request startFormRequest];
+    [request startJSONFormRequest];
     switch ([request getStatusCode]) {
         case 200:
         case 201:
@@ -218,19 +231,27 @@
     NSLog(@"Reverting rewatch for %@", titleid);
     // Update the title
     //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@",  titleid]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", EntryID]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
+    //generate json
+    NSMutableDictionary * attributes = [NSMutableDictionary new];
+    NSMutableDictionary * tmpd = [NSMutableDictionary new];
+    [request setPostMethod:@"PATCH"];
+    [tmpd setValue:EntryID forKey:@"id"];
+    [tmpd setValue:@"libraryEntries" forKey:@"type"];
     //Set current episode to total episodes
-    [request addFormData:[[NSNumber numberWithInt:TotalEpisodes] stringValue] forKey:@"episodes_watched"];
+    [attributes setValue:[[NSNumber numberWithInt:TotalEpisodes] stringValue] forKey:@"progress"];
     //Revert watch status to complete
-    [request addFormData:@"completed" forKey:@"status"];
+    [attributes setValue:@"completed" forKey:@"status"];
     //Set Rewatch status to false
-    [request addFormData:@"false" forKey:@"rewatching"];
-    
+    [attributes setValue:@"false" forKey:@"reconsuming"];
+    // Assemble JSON
+    [tmpd setValue:attributes forKey:@"attributes"];
+    [request addFormData:tmpd forKey:@"data"];
     // Do Update
-    [request startFormRequest];
+    [request startJSONFormRequest];
     switch ([request getStatusCode]) {
         case 200:
         case 201:

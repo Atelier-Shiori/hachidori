@@ -205,7 +205,6 @@
     if (!jsonData) {}
     else{
         NSString *JSONString = [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",JSONString);
         [request setHTTPBody:[JSONString dataUsingEncoding:NSUTF8StringEncoding]];
     }
     // Set Other headers, if any

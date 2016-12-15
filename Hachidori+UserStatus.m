@@ -18,7 +18,6 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //Set library/scrobble API
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [self getUserid], titleid]];
-        NSLog(@"%@",[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [self getUserid], titleid]);
         EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
         //Ignore Cookies
         [request setUseCookies:NO];
@@ -38,7 +37,6 @@
                 d = [[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0];
                 EntryID = d[@"id"];
                 d = d[@"attributes"];
-                NSLog(@"%@",d);
                 NSLog(@"Title on list");
                 [self populateStatusData:d id:titleid];
             }

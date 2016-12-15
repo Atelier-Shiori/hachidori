@@ -83,7 +83,6 @@
             while ((match = [enumerator nextObject]) != nil) {
                 [filenames addObject:[match matchedString]];
             }
-            NSLog(@"%@",filenames);
             // Populate Source
             NSString * DetectedSource;
             // Source Detection
@@ -280,12 +279,10 @@
     return false;
 }
 -(bool)checkifDirectoryIgnored:(NSString *)filename{
-    NSLog(@"Debug: %@", filename);
     //Checks if file name or directory is on ignore list
     filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
     // Get only the path
     filename = [[[NSURL fileURLWithPath:filename] path] stringByDeletingLastPathComponent];
-    NSLog(@"Debug: %@", filename);
     if (filename == nil){
         return false;
     }

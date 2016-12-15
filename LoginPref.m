@@ -124,7 +124,7 @@
 }
 -(IBAction)registerhummingbird:(id)sender
 {
-	//Show Kiysu Registration Page
+	//Show Kitsu Registration Page
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://kitsu.io"]];
 }
 -(IBAction) showgettingstartedpage:(id)sender
