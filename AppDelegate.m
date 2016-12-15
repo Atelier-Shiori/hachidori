@@ -1033,9 +1033,10 @@
     //Empty
     [animeinfo setString:@""];
     //Title
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", d[@"title"]]];
-    if (d[@"alternate_title"] != [NSNull null] && [[NSString stringWithFormat:@"%@", d[@"alternate_title"]] length] >0) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", d[@"alternate_title"]]];
+    NSDictionary * titles = d[@"titles"];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", titles[@"en_jp"]]];
+    if (titles[@"en"] != [NSNull null] && [[NSString stringWithFormat:@"%@", titles[@"en"]] length] >0) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", titles[@"en"]]];
     }
     [self appendToAnimeInfo:@""];
     //Description
@@ -1044,23 +1045,23 @@
     //Meta Information
     [self appendToAnimeInfo:@""];
     [self appendToAnimeInfo:@"Other Information"];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"started_airing"]]];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", d[@"status"]]];
-    if (d[@"finished_airing"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"finished_airing"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"startDate"]]];
+    if (d[@"endDate"] != [NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"endDate"]]];
     }
     if (d[@"episode_count"] != [NSNull null]){
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episode_count"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episodeCount"]]];
     }
     else{
         [self appendToAnimeInfo:@"Episodes: Unknown"];
     }
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", d[@"show_type"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", d[@"showType"]]];
     if (d[@"age_rating"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", d[@"age_rating"]]];
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", d[@"ageRating"]]];
     }
     //Image
-    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", d[@"cover_image"]]]]; //Downloads Image
+    NSDictionary * posterimg = d[@"posterImage"];
+    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", posterimg[@"original"]]]]; //Downloads Image
     [img setImage:dimg]; //Get the Image for the title
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
