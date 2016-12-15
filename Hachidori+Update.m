@@ -298,6 +298,7 @@
     LastScrobbledTitle = DetectedTitle;
     LastScrobbledEpisode = DetectedEpisode;
     LastScrobbledSource = DetectedSource;
+    slug = LastScrobbledInfo[@"slug"];
     NSDictionary * titles = LastScrobbledInfo[@"titles"];
     LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",titles[@"en_jp"]];
 }

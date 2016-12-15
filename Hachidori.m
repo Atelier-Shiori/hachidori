@@ -99,6 +99,22 @@
 -(BOOL)getPrivate{
     return isPrivate;
 }
+-(NSString *)getSlug{
+    return slug;
+}
+-(NXOAuth2Account *)getFirstAccount{
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+        return account;
+    };
+    return nil;
+}
+-(NSString *)getUserid{
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+        NSDictionary * userdata = (NSDictionary *)account.userData;
+        return (NSString *)userdata[@"id"];
+    };
+    return nil;
+}
 /*
  
  Update Methods
@@ -390,17 +406,5 @@
         }
     }
 }
--(NXOAuth2Account *)getFirstAccount{
-    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
-        return account;
-    };
-    return nil;
-}
--(NSString *)getUserid{
-    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
-        NSDictionary * userdata = (NSDictionary *)account.userData;
-        return (NSString *)userdata[@"id"];
-    };
-    return nil;
-}
+
 @end

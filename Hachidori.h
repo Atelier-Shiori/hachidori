@@ -43,6 +43,7 @@
     NSString * EntryID;
     NSString * MALID;
     NSString * MALApiUrl;
+    NSString * slug;
     BOOL confirmed;
 	BOOL Success;
     BOOL correcting;
@@ -76,6 +77,7 @@
 -(void)clearAnimeInfo;
 -(NXOAuth2Account *)getFirstAccount;
 -(NSString *)getUserid;
+-(NSString *)getSlug;
 // Unit Testing Only
 -(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end
