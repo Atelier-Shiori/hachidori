@@ -77,7 +77,10 @@
     tmpa = [NSArray arrayWithArray:[tmpa filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)" , @"anime"]]];
     NSMutableArray * searchdata = [NSMutableArray new];
     for (NSDictionary * a in tmpa){
-        [searchdata addObject:a[@"attributes"]];
+        NSMutableDictionary * tmpd = [NSMutableDictionary new];
+        [tmpd addEntriesFromDictionary:a[@"attributes"]];
+        [tmpd setObject:a[@"id"] forKey:@"id"];
+        [searchdata addObject:tmpd];
     }
     tmpa = nil;
     //Initalize NSString to dump the title temporarily
@@ -168,7 +171,7 @@
                     NSLog(@"Valid Episode Count");
                     if (sortedArray.count == 1 || DetectedSeason >= 2){
                         // Only Result, return
-                        return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"slug"]] info:searchentry];
+                        return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
                     else if (titlematch1 == nil && sortedArray.count > 1 && ((term.length < theshowtitle.length)||(term.length< alttitle.length && alttitle.length > 0 && matchstatus == 2))){
                         mstatus = matchstatus;
@@ -182,12 +185,12 @@
                         }
                         else{
                             // Only Result, return
-                            return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"slug"]] info:searchentry];
+                            return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                         }
                     }
                     else{
                         // Only Result, return
-                        return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"slug"]] info:searchentry];
+                        return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
                 }
                 else{
@@ -201,7 +204,7 @@
     // If one match is found and not null, then return the id.
     if (titlematch1 != nil) {
         // Only Result, return
-        return [self foundtitle:[NSString stringWithFormat:@"%@",titlematch1[@"slug"]] info:titlematch1];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",titlematch1[@"id"]] info:titlematch1];
     }
     // Nothing found, return empty string
     return @"";
@@ -256,27 +259,27 @@
     }
     if (score1 == score2 || ascore1 == ascore2 || score1 == INFINITY) {
         //Scores can't be reliably compared, just return the first match
-        return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"slug"]] info:match1];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"id"]] info:match1];
     }
     else if(a == 2 || b == 2){
         if(ascore1 > ascore2)
         {
             //Return first title as it has a higher score
-            return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"slug"]] info:match1];
+            return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"id"]] info:match1];
         }
         else{
             // Return second title since it has a higher score
-            return [self foundtitle:[NSString stringWithFormat:@"%@",match2[@"slug"]] info:match2];
+            return [self foundtitle:[NSString stringWithFormat:@"%@",match2[@"id"]] info:match2];
         }
     }
     else if(score1 > score2)
     {
         //Return first title as it has a higher score
-        return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"slug"]] info:match1];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",match1[@"id"]] info:match1];
     }
     else{
         // Return second title since it has a higher score
-        return [self foundtitle:[NSString stringWithFormat:@"%@",match2[@"slug"]] info:match2];
+        return [self foundtitle:[NSString stringWithFormat:@"%@",match2[@"id"]] info:match2];
     }
 }
 -(NSString *)foundtitle:(NSString *)titleid info:(NSDictionary *)found{

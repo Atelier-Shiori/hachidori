@@ -17,14 +17,14 @@
         // Update the title
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //Set library/scrobble API
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [self getUserid], titleid]];
         EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
         //Ignore Cookies
         [request setUseCookies:NO];
         //Set Token
         //[request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
         // Get Information
-        [request startFormRequest];
+        [request startoAuthRequest];
         NSDictionary * d;
         long statusCode = [request getStatusCode];
         NSError * error = [request getError];
@@ -33,6 +33,8 @@
             //return Data
             NSError * jerror;
             d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+            NSLog(@"%@",d);
+            d = d[@"data"];
             if ([d count] > 0) {
                 NSLog(@"Title on list");
                 [self populateStatusData:d];

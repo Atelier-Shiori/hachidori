@@ -393,4 +393,11 @@
     };
     return nil;
 }
+-(NSString *)getUserid{
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+        NSDictionary * userdata = (NSDictionary *)account.userData;
+        return (NSString *)userdata[@"id"];
+    };
+    return nil;
+}
 @end

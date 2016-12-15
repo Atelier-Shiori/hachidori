@@ -15,6 +15,7 @@
 	NSString * LastScrobbledEpisode;
     NSString * LastScrobbledActualTitle;
     NSString * LastScrobbledSource;
+    NSString * LastScrobbledEntryID;
     NSString * username;
     NSString * malusername;
 	NSDictionary * LastScrobbledInfo;
@@ -26,6 +27,7 @@
     __weak NSString * DetectedSource;
     __weak NSString * DetectedGroup;
     __weak NSString * DetectedType;
+    __weak NSString * DetectedEntryID;
     NSString * FailedTitle;
     NSString * FailedEpisode;
     NSString * FailedSource;
@@ -74,6 +76,7 @@
 -(BOOL)confirmupdate;
 -(void)clearAnimeInfo;
 -(NXOAuth2Account *)getFirstAccount;
+-(NSString *)getUserid;
 // Unit Testing Only
 -(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end

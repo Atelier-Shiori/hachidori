@@ -101,7 +101,7 @@
                                                   usingBlock:^(NSNotification *aNotification){
                                                       // Update your UI
                                                               [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:[[self view] window]];
-                                                      [[self getFirstAccount] setUserData:@{@"Username" : [fieldusername stringValue]}];
+                                                      [[self getFirstAccount] setUserData:@{@"Username" : [fieldusername stringValue], @"id" : [self retrieveUserID:[fieldusername stringValue]]}];
                                                       [clearbut setEnabled: YES];
                                                       [loggedinuser setStringValue:username];
                                                       [loggedinview setHidden:NO];
@@ -215,5 +215,25 @@
         return userdata[@"username"];
     };
     return nil;
+}
+-(NSString *)retrieveUserID:(NSString *)username{
+    //Set library/scrobble API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/users?filter[name]=%@",username]];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    // Get Information
+    [request startoAuthRequest];
+    NSDictionary * d;
+    long statusCode = [request getStatusCode];
+    NSError * error = [request getError];
+    if (statusCode == 200 || statusCode == 201 ) {
+        //return Data
+        NSError * jerror;
+        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        NSArray * tmp = d[@"data"];
+        NSDictionary * uinfo = [tmp objectAtIndex:0];
+        return [NSString stringWithFormat:@"%@",uinfo[@"id"]];
+    }
 }
 @end
