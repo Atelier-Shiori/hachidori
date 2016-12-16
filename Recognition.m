@@ -47,6 +47,8 @@
     else {
         DetectedSeason = 1;
     }
+    // remove tildes
+    DetectedTitle = [DetectedTitle stringByReplacingOccurrencesOfString:@"~" withString:@""];
     
     // Trim Whitespace
     DetectedTitle = [DetectedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

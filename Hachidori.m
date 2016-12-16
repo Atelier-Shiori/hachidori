@@ -386,7 +386,7 @@
                     int threshold = [(NSNumber *)[entry valueForKey:@"episodethreshold"] intValue];
                     int offset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
                     int tmpepisode = [DetectedEpisode intValue] - offset;
-                    if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1)) {
+                    if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1 && i==0)||(tmpepisode <= 0 && i==1)) {
                         continue;
                     }
                     else {
