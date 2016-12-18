@@ -87,7 +87,7 @@
         
         dispatch_async(queue, ^{
         NSString * searchterm = [Utility urlEncodeString:[search stringValue]];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/search/anime?query=%@", searchterm]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm]];
         EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
         //Ignore Cookies
         [request setUseCookies:NO];
@@ -122,9 +122,14 @@
     
     //Parse Data
     NSError* error;
-    
-    NSArray *searchdata = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    
+    //Translate the Kitsu search data to old format
+    NSDictionary *tmpd = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    NSArray * atmp = tmpd[@"data"];
+    NSMutableArray *searchdata = [NSMutableArray new];
+    for (NSDictionary * d in atmp) {
+        NSDictionary * attributes = d[@"attributes"];
+        [searchdata addObject:@{@"slug" : d[@"id"],@"title":attributes[@"canonicalTitle"], @"episode_count" : attributes[@"episodeCount"], @"synopsis" : attributes[@"synopsis"], @"show_type":attributes[@"showType"]}];
+    }
     //Add it to the array controller
     [arraycontroller addObjects:searchdata];
     

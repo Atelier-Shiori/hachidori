@@ -75,16 +75,18 @@
             type = @"";
         }
         NSDictionary * result = [haengine runUnitTest:parsedfile[@"title"] episode:parsedfile[@"episode"] season:[season intValue] group:parsedfile[@"group"] type:type];
+            NSDictionary * titles = result[@"titles"];
+            NSString * title = titles[@"en_jp"];
         if ([result count] > 0) {
-            NSLog(@"Detected as %@. Slug: %@", result[@"title"], result[@"slug"]);
-            if (![expectedtitle isEqualToString:[NSString stringWithFormat:@"%@", result[@"title"]]] && [expectedtitle length] > 0) {
+            NSLog(@"Detected as %@. Slug: %@", title, result[@"slug"]);
+            if (![expectedtitle isEqualToString:title] && [expectedtitle length] > 0) {
                 NSLog(@"Incorrect Match!");
                 incorrect++;
             }
             else if ([expectedtitle length] == 0){
                 // Expected Title missing, subtract it from count.
                 NSLog(@"Note: Title not included in the count. Please add this to the testdata.json file:");
-                NSLog(@"\"expectedtitle\":\"%@\"",result[@"title"]);
+                NSLog(@"\"expectedtitle\":\"%@\"",title);
                 count--;
             }
         }

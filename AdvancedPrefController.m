@@ -155,7 +155,7 @@
         }
         else{
             //Login Failed, show error message
-            [Utility showsheetmessage:@"Hachidori was unable to log you into your MyAnimeList accountsince you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:[[self view] window]];
+            [Utility showsheetmessage:@"Hachidori was unable to log you into your MyAnimeList account since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:[[self view] window]];
             [savebut setEnabled: YES];
             [savebut setKeyEquivalent:@"\r"];
         }

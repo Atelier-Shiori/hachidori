@@ -17,14 +17,12 @@
         // Update the title
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //Set library/scrobble API
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/libraries/%@", titleid]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [self getUserid], titleid]];
         EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
         //Ignore Cookies
         [request setUseCookies:NO];
-        //Set Token
-        [request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
         // Get Information
-        [request startFormRequest];
+        [request startoAuthRequest];
         NSDictionary * d;
         long statusCode = [request getStatusCode];
         NSError * error = [request getError];
@@ -33,13 +31,17 @@
             //return Data
             NSError * jerror;
             d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
-            if ([d count] > 0) {
+            if ([(NSArray *)d[@"data"] count] > 0) {
+                d = [[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0];
+                EntryID = d[@"id"];
+                d = d[@"attributes"];
                 NSLog(@"Title on list");
-                [self populateStatusData:d];
+                [self populateStatusData:d id:titleid];
             }
             else{
                 NSLog(@"Title not on list");
-                WatchStatus = @"currently-watching";
+                EntryID = nil;
+                WatchStatus = @"current";
                 LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
                 DetectedCurrentEpisode = 0;
                 TitleScore  = 0;
@@ -49,13 +51,13 @@
                 rewatching = false;
                 rewatchcount = 0;
                 // MAL ID for MAL Syncing
-                MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
+                //MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
             }
             if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
                 TotalEpisodes = 0; // No Episode Total, Set to 0.
             }
             else { // Episode Total Exists
-                TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episode_count"] intValue];
+                TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episodeCount"] intValue];
             }
             // New Update Confirmation
             if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
@@ -74,17 +76,9 @@
                 return NO;
             }
             else {
-                // Generate new token and retry
-                int statuscode = [self generatetoken];
-                if (statuscode == 201) {
-                    // Successfully generated token, retry
-                    continue;
-                }
-                else{
-                    // Token generation failed, users credentials incorrect.
-                    online = true;
-                    return NO;
-                }
+                // Token generation failed, users credentials incorrect.
+                online = true;
+                return NO;
             }
         }
         else {
@@ -95,29 +89,30 @@
     //Should never happen, but...
     return NO;
 }
--(NSDictionary *)retrieveAnimeInfo:(NSString *)slug{
+-(NSDictionary *)retrieveAnimeInfo:(NSString *)aid{
     NSLog(@"Getting Additional Info");
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://hummingbird.me/api/v1/anime/%@", slug]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@", aid]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
     //Get Information
-    [request startRequest];
+    [request startoAuthRequest];
     // Get Status Code
     long statusCode = [request getStatusCode];
     if (statusCode == 200) {
         NSError* error;
         NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
-        return d;
+        d = d[@"data"];
+        return d[@"attributes"];
     }
     else{
         NSDictionary * d = [[NSDictionary alloc] init];
         return d;
     }
 }
--(void)populateStatusData:(NSDictionary *)d{
-    // Info is there.
-    NSDictionary * tmpinfo = d[@"anime"];
+-(void)populateStatusData:(NSDictionary *)d id:(NSString *)aid{
+    // Retrieve Anime Information
+    NSDictionary * tmpinfo = [self retrieveAnimeInfo:aid];
     WatchStatus = d[@"status"];
     //Get Notes;
     if (d[@"notes"] == [NSNull null]) {
@@ -126,27 +121,25 @@
     else {
         TitleNotes = d[@"notes"];
     }
-    // Get Rating
-    NSDictionary * rating = d[@"rating"];
-    if (rating[@"value"] == [NSNull null]){
+    if (d[@"rating"] == [NSNull null]){
         // Score is null, set to 0
         TitleScore = 0;
     }
     else {
-        TitleScore = [(NSNumber *)rating[@"value"] floatValue];
+        TitleScore = [(NSNumber *)d[@"rating"] floatValue];
     }
     // Rewatch Information
-    rewatching = [d[@"rewatching"] boolValue];
-    rewatchcount = [d[@"rewatched_times"] longValue];
+    rewatching = [d[@"reconsuming"] boolValue];
+    rewatchcount = [d[@"reconsumeCount"] longValue];
     // Privacy Settings
     isPrivate = [d[@"private"] boolValue];
-    DetectedCurrentEpisode = [(NSNumber *)d[@"episodes_watched"] intValue];
+    DetectedCurrentEpisode = [(NSNumber *)d[@"progress"] intValue];
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
     if (rewatching) {
         NSLog(@"Title is being rewatched.");
     }
     // MAL ID for MAL Syncing
-    MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
+    //MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
 }
 @end

@@ -102,6 +102,38 @@
     response = rresponse;
     
 }
+-(void)startoAuthRequest{
+    // Send a synchronous request
+    NXOAuth2Request *sRequest = [[NXOAuth2Request alloc] initWithResource:URL
+                                                                   method:@"GET"
+                                                               parameters:nil];
+    [sRequest setAccount:[self getFirstAccount]];
+    NSMutableURLRequest * request = (NSMutableURLRequest *)[sRequest signedURLRequest];
+    NSHTTPURLResponse * rresponse = nil;
+    // Do not use Cookies
+    [request setHTTPShouldHandleCookies:usecookies];
+    // Set Timeout
+    [request setTimeoutInterval:15];
+    // Set User Agent
+    [request setValue:useragent forHTTPHeaderField:@"User-Agent"];
+    NSLock * lock = [NSLock new]; // NSMutableArray is not Thread Safe, lock before performing operation
+    [lock lock];
+    // Set Other headers, if any
+    if (headers != nil) {
+        for (NSDictionary *d in headers ) {
+            //Set any headers
+            [request setValue:[[d allValues] objectAtIndex:0]forHTTPHeaderField:[[d allKeys] objectAtIndex:0]];
+        }
+    }
+    [lock unlock];
+    NSError * rerror = nil;
+    responsedata = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&rresponse
+                                                     error:&rerror];
+    error = rerror;
+    response = rresponse;
+    
+}
 -(void)startFormRequest{
     // Send a synchronous request
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:URL];
@@ -141,7 +173,11 @@
 }
 -(void)startJSONFormRequest{
     // Send a synchronous request
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:URL];
+    NXOAuth2Request *sRequest = [[NXOAuth2Request alloc] initWithResource:URL
+                                                                   method:@"POST"
+                                                               parameters:nil];
+    [sRequest setAccount:[self getFirstAccount]];
+    NSMutableURLRequest * request = (NSMutableURLRequest *)[sRequest signedURLRequest];
     NSHTTPURLResponse * rresponse = nil;
     // Set Method
     if (postmethod.length != 0) {
@@ -150,7 +186,7 @@
     else
         [request setHTTPMethod:@"POST"];
     // Set content type to form data
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
     // Do not use Cookies
     [request setHTTPShouldHandleCookies:usecookies];
     // Set User Agent
@@ -184,7 +220,11 @@
 }
 -(void)startJSONRequest:(NSString *)body{
     // Send a synchronous request
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:URL];
+    NXOAuth2Request *sRequest = [[NXOAuth2Request alloc] initWithResource:URL
+                                                                   method:@"POST"
+                                                               parameters:nil];
+    [sRequest setAccount:[self getFirstAccount]];
+    NSMutableURLRequest * request = (NSMutableURLRequest *)[sRequest signedURLRequest];
     NSHTTPURLResponse * rresponse = nil;
     // Set Method
     if (postmethod.length != 0) {
@@ -240,5 +280,11 @@
         [doutput setObject:acontent forKey:akey];
         }
     return doutput;
+}
+-(NXOAuth2Account *)getFirstAccount{
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+        return account;
+    };
+    return nil;
 }
 @end

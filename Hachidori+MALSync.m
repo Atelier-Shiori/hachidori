@@ -29,6 +29,7 @@
     }
 }
 -(int)checkStatus{
+    MALID = [self getMALID];
     NSLog(@"Checking Status on MyAnimeList");
     //Set Search API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/1/anime/%@?mine=1",MALApiUrl, MALID]];
@@ -153,5 +154,28 @@
             return NO;
     }
 
+}
+-(NSString *)getMALID{
+    NSLog(@"Retrieving MyAnimeList Anime ID from Kitsu...");
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@/mappings", AniID]];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    //Get Information
+    [request startoAuthRequest];
+    // Get Status Code
+    long statusCode = [request getStatusCode];
+    if (statusCode == 200) {
+        NSError* error;
+        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
+        NSArray * mappings = d[@"data"];
+        for (NSDictionary * m in mappings){
+            if ([[NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalSite"]] isEqualToString:@"myanimelist/anime"]){
+                return [NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalId"]];
+            }
+        }
+    }
+    
+    return @"";
 }
 @end

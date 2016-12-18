@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <OAuth2Client/NXOAuth2.h>
 
 @class Hachidori;
 @class FixSearchDialog;

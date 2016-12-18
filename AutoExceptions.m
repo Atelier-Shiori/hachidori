@@ -85,7 +85,7 @@
                 // Set values in the new record
                 [obj setValue:d[@"detectedtitle"] forKey:@"detectedTitle"];
                 if (d[@"hcorrecttitle"] !=nil) {
-                    [obj setValue:d[@"hcorrecttitle"] forKey:@"correctTitle"]; // Use Correct Hummingbird Title
+                    [obj setValue:d[@"hcorrecttitle"] forKey:@"correctTitle"]; // Use Correct Kitsu Title
                 }
                 else{
                     [obj setValue:d[@"correcttitle"] forKey:@"correctTitle"]; // Use Universal Correct Title

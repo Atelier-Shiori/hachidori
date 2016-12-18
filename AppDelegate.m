@@ -159,7 +159,14 @@
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
-	
+	// OAuth Settings
+    // TODO: Get own Client ID
+    [[NXOAuth2AccountStore sharedStore] setClientID:@"dd031b32d2f56c990b1425efe6c42ad847e7fe3ab46bf1299f05ecd856bdb7dd"
+                                             secret:@"54d7307928f63414defd96399fc31ba847961ceaecef3a5fd93144e960c0e151"
+                                   authorizationURL:[NSURL URLWithString:@"https://kitsu.io/api/oauth/authorize"]
+                                           tokenURL:[NSURL URLWithString:@"https://kitsu.io/api/oauth/token"]
+                                        redirectURL:nil
+                                     forAccountType:@"Hachidori"];
 }
 - (void) awakeFromNib{
     
@@ -251,13 +258,13 @@
     }
 
 	// Notify User if there is no Account Info
-	if (![haengine checkaccount]) {
+	if (![haengine getFirstAccount]) {
         // First time prompt
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
         [alert setMessageText:@"Welcome to Hachidori"];
-        [alert setInformativeText:@"Before using this program, you need to login. Do you want to open Preferences to log in now? \r\rPlease note that Hachidori now stores user information in the Keychain and therefore, you must login again."];
+        [alert setInformativeText:@"Before using this program, you need to add an account. Do you want to open Preferences to authenticate an account now? \r\rPlease note that Hachidori has transitioned to Kitsu and therefore, you must reauthenticate."];
         // Set Message type to Warning
         [alert setAlertStyle:NSInformationalAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {
@@ -431,7 +438,7 @@
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
-	if (![haengine checkaccount]) {
+	if (![haengine getFirstAccount]) {
         [self showNotification:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
     }
 	else {
@@ -456,7 +463,7 @@
 }
 -(void)autostarttimer {
 	//Check to see if there is an API Key stored
-	if (![haengine checkaccount]) {
+	if (![haengine getFirstAccount]) {
          [self showNotification:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
 	}
 	else {
@@ -615,7 +622,7 @@
 }
 
 -(IBAction)updatenow:(id)sender{
-    if ([haengine checkaccount]) {
+    if ([haengine getFirstAccount]) {
         [self firetimer:nil];
     }
     else
@@ -1001,7 +1008,7 @@
 -(void)registerHotkey{
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
         // Scrobble Now Global Hotkey
-        if ([haengine checkaccount] && !panelactive) {
+        if ([haengine getFirstAccount] && !panelactive) {
             [self firetimer:nil];
         }
     }];
@@ -1026,9 +1033,10 @@
     //Empty
     [animeinfo setString:@""];
     //Title
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", d[@"title"]]];
-    if (d[@"alternate_title"] != [NSNull null] && [[NSString stringWithFormat:@"%@", d[@"alternate_title"]] length] >0) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", d[@"alternate_title"]]];
+    NSDictionary * titles = d[@"titles"];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", titles[@"en_jp"]]];
+    if (titles[@"en"] != [NSNull null] && [[NSString stringWithFormat:@"%@", titles[@"en"]] length] >0) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", titles[@"en"]]];
     }
     [self appendToAnimeInfo:@""];
     //Description
@@ -1037,23 +1045,23 @@
     //Meta Information
     [self appendToAnimeInfo:@""];
     [self appendToAnimeInfo:@"Other Information"];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"started_airing"]]];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", d[@"status"]]];
-    if (d[@"finished_airing"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"finished_airing"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"startDate"]]];
+    if (d[@"endDate"] != [NSNull null]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"endDate"]]];
     }
     if (d[@"episode_count"] != [NSNull null]){
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episode_count"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episodeCount"]]];
     }
     else{
         [self appendToAnimeInfo:@"Episodes: Unknown"];
     }
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", d[@"show_type"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", d[@"showType"]]];
     if (d[@"age_rating"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", d[@"age_rating"]]];
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", d[@"ageRating"]]];
     }
     //Image
-    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", d[@"cover_image"]]]]; //Downloads Image
+    NSDictionary * posterimg = d[@"posterImage"];
+    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", posterimg[@"original"]]]]; //Downloads Image
     [img setImage:dimg]; //Get the Image for the title
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
@@ -1099,7 +1107,7 @@
     [shareIcon setTitle:@""];
     [shareMenu addItem:shareIcon];
     //Generate Items to Share
-    shareItems = @[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]]];
+    shareItems = @[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getSlug]]]];
     //Get Share Services for Items
     NSArray *shareServiceforItems = [NSSharingService sharingServicesForItems:shareItems];
     //Generate Share Items and populate Share Menu
@@ -1117,7 +1125,7 @@
 }
 -(IBAction)showLastScrobbledInformation:(id)sender{
     //Open the anime's page on MyAnimeList in the default web browser
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://hummingbird.me/anime/%@", [haengine getAniID]]]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getSlug]]]];
 }
 #pragma mark MyAnimeList Syncing
 -(IBAction)forceMALSync:(id)sender{

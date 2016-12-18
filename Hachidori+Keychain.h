@@ -10,14 +10,6 @@
 #import "SSKeychain.h"
 
 @interface Hachidori (Keychain)
--(BOOL)checkaccount;
--(int)generatetoken;
--(BOOL)storeaccount:(NSString *)uname password:(NSString *)password;
--(BOOL)removeaccount;
--(NSString *)getusername;
--(NSString *)gettoken;
--(BOOL)storetoken:(NSString *)token;
--(BOOL)removetoken;
 -(BOOL)checkmalaccount;
 -(BOOL)storemalaccount:(NSString *)uname password:(NSString *)password;
 -(BOOL)removemalaccount;

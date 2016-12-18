@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
+		2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
+		2DC022521E01B52900A7E928 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; };
+		2DC022531E01BA9400A7E928 /* OAuth2Client.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */; };
 		3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3A20383112122B2B003813B2 /* dsa_pub.pem */; };
 		3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2DCCBD1210B3D900C920F1 /* Security.framework */; };
@@ -19,7 +23,6 @@
 		593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */; };
 		599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B361BBC817B00FF466E /* SSKeychain.m */; };
 		599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B381BBC817B00FF466E /* SSKeychainQuery.m */; };
-		599E9B451BBCA2A600FF466E /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
@@ -54,7 +57,6 @@
 		6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1290971A7D817000B8C3E6 /* AutoExceptions.m */; };
 		6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F18658F1A7D6F7F00C74A47 /* Detection.m */; };
 		6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */; };
-		6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
 		6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */; };
 		6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */; };
 		6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */; };
@@ -96,6 +98,7 @@
 			files = (
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */,
+				2DC022531E01BA9400A7E928 /* OAuth2Client.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +115,11 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2DC022511E01B52900A7E928 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = Frameworks/OAuth2Client.framework; sourceTree = "<group>"; };
+		2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
+		2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Keychain.m"; sourceTree = "<group>"; };
 		3A20383112122B2B003813B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
 		3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
@@ -129,8 +137,6 @@
 		599E9B361BBC817B00FF466E /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		599E9B371BBC817B00FF466E /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
 		599E9B381BBC817B00FF466E /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
-		599E9B431BBCA2A600FF466E /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
-		599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Keychain.m"; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftwareUpdatesPref.h; sourceTree = "<group>"; };
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
@@ -185,8 +191,6 @@
 		6F18658F1A7D6F7F00C74A47 /* Detection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Detection.m; sourceTree = SOURCE_ROOT; };
 		6F2366491ABE31EF00FDC844 /* AdvancedPrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvancedPrefController.h; sourceTree = "<group>"; };
 		6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedPrefController.m; sourceTree = "<group>"; };
-		6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
-		6F25323A1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsCache.h; sourceTree = "<group>"; };
 		6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionsCache.m; sourceTree = "<group>"; };
 		6FAA877E1A7EB47800EFFAC1 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
+				2DC022521E01B52900A7E928 /* OAuth2Client.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,10 +264,10 @@
 				256AC3D90F4B6AC300CF3369 /* AppDelegate.m */,
 				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
-				599E9B431BBCA2A600FF466E /* Hachidori+Keychain.h */,
-				599E9B441BBCA2A600FF466E /* Hachidori+Keychain.m */,
 				593B55851CC41FDB00B7B254 /* Hachidori+MALSync.h */,
 				593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */,
+				2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */,
+				2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */,
 				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
 				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
 				8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */,
@@ -292,6 +297,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2DC022511E01B52900A7E928 /* OAuth2Client.framework */,
 				59D5037A1CB016840002532D /* Sparkle.framework */,
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
 				3A4C61D3120DF3ED0032F63A /* OgreKit.framework */,
@@ -324,8 +330,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */,
 				256AC3F00F4B6AF500CF3369 /* MAL_Updater_OS_X_Prefix.pch */,
+				2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -339,9 +345,9 @@
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
 				5C8ACEB919F409F90001A101 /* Images */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
-				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
@@ -413,10 +419,10 @@
 				5C75EAB51A36069100A20229 /* Hotkey */,
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
 				593B55821CC41DC200B7B254 /* Base64Category.h */,
-				593B55831CC41DC200B7B254 /* Base64Category.m */,
-				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
+				593B55831CC41DC200B7B254 /* Base64Category.m */,
 				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
+				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
@@ -669,7 +675,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
-				599E9B451BBCA2A600FF466E /* Hachidori+Keychain.m in Sources */,
 				599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
@@ -680,15 +685,16 @@
 				5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */,
-				6F25323B1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,
 				5C75EAC21A36069E00A20229 /* MASShortcut+UserDefaults.m in Sources */,
 				5C75EAC41A36069E00A20229 /* MASShortcutView+UserDefaults.m in Sources */,
 				5C75EAC31A36069E00A20229 /* MASShortcutView.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
+				2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */,
 				8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */,
+				2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
 				6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */,
@@ -927,7 +933,7 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Debug";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -961,7 +967,7 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -1044,13 +1050,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		6F2532381A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodeld */ = {
+		2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */,
-				6F25323A1A7C0AC300287446 /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
+				2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */,
+				2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
 			);
-			currentVersion = 6F2532391A7C0AC300287446 /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */;
+			currentVersion = 2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */;
 			path = MAL_Updater_OS_X_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
