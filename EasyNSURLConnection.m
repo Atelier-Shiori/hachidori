@@ -136,11 +136,7 @@
 }
 -(void)startFormRequest{
     // Send a synchronous request
-    NXOAuth2Request *sRequest = [[NXOAuth2Request alloc] initWithResource:URL
-                                                                   method:@"POST"
-                                                               parameters:nil];
-    [sRequest setAccount:[self getFirstAccount]];
-    NSMutableURLRequest * request = (NSMutableURLRequest *)[sRequest signedURLRequest];
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:URL];
     NSHTTPURLResponse * rresponse = nil;
     // Set Method
     if (postmethod.length != 0) {

@@ -13,4 +13,5 @@
 -(int)checkStatus;
 -(BOOL)updatetitle;
 -(BOOL)addtitle;
+-(NSString *)getMALID;
 @end

@@ -23,27 +23,31 @@
         
         
     }
-    username = @"";
+    malusername = @"";
     return false;
 }
 -(NSString *)getmalusername{
-    return malusername;
+    if ([self checkmalaccount]){
+        return malusername;
+    }
+    return @"";
 }
 -(BOOL)storemalaccount:(NSString *)uname password:(NSString *)password{
     //Clear Account Information in the plist file if it hasn't been done already
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:@"" forKey:@"Base64Token"];
     [defaults setObject:@"" forKey:@"Username"];
+    malusername = uname;
     return [SSKeychain setPassword:password forService:@"Hachidori - MyAnimeList" account:uname];
 }
 -(BOOL)removemalaccount{
     bool success = [SSKeychain deletePasswordForService:@"Hachidori - MyAnimeList" account:username];
     // Set Username to blank
-    username = @"";
+    malusername = @"";
     return success;
 }
 -(NSString *)getBase64{
-    return [[NSString stringWithFormat:@"%@:%@", [self getmalusername], [SSKeychain passwordForService:@"Hachidori - MyAnimeList" account:username]] base64Encoding];
+    return [[NSString stringWithFormat:@"%@:%@", [self getmalusername], [SSKeychain passwordForService:@"Hachidori - MyAnimeList" account:malusername]] base64Encoding];
 }
 
 @end

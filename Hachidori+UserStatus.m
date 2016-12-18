@@ -21,8 +21,6 @@
         EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
         //Ignore Cookies
         [request setUseCookies:NO];
-        //Set Token
-        //[request addFormData:[NSString stringWithFormat:@"%@",[self gettoken]] forKey:@"auth_token"];
         // Get Information
         [request startoAuthRequest];
         NSDictionary * d;
