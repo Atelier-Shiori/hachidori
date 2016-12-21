@@ -48,7 +48,7 @@
     //Obtain Detected Title from Media File
     NSOpenPanel * op = [NSOpenPanel openPanel];
     [op setAllowedFileTypes:@[@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"flv", @"mpg", @"3gp"]];
-    [op setMessage:@"Please select a media file you want to create an exception for."];
+    [op setMessage:NSLocalizedString(@"Please select a media file you want to create an exception for.",nil)];
     [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;
@@ -94,8 +94,8 @@
 -(IBAction)importList:(id)sender{
     // Set Open Dialog to get json file.
     NSOpenPanel * op = [NSOpenPanel openPanel];
-    [op setAllowedFileTypes:@[@"json", @"JSON file"]];
-    [op setMessage:@"Please select an exceptions list to import."];
+    [op setAllowedFileTypes:@[@"json", NSLocalizedString(@"JSON file",nil)]];
+    [op setMessage:NSLocalizedString(@"Please select an exceptions list to import.",nil)];
     [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;
@@ -147,9 +147,9 @@
 -(IBAction)exportList:(id)sender{
     // Save the json file containing titles
     NSSavePanel * sp = [NSSavePanel savePanel];
-    [sp setAllowedFileTypes:@[@"json", @"JSON file"]];
-    [sp setMessage:@"Where do you want to save your exception list?"];
-    [sp setNameFieldStringValue:@"Exceptions List.json"];
+    [sp setAllowedFileTypes:@[@"json", NSLocalizedString(@"JSON file",nil)]];
+    [sp setMessage:NSLocalizedString(@"Where do you want to save your exception list?",nil)];
+    [sp setNameFieldStringValue:NSLocalizedString(@"Exceptions List.json",nil)];
     [sp beginSheetModalForWindow:[[self view]window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;
@@ -212,7 +212,7 @@
     [op setCanChooseDirectories:YES];
     [op setCanCreateDirectories:NO];
     [op setCanChooseFiles:NO];
-    [op setMessage:@"Please a directory for Hachidori to ignore."];
+    [op setMessage:NSLocalizedString(@"Please a directory for Hachidori to ignore.",nil)];
     [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;

@@ -35,7 +35,7 @@
                  window:(NSWindow *)w {
     // Set Up Prompt Message Window
     NSAlert * alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"OK"];
+    [alert addButtonWithTitle:NSLocalizedString(@"OK",nil)];
     [alert setMessageText:message];
     [alert setInformativeText:explaination];
     // Set Message type to Warning

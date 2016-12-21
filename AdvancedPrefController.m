@@ -86,7 +86,7 @@
         else {
             if ( [[fieldpassword stringValue] length] == 0 ) {
                 //No Password Entered! Show error message.
-                [Utility showsheetmessage:@"Hachidori was unable to log you into your MyAnimeList account since you didn't enter a password" explaination:@"Enter a valid password and try logging in again." window:[[self view] window]];
+                [Utility showsheetmessage:NSLocalizedString(@"Hachidori was unable to log you into your MyAnimeList account since you didn't enter a password",nil) explaination:NSLocalizedString(@"Enter a valid password and try logging in again.",nil) window:[[self view] window]];
                 [savebut setEnabled: YES];
             }
             else {
@@ -99,10 +99,10 @@
     if (![appdelegate getisScrobbling] && ![appdelegate getisScrobblingActive]) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert setMessageText:@"Do you want to log out?"];
-        [alert setInformativeText:@"Once you logged out, you need to log back in before you can enable MyAnimeList sync functionality."];
+        [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+        [alert setMessageText:NSLocalizedString(@"Do you want to log out?",nil)];
+        [alert setInformativeText:NSLocalizedString(@"Once you logged out, you need to log back in before you can enable MyAnimeList sync functionality.",nil)];
         // Set Message type to Warning
         [alert setAlertStyle:NSWarningAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {

@@ -64,7 +64,7 @@
     //Test API
     [request startRequest];
     // Get Status Code
-    int statusCode = [request getStatusCode];
+    long statusCode = [request getStatusCode];
     switch (statusCode) {
         case 200:{
             //Clear Auto Exceptions

@@ -137,10 +137,10 @@
     if (![appdelegate getisScrobbling] && ![appdelegate getisScrobblingActive]) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert setMessageText:@"Do you want to remove this account?"];
-        [alert setInformativeText:@"Once you remove this account, you need to reauthenticate your account before you can use this application."];
+        [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+        [alert setMessageText:NSLocalizedString(@"Do you want to remove this account?",nil)];
+        [alert setInformativeText:NSLocalizedString(@"Once you remove this account, you need to reauthenticate your account before you can use this application.",nil)];
         // Set Message type to Warning
         [alert setAlertStyle:NSWarningAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {
@@ -226,7 +226,6 @@
     [request startoAuthRequest];
     NSDictionary * d;
     long statusCode = [request getStatusCode];
-    NSError * error = [request getError];
     if (statusCode == 200 || statusCode == 201 ) {
         //return Data
         NSError * jerror;
@@ -235,5 +234,6 @@
         NSDictionary * uinfo = [tmp objectAtIndex:0];
         return [NSString stringWithFormat:@"%@",uinfo[@"id"]];
     }
+    return @"";
 }
 @end

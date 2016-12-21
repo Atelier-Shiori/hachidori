@@ -13,78 +13,76 @@
 @implementation Hachidori (UserStatus)
 -(BOOL)checkstatus:(NSString *)titleid {
     NSLog(@"Checking %@", titleid);
-    for (int i=0; i<2 ; i++) {
-        // Update the title
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        //Set library/scrobble API
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [self getUserid], titleid]];
-        EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-        //Ignore Cookies
-        [request setUseCookies:NO];
-        // Get Information
-        [request startoAuthRequest];
-        NSDictionary * d;
-        long statusCode = [request getStatusCode];
-        NSError * error = [request getError];
-        if (statusCode == 200 || statusCode == 201 ) {
-            online = true;
-            //return Data
-            NSError * jerror;
-            d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
-            if ([(NSArray *)d[@"data"] count] > 0) {
-                d = [[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0];
-                EntryID = d[@"id"];
-                d = d[@"attributes"];
-                NSLog(@"Title on list");
-                [self populateStatusData:d id:titleid];
-            }
-            else{
-                NSLog(@"Title not on list");
-                EntryID = nil;
-                WatchStatus = @"current";
-                LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
-                DetectedCurrentEpisode = 0;
-                TitleScore  = 0;
-                isPrivate = [defaults boolForKey:@"setprivate"];
-                TitleNotes = @"";
-                LastScrobbledTitleNew = true;
-                rewatching = false;
-                rewatchcount = 0;
-                // MAL ID for MAL Syncing
-                //MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
-            }
-            if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
-                TotalEpisodes = 0; // No Episode Total, Set to 0.
-            }
-            else { // Episode Total Exists
-                TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episodeCount"] intValue];
-            }
-            // New Update Confirmation
-            if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
-                // Manually confirm updates
-                confirmed = false;
-            }
-            else{
-                // Automatically confirm updates
-                confirmed = true;
-            }
-            return YES;
+    // Update the title
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //Set library/scrobble API
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [self getUserid], titleid]];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    // Get Information
+    [request startoAuthRequest];
+    NSDictionary * d;
+    long statusCode = [request getStatusCode];
+    NSError * error = [request getError];
+    if (statusCode == 200 || statusCode == 201 ) {
+        online = true;
+        //return Data
+        NSError * jerror;
+        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        if ([(NSArray *)d[@"data"] count] > 0) {
+            d = [[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0];
+            EntryID = d[@"id"];
+            d = d[@"attributes"];
+            NSLog(@"Title on list");
+            [self populateStatusData:d id:titleid];
         }
-        else if (error !=nil){
-            if (error.code == NSURLErrorNotConnectedToInternet) {
-                online = false;
-                return NO;
-            }
-            else {
-                // Token generation failed, users credentials incorrect.
-                online = true;
-                return NO;
-            }
+        else{
+            NSLog(@"Title not on list");
+            EntryID = nil;
+            WatchStatus = @"current";
+            LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
+            DetectedCurrentEpisode = 0;
+            TitleScore  = 0;
+            isPrivate = [defaults boolForKey:@"setprivate"];
+            TitleNotes = @"";
+            LastScrobbledTitleNew = true;
+            rewatching = false;
+            rewatchcount = 0;
+            // MAL ID for MAL Syncing
+            //MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
         }
-        else {
-            // Some Error. Abort
+        if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
+            TotalEpisodes = 0; // No Episode Total, Set to 0.
+        }
+        else { // Episode Total Exists
+            TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episodeCount"] intValue];
+        }
+        // New Update Confirmation
+        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
+            // Manually confirm updates
+            confirmed = false;
+        }
+        else{
+            // Automatically confirm updates
+            confirmed = true;
+        }
+        return YES;
+    }
+    else if (error !=nil){
+        if (error.code == NSURLErrorNotConnectedToInternet) {
+            online = false;
             return NO;
         }
+        else {
+            // Token generation failed, users credentials incorrect.
+            online = true;
+            return NO;
+        }
+    }
+    else {
+        // Some Error. Abort
+        return NO;
     }
     //Should never happen, but...
     return NO;

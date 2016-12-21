@@ -186,7 +186,7 @@
     [statusItem setMenu:statusMenu];
     
     //Sets the tooptip for our item
-    [statusItem setToolTip:@"Hachidori"];
+    [statusItem setToolTip:NSLocalizedString(@"Hachidori",nil)];
     
     //Enables highlighting
     [statusItem setHighlightMode:YES];
@@ -261,10 +261,10 @@
 	if (![haengine getFirstAccount]) {
         // First time prompt
         NSAlert * alert = [[NSAlert alloc] init] ;
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert setMessageText:@"Welcome to Hachidori"];
-        [alert setInformativeText:@"Before using this program, you need to add an account. Do you want to open Preferences to authenticate an account now? \r\rPlease note that Hachidori has transitioned to Kitsu and therefore, you must reauthenticate."];
+        [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+        [alert setMessageText:NSLocalizedString(@"Welcome to Hachidori",nil)];
+        [alert setInformativeText:NSLocalizedString(@"Before using this program, you need to add an account. Do you want to open Preferences to authenticate an account now? \r\rPlease note that Hachidori has transitioned to Kitsu and therefore, you must reauthenticate.",nil)];
         // Set Message type to Warning
         [alert setAlertStyle:NSInformationalAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {
@@ -419,11 +419,11 @@
     [findtitle setEnabled:enable];
     [revertrewatch setEnabled:enable];
     if (!enable) {
-        [updatenow setTitle:@"Updating..."];
-        [self setStatusText:@"Scrobble Status: Scrobbling..."];
+        [updatenow setTitle:NSLocalizedString(@"Updating...",nil)];
+        [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobbling...",nil)];
     }
     else{
-        [updatenow setTitle:@"Update Now"];
+        [updatenow setTitle:NSLocalizedString(@"Update Now",nil)];
     }
 }
 -(void)EnableStatusUpdating:(BOOL)enable{
@@ -439,22 +439,22 @@
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
 	if (![haengine getFirstAccount]) {
-        [self showNotification:@"Hachidori" message:@"Please log in with your account in Preferences before you enable scrobbling"];
+        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Please log in with your account in Preferences before you enable scrobbling",nil)];
     }
 	else {
 		if (scrobbling == FALSE) {
 			[self starttimer];
-			[togglescrobbler setTitle:@"Stop Scrobbling"];
-            [self showNotification:@"Hachidori" message:@"Auto Scrobble is now turned on."];
+			[togglescrobbler setTitle:NSLocalizedString(@"Stop Scrobbling",nil)];
+            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Auto Scrobble is now turned on.",nil)];
 			[ScrobblerStatus setObjectValue:@"Scrobble Status: Started"];
 			//Set Scrobbling State to true
 			scrobbling = TRUE;
 		}
 		else {
 			[self stoptimer];
-			[togglescrobbler setTitle:@"Start Scrobbling"];
+			[togglescrobbler setTitle:NSLocalizedString(@"Start Scrobbling",nil)];
 			[ScrobblerStatus setObjectValue:@"Scrobble Status: Stopped"];
-            [self showNotification:@"Hachidori" message:@"Auto Scrobble is now turned off."];
+            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Auto Scrobble is now turned off.",nil)];
 			//Set Scrobbling State to false
 			scrobbling = FALSE;
 		}
@@ -464,11 +464,11 @@
 -(void)autostarttimer {
 	//Check to see if there is an API Key stored
 	if (![haengine getFirstAccount]) {
-         [self showNotification:@"Hachidori" message:@"Unable to start scrobbling since there is no login. Please verify your login in Preferences."];
+         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Unable to start scrobbling since there is no login. Please verify your login in Preferences.",nil)];
 	}
 	else {
 		[self starttimer];
-		[togglescrobbler setTitle:@"Stop Scrobbling"];
+		[togglescrobbler setTitle:NSLocalizedString(@"Stop Scrobbling",nil)];
 		[ScrobblerStatus setObjectValue:@"Scrobble Status: Started"];
 		//Set Scrobbling State to true
 		scrobbling = TRUE;
@@ -534,7 +534,7 @@
                 if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
                     BOOL * malsyncsuccess = [haengine sync];
                     if (!malsyncsuccess) {
-                        [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"MyAnimeList Sync failed, see console log."];
                     }
                 }
                 //Add History Record
@@ -542,20 +542,20 @@
                 break;
             }
             case 51:
-                [self setStatusText:@"Scrobble Status: Can't find title. Retrying in 5 mins..."];
-                [self showNotification:@"Couldn't find title." message:[NSString stringWithFormat:@"Click here to find %@ manually.", [haengine getFailedTitle]]];
+                [self setStatusText:NSLocalizedString(@"Scrobble Status: Can't find title. Retrying in 5 mins...",nil)];
+                [self showNotification:NSLocalizedString(@"Couldn't find title.",nil) message:[NSString stringWithFormat:NSLocalizedString(@"Click here to find %@ manually.",nil), [haengine getFailedTitle]]];
                 break;
             case 52:
             case 53:
-                [self showNotification:@"Scrobble Unsuccessful." message:@"Retrying in 5 mins..."];
-                [self setStatusText:@"Scrobble Status: Scrobble Failed. Retrying in 5 mins..."];
+                [self showNotification:NSLocalizedString(@"Scrobble Unsuccessful.",nil) message:NSLocalizedString(@"Retrying in 5 mins...",nil)];
+                [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobble Failed. Retrying in 5 mins...",nil)];
                 break;
             case 54:
-                [self showNotification:@"Scrobble Unsuccessful." message:@"Check user credentials in Preferences. You may need to login again."];
-                [self setStatusText:@"Scrobble Status: Scrobble Failed. User credentials might have expired."];
+                [self showNotification:NSLocalizedString(@"Scrobble Unsuccessful.",nil) message:NSLocalizedString(@"Check user credentials in Preferences. You may need to login again.",nil)];
+                [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobble Failed. User credentials might have expired.",nil)];
                 break;
             case 55:
-                [self setStatusText:@"Scrobble Status: No internet connection."];
+                [self setStatusText:NSLocalizedString(@"Scrobble Status: No internet connection.",nil)];
                 break;
             default:
                 break;
@@ -626,7 +626,7 @@
         [self firetimer:nil];
     }
     else
-        [self showNotification:@"Hachidori" message:@"Please log in with your account in Preferences before using this program"];
+        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Please log in with your account in Preferences before using this program",nil)];
 }
 
 #pragma mark Correction
@@ -709,8 +709,8 @@
                     case 2:
                     case 21:
                     case 22:{
-                        [self setStatusText:@"Scrobble Status: Correction Successful..."];
-                        [self showNotification:@"Hachidori" message:@"Correction was successful"];
+                        [self setStatusText:NSLocalizedString(@"Scrobble Status: Correction Successful...",nil)];
+                        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Correction was successful",nil)];
                         [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                         [self updateLastScrobbledTitleStatus:false];
 	                    if (!findtitle.hidden) {
@@ -733,14 +733,14 @@
                         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
                             BOOL * malsyncsuccess = [haengine sync];
                             if (!malsyncsuccess) {
-                                [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                                [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"MyAnimeList Sync failed, see console log.",nil)];
                             }
                         }
                         break;
                     }
                     default:
-                        [self setStatusText:@"Scrobble Status: Correction unsuccessful..."];
-                        [self showNotification:@"Hachidori" message:@"Correction was not successful."];
+                        [self setStatusText:NSLocalizedString(@"Scrobble Status: Correction unsuccessful...",nil)];
+                        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Correction was not successful.",nil)];
                         break;
                 }
             }
@@ -807,26 +807,26 @@
 -(void)setStatusMenuTitleEpisode:(NSString *)title episode:(NSString *) episode{
     //Set New Title and Episode
     [updatedtitle setTitle:title];
-    [updatedepisode setTitle:[NSString stringWithFormat:@"Episode %@", episode]];
+    [updatedepisode setTitle:[NSString stringWithFormat:NSLocalizedString(@"Episode %@",nil), episode]];
 }
 -(void)updateLastScrobbledTitleStatus:(BOOL)pending{
     if (pending) {
         [updatecorrect setAutoenablesItems:NO];
-        [lastupdateheader setTitle:@"Pending:"];
-        [self setLastScrobbledTitle:[NSString stringWithFormat:@"Pending: %@ - Episode %@ playing from %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
-        [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@ (Pending)",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [lastupdateheader setTitle:NSLocalizedString(@"Pending:",nil)];
+        [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Pending: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Pending)",nil),[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
     }
     else{
         [updatecorrect setAutoenablesItems:YES];
         if ([haengine getRewatching]){
-            [lastupdateheader setTitle:@"Rewatching:"];
-            [self setLastScrobbledTitle:[NSString stringWithFormat:@"Rewatching: %@ - Episode %@ playing from %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+            [lastupdateheader setTitle:NSLocalizedString(@"Rewatching:",nil)];
+            [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Rewatching: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
         }
         else{
-            [lastupdateheader setTitle:@"Last Scrobbled:"];
-            [self setLastScrobbledTitle:[NSString stringWithFormat:@"Last Scrobbled: %@ - Episode %@ playing from %@",[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+            [lastupdateheader setTitle:NSLocalizedString(@"Last Scrobbled:",nil)];
+            [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Last Scrobbled: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
         }
-        [self setStatusToolTip:[NSString stringWithFormat:@"Hachidori - %@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@",nil),[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
     }
 }
 
@@ -885,7 +885,7 @@
         }
         BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:(BOOL) [isPrivate state]];
         if (result){
-            [self setStatusText:@"Scrobble Status: Updating of Watch Status/Score Successful."];
+            [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
             if (episodechanged) {
                 // Update the tooltip, menu and last scrobbled title
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
@@ -895,7 +895,7 @@
             [self syncMyAnimeList];
         }
         else
-            [self setStatusText:@"Scrobble Status: Unable to update Watch Status/Score."];
+            [self setStatusText:NSLocalizedString(@"Scrobble Status: Unable to update Watch Status/Score.",nil)];
     }
     //If scrobbling is on, restart timer
 	if (scrobbling == TRUE) {
@@ -916,17 +916,17 @@
 -(IBAction)revertRewatch:(id)sender{
     //Show Prompt
     NSAlert * alert = [[NSAlert alloc] init] ;
-    [alert addButtonWithTitle:@"Yes"];
-    [alert addButtonWithTitle:@"No"];
-    [alert setMessageText:[NSString stringWithFormat:@"Do you want to stop rewatching %@?",[haengine getLastScrobbledTitle]]];
-    [alert setInformativeText:@"This will revert the title status back to it's completed state."];
+    [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+    [alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Do you want to stop rewatching %@?",nil),[haengine getLastScrobbledTitle]]];
+    [alert setInformativeText:NSLocalizedString(@"This will revert the title status back to it's completed state.",nil)];
     // Set Message type to Informational
     [alert setAlertStyle:NSInformationalAlertStyle];
     if ([alert runModal]== NSAlertFirstButtonReturn) {
         // Revert title
         BOOL success = [haengine stopRewatching:[haengine getAniID]];
         if (success){
-            [self showNotification:@"Hachidori" message:[NSString stringWithFormat:@"%@'s rewatch status has been reverted.", [haengine getLastScrobbledTitle]]];
+            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:NSLocalizedString(@"%@'s rewatch status has been reverted.",nil), [haengine getLastScrobbledTitle]]];
             // Show Correct State in the UI
             [self showRevertRewatchMenu];
             [self updateLastScrobbledTitleStatus:false];
@@ -934,7 +934,7 @@
             [self syncMyAnimeList];
         }
         else{
-            [self showNotification:@"Hachidori" message:@"Rewatch revert was unsuccessful."];
+            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Rewatch revert was unsuccessful.",nil)];
         }
     }
 }
@@ -990,7 +990,7 @@
         [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
         [confirmupdate setHidden:YES];
         [self setStatusText:@"Scrobble Status: Update was successful."];
-        [self showNotification:@"Hachidori" message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
         if ([haengine getisNewTitle]) {
             // Enable Update Status functions for new and unconfirmed titles.
 			[self EnableStatusUpdating:YES];
@@ -1000,7 +1000,7 @@
         [self syncMyAnimeList];
     }
     else{
-        [self showNotification:@"Hachidori" message:@"Failed to confirm update. Please try again later."];
+        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"Failed to confirm update. Please try again later."];
         [self setStatusText:@"Unable to confirm update."];
     }
 }
@@ -1137,7 +1137,7 @@
         BOOL * malsyncsuccess = [haengine sync];
          dispatch_async(dispatch_get_main_queue(), ^{
              if (!malsyncsuccess) {
-                 [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                 [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"MyAnimeList Sync failed, see console log."];
              }
              [ForceMALSync setEnabled:YES];
             });
@@ -1151,7 +1151,7 @@
             BOOL * malsyncsuccess = [haengine sync];
              dispatch_async(dispatch_get_main_queue(), ^{
                  if (!malsyncsuccess) {
-                     [self showNotification:@"Hachidori" message:@"MyAnimeList Sync failed, see console log."];
+                     [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"MyAnimeList Sync failed, see console log."];
                  }
              });
         });

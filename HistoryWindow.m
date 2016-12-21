@@ -54,10 +54,10 @@
 {
     // Set Up Prompt Message Window
     NSAlert * alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"Yes"];
-    [alert addButtonWithTitle:@"No"];
-    [alert setMessageText:@"Are you sure you want to clear the Scrobble History?"];
-    [alert setInformativeText:@"Once done, this action cannot be undone."];
+    [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+    [alert setMessageText:NSLocalizedString(@"Are you sure you want to clear the Scrobble History?",nil)];
+    [alert setInformativeText:NSLocalizedString(@"Once done, this action cannot be undone.",nil)];
     // Set Message type to Warning
     [alert setAlertStyle:NSWarningAlertStyle];
     // Show as Sheet on historywindow

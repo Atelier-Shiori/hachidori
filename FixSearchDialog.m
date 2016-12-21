@@ -51,10 +51,10 @@
     if (correction) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert setMessageText:[NSString stringWithFormat:@"Do you want to correct this title as %@?",d[@"title"]]];
-        [alert setInformativeText:@"Once done, you cannot undo this action."];
+        [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+        [alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Do you want to correct this title as %@?",nil),d[@"title"]]];
+        [alert setInformativeText:NSLocalizedString(@"Once done, you cannot undo this action.",nil)];
         // Set Message type to Warning
         [alert setAlertStyle:NSWarningAlertStyle];
         if ([alert runModal]== NSAlertFirstButtonReturn) {

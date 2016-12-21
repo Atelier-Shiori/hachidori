@@ -54,7 +54,7 @@
     [request startRequest];
     
     // Get Status Code
-    int statusCode = [request getStatusCode];
+    long statusCode = [request getStatusCode];
     switch (statusCode) {
         case 0:
             online = false;

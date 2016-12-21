@@ -41,11 +41,11 @@
     //Perform Search
     [request startRequest];
     // Get Status Code
-    int statusCode = [request getStatusCode];
+    long statusCode = [request getStatusCode];
     NSError * error = [request getError]; // Error Detection
     if (statusCode == 200 ) {
         NSError* jerror;
-        NSDictionary *animeinfo = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:nil error:&jerror];
+        NSDictionary *animeinfo = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:NSJSONReadingMutableContainers error:&jerror];
         // Check if title needs to be added or not.
         if (animeinfo[@"watched_status"] == [NSNull null]) {
             NSLog(@"Not on MAL List");
@@ -87,7 +87,7 @@
     else{
             [request addFormData:@"0" forKey:@"is_rewatching"];
     }
-    [request addFormData:[[NSNumber numberWithInt:rewatchcount] stringValue] forKey:@"rewatch_count"];
+    [request addFormData:[[NSNumber numberWithLong:rewatchcount] stringValue] forKey:@"rewatch_count"];
     
     [request addFormData:TitleNotes forKey:@"comments"];
     
