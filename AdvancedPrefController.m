@@ -36,7 +36,7 @@
     haengine = appdelegate.getHachidoriInstance;
     
     // Load Username
-    BOOL * accountexists = [haengine checkmalaccount];
+    BOOL accountexists = [haengine checkmalaccount];
     if (accountexists) {
         [loginview setHidden:YES];
         [loggedinuser setStringValue:[NSString stringWithFormat:@"%@", [haengine getmalusername]]];

@@ -118,7 +118,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
-		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2DC022511E01B52900A7E928 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = Frameworks/OAuth2Client.framework; sourceTree = "<group>"; };
 		2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
 		2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Keychain.m"; sourceTree = "<group>"; };
@@ -602,6 +602,8 @@
 				French,
 				German,
 				Base,
+				ja,
+				fr,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MAL Updater OS X */;
 			projectDirPath = "";

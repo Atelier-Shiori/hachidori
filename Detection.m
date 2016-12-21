@@ -102,7 +102,7 @@
                     break;
             }
             //Check if thee file name or directory is on any ignore list
-            for (int i = [filenames count]-1;i >= 0;i--) {
+            for (long i = [filenames count]-1;i >= 0;i--) {
                 //Check every possible match
                 string = [filenames objectAtIndex:i];
                 BOOL onIgnoreList = [self checkifIgnored:string source:DetectedSource];

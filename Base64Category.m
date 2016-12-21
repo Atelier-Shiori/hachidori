@@ -15,14 +15,9 @@
     // Use native methods
     NSData * plainData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSString *base64String;
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9){
-        // Use newer method introduced in Mavericks
-        base64String = [plainData base64EncodedStringWithOptions:0];
-    }
-    else{
-        // Use deprecated base64Encoding method instead
-        base64String = [plainData base64Encoding];
-    }
+    // Use newer method introduced in Mavericks
+    base64String = [plainData base64EncodedStringWithOptions:0];
+
     return base64String;
 }
 
