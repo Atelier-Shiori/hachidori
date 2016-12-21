@@ -44,7 +44,6 @@
 		5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C22EE1A85E80000D2FCC5 /* string_score.c */; };
 		5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */; };
 		5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */; };
-		5CAFB2581A389E210067DD4F /* rules.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CAFB2571A389E210067DD4F /* rules.png */; };
 		5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */; };
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
@@ -168,7 +167,6 @@
 		5C8C22EF1A85E80000D2FCC5 /* string_score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_score.h; sourceTree = "<group>"; };
 		5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNSURLConnection.h; sourceTree = "<group>"; };
 		5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNSURLConnection.m; sourceTree = "<group>"; };
-		5CAFB2571A389E210067DD4F /* rules.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rules.png; sourceTree = "<group>"; };
 		5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LoginPref.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginPref.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotkeysPrefs.h; sourceTree = "<group>"; };
@@ -345,7 +343,6 @@
 				6F0F84A31B3469A800EEEC32 /* hachidori.sdef */,
 				82F065B119FB618300E0B17A /* DetectStream */,
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
-				5C8ACEB919F409F90001A101 /* Images */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
 				2DA3D7651E0A079100BD2457 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
@@ -428,14 +425,6 @@
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 			);
 			name = "Other Classes";
-			sourceTree = "<group>";
-		};
-		5C8ACEB919F409F90001A101 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				5CAFB2571A389E210067DD4F /* rules.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		5CD36B9419F2EA91007BB6B6 /* Preferences */ = {
@@ -644,7 +633,6 @@
 				2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
 				5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */,
-				5CAFB2581A389E210067DD4F /* rules.png in Resources */,
 				5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

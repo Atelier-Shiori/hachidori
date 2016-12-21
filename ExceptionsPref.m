@@ -36,7 +36,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"rules.png"];
+    return [NSImage imageNamed:@"rules"];
 }
 
 - (NSString *)toolbarItemLabel
