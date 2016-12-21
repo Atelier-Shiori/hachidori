@@ -92,7 +92,7 @@
     [request addFormData:TitleNotes forKey:@"comments"];
     
     //Set Status
-    if ([WatchStatus isEqual:@"currently-watching"]) {
+    if ([WatchStatus isEqual:@"current"]) {
         [request addFormData:@"watching" forKey:@"status"];
     }
     else {
@@ -131,7 +131,7 @@
     
     // Check if the detected episode is equal to total episodes. If so, set it as complete (mostly for specials and movies)
     //Set Status
-    if ([WatchStatus isEqual:@"currently-watching"]) {
+    if ([WatchStatus isEqual:@"current"]) {
         [request addFormData:@"watching" forKey:@"status"];
     }
     else {
