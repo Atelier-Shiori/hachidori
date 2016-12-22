@@ -6,7 +6,7 @@ Requires latest SDK (10.12) and XCode 8 or later to compile. Deployment target i
 Help the development of Hachidori by becoming our [Patreon](http://www.patreon.com/chikorita157)
 
 ## How to use
-See [Getting Started Guide](https://github.com/chikorita157/Atelier-Shiori/wiki/Getting-Started).
+See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Started).
 
 ## How to Compile in XCode
 Warning: This won't work if you don't have a Developer ID installed. If you don't have one, obtain one by joining the Apple Developer Program or turn off code signing.
@@ -23,7 +23,7 @@ This will test how Hachidori finds the associated ID for a detected title with a
 
 ## Help Localize Hachidori
 
-Hachidori is now a localizable application. If you want to help translate, create a fork, add localization to localizable.strings and commit the translated localiable strings file only. Localizable.string fifle is located in the Base.lproj folder.
+Hachidori is now a localizable application. If you want to help translate, create a fork, add localization to localizable.strings and commit the translated localiable strings file only. Localizable.string file is located in the [Base.lproj](https://github.com/Atelier-Shiori/hachidori/tree/master/Base.lproj) folder.
 
 ## Dependencies
 All the frameworks are included. Just build! Here are the frameworks that are used in this app:
@@ -33,7 +33,7 @@ All the frameworks are included. Just build! Here are the frameworks that are us
 * OgreKit.framework
 * OAuth2Client.framework
  
-Licenses for these frameworks and related classes can be seen [here](https://github.com/chikorita157/Atelier-Shiori/wiki/Credits).
+Licenses for these frameworks and related classes can be seen [here](https://github.com/Atelier-Shiori/wiki/Credits).
 
 ##License
 Unless stated, Source code is licensed under [New BSD License](https://github.com/Atelier-Shiori/hachidori/blob/master/License.md).
