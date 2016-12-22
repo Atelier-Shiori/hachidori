@@ -13,14 +13,14 @@
 @implementation AutoExceptions
 #pragma mark Importing Exceptions and Auto Exceptions
 +(void)importToCoreData{
-    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getObjectContext];
     // Check Exceptions
     NSArray *oexceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
     if (oexceptions.count > 0) {
         NSLog(@"Importing Exception List");
         NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
-        [allExceptions setEntity:[NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc]];
+        allExceptions.entity = [NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc];
         NSError * error = nil;
         NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
         for (NSDictionary *d in oexceptions) {
@@ -74,7 +74,7 @@
             NSData *jsonData = [request getResponseData];
             NSError *error = nil;
             NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-            AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+            AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
             NSManagedObjectContext *moc = [delegate getObjectContext];
             for (NSDictionary *d in a) {
                 NSError * error = nil;
@@ -109,10 +109,10 @@
 }
 +(void)clearAutoExceptions{
     // Remove All cache data from Auto Exceptions
-    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getObjectContext];
     NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
-    [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
+    allExceptions.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
     
     NSError * error = nil;
     NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];

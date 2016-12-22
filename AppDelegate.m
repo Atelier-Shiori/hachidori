@@ -39,7 +39,7 @@
 - (NSString *)applicationSupportDirectory {
 	
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
+    NSString *basePath = (paths.count > 0) ? paths[0] : NSTemporaryDirectory();
     return [basePath stringByAppendingPathComponent:@"Hachidori"];
 }
 
@@ -69,7 +69,7 @@
 	
     if (persistentStoreCoordinator) return persistentStoreCoordinator;
 	
-    NSManagedObjectModel *mom = [self managedObjectModel];
+    NSManagedObjectModel *mom = self.managedObjectModel;
     if (!mom) {
         NSAssert(NO, @"Managed object model is nil");
         NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
@@ -116,7 +116,7 @@
 	
     if (managedObjectContext) return managedObjectContext;
 	
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
     if (!coordinator) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
@@ -126,7 +126,7 @@
         return nil;
     }
     managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [managedObjectContext setPersistentStoreCoordinator: coordinator];
+    managedObjectContext.persistentStoreCoordinator = coordinator;
 	
     return managedObjectContext;
 }
@@ -180,10 +180,10 @@
     [statusImage setTemplate:YES];
     
     //Sets the images in our NSStatusItem
-    [statusItem setImage:statusImage];
+    statusItem.image = statusImage;
     
     //Tells the NSStatusItem what menu to load
-    [statusItem setMenu:statusMenu];
+    statusItem.menu = statusMenu;
     
     //Sets the tooptip for our item
     [statusItem setToolTip:NSLocalizedString(@"Hachidori",nil)];
@@ -207,7 +207,7 @@
     // Set Defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set Notification Center Delegate
-    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
     //Register Global Hotkey
     [self registerHotkey];
     
@@ -227,24 +227,24 @@
             //Hide Title Bar
             self.window.titleVisibility = NSWindowTitleHidden;
             // Fix Window Size
-            NSRect frame = [window frame];
+            NSRect frame = window.frame;
             frame.size = CGSizeMake(440, 291);
             [window setFrame:frame display:YES];
          }
         if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
             //Add NSVisualEffectView to Window
-            [windowcontent setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
-            [windowcontent setMaterial:NSVisualEffectMaterialLight];
-            [windowcontent setState:NSVisualEffectStateFollowsWindowActiveState];
-            [windowcontent setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+            windowcontent.blendingMode = NSVisualEffectBlendingModeBehindWindow;
+            windowcontent.material = NSVisualEffectMaterialLight;
+            windowcontent.state = NSVisualEffectStateFollowsWindowActiveState;
+            windowcontent.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
             //Make Animeinfo textview transparrent
             [animeinfooutside setDrawsBackground:NO];
-            [animeinfo setBackgroundColor:[NSColor clearColor]];
+            animeinfo.backgroundColor = [NSColor clearColor];
         }
         else{
-            [windowcontent setState:NSVisualEffectStateInactive];
+            windowcontent.state = NSVisualEffectStateInactive;
             [animeinfooutside setDrawsBackground:NO];
-            [animeinfo setBackgroundColor:[NSColor clearColor]];
+            animeinfo.backgroundColor = [NSColor clearColor];
         }
         
     }
@@ -266,7 +266,7 @@
         [alert setMessageText:NSLocalizedString(@"Welcome to Hachidori",nil)];
         [alert setInformativeText:NSLocalizedString(@"Before using this program, you need to add an account. Do you want to open Preferences to authenticate an account now? \r\rPlease note that Hachidori has transitioned to Kitsu and therefore, you must reauthenticate.",nil)];
         // Set Message type to Warning
-        [alert setAlertStyle:NSInformationalAlertStyle];
+        alert.alertStyle = NSInformationalAlertStyle;
         if ([alert runModal]== NSAlertFirstButtonReturn) {
             // Show Preference Window and go to Login Preference Pane
             [NSApp activateIgnoringOtherApps:YES];
@@ -313,7 +313,7 @@
         return NSTerminateCancel;
     }
 	
-    if (![managedObjectContext hasChanges]) return NSTerminateNow;
+    if (!managedObjectContext.hasChanges) return NSTerminateNow;
 	
     NSError *error = nil;
     if (![managedObjectContext save:&error]) {
@@ -335,8 +335,8 @@
         NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
         NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
         NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:question];
-        [alert setInformativeText:info];
+        alert.messageText = question;
+        alert.informativeText = info;
         [alert addButtonWithTitle:quitButton];
         [alert addButtonWithTitle:cancelButton];
 		
@@ -350,7 +350,7 @@
 }
 -(IBAction)togglescrobblewindow:(id)sender
 {
-	if ([window isVisible]) {
+	if (window.visible) {
         [window close];
 	} else { 
 		//Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
@@ -411,13 +411,13 @@
     [shareMenuItem setHidden:NO];
 }
 -(void)toggleScrobblingUIEnable:(BOOL)enable{
-    [ForceMALSync setEnabled:enable];
-    [statusMenu setAutoenablesItems:enable];
-    [updatenow setEnabled:enable];
-    [togglescrobbler setEnabled:enable];
-    [confirmupdate setEnabled:enable];
-    [findtitle setEnabled:enable];
-    [revertrewatch setEnabled:enable];
+    ForceMALSync.enabled = enable;
+    statusMenu.autoenablesItems = enable;
+    updatenow.enabled = enable;
+    togglescrobbler.enabled = enable;
+    confirmupdate.enabled = enable;
+    findtitle.enabled = enable;
+    revertrewatch.enabled = enable;
     if (!enable) {
         [updatenow setTitle:NSLocalizedString(@"Updating...",nil)];
         [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobbling...",nil)];
@@ -427,11 +427,11 @@
     }
 }
 -(void)EnableStatusUpdating:(BOOL)enable{
-    [ForceMALSync setEnabled:enable];
-	[updatecorrect setAutoenablesItems:enable];
-    [updatetoolbaritem setEnabled:enable];
-    [updatedupdatestatus setEnabled:enable];
-    [revertrewatch setEnabled:enable];
+    ForceMALSync.enabled = enable;
+	updatecorrect.autoenablesItems = enable;
+    updatetoolbaritem.enabled = enable;
+    updatedupdatestatus.enabled = enable;
+    revertrewatch.enabled = enable;
 }
 
 #pragma mark Timer Functions
@@ -446,14 +446,14 @@
 			[self starttimer];
 			[togglescrobbler setTitle:NSLocalizedString(@"Stop Scrobbling",nil)];
             [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Auto Scrobble is now turned on.",nil)];
-			[ScrobblerStatus setObjectValue:@"Scrobble Status: Started"];
+			ScrobblerStatus.objectValue = @"Scrobble Status: Started";
 			//Set Scrobbling State to true
 			scrobbling = TRUE;
 		}
 		else {
 			[self stoptimer];
 			[togglescrobbler setTitle:NSLocalizedString(@"Start Scrobbling",nil)];
-			[ScrobblerStatus setObjectValue:@"Scrobble Status: Stopped"];
+			ScrobblerStatus.objectValue = @"Scrobble Status: Stopped";
             [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Auto Scrobble is now turned off.",nil)];
 			//Set Scrobbling State to false
 			scrobbling = FALSE;
@@ -469,7 +469,7 @@
 	else {
 		[self starttimer];
 		[togglescrobbler setTitle:NSLocalizedString(@"Stop Scrobbling",nil)];
-		[ScrobblerStatus setObjectValue:@"Scrobble Status: Started"];
+		ScrobblerStatus.objectValue = @"Scrobble Status: Started";
 		//Set Scrobbling State to true
 		scrobbling = TRUE;
 	}
@@ -631,7 +631,7 @@
 
 #pragma mark Correction
 -(IBAction)showCorrectionSearchWindow:(id)sender{
-    bool isVisible = [window isVisible];
+    bool isVisible = window.visible;
     // Stop Timer temporarily if scrobbling is turned on
     if (scrobbling == TRUE) {
         [self stoptimer];
@@ -656,13 +656,13 @@
     }
     if (isVisible) {
         [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
-        [NSApp beginSheet:[fsdialog window]
+        [NSApp beginSheet:fsdialog.window
            modalForWindow:window modalDelegate:self
            didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
               contextInfo:(void *)nil];
     }
     else{
-        [NSApp beginSheet:[fsdialog window]
+        [NSApp beginSheet:fsdialog.window
            modalForWindow:nil modalDelegate:self
            didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
               contextInfo:(void *)nil];
@@ -679,7 +679,7 @@
 				if (!findtitle.hidden) {
 					 [self addtoExceptions:[haengine getFailedTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[fsdialog getSelectedTotalEpisodes]];
 				}
-                else if ([[haengine getLastScrobbledEpisode] intValue] == [fsdialog getSelectedTotalEpisodes]){
+                else if ([haengine getLastScrobbledEpisode].intValue == [fsdialog getSelectedTotalEpisodes]){
                     // Detected episode equals the total episodes, do not add a rule and only do a correction just once.
                     correctonce = true;
                 }
@@ -757,12 +757,12 @@
 -(void)addtoExceptions:(NSString *)detectedtitle newtitle:(NSString *)title showid:(NSString *)showid threshold:(int)threshold{
     NSManagedObjectContext * moc = managedObjectContext;
     NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
-    [allExceptions setEntity:[NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc]];
+    allExceptions.entity = [NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc];
     NSError * error = nil;
     NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
     BOOL exists = false;
     for (NSManagedObject * entry in exceptions) {
-        int offset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
+        int offset = ((NSNumber *)[entry valueForKey:@"episodeOffset"]).intValue;
         if ([detectedtitle isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]] && offset == 0) {
             exists = true;
             break;
@@ -786,7 +786,7 @@
     if (!historywindowcontroller) {
         historywindowcontroller = [[HistoryWindow alloc] init];
     }
-    [[historywindowcontroller window] makeKeyAndOrderFront:nil];
+    [historywindowcontroller.window makeKeyAndOrderFront:nil];
 
 }
 #pragma mark StatusIconTooltip, Status Text, Last Scrobbled Title Setters
@@ -794,20 +794,20 @@
 
 -(void)setStatusToolTip:(NSString*)toolTip
 {
-    [statusItem setToolTip:toolTip];
+    statusItem.toolTip = toolTip;
 }
 -(void)setStatusText:(NSString*)messagetext
 {
-	[ScrobblerStatus setObjectValue:messagetext];
+	ScrobblerStatus.objectValue = messagetext;
 }
 -(void)setLastScrobbledTitle:(NSString*)messagetext
 {
-	[LastScrobbled setObjectValue:messagetext];
+	LastScrobbled.objectValue = messagetext;
 }
 -(void)setStatusMenuTitleEpisode:(NSString *)title episode:(NSString *) episode{
     //Set New Title and Episode
-    [updatedtitle setTitle:title];
-    [updatedepisode setTitle:[NSString stringWithFormat:NSLocalizedString(@"Episode %@",nil), episode]];
+    updatedtitle.title = title;
+    updatedepisode.title = [NSString stringWithFormat:NSLocalizedString(@"Episode %@",nil), episode];
 }
 -(void)updateLastScrobbledTitleStatus:(BOOL)pending{
     if (pending) {
@@ -844,7 +844,7 @@
 #pragma mark Update Status functions
 
 -(IBAction)updatestatus:(id)sender {
-    [self showUpdateDialog:[self window]];
+    [self showUpdateDialog:self.window];
     [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
 }
 -(IBAction)updatestatusmenu:(id)sender{
@@ -858,15 +858,15 @@
        didEndSelector:@selector(updateDidEnd:returnCode:contextInfo:)
           contextInfo:(void *)nil];
     // Set up UI
-    [showtitle setObjectValue:[haengine getLastScrobbledActualTitle]];
-    [showscore setStringValue:[NSString stringWithFormat:@"%f", [haengine getScore]]];
-    [episodefield setStringValue:[NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]]];
+    showtitle.objectValue = [haengine getLastScrobbledActualTitle];
+    showscore.stringValue = [NSString stringWithFormat:@"%f", [haengine getScore]];
+    episodefield.stringValue = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
     if ([haengine getTotalEpisodes]  !=0) {
-        [epiformatter setMaximum:@([haengine getTotalEpisodes])];
+        epiformatter.maximum = @([haengine getTotalEpisodes]);
     }
     [showstatus selectItemAtIndex:[haengine getWatchStatus]];
-    [notes setString:[haengine getNotes]];
-    [isPrivate setState:[haengine getPrivate]];
+    notes.string = [haengine getNotes];
+    isPrivate.state = [haengine getPrivate];
     // Stop Timer temporarily if scrobbling is turned on
     if (scrobbling == TRUE) {
         [self stoptimer];
@@ -875,15 +875,15 @@
 - (void)updateDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
         // Check if Episode field is empty. If so, set it to last scrobbled episode
-        NSString * tmpepisode = [episodefield stringValue];
+        NSString * tmpepisode = episodefield.stringValue;
         bool episodechanged = false;
         if (tmpepisode.length == 0) {
             tmpepisode = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
         }
-        if ([tmpepisode intValue] != [haengine getCurrentEpisode]) {
+        if (tmpepisode.intValue != [haengine getCurrentEpisode]) {
             episodechanged = true; // Used to update the status window
         }
-        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:[showscore floatValue] watchstatus:[showstatus titleOfSelectedItem] notes:[[notes textStorage] string] isPrivate:(BOOL) [isPrivate state]];
+        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:showscore.floatValue watchstatus:showstatus.titleOfSelectedItem notes:notes.textStorage.string isPrivate:(BOOL) isPrivate.state];
         if (result){
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
             if (episodechanged) {
@@ -918,10 +918,10 @@
     NSAlert * alert = [[NSAlert alloc] init] ;
     [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
-    [alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Do you want to stop rewatching %@?",nil),[haengine getLastScrobbledTitle]]];
+    alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to stop rewatching %@?",nil),[haengine getLastScrobbledTitle]];
     [alert setInformativeText:NSLocalizedString(@"This will revert the title status back to it's completed state.",nil)];
     // Set Message type to Informational
-    [alert setAlertStyle:NSInformationalAlertStyle];
+    alert.alertStyle = NSInformationalAlertStyle;
     if ([alert runModal]== NSAlertFirstButtonReturn) {
         // Revert title
         BOOL success = [haengine stopRewatching:[haengine getAniID]];
@@ -967,7 +967,7 @@
         NSString * title = (notification.userInfo)[@"title"];
         NSString * episode = (notification.userInfo)[@"episode"];
         // Only confirm update if the title and episode is the same with the last scrobbled.
-        if ([[haengine getLastScrobbledTitle] isEqualToString:title] && [episode intValue] == [[haengine getLastScrobbledEpisode] intValue]) {
+        if ([[haengine getLastScrobbledTitle] isEqualToString:title] && episode.intValue == [haengine getLastScrobbledEpisode].intValue) {
             //Confirm Update
             [self confirmupdate];
         }
@@ -1031,11 +1031,11 @@
 #pragma mark Misc
 -(void)showAnimeInfo:(NSDictionary *)d{
     //Empty
-    [animeinfo setString:@""];
+    animeinfo.string = @"";
     //Title
     NSDictionary * titles = d[@"titles"];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", titles[@"en_jp"]]];
-    if (titles[@"en"] != [NSNull null] && [[NSString stringWithFormat:@"%@", titles[@"en"]] length] >0) {
+    if (titles[@"en"] != [NSNull null] && [NSString stringWithFormat:@"%@", titles[@"en"]].length >0) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", titles[@"en"]]];
     }
     [self appendToAnimeInfo:@""];
@@ -1062,7 +1062,7 @@
     //Image
     NSDictionary * posterimg = d[@"posterImage"];
     NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", posterimg[@"original"]]]]; //Downloads Image
-    [img setImage:dimg]; //Get the Image for the title
+    img.image = dimg; //Get the Image for the title
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
 }
@@ -1071,7 +1071,7 @@
 {
         NSAttributedString* attr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n", text]];
         
-        [[animeinfo textStorage] appendAttributedString:attr];
+        [animeinfo.textStorage appendAttributedString:attr];
 }
 -(void)showRevertRewatchMenu{
     if ([haengine getRewatching]){
@@ -1084,12 +1084,12 @@
 -(NSDictionary *)getNowPlaying{
 	// Outputs Currently Playing information into JSON
 	NSMutableDictionary * output = [NSMutableDictionary new];
-	if ([haengine.getLastScrobbledTitle length] > 0){
-		[output setObject:[haengine getAniID] forKey:@"id"];
-		[output setObject:[haengine getLastScrobbledTitle] forKey:@"scrobbledtitle"];
-		[output setObject:[haengine getLastScrobbledActualTitle] forKey:@"scrobbledactualtitle"];
-		[output setObject:[haengine getLastScrobbledEpisode] forKey:@"scrobbledEpisode"];
-		[output setObject:[haengine getLastScrobbledSource] forKey:@"source"];
+	if ((haengine.getLastScrobbledTitle).length > 0){
+		output[@"id"] = [haengine getAniID];
+		output[@"scrobbledtitle"] = [haengine getLastScrobbledTitle];
+		output[@"scrobbledactualtitle"] = [haengine getLastScrobbledActualTitle];
+		output[@"scrobbledEpisode"] = [haengine getLastScrobbledEpisode];
+		output[@"source"] = [haengine getLastScrobbledSource];
 	}
 	return output;
 }
@@ -1102,9 +1102,9 @@
     [shareMenu removeAllItems];
     // Workaround for Share Toolbar Item
     NSMenuItem *shareIcon = [[NSMenuItem alloc] init];
-    [shareIcon setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
+    shareIcon.image = [NSImage imageNamed:NSImageNameShareTemplate];
     [shareIcon setHidden:YES];
-    [shareIcon setTitle:@""];
+    shareIcon.title = @"";
     [shareMenu addItem:shareIcon];
     //Generate Items to Share
     shareItems = @[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getSlug]]]];
@@ -1112,10 +1112,10 @@
     NSArray *shareServiceforItems = [NSSharingService sharingServicesForItems:shareItems];
     //Generate Share Items and populate Share Menu
     for (NSSharingService * cservice in shareServiceforItems){
-        NSMenuItem * item = [[NSMenuItem alloc] initWithTitle:[cservice title] action:@selector(shareFromService:) keyEquivalent:@""];
-        [item setRepresentedObject:cservice];
-        [item setImage:[cservice image]];
-        [item setTarget:self];
+        NSMenuItem * item = [[NSMenuItem alloc] initWithTitle:cservice.title action:@selector(shareFromService:) keyEquivalent:@""];
+        item.representedObject = cservice;
+        item.image = cservice.image;
+        item.target = self;
         [shareMenu addItem:item];
     }
 }

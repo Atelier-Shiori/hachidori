@@ -12,12 +12,12 @@
 @implementation ScriptingGetStatus
 // AppleScript command for GetStatus
 -(id)performDefaultImplementation {
-    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[delegate getNowPlaying] options:0 error:&error];
     if (!jsonData) {}
     else{
-        NSString *JSONString = [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
+        NSString *JSONString = [[NSString alloc] initWithBytes:jsonData.bytes length:jsonData.length encoding:NSUTF8StringEncoding];
         // Output JSON
         return JSONString;
     }
@@ -28,7 +28,7 @@
 @implementation ScriptingScrobbleNow
 // AppleScript command for ScrobbleNow
 -(id)performDefaultImplementation {
-    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [delegate updatenow:nil];
     return nil;
 }
@@ -37,7 +37,7 @@
 @implementation ScriptingToggleAutoScrobble
 // AppleScript command for ToggleAutoScrobble
 -(id)performDefaultImplementation{
-     AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [delegate toggletimer:nil];
     return nil;
 }

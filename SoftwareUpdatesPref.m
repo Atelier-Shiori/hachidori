@@ -10,7 +10,7 @@
 
 
 @implementation SoftwareUpdatesPref
-- (id)init
+- (instancetype)init
 {
 	return [super initWithNibName:@"SoftwareUpdateView" bundle:nil];
 }

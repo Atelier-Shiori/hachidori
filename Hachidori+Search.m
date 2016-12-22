@@ -80,7 +80,7 @@
     for (NSDictionary * a in tmpa){
         NSMutableDictionary * tmpd = [NSMutableDictionary new];
         [tmpd addEntriesFromDictionary:a[@"attributes"]];
-        [tmpd setObject:a[@"id"] forKey:@"id"];
+        tmpd[@"id"] = a[@"id"];
         [searchdata addObject:tmpd];
     }
     tmpa = nil;
@@ -166,9 +166,9 @@
                 }
                 else{
                     //Set Episode Count
-                    episodecount = [[NSString stringWithFormat:@"%@", searchentry[@"episode_count"]] intValue];
+                    episodecount = [NSString stringWithFormat:@"%@", searchentry[@"episode_count"]].intValue;
                 }
-                if (episodecount == 0 || ( episodecount >= [DetectedEpisode intValue])) {
+                if (episodecount == 0 || ( episodecount >= DetectedEpisode.intValue)) {
                     NSLog(@"Valid Episode Count");
                     if (sortedArray.count == 1 || DetectedSeason >= 2){
                         // Only Result, return
@@ -241,15 +241,15 @@
     double fuzziness = 0.3;
     NSDictionary * mtitle1 = match1[@"titles"];
     NSDictionary * mtitle2 = match2[@"titles"];
-    int season1 = [(NSNumber *)[[[Recognition alloc] recognize:mtitle1[@"en_jp"]] objectForKey:@"season"] intValue];
-    int season2 = [(NSNumber *)[[[Recognition alloc] recognize:mtitle2[@"en_jp"]] objectForKey:@"season"] intValue];
+    int season1 = ((NSNumber *)[[Recognition alloc] recognize:mtitle1[@"en_jp"]][@"season"]).intValue;
+    int season2 = ((NSNumber *)[[Recognition alloc] recognize:mtitle2[@"en_jp"]][@"season"]).intValue;
     //Score first title
-    score1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@",mtitle1[@"en_jp"]] UTF8String], fuzziness);
-    ascore1 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", mtitle1[@"en"]] UTF8String], fuzziness);
+    score1 = string_fuzzy_score(title.UTF8String, [NSString stringWithFormat:@"%@",mtitle1[@"en_jp"]].UTF8String, fuzziness);
+    ascore1 = string_fuzzy_score(title.UTF8String, [NSString stringWithFormat:@"%@", mtitle1[@"en"]].UTF8String, fuzziness);
     NSLog(@"match 1: %@ - %f alt: %f", mtitle1[@"en_jp"], score1, ascore1 );
     //Score Second Title
-    score2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", mtitle2[@"en_jp"]] UTF8String], fuzziness);
-    ascore2 = string_fuzzy_score(title.UTF8String, [[NSString stringWithFormat:@"%@", mtitle2[@"en"]] UTF8String], fuzziness);
+    score2 = string_fuzzy_score(title.UTF8String, [NSString stringWithFormat:@"%@", mtitle2[@"en_jp"]].UTF8String, fuzziness);
+    ascore2 = string_fuzzy_score(title.UTF8String, [NSString stringWithFormat:@"%@", mtitle2[@"en"]].UTF8String, fuzziness);
     NSLog(@"match 2: %@ - %f alt: %f", mtitle2[@"en_jp"], score2, ascore2 );
     //First Season Score Bonus
     if (DetectedSeason == 0 || DetectedSeason == 1) {
@@ -314,7 +314,7 @@
         }
         //Save AniID
         NSDictionary * title = found[@"titles"];
-        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)title[@"en_jp"] totalepisodes: [totalepisodes intValue]];
+        [ExceptionsCache addtoCache:DetectedTitle showid:titleid actualtitle:(NSString *)title[@"en_jp"] totalepisodes: totalepisodes.intValue];
     }
     //Return the AniID
     return titleid;

@@ -16,7 +16,7 @@
 
 @implementation Hachidori
 @synthesize managedObjectContext;
--(id)init{
+-(instancetype)init{
     confirmed = true;
     return [super init];
 }
@@ -103,13 +103,13 @@
     return slug;
 }
 -(NXOAuth2Account *)getFirstAccount{
-    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+    for (NXOAuth2Account *account in [NXOAuth2AccountStore sharedStore].accounts) {
         return account;
     };
     return nil;
 }
 -(NSString *)getUserid{
-    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
+    for (NXOAuth2Account *account in [NXOAuth2AccountStore sharedStore].accounts) {
         NSDictionary * userdata = (NSDictionary *)account.userData;
         return (NSString *)userdata[@"id"];
     };
@@ -166,7 +166,7 @@
         else{
             AniID = theid; // Set cached show id as AniID
             //If Detected Episode is missing, set it to 1 for sanity
-            if ([DetectedEpisode length] == 0) {
+            if (DetectedEpisode.length == 0) {
                 DetectedEpisode = @"1";
             }
         }
@@ -265,11 +265,11 @@
         //Populate Data
         DetectedTitle = result[@"detectedtitle"];
         DetectedEpisode = result[@"detectedepisode"];
-        DetectedSeason = [(NSNumber *)result[@"detectedseason"] intValue];
+        DetectedSeason = ((NSNumber *)result[@"detectedseason"]).intValue;
         DetectedGroup = result[@"group"];
         DetectedSource = result[@"detectedsource"];
-        if ([(NSArray *)result[@"types"] count] > 0) {
-            DetectedType = [result[@"types"] objectAtIndex:0];
+        if (((NSArray *)result[@"types"]).count > 0) {
+            DetectedType = (result[@"types"])[0];
         }
         else{
             DetectedType = @"";
@@ -292,7 +292,7 @@
     }
 }
 -(BOOL)checkBlankDetectedEpisode{
-    if ([LastScrobbledEpisode isEqualToString:@"1"] && [DetectedEpisode length] ==0) {
+    if ([LastScrobbledEpisode isEqualToString:@"1"] && DetectedEpisode.length ==0) {
         return true;
     }
     return false;
@@ -335,9 +335,9 @@
 -(NSString *)checkCache{
     NSManagedObjectContext *moc = managedObjectContext;
     NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
-    [allCaches setEntity:[NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc]];
+    allCaches.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
     NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", DetectedTitle];
-    [allCaches setPredicate:predicate];
+    allCaches.predicate = predicate;
     NSError * error = nil;
     NSArray * cache = [moc executeFetchRequest:allCaches error:&error];
     if (cache.count > 0) {
@@ -347,7 +347,7 @@
                 NSLog(@"%@ found in cache!", title);
                 // Total Episode check
                 NSNumber * totalepisodes = [cacheentry valueForKey:@"totalEpisodes"];
-                if ( [DetectedEpisode intValue] <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
+                if ( DetectedEpisode.intValue <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
                     return [cacheentry valueForKey:@"id"];
                 }
             }
@@ -365,17 +365,17 @@
         NSError * error = nil;
         if (i == 0) {
             NSLog(@"Check Exceptions List");
-            [allExceptions setEntity:[NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc]];
+            allExceptions.entity = [NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc];
 			predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", DetectedTitle];
         }
         else if (i== 1 && [[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]){
                 NSLog(@"Checking Auto Exceptions");
-                [allExceptions setEntity:[NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc]];
+                allExceptions.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
 				predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (group == %@) OR (group == %@)", DetectedTitle, DetectedGroup, @"ALL"];
         }
         else{break;}
 		// Set Predicate and filter exceiptions array
-        [allExceptions setPredicate:predicate];
+        allExceptions.predicate = predicate;
         NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
         if (exceptions.count > 0) {
             NSString * correcttitle;
@@ -383,9 +383,9 @@
                 if ([DetectedTitle isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]]) {
                     correcttitle = (NSString *)[entry valueForKey:@"correctTitle"];
                     // Set Correct Title and Episode offset (if any)
-                    int threshold = [(NSNumber *)[entry valueForKey:@"episodethreshold"] intValue];
-                    int offset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
-                    int tmpepisode = [DetectedEpisode intValue] - offset;
+                    int threshold = ((NSNumber *)[entry valueForKey:@"episodethreshold"]).intValue;
+                    int offset = ((NSNumber *)[entry valueForKey:@"episodeOffset"]).intValue;
+                    int tmpepisode = DetectedEpisode.intValue - offset;
                     if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1 && i==0)||(tmpepisode <= 0 && i==1)) {
                         continue;
                     }

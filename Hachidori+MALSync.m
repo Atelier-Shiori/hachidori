@@ -87,7 +87,7 @@
     else{
             [request addFormData:@"0" forKey:@"is_rewatching"];
     }
-    [request addFormData:[[NSNumber numberWithLong:rewatchcount] stringValue] forKey:@"rewatch_count"];
+    [request addFormData:@(rewatchcount).stringValue forKey:@"rewatch_count"];
     
     [request addFormData:TitleNotes forKey:@"comments"];
     
@@ -102,7 +102,7 @@
     
     // Set existing score to prevent the score from being erased.
     int tmpscore = (int)TitleScore;
-    [request addFormData:[[NSNumber numberWithInt:tmpscore*2] stringValue] forKey:@"score"];
+    [request addFormData:@(tmpscore*2).stringValue forKey:@"score"];
     // Do Update
     [request startFormRequest];
     

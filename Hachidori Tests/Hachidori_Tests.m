@@ -24,7 +24,7 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     haengine = [[Hachidori alloc] init];
-    AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     //Check for latest Auto Exceptions
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] timeIntervalSinceNow] < -604800 ||[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] == nil ) {
         // Has been 1 Week, update Auto Exceptions
@@ -52,7 +52,7 @@
     // Test an array of file names (Retrieve a JSON file from local drive)
     int fail = 0;
     int incorrect = 0;
-    NSUInteger icount = [testdata count];
+    NSUInteger icount = testdata.count;
     int count = (int)icount;
     Recognition * reg = [[Recognition alloc] init];
     NSLog(@"Testing a dataset with %i filenames", count);
@@ -68,22 +68,22 @@
         NSDictionary * parsedfile = [reg recognize:filename];
         NSNumber * season = parsedfile[@"season"];
         NSString * type;
-        if ([(NSArray *)parsedfile[@"types"] count] > 0) {
-            type = [parsedfile[@"types"] objectAtIndex:0];
+        if (((NSArray *)parsedfile[@"types"]).count > 0) {
+            type = (parsedfile[@"types"])[0];
         }
         else{
             type = @"";
         }
-        NSDictionary * result = [haengine runUnitTest:parsedfile[@"title"] episode:parsedfile[@"episode"] season:[season intValue] group:parsedfile[@"group"] type:type];
+        NSDictionary * result = [haengine runUnitTest:parsedfile[@"title"] episode:parsedfile[@"episode"] season:season.intValue group:parsedfile[@"group"] type:type];
             NSDictionary * titles = result[@"titles"];
             NSString * title = titles[@"en_jp"];
-        if ([result count] > 0) {
+        if (result.count > 0) {
             NSLog(@"Detected as %@. Slug: %@", title, result[@"slug"]);
-            if (![expectedtitle isEqualToString:title] && [expectedtitle length] > 0) {
+            if (![expectedtitle isEqualToString:title] && expectedtitle.length > 0) {
                 NSLog(@"Incorrect Match!");
                 incorrect++;
             }
-            else if ([expectedtitle length] == 0){
+            else if (expectedtitle.length == 0){
                 // Expected Title missing, subtract it from count.
                 NSLog(@"Note: Title not included in the count. Please add this to the testdata.json file:");
                 NSLog(@"\"expectedtitle\":\"%@\"",title);

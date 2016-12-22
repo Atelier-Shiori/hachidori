@@ -15,17 +15,17 @@
     AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return appDelegate.managedObjectContext;
 }
--(id)init{
+-(instancetype)init{
     self = [super initWithWindowNibName:@"HistoryWindow"];
     if(!self)
         return nil;
     return self;
 }
 -(void)awakeFromNib{
-    [arraycontroller setManagedObjectContext:self.managedObjectContext];
+    arraycontroller.managedObjectContext = self.managedObjectContext;
     [arraycontroller prepareContent];
-    [historytable setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Date" ascending:NO]]];
-    [arraycontroller setSortDescriptors:[historytable sortDescriptors]];
+    historytable.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"Date" ascending:NO]];
+    arraycontroller.sortDescriptors = historytable.sortDescriptors;
 }
 - (void)windowDidLoad {
     [super windowDidLoad];
@@ -59,7 +59,7 @@
     [alert setMessageText:NSLocalizedString(@"Are you sure you want to clear the Scrobble History?",nil)];
     [alert setInformativeText:NSLocalizedString(@"Once done, this action cannot be undone.",nil)];
     // Set Message type to Warning
-    [alert setAlertStyle:NSWarningAlertStyle];
+    alert.alertStyle = NSWarningAlertStyle;
     // Show as Sheet on historywindow
     [alert beginSheetModalForWindow:self.window
                       modalDelegate:self
@@ -73,9 +73,9 @@
 {
     if (echoice == 1000) {
         // Remove All Data
-        NSManagedObjectContext *moc = [self managedObjectContext];
+        NSManagedObjectContext *moc = self.managedObjectContext;
         NSFetchRequest * allHistory = [[NSFetchRequest alloc] init];
-        [allHistory setEntity:[NSEntityDescription entityForName:@"History" inManagedObjectContext:moc]];
+        allHistory.entity = [NSEntityDescription entityForName:@"History" inManagedObjectContext:moc];
         
         NSError * error = nil;
         NSArray * histories = [moc executeFetchRequest:allHistory error:&error];

@@ -17,7 +17,7 @@
     if ([regex matchInString:title] != nil) {
         return 1;
     }
-    else if([regex matchInString:atitle] != nil && [atitle length] >0 && i==0){
+    else if([regex matchInString:atitle] != nil && atitle.length >0 && i==0){
         return 2;
     }
     return 0;
@@ -36,10 +36,10 @@
     // Set Up Prompt Message Window
     NSAlert * alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:NSLocalizedString(@"OK",nil)];
-    [alert setMessageText:message];
-    [alert setInformativeText:explaination];
+    alert.messageText = message;
+    alert.informativeText = explaination;
     // Set Message type to Warning
-    [alert setAlertStyle:1];
+    alert.alertStyle = 1;
     // Show as Sheet on Preference Window
     [alert beginSheetModalForWindow:w
                       modalDelegate:self

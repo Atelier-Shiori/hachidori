@@ -42,7 +42,7 @@
         tmpseason = [smatch matchedString];
         regex = [OGRegularExpression regularExpressionWithString: @"(S|s)"];
         tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
-        DetectedSeason = [tmpseason intValue];
+        DetectedSeason = tmpseason.intValue;
     }
     else {
         DetectedSeason = 1;

@@ -22,7 +22,7 @@
    AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return appDelegate.managedObjectContext;
 }
-- (id)init
+- (instancetype)init
 {
     return [super initWithNibName:@"ExceptionsPref" bundle:nil];
 }
@@ -47,15 +47,15 @@
 -(IBAction)addTitle:(id)sender{
     //Obtain Detected Title from Media File
     NSOpenPanel * op = [NSOpenPanel openPanel];
-    [op setAllowedFileTypes:@[@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"flv", @"mpg", @"3gp"]];
+    op.allowedFileTypes = @[@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"flv", @"mpg", @"3gp"];
     [op setMessage:NSLocalizedString(@"Please select a media file you want to create an exception for.",nil)];
-    [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
+    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
         //Close Open Window
         [op orderOut:nil];
-        NSDictionary * d = [[Recognition alloc] recognize:[[op URL] path]];
+        NSDictionary * d = [[Recognition alloc] recognize:op.URL.path];
         detectedtitle = d[@"title"];
         if ([self checkifexists:detectedtitle offset:0 correcttitle:nil]) {
             // Exists, don't do anything
@@ -64,8 +64,8 @@
         fsdialog = [FixSearchDialog new];
         [fsdialog setCorrection:false];
         [fsdialog setSearchField:detectedtitle];
-        [NSApp beginSheet:[fsdialog window]
-           modalForWindow:[[self view] window] modalDelegate:self
+        [NSApp beginSheet:fsdialog.window
+           modalForWindow:self.view.window modalDelegate:self
            didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
               contextInfo:(void *)nil];
     }];
@@ -89,18 +89,18 @@
 }
 -(IBAction)removeSlection:(id)sender{
     //Remove Selected Object
-    [arraycontroller removeObject:[arraycontroller selectedObjects][0]];
+    [arraycontroller removeObject:arraycontroller.selectedObjects[0]];
 }
 -(IBAction)importList:(id)sender{
     // Set Open Dialog to get json file.
     NSOpenPanel * op = [NSOpenPanel openPanel];
-    [op setAllowedFileTypes:@[@"json", NSLocalizedString(@"JSON file",nil)]];
+    op.allowedFileTypes = @[@"json", NSLocalizedString(@"JSON file",nil)];
     [op setMessage:NSLocalizedString(@"Please select an exceptions list to import.",nil)];
-    [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
+    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
-        NSURL *Url = [op URL];
+        NSURL *Url = op.URL;
         
         // read the file
         NSString * str = [NSString stringWithContentsOfURL:Url
@@ -115,7 +115,7 @@
             NSString * detectedtitlea = d[@"detectedtitle"];
             int doffset;
             if (d[@"offset"] != nil) {
-                doffset = [(NSNumber *)d[@"offset"] intValue];
+                doffset = ((NSNumber *)d[@"offset"]).intValue;
             }
             else{
                 doffset = 0;
@@ -130,7 +130,7 @@
                 // Add to Exceptions List
                 int threshold;
                 if (d[@"threshold"] != nil) {
-                    threshold = [(NSNumber *)d[@"threshold"] intValue];
+                    threshold = ((NSNumber *)d[@"threshold"]).intValue;
                 }
                 else{
                     threshold = 0;
@@ -147,14 +147,14 @@
 -(IBAction)exportList:(id)sender{
     // Save the json file containing titles
     NSSavePanel * sp = [NSSavePanel savePanel];
-    [sp setAllowedFileTypes:@[@"json", NSLocalizedString(@"JSON file",nil)]];
+    sp.allowedFileTypes = @[@"json", NSLocalizedString(@"JSON file",nil)];
     [sp setMessage:NSLocalizedString(@"Where do you want to save your exception list?",nil)];
     [sp setNameFieldStringValue:NSLocalizedString(@"Exceptions List.json",nil)];
-    [sp beginSheetModalForWindow:[[self view]window] completionHandler:^(NSInteger result){
+    [sp beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
-        NSURL *url = [sp URL];
+        NSURL *url = sp.URL;
         //Create JSON string from array controller
         NSError *error;
         NSMutableArray * jsonOutput = [[NSMutableArray alloc] init];
@@ -170,7 +170,7 @@
         if (!jsonData) {
             return;
         } else {
-            NSString *JSONString = [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
+            NSString *JSONString = [[NSString alloc] initWithBytes:jsonData.bytes length:jsonData.length encoding:NSUTF8StringEncoding];
             
             
             //write JSON to file
@@ -191,9 +191,9 @@
 }
 -(BOOL)checkifexists:(NSString *) title offset:(int)offset correcttitle:(NSString *)ctitle{
     // Checks if a title is already on the exception list
-    NSArray * a = [arraycontroller arrangedObjects];
+    NSArray * a = arraycontroller.arrangedObjects;
     for (NSManagedObject * entry in a) {
-        int eoffset = [(NSNumber *)[entry valueForKey:@"episodeOffset"] intValue];
+        int eoffset = ((NSNumber *)[entry valueForKey:@"episodeOffset"]).intValue;
         if ([title isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]] && eoffset == offset) {
             if (ctitle == nil) {
                 return true;
@@ -213,31 +213,31 @@
     [op setCanCreateDirectories:NO];
     [op setCanChooseFiles:NO];
     [op setMessage:NSLocalizedString(@"Please a directory for Hachidori to ignore.",nil)];
-    [op beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result){
+    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
-        NSDictionary * entry = @{@"directory": [[op URL] path]};
+        NSDictionary * entry = @{@"directory": op.URL.path};
         [ignorearraycontroller addObject:entry];
     }];
 }
 -(IBAction)removeDirectory:(id)sender{
     //Remove Selected Object
-    [ignorearraycontroller removeObject:[ignorearraycontroller selectedObjects][0]];
+    [ignorearraycontroller removeObject:ignorearraycontroller.selectedObjects[0]];
 }
 #pragma mark Title Ignore
 -(IBAction)addFifleNameIgnoreRule:(id)sender{
     NSDictionary * entry = @{@"rule": @"", @"rulesource": @"All Sources"};
     [ignorefilenamearraycontroller addObject:entry];
     // Selection Workaround
-    int c = (int) [[NSArray arrayWithArray:[ignorefilenamearraycontroller arrangedObjects]] count];
+    int c = (int) [NSArray arrayWithArray:ignorefilenamearraycontroller.arrangedObjects].count;
     if(c > 0){
         [iftb editColumn:0 row:c-1 withEvent:nil select:YES];
     }
 }
 -(IBAction)removeFileNameIgnoreRule:(id)sender{
     //Remove Selected Object
-    [ignorefilenamearraycontroller removeObject:[ignorefilenamearraycontroller selectedObjects][0]];
+    [ignorefilenamearraycontroller removeObject:ignorefilenamearraycontroller.selectedObjects[0]];
 }
 
 @end

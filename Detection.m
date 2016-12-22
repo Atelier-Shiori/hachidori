@@ -12,8 +12,8 @@
 
 @interface Detection()
 #pragma Private Methods
--(NSDictionary *)detectStream;
--(NSDictionary *)detectPlayer;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary *detectStream;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary *detectPlayer;
 -(bool)checkifIgnored:(NSString *)filename source:(NSString *)source;
 -(bool)checkifTitleIgnored:(NSString *)filename source:(NSString *)source;
 -(bool)checkifDirectoryIgnored:(NSString *)filename;
@@ -54,17 +54,17 @@
     NSArray * player = @[@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", @"Squire", @"ffmpeg"];
     NSString *string;
     OGRegularExpression    *regex;
-    for(int i = 0; i <[player count]; i++){
+    for(int i = 0; i <player.count; i++){
         NSTask *task;
         task = [[NSTask alloc] init];
-        [task setLaunchPath: @"/usr/sbin/lsof"];
-        [task setArguments: @[@"-c", (NSString *)player[i], @"-F", @"n"]]; 		//lsof -c '<player name>' -Fn
+        task.launchPath = @"/usr/sbin/lsof";
+        task.arguments = @[@"-c", (NSString *)player[i], @"-F", @"n"]; 		//lsof -c '<player name>' -Fn
         NSPipe *pipe;
         pipe = [NSPipe pipe];
-        [task setStandardOutput: pipe];
+        task.standardOutput = pipe;
         
         NSFileHandle *file;
-        file = [pipe fileHandleForReading];
+        file = pipe.fileHandleForReading;
         
         [task launch];
         
@@ -102,9 +102,9 @@
                     break;
             }
             //Check if thee file name or directory is on any ignore list
-            for (long i = [filenames count]-1;i >= 0;i--) {
+            for (long i = filenames.count-1;i >= 0;i--) {
                 //Check every possible match
-                string = [filenames objectAtIndex:i];
+                string = filenames[i];
                 BOOL onIgnoreList = [self checkifIgnored:string source:DetectedSource];
                 //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
                 
@@ -141,16 +141,16 @@
     NSTask *task;
     task = [[NSTask alloc] init];
     NSBundle *myBundle = [NSBundle mainBundle];
-    [task setLaunchPath:[myBundle pathForResource:@"detectstream" ofType:@""]];
+    task.launchPath = [myBundle pathForResource:@"detectstream" ofType:@""];
     
     
     NSPipe *pipe;
     pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
+    task.standardOutput = pipe;
     
     // Reads Output
     NSFileHandle *file;
-    file = [pipe fileHandleForReading];
+    file = pipe.fileHandleForReading;
     
     // Launch Task
     [task launch];
@@ -162,7 +162,7 @@
     
     NSError* error;
     //Check if detectstream successfully exited. If not, ignore detection to prevent the program from crashing
-    if ([task terminationStatus] != 0){
+    if (task.terminationStatus != 0){
         NSLog(@"detectstream crashed, ignoring stream detection");
         return nil;
     }
@@ -267,7 +267,7 @@
     source = [[OGRegularExpression regularExpressionWithString:@"\\sin\\s\\w+"] replaceAllMatchesInString:source withString:@""];
     NSArray * ignoredfilenames = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(rulesource == %@) OR (rulesource ==[c] %@)" , @"All Sources", source]];
     NSLog(@"Debug: %@", filename);
-    if ([ignoredfilenames count] > 0) {
+    if (ignoredfilenames.count > 0) {
         for (NSDictionary * d in ignoredfilenames) {
             NSString * rule = [NSString stringWithFormat:@"%@", d[@"rule"]];
             if ([[OGRegularExpression regularExpressionWithString:rule options:OgreIgnoreCaseOption] matchInString:filename] && rule.length !=0) { // Blank rules are infinite, thus should not be counted
@@ -282,13 +282,13 @@
     //Checks if file name or directory is on ignore list
     filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
     // Get only the path
-    filename = [[[NSURL fileURLWithPath:filename] path] stringByDeletingLastPathComponent];
+    filename = [NSURL fileURLWithPath:filename].path.stringByDeletingLastPathComponent;
     if (filename == nil){
         return false;
     }
     //Check ignore directories. If on ignore directory, set onIgnoreList to true.
     NSArray * ignoredirectories = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreddirectories"];
-    if ([ignoredirectories count] > 0) {
+    if (ignoredirectories.count > 0) {
         for (NSDictionary * d in ignoredirectories) {
             if ([filename isEqualToString:d[@"directory"]]) {
                 NSLog(@"Video being played is in ignored directory");

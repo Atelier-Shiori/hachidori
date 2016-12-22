@@ -30,8 +30,8 @@
         //return Data
         NSError * jerror;
         d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
-        if ([(NSArray *)d[@"data"] count] > 0) {
-            d = [[NSArray arrayWithArray:d[@"data"]] objectAtIndex:0];
+        if (((NSArray *)d[@"data"]).count > 0) {
+            d = [NSArray arrayWithArray:d[@"data"]][0];
             EntryID = d[@"id"];
             d = d[@"attributes"];
             NSLog(@"Title on list");
@@ -56,7 +56,7 @@
             TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists
-            TotalEpisodes = [(NSNumber *)LastScrobbledInfo[@"episodeCount"] intValue];
+            TotalEpisodes = ((NSNumber *)LastScrobbledInfo[@"episodeCount"]).intValue;
         }
         // New Update Confirmation
         if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
@@ -124,14 +124,14 @@
         TitleScore = 0;
     }
     else {
-        TitleScore = [(NSNumber *)d[@"rating"] floatValue];
+        TitleScore = ((NSNumber *)d[@"rating"]).floatValue;
     }
     // Rewatch Information
     rewatching = [d[@"reconsuming"] boolValue];
     rewatchcount = [d[@"reconsumeCount"] longValue];
     // Privacy Settings
     isPrivate = [d[@"private"] boolValue];
-    DetectedCurrentEpisode = [(NSNumber *)d[@"progress"] intValue];
+    DetectedCurrentEpisode = ((NSNumber *)d[@"progress"]).intValue;
     LastScrobbledInfo = tmpinfo;
     LastScrobbledTitleNew = false;
     if (rewatching) {

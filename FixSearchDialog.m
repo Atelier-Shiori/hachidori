@@ -16,7 +16,7 @@
 
 @implementation FixSearchDialog
 
--(id)init{
+-(instancetype)init{
     self = [super initWithWindowNibName:@"FixSearchDialog"];
     if(!self)
         return nil;
@@ -26,16 +26,16 @@
     if (correction) {
         if (allowdelete) {
             [deleteoncorrection setHidden:NO];
-            [deleteoncorrection setState:NSOnState];
+            deleteoncorrection.state = NSOnState;
         }
         [onetimecorrection setHidden:NO];
     }
     else{
-        [deleteoncorrection setState:0];
+        deleteoncorrection.state = 0;
     }
     [super windowDidLoad];
-    if ([searchquery length]>0) {
-        [search setStringValue:searchquery];
+    if (searchquery.length>0) {
+        search.stringValue = searchquery;
         [self search:nil];
     }
     
@@ -47,16 +47,16 @@
     [NSApp endSheet:self.window returnCode:0];
 }
 -(IBAction)updatesearch:(id)sender {
-    NSDictionary * d = [arraycontroller selectedObjects][0];
+    NSDictionary * d = arraycontroller.selectedObjects[0];
     if (correction) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
-        [alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Do you want to correct this title as %@?",nil),d[@"title"]]];
+        alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to correct this title as %@?",nil),d[@"title"]];
         [alert setInformativeText:NSLocalizedString(@"Once done, you cannot undo this action.",nil)];
         // Set Message type to Warning
-        [alert setAlertStyle:NSWarningAlertStyle];
+        alert.alertStyle = NSWarningAlertStyle;
         if ([alert runModal]== NSAlertFirstButtonReturn) {
             [self finish:d];
         }
@@ -72,7 +72,7 @@
     selectedtitle = d[@"title"];
     selectedaniid = d[@"slug"];
     if (d[@"episode_count"] != [NSNull null]) {
-        selectedtotalepisodes = [(NSNumber *)d[@"episode_count"] intValue];
+        selectedtotalepisodes = ((NSNumber *)d[@"episode_count"]).intValue;
     }
     else{
         selectedtotalepisodes = 0;
@@ -81,12 +81,12 @@
     [NSApp endSheet:self.window returnCode:1];
 }
 -(IBAction)search:(id)sender{
-    if ([[search stringValue] length]> 0) {
+    if (search.stringValue.length> 0) {
         dispatch_queue_t queue = dispatch_get_global_queue(
                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_async(queue, ^{
-        NSString * searchterm = [Utility urlEncodeString:[search stringValue]];
+        NSString * searchterm = [Utility urlEncodeString:search.stringValue];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm]];
         EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
         //Ignore Cookies
@@ -157,10 +157,10 @@
     return selectedtotalepisodes;
 }
 -(bool)getdeleteTitleonCorrection{
-    return (bool) [deleteoncorrection state];
+    return (bool) deleteoncorrection.state;
 }
 -(bool)getcorrectonce{
-    return (bool) [onetimecorrection state];
+    return (bool) onetimecorrection.state;
 }
 
 @end

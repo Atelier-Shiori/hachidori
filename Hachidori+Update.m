@@ -17,14 +17,14 @@
         [self storeLastScrobbled];
         return 3;
     }
-    if ([DetectedEpisode intValue] <= DetectedCurrentEpisode && (![WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
+    if (DetectedEpisode.intValue <= DetectedCurrentEpisode && (![WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
         // Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
         [self storeLastScrobbled];
         confirmed = true;
         return 2;
     }
-    else if ([DetectedEpisode intValue] == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes && TotalEpisodes > 1 && [WatchStatus isEqualToString:@"completed"]){
+    else if (DetectedEpisode.intValue == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes && TotalEpisodes > 1 && [WatchStatus isEqualToString:@"completed"]){
        //Do not set rewatch status for current episode equal to total episodes.
         [self storeLastScrobbled];
         confirmed = true;
@@ -72,11 +72,11 @@
         NSDictionary * userd =  @{@"data" : @{@"id" : [self getUserid], @"type" : @"users"}};
         NSDictionary * mediad = @{@"data" : @{@"id" : AniID, @"type" : @"anime"}};
         NSDictionary * relationshipsd = @{@"user" : userd, @"media" : mediad};
-        [tmpd setObject:relationshipsd forKey:@"relationships"];
+        tmpd[@"relationships"] = relationshipsd;
     }
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
         [attributes setValue:DetectedEpisode forKey:@"progress"];
-    if([DetectedEpisode intValue] == TotalEpisodes) {
+    if(DetectedEpisode.intValue == TotalEpisodes) {
         //Set Title State
         tmpWatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
@@ -86,15 +86,15 @@
         if (rewatching){
             // Increment rewatch count
             tmprewatchedcount = rewatchcount + 1;
-            [attributes setValue:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"reconsumeCount"];
+            [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"reconsumeCount"];
         }
-        else if ([DetectedEpisode intValue] == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes){
+        else if (DetectedEpisode.intValue == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes){
             //Increment Rewatch Count only
             tmprewatchedcount = rewatchcount + 1;
-            [attributes setValue:[[NSNumber numberWithLong:tmprewatchedcount] stringValue] forKey:@"reconsumeCount"];
+            [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"reconsumeCount"];
         }
     }
-    else if ([WatchStatus isEqualToString:@"completed"] && [DetectedEpisode intValue] < TotalEpisodes){
+    else if ([WatchStatus isEqualToString:@"completed"] && DetectedEpisode.intValue < TotalEpisodes){
         //Set rewatch status to true
         tmprewatching = true;
         //Set Title State to currently watching
@@ -139,7 +139,7 @@
             // Store Scrobbled Title and Episode
             LastScrobbledTitle = DetectedTitle;
             LastScrobbledEpisode = DetectedEpisode;
-            DetectedCurrentEpisode = [LastScrobbledEpisode intValue];
+            DetectedCurrentEpisode = LastScrobbledEpisode.intValue;
             LastScrobbledSource = DetectedSource;
             rewatching = tmprewatching;
             WatchStatus = tmpWatchStatus;
@@ -190,7 +190,7 @@
     [tmpd setValue:EntryID forKey:@"id"];
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
     //Set current episode
-    if ([episode intValue] != DetectedCurrentEpisode) {
+    if (episode.intValue != DetectedCurrentEpisode) {
         [attributes setValue:episode forKey:@"progress"];
     }
     //Set new watch status
@@ -223,7 +223,7 @@
             TitleNotes = note;
             isPrivate = privatevalue;
             LastScrobbledEpisode = episode;
-            DetectedCurrentEpisode = [episode intValue];
+            DetectedCurrentEpisode = episode.intValue;
             return true;
         default:
             // Update Unsuccessful
@@ -247,7 +247,7 @@
     [tmpd setValue:EntryID forKey:@"id"];
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
     //Set current episode to total episodes
-    [attributes setValue:[[NSNumber numberWithInt:TotalEpisodes] stringValue] forKey:@"progress"];
+    [attributes setValue:@(TotalEpisodes).stringValue forKey:@"progress"];
     //Revert watch status to complete
     [attributes setValue:@"completed" forKey:@"status"];
     //Set Rewatch status to false
@@ -263,7 +263,7 @@
             //Set New Values
             rewatching = false;
             WatchStatus = @"completed";
-            LastScrobbledEpisode = [[NSNumber numberWithInt:TotalEpisodes] stringValue];
+            LastScrobbledEpisode = @(TotalEpisodes).stringValue;
             DetectedCurrentEpisode = TotalEpisodes;
             return true;
         default:

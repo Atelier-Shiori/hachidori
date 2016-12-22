@@ -16,7 +16,7 @@
 @end
 
 @implementation HotkeysPrefs
-- (id)init
+- (instancetype)init
 {
     return [super initWithNibName:@"HotkeysPrefs" bundle:nil];
 }
