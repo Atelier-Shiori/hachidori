@@ -12,6 +12,7 @@
 @class Hachidori;
 @class FixSearchDialog;
 @class HistoryWindow;
+@class DonationWindowController;
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
 	/* Windows */
     __unsafe_unretained NSWindow *window;
@@ -77,6 +78,7 @@
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property(strong) FixSearchDialog *fsdialog;
 @property (strong) HistoryWindow *historywindowcontroller;
+@property (strong) DonationWindowController * dwindow;
 
 -(void)showhistory:(id)sender;
 -(IBAction)togglescrobblewindow:(id)sender;
@@ -100,6 +102,7 @@
 -(void)appendToAnimeInfo:(NSString*)text;
 -(void)showNotification:(NSString *)title message:(NSString *) message;
 -(IBAction)showAboutWindow:(id)sender;
+-(void)enterDonationKey;
 -(bool)getisScrobbling;
 -(bool)getisScrobblingActive;
 -(NSManagedObjectContext *)getObjectContext;

@@ -7,6 +7,7 @@
 //
 
 #import "Utility.h"
+#import "EasyNSURLConnection.h"
 
 @implementation Utility
 +(int)checkMatch:(NSString *)title
@@ -53,6 +54,72 @@
                                                                                                   NULL,
                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                   kCFStringEncodingUTF8 ));
+}
++(void)showDonateReminder:(AppDelegate*)delegate{
+    // Shows Donation Reminder
+    NSAlert * alert = [[NSAlert alloc] init] ;
+    [alert addButtonWithTitle:@"Donate"];
+    [alert addButtonWithTitle:@"Enter Key"];
+    [alert addButtonWithTitle:@"Remind Me Later"];
+    [alert setMessageText:@"Please Support Hachidori"];
+    [alert setInformativeText:@"We noticed that you have been using the MAL Sync functionality for a while. Although this functionality is aviliable to everyone, it cost us money to host the Unofficial MAL API to make this function possible.. \r\rIf you find this function. helpful, please consider making a donation. You will recieve a key to remove this message while MAL Sync is enabled."];
+    [alert setShowsSuppressionButton:NO];
+    // Set Message type to Warning
+    [alert setAlertStyle:NSInformationalAlertStyle];
+    long choice = [alert runModal];
+    if (choice == NSAlertFirstButtonReturn) {
+        // Open Donation Page
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://hachidori.ateliershiori.moe/donate/"]];
+        [Utility setReminderDate];
+    }
+    else if (choice == NSAlertSecondButtonReturn) {
+        // Show Add Donation Key dialog.
+        [delegate enterDonationKey];
+        [Utility setReminderDate];
+    }
+    else{
+        // Surpress message for 2 weeks.
+        [Utility setReminderDate];
+    }
+}
+
++(void)setReminderDate{
+    //Sets Reminder Date
+    NSDate *now = [NSDate date];
+    NSDate * reminderdate = [now dateByAddingTimeInterval:60*60*24*14];
+    [[NSUserDefaults standardUserDefaults] setObject:reminderdate forKey:@"donatereminderdate"];
+}
++(int)checkDonationKey:(NSString *)key name:(NSString *)name{
+    //Set Search API
+    NSURL *url = [NSURL URLWithString:@"https://updates.ateliershiori.moe/keycheck/check.php"];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    [request addFormData:name forKey:@"name"];
+    [request addFormData:key forKey:@"key"];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    //Perform Search
+    [request startJSONFormRequest];
+    // Get Status Code
+    long statusCode = [request getStatusCode];
+    if (statusCode == 200){
+        NSError* jerror;
+        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        int valid = [(NSNumber *)d[@"valid"] intValue];
+        if (valid == 1) {
+            // Valid Key
+            return 1;
+        }
+        else{
+            // Invalid Key
+            return 0;
+        }
+    }
+    else{
+        // No Internet
+        return 2;
+    }
+    
+    
 }
 
 @end

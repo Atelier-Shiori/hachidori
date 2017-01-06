@@ -19,6 +19,7 @@
 #import "ExceptionsCache.h"
 #import "Utility.h"
 #import "HistoryWindow.h"
+#import "DonationWindowController.h"
 
 @implementation AppDelegate
 
@@ -432,6 +433,15 @@
     updatetoolbaritem.enabled = enable;
     updatedupdatestatus.enabled = enable;
     revertrewatch.enabled = enable;
+}
+-(void)enterDonationKey{
+    //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
+    [NSApp activateIgnoringOtherApps:YES];
+    if (!_dwindow) {
+        _dwindow = [[DonationWindowController alloc] init];
+    }
+    [[_dwindow window] makeKeyAndOrderFront:nil];
+    
 }
 
 #pragma mark Timer Functions
@@ -1153,6 +1163,8 @@
                  if (!malsyncsuccess) {
                      [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"MyAnimeList Sync failed, see console log."];
                  }
+                 // Show Donation Message
+                 [Utility donateCheck:self];
              });
         });
     }

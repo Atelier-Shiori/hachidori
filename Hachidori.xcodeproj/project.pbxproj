@@ -10,6 +10,8 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
 		2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
+		2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D807F521E201332003E2FCF /* DonationWindowController.m */; };
+		2D807F551E20147F003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F541E20147F003E2FCF /* DonationWindow.xib */; };
 		2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DA3D7651E0A079100BD2457 /* Localizable.strings */; };
 		2DC022521E01B52900A7E928 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; };
 		2DC022531E01BA9400A7E928 /* OAuth2Client.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -117,6 +119,9 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2D807F511E201332003E2FCF /* DonationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonationWindowController.h; sourceTree = "<group>"; };
+		2D807F521E201332003E2FCF /* DonationWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonationWindowController.m; sourceTree = "<group>"; };
+		2D807F541E20147F003E2FCF /* DonationWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DonationWindow.xib; sourceTree = "<group>"; };
 		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2DC022511E01B52900A7E928 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = Frameworks/OAuth2Client.framework; sourceTree = "<group>"; };
 		2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
@@ -350,6 +355,7 @@
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				2D807F541E20147F003E2FCF /* DonationWindow.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
 				6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */,
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
@@ -375,6 +381,8 @@
 		5C07DA691A815C2C0003A827 /* Window Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2D807F511E201332003E2FCF /* DonationWindowController.h */,
+				2D807F521E201332003E2FCF /* DonationWindowController.m */,
 				5C07DA6C1A815C6E0003A827 /* History */,
 				82EBBD191A17FD45009F6179 /* Correction/Exception */,
 			);
@@ -628,6 +636,7 @@
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
 				825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */,
+				2D807F551E20147F003E2FCF /* DonationWindow.xib in Resources */,
 				6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */,
 				5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */,
 				2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */,
@@ -677,6 +686,7 @@
 				5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */,
 				5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */,
 				5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */,
+				2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,

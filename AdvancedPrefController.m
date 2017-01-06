@@ -191,4 +191,8 @@
     }
 
 }
+-(IBAction)addLicense:(id)sender{
+    [appdelegate enterDonationKey];
+
+}
 @end

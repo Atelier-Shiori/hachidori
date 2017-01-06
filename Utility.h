@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <OgreKit/OgreKit.h>
 #import "string_score.h"
+#import "AppDelegate.h"
 
 @interface Utility : NSObject
 +(int)checkMatch:(NSString *)title
@@ -20,4 +21,8 @@
            explaination:(NSString *)explaination
                  window:(NSWindow *)w;
 +(NSString *)urlEncodeString:(NSString *)string;
++(void)donateCheck:(AppDelegate*)delegate;
++(void)showDonateReminder:(AppDelegate*)delegate;
++(void)setReminderDate;
++(int)checkDonationKey:(NSString *)key name:(NSString *)name;
 @end
