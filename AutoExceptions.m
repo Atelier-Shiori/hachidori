@@ -84,7 +84,7 @@
                                             inManagedObjectContext: moc];
                 // Set values in the new record
                 [obj setValue:d[@"detectedtitle"] forKey:@"detectedTitle"];
-                if (d[@"hcorrecttitle"] !=nil) {
+                if ([(NSString *)d[@"hcorrecttitle"] length] > 0) {
                     [obj setValue:d[@"hcorrecttitle"] forKey:@"correctTitle"]; // Use Correct Kitsu Title
                 }
                 else{

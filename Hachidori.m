@@ -387,7 +387,7 @@
                     int tmpepisode = DetectedEpisode.intValue - offset;
                     int mappedepisode = [(NSNumber *)[entry valueForKey:@"mappedepisode"] intValue];
                     bool iszeroepisode = [(NSNumber *)[entry valueForKey:@"iszeroepisode"] boolValue];
-                    if (i==1 && DetectedTitleisEpisodeZero == iszeroepisode){
+                    if (i==1 && DetectedTitleisEpisodeZero == true && iszeroepisode == true){
                         NSLog(@"%@ zero episode is found on exceptions list as %@.", DetectedTitle, correcttitle);
                         DetectedTitle = [correcttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
                         DetectedEpisode = [NSString stringWithFormat:@"%i", mappedepisode];
@@ -395,7 +395,7 @@
                         found = true;
                         break;
                     }
-                    else if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1 && i==0)||(tmpepisode <= 0 && i==1)) {
+                    if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1 && i==0)||(tmpepisode <= 0 && i==1)) {
                         continue;
                     }
                     else {
