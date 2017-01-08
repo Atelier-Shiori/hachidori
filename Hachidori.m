@@ -395,6 +395,9 @@
                         found = true;
                         break;
                     }
+                    else if (i==1 && DetectedTitleisEpisodeZero == false && iszeroepisode == true){
+                        continue;
+                    }
                     if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1 && i==0)||(tmpepisode <= 0 && i==1)) {
                         continue;
                     }
