@@ -93,6 +93,8 @@
                 [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
                 [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                 [obj setValue:d[@"group"] forKey:@"group"];
+                [obj setValue:d[@"iszeroepisode"] forKey:@"iszeroepisode"];
+                [obj setValue:d[@"mappedepisode"] forKey:@"mappedepisode"];
                 //Save
                 [moc save:&error];
             }

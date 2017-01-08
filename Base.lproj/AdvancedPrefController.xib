@@ -362,7 +362,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oeu-uZ-zKb">
-                                        <rect key="frame" x="129" y="3" width="179" height="17"/>
+                                        <rect key="frame" x="126" y="10" width="179" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="UNREGISTERED" id="W5J-9N-UGU">
                                             <font key="font" metaFont="system"/>
@@ -374,7 +374,7 @@
                                         </connections>
                                     </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oVj-go-KQD">
-                                        <rect key="frame" x="276" y="1" width="148" height="19"/>
+                                        <rect key="frame" x="276" y="8" width="148" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="recessed" title="Add Donation Key" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nZW-qw-VnL">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
