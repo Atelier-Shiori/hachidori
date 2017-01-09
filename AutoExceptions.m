@@ -84,11 +84,11 @@
                 NSString * correcttitle = d[@"correcttitle"];
                 NSString * hcorrecttitle = (NSString *)d[@"hcorrecttitle"];
                 bool iszeroepisode = [(NSNumber *)d[@"iszeroepisode"] boolValue];
+                int offset = [(NSNumber *)d[@"offset"] intValue];
                 NSError * error = nil;
-                NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode];
+                NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode offset:offset];
                 if (obj) {
                     // Update Entry
-                    [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
                     [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                 }
                 else{
@@ -104,7 +104,7 @@
                     else{
                         [obj setValue:correcttitle forKey:@"correctTitle"]; // Use Universal Correct Title
                     }
-                    [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
+                    [obj setValue:[NSNumber numberWithInt:offset] forKey:@"episodeOffset"];
                     [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                     [obj setValue:group forKey:@"group"];
                     [obj setValue:[NSNumber numberWithBool:iszeroepisode] forKey:@"iszeroepisode"];
@@ -146,19 +146,20 @@
 group:(NSString *)group
 correcttitle:(NSString *)correcttitle
 hcorrecttitle:(NSString *)hcorrecttitle
-                    zeroepisode:(bool)zeroepisode{
+zeroepisode:(bool)zeroepisode
+offset:(int)offset{
     // Return existing offline queue item
     NSError * error;
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext * moc = [delegate getObjectContext];
     NSString * rctitle;
-    if (hcorrecttitle) {
+    if (hcorrecttitle.length > 0) {
         rctitle = hcorrecttitle;
     }
     else{
         rctitle = correcttitle;
     }
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (correctTitle == %@) AND (group ==[c] %@) AND (iszeroepisode == %i)", ctitle,rctitle, group, zeroepisode] ;
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (correctTitle == %@) AND (group ==[c] %@) AND (iszeroepisode == %i) AND (episodeOffset == %i)", ctitle,rctitle, group, zeroepisode, offset] ;
     NSFetchRequest * exfetch = [[NSFetchRequest alloc] init];
     exfetch.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
     [exfetch setPredicate: predicate];

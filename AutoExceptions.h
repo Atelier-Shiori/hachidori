@@ -16,5 +16,6 @@
                                        group:(NSString *)group
                                 correcttitle:(NSString *)correcttitle
                                hcorrecttitle:(NSString *)hcorrecttitle
-                                 zeroepisode:(bool)zeroepisode;
+                                 zeroepisode:(bool)zeroepisode
+                                      offset:(int)offset;
 @end
