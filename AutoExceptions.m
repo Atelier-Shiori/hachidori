@@ -67,9 +67,11 @@
     long statusCode = [request getStatusCode];
     switch (statusCode) {
         case 200:{
-            //Clear Auto Exceptions
-            [AutoExceptions clearAutoExceptions];
             NSLog(@"Updating Auto Exceptions!");
+            if (![[NSUserDefaults standardUserDefaults] valueForKey:@"updatedaexceptions"]) {
+                [AutoExceptions clearAutoExceptions];
+               [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true]forKey:@"updatedaexceptions"];
+            }
             //Parse and Import
             NSData *jsonData = [request getResponseData];
             NSError *error = nil;
@@ -77,24 +79,37 @@
             AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
             NSManagedObjectContext *moc = [delegate getObjectContext];
             for (NSDictionary *d in a) {
+                NSString * detectedtitle = d[@"detectedtitle"];
+                NSString * group = d[@"group"];
+                NSString * correcttitle = d[@"correcttitle"];
+                NSString * hcorrecttitle = (NSString *)d[@"hcorrecttitle"];
+                bool iszeroepisode = [(NSNumber *)d[@"iszeroepisode"] boolValue];
                 NSError * error = nil;
-                // Add Entry to Auto Exceptions
-                NSManagedObject *obj = [NSEntityDescription
-                                            insertNewObjectForEntityForName:@"AutoExceptions"
-                                            inManagedObjectContext: moc];
-                // Set values in the new record
-                [obj setValue:d[@"detectedtitle"] forKey:@"detectedTitle"];
-                if ([(NSString *)d[@"hcorrecttitle"] length] > 0) {
-                    [obj setValue:d[@"hcorrecttitle"] forKey:@"correctTitle"]; // Use Correct Kitsu Title
+                NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode];
+                if (obj) {
+                    // Update Entry
+                    [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
+                    [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                 }
                 else{
-                    [obj setValue:d[@"correcttitle"] forKey:@"correctTitle"]; // Use Universal Correct Title
+                    // Add Entry to Auto Exceptions
+                    obj = [NSEntityDescription
+                           insertNewObjectForEntityForName:@"AutoExceptions"
+                           inManagedObjectContext: moc];
+                    // Set values in the new record
+                    [obj setValue:detectedtitle forKey:@"detectedTitle"];
+                    if ([hcorrecttitle length] > 0) {
+                        [obj setValue:hcorrecttitle forKey:@"correctTitle"]; // Use Correct Kitsu Title
+                    }
+                    else{
+                        [obj setValue:correcttitle forKey:@"correctTitle"]; // Use Universal Correct Title
+                    }
+                    [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
+                    [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
+                    [obj setValue:group forKey:@"group"];
+                    [obj setValue:[NSNumber numberWithBool:iszeroepisode] forKey:@"iszeroepisode"];
+                    [obj setValue:d[@"mappedepisode"] forKey:@"mappedepisode"];
                 }
-                [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
-                [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
-                [obj setValue:d[@"group"] forKey:@"group"];
-                [obj setValue:d[@"iszeroepisode"] forKey:@"iszeroepisode"];
-                [obj setValue:d[@"mappedepisode"] forKey:@"mappedepisode"];
                 //Save
                 [moc save:&error];
             }
@@ -126,6 +141,32 @@
     [moc save:&error];
     // Clear Core Data Objects from Memory
     [moc reset];
+}
++(NSManagedObject *)checkAutoExceptionsEntry:(NSString *)ctitle
+group:(NSString *)group
+correcttitle:(NSString *)correcttitle
+hcorrecttitle:(NSString *)hcorrecttitle
+                    zeroepisode:(bool)zeroepisode{
+    // Return existing offline queue item
+    NSError * error;
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    NSManagedObjectContext * moc = [delegate getObjectContext];
+    NSString * rctitle;
+    if (hcorrecttitle) {
+        rctitle = hcorrecttitle;
+    }
+    else{
+        rctitle = correcttitle;
+    }
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (correctTitle == %@) AND (group ==[c] %@) AND (iszeroepisode == %i)", ctitle,rctitle, group, zeroepisode] ;
+    NSFetchRequest * exfetch = [[NSFetchRequest alloc] init];
+    exfetch.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
+    [exfetch setPredicate: predicate];
+    NSArray * exceptions = [moc executeFetchRequest:exfetch error:&error];
+    if (exceptions.count > 0) {
+        return (NSManagedObject *)exceptions[0];
+    }
+    return nil;
 }
 
 @end
