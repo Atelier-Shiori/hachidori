@@ -71,7 +71,7 @@
 -(void)finish:(NSDictionary *)d{
     selectedtitle = d[@"title"];
     selectedaniid = d[@"slug"];
-    if (d[@"episode_count"] != [NSNull null]) {
+    if (d[@"episode_count"] != nil) {
         selectedtotalepisodes = ((NSNumber *)d[@"episode_count"]).intValue;
     }
     else{

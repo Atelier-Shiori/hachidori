@@ -1059,7 +1059,7 @@
     if (d[@"endDate"] != [NSNull null]) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"endDate"]]];
     }
-    if (d[@"episode_count"] != [NSNull null]){
+    if (d[@"episode_count"] != nil){
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episodeCount"]]];
     }
     else{

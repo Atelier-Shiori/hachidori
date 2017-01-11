@@ -52,7 +52,7 @@
             // MAL ID for MAL Syncing
             //MALID = [NSString stringWithFormat:@"%@", LastScrobbledInfo[@"mal_id"]];
         }
-        if (LastScrobbledInfo[@"episode_count"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
+        if (LastScrobbledInfo[@"episode_count"] == nil ) { // To prevent the scrobbler from failing because there is no episode total.
             TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists

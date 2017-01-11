@@ -160,7 +160,7 @@
                 }
                 //Return titleid if episode is valid
                 int episodecount;
-                if (searchentry[@"episodeCount"] == [NSNull null]) {
+                if (searchentry[@"episodeCount"] == nil) {
                     // No episode Count, set episode count to zero
                     episodecount = 0;
                 }
@@ -310,7 +310,7 @@
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0 && !unittesting) {
         NSNumber * totalepisodes;
-        if (found[@"episode_count"] != [NSNull null]) {
+        if (found[@"episode_count"] != nil) {
             totalepisodes = (NSNumber *)found[@"episodeCount"];
         }
         else{
