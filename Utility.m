@@ -55,14 +55,40 @@
                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                   kCFStringEncodingUTF8 ));
 }
++(void)donateCheck:(AppDelegate*)delegate{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"] == nil){
+        [Utility setReminderDate];
+    }
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"] timeIntervalSinceNow] < 0) {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"donated"]){
+            int validkey = [Utility checkDonationKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"donatekey"] name:[[NSUserDefaults standardUserDefaults] objectForKey:@"donor"]];
+            if (validkey == 1){
+                //Reset check
+                [Utility setReminderDate];
+            }
+            else if (validkey == 2){
+                //Try again when there is internet access
+            }
+            else{
+                //Invalid Key
+                [Utility showsheetmessage:NSLocalizedString(@"Donation Key Error",nil) explaination:NSLocalizedString(@"This key has been revoked. Please contact the author of this program or enter a valid key.",nil) window:nil];
+                [Utility showDonateReminder:delegate];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"donated"];
+            }
+        }
+        else{
+            [Utility showDonateReminder:delegate];
+        }
+    }
+}
 +(void)showDonateReminder:(AppDelegate*)delegate{
     // Shows Donation Reminder
     NSAlert * alert = [[NSAlert alloc] init] ;
-    [alert addButtonWithTitle:@"Donate"];
-    [alert addButtonWithTitle:@"Enter Key"];
-    [alert addButtonWithTitle:@"Remind Me Later"];
-    [alert setMessageText:@"Please Support Hachidori"];
-    [alert setInformativeText:@"We noticed that you have been using the MAL Sync functionality for a while. Although this functionality is aviliable to everyone, it cost us money to host the Unofficial MAL API to make this function possible.. \r\rIf you find this function. helpful, please consider making a donation. You will recieve a key to remove this message while MAL Sync is enabled."];
+    [alert addButtonWithTitle:NSLocalizedString(@"Donate",nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Enter Key",nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Remind Me Later",nil)];
+    [alert setMessageText:NSLocalizedString(@"Please Support Hachidori",nil)];
+    [alert setInformativeText:NSLocalizedString(@"We noticed that you have been using the MAL Sync functionality for a while. Although this functionality is aviliable to everyone, it cost us money to host the Unofficial MAL API to make this function possible. \r\rIf you find this function helpful, please consider making a donation. You will recieve a key to remove this message while MAL Sync is enabled.",nil)];
     [alert setShowsSuppressionButton:NO];
     // Set Message type to Warning
     [alert setAlertStyle:NSInformationalAlertStyle];

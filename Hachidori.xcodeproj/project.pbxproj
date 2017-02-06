@@ -11,7 +11,7 @@
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
 		2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
 		2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D807F521E201332003E2FCF /* DonationWindowController.m */; };
-		2D807F551E20147F003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F541E20147F003E2FCF /* DonationWindow.xib */; };
+		2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F581E48FD10003E2FCF /* DonationWindow.xib */; };
 		2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DA3D7651E0A079100BD2457 /* Localizable.strings */; };
 		2DC022521E01B52900A7E928 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; };
 		2DC022531E01BA9400A7E928 /* OAuth2Client.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -121,7 +121,7 @@
 		2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2D807F511E201332003E2FCF /* DonationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonationWindowController.h; sourceTree = "<group>"; };
 		2D807F521E201332003E2FCF /* DonationWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonationWindowController.m; sourceTree = "<group>"; };
-		2D807F541E20147F003E2FCF /* DonationWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DonationWindow.xib; sourceTree = "<group>"; };
+		2D807F571E48FD10003E2FCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DonationWindow.xib; sourceTree = "<group>"; };
 		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2DC022511E01B52900A7E928 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = Frameworks/OAuth2Client.framework; sourceTree = "<group>"; };
 		2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
@@ -355,7 +355,7 @@
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				2D807F541E20147F003E2FCF /* DonationWindow.xib */,
+				2D807F581E48FD10003E2FCF /* DonationWindow.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
 				6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */,
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
@@ -636,7 +636,7 @@
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
 				825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */,
-				2D807F551E20147F003E2FCF /* DonationWindow.xib in Resources */,
+				2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */,
 				6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */,
 				5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */,
 				2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */,
@@ -742,6 +742,14 @@
 				829FB41D19F739700026EAC2 /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		2D807F581E48FD10003E2FCF /* DonationWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2D807F571E48FD10003E2FCF /* Base */,
+			);
+			name = DonationWindow.xib;
 			sourceTree = "<group>";
 		};
 		2DA3D7651E0A079100BD2457 /* Localizable.strings */ = {

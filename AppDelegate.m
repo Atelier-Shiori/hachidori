@@ -1150,6 +1150,8 @@
                  [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"MyAnimeList Sync failed, see console log."];
              }
              [ForceMALSync setEnabled:YES];
+             // Show Donation Message
+             [Utility donateCheck:self];
             });
         });
 }
