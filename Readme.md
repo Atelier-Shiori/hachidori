@@ -3,7 +3,7 @@ Hachidori (はちどり) is an open sourced kitsu.io client for OS X based on th
  
 Requires latest SDK (10.12) and XCode 8 or later to compile. Deployment target is 10.9.
 
-Help the development of Hachidori by becoming our [Patreon](http://www.patreon.com/chikorita157)
+Help the development of Hachidori by becoming our [Patreon](http://www.patreon.com/ateliershiori)
 
 ## How to use
 See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Started).
@@ -29,11 +29,13 @@ Hachidori is now a localizable application. If you want to help translate, creat
 All the frameworks are included. Just build! Here are the frameworks that are used in this app:
 
 * anitomy-osx.framework (Included as a submodule)
+* AFNetworking.framework
+* EasyNSURLConnection.framework
 * Sparkle.framework
 * OgreKit.framework
-* OAuth2Client.framework
  
 Licenses for these frameworks and related classes can be seen [here](https://github.com/Atelier-Shiori/wiki/Credits).
 
-##License
+## License
+
 Unless stated, Source code is licensed under [New BSD License](https://github.com/Atelier-Shiori/hachidori/blob/master/License.md).

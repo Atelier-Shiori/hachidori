@@ -8,7 +8,7 @@
 
 #import "Hachidori+MALSync.h"
 #import "Hachidori+Keychain.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Hachidori (MALSync)
 -(BOOL)sync{
@@ -162,7 +162,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Get Information
-    [request startoAuthRequest];
+    [request startRequest];
     // Get Status Code
     long statusCode = [request getStatusCode];
     if (statusCode == 200) {

@@ -1,6 +1,6 @@
 //
 //  EasyNSURLConnection.h
-//  Hachidori
+//  MAL Updater OS X
 //
 //  Created by Nanoha Takamachi on 2014/11/25.
 //  Copyright (c) 2014年 Atelier Shiori.
@@ -15,7 +15,7 @@
     NSString * postmethod;
     NSMutableArray * headers;
     NSMutableArray * formdata;
-    __weak NSHTTPURLResponse * response;
+   __weak NSHTTPURLResponse * response;
     NSData * responsedata;
     __weak NSError * error;
     NSURL * URL;
@@ -38,8 +38,7 @@
 -(void)setURL:(NSURL *)address;
 -(void)setPostMethod:(NSString *)method;
 -(void)startRequest;
--(void)startoAuthRequest;
 -(void)startFormRequest;
--(void)startJSONFormRequest;
 -(void)startJSONRequest:(NSString *)body;
+-(void)startJSONFormRequest;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "Hachidori+Update.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Hachidori (Update)
 -(int)updatetitle:(NSString *)titleid {
@@ -56,7 +56,9 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
-        //Set Status
+    //Set OAuth Token
+    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
+    //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
     NSString * tmpWatchStatus;
@@ -183,6 +185,8 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
+    //Set OAuth Token
+    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -240,6 +244,8 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
+    //Set OAuth Token
+    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -282,6 +288,8 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
+    //Set OAuth Token
+    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
     [request setPostMethod:@"DELETE"];
         // Do Update
     [request startFormRequest];

@@ -7,7 +7,7 @@
 //
 
 #import "AdvancedPrefController.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 #import "Utility.h"
 #import "Base64Category.h"
 

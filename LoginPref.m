@@ -7,8 +7,10 @@
 //
 
 #import "LoginPref.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 #import "Utility.h"
+#import <AFNetworking/AFOAuth2Manager.h>
+#import "ClientConstants.h"
 
 @implementation LoginPref
 @synthesize loginpanel;
@@ -52,14 +54,13 @@
 -(void)loadlogin
 {
 	// Load Username
-    NXOAuth2Account *ac = [self getFirstAccount];
+    AFOAuthCredential *ac = [self getFirstAccount];
 	if (ac) {
 		[clearbut setEnabled: YES];
 		[savebut setEnabled: NO];
         [loggedinview setHidden:NO];
         [loginview setHidden:YES];
-        NSDictionary * userdata = (NSDictionary *)ac.userData;
-        loggedinuser.stringValue = [NSString stringWithFormat:@"%@", userdata[@"Username"]];
+        loggedinuser.stringValue = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
 	}
 	else {
 		//Disable Clearbut
@@ -92,36 +93,35 @@
        	}
 }
 -(void)login:(NSString *)username password:(NSString *)password{
-    [[NXOAuth2AccountStore sharedStore] requestAccessToAccountWithType:@"Hachidori"
-                                                              username:fieldusername.stringValue
-                                                              password:fieldpassword.stringValue];
-    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreAccountsDidChangeNotification
-                                                      object:[NXOAuth2AccountStore sharedStore]
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *aNotification){
-                                                      // Update your UI
-                                                              [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
-                                                      [self getFirstAccount].userData = @{@"Username" : fieldusername.stringValue, @"id" : [self retrieveUserID:fieldusername.stringValue]};
-                                                      [clearbut setEnabled: YES];
-                                                      loggedinuser.stringValue = username;
-                                                      [loggedinview setHidden:NO];
-                                                      [loginview setHidden:YES];
-                                                  }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreDidFailToRequestAccessNotification
-                                                      object:[NXOAuth2AccountStore sharedStore]
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *aNotification){
-                                                      NSError *error = (aNotification.userInfo)[NXOAuth2AccountStoreErrorKey];
-                                                      // Do something with the error
-                                                      //Login Failed, show error message
-                                                      [Utility showsheetmessage:@"Hachidori was unable to log you in since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:self.view.window];
-                                                      NSLog(@"%@",error);
-                                                      [savebut setEnabled: YES];
-                                                      savebut.keyEquivalent = @"\r";
-                                                      [loggedinview setHidden:YES];
-                                                      [loginview setHidden:NO];
-                                                  }];
-}
+    NSURL *baseURL = [NSURL URLWithString:kBaseURL];
+    AFOAuth2Manager *OAuth2Manager =
+    [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
+                                    clientID:kclient
+                                      secret:ksecretkey];
+        [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL parameters:@{@"grant_type":@"password", @"username":username, @"password":password} success:^(AFOAuthCredential *credential) {
+        // Update your UI
+        [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
+            [AFOAuthCredential storeCredential:credential
+                                withIdentifier:@"Hachidori"];
+            [[NSUserDefaults standardUserDefaults] setValue:fieldusername.stringValue forKey:@"loggedinusername"];
+            [[NSUserDefaults standardUserDefaults] setValue:[self retrieveUserID:fieldusername.stringValue] forKey:@"UserID"];
+        [clearbut setEnabled: YES];
+        loggedinuser.stringValue = username;
+        [loggedinview setHidden:NO];
+        [loginview setHidden:YES];
+    }
+    failure:^(NSError *error) {
+                                                   NSLog(@"Error: %@", error);
+                                                   // Do something with the error
+                                                   //Login Failed, show error message
+                                                   [Utility showsheetmessage:@"Hachidori was unable to log you in since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:self.view.window];
+                                                   NSLog(@"%@",error);
+                                                   [savebut setEnabled: YES];
+                                                   savebut.keyEquivalent = @"\r";
+                                                   [loggedinview setHidden:YES];
+                                                   [loginview setHidden:NO];
+                                               }];
+   }
 -(IBAction)registerhummingbird:(id)sender
 {
 	//Show Kitsu Registration Page
@@ -145,7 +145,9 @@
         alert.alertStyle = NSWarningAlertStyle;
         if ([alert runModal]== NSAlertFirstButtonReturn) {
             // Remove Oauth Account
-            [[NXOAuth2AccountStore sharedStore]  removeAccount:[self getFirstAccount]];
+            [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
+            [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
+            [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
             //Disable Clearbut
             [clearbut setEnabled: NO];
             [savebut setEnabled: YES];
@@ -177,7 +179,9 @@
         // Get Username
         NSString * username = [self getUsername];
         // Remove Oauth Account
-        [[NXOAuth2AccountStore sharedStore]  removeAccount:[self getFirstAccount]];
+        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
         //Perform Login
         [self login:username password:passwordinput.stringValue];
     }
@@ -203,18 +207,11 @@
         [NSApp endSheet:self.loginpanel returnCode:1];
     }
 }
--(NXOAuth2Account *)getFirstAccount{
-    for (NXOAuth2Account *account in [NXOAuth2AccountStore sharedStore].accounts) {
-        return account;
-    };
-    return nil;
+-(AFOAuthCredential *)getFirstAccount{
+    return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
 }
 -(NSString *)getUsername{
-    for (NXOAuth2Account *account in [NXOAuth2AccountStore sharedStore].accounts) {
-        NSDictionary * userdata = (NSDictionary *)account.userData;
-        return userdata[@"username"];
-    };
-    return nil;
+    return [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
 }
 -(NSString *)retrieveUserID:(NSString *)username{
     //Set library/scrobble API
@@ -223,7 +220,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     // Get Information
-    [request startoAuthRequest];
+    [request startRequest];
     NSDictionary * d;
     long statusCode = [request getStatusCode];
     if (statusCode == 200 || statusCode == 201 ) {

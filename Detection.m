@@ -8,7 +8,7 @@
 
 #import "Detection.h"
 #import "Recognition.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @interface Detection()
 #pragma Private Methods

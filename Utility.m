@@ -7,7 +7,7 @@
 //
 
 #import "Utility.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Utility
 +(int)checkMatch:(NSString *)title

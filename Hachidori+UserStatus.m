@@ -7,7 +7,7 @@
 //
 
 #import "Hachidori+UserStatus.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 #import "Hachidori+Keychain.h"
 
 @implementation Hachidori (UserStatus)
@@ -20,8 +20,10 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
+    //Set OAuth Token
+    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
     // Get Information
-    [request startoAuthRequest];
+    [request startRequest];
     NSDictionary * d;
     long statusCode = [request getStatusCode];
     NSError * error = [request getError];
@@ -91,8 +93,10 @@
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
+    // Set Auth Header
+    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
     //Get Information
-    [request startoAuthRequest];
+    [request startRequest];
     // Get Status Code
     long statusCode = [request getStatusCode];
     if (statusCode == 200) {

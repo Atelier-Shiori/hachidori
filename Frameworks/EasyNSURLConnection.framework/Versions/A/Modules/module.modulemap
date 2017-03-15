@@ -1,0 +1,6 @@
+framework module EasyNSURLConnection {
+  umbrella header "EasyNSURLConnection.h"
+
+  export *
+  module * { export * }
+}

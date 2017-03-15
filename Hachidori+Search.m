@@ -8,7 +8,7 @@
 
 #import "Hachidori+Search.h"
 #import "Utility.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 #import "ExceptionsCache.h"
 #import "Recognition.h"
 

@@ -7,7 +7,7 @@
 //
 
 #import "AutoExceptions.h"
-#import "EasyNSURLConnection.h"
+#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 #import "AppDelegate.h"
 
 @implementation AutoExceptions

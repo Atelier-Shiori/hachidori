@@ -20,6 +20,8 @@
 #import "Utility.h"
 #import "HistoryWindow.h"
 #import "DonationWindowController.h"
+#import "ClientConstants.h"
+
 
 @implementation AppDelegate
 
@@ -162,12 +164,12 @@
 	 registerDefaults:defaultValues];
 	// OAuth Settings
     // TODO: Get own Client ID
-    [[NXOAuth2AccountStore sharedStore] setClientID:@"dd031b32d2f56c990b1425efe6c42ad847e7fe3ab46bf1299f05ecd856bdb7dd"
-                                             secret:@"54d7307928f63414defd96399fc31ba847961ceaecef3a5fd93144e960c0e151"
-                                   authorizationURL:[NSURL URLWithString:@"https://kitsu.io/api/oauth/authorize"]
-                                           tokenURL:[NSURL URLWithString:@"https://kitsu.io/api/oauth/token"]
+    /*[[NXOAuth2AccountStore sharedStore] setClientID:kclient
+                                             secret:ksecretkey
+                                   authorizationURL:[NSURL URLWithString:kAuthURL]
+                                           tokenURL:[NSURL URLWithString:kTokenURL]
                                         redirectURL:nil
-                                     forAccountType:@"Hachidori"];
+                                     forAccountType:@"Hachidori"];*/
 }
 - (void) awakeFromNib{
     
@@ -496,6 +498,10 @@
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(queue, ^{
+        if ([haengine checkexpired]){
+            [haengine refreshtoken];
+            return;
+        }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
             // Check for latest list of Auto Exceptions automatically each week
             if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] != nil) {

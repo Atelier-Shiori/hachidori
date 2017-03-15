@@ -13,8 +13,6 @@
 		2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D807F521E201332003E2FCF /* DonationWindowController.m */; };
 		2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F581E48FD10003E2FCF /* DonationWindow.xib */; };
 		2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DA3D7651E0A079100BD2457 /* Localizable.strings */; };
-		2DC022521E01B52900A7E928 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; };
-		2DC022531E01BA9400A7E928 /* OAuth2Client.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DC022511E01B52900A7E928 /* OAuth2Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */; };
 		3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3A20383112122B2B003813B2 /* dsa_pub.pem */; };
 		3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -45,7 +43,6 @@
 		5C75EAC71A360C4A00A20229 /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */; };
 		5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C22EE1A85E80000D2FCC5 /* string_score.c */; };
 		5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */; };
-		5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */; };
 		5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */; };
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
@@ -79,6 +76,12 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
+		910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
+		910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
+		91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,8 +102,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
+				910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */,
+				91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */,
 				3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */,
-				2DC022531E01BA9400A7E928 /* OAuth2Client.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,7 +128,6 @@
 		2D807F571E48FD10003E2FCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DonationWindow.xib; sourceTree = "<group>"; };
 		2DA086061E2DBA4200DD9C26 /* MAL_Updater_OS_X_DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
 		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2DC022511E01B52900A7E928 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = Frameworks/OAuth2Client.framework; sourceTree = "<group>"; };
 		2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
 		2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Keychain.m"; sourceTree = "<group>"; };
 		3A20383112122B2B003813B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -171,8 +174,6 @@
 		5C75EAC61A360C4A00A20229 /* HotKeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeyConstants.m; sourceTree = "<group>"; };
 		5C8C22EE1A85E80000D2FCC5 /* string_score.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_score.c; sourceTree = "<group>"; };
 		5C8C22EF1A85E80000D2FCC5 /* string_score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_score.h; sourceTree = "<group>"; };
-		5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNSURLConnection.h; sourceTree = "<group>"; };
-		5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNSURLConnection.m; sourceTree = "<group>"; };
 		5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LoginPref.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginPref.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotkeysPrefs.h; sourceTree = "<group>"; };
@@ -227,6 +228,10 @@
 		82F7A9A71A195A8300183EF7 /* Recognition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recognition.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Hachidori-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hachidori-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Hachidori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hachidori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		91041A671E79EC8000F268FE /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
+		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
+		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
+		91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyNSURLConnection.framework; path = Frameworks/EasyNSURLConnection.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,7 +246,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
 				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
+				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
+				910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */,
+				91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */,
@@ -250,7 +259,6 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
-				2DC022521E01B52900A7E928 /* OAuth2Client.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +288,8 @@
 				8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */,
 				8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */,
 				8245D7601A8B265900B1ED73 /* Hachidori+Search.m */,
+				918C4F9B1E79C819001E7B30 /* ClientConstants.h */,
+				918C4F9C1E79C819001E7B30 /* ClientConstants.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -303,7 +313,8 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2DC022511E01B52900A7E928 /* OAuth2Client.framework */,
+				91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */,
+				91041A671E79EC8000F268FE /* AFNetworking.framework */,
 				59D5037A1CB016840002532D /* Sparkle.framework */,
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
 				3A4C61D3120DF3ED0032F63A /* OgreKit.framework */,
@@ -428,9 +439,7 @@
 				5C75EAB51A36069100A20229 /* Hotkey */,
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
 				593B55821CC41DC200B7B254 /* Base64Category.h */,
-				5CA24F6F1A256EEF003DDDEA /* EasyNSURLConnection.h */,
 				593B55831CC41DC200B7B254 /* Base64Category.m */,
-				5CA24F701A256EEF003DDDEA /* EasyNSURLConnection.m */,
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 			);
 			name = "Other Classes";
@@ -684,10 +693,10 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
 				593B55841CC41DC200B7B254 /* Base64Category.m in Sources */,
-				5CA24F711A256EF0003DDDEA /* EasyNSURLConnection.m in Sources */,
 				5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */,
 				5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */,
 				2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */,
+				918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,
@@ -956,7 +965,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Debug";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
@@ -992,7 +1001,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;

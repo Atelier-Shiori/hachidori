@@ -12,6 +12,8 @@
 #import "Hachidori+Search.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+UserStatus.h"
+#import "ClientConstants.h"
+#import "AppDelegate.h"
 
 
 @implementation Hachidori
@@ -102,17 +104,14 @@
 -(NSString *)getSlug{
     return slug;
 }
--(NXOAuth2Account *)getFirstAccount{
-    for (NXOAuth2Account *account in [NXOAuth2AccountStore sharedStore].accounts) {
-        return account;
-    };
-    return nil;
+-(AFOAuthCredential *)getFirstAccount{
+   return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
 }
 -(NSString *)getUserid{
-    for (NXOAuth2Account *account in [NXOAuth2AccountStore sharedStore].accounts) {
-        NSDictionary * userdata = (NSDictionary *)account.userData;
-        return (NSString *)userdata[@"id"];
-    };
+    NSString * userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID"];
+    if (userid){
+        return userid;
+    }
     return nil;
 }
 /*
@@ -417,6 +416,31 @@
 			if (found){break;} //Break from exceptions check loop
         }
     }
+}
+-(bool)checkexpired{
+    AFOAuthCredential * cred = [self getFirstAccount];
+    return cred.expired;
+}
+-(void)refreshtoken{
+    AFOAuthCredential *cred =
+    [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
+    NSURL *baseURL = [NSURL URLWithString:kBaseURL];
+    AFOAuth2Manager *OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
+                                                                     clientID:kclient
+                                                                       secret:ksecretkey];
+    [OAuth2Manager setUseHTTPBasicAuthentication:NO];
+    [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL
+                                            parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} success:^(AFOAuthCredential *credential) {
+        NSLog(@"Token refreshed");
+        [AFOAuthCredential storeCredential:credential
+                            withIdentifier:@"Hachidori"];
+        AppDelegate * appdel = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+        [appdel updatenow:self];
+    }
+                                               failure:^(NSError *error) {
+                                                   NSLog(@"Token cannot be refreshed: %@", error);
+                                               }];
+   
 }
 
 @end
