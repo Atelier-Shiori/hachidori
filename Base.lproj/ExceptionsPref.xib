@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12106.1" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12106.1"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ExceptionsPref">
@@ -40,7 +39,7 @@
                     <tabViewItems>
                         <tabViewItem label="Anime Title Exceptions" identifier="1" id="dDU-b1-Ua0">
                             <view key="view" id="mi1-sZ-x1p">
-                                <rect key="frame" x="10" y="33" width="189" height="0.0"/>
+                                <rect key="frame" x="10" y="33" width="174" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="Removes title from exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2FI-VL-IAQ">
@@ -190,11 +189,11 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1Ga-OA-HBD">
-                                            <rect key="frame" x="1" y="7" width="0.0" height="16"/>
+                                            <rect key="frame" x="-7" y="8" width="0.0" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Lp6-QF-eWj">
-                                            <rect key="frame" x="-15" y="23" width="16" height="0.0"/>
+                                            <rect key="frame" x="-14" y="16" width="15" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" focusRingType="none" id="nAC-LU-93c">
@@ -275,7 +274,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="JTq-QJ-fB0">
-                                            <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                            <rect key="frame" x="1" y="-14" width="0.0" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="AlK-1m-c1v">
@@ -350,12 +349,12 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <popUpButtonCell key="dataCell" type="bevel" title="All Sources" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="2bS-50-LW2" id="9VN-kZ-GfV">
+                                                            <popUpButtonCell key="dataCell" type="bevel" title="All Sources" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="2bS-50-LW2" id="9VN-kZ-GfV">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" id="f5B-ZJ-OBx">
                                                                     <items>
-                                                                        <menuItem title="All Sources" id="2bS-50-LW2">
+                                                                        <menuItem title="All Sources" state="on" id="2bS-50-LW2">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem isSeparatorItem="YES" id="Jc9-U8-9aP"/>
@@ -389,6 +388,9 @@
                                                                         <menuItem title="IINA" id="PLR-cG-Bhm">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
+                                                                        <menuItem title="VLCX" id="HuB-or-85w">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
                                                                         <menuItem isSeparatorItem="YES" id="zeX-r5-Ux4"/>
                                                                         <menuItem title="AnimeNewsNetwork" id="01Q-Xx-pgR">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -405,7 +407,7 @@
                                                                         <menuItem title="Funimation" id="JSJ-4a-beg">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="MyAnimeList" state="on" id="Kcy-Fp-Rme">
+                                                                        <menuItem title="MyAnimeList" id="Kcy-Fp-Rme">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem title="Plex" id="97Q-8b-gQ2">
@@ -433,11 +435,11 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="yAB-lX-3EG">
-                                            <rect key="frame" x="1" y="7" width="0.0" height="16"/>
+                                            <rect key="frame" x="-7" y="8" width="0.0" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="qqs-n7-ngN">
-                                            <rect key="frame" x="-15" y="23" width="16" height="0.0"/>
+                                            <rect key="frame" x="-14" y="16" width="15" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="Y7w-8K-yca">
