@@ -143,18 +143,20 @@
         [alert setInformativeText:NSLocalizedString(@"Once you remove this account, you need to reauthenticate your account before you can use this application.",nil)];
         // Set Message type to Warning
         alert.alertStyle = NSWarningAlertStyle;
-        if ([alert runModal]== NSAlertFirstButtonReturn) {
-            // Remove Oauth Account
-            [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
-            [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
-            [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
-            //Disable Clearbut
-            [clearbut setEnabled: NO];
-            [savebut setEnabled: YES];
-            loggedinuser.stringValue = @"";
-            [loggedinview setHidden:YES];
-            [loginview setHidden:NO];
-        }
+        [alert beginSheetModalForWindow:[[self view] window] completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode== NSAlertFirstButtonReturn) {
+                // Remove Oauth Account
+                [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
+                [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
+                [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
+                //Disable Clearbut
+                [clearbut setEnabled: NO];
+                [savebut setEnabled: YES];
+                loggedinuser.stringValue = @"";
+                [loggedinview setHidden:YES];
+                [loginview setHidden:NO];
+            }
+        }];
     }
     else{
         [Utility showsheetmessage:@"Cannot Remove Account" explaination:@"Please turn off automatic scrobbling before removing this account." window:self.view.window];

@@ -158,11 +158,12 @@
     [alert setInformativeText:NSLocalizedString(@"Since you are disabling Auto Exceptions, you can delete the Auto Exceptions Data. You will be able to download it again.",nil)];
     // Set Message type to Warning
     alert.alertStyle = NSWarningAlertStyle;
-    if ([alert runModal]== NSAlertFirstButtonReturn) {
+        [alert beginSheetModalForWindow:[[self view] window] completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode== NSAlertFirstButtonReturn) {
         [AutoExceptions clearAutoExceptions];
-    }
+            }
         [alert release];
+        }];
     }
-
 }
 @end

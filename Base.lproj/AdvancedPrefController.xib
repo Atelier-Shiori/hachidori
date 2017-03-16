@@ -15,6 +15,7 @@
                 <outlet property="loggedinview" destination="sE7-OH-iBA" id="Kvd-9c-RJp"/>
                 <outlet property="loginview" destination="6ds-Av-lqq" id="Eh7-Ok-Gh6"/>
                 <outlet property="savebut" destination="GkH-Ij-yQW" id="n2R-KA-f70"/>
+                <outlet property="testapibtn" destination="LfW-yE-ZYK" id="sZK-eQ-cyA"/>
                 <outlet property="view" destination="c22-O7-iKe" id="n4d-Z2-zna"/>
             </connections>
         </customObject>

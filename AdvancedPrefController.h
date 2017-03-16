@@ -20,6 +20,7 @@
     IBOutlet NSButton * savebut;
     IBOutlet NSButton * clearbut;
     IBOutlet NSTextField * loggedinuser;
+    IBOutlet NSButton *testapibtn;
     AppDelegate * appdelegate;
     IBOutlet NSView * loginview;
     IBOutlet NSView * loggedinview;
