@@ -181,6 +181,20 @@
         else if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
             return nil;
         }
+        else if ([(NSString *)result[@"site"] isEqualToString:@"plex"]){
+            //Do additional pharsing
+            NSDictionary *d2 = [[Recognition alloc] recognize:result[@"title"]];
+            NSString * DetectedTitle = (NSString *)d2[@"title"];
+            NSString * DetectedEpisode = (NSString *)d2[@"episode"];
+            NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
+            NSNumber * DetectedSeason = d2[@"season"];
+            NSString * DetectedGroup = (NSString *)d2[@"group"];
+            if (DetectedTitle.length > 0 && ![self checkifTitleIgnored:DetectedTitle source:result[@"site"]]) {
+                //Return result
+                return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": d2[@"types"]};
+            }
+            
+        }
         else if (result[@"episode"] == nil){
             //Episode number is missing. Do not use the stream data as a failsafe to keep the program from crashing
             return nil;
@@ -194,6 +208,7 @@
             return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": [NSArray new]};
         }
     }
+    return nil;
 }
 -(NSDictionary *)detectKodi{
     // Kodi/Plex Theater Detection
