@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MASPreferencesViewController.h"
+#import <MASPreferences/MASPreferences.h>
 #import "FixSearchDialog.h"
 #import "AppDelegate.h"
 @class FixSearchDialog;

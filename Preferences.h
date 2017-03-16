@@ -9,7 +9,7 @@
 
 #ifndef Hachidori_Preferences_h
 #define Hachidori_Preferences_h
-#import "MASPreferencesWindowController.h"
+#import <MASPreferences/MASPreferences.h>
 #import "GeneralPrefController.h"
 #import "LoginPref.h"
 #import "HotkeysPrefs.h"

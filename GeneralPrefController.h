@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CoreServices/CoreServices.h>
-#import "MASPreferencesViewController.h"
+#import <MASPreferences/MASPreferences.h>
 
 
 

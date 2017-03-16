@@ -31,10 +31,7 @@
 		5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C07DA741A815F4B0003A827 /* HistoryWindow.xib */; };
 		5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0A2C4A122C7F960096908D /* Credits.rtf */; };
 		5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2B9DFB1221EB25006DEF0D /* CoreData.framework */; };
-		5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D505F1329810000B31C08 /* libxml2.dylib */; };
-		5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2D50611329810700B31C08 /* libxml2.2.dylib */; };
 		5C2E54181A45046B006858B3 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C2E54171A45046B006858B3 /* testdata.json */; };
-		5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C54FFF81A369A4D00020C87 /* MASPreferencesWindow.xib */; };
 		5C75EAC01A36069E00A20229 /* MASShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAB71A36069E00A20229 /* MASShortcut.m */; };
 		5C75EAC11A36069E00A20229 /* MASShortcut+Monitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EAB91A36069E00A20229 /* MASShortcut+Monitoring.m */; };
 		5C75EAC21A36069E00A20229 /* MASShortcut+UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C75EABB1A36069E00A20229 /* MASShortcut+UserDefaults.m */; };
@@ -47,7 +44,6 @@
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
 		5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */; };
-		5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5CD7FF411A449A140050E6CC /* Hachidori_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */; };
 		6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0CF36B1A7DB89300261A43 /* Utility.m */; };
@@ -79,6 +75,9 @@
 		91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
 		910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
 		910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; };
+		912859571E7B3033005E9A2B /* MASPreferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; };
+		912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
 		91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
@@ -104,6 +103,7 @@
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */,
 				91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */,
+				912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */,
 				3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
 			);
@@ -154,12 +154,8 @@
 		5C07DA6E1A815C8B0003A827 /* HistoryWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryWindow.m; sourceTree = "<group>"; };
 		5C07DA731A815F4B0003A827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HistoryWindow.xib; sourceTree = "<group>"; };
 		5C0A2C4A122C7F960096908D /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		5C14563712D52AB900C7031C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		5C2B9DFB1221EB25006DEF0D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		5C2D505F1329810000B31C08 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		5C2D50611329810700B31C08 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		5C2E54171A45046B006858B3 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
-		5C54FFF71A369A4D00020C87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MASPreferencesWindow.xib; sourceTree = "<group>"; };
 		5C75EAB61A36069E00A20229 /* MASShortcut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASShortcut.h; sourceTree = "<group>"; };
 		5C75EAB71A36069E00A20229 /* MASShortcut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASShortcut.m; sourceTree = "<group>"; };
 		5C75EAB81A36069E00A20229 /* MASShortcut+Monitoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcut+Monitoring.h"; sourceTree = "<group>"; };
@@ -178,15 +174,11 @@
 		5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginPref.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CC744D21A474B0600F65E88 /* HotkeysPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotkeysPrefs.h; sourceTree = "<group>"; };
 		5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotkeysPrefs.m; sourceTree = "<group>"; };
-		5CD36B9519F2EA9B007BB6B6 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
-		5CD36B9719F2EA9B007BB6B6 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
-		5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
 		5CD36BB819F2ED88007BB6B6 /* GeneralPrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GeneralPrefController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GeneralPrefController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5CD7FF3C1A449A140050E6CC /* Hachidori Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hachidori Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CD7FF3F1A449A140050E6CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hachidori_Tests.m; sourceTree = "<group>"; };
-		5CFC037419F3396E006B4DAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6F0CF36A1A7DB89300261A43 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		6F0CF36B1A7DB89300261A43 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		6F0F84A01B34699F00EEEC32 /* HachidoriScripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HachidoriScripting.h; sourceTree = "<group>"; };
@@ -229,6 +221,7 @@
 		8D1107310486CEB800E47090 /* Hachidori-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hachidori-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Hachidori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hachidori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91041A671E79EC8000F268FE /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
+		912859551E7B2F0E005E9A2B /* MASPreferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASPreferences.framework; path = Frameworks/MASPreferences.framework; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
 		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
 		91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyNSURLConnection.framework; path = Frameworks/EasyNSURLConnection.framework; sourceTree = "<group>"; };
@@ -247,15 +240,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
+				912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */,
 				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
 				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
 				910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */,
 				91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
-				5C2D50621329810700B31C08 /* libxml2.2.dylib in Frameworks */,
-				5C2D50601329810000B31C08 /* libxml2.dylib in Frameworks */,
 				3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */,
+				912859571E7B3033005E9A2B /* MASPreferences.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
@@ -313,6 +306,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				912859551E7B2F0E005E9A2B /* MASPreferences.framework */,
 				91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */,
 				91041A671E79EC8000F268FE /* AFNetworking.framework */,
 				59D5037A1CB016840002532D /* Sparkle.framework */,
@@ -380,10 +374,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5CFC037419F3396E006B4DAD /* libz.dylib */,
-				5C2D50611329810700B31C08 /* libxml2.2.dylib */,
-				5C2D505F1329810000B31C08 /* libxml2.dylib */,
-				5C14563712D52AB900C7031C /* libxml2.dylib */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -461,10 +451,6 @@
 				5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */,
 				5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */,
 				5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */,
-				5CD36B9519F2EA9B007BB6B6 /* MASPreferencesViewController.h */,
-				5C54FFF81A369A4D00020C87 /* MASPreferencesWindow.xib */,
-				5CD36B9719F2EA9B007BB6B6 /* MASPreferencesWindowController.h */,
-				5CD36B9819F2EA9B007BB6B6 /* MASPreferencesWindowController.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -649,7 +635,6 @@
 				825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */,
 				2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */,
 				6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */,
-				5C54FFF61A369A4D00020C87 /* MASPreferencesWindow.xib in Resources */,
 				2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
 				5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */,
@@ -708,7 +693,6 @@
 				2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */,
 				8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
-				5CD36B9A19F2EA9B007BB6B6 /* MASPreferencesWindowController.m in Sources */,
 				2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
@@ -777,14 +761,6 @@
 				5C07DA731A815F4B0003A827 /* Base */,
 			);
 			name = HistoryWindow.xib;
-			sourceTree = "<group>";
-		};
-		5C54FFF81A369A4D00020C87 /* MASPreferencesWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5C54FFF71A369A4D00020C87 /* Base */,
-			);
-			name = MASPreferencesWindow.xib;
 			sourceTree = "<group>";
 		};
 		5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */ = {
