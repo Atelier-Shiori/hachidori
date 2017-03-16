@@ -20,6 +20,7 @@
 #import "Utility.h"
 #import "HistoryWindow.h"
 #import "DonationWindowController.h"
+#import "MSWeakTimer.h"
 #import "ClientConstants.h"
 
 
@@ -162,16 +163,10 @@
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
-	// OAuth Settings
-    // TODO: Get own Client ID
-    /*[[NXOAuth2AccountStore sharedStore] setClientID:kclient
-                                             secret:ksecretkey
-                                   authorizationURL:[NSURL URLWithString:kAuthURL]
-                                           tokenURL:[NSURL URLWithString:kTokenURL]
-                                        redirectURL:nil
-                                     forAccountType:@"Hachidori"];*/
 }
 - (void) awakeFromNib{
+    // Register queue
+    _privateQueue = dispatch_queue_create("moe.ateliershiori.Hachidori", DISPATCH_QUEUE_CONCURRENT);
     
     //Create the NSStatusBar and set its length
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
@@ -486,18 +481,14 @@
 		scrobbling = TRUE;
 	}
 }
--(void)firetimer:(NSTimer *)aTimer {
+-(void)firetimer {
 	//Tell haengine to detect and scrobble if necessary.
 	NSLog(@"Starting...");
     if (!scrobbleractive) {
         scrobbleractive = true;
         // Disable toggle scrobbler and update now menu items
         [self toggleScrobblingUIEnable:false];
-
-    dispatch_queue_t queue = dispatch_get_global_queue(
-                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(queue, ^{
+        
         if ([haengine checkexpired]){
             [haengine refreshtoken];
             return;
@@ -620,16 +611,16 @@
             scrobbleractive = false;
             [self toggleScrobblingUIEnable:true];
 	});
-    });
     }
 }
 -(void)starttimer {
 	NSLog(@"Auto Scrobble Started.");
-    timer = [NSTimer scheduledTimerWithTimeInterval:300
-                                             target:self
-                                           selector:@selector(firetimer:)
-                                           userInfo:nil
-                                            repeats:YES];
+    timer = [MSWeakTimer scheduledTimerWithTimeInterval:300
+                                                 target:self
+                                               selector:@selector(firetimer)
+                                               userInfo:nil
+                                                repeats:YES
+                                          dispatchQueue:_privateQueue];
 }
 -(void)stoptimer {
 	NSLog(@"Auto Scrobble Stopped.");
@@ -639,7 +630,12 @@
 
 -(IBAction)updatenow:(id)sender{
     if ([haengine getFirstAccount]) {
-        [self firetimer:nil];
+        dispatch_queue_t queue = dispatch_get_global_queue(
+                                                           DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(queue, ^{
+            [self firetimer];
+        });
     }
     else
         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Please log in with your account in Preferences before using this program",nil)];
@@ -889,6 +885,9 @@
     }
 }
 - (void)updateDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    dispatch_queue_t queue = dispatch_get_global_queue(
+                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
     if (returnCode == 1) {
         // Check if Episode field is empty. If so, set it to last scrobbled episode
         NSString * tmpepisode = episodefield.stringValue;
@@ -901,23 +900,31 @@
         }
         BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:showscore.floatValue watchstatus:showstatus.titleOfSelectedItem notes:notes.textStorage.string isPrivate:(BOOL) isPrivate.state];
         if (result){
+            dispatch_async(dispatch_get_main_queue(), ^{
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
             if (episodechanged) {
                 // Update the tooltip, menu and last scrobbled title
                 [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
                 [self updateLastScrobbledTitleStatus:false];
             }
+            });
             // Sync MyAnimeList
             [self syncMyAnimeList];
         }
-        else
+        else{
+          dispatch_async(dispatch_get_main_queue(), ^{
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Unable to update Watch Status/Score.",nil)];
+          });
+        }
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
     //If scrobbling is on, restart timer
 	if (scrobbling == TRUE) {
 		[self starttimer];
 	}
-    [self enableUpdateItems]; //Reenable update items
+        [self enableUpdateItems]; //Reenable update items
+    });
+    });
 }
 
 -(IBAction)closeupdatestatus:(id)sender {
@@ -1000,48 +1007,67 @@
     [self confirmupdate];
 }
 -(void)confirmupdate{
+    dispatch_queue_t queue = dispatch_get_global_queue(
+                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(queue, ^{
+
     BOOL success = [haengine confirmupdate];
     if (success) {
-        [self updateLastScrobbledTitleStatus:false];
-        [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
-        [confirmupdate setHidden:YES];
-        [self setStatusText:@"Scrobble Status: Update was successful."];
-        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
-        if ([haengine getisNewTitle]) {
-            // Enable Update Status functions for new and unconfirmed titles.
-			[self EnableStatusUpdating:YES];
-        }
-        [self showRevertRewatchMenu];
+         dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateLastScrobbledTitleStatus:false];
+            [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
+            [confirmupdate setHidden:YES];
+            [self setStatusText:@"Scrobble Status: Update was successful."];
+            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+            if ([haengine getisNewTitle]) {
+                // Enable Update Status functions for new and unconfirmed titles.
+                [self EnableStatusUpdating:YES];
+            }
+             [self showRevertRewatchMenu];
+         });
         // Sync with MAL if Enabled
         [self syncMyAnimeList];
     }
     else{
+         dispatch_async(dispatch_get_main_queue(), ^{
         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"Failed to confirm update. Please try again later."];
         [self setStatusText:@"Unable to confirm update."];
+         });
     }
+            });
 }
 #pragma mark Hotkeys
 -(void)registerHotkey{
-    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceScrobbleNowShortcut handler:^{
-        // Scrobble Now Global Hotkey
-        if ([haengine getFirstAccount] && !panelactive) {
-            [self firetimer:nil];
-        }
-    }];
-    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceShowStatusMenuShortcut handler:^{
-        // Status Window Toggle Global Hotkey
-        [self togglescrobblewindow:nil];
-    }];
-    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceToggleScrobblingShortcut handler:^{
-        // Auto Scrobble Toggle Global Hotkey
-        [self toggletimer:nil];
-    }];
-    [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceConfirmUpdateShortcut handler:^{
-        // Confirm Update Hotkey
-        if (!confirmupdate.hidden) {
-            [self confirmupdate];
-        }
-    }];
+    [[MASShortcutBinder sharedBinder]
+     bindShortcutWithDefaultsKey:kPreferenceScrobbleNowShortcut toAction:^{
+         // Scrobble Now Global Hotkey
+         dispatch_queue_t queue = dispatch_get_global_queue(
+                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+         
+         dispatch_async(queue, ^{
+             if ([haengine getFirstAccount] && !panelactive) {
+                 [self firetimer];
+             }
+         });
+     }];
+    [[MASShortcutBinder sharedBinder]
+     bindShortcutWithDefaultsKey:kPreferenceShowStatusMenuShortcut toAction:^{
+         // Status Window Toggle Global Hotkey
+         [self togglescrobblewindow:nil];
+     }];
+    [[MASShortcutBinder sharedBinder]
+     bindShortcutWithDefaultsKey:kPreferenceToggleScrobblingShortcut toAction:^{
+         // Auto Scrobble Toggle Global Hotkey
+         [self toggletimer:nil];
+     }];
+    [[MASShortcutBinder sharedBinder]
+     bindShortcutWithDefaultsKey:kPreferenceConfirmUpdateShortcut toAction:^{
+         // Confirm Update Hotkey
+         if (!confirmupdate.hidden) {
+             [self confirmupdate];
+         }
+     }];
 }
 
 #pragma mark Misc

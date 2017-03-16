@@ -8,8 +8,6 @@
 
 #import "HotkeysPrefs.h"
 #import "HotKeyConstants.h"
-#import "MASShortcutView.h"
-#import "MASShortcutView+UserDefaults.h"
 
 @interface HotkeysPrefs ()
 

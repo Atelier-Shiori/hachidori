@@ -9,9 +9,6 @@
 
 #ifndef Hachidori_Hotkeys_h
 #define Hachidori_Hotkeys_h
-#import "MASShortcut.h"
-#import "MASShortcutView+UserDefaults.h"
-#import "MASShortcut+UserDefaults.h"
-#import "MASShortcut+Monitoring.h"
+#import <MASShortcut/Shortcut.h>
 #import "HotKeyConstants.h"
 #endif

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <MASPreferences/MASPreferences.h>
-#import "MASShortcutView.h"
+#import <MASShortcut/Shortcut.h>
 
 @interface HotkeysPrefs : NSViewController <MASPreferencesViewController>{
     
