@@ -3,7 +3,14 @@ Hachidori (はちどり) is an open sourced kitsu.io client for OS X based on th
  
 Requires latest SDK (10.12) and XCode 8 or later to compile. Deployment target is 10.9.
 
-Help the development of Hachidori by becoming our [Patreon](http://www.patreon.com/ateliershiori)
+## Supporting this Project
+
+Like this program and want to support the development of this program? [Become our Patreon](http://www.patreon.com/ateliershiori) or [Donate](http://hachidori.ateliershiori.moe/donate/). By donating more than $5 or becoming a patron, you will recieve a donation key to remove the reminder message when MAL Sync is enabled.
+
+You can also donate cryptocurrencies to these addresses (send an email with the transaction ID and address to get a donation key as long the amount is equilivant to $5 USD or more):
+* Bitcoin - Use the Bitpay form on the [donation page](http://hachidori.ateliershiori.moe/donate/).
+* Ethereum - 7DDfd7443d3D4A7ec76e25d481E68BE43533b509
+
 
 ## How to use
 See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Started).
@@ -13,6 +20,8 @@ Warning: This won't work if you don't have a Developer ID installed. If you don'
 
 1. Get the Source
 2. Type 'xcodebuild' to build
+
+If you are going to distribute your own version and change the name, please change the bundle identifier to something else.
 
 ## Running Unit Tests
 To run unit test, open the XCode Project and then press Cmd + T or type the following in the terminal 
@@ -31,6 +40,8 @@ All the frameworks are included. Just build! Here are the frameworks that are us
 * anitomy-osx.framework (Included as a submodule)
 * AFNetworking.framework
 * EasyNSURLConnection.framework
+* MASPreferences.framework
+* MASShortcut.framework
 * Sparkle.framework
 * OgreKit.framework
  
