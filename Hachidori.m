@@ -133,7 +133,7 @@
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     [queuefetch setPredicate: predicate];
     NSArray * queue = [moc executeFetchRequest:queuefetch error:&error];
-    int count = queue.count;
+    int count = (int)queue.count;
     [managedObjectContext reset];
     return count;
 }

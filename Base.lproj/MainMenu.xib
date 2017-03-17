@@ -420,7 +420,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" id="M6k-if-Iu7">
                             <rect key="frame" x="1" y="1" width="192" height="82"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="zRV-za-4dp">
                                     <rect key="frame" x="0.0" y="0.0" width="192" height="82"/>
@@ -512,7 +512,7 @@ Gw
                         <rect key="frame" x="124" y="194" width="53" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="KHa-hp-En9">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="2hd-2h-QFD">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="2hd-2h-QFD" customClass="NSNumberFormatterNumberOnly">
                                 <real key="minimum" value="1"/>
                                 <real key="maximum" value="100"/>
                             </numberFormatter>
