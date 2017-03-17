@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <OgreKit/OgreKit.h>
 #import <AFNetworking/AFOAuth2Manager.h>
+@class Reachability;
 
 @interface Hachidori : NSObject {
 	NSString * LastScrobbledTitle;
@@ -20,7 +21,7 @@
 	NSDictionary * LastScrobbledInfo;
     BOOL LastScrobbledTitleNew;
     BOOL isPrivate;
-    BOOL online;
+    BOOL _online;
 	__weak NSString * DetectedTitle;
 	__weak NSString * DetectedEpisode;
     __weak NSString * DetectedSource;
@@ -48,9 +49,11 @@
 	BOOL Success;
     BOOL correcting;
     BOOL unittesting;
+    Reachability* reach;
 	NSManagedObjectContext *managedObjectContext;
 }
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
+@property (getter=getOnlineStatus) bool online;
 -(void)setManagedObjectContext:(NSManagedObjectContext *)context;
 -(NSString *)getLastScrobbledTitle;
 -(NSString *)getLastScrobbledEpisode;
@@ -70,7 +73,9 @@
 -(NSDictionary *)getLastScrobbledInfo;
 -(NSString *)getFailedTitle;
 -(NSString *)getFailedEpisode;
+-(int)getQueueCount;
 -(int)startscrobbling;
+-(NSDictionary *)scrobblefromqueue;
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
 -(int)scrobble;
 -(BOOL)confirmupdate;

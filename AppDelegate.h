@@ -14,6 +14,7 @@
 @class HistoryWindow;
 @class DonationWindowController;
 @class MSWeakTimer;
+@class OfflineViewQueue;
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
 	/* Windows */
     __unsafe_unretained NSWindow *window;
@@ -75,6 +76,7 @@
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSWindow *updatepanel;
+@property (strong) OfflineViewQueue * owindow;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;

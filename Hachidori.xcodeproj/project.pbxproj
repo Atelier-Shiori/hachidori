@@ -78,6 +78,11 @@
 		9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */; };
 		912859641E7B39BF005E9A2B /* MSWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 912859631E7B39BF005E9A2B /* MSWeakTimer.m */; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
+		91CC23D61E7C3737008E47F6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D51E7C3737008E47F6 /* Reachability.m */; };
+		91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */; };
+		91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DC1E7C3773008E47F6 /* OfflineViewQueue.m */; };
+		91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DE1E7C3773008E47F6 /* InttoStatus.m */; };
+		91CC23E31E7C40FD008E47F6 /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91CC23E21E7C40FD008E47F6 /* OfflineViewQueue.xib */; };
 		91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
 /* End PBXBuildFile section */
@@ -217,6 +222,16 @@
 		912859631E7B39BF005E9A2B /* MSWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSWeakTimer.m; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
 		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
+		91CC23D41E7C3737008E47F6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		91CC23D51E7C3737008E47F6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberFormatterNumberOnly.m; sourceTree = "<group>"; };
+		91CC23D81E7C3742008E47F6 /* NSNumberFormatterNumberOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberFormatterNumberOnly.h; sourceTree = "<group>"; };
+		91CC23DB1E7C3773008E47F6 /* OfflineViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineViewQueue.h; sourceTree = "<group>"; };
+		91CC23DC1E7C3773008E47F6 /* OfflineViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineViewQueue.m; sourceTree = "<group>"; };
+		91CC23DD1E7C3773008E47F6 /* InttoStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InttoStatus.h; sourceTree = "<group>"; };
+		91CC23DE1E7C3773008E47F6 /* InttoStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InttoStatus.m; sourceTree = "<group>"; };
+		91CC23E11E7C3FA9008E47F6 /* MAL_Updater_OS_X_DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
+		91CC23E21E7C40FD008E47F6 /* OfflineViewQueue.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfflineViewQueue.xib; sourceTree = "<group>"; };
 		91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyNSURLConnection.framework; path = Frameworks/EasyNSURLConnection.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -360,6 +375,7 @@
 				2D807F581E48FD10003E2FCF /* DonationWindow.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
 				6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */,
+				91CC23E21E7C40FD008E47F6 /* OfflineViewQueue.xib */,
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
 				5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */,
 				5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */,
@@ -379,6 +395,7 @@
 		5C07DA691A815C2C0003A827 /* Window Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				91CC23DA1E7C375F008E47F6 /* Offline Queue */,
 				2D807F511E201332003E2FCF /* DonationWindowController.h */,
 				2D807F521E201332003E2FCF /* DonationWindowController.m */,
 				5C07DA6C1A815C6E0003A827 /* History */,
@@ -408,6 +425,8 @@
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				912859621E7B39BF005E9A2B /* MSWeakTimer.h */,
 				912859631E7B39BF005E9A2B /* MSWeakTimer.m */,
+				91CC23D41E7C3737008E47F6 /* Reachability.h */,
+				91CC23D51E7C3737008E47F6 /* Reachability.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
@@ -480,6 +499,8 @@
 				6F18658F1A7D6F7F00C74A47 /* Detection.m */,
 				6F0CF36A1A7DB89300261A43 /* Utility.h */,
 				6F0CF36B1A7DB89300261A43 /* Utility.m */,
+				91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */,
+				91CC23D81E7C3742008E47F6 /* NSNumberFormatterNumberOnly.h */,
 			);
 			name = "Support Classes";
 			sourceTree = "<group>";
@@ -500,6 +521,17 @@
 				82F065B219FB618E00E0B17A /* detectstream */,
 			);
 			name = DetectStream;
+			sourceTree = "<group>";
+		};
+		91CC23DA1E7C375F008E47F6 /* Offline Queue */ = {
+			isa = PBXGroup;
+			children = (
+				91CC23DB1E7C3773008E47F6 /* OfflineViewQueue.h */,
+				91CC23DC1E7C3773008E47F6 /* OfflineViewQueue.m */,
+				91CC23DD1E7C3773008E47F6 /* InttoStatus.h */,
+				91CC23DE1E7C3773008E47F6 /* InttoStatus.m */,
+			);
+			name = "Offline Queue";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -602,6 +634,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91CC23E31E7C40FD008E47F6 /* OfflineViewQueue.xib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				82F065B319FB618E00E0B17A /* detectstream in Resources */,
 				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
@@ -655,6 +688,7 @@
 			files = (
 				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
 				599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */,
+				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
@@ -665,11 +699,13 @@
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
 				6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,
+				91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
 				2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */,
 				8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
+				91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */,
 				912859641E7B39BF005E9A2B /* MSWeakTimer.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
@@ -678,6 +714,7 @@
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
+				91CC23D61E7C3737008E47F6 /* Reachability.m in Sources */,
 				599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */,
@@ -1077,11 +1114,12 @@
 		2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				91CC23E11E7C3FA9008E47F6 /* MAL_Updater_OS_X_DataModel 4.xcdatamodel */,
 				2DA086061E2DBA4200DD9C26 /* MAL_Updater_OS_X_DataModel 3.xcdatamodel */,
 				2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */,
 				2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
 			);
-			currentVersion = 2DA086061E2DBA4200DD9C26 /* MAL_Updater_OS_X_DataModel 3.xcdatamodel */;
+			currentVersion = 91CC23E11E7C3FA9008E47F6 /* MAL_Updater_OS_X_DataModel 4.xcdatamodel */;
 			path = MAL_Updater_OS_X_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

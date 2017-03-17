@@ -28,7 +28,6 @@
     long statusCode = [request getStatusCode];
     NSError * error = [request getError];
     if (statusCode == 200 || statusCode == 201 ) {
-        online = true;
         //return Data
         NSError * jerror;
         d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
@@ -71,12 +70,10 @@
     }
     else if (error !=nil){
         if (error.code == NSURLErrorNotConnectedToInternet) {
-            online = false;
             return NO;
         }
         else {
             // Token generation failed, users credentials incorrect.
-            online = true;
             return NO;
         }
     }
