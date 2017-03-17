@@ -1,6 +1,6 @@
 //
 //  OfflineViewQueue.m
-//  MAL Updater OS X
+//  Hachidori
 //
 //  Created by 桐間紗路 on 2017/01/08.
 //  Copyright 2009-2017 Atelier Shiori. All rights reserved. Code licensed under New BSD License
@@ -15,7 +15,7 @@
 @implementation OfflineViewQueue
 @dynamic managedObjectContext;
 - (NSManagedObjectContext *)managedObjectContext {
-    MAL_Updater_OS_XAppDelegate *appDelegate = (MAL_Updater_OS_XAppDelegate *)[NSApplication sharedApplication].delegate;
+    AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return appDelegate.managedObjectContext;
 }
 -(id)init{

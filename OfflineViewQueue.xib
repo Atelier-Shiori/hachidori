@@ -151,7 +151,7 @@
             </connections>
             <point key="canvasLocation" x="72.5" y="175.5"/>
         </window>
-        <arrayController mode="entity" entityName="OfflineQueue" usesLazyFetching="YES" editable="NO" automaticallyPreparesContent="YES" automaticallyRearrangesObjects="YES" id="MCq-KR-O5z">
+        <arrayController mode="entity" entityName="OfflineQueue" editable="NO" automaticallyPreparesContent="YES" automaticallyRearrangesObjects="YES" id="MCq-KR-O5z">
             <connections>
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="Hlk-4s-pZo"/>
             </connections>

@@ -89,7 +89,7 @@
 -(void)setStatusToolTip:(NSString*)toolTip;
 -(IBAction)toggletimer:(id)sender;
 -(void)autostarttimer;
--(void)firetimer:(NSTimer *)aTimer;
+-(void)firetimer;
 -(void)starttimer;
 -(void)stoptimer;
 -(void)setStatusText:(NSString*)messagetext;

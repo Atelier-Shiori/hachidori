@@ -249,7 +249,7 @@
     }
     // Fix template images
     // There is a bug where template images are not made even if they are set in XCAssets
-    NSArray *images = @[@"update", @"history", @"correct", @"Info"];
+    NSArray *images = @[@"update", @"history", @"correct", @"Info", @"clear"];
     NSImage * image;
     for (NSString *imagename in images){
             image = [NSImage imageNamed:imagename];
