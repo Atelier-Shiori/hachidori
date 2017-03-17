@@ -161,6 +161,7 @@
         	defaultValues[@"DisableYosemiteTitleBar"] = @NO;
         	defaultValues[@"DisableYosemiteVibrance"] = @NO;
     }
+    defaultValues[@"timerinterval"] = @(300);
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -657,7 +658,7 @@
 }
 -(void)starttimer {
 	NSLog(@"Auto Scrobble Started.");
-    timer = [MSWeakTimer scheduledTimerWithTimeInterval:300
+    timer = [MSWeakTimer scheduledTimerWithTimeInterval:[[(NSNumber *)[NSUserDefaults standardUserDefaults] valueForKey:@"timerinterval"] intValue]
                                                  target:self
                                                selector:@selector(firetimer)
                                                userInfo:nil

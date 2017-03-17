@@ -166,4 +166,12 @@
         }];
     }
 }
+- (IBAction)changetimerinterval:(id)sender {
+    // Sets new time for the timer, if running
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    if ([delegate getisScrobbling]){
+        [delegate stoptimer];
+        [delegate starttimer];
+    }
+}
 @end
