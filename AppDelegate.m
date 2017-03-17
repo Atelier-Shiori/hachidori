@@ -870,6 +870,12 @@
         [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Pending: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
         [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Pending)",nil),[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
     }
+    else if (![haengine getOnlineStatus]){
+        [updatecorrect setAutoenablesItems:NO];
+        [lastupdateheader setTitle:NSLocalizedString(@"Queued:",nil)];
+        [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Queued: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Queued)",nil),[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+    }
     else{
         [updatecorrect setAutoenablesItems:YES];
         if ([haengine getRewatching]){
