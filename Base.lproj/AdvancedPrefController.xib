@@ -11,6 +11,7 @@
                 <outlet property="fieldmalapi" destination="9dE-Id-hM6" id="Jtw-eU-DNH"/>
                 <outlet property="fieldpassword" destination="rcb-zN-ybo" id="5AF-kQ-2nO"/>
                 <outlet property="fieldusername" destination="FeQ-2d-0UB" id="MVZ-qx-NuU"/>
+                <outlet property="kodicheck" destination="Zuh-Gd-n0d" id="AaO-cB-Cgm"/>
                 <outlet property="loggedinuser" destination="oTJ-M0-3Mc" id="sbm-E0-2PT"/>
                 <outlet property="loggedinview" destination="sE7-OH-iBA" id="Kvd-9c-RJp"/>
                 <outlet property="loginview" destination="6ds-Av-lqq" id="Eh7-Ok-Gh6"/>
@@ -68,6 +69,7 @@
                                                     <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                 </dictionary>
                                             </binding>
+                                            <outlet property="delegate" destination="-2" id="isB-bj-yV5"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-m2-aJf">
@@ -107,6 +109,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
+                                            <action selector="setKodiReach:" target="-2" id="3hn-pm-79j"/>
                                             <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.enablekodiapi" id="6p3-6F-lKA"/>
                                         </connections>
                                     </button>

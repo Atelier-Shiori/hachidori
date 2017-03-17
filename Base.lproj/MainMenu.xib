@@ -388,8 +388,8 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="743">
-                        <rect key="frame" x="77" y="223" width="38" height="17"/>
+                    <textField verticalHuggingPriority="750" misplaced="YES" id="743">
+                        <rect key="frame" x="25" y="223" width="90" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Status:" id="763">
                             <font key="font" metaFont="system"/>

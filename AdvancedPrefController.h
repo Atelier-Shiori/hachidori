@@ -27,6 +27,7 @@
     //Hachidori instance
     Hachidori * haengine;
 }
+@property (strong) IBOutlet NSButton *kodicheck;
 - (id)initwithAppDelegate:(AppDelegate *)adelegate;
 -(IBAction)registermal:(id)sender;
 -(IBAction)startlogin:(id)sender;

@@ -50,10 +50,12 @@
     BOOL correcting;
     BOOL unittesting;
     Reachability* reach;
+    Reachability* kodireach;
 	NSManagedObjectContext *managedObjectContext;
 }
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (getter=getOnlineStatus) bool online;
+@property (getter=getKodiOnlineStatus) bool kodionline;
 -(void)setManagedObjectContext:(NSManagedObjectContext *)context;
 -(NSString *)getLastScrobbledTitle;
 -(NSString *)getLastScrobbledEpisode;
@@ -83,6 +85,8 @@
 -(AFOAuthCredential *)getFirstAccount;
 -(NSString *)getUserid;
 -(NSString *)getSlug;
+-(void)setKodiReach:(BOOL)enable;
+-(void)setKodiReachAddress:(NSString *)url;
 -(bool)checkexpired;
 -(void)refreshtoken;
 // Unit Testing Only

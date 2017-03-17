@@ -182,4 +182,18 @@
     [appdelegate enterDonationKey];
 
 }
+- (void)controlTextDidChange:(NSNotification *)notification {
+    NSTextField * textfield = [notification object];
+    [[appdelegate getHachidoriInstance] setKodiReachAddress:[textfield stringValue]];
+}
+-(IBAction)setKodiReach:(id)sender{
+    if ([_kodicheck state] == 0){
+        // Turn off reachability notification for Kodi
+        [[appdelegate getHachidoriInstance] setKodiReach:false];
+    }
+    else{
+        // Turn on reachability notification for Kodi
+        [[appdelegate getHachidoriInstance] setKodiReach:true];
+    }
+}
 @end

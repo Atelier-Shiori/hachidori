@@ -40,7 +40,8 @@
     };
     // Start notifier
     [reach startNotifier];
-
+    //Set up Kodi Reachability
+    [self setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
     return [super init];
 }
 -(void)setManagedObjectContext:(NSManagedObjectContext *)context{
@@ -564,6 +565,46 @@
     }
     return nil;
 }
+-(void)setKodiReach:(BOOL)enable{
+    if (enable == 1) {
+        //Create Reachability Object
+        kodireach = [Reachability reachabilityWithHostname:(NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"kodiaddress"]];
+        // Set up blocks
+        kodireach.reachableBlock = ^(Reachability*reach)
+        {
+            _kodionline = true;
+        };
+        kodireach.unreachableBlock = ^(Reachability*reach)
+        {
+            _kodionline = false;
+        };
+        // Start notifier
+        [kodireach startNotifier];
+    }
+    else{
+        [kodireach stopNotifier];
+        kodireach = nil;
+    }
+}
+-(void)setKodiReachAddress:(NSString *)url{
+    [kodireach stopNotifier];
+    kodireach = [Reachability reachabilityWithHostname:url];
+    // Set up blocks
+    // Set the blocks
+    kodireach.reachableBlock = ^(Reachability*reach)
+    {
+        _kodionline = true;
+    };
+    kodireach.unreachableBlock = ^(Reachability*reach)
+    {
+        _kodionline = false;
+    };
+    // Start notifier
+    [kodireach startNotifier];
+}
+/*
+ Token Refresh
+ */
 -(bool)checkexpired{
     AFOAuthCredential * cred = [self getFirstAccount];
     return cred.expired;
