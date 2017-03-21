@@ -280,6 +280,24 @@
         return nil;
     }
 }
++(NSDictionary *)checksstreamlinkinfo:(NSDictionary *)d{
+    Detection * detector = [Detection new];
+    if (![detector checkStreamlinkTitleIgnored:d]){
+        return [detector convertstreamlinkinfo:d];
+    }
+    return nil;
+}
+-(NSDictionary *)convertstreamlinkinfo:(NSDictionary *)result{
+    NSString * DetectedTitle = (NSString *)result[@"title"];
+    NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",result[@"episode"]];
+    NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
+    NSString * DetectedGroup = (NSString *)result[@"site"];
+    NSNumber * DetectedSeason = (NSNumber *)result[@"season"];
+    return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": [NSArray new]};
+}
+-(bool)checkStreamlinkTitleIgnored:(NSDictionary *)d{
+    return [self checkifIgnored:d[@"title"] source:d[@"site"]];
+}
 -(bool)checkifIgnored:(NSString *)filename source:(NSString *)source{
     if ([self checkifTitleIgnored:filename source:source] || [self checkifDirectoryIgnored:filename]) {
         return true;

@@ -147,5 +147,28 @@
     
     
 }
-
++(bool)checkifStreamLinkExists{
+    NSFileManager *filemanager = [NSFileManager defaultManager];
+    NSString * fullfilenamewithpath = @"/usr/local/bin/streamlink";
+    if ([filemanager fileExistsAtPath:fullfilenamewithpath]){
+        return true;
+    }
+    return false;
+}
++(void)showStreamLinkNotInstalledAlert{
+    // Shows Donation Reminder
+    NSAlert * alert = [[NSAlert alloc] init] ;
+    [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+    [alert setMessageText:NSLocalizedString(@"Streamlink is not installed",nil)];
+    [alert setInformativeText:NSLocalizedString(@"To use this feature, you need to install streamlink. Do you want to view the instructions on how to install it?",nil)];
+    [alert setShowsSuppressionButton:NO];
+    // Set Message type to Warning
+    [alert setAlertStyle:NSInformationalAlertStyle];
+    long choice = [alert runModal];
+    if (choice == NSAlertFirstButtonReturn) {
+        // Open Donation Page
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://streamlink.github.io/install.html"]];
+    }
+}
 @end

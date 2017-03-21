@@ -248,6 +248,12 @@
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="e2P-up-0w5"/>
+                <menuItem title="Open Stream and Update…" id="nLg-vu-ubx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="openstream:" target="560" id="XCg-30-Yxr"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Start Scrobbling" id="557">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -301,7 +307,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-86" y="93.5"/>
+            <point key="canvasLocation" x="-219" y="101"/>
         </menu>
         <customObject id="560" customClass="AppDelegate">
             <connections>

@@ -15,6 +15,8 @@
 @class DonationWindowController;
 @class MSWeakTimer;
 @class OfflineViewQueue;
+@class streamlinkopen;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
 	/* Windows */
     __unsafe_unretained NSWindow *window;
@@ -71,6 +73,7 @@
     IBOutlet NSTextView * notes;
     IBOutlet NSButton * isPrivate;
 	NSWindowController *_preferencesWindowController;
+    streamlinkopen * streamlinkopenw;
 }
 @property (strong, nonatomic) dispatch_queue_t privateQueue;
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;

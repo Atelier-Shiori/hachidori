@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <OgreKit/OgreKit.h>
 #import <AFNetworking/AFOAuth2Manager.h>
+#import <streamlinkdetect/streamlinkdetect.h>
 @class Reachability;
 
 @interface Hachidori : NSObject {
@@ -52,6 +53,7 @@
     Reachability* reach;
     Reachability* kodireach;
 	NSManagedObjectContext *managedObjectContext;
+    streamlinkdetector * detector;
 }
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (getter=getOnlineStatus) bool online;
@@ -79,6 +81,7 @@
 -(int)startscrobbling;
 -(NSDictionary *)scrobblefromqueue;
 -(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
+-(int)scrobblefromstreamlink:(NSString *)url withStream:(NSString *)stream;
 -(int)scrobble;
 -(BOOL)confirmupdate;
 -(void)clearAnimeInfo;

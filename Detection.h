@@ -11,4 +11,5 @@
 
 @interface Detection : NSObject
 +(NSDictionary *)detectmedia;
++(NSDictionary *)checksstreamlinkinfo:(NSDictionary *)d;
 @end
