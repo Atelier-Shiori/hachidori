@@ -1198,7 +1198,7 @@
     shareIcon.title = @"";
     [shareMenu addItem:shareIcon];
     //Generate Items to Share
-    shareItems = @[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getSlug]]]];
+    shareItems = @[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]];
     //Get Share Services for Items
     NSArray *shareServiceforItems = [NSSharingService sharingServicesForItems:shareItems];
     //Generate Share Items and populate Share Menu
@@ -1215,8 +1215,8 @@
     [[sender representedObject] performWithItems:shareItems];
 }
 -(IBAction)showLastScrobbledInformation:(id)sender{
-    //Open the anime's page on MyAnimeList in the default web browser
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getSlug]]]];
+    //Open the anime's page on Kitsu in the default web browser
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]];
 }
 #pragma mark MyAnimeList Syncing
 -(IBAction)forceMALSync:(id)sender{
