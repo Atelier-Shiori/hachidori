@@ -29,6 +29,7 @@
 	NSManagedObjectContext *managedObjectContext;
 	NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	MSWeakTimer * timer;
+    IBOutlet NSMenuItem *openstream;
 	IBOutlet NSMenuItem * togglescrobbler;
     IBOutlet NSMenuItem * updatenow;
     IBOutlet NSMenuItem * confirmupdate;

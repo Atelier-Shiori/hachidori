@@ -388,6 +388,7 @@
     [revertrewatch setEnabled:NO];
     [confirmupdate setEnabled:NO];
 	[findtitle setEnabled:NO];
+    [openstream setEnabled:NO];
 }
 -(void)enableUpdateItems{
     // Reenables update options
@@ -407,6 +408,7 @@
     [statusMenu setAutoenablesItems:YES];
     [confirmupdate setEnabled:YES];
     [findtitle setEnabled:YES];
+    [openstream setEnabled:YES];
 }
 -(void)unhideMenus{
     //Show Last Scrobbled Title and operations */
@@ -427,6 +429,7 @@
     confirmupdate.enabled = enable;
     findtitle.enabled = enable;
     revertrewatch.enabled = enable;
+    openstream.enabled = enable;
     if (!enable) {
         [updatenow setTitle:NSLocalizedString(@"Updating...",nil)];
         [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobbling...",nil)];
@@ -1294,10 +1297,10 @@
 }
 -(void)streamopenDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 0){
-        [self enableUpdateItems];
         streamlinkopenw = nil;
     }
     else{
+        [self toggleScrobblingUIEnable:false];
         NSString * streamurl = streamlinkopenw.streamurl.stringValue;
         NSString * stream = streamlinkopenw.streams.title;
         dispatch_queue_t queue = dispatch_get_global_queue(
