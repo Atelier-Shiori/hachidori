@@ -8,11 +8,20 @@
 //
 
 #import <Foundation/Foundation.h>
-
+/**
+ This class allows you to use Anitomy with Objective-C or Swift Projects.
+ */
 @interface anitomy_bridge : NSObject
-/*
- Usage: NSDictionary * d = [[[anitomy_bridge init] alloc] tokenize:@"<filename>"]
- Dictionary Contents: title, episode, episodetitle, episodetype, group, year, releaseversion, videoterm, videosource, season
+/**
+ Tokenizes a media's file name. Convenience method so you don't have to initalize an instance of Anitomy.
+ @param filename The filename to tokenize.
+ @return NSDictionary Returns a dictionary containing information of a filename.
+ */
++(NSDictionary *)tokenize:(NSString *) filename;
+/**
+ Tokenizes a media's file name.
+ @param filename The filename to tokenize.
+ @return NSDictionary Returns a dictionary containing information of a filename.
  */
 -(NSDictionary *)tokenize:(NSString *) filename;
 @end

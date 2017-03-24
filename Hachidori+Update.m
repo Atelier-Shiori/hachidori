@@ -131,7 +131,7 @@
     [tmpd setValue:attributes forKey:@"attributes"];
     [request addFormData:tmpd forKey:@"data"];
     // Do Update
-    [request startJSONFormRequest];
+    [request startJSONFormRequest:EasyNSURLConnectionvndapiJsonType];
     // Set correcting status to off
     correcting = false;
     long statuscode = [request getStatusCode];
@@ -217,7 +217,7 @@
     [tmpd setValue:attributes forKey:@"attributes"];
     [request addFormData:tmpd forKey:@"data"];
     // Do Update
-    [request startJSONFormRequest];
+    [request startJSONFormRequest:EasyNSURLConnectionvndapiJsonType];
     switch ([request getStatusCode]) {
         case 200:
         case 201:
@@ -262,7 +262,7 @@
     [tmpd setValue:attributes forKey:@"attributes"];
     [request addFormData:tmpd forKey:@"data"];
     // Do Update
-    [request startJSONFormRequest];
+    [request startJSONFormRequest:EasyNSURLConnectionvndapiJsonType];
     switch ([request getStatusCode]) {
         case 200:
         case 201:

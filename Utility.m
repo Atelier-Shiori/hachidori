@@ -124,7 +124,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Perform Search
-    [request startJSONFormRequest];
+    [request startJSONFormRequest:EasyNSURLConnectionJsonType];
     // Get Status Code
     long statusCode = [request getStatusCode];
     if (statusCode == 200){
