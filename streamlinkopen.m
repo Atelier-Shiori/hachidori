@@ -42,6 +42,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_streams removeAllItems];
                 [_streams addItemsWithTitles:a];
+                [_streams selectItemAtIndex:[a count]-1];
             });
         });
     }
