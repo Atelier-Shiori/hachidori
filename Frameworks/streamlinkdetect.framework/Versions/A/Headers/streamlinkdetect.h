@@ -24,13 +24,11 @@
 
 /**
  The product version of the streamlinkdetect framework
- @return double returns the project version.
  */
 FOUNDATION_EXPORT double streamlinkdetectVersionNumber;
 
 /**
  The product version string of the streamlinkdetect framework
- @return char returns the project version string.
  */
 FOUNDATION_EXPORT const unsigned char streamlinkdetectVersionString[];
 

@@ -21,6 +21,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+
+@class streamlinkinstall;
+
 /**
  This class allows you run a stream with streamlink and obtain stream information (title, episode, site)
  */
@@ -33,6 +37,10 @@
      This returns the output from streamlink.
      */
     NSPipe * pipe;
+    /**
+     The Streamlink install window.
+     */
+    streamlinkinstall * streamlinkinstallw;
 }
 /**
  This specifies the streamURL
@@ -74,4 +82,18 @@
  This method returns a list of available streams.
  */
 -(NSArray *)getAvailableStreams;
+/**
+ This method checks if streamlink is intalled. If not, you can prompt to install it.
+ @pram w The window to attach the dialog to as a sheet
+ */
+-(void)checkStreamLink:(NSWindow *)w;
+/**
+ This method checks if streamlink is intalled. If not, it will return false
+ @return bool Shows if streamlink is installed.
+ */
+-(bool)checkifStreamLinkExists;
+/**
+ This method installs Streamlink
+ */
+-(void)installStreamLink;
 @end

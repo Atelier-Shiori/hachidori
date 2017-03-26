@@ -25,6 +25,4 @@
 +(void)showDonateReminder:(AppDelegate*)delegate;
 +(void)setReminderDate;
 +(int)checkDonationKey:(NSString *)key name:(NSString *)name;
-+(bool)checkifStreamLinkExists;
-+(void)showStreamLinkNotInstalledAlert;
 @end
