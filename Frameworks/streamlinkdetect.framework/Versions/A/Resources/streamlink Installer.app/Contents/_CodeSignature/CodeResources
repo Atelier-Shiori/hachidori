@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
 		<data>
-		hK19TD5CAY9+H3zuEOe0Tr86SDs=
+		i+vAXbZy58Hf5tGVlONCsf9uHHY=
 		</data>
 		<key>Resources/Base.lproj/streamlinkinstall.nib</key>
 		<data>
@@ -17,13 +17,21 @@
 	<dict>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			i+vAXbZy58Hf5tGVlONCsf9uHHY=
+			</data>
 			<key>hash2</key>
 			<data>
-			Kvmr6gWRJQRTAEWbMbqvbX0s90jk/k1SCoQkED6luts=
+			4FyddR3Z6DZy2Fo1cyfrulrSnCaWhBOEV/4x4PUSXvk=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/streamlinkinstall.nib</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			U5iW5mXIIxdvFaMl0Xi69TT1QOw=
+			</data>
 			<key>hash2</key>
 			<data>
 			NEtwPqc8qDuI6BMw0QNf0bYYPP1mi2dpxqYd1DcUIc4=
