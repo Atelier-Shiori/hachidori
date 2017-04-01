@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "Hachidori.h"
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <streamlinkdetect/streamlinkdetect.h>
 
 @interface Detection()
 #pragma Private Methods
@@ -42,10 +43,28 @@
         // Return results
         return result;
     }
+    if ([[streamlinkdetector new] checkifStreamLinkExists]) {
+        // Check Streamlink
+        result = [d detectStreamLink];
+    }
+    else {
+        result = nil;
+    }
+    if (result != nil) {
+        // Return results
+        return result;
+    }
     else{
         //Return an empty array
         return nil;
     }
+}
++(NSDictionary *)checksstreamlinkinfo:(NSDictionary *)d{
+    Detection * detector = [Detection new];
+    if (![detector checkStreamlinkTitleIgnored:d]){
+        return [detector convertstreamlinkinfo:d];
+    }
+    return nil;
 }
 #pragma Private Methods
 -(NSDictionary *)detectPlayer{
@@ -280,10 +299,29 @@
         return nil;
     }
 }
-+(NSDictionary *)checksstreamlinkinfo:(NSDictionary *)d{
-    Detection * detector = [Detection new];
-    if (![detector checkStreamlinkTitleIgnored:d]){
-        return [detector convertstreamlinkinfo:d];
+-(NSDictionary *)detectStreamLink{
+    streamlinkdetector * detect = [streamlinkdetector new];
+    NSArray * a = [detect detectAndRetrieveInfo];
+    if (a){
+        NSDictionary * result = a[0];
+        if (result[@"title"] == nil) {
+            return nil;
+        }
+        else if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
+            return nil;
+        }
+        else if (result[@"episode"] == nil){
+            //Episode number is missing. Do not use the stream data as a failsafe to keep the program from crashing
+            return nil;
+        }
+        else{
+            NSString * DetectedTitle = (NSString *)result[@"title"];
+            NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",result[@"episode"]];
+            NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
+            NSString * DetectedGroup = (NSString *)result[@"site"];
+            NSNumber * DetectedSeason = (NSNumber *)result[@"season"];
+            return @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": [NSArray new]};
+        }
     }
     return nil;
 }
