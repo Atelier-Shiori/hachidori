@@ -165,6 +165,7 @@
             return 22;
         default:
             // Update Unsuccessful
+            NSLog(@"Update failed: %@", [request getResponseDataString]);
             if (LastScrobbledTitleNew) {
                 return 52;
             }
@@ -231,6 +232,7 @@
             return true;
         default:
             // Update Unsuccessful
+            NSLog(@"Update failed: %@", [request getResponseDataString]);
             return false;
             break;
     }
@@ -298,6 +300,7 @@
             return true;
         default:
             // Update Unsuccessful
+            NSLog(@"Delete failed: %@", [request getResponseDataString]);
             return false;
     }
     return false;

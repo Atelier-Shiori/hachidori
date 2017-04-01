@@ -374,7 +374,7 @@
             }
         }
         else{
-            if (_online) {
+            if (online) {
                  status = 54;
             }
             else{
@@ -383,7 +383,7 @@
         }
     }
     else {
-        if (_online) {
+        if (online) {
             // Not Successful
             NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", DetectedTitle);
             // Used for Exception Adding
@@ -548,8 +548,22 @@
                     int threshold = ((NSNumber *)[entry valueForKey:@"episodethreshold"]).intValue;
                     int offset = ((NSNumber *)[entry valueForKey:@"episodeOffset"]).intValue;
                     int tmpepisode = DetectedEpisode.intValue - offset;
-                    int mappedepisode = [(NSNumber *)[entry valueForKey:@"mappedepisode"] intValue];
-                    bool iszeroepisode = [(NSNumber *)[entry valueForKey:@"iszeroepisode"] boolValue];
+                    int mappedepisode;
+					
+					if (i==1){
+						mappedepisode = [(NSNumber *)[entry valueForKey:@"mappedepisode"] intValue];
+					}
+					else {
+                        mappedepisode = 0;
+					}
+					bool iszeroepisode;
+					if (i==1){
+						iszeroepisode = [(NSNumber *)[entry valueForKey:@"iszeroepisode"] boolValue];
+					}
+					else {
+						iszeroepisode = false;
+					}
+                    
                     if (i==1 && DetectedTitleisEpisodeZero == true && iszeroepisode == true){
                         NSLog(@"%@ zero episode is found on exceptions list as %@.", DetectedTitle, correcttitle);
                         DetectedTitle = [correcttitle stringByReplacingOccurrencesOfString:@":" withString:@""];

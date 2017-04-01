@@ -24,7 +24,8 @@
 #import "MSWeakTimer.h"
 #import "ClientConstants.h"
 #import "streamlinkopen.h"
-
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -163,6 +164,7 @@
         	defaultValues[@"DisableYosemiteVibrance"] = @NO;
     }
     defaultValues[@"timerinterval"] = @(300);
+    defaultValues[@"NSApplicationCrashOnExceptions"] = @YES;
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -281,6 +283,7 @@
 	}
     // Import existing Exceptions Data
     [AutoExceptions importToCoreData];
+    [Fabric with:@[[Crashlytics class]]];
 }
 #pragma mark General UI Functions
 - (NSWindowController *)preferencesWindowController
