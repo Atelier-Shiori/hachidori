@@ -38,7 +38,7 @@
 		5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */; };
 		5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */; };
 		5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC744D31A474B0600F65E88 /* HotkeysPrefs.m */; };
-		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */; };
 		5CD7FF411A449A140050E6CC /* Hachidori_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7FF401A449A140050E6CC /* Hachidori_Tests.m */; };
 		6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0CF36B1A7DB89300261A43 /* Utility.m */; };
 		6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0F84A11B34699F00EEEC32 /* HachidoriScripting.m */; };
@@ -83,6 +83,7 @@
 		9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9130A6331E81C3D700E744EF /* streamlinkdetect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9130A6381E81D76F00E744EF /* streamlinkopen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63A1E81D76F00E744EF /* streamlinkopen.xib */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
+		9131B20E1E915B9000EC4614 /* LoginItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 9131B20D1E915B9000EC4614 /* LoginItems.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
 		91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043B1E901494006B0727 /* Fabric.framework */; };
 		91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043C1E901494006B0727 /* Crashlytics.framework */; };
@@ -233,6 +234,8 @@
 		9130A6331E81C3D700E744EF /* streamlinkdetect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = streamlinkdetect.framework; path = Frameworks/streamlinkdetect.framework; sourceTree = "<group>"; };
 		9130A6391E81D76F00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/streamlinkopen.xib; sourceTree = "<group>"; };
 		9130A63C1E81D77A00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OfflineViewQueue.xib; sourceTree = "<group>"; };
+		9131B20C1E915B9000EC4614 /* LoginItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItems.h; sourceTree = "<group>"; };
+		9131B20D1E915B9000EC4614 /* LoginItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItems.m; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
 		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
 		91CA043B1E901494006B0727 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
@@ -466,6 +469,8 @@
 				825D878F1A18FD2700C5E1BF /* ExceptionsPref.m */,
 				5CD36BB819F2ED88007BB6B6 /* GeneralPrefController.h */,
 				5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */,
+				9131B20C1E915B9000EC4614 /* LoginItems.h */,
+				9131B20D1E915B9000EC4614 /* LoginItems.m */,
 				5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */,
 				5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */,
 				5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */,
@@ -735,6 +740,7 @@
 			files = (
 				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
 				599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */,
+				9131B20E1E915B9000EC4614 /* LoginItems.m in Sources */,
 				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,

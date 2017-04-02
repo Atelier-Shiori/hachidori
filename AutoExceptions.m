@@ -85,6 +85,7 @@
                 NSString * hcorrecttitle = (NSString *)d[@"hcorrecttitle"];
                 bool iszeroepisode = [(NSNumber *)d[@"iszeroepisode"] boolValue];
                 int offset = [(NSNumber *)d[@"offset"] intValue];
+                //NSLog(@"%@-%@-%@-%i-%i-%@",detectedtitle,group,correcttitle,iszeroepisode,offset,d[@"mappedepisode"]);
                 NSError * error = nil;
                 NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode offset:offset];
                 if (obj) {
@@ -115,8 +116,6 @@
             }
             // Set the last updated date
             [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"ExceptionsLastUpdated"];
-            // Clear Core Data Objects from Memory
-            [moc reset];
             break;
         }
         default:
