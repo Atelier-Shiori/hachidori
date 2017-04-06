@@ -425,21 +425,23 @@
     [shareMenuItem setHidden:NO];
 }
 -(void)toggleScrobblingUIEnable:(BOOL)enable{
-    ForceMALSync.enabled = enable;
-    statusMenu.autoenablesItems = enable;
-    updatenow.enabled = enable;
-    togglescrobbler.enabled = enable;
-    confirmupdate.enabled = enable;
-    findtitle.enabled = enable;
-    revertrewatch.enabled = enable;
-    openstream.enabled = enable;
-    if (!enable) {
-        [updatenow setTitle:NSLocalizedString(@"Updating...",nil)];
-        [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobbling...",nil)];
-    }
-    else{
-        [updatenow setTitle:NSLocalizedString(@"Update Now",nil)];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ForceMALSync.enabled = enable;
+        statusMenu.autoenablesItems = enable;
+        updatenow.enabled = enable;
+        togglescrobbler.enabled = enable;
+        confirmupdate.enabled = enable;
+        findtitle.enabled = enable;
+        revertrewatch.enabled = enable;
+        openstream.enabled = enable;
+        if (!enable) {
+            [updatenow setTitle:NSLocalizedString(@"Updating...",nil)];
+            [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobbling...",nil)];
+        }
+        else{
+            [updatenow setTitle:NSLocalizedString(@"Update Now",nil)];
+        }
+    });
 }
 -(void)EnableStatusUpdating:(BOOL)enable{
     ForceMALSync.enabled = enable;
