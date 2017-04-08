@@ -120,7 +120,7 @@
     NSURL *url = [NSURL URLWithString:@"https://updates.ateliershiori.moe/keycheck/check.php"];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     [request addFormData:name forKey:@"name"];
-    [request addFormData:key forKey:@"key"];
+    [request addFormData:key forKey:@"donatekey"];
     //Ignore Cookies
     [request setUseCookies:NO];
     //Perform Search
