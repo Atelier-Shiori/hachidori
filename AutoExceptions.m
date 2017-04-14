@@ -77,43 +77,46 @@
             NSError *error = nil;
             NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
             AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-            NSManagedObjectContext *moc = [delegate getObjectContext];
-            for (NSDictionary *d in a) {
-                NSString * detectedtitle = d[@"detectedtitle"];
-                NSString * group = d[@"group"];
-                NSString * correcttitle = d[@"correcttitle"];
-                NSString * hcorrecttitle = (NSString *)d[@"hcorrecttitle"];
-                bool iszeroepisode = [(NSNumber *)d[@"iszeroepisode"] boolValue];
-                int offset = [(NSNumber *)d[@"offset"] intValue];
-                //NSLog(@"%@-%@-%@-%i-%i-%@",detectedtitle,group,correcttitle,iszeroepisode,offset,d[@"mappedepisode"]);
-                NSError * error = nil;
-                NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode offset:offset];
-                if (obj) {
-                    // Update Entry
-                    [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
-                }
-                else{
-                    // Add Entry to Auto Exceptions
-                    obj = [NSEntityDescription
-                           insertNewObjectForEntityForName:@"AutoExceptions"
-                           inManagedObjectContext: moc];
-                    // Set values in the new record
-                    [obj setValue:detectedtitle forKey:@"detectedTitle"];
-                    if ([hcorrecttitle length] > 0) {
-                        [obj setValue:hcorrecttitle forKey:@"correctTitle"]; // Use Correct Kitsu Title
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSManagedObjectContext *moc = [delegate getObjectContext];
+                for (NSDictionary *d in a) {
+                    NSString * detectedtitle = d[@"detectedtitle"];
+                    NSString * group = d[@"group"];
+                    NSString * correcttitle = d[@"correcttitle"];
+                    NSString * hcorrecttitle = (NSString *)d[@"hcorrecttitle"];
+                    bool iszeroepisode = [(NSNumber *)d[@"iszeroepisode"] boolValue];
+                    int offset = [(NSNumber *)d[@"offset"] intValue];
+                    //NSLog(@"%@-%@-%@-%i-%i-%@",detectedtitle,group,correcttitle,iszeroepisode,offset,d[@"mappedepisode"]);
+                    NSError * error = nil;
+                    NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode offset:offset];
+                    if (obj) {
+                        // Update Entry
+                        [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                     }
                     else{
-                        [obj setValue:correcttitle forKey:@"correctTitle"]; // Use Universal Correct Title
+                        // Add Entry to Auto Exceptions
+                        obj = [NSEntityDescription
+                               insertNewObjectForEntityForName:@"AutoExceptions"
+                               inManagedObjectContext: moc];
+                        // Set values in the new record
+                        [obj setValue:detectedtitle forKey:@"detectedTitle"];
+                        if ([hcorrecttitle length] > 0) {
+                            [obj setValue:hcorrecttitle forKey:@"correctTitle"]; // Use Correct Kitsu Title
+                        }
+                        else{
+                            [obj setValue:correcttitle forKey:@"correctTitle"]; // Use Universal Correct Title
+                        }
+                        [obj setValue:[NSNumber numberWithInt:offset] forKey:@"episodeOffset"];
+                        [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
+                        [obj setValue:group forKey:@"group"];
+                        [obj setValue:[NSNumber numberWithBool:iszeroepisode] forKey:@"iszeroepisode"];
+                        [obj setValue:d[@"mappedepisode"] forKey:@"mappedepisode"];
                     }
-                    [obj setValue:[NSNumber numberWithInt:offset] forKey:@"episodeOffset"];
-                    [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
-                    [obj setValue:group forKey:@"group"];
-                    [obj setValue:[NSNumber numberWithBool:iszeroepisode] forKey:@"iszeroepisode"];
-                    [obj setValue:d[@"mappedepisode"] forKey:@"mappedepisode"];
+                    //Save
+                    [moc save:&error];
                 }
-                //Save
-                [moc save:&error];
-            }
+                [moc reset];
+            });
             // Set the last updated date
             [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"ExceptionsLastUpdated"];
             break;
