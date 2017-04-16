@@ -24,7 +24,7 @@
 #pragma mark MASPreferencesViewController
 -(void)loadView{
     [super loadView];
-    if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9){
+    if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
         // Disable Yosemite UI options
         [disablenewtitlebar setEnabled:NO];
         [disablevibarency setEnabled: NO];
@@ -85,7 +85,7 @@
     if (updateexceptionschk.state) {
         [self updateAutoExceptions:sender];
     }
-    else{
+    else {
     // Clears Exceptions if User chooses
     // Set Up Prompt Message Window
     NSAlert * alert = [[NSAlert alloc] init] ;
@@ -105,7 +105,7 @@
 - (IBAction)changetimerinterval:(id)sender {
     // Sets new time for the timer, if running
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    if ([delegate getisScrobbling]){
+    if ([delegate getisScrobbling]) {
         [delegate stoptimer];
         [delegate starttimer];
     }

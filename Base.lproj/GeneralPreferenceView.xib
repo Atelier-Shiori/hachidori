@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPrefController">
@@ -20,11 +21,11 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="2"/>
         <customView misplaced="YES" id="3" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="410"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="434"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="This option when enabled will make Hachidori start detecting playing media after you launch the program." id="5">
-                    <rect key="frame" x="156" y="349" width="234" height="18"/>
+                    <rect key="frame" x="156" y="373" width="234" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Start Auto Scrobble at launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -35,7 +36,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="4">
-                    <rect key="frame" x="39" y="373" width="106" height="17"/>
+                    <rect key="frame" x="39" y="397" width="106" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Scrobbler:" id="15">
                         <font key="font" metaFont="system"/>
@@ -44,7 +45,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="29">
-                    <rect key="frame" x="156" y="327" width="256" height="18"/>
+                    <rect key="frame" x="156" y="351" width="256" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">By choosing this option, Hachidori will set newly scrobbled titles with the Private privacy setting, meaning that particular title won't be shown on your public list.</string>
                     <buttonCell key="cell" type="check" title="Set newly scrobbled titles to private" bezelStyle="regularSquare" imagePosition="left" inset="2" id="30">
@@ -55,8 +56,8 @@
                         <binding destination="2" name="value" keyPath="values.setprivate" id="32"/>
                     </connections>
                 </button>
-                <button toolTip="Clears the Search Cache" verticalHuggingPriority="750" id="33">
-                    <rect key="frame" x="162" y="205" width="149" height="32"/>
+                <button toolTip="Clears the Search Cache" verticalHuggingPriority="750" misplaced="YES" id="33">
+                    <rect key="frame" x="162" y="209" width="149" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Clear Search Cache" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="34">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -67,8 +68,8 @@
                         <binding destination="2" name="enabled" keyPath="values.useSearchCache" id="40"/>
                     </connections>
                 </button>
-                <button id="35">
-                    <rect key="frame" x="156" y="239" width="223" height="18"/>
+                <button misplaced="YES" id="35">
+                    <rect key="frame" x="156" y="243" width="223" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">This option will save the detected title with the show id so that Hachidori won't have to search for it again when a previously updated title gets scrobbled again.</string>
                     <buttonCell key="cell" type="check" title="Cache found Show IDs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="36">
@@ -80,7 +81,7 @@
                     </connections>
                 </button>
                 <button misplaced="YES" id="41">
-                    <rect key="frame" x="156" y="88" width="250" height="18"/>
+                    <rect key="frame" x="156" y="92" width="250" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Disable Yosemite Style Titlebar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="42">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -91,7 +92,7 @@
                     </connections>
                 </button>
                 <button misplaced="YES" id="43">
-                    <rect key="frame" x="156" y="66" width="213" height="18"/>
+                    <rect key="frame" x="156" y="70" width="213" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Disable Vibrancy" bezelStyle="regularSquare" imagePosition="left" inset="2" id="44">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -102,7 +103,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="45">
-                    <rect key="frame" x="19" y="89" width="126" height="17"/>
+                    <rect key="frame" x="19" y="93" width="126" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="UI Options:" id="46">
                         <font key="font" metaFont="system"/>
@@ -111,7 +112,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" id="49">
-                    <rect key="frame" x="80" y="9" width="316" height="49"/>
+                    <rect key="frame" x="80" y="13" width="316" height="49"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Changing UI Settings require a relaunch to take effect. Additionally, these settings will only work under OS X 10.10 or higher." id="50">
                         <font key="font" metaFont="smallSystem"/>
@@ -120,7 +121,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="64">
-                    <rect key="frame" x="156" y="305" width="250" height="18"/>
+                    <rect key="frame" x="156" y="329" width="250" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">This option will make the scrobbler ask if you want to add the title, giving you an opertunity to correct it before applying it.</string>
                     <buttonCell key="cell" type="check" title="Confirm new titles before adding" bezelStyle="regularSquare" imagePosition="left" inset="2" id="65">
@@ -132,7 +133,7 @@
                     </connections>
                 </button>
                 <button toolTip="This option allows the scrobbler to ask if the update is okay before applying it." id="68">
-                    <rect key="frame" x="156" y="283" width="256" height="18"/>
+                    <rect key="frame" x="156" y="307" width="256" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Confirm before updating title" bezelStyle="regularSquare" imagePosition="left" inset="2" id="69">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -143,7 +144,7 @@
                     </connections>
                 </button>
                 <button toolTip="This option allows Hachidori to launch after startup." id="86">
-                    <rect key="frame" x="156" y="371" width="213" height="18"/>
+                    <rect key="frame" x="156" y="395" width="213" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Start Hachidori at startup" bezelStyle="regularSquare" imagePosition="left" inset="2" id="87">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -153,8 +154,8 @@
                         <action selector="toggleLaunchAtStartup:" target="-2" id="89"/>
                     </connections>
                 </button>
-                <button id="98">
-                    <rect key="frame" x="153" y="186" width="214" height="18"/>
+                <button misplaced="YES" id="98">
+                    <rect key="frame" x="153" y="190" width="214" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable Auto Exceptions" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="105">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -165,8 +166,8 @@
                         <binding destination="2" name="value" keyPath="values.UseAutoExceptions" id="109"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" id="99">
-                    <rect key="frame" x="159" y="154" width="233" height="32"/>
+                <button verticalHuggingPriority="750" misplaced="YES" id="99">
+                    <rect key="frame" x="159" y="158" width="233" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Update Auto Exceptions Data" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="104">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -177,8 +178,8 @@
                         <binding destination="2" name="enabled" keyPath="values.UseAutoExceptions" id="110"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="100">
-                    <rect key="frame" x="158" y="139" width="274" height="17"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="100">
+                    <rect key="frame" x="158" y="143" width="274" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Date" id="102">
                         <dateFormatter key="formatter" dateStyle="full" timeStyle="long" id="103"/>
@@ -190,12 +191,12 @@
                         <binding destination="2" name="value" keyPath="values.ExceptionsLastUpdated" id="111"/>
                     </connections>
                 </textField>
-                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="101">
-                    <rect key="frame" x="141" y="163" width="16" height="16"/>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="101">
+                    <rect key="frame" x="141" y="167" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
                 <button toolTip="Enabling this option will allow Hachidori to track Rewatch status." id="114">
-                    <rect key="frame" x="156" y="261" width="256" height="18"/>
+                    <rect key="frame" x="156" y="285" width="256" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Monitor Rewatches" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="115">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -206,7 +207,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" misplaced="YES" id="eES-Ga-6Co">
-                    <rect key="frame" x="7" y="118" width="138" height="17"/>
+                    <rect key="frame" x="7" y="122" width="138" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Auto Scrobble Every:" id="Att-2A-TQc">
                         <font key="font" metaFont="system"/>
@@ -215,7 +216,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" misplaced="YES" id="A13-l1-ICf">
-                    <rect key="frame" x="156" y="112" width="120" height="26"/>
+                    <rect key="frame" x="156" y="116" width="120" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="5 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="300" imageScaling="proportionallyDown" inset="2" selectedItem="nEC-Up-V3E" id="0j3-kY-ahC">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -240,8 +241,19 @@
                         <action selector="changetimerinterval:" target="-2" id="bd3-TM-ayo"/>
                     </connections>
                 </popUpButton>
+                <button misplaced="YES" id="Qx5-2w-7MW">
+                    <rect key="frame" x="156" y="264" width="277" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Show correction if title is not found" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="pU9-b2-uSE">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="2" name="value" keyPath="values.showcorrection" id="1DQ-MD-UQA"/>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="544" y="394"/>
+            <point key="canvasLocation" x="544" y="406"/>
         </customView>
     </objects>
 </document>

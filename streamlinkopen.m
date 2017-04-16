@@ -32,7 +32,7 @@
     [self refreshstreams:nil];
 }
 - (IBAction)refreshstreams:(id)sender {
-    if (_streamurl.stringValue.length > 0){
+    if (_streamurl.stringValue.length > 0) {
         dispatch_queue_t queue = dispatch_get_global_queue(
                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
@@ -49,11 +49,11 @@
 }
 
 - (IBAction)openstream:(id)sender {
-    if (_streamurl.stringValue.length == 0){
+    if (_streamurl.stringValue.length == 0) {
         [Utility showsheetmessage:@"No Stream URL Entered." explaination:@"Please specify a valid stream URL and try again" window:self.window];
         return;
     }
-    else if (_streams.title.length == 0){
+    else if (_streams.title.length == 0) {
         [Utility showsheetmessage:@"No Stream Selected." explaination:@"Please specify a valid stream and try again" window:self.window];
         return;
     }

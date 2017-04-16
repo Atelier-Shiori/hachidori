@@ -26,7 +26,7 @@
     haengine = [[Hachidori alloc] init];
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     //Check for latest Auto Exceptions
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] timeIntervalSinceNow] < -604800 ||[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] == nil ) {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"] timeIntervalSinceNow] < -604800 ||![[NSUserDefaults standardUserDefaults] objectForKey:@"ExceptionsLastUpdated"]) {
         // Has been 1 Week, update Auto Exceptions
         [AutoExceptions updateAutoExceptions];
     }
@@ -71,7 +71,7 @@
         if (((NSArray *)parsedfile[@"types"]).count > 0) {
             type = (parsedfile[@"types"])[0];
         }
-        else{
+        else {
             type = @"";
         }
         NSDictionary * result = [haengine runUnitTest:parsedfile[@"title"] episode:parsedfile[@"episode"] season:season.intValue group:parsedfile[@"group"] type:type];
@@ -83,14 +83,14 @@
                 NSLog(@"Incorrect Match!");
                 incorrect++;
             }
-            else if (expectedtitle.length == 0){
+            else if (expectedtitle.length == 0) {
                 // Expected Title missing, subtract it from count.
                 NSLog(@"Note: Title not included in the count. Please add this to the testdata.json file:");
                 NSLog(@"\"expectedtitle\":\"%@\"",title);
                 count--;
             }
         }
-        else{
+        else {
             NSLog(@"Not found");
             fail = fail+1;
         }
@@ -102,14 +102,14 @@
         NSLog(@"%i titles could not be found", fail);
         XCTAssert(NO, @"Test Failed: There were titles that couldn't be found");
     }
-    else{
+    else {
         // Calculate Results
         float acc = ((count - incorrect)/(float)count);
         NSLog(@"There are %i incorrect title(s) out of %i title(s). Accuracy: %f", incorrect, count, acc * 100);
         if (acc < 0.95) {
             XCTAssert(NO, @"Failed: Accuracy is bellow the 95 percent accuracy threshold");
         }
-        else{
+        else {
             XCTAssert(YES, @"No Errors");
         }
     }

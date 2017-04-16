@@ -122,7 +122,7 @@
             }
         }];
     }
-    else{
+    else {
         [Utility showsheetmessage:@"Cannot Logout" explaination:@"Please turn off automatic scrobbling before logging out." window:self.view.window];
     }
 }
@@ -143,13 +143,13 @@
         [loginview setHidden:YES];
         [savebut setEnabled:YES];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        if([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]){
+        if([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
             //Login Failed, show error message
             [Utility showsheetmessage:@"Hachidori was unable to log you into your MyAnimeList account since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:self.view.window];
             [savebut setEnabled: YES];
             savebut.keyEquivalent = @"\r";
         }
-        else{
+        else {
             [Utility showsheetmessage:@"Hachidori was unable to log you into your MyAnimeList account since you are not connected to the internet" explaination:@"Check your internet connection and try again." window:self.view.window];
             [savebut setEnabled: YES];
             savebut.keyEquivalent = @"\r";
@@ -187,11 +187,11 @@
     [[appdelegate getHachidoriInstance] setKodiReachAddress:[textfield stringValue]];
 }
 -(IBAction)setKodiReach:(id)sender{
-    if ([_kodicheck state] == 0){
+    if ([_kodicheck state] == 0) {
         // Turn off reachability notification for Kodi
         [[appdelegate getHachidoriInstance] setKodiReach:false];
     }
-    else{
+    else {
         // Turn on reachability notification for Kodi
         [[appdelegate getHachidoriInstance] setKodiReach:true];
     }

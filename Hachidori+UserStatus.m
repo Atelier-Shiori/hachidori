@@ -38,7 +38,7 @@
             NSLog(@"Title on list");
             [self populateStatusData:d id:titleid];
         }
-        else{
+        else {
             NSLog(@"Title not on list");
             EntryID = nil;
             WatchStatus = @"current";
@@ -51,7 +51,7 @@
             rewatching = false;
             rewatchcount = 0;
         }
-        if (LastScrobbledInfo[@"episode_count"] == nil ) { // To prevent the scrobbler from failing because there is no episode total.
+        if (!LastScrobbledInfo[@"episode_count"]) { // To prevent the scrobbler from failing because there is no episode total.
             TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists
@@ -62,13 +62,13 @@
             // Manually confirm updates
             confirmed = false;
         }
-        else{
+        else {
             // Automatically confirm updates
             confirmed = true;
         }
         return YES;
     }
-    else if (error !=nil){
+    else if (error !=nil) {
         if (error.code == NSURLErrorNotConnectedToInternet) {
             return NO;
         }
@@ -102,7 +102,7 @@
         d = d[@"data"];
         return d[@"attributes"];
     }
-    else{
+    else {
         NSDictionary * d = [[NSDictionary alloc] init];
         return d;
     }
@@ -118,7 +118,7 @@
     else {
         TitleNotes = d[@"notes"];
     }
-    if (d[@"rating"] == [NSNull null]){
+    if (d[@"rating"] == [NSNull null]) {
         // Score is null, set to 0
         TitleScore = 0;
     }

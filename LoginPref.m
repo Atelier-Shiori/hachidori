@@ -158,7 +158,7 @@
             }
         }];
     }
-    else{
+    else {
         [Utility showsheetmessage:@"Cannot Remove Account" explaination:@"Please turn off automatic scrobbling before removing this account." window:self.view.window];
     }
 }
@@ -172,7 +172,7 @@
            didEndSelector:@selector(reAuthPanelDidEnd:returnCode:contextInfo:)
               contextInfo:(void *)nil];
     }
-    else{
+    else {
         [Utility showsheetmessage:@"Cannot Remove Account" explaination:@"Please turn off automatic scrobbling before removing this account." window:self.view.window];
     }
 }
@@ -203,7 +203,7 @@
         NSBeep();
         [invalidinput setHidden:NO];
     }
-    else{
+    else {
         [invalidinput setHidden:YES];
         [self.loginpanel orderOut:self];
         [NSApp endSheet:self.loginpanel returnCode:1];

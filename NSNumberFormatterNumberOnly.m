@@ -15,7 +15,7 @@
     if (error)     {*error = nil;}
     
     static NSCharacterSet *nonDecimalCharacters = nil;
-    if (nonDecimalCharacters == nil) {
+    if (!nonDecimalCharacters) {
         nonDecimalCharacters = [[NSCharacterSet decimalDigitCharacterSet] invertedSet] ;
     }
     

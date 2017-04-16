@@ -15,11 +15,11 @@
 }
 
 -(id)transformedValue:(id)value{
-    if (value == nil) return nil;
+    if (!value) return nil;
     
-    if ([value respondsToSelector:@selector(integerValue)]){
+    if ([value respondsToSelector:@selector(integerValue)]) {
         int status = [value intValue];
-        switch (status){
+        switch (status) {
             case 23:
                 return @"Queued";
             case 2:

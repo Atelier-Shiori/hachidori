@@ -16,7 +16,7 @@
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[delegate getNowPlaying] options:0 error:&error];
     if (!jsonData) {}
-    else{
+    else {
         NSString *JSONString = [[NSString alloc] initWithBytes:jsonData.bytes length:jsonData.length encoding:NSUTF8StringEncoding];
         // Output JSON
         return JSONString;

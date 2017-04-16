@@ -38,7 +38,7 @@
     OGRegularExpressionMatch * smatch;
     regex = [OGRegularExpression regularExpressionWithString: @"((S|s)\\d|\\d)"]; //Check the only Season Notation that Anitomy does not currently support
     smatch = [regex matchInString:tmptitle];
-    if (smatch != nil) {
+    if (smatch) {
         tmpseason = [smatch matchedString];
         regex = [OGRegularExpression regularExpressionWithString: @"(S|s)"];
         tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
@@ -71,7 +71,7 @@
         else if ([type caseInsensitiveCompare:@"Specials"] == NSOrderedSame) {
             [ftypes addObject:@"Special"];
         }
-        else{
+        else {
             [ftypes addObject:type];
         }
     }

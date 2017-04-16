@@ -49,7 +49,7 @@
     NSOpenPanel * op = [NSOpenPanel openPanel];
     op.allowedFileTypes = @[@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"flv", @"mpg", @"3gp"];
     [op setMessage:NSLocalizedString(@"Please select a media file you want to create an exception for.",nil)];
-    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
+    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
@@ -71,7 +71,7 @@
     }];
 }
 -(void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == 1){
+    if (returnCode == 1) {
         // Check if correct title exists
         if ([self checkifexists:detectedtitle offset:0 correcttitle:[fsdialog getSelectedTitle]]) {
             // Exists, don't do anything
@@ -96,7 +96,7 @@
     NSOpenPanel * op = [NSOpenPanel openPanel];
     op.allowedFileTypes = @[@"json", NSLocalizedString(@"JSON file",nil)];
     [op setMessage:NSLocalizedString(@"Please select an exceptions list to import.",nil)];
-    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
+    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
@@ -114,10 +114,10 @@
         for (NSDictionary *d in a) {
             NSString * detectedtitlea = d[@"detectedtitle"];
             int doffset;
-            if (d[@"offset"] != nil) {
+            if (d[@"offset"]) {
                 doffset = ((NSNumber *)d[@"offset"]).intValue;
             }
-            else{
+            else {
                 doffset = 0;
             }
             BOOL exists = [self checkifexists:detectedtitlea offset:doffset correcttitle:(NSString *)d[@"correcttitle"]];
@@ -126,13 +126,13 @@
                 //Check next title
                 continue;
             }
-            else{
+            else {
                 // Add to Exceptions List
                 int threshold;
-                if (d[@"threshold"] != nil) {
+                if (d[@"threshold"]) {
                     threshold = ((NSNumber *)d[@"threshold"]).intValue;
                 }
-                else{
+                else {
                     threshold = 0;
                 }
                 [ExceptionsCache addtoExceptions:d[@"detectedtitle"] correcttitle:d[@"correcttitle"] aniid:d[@"showid"] threshold:threshold offset:doffset];
@@ -150,7 +150,7 @@
     sp.allowedFileTypes = @[@"json", NSLocalizedString(@"JSON file",nil)];
     [sp setMessage:NSLocalizedString(@"Where do you want to save your exception list?",nil)];
     [sp setNameFieldStringValue:NSLocalizedString(@"Exceptions List.json",nil)];
-    [sp beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
+    [sp beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
@@ -195,10 +195,10 @@
     for (NSManagedObject * entry in a) {
         int eoffset = ((NSNumber *)[entry valueForKey:@"episodeOffset"]).intValue;
         if ([title isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]] && eoffset == offset) {
-            if (ctitle == nil) {
+            if (!ctitle) {
                 return true;
             }
-            else if(ctitle != nil && [ctitle isEqualToString:(NSString *)[entry valueForKey:@"correctTitle"]]){
+            else if (ctitle && [ctitle isEqualToString:(NSString *)[entry valueForKey:@"correctTitle"]]) {
                return true;
             }
         }
@@ -213,7 +213,7 @@
     [op setCanCreateDirectories:NO];
     [op setCanChooseFiles:NO];
     [op setMessage:NSLocalizedString(@"Please a directory for Hachidori to ignore.",nil)];
-    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result){
+    [op beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
@@ -231,7 +231,7 @@
     [ignorefilenamearraycontroller addObject:entry];
     // Selection Workaround
     int c = (int) [NSArray arrayWithArray:ignorefilenamearraycontroller.arrangedObjects].count;
-    if(c > 0){
+    if(c > 0) {
         [iftb editColumn:0 row:c-1 withEvent:nil select:YES];
     }
 }

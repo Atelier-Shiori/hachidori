@@ -14,9 +14,9 @@
 -(BOOL)checkmalaccount{
     // This method checks for any accounts that Hachidori can use
     NSArray * accounts = [SSKeychain accountsForService:@"Hachidori - MyAnimeList"];
-    if (accounts > 0){
+    if (accounts > 0) {
         //retrieve first valid account
-        for (NSDictionary * account in accounts){
+        for (NSDictionary * account in accounts) {
             malusername = (NSString *)account[@"acct"];
             return true;
         }
@@ -27,7 +27,7 @@
     return false;
 }
 -(NSString *)getmalusername{
-    if ([self checkmalaccount]){
+    if ([self checkmalaccount]) {
         return malusername;
     }
     return @"";

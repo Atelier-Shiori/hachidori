@@ -41,7 +41,7 @@
 		query = [[NSMutableDictionary alloc]init];
 		[query setObject:self.passwordData forKey:(__bridge id)kSecValueData];
 		status = SecItemUpdate((__bridge CFDictionaryRef)(searchQuery), (__bridge CFDictionaryRef)(query));
-	}else if(status == errSecItemNotFound){//item not found, create it!
+	}else if(status == errSecItemNotFound) {//item not found, create it!
 		query = [self query];
 		if (self.label) {
 			[query setObject:self.label forKey:(__bridge id)kSecAttrLabel];

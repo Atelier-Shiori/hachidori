@@ -24,7 +24,7 @@
         confirmed = true;
         return 2;
     }
-    else if (DetectedEpisode.intValue == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes && TotalEpisodes > 1 && [WatchStatus isEqualToString:@"completed"]){
+    else if (DetectedEpisode.intValue == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes && TotalEpisodes > 1 && [WatchStatus isEqualToString:@"completed"]) {
        //Do not set rewatch status for current episode equal to total episodes.
         [self storeLastScrobbled];
         confirmed = true;
@@ -43,11 +43,11 @@
     // Update the title
     //Set library/scrobble API
     NSString * updatemethod;
-    if (EntryID){
+    if (EntryID) {
         //Set URL to update existing entry
         updatemethod = [NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", EntryID];
     }
-    else{
+    else {
         //Create new entry
         //Set URL to update existing entry
         updatemethod = @"https://kitsu.io/api/edge/library-entries/";
@@ -64,11 +64,11 @@
     NSString * tmpWatchStatus;
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
-    if (EntryID){
+    if (EntryID) {
         [request setPostMethod:@"PATCH"];
         [tmpd setValue:EntryID forKey:@"id"];
     }
-    else{
+    else {
         [request setPostMethod:@"POST"];
         //Create relationship JSON for a new library entry
         NSDictionary * userd =  @{@"data" : @{@"id" : [self getUserid], @"type" : @"users"}};
@@ -85,18 +85,18 @@
         [attributes setValue:tmpWatchStatus forKey:@"status"];
         //Set rewatch status to false
         tmprewatching = false;
-        if (rewatching){
+        if (rewatching) {
             // Increment rewatch count
             tmprewatchedcount = rewatchcount + 1;
             [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"reconsumeCount"];
         }
-        else if (DetectedEpisode.intValue == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes){
+        else if (DetectedEpisode.intValue == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes) {
             //Increment Rewatch Count only
             tmprewatchedcount = rewatchcount + 1;
             [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"reconsumeCount"];
         }
     }
-    else if ([WatchStatus isEqualToString:@"completed"] && DetectedEpisode.intValue < TotalEpisodes){
+    else if ([WatchStatus isEqualToString:@"completed"] && DetectedEpisode.intValue < TotalEpisodes) {
         //Set rewatch status to true
         tmprewatching = true;
         //Set Title State to currently watching
@@ -114,11 +114,11 @@
     if (tmprewatching) {
         [attributes setValue:@"true" forKey:@"reconsuming"];
     }
-    else{
+    else {
         [attributes setValue:@"false" forKey:@"reconsuming"];
     }
     // Set existing score to prevent the score from being erased.
-    if (TitleScore > 0){
+    if (TitleScore > 0) {
         [attributes setValue:@(TitleScore) forKey:@"rating"];
     }
     //Privacy
@@ -145,7 +145,7 @@
             LastScrobbledSource = DetectedSource;
             rewatching = tmprewatching;
             WatchStatus = tmpWatchStatus;
-            if (!EntryID){
+            if (!EntryID) {
                 // Retrieve new entry id
                 NSError * jerror;
                 NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
@@ -201,10 +201,10 @@
     //Set new watch status
     [attributes setValue:showwatchstatus forKey:@"status"];
     //Set new score.
-    if (showscore > 0){
+    if (showscore > 0) {
         [attributes setValue:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
     }
-    else{
+    else {
         [attributes setValue:[NSNull null] forKey:@"rating"];
     }
     //Set new note

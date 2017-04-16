@@ -30,7 +30,7 @@
         }
         [onetimecorrection setHidden:NO];
     }
-    else{
+    else {
         deleteoncorrection.state = 0;
     }
     [super windowDidLoad];
@@ -60,11 +60,11 @@
         if ([alert runModal]== NSAlertFirstButtonReturn) {
             [self finish:d];
         }
-        else{
+        else {
             return;
         }
     }
-    else{
+    else {
         [self finish:d];
     }   
 }
@@ -74,7 +74,7 @@
     if (d[@"episode_count"] != [NSNull null]) {
         selectedtotalepisodes = ((NSNumber *)d[@"episode_count"]).intValue;
     }
-    else{
+    else {
         selectedtotalepisodes = 0;
     }
     [self.window orderOut:self];
@@ -107,7 +107,7 @@
                 });
                 });
     }
-    else{
+    else {
         //Remove all existing Data
         [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
     }

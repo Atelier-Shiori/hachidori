@@ -23,7 +23,7 @@
         NSLog(@"Updating status of %@ in user's MyAnimeList library.",LastScrobbledActualTitle);
         return [self updatetitle];
     }
-    else{
+    else {
         NSLog(@"Sync Failed!");
         return NO;
     }
@@ -56,7 +56,7 @@
             return 2;
         }
     }
-    else if (error !=nil){
+    else if (error !=nil) {
         NSLog(@"MAL Sync Failed, incorrect credentials or connectivity error.");
         return 0;
     }
@@ -84,7 +84,7 @@
     if (rewatching) {
             [request addFormData:@"1" forKey:@"is_rewatching"];
     }
-    else{
+    else {
             [request addFormData:@"0" forKey:@"is_rewatching"];
     }
     [request addFormData:@(rewatchcount).stringValue forKey:@"rewatch_count"];
@@ -169,8 +169,8 @@
         NSError* error;
         NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
         NSArray * mappings = d[@"data"];
-        for (NSDictionary * m in mappings){
-            if ([[NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalSite"]] isEqualToString:@"myanimelist/anime"]){
+        for (NSDictionary * m in mappings) {
+            if ([[NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalSite"]] isEqualToString:@"myanimelist/anime"]) {
                 return [NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalId"]];
             }
         }

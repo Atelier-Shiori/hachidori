@@ -93,7 +93,7 @@
                         // Update Entry
                         [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                     }
-                    else{
+                    else {
                         // Add Entry to Auto Exceptions
                         obj = [NSEntityDescription
                                insertNewObjectForEntityForName:@"AutoExceptions"
@@ -103,7 +103,7 @@
                         if ([hcorrecttitle length] > 0) {
                             [obj setValue:hcorrecttitle forKey:@"correctTitle"]; // Use Correct Kitsu Title
                         }
-                        else{
+                        else {
                             [obj setValue:correcttitle forKey:@"correctTitle"]; // Use Universal Correct Title
                         }
                         [obj setValue:[NSNumber numberWithInt:offset] forKey:@"episodeOffset"];
@@ -158,7 +158,7 @@ offset:(int)offset{
     if (hcorrecttitle.length > 0) {
         rctitle = hcorrecttitle;
     }
-    else{
+    else {
         rctitle = correcttitle;
     }
     NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (correctTitle == %@) AND (group ==[c] %@) AND (iszeroepisode == %i) AND (episodeOffset == %i)", ctitle,rctitle, group, zeroepisode, offset] ;

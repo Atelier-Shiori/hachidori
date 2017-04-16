@@ -30,16 +30,16 @@
     NSDictionary * result;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]) {
         result = [d detectKodi];
-        if (result != nil) {
+        if (result) {
             return result;
         }
     }
     result = [d detectPlayer];
-    if (result == nil) {
+    if (!result) {
         // Check Stream
         result = [d detectStream];
     }
-    if (result != nil) {
+    if (result) {
         // Return results
         return result;
     }
@@ -50,18 +50,18 @@
     else {
         result = nil;
     }
-    if (result != nil) {
+    if (result) {
         // Return results
         return result;
     }
-    else{
+    else {
         //Return an empty array
         return nil;
     }
 }
 +(NSDictionary *)checksstreamlinkinfo:(NSDictionary *)d{
     Detection * detector = [Detection new];
-    if (![detector checkStreamlinkTitleIgnored:d]){
+    if (![detector checkStreamlinkTitleIgnored:d]) {
         return [detector convertstreamlinkinfo:d];
     }
     return nil;
@@ -75,7 +75,7 @@
     NSArray * player = @[@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", @"Squire", @"ffmpeg", @"IINA", @"VLCX"];
     NSString *string;
     OGRegularExpression    *regex;
-    for(int i = 0; i <player.count; i++){
+    for(int i = 0; i <player.count; i++) {
         NSTask *task;
         task = [[NSTask alloc] init];
         task.launchPath = @"/usr/sbin/lsof";
@@ -93,7 +93,7 @@
         data = [file readDataToEndOfFile];
         
         string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-        if (string.length > 0){
+        if (string.length > 0) {
             regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm|rm|rmvb|wmv|divx|mov|flv|mpg|3gp)$" options:OgreIgnoreCaseOption];
             //Regex time
             //Get the filename first
@@ -101,7 +101,7 @@
             enumerator = [regex matchEnumeratorInString:string];
             OGRegularExpressionMatch    *match;
             NSMutableArray * filenames = [NSMutableArray new];
-            while ((match = [enumerator nextObject]) != nil) {
+            while ((match = [enumerator nextObject])) {
                 [filenames addObject:[match matchedString]];
             }
             // Populate Source
@@ -143,11 +143,11 @@
                             return result;
                         }
                     }
-                    else{
+                    else {
                         continue;
                     }
                 }
-                else{
+                else {
                     continue;
                 }
             }
@@ -183,26 +183,26 @@
     
     NSError* error;
     //Check if detectstream successfully exited. If not, ignore detection to prevent the program from crashing
-    if (task.terminationStatus != 0){
+    if (task.terminationStatus != 0) {
         NSLog(@"detectstream crashed, ignoring stream detection");
         return nil;
     }
     
     d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     
-    if (d[@"result"]  == [NSNull null]){ // Check to see if anything is playing on stream
+    if (d[@"result"]  == [NSNull null]) { // Check to see if anything is playing on stream
         return nil;
     }
-    else{
+    else {
         NSArray * c = d[@"result"];
         NSDictionary * result = c[0];
-        if (result[@"title"] == nil) {
+        if (!result[@"title"]) {
             return nil;
         }
         else if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
             return nil;
         }
-        else if ([(NSString *)result[@"site"] isEqualToString:@"plex"]){
+        else if ([(NSString *)result[@"site"] isEqualToString:@"plex"]) {
             //Do additional pharsing
             NSDictionary *d2 = [[Recognition alloc] recognize:result[@"title"]];
             NSString * DetectedTitle = (NSString *)d2[@"title"];
@@ -216,11 +216,11 @@
             }
             
         }
-        else if (result[@"episode"] == nil){
+        else if (!result[@"episode"]) {
             //Episode number is missing. Do not use the stream data as a failsafe to keep the program from crashing
             return nil;
         }
-        else{
+        else {
             NSString * DetectedTitle = (NSString *)result[@"title"];
             NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",result[@"episode"]];
             NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
@@ -236,7 +236,7 @@
     AppDelegate * delegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
     Hachidori * haengine =  [delegate getHachidoriInstance];
     // Only Detect from Kodi RPC when the host is reachable.
-    if ([haengine getKodiOnlineStatus]){
+    if ([haengine getKodiOnlineStatus]) {
         // Kodi/Plex Theater Detection
         NSString * address = [[NSUserDefaults standardUserDefaults] objectForKey:@"kodiaddress"];
         NSString * port = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"kodiport"]];
@@ -252,7 +252,7 @@
             NSDictionary * result;
             NSError * error = nil;
             result = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
-            if (result[@"result"] != nil) {
+            if (result[@"result"]) {
                 //Valid Result, parse title
                 NSDictionary * items = result[@"result"];
                 NSDictionary * item = items[@"item"];
@@ -262,13 +262,13 @@
                     // Use filename for recognition
                     label = item[@"file"];
                 }
-                else{
+                else {
                     // Use the label
                     label = item[@"label"];
                 }
                 NSDictionary * d=[[Recognition alloc] recognize:label];
                 BOOL invalidepisode = [self checkIgnoredKeywords:d[@"types"]];
-                if (!invalidepisode){
+                if (!invalidepisode) {
                     NSString * DetectedTitle = (NSString *)d[@"title"];
                     NSString * DetectedEpisode = (NSString *)d[@"episode"];
                     NSNumber * DetectedSeason = d[@"season"];
@@ -277,21 +277,21 @@
                     if ([self checkifTitleIgnored:(NSString *)DetectedTitle source:DetectedSource]) {
                         return nil;
                     }
-                    else{
+                    else {
                         NSDictionary * output = @{@"detectedtitle": DetectedTitle, @"detectedepisode": DetectedEpisode, @"detectedseason": DetectedSeason, @"detectedsource": DetectedSource, @"group": DetectedGroup, @"types": d[@"types"]};
                         return output;
                     }
                 }
-                else{
+                else {
                     return nil;
                 }
             }
-            else{
+            else {
                 // Unexpected Output or Kodi/Plex not playing anything, return nil object
                 return nil;
             }
         }
-        else{
+        else {
             return nil;
         }
     }
@@ -302,19 +302,19 @@
 -(NSDictionary *)detectStreamLink{
     streamlinkdetector * detect = [streamlinkdetector new];
     NSArray * a = [detect detectAndRetrieveInfo];
-    if (a){
+    if (a) {
         NSDictionary * result = a[0];
-        if (result[@"title"] == nil) {
+        if (!result[@"title"] || !result[@"site"]) {
             return nil;
         }
         else if ([self checkifTitleIgnored:(NSString *)result[@"title"] source:result[@"site"]]) {
             return nil;
         }
-        else if (result[@"episode"] == nil){
+        else if (!result[@"episode"]) {
             //Episode number is missing. Do not use the stream data as a failsafe to keep the program from crashing
             return nil;
         }
-        else{
+        else {
             NSString * DetectedTitle = (NSString *)result[@"title"];
             NSString * DetectedEpisode = [NSString stringWithFormat:@"%@",result[@"episode"]];
             NSString * DetectedSource = [NSString stringWithFormat:@"%@ in %@", [result[@"site"] capitalizedString], result[@"browser"]];
@@ -364,7 +364,7 @@
     filename = [filename stringByReplacingOccurrencesOfString:@"n/" withString:@"/"];
     // Get only the path
     filename = [NSURL fileURLWithPath:filename].path.stringByDeletingLastPathComponent;
-    if (filename == nil){
+    if (!filename) {
         return false;
     }
     //Check ignore directories. If on ignore directory, set onIgnoreList to true.

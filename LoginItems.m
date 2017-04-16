@@ -16,7 +16,7 @@
     // Store away that boolean.
     BOOL isInList = itemRef != nil;
     // Release the reference if it exists.
-    if (itemRef != nil) CFRelease(itemRef);
+    if (itemRef) CFRelease(itemRef);
     
     return isInList;
 }
@@ -26,7 +26,7 @@
     BOOL shouldBeToggled = ![LoginItems isLaunchAtStartup];
     // Get the LoginItems list.
     LSSharedFileListRef loginItemsRef = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    if (loginItemsRef == nil) return;
+    if (!loginItemsRef) return;
     if (shouldBeToggled) {
         // Add the app to the LoginItems list.
         CFURLRef appUrl = (CFURLRef)[NSURL fileURLWithPath:[NSBundle mainBundle].bundlePath];
@@ -37,7 +37,7 @@
         // Remove the app from the LoginItems list.
         LSSharedFileListItemRef itemRef = [self itemRefInLoginItems];
         LSSharedFileListItemRemove(loginItemsRef,itemRef);
-        if (itemRef != nil) CFRelease(itemRef);
+        if (itemRef) CFRelease(itemRef);
     }
     CFRelease(loginItemsRef);
 }
@@ -50,7 +50,7 @@
     NSURL *appUrl = [NSURL fileURLWithPath:[NSBundle mainBundle].bundlePath];
     // Get the LoginItems list.
     LSSharedFileListRef loginItemsRef = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    if (loginItemsRef == nil) return nil;
+    if (!loginItemsRef) return nil;
     // Iterate over the LoginItems.
     NSArray *loginItems = (NSArray *)LSSharedFileListCopySnapshot(loginItemsRef, nil);
     for (int currentIndex = 0; currentIndex < loginItems.count; currentIndex++) {
@@ -65,7 +65,7 @@
         }
     }
     // Retain the LoginItem reference.
-    if (itemRef != nil) CFRetain(itemRef);
+    if (itemRef) CFRetain(itemRef);
     // Release the LoginItems lists.
     [loginItems release];
     CFRelease(loginItemsRef);
