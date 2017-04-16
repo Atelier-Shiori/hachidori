@@ -4,38 +4,52 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Resources/Base.lproj/MainMenu.nib</key>
-		<data>
-		i+vAXbZy58Hf5tGVlONCsf9uHHY=
-		</data>
-		<key>Resources/Base.lproj/streamlinkinstall.nib</key>
-		<data>
-		U5iW5mXIIxdvFaMl0Xi69TT1QOw=
-		</data>
+		<key>Resources/en.lproj/MainMenu.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			N0fQZuIJzAMmTNBu7xsl+O9fVSU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Resources/en.lproj/streamlinkinstall.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YJEJ6EKfJ3KVziOjlHB1WSYnTKo=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Resources/Base.lproj/MainMenu.nib</key>
+		<key>Resources/en.lproj/MainMenu.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			i+vAXbZy58Hf5tGVlONCsf9uHHY=
+			N0fQZuIJzAMmTNBu7xsl+O9fVSU=
 			</data>
 			<key>hash2</key>
 			<data>
-			4FyddR3Z6DZy2Fo1cyfrulrSnCaWhBOEV/4x4PUSXvk=
+			G0T0DdYbqDtZl7dOieX1gf/ABbeJFBRn0POMY7gvbQg=
 			</data>
+			<key>optional</key>
+			<true/>
 		</dict>
-		<key>Resources/Base.lproj/streamlinkinstall.nib</key>
+		<key>Resources/en.lproj/streamlinkinstall.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			U5iW5mXIIxdvFaMl0Xi69TT1QOw=
+			YJEJ6EKfJ3KVziOjlHB1WSYnTKo=
 			</data>
 			<key>hash2</key>
 			<data>
-			NEtwPqc8qDuI6BMw0QNf0bYYPP1mi2dpxqYd1DcUIc4=
+			797jKFkuIgAXpZ+o4y9LuJ+N/a/SeKwHXfnvPk/9+IA=
 			</data>
+			<key>optional</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>rules</key>

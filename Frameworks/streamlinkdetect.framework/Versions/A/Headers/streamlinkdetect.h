@@ -34,4 +34,4 @@ FOUNDATION_EXPORT const unsigned char streamlinkdetectVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <streamlinkdetect/PublicHeader.h>
 #import <streamlinkdetect/streamlinkdetector.h>
-
+#import <streamlinkdetect/streamlinkdetectordelegate.h>

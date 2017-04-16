@@ -22,26 +22,26 @@
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
+#import "streamlinkdetectordelegate.h"
 
 @class streamlinkinstall;
 
 /**
  This class allows you run a stream with streamlink and obtain stream information (title, episode, site)
  */
-@interface streamlinkdetector : NSObject{
-    /**
-     The task that executes streamlink
-     */
-    NSTask * task;
-    /**
-     This returns the output from streamlink.
-     */
-    NSPipe * pipe;
-    /**
-     The Streamlink install window.
-     */
-    streamlinkinstall * streamlinkinstallw;
-}
+@interface streamlinkdetector : NSObject
+/**
+ The task that executes streamlink
+ */
+@property (strong) NSTask * task;
+/**
+ This returns the output from streamlink.
+ */
+@property (strong) NSPipe * pipe;
+/**
+ The Streamlink install window.
+ */
+@property (strong) streamlinkinstall * streamlinkinstallw;
 /**
  This specifies the streamURL
  */
@@ -64,7 +64,14 @@
  @return bool Streamlinker's state.
  */
 @property (getter=getStreamStatus) bool isstreaming;
-
+/**
+ The delegate for the detector
+ */
+@property (nonatomic, weak) id <streamlinkdetectordelegate> delegate;
+/**
+ This method allows you to set a streamlinkdetect delegate.
+ */
+- (void)setDelegate:(id <streamlinkdetectordelegate>)aDelegate;
 /**
  This method retrieves the stream information of a URL.
  @return bool Specifies if the stream information retrieval is successful or not.
