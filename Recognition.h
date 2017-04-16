@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OgreKit/OgreKit.h>
+#import <CocoaOniguruma/OnigRegexp.h>
+#import <CocoaOniguruma/OnigRegexpUtility.h>
 #import <anitomy-osx/anitomy-objc-wrapper.h>
 
 @interface Recognition : NSObject

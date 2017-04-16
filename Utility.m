@@ -10,23 +10,20 @@
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Utility
-+(int)checkMatch:(NSString *)title
++(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
-            regex:(OGRegularExpression *)regex
+            regex:(OnigRegexp *)regex
            option:(int)i{
     //Checks for matches
-    if ([regex matchInString:title]) {
-        return 1;
+    if ([regex match:title] || ([regex match:atitle] && [atitle length] >0 && i==0)) {
+        return true;
     }
-    else if([regex matchInString:atitle] && atitle.length >0 && i==0) {
-        return 2;
-    }
-    return 0;
+    return false;
 }
 +(NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
-    OGRegularExpression* regex = [OGRegularExpression regularExpressionWithString: @"(s)\\d" options:OgreIgnoreCaseOption];
-    title = [regex replaceAllMatchesInString:title withString:@""];
+    OnigRegexp * regex = [OnigRegexp compile:@"(s)\\d" options:OnigOptionIgnorecase];
+    title = [title replaceByRegexp:regex with:@""];
     // Remove any Whitespace
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;

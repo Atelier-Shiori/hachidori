@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <OgreKit/OgreKit.h>
+#import <CocoaOniguruma/OnigRegexp.h>
+#import <CocoaOniguruma/OnigRegexpUtility.h>
 #import <AFNetworking/AFOAuth2Manager.h>
 #import <streamlinkdetect/streamlinkdetect.h>
 @class Reachability;

@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OgreKit/OgreKit.h>
+#import <CocoaOniguruma/OnigRegexp.h>
+#import <CocoaOniguruma/OnigRegexpUtility.h>
 #import "string_score.h"
 #import "AppDelegate.h"
 
 @interface Utility : NSObject
-+(int)checkMatch:(NSString *)title
++(bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
-            regex:(OGRegularExpression *)regex
+            regex:(OnigRegexp *)regex
            option:(int)i;
 +(NSString *)desensitizeSeason:(NSString *)title;
 +(void)showsheetmessage:(NSString *)message

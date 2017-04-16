@@ -71,10 +71,9 @@
     //Create an NSDictionary
     NSDictionary * result;
     // LSOF mplayer to get the media title and segment
-    
-    NSArray * player = @[@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", @"Squire", @"ffmpeg", @"IINA", @"VLCX"];
+    NSArray *player = @[@"mplayer", @"mpv", @"mplayer-mt", @"VLC", @"QuickTime Playe", @"QTKitServer", @"Kodi", @"Movist", @"Squire", @"ffmpeg", @"IINA", @"VLCX"];
     NSString *string;
-    OGRegularExpression    *regex;
+    OnigRegexp    *regex;
     for(int i = 0; i <player.count; i++) {
         NSTask *task;
         task = [[NSTask alloc] init];
@@ -94,15 +93,13 @@
         
         string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
         if (string.length > 0) {
-            regex = [OGRegularExpression regularExpressionWithString:@"^.+(avi|mkv|mp4|ogm|rm|rmvb|wmv|divx|mov|flv|mpg|3gp)$" options:OgreIgnoreCaseOption];
-            //Regex time
+            regex = [OnigRegexp compile:@"^.+(avi|mkv|mp4|ogm|rm|rmvb|wmv|divx|mov|flv|mpg|3gp)$" options:OnigOptionIgnorecase];
             //Get the filename first
-            NSEnumerator    *enumerator;
-            enumerator = [regex matchEnumeratorInString:string];
-            OGRegularExpressionMatch    *match;
+            OnigResult    *match;
+            match = [regex search:string];
             NSMutableArray * filenames = [NSMutableArray new];
-            while ((match = [enumerator nextObject])) {
-                [filenames addObject:[match matchedString]];
+            for (NSString * matchedString in match.strings) {
+                [filenames addObject:matchedString];
             }
             // Populate Source
             NSString * DetectedSource;
@@ -129,7 +126,7 @@
                 BOOL onIgnoreList = [self checkifIgnored:string source:DetectedSource];
                 //Make sure the file name is valid, even if player is open. Do not update video files in ignored directories
                 
-                if ([regex matchInString:string] !=nil && !onIgnoreList) {
+                if ([regex match:string] !=nil && !onIgnoreList) {
                     NSDictionary *d = [[Recognition alloc] recognize:string];
                     BOOL invalidepisode = [self checkIgnoredKeywords:d[@"types"]];
                     if (!invalidepisode) {
@@ -344,14 +341,14 @@
 }
 -(bool)checkifTitleIgnored:(NSString *)filename source:(NSString *)source{
     // Get filename only
-    filename = [[OGRegularExpression regularExpressionWithString:@"^.+/"] replaceAllMatchesInString:filename withString:@""];
-    source = [[OGRegularExpression regularExpressionWithString:@"\\sin\\s\\w+"] replaceAllMatchesInString:source withString:@""];
+    filename = [filename replaceByRegexp:[OnigRegexp compile:@"^.+/" options:OnigOptionIgnorecase] with:@""];
+    source = [source replaceByRegexp:[OnigRegexp compile:@"\\sin\\s\\w+" options:OnigOptionIgnorecase] with:@""];
     NSArray * ignoredfilenames = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IgnoreTitleRules"] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(rulesource == %@) OR (rulesource ==[c] %@)" , @"All Sources", source]];
     NSLog(@"Debug: %@", filename);
     if (ignoredfilenames.count > 0) {
         for (NSDictionary * d in ignoredfilenames) {
             NSString * rule = [NSString stringWithFormat:@"%@", d[@"rule"]];
-            if ([[OGRegularExpression regularExpressionWithString:rule options:OgreIgnoreCaseOption] matchInString:filename] && rule.length !=0) { // Blank rules are infinite, thus should not be counted
+            if ([[OnigRegexp compile:@"%@" options:OnigOptionIgnorecase] match:filename] && rule.length !=0) { // Blank rules are infinite, thus should not be counted
                 NSLog(@"Video file name is on filename ignore list.");
                 return true;
             }
@@ -382,7 +379,7 @@
 -(bool)checkIgnoredKeywords:(NSArray *)types{
     // Check for potentially invalid types
     for (NSString * type in types) {
-        if ([[OGRegularExpression regularExpressionWithString:@"(ED|Ending|NCED|NCOP|OP|Opening|Preview|PV)" options:OgreIgnoreCaseOption] matchInString:type]) {
+        if ([[OnigRegexp compile:@"(ED|Ending|NCED|NCOP|OP|Opening|Preview|PV)" options:OnigOptionIgnorecase] match:type]) {
             return true;
         }
     }

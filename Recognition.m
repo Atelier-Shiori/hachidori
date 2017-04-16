@@ -10,19 +10,17 @@
 
 @implementation Recognition
 -(NSDictionary*)recognize:(NSString *)string{
-    OGRegularExpression    *regex;
+    OnigRegexp    *regex;
     NSString * DetectedTitle;
     NSString * DetectedEpisode;
     NSString * DetectedGroup;
     
     int DetectedSeason;
     //Get Filename
-    regex = [OGRegularExpression regularExpressionWithString:@"^.+/"];
-    string = [regex replaceAllMatchesInString:string
-                                   withString:@""];
-    regex = [OGRegularExpression regularExpressionWithString:@"^.+\\\\"]; //for Plex
-    string = [regex replaceAllMatchesInString:string
-                                   withString:@""];
+    regex = [OnigRegexp compile:@"^.+/" options:OnigOptionIgnorecase];
+    string = [string replaceByRegexp:regex with:@""];
+    regex = [OnigRegexp compile:@"^.+\\\\" options:OnigOptionIgnorecase];//for Plex
+    string = [string replaceByRegexp:regex with:@""];
     NSDictionary * d = [[anitomy_bridge new] tokenize:string];
     DetectedTitle = d[@"title"];
     DetectedEpisode = d[@"episode"];
@@ -35,18 +33,19 @@
     //Season Checking
     NSString * tmpseason;
     NSString * tmptitle = [NSString stringWithFormat:@"%@ %@", DetectedTitle, d[@"season"]];
-    OGRegularExpressionMatch * smatch;
-    regex = [OGRegularExpression regularExpressionWithString: @"((S|s)\\d|\\d)"]; //Check the only Season Notation that Anitomy does not currently support
-    smatch = [regex matchInString:tmptitle];
+    OnigResult * smatch;
+    regex = [OnigRegexp compile:@"((S|s)\\d|\\d)" options:OnigOptionIgnorecase];
+    smatch = [regex match:tmptitle];
     if (smatch) {
-        tmpseason = [smatch matchedString];
-        regex = [OGRegularExpression regularExpressionWithString: @"(S|s)"];
-        tmpseason = [regex replaceAllMatchesInString:tmpseason withString:@""];
-        DetectedSeason = tmpseason.intValue;
+        tmpseason = [smatch stringAt:0];
+        regex = [OnigRegexp compile:@"(S|s)" options:OnigOptionIgnorecase];
+        tmpseason = [tmpseason replaceByRegexp:regex with:@""];
+        DetectedSeason = [tmpseason intValue];
     }
     else {
         DetectedSeason = 1;
     }
+    
     // remove tildes
     DetectedTitle = [DetectedTitle stringByReplacingOccurrencesOfString:@"~" withString:@""];
     
@@ -77,5 +76,4 @@
     }
     return ftypes;
 }
-
 @end

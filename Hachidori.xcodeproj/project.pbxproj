@@ -17,8 +17,6 @@
 		3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3A20383112122B2B003813B2 /* dsa_pub.pem */; };
 		3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2DCCBD1210B3D900C920F1 /* Security.framework */; };
-		3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4C61D3120DF3ED0032F63A /* OgreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4C61D3120DF3ED0032F63A /* OgreKit.framework */; };
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
 		593B55841CC41DC200B7B254 /* Base64Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55831CC41DC200B7B254 /* Base64Category.m */; };
 		593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */; };
@@ -85,6 +83,9 @@
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
 		9131B20E1E915B9000EC4614 /* LoginItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 9131B20D1E915B9000EC4614 /* LoginItems.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
+		91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
+		91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
+		91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043B1E901494006B0727 /* Fabric.framework */; };
 		91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043C1E901494006B0727 /* Crashlytics.framework */; };
 		91CC23D61E7C3737008E47F6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D51E7C3737008E47F6 /* Reachability.m */; };
@@ -112,13 +113,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */,
 				910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */,
 				91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */,
 				912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */,
 				9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */,
-				3A4C61D4120DF3ED0032F63A /* OgreKit.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,7 +151,6 @@
 		3A2DCCBD1210B3D900C920F1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3A4C61C4120DF36E0032F63A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3A4C61C8120DF37D0032F63A /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		3A4C61D3120DF3ED0032F63A /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = Frameworks/OgreKit.framework; sourceTree = "<group>"; };
 		3AFEF127120DF8CE0098B59D /* Hachidori.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hachidori.h; sourceTree = "<group>"; };
 		3AFEF128120DF8CE0098B59D /* Hachidori.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Hachidori.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		593B55821CC41DC200B7B254 /* Base64Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Category.h; sourceTree = "<group>"; };
@@ -238,6 +238,7 @@
 		9131B20D1E915B9000EC4614 /* LoginItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItems.m; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
 		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
+		91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOniguruma.framework; path = Frameworks/CocoaOniguruma.framework; sourceTree = "<group>"; };
 		91CA043B1E901494006B0727 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		91CA043C1E901494006B0727 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		91CC23D41E7C3737008E47F6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -272,16 +273,17 @@
 				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
 				91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */,
 				9130A6351E81C45C00E744EF /* streamlinkdetect.framework in Frameworks */,
+				91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */,
 				910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */,
 				91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
-				3A6AB587120F402A00D51D2C /* OgreKit.framework in Frameworks */,
 				912859571E7B3033005E9A2B /* MASPreferences.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
 				9130A6341E81C3D700E744EF /* streamlinkdetect.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
+				91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */,
 				9128595B1E7B35A3005E9A2B /* MASShortcut.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
@@ -337,6 +339,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */,
 				91CA043B1E901494006B0727 /* Fabric.framework */,
 				91CA043C1E901494006B0727 /* Crashlytics.framework */,
 				9130A6331E81C3D700E744EF /* streamlinkdetect.framework */,
@@ -346,7 +349,6 @@
 				91041A671E79EC8000F268FE /* AFNetworking.framework */,
 				59D5037A1CB016840002532D /* Sparkle.framework */,
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
-				3A4C61D3120DF3ED0032F63A /* OgreKit.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OgreKit/OgreKit.h>
+#import <CocoaOniguruma/OnigRegexp.h>
+#import <CocoaOniguruma/OnigRegexpUtility.h>
 
 @interface Detection : NSObject
 +(NSDictionary *)detectmedia;

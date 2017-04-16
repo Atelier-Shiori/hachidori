@@ -85,7 +85,7 @@
     NSString *theshowtitle = @"";
     NSString *alttitle = @"";
     //Create Regular Expression
-    OGRegularExpression    *regex;
+    OnigRegexp   *regex;
     //Retrieve the ID. Note that the most matched title will be on the top
     // For Sanity (TV shows and OVAs usually have more than one episode)
     if(DetectedEpisode.length == 0) {
@@ -109,10 +109,10 @@
     for (int i = 0; i < 2; i++) {
         switch (i) {
             case 0:
-                regex = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%@)",term] options:OgreIgnoreCaseOption];
+                regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@)",term] options:OnigOptionIgnorecase];
                 break;
             case 1:
-                regex = [OGRegularExpression regularExpressionWithString:[[NSString stringWithFormat:@"(%@)",term] stringByReplacingOccurrencesOfString:@" " withString:@"|"] options:OgreIgnoreCaseOption];
+                regex = [OnigRegexp compile:[[NSString stringWithFormat:@"(%@)",term] stringByReplacingOccurrencesOfString:@" " withString:@"|"] options:OnigOptionIgnorecase];
                 //Invalidate Existing Matches
                 titlematch1 = nil;
                 break;
@@ -141,8 +141,8 @@
                 else {
                     if ([[NSString stringWithFormat:@"%@", searchentry[@"showType"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"showType"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
                         // Used for Season Checking
-                        OGRegularExpression    *regex2 = [OGRegularExpression regularExpressionWithString:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OgreIgnoreCaseOption];
-                        OGRegularExpressionMatch * smatch = [regex2 matchInString:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, searchentry[@"slug"]]];
+                        OnigRegexp   *regex2 = [OnigRegexp compile:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", DetectedSeason, DetectedSeason] options:OnigOptionIgnorecase];
+                        OnigResult * smatch = [regex2 match:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, searchentry[@"slug"]]];
                         if (DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
                             if (!smatch) {
                                 continue;
