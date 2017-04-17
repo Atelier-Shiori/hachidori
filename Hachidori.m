@@ -127,15 +127,17 @@
     return slug;
 }
 -(int)getQueueCount{
-    NSError * error;
+    __block int count = 0;
     NSManagedObjectContext * moc = self.managedObjectContext;
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (status == %i)", false, 23];
-    NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
-    queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
-    [queuefetch setPredicate: predicate];
-    NSArray * queue = [moc executeFetchRequest:queuefetch error:&error];
-    int count = (int)queue.count;
-    [managedObjectContext reset];
+    [moc performBlockAndWait:^{
+        NSError * error;
+        NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (status == %i)", false, 23];
+        NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
+        queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
+        [queuefetch setPredicate: predicate];
+        NSArray * queue = [moc executeFetchRequest:queuefetch error:&error];
+        count = (int)queue.count;
+    }];
     return count;
 }
 -(AFOAuthCredential *)getFirstAccount{
@@ -167,30 +169,30 @@
             DetectedGroup = nil;
             DetectedType = nil;
             DetectedSeason = 0;
-            // Clear Core Data Objects from Memory
-            [managedObjectContext reset];
             // Reset correcting Value
             correcting = false;
         }
         else {
-            NSError * error;
+            __block NSError * error;
             if (![self checkifexistinqueue]) {
                 // Store in offline queue
-                NSManagedObject *obj = [NSEntityDescription
-                                        insertNewObjectForEntityForName:@"OfflineQueue"
-                                        inManagedObjectContext: managedObjectContext];
-                // Set values in the new record
-                [obj setValue:DetectedTitle forKey:@"detectedtitle"];
-                [obj setValue:DetectedEpisode forKey:@"detectedepisode"];
-                [obj setValue:DetectedType forKey:@"detectedtype"];
-                [obj setValue:DetectedSource forKey:@"source"];
-                [obj setValue:[NSNumber numberWithInteger:DetectedSeason] forKey:@"detectedseason"];
-                [obj setValue:[NSNumber numberWithBool:DetectedTitleisMovie] forKey:@"ismovie"];
-                [obj setValue:[NSNumber numberWithBool:DetectedTitleisEpisodeZero] forKey:@"iszeroepisode"];
-                [obj setValue:[NSNumber numberWithInteger:23] forKey:@"status"];
-                [obj setValue:[NSNumber numberWithBool:false] forKey:@"scrobbled"];
-                //Save
-                [managedObjectContext save:&error];
+                    [managedObjectContext performBlockAndWait:^{
+                    NSManagedObject *obj = [NSEntityDescription
+                                            insertNewObjectForEntityForName:@"OfflineQueue"
+                                            inManagedObjectContext: managedObjectContext];
+                    // Set values in the new record
+                    [obj setValue:DetectedTitle forKey:@"detectedtitle"];
+                    [obj setValue:DetectedEpisode forKey:@"detectedepisode"];
+                    [obj setValue:DetectedType forKey:@"detectedtype"];
+                    [obj setValue:DetectedSource forKey:@"source"];
+                    [obj setValue:[NSNumber numberWithInteger:DetectedSeason] forKey:@"detectedseason"];
+                    [obj setValue:[NSNumber numberWithBool:DetectedTitleisMovie] forKey:@"ismovie"];
+                    [obj setValue:[NSNumber numberWithBool:DetectedTitleisEpisodeZero] forKey:@"iszeroepisode"];
+                    [obj setValue:[NSNumber numberWithInteger:23] forKey:@"status"];
+                    [obj setValue:[NSNumber numberWithBool:false] forKey:@"scrobbled"];
+                    //Save
+                    [managedObjectContext save:&error];
+                }];
             }
             // Store Last Scrobbled Title
             LastScrobbledTitle = DetectedTitle;
@@ -207,7 +209,6 @@
             DetectedType = nil;
             DetectedSeason = 0;
             Success = true;
-            [managedObjectContext reset];
             return 23;
         }
 	}
@@ -215,13 +216,16 @@
 }
 -(NSDictionary *)scrobblefromqueue{
     // Restore Detected Media
-    NSError * error;
+    __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
+    __block NSArray * queue;
     NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND ((status == %i) OR (status == %i))", false, 23, 3];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     [queuefetch setPredicate: predicate];
-    NSArray * queue = [moc executeFetchRequest:queuefetch error:&error];
+    [moc performBlockAndWait:^{
+        queue = [moc executeFetchRequest:queuefetch error:&error];
+    }];
     int successc = 0;
     int fail = 0;
     bool confirmneeded = false;
@@ -259,7 +263,9 @@
                     break;
             }
             [record setValue:[NSNumber numberWithBool:scrobbled] forKey:@"scrobbled"];
-            [moc save:&error];
+            [moc performBlockAndWait:^{
+                [moc save:&error];
+            }];
             
             //Save
             if (result == 3) {
@@ -523,7 +529,7 @@
 	NSPredicate *predicate;
     for (int i = 0; i < 2; i++) {
         NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
-        NSError * error = nil;
+        __block NSError * error = nil;
         if (i == 0) {
             NSLog(@"Check Exceptions List");
             allExceptions.entity = [NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc];
@@ -537,7 +543,10 @@
         else {break;}
 		// Set Predicate and filter exceiptions array
         [allExceptions setPredicate: predicate];
-        NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
+        __block NSArray * exceptions;
+        [managedObjectContext performBlockAndWait:^{
+        exceptions = [moc executeFetchRequest:allExceptions error:&error];
+        }];
         if (exceptions.count > 0) {
             NSString * correcttitle;
             for (NSManagedObject * entry in exceptions) {
@@ -597,13 +606,16 @@
 }
 -(NSManagedObject *)checkifexistinqueue{
     // Return existing offline queue item
-    NSError * error;
+    __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
     NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@)", DetectedTitle, DetectedEpisode, DetectedType, DetectedTitleisMovie, DetectedTitleisEpisodeZero, DetectedSeason, DetectedSource];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     [queuefetch setPredicate: predicate];
-    NSArray * queue = [moc executeFetchRequest:queuefetch error:&error];
+    __block NSArray * queue;
+    [moc performBlockAndWait:^{
+        queue = [moc executeFetchRequest:queuefetch error:&error];
+    }];
     if (queue.count > 0) {
         return (NSManagedObject *)queue[0];
     }
