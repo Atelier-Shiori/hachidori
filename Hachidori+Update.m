@@ -15,25 +15,25 @@
     if (LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !confirmed && !correcting) {
         // Confirm before updating title
         [self storeLastScrobbled];
-        return 3;
+        return ScrobblerConfirmNeeded;
     }
     if (DetectedEpisode.intValue <= DetectedCurrentEpisode && (![WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
         // Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
         [self storeLastScrobbled];
         confirmed = true;
-        return 2;
+        return ScrobblerUpdateNotNeeded;
     }
     else if (DetectedEpisode.intValue == DetectedCurrentEpisode && DetectedCurrentEpisode == TotalEpisodes && TotalEpisodes > 1 && [WatchStatus isEqualToString:@"completed"]) {
        //Do not set rewatch status for current episode equal to total episodes.
         [self storeLastScrobbled];
         confirmed = true;
-        return 2;
+        return ScrobblerUpdateNotNeeded;
     }
     else if (!LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !confirmed && !correcting) {
         // Confirm before updating title
         [self storeLastScrobbled];
-        return 3;
+        return ScrobblerConfirmNeeded;
     }
     else {
         return [self performupdate:titleid];
@@ -159,17 +159,17 @@
             }
             confirmed = true;
             if (LastScrobbledTitleNew) {
-                return 21;
+                return ScrobblerAddTitleSuccessful;
             }
             // Update Successful
-            return 22;
+            return ScrobblerUpdateSuccessful;
         default:
             // Update Unsuccessful
             NSLog(@"Update failed: %@", [request getResponseDataString]);
             if (LastScrobbledTitleNew) {
-                return 52;
+                return ScrobblerAddTitleFailed;
             }
-            return 53;
+            return ScrobblerUpdateFailed;
     }
 }
 -(BOOL)updatestatus:(NSString *)titleid

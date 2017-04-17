@@ -56,6 +56,20 @@
 	NSManagedObjectContext *managedObjectContext;
     streamlinkdetector * detector;
 }
+typedef NS_ENUM(unsigned int, ScrobbleStatus) {
+    ScrobblerNothingPlaying = 0,
+    ScrobblerSameEpisodePlaying = 1,
+    ScrobblerUpdateNotNeeded = 2,
+    ScrobblerConfirmNeeded = 3,
+    ScrobblerDetectedMedia = 4,
+    ScrobblerAddTitleSuccessful = 21,
+    ScrobblerUpdateSuccessful = 22,
+    ScrobblerOfflineQueued = 23,
+    ScrobblerTitleNotFound = 51,
+    ScrobblerAddTitleFailed = 52,
+    ScrobblerUpdateFailed = 53,
+    ScrobblerFailed = 54
+};
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (getter=getOnlineStatus) bool online;
 @property (getter=getKodiOnlineStatus) bool kodionline;

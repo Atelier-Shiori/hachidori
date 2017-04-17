@@ -464,23 +464,23 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         //Enable the Update button if a title is detected
         switch (status) { // 0 - nothing playing; 1 - same episode playing; 21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed;
-            case 0:
+            case ScrobblerNothingPlaying:
                 [self setStatusText:@"Scrobble Status: Idle..."];
                 break;
-            case 1:
+            case ScrobblerSameEpisodePlaying:
                 [self setStatusText:@"Scrobble Status: Same Episode Playing, Scrobble not needed."];
                 break;
-            case 2:
+            case ScrobblerUpdateNotNeeded:
                 [self setStatusText:@"Scrobble Status: No update needed."];
                 break;
-            case 3:{
+            case ScrobblerConfirmNeeded:{
                 [self setStatusText:@"Scrobble Status: Please confirm update."];
                 NSDictionary * userinfo = @{@"title": [haengine getLastScrobbledTitle],  @"episode": [haengine getLastScrobbledEpisode]};
                 [self showConfirmationNotification:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
                 break;
             }
-            case 21:
-            case 22:{
+            case ScrobblerAddTitleSuccessful:
+            case ScrobblerUpdateSuccessful:{
                 [self setStatusText:@"Scrobble Status: Scrobble Successful..."];
                 NSString * notificationmsg;
                 if ([haengine getRewatching]) {
@@ -501,30 +501,24 @@
                 [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
                 break;
             }
-            case 23:
+            case ScrobblerOfflineQueued:
                 [self setStatusText:@"Scrobble Status: Scrobble Queued..."];
                 [self showNotification:@"Scrobble Queued." message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
                 break;
-            case 51:
-                if ([(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"] boolValue]) {
-                    [self showCorrectionSearchWindow:self];
-                }
-                else {
+            case ScrobblerTitleNotFound:
+                if (![(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"] boolValue]) {
                     [self setStatusText:NSLocalizedString(@"Scrobble Status: Can't find title. Retrying in 5 mins...",nil)];
                     [self showNotification:NSLocalizedString(@"Couldn't find title.",nil) message:[NSString stringWithFormat:NSLocalizedString(@"Click here to find %@ manually.",nil), [haengine getFailedTitle]]];
                 } 
                 break;
-            case 52:
-            case 53:
+            case ScrobblerAddTitleFailed:
+            case ScrobblerUpdateFailed:
                 [self showNotification:NSLocalizedString(@"Scrobble Unsuccessful.",nil) message:NSLocalizedString(@"Retrying in 5 mins...",nil)];
                 [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobble Failed. Retrying in 5 mins...",nil)];
                 break;
-            case 54:
+            case ScrobblerFailed:
                 [self showNotification:NSLocalizedString(@"Scrobble Unsuccessful.",nil) message:NSLocalizedString(@"Check user credentials in Preferences. You may need to login again.",nil)];
                 [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobble Failed. User credentials might have expired.",nil)];
-                break;
-            case 55:
-                [self setStatusText:NSLocalizedString(@"Scrobble Status: No internet connection.",nil)];
                 break;
             default:
                 break;
@@ -569,9 +563,12 @@
                 [self generateShareMenu];
             }
         }
-        if (status == 51) {
+        if (status == ScrobblerTitleNotFound) {
             //Show option to find title
             [findtitle setHidden:false];
+            if ([(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"] boolValue]) {
+                [self showCorrectionSearchWindow:self];
+            }
         }
         // Enable Menu Items
         scrobbleractive = false;
@@ -783,10 +780,10 @@
 				}
 					
                 switch (status) {
-                    case 1:
-                    case 2:
-                    case 21:
-                    case 22:{
+                    case ScrobblerSameEpisodePlaying:
+                    case ScrobblerUpdateNotNeeded:
+                    case ScrobblerAddTitleSuccessful:
+                    case ScrobblerUpdateSuccessful: {
                         [self setStatusText:NSLocalizedString(@"Scrobble Status: Correction Successful...",nil)];
                         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Correction was successful",nil)];
                         [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
