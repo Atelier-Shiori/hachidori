@@ -64,6 +64,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		910167AA1EA566DE00198DAC /* TPI_Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 910167A91EA566DE00198DAC /* TPI_Hachidori.m */; };
 		91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
 		910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
 		910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -221,6 +222,106 @@
 		82F7A9A71A195A8300183EF7 /* Recognition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recognition.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Hachidori-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hachidori-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Hachidori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hachidori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		910167411EA5659900198DAC /* Hachiori_Textual_Plugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hachiori_Textual_Plugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		910167431EA5659900198DAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		910167471EA566BE00198DAC /* GCDAsyncSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = /Applications/Textual.app/Contents/Headers/GCDAsyncSocket.h; sourceTree = "<absolute>"; };
+		910167481EA566BE00198DAC /* GRMustache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustache.h; path = /Applications/Textual.app/Contents/Headers/GRMustache.h; sourceTree = "<absolute>"; };
+		910167491EA566BE00198DAC /* GRMustacheAvailabilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheAvailabilityMacros.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheAvailabilityMacros.h; sourceTree = "<absolute>"; };
+		9101674A1EA566BE00198DAC /* GRMustacheConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheConfiguration.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheConfiguration.h; sourceTree = "<absolute>"; };
+		9101674B1EA566BE00198DAC /* GRMustacheContentType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheContentType.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheContentType.h; sourceTree = "<absolute>"; };
+		9101674C1EA566BE00198DAC /* GRMustacheContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheContext.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheContext.h; sourceTree = "<absolute>"; };
+		9101674D1EA566BE00198DAC /* GRMustacheError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheError.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheError.h; sourceTree = "<absolute>"; };
+		9101674E1EA566BE00198DAC /* GRMustacheFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheFilter.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheFilter.h; sourceTree = "<absolute>"; };
+		9101674F1EA566BE00198DAC /* GRMustacheLocalizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheLocalizer.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheLocalizer.h; sourceTree = "<absolute>"; };
+		910167501EA566BE00198DAC /* GRMustacheRendering.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheRendering.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheRendering.h; sourceTree = "<absolute>"; };
+		910167511EA566BE00198DAC /* GRMustacheSafeKeyAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheSafeKeyAccess.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheSafeKeyAccess.h; sourceTree = "<absolute>"; };
+		910167521EA566BE00198DAC /* GRMustacheTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheTag.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheTag.h; sourceTree = "<absolute>"; };
+		910167531EA566BE00198DAC /* GRMustacheTagDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheTagDelegate.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheTagDelegate.h; sourceTree = "<absolute>"; };
+		910167541EA566BE00198DAC /* GRMustacheTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheTemplate.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheTemplate.h; sourceTree = "<absolute>"; };
+		910167551EA566BE00198DAC /* GRMustacheTemplateRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheTemplateRepository.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheTemplateRepository.h; sourceTree = "<absolute>"; };
+		910167561EA566BE00198DAC /* GRMustacheVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GRMustacheVersion.h; path = /Applications/Textual.app/Contents/Headers/GRMustacheVersion.h; sourceTree = "<absolute>"; };
+		910167571EA566BE00198DAC /* GTMEncodeHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTMEncodeHTML.h; path = /Applications/Textual.app/Contents/Headers/GTMEncodeHTML.h; sourceTree = "<absolute>"; };
+		910167581EA566BE00198DAC /* IRC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRC.h; path = /Applications/Textual.app/Contents/Headers/IRC.h; sourceTree = "<absolute>"; };
+		910167591EA566BE00198DAC /* IRCAddressBook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCAddressBook.h; path = /Applications/Textual.app/Contents/Headers/IRCAddressBook.h; sourceTree = "<absolute>"; };
+		9101675A1EA566BE00198DAC /* IRCAddressBookUserTracking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCAddressBookUserTracking.h; path = /Applications/Textual.app/Contents/Headers/IRCAddressBookUserTracking.h; sourceTree = "<absolute>"; };
+		9101675B1EA566BE00198DAC /* IRCChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCChannel.h; path = /Applications/Textual.app/Contents/Headers/IRCChannel.h; sourceTree = "<absolute>"; };
+		9101675C1EA566BE00198DAC /* IRCChannelConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCChannelConfig.h; path = /Applications/Textual.app/Contents/Headers/IRCChannelConfig.h; sourceTree = "<absolute>"; };
+		9101675D1EA566BE00198DAC /* IRCChannelMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCChannelMode.h; path = /Applications/Textual.app/Contents/Headers/IRCChannelMode.h; sourceTree = "<absolute>"; };
+		9101675E1EA566BE00198DAC /* IRCChannelUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCChannelUser.h; path = /Applications/Textual.app/Contents/Headers/IRCChannelUser.h; sourceTree = "<absolute>"; };
+		9101675F1EA566BE00198DAC /* IRCClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCClient.h; path = /Applications/Textual.app/Contents/Headers/IRCClient.h; sourceTree = "<absolute>"; };
+		910167601EA566BE00198DAC /* IRCClientConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCClientConfig.h; path = /Applications/Textual.app/Contents/Headers/IRCClientConfig.h; sourceTree = "<absolute>"; };
+		910167611EA566BE00198DAC /* IRCColorFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCColorFormat.h; path = /Applications/Textual.app/Contents/Headers/IRCColorFormat.h; sourceTree = "<absolute>"; };
+		910167621EA566BE00198DAC /* IRCCommandIndex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCCommandIndex.h; path = /Applications/Textual.app/Contents/Headers/IRCCommandIndex.h; sourceTree = "<absolute>"; };
+		910167631EA566BE00198DAC /* IRCConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCConnection.h; path = /Applications/Textual.app/Contents/Headers/IRCConnection.h; sourceTree = "<absolute>"; };
+		910167641EA566BE00198DAC /* IRCConnectionConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCConnectionConfig.h; path = /Applications/Textual.app/Contents/Headers/IRCConnectionConfig.h; sourceTree = "<absolute>"; };
+		910167651EA566BE00198DAC /* IRCHighlightLogEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCHighlightLogEntry.h; path = /Applications/Textual.app/Contents/Headers/IRCHighlightLogEntry.h; sourceTree = "<absolute>"; };
+		910167661EA566BE00198DAC /* IRCHighlightMatchCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCHighlightMatchCondition.h; path = /Applications/Textual.app/Contents/Headers/IRCHighlightMatchCondition.h; sourceTree = "<absolute>"; };
+		910167671EA566BE00198DAC /* IRCISupportInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCISupportInfo.h; path = /Applications/Textual.app/Contents/Headers/IRCISupportInfo.h; sourceTree = "<absolute>"; };
+		910167681EA566BE00198DAC /* IRCMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCMessage.h; path = /Applications/Textual.app/Contents/Headers/IRCMessage.h; sourceTree = "<absolute>"; };
+		910167691EA566BE00198DAC /* IRCModeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCModeInfo.h; path = /Applications/Textual.app/Contents/Headers/IRCModeInfo.h; sourceTree = "<absolute>"; };
+		9101676A1EA566BE00198DAC /* IRCNetworkList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCNetworkList.h; path = /Applications/Textual.app/Contents/Headers/IRCNetworkList.h; sourceTree = "<absolute>"; };
+		9101676B1EA566BE00198DAC /* IRCPrefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCPrefix.h; path = /Applications/Textual.app/Contents/Headers/IRCPrefix.h; sourceTree = "<absolute>"; };
+		9101676C1EA566BE00198DAC /* IRCSendingMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCSendingMessage.h; path = /Applications/Textual.app/Contents/Headers/IRCSendingMessage.h; sourceTree = "<absolute>"; };
+		9101676D1EA566BE00198DAC /* IRCTreeItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCTreeItem.h; path = /Applications/Textual.app/Contents/Headers/IRCTreeItem.h; sourceTree = "<absolute>"; };
+		9101676E1EA566BE00198DAC /* IRCUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCUser.h; path = /Applications/Textual.app/Contents/Headers/IRCUser.h; sourceTree = "<absolute>"; };
+		9101676F1EA566BE00198DAC /* IRCUserRelations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCUserRelations.h; path = /Applications/Textual.app/Contents/Headers/IRCUserRelations.h; sourceTree = "<absolute>"; };
+		910167701EA566BE00198DAC /* IRCWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRCWorld.h; path = /Applications/Textual.app/Contents/Headers/IRCWorld.h; sourceTree = "<absolute>"; };
+		910167711EA566BE00198DAC /* NSColorHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NSColorHelper.h; path = /Applications/Textual.app/Contents/Headers/NSColorHelper.h; sourceTree = "<absolute>"; };
+		910167721EA566BE00198DAC /* NSStringHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NSStringHelper.h; path = /Applications/Textual.app/Contents/Headers/NSStringHelper.h; sourceTree = "<absolute>"; };
+		910167731EA566BE00198DAC /* NSViewHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NSViewHelper.h; path = /Applications/Textual.app/Contents/Headers/NSViewHelper.h; sourceTree = "<absolute>"; };
+		910167741EA566BE00198DAC /* OELReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OELReachability.h; path = /Applications/Textual.app/Contents/Headers/OELReachability.h; sourceTree = "<absolute>"; };
+		910167751EA566BE00198DAC /* StaticDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StaticDefinitions.h; path = /Applications/Textual.app/Contents/Headers/StaticDefinitions.h; sourceTree = "<absolute>"; };
+		910167761EA566BE00198DAC /* TDCSheetBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDCSheetBase.h; path = /Applications/Textual.app/Contents/Headers/TDCSheetBase.h; sourceTree = "<absolute>"; };
+		910167771EA566BE00198DAC /* TDCWindowBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDCWindowBase.h; path = /Applications/Textual.app/Contents/Headers/TDCWindowBase.h; sourceTree = "<absolute>"; };
+		910167781EA566BE00198DAC /* TextualApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TextualApplication.h; path = /Applications/Textual.app/Contents/Headers/TextualApplication.h; sourceTree = "<absolute>"; };
+		910167791EA566BE00198DAC /* THOPluginProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = THOPluginProtocol.h; path = /Applications/Textual.app/Contents/Headers/THOPluginProtocol.h; sourceTree = "<absolute>"; };
+		9101677A1EA566BE00198DAC /* THOUnicodeHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = THOUnicodeHelper.h; path = /Applications/Textual.app/Contents/Headers/THOUnicodeHelper.h; sourceTree = "<absolute>"; };
+		9101677B1EA566BE00198DAC /* TLOEncryptionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOEncryptionManager.h; path = /Applications/Textual.app/Contents/Headers/TLOEncryptionManager.h; sourceTree = "<absolute>"; };
+		9101677C1EA566BE00198DAC /* TLOGrowlController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOGrowlController.h; path = /Applications/Textual.app/Contents/Headers/TLOGrowlController.h; sourceTree = "<absolute>"; };
+		9101677D1EA566BE00198DAC /* TLOInternetAddressLookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOInternetAddressLookup.h; path = /Applications/Textual.app/Contents/Headers/TLOInternetAddressLookup.h; sourceTree = "<absolute>"; };
+		9101677E1EA566BE00198DAC /* TLOKeyEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOKeyEventHandler.h; path = /Applications/Textual.app/Contents/Headers/TLOKeyEventHandler.h; sourceTree = "<absolute>"; };
+		9101677F1EA566BE00198DAC /* TLOLanguagePreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOLanguagePreferences.h; path = /Applications/Textual.app/Contents/Headers/TLOLanguagePreferences.h; sourceTree = "<absolute>"; };
+		910167801EA566BE00198DAC /* TLOLinkParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOLinkParser.h; path = /Applications/Textual.app/Contents/Headers/TLOLinkParser.h; sourceTree = "<absolute>"; };
+		910167811EA566BE00198DAC /* TLOpenLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOpenLink.h; path = /Applications/Textual.app/Contents/Headers/TLOpenLink.h; sourceTree = "<absolute>"; };
+		910167821EA566BE00198DAC /* TLOPopupPrompts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOPopupPrompts.h; path = /Applications/Textual.app/Contents/Headers/TLOPopupPrompts.h; sourceTree = "<absolute>"; };
+		910167831EA566BE00198DAC /* TLOSoundPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOSoundPlayer.h; path = /Applications/Textual.app/Contents/Headers/TLOSoundPlayer.h; sourceTree = "<absolute>"; };
+		910167841EA566BE00198DAC /* TLOTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TLOTimer.h; path = /Applications/Textual.app/Contents/Headers/TLOTimer.h; sourceTree = "<absolute>"; };
+		910167851EA566BE00198DAC /* TPCApplicationInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCApplicationInfo.h; path = /Applications/Textual.app/Contents/Headers/TPCApplicationInfo.h; sourceTree = "<absolute>"; };
+		910167861EA566BE00198DAC /* TPCPathInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCPathInfo.h; path = /Applications/Textual.app/Contents/Headers/TPCPathInfo.h; sourceTree = "<absolute>"; };
+		910167871EA566BE00198DAC /* TPCPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCPreferences.h; path = /Applications/Textual.app/Contents/Headers/TPCPreferences.h; sourceTree = "<absolute>"; };
+		910167881EA566BE00198DAC /* TPCPreferencesImportExport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCPreferencesImportExport.h; path = /Applications/Textual.app/Contents/Headers/TPCPreferencesImportExport.h; sourceTree = "<absolute>"; };
+		910167891EA566BE00198DAC /* TPCPreferencesReload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCPreferencesReload.h; path = /Applications/Textual.app/Contents/Headers/TPCPreferencesReload.h; sourceTree = "<absolute>"; };
+		9101678A1EA566BE00198DAC /* TPCPreferencesUserDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCPreferencesUserDefaults.h; path = /Applications/Textual.app/Contents/Headers/TPCPreferencesUserDefaults.h; sourceTree = "<absolute>"; };
+		9101678B1EA566BE00198DAC /* TPCPreferencesUserDefaultsMigrate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCPreferencesUserDefaultsMigrate.h; path = /Applications/Textual.app/Contents/Headers/TPCPreferencesUserDefaultsMigrate.h; sourceTree = "<absolute>"; };
+		9101678C1EA566BE00198DAC /* TPCResourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCResourceManager.h; path = /Applications/Textual.app/Contents/Headers/TPCResourceManager.h; sourceTree = "<absolute>"; };
+		9101678D1EA566BE00198DAC /* TPCThemeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCThemeController.h; path = /Applications/Textual.app/Contents/Headers/TPCThemeController.h; sourceTree = "<absolute>"; };
+		9101678E1EA566BE00198DAC /* TPCThemeSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCThemeSettings.h; path = /Applications/Textual.app/Contents/Headers/TPCThemeSettings.h; sourceTree = "<absolute>"; };
+		9101678F1EA566BE00198DAC /* TVCAutoExpandingTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCAutoExpandingTextField.h; path = /Applications/Textual.app/Contents/Headers/TVCAutoExpandingTextField.h; sourceTree = "<absolute>"; };
+		910167901EA566BE00198DAC /* TVCAutoExpandingTokenField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCAutoExpandingTokenField.h; path = /Applications/Textual.app/Contents/Headers/TVCAutoExpandingTokenField.h; sourceTree = "<absolute>"; };
+		910167911EA566BE00198DAC /* TVCBasicTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCBasicTableView.h; path = /Applications/Textual.app/Contents/Headers/TVCBasicTableView.h; sourceTree = "<absolute>"; };
+		910167921EA566BE00198DAC /* TVCChannelSelectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCChannelSelectionViewController.h; path = /Applications/Textual.app/Contents/Headers/TVCChannelSelectionViewController.h; sourceTree = "<absolute>"; };
+		910167931EA566BE00198DAC /* TVCComboBoxWithValueValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCComboBoxWithValueValidation.h; path = /Applications/Textual.app/Contents/Headers/TVCComboBoxWithValueValidation.h; sourceTree = "<absolute>"; };
+		910167941EA566BE00198DAC /* TVCImageURLParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCImageURLParser.h; path = /Applications/Textual.app/Contents/Headers/TVCImageURLParser.h; sourceTree = "<absolute>"; };
+		910167951EA566BE00198DAC /* TVCInputPromptDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCInputPromptDialog.h; path = /Applications/Textual.app/Contents/Headers/TVCInputPromptDialog.h; sourceTree = "<absolute>"; };
+		910167961EA566BE00198DAC /* TVCLogController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCLogController.h; path = /Applications/Textual.app/Contents/Headers/TVCLogController.h; sourceTree = "<absolute>"; };
+		910167971EA566BE00198DAC /* TVCLogLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCLogLine.h; path = /Applications/Textual.app/Contents/Headers/TVCLogLine.h; sourceTree = "<absolute>"; };
+		910167981EA566BE00198DAC /* TVCLogRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCLogRenderer.h; path = /Applications/Textual.app/Contents/Headers/TVCLogRenderer.h; sourceTree = "<absolute>"; };
+		910167991EA566BE00198DAC /* TVCLogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCLogView.h; path = /Applications/Textual.app/Contents/Headers/TVCLogView.h; sourceTree = "<absolute>"; };
+		9101679A1EA566BE00198DAC /* TVCMainWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCMainWindow.h; path = /Applications/Textual.app/Contents/Headers/TVCMainWindow.h; sourceTree = "<absolute>"; };
+		9101679B1EA566BE00198DAC /* TVCMainWindowLoadingScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCMainWindowLoadingScreen.h; path = /Applications/Textual.app/Contents/Headers/TVCMainWindowLoadingScreen.h; sourceTree = "<absolute>"; };
+		9101679C1EA566BE00198DAC /* TVCMainWindowSplitView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCMainWindowSplitView.h; path = /Applications/Textual.app/Contents/Headers/TVCMainWindowSplitView.h; sourceTree = "<absolute>"; };
+		9101679D1EA566BE00198DAC /* TVCMainWindowTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCMainWindowTextView.h; path = /Applications/Textual.app/Contents/Headers/TVCMainWindowTextView.h; sourceTree = "<absolute>"; };
+		9101679E1EA566BE00198DAC /* TVCMemberList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCMemberList.h; path = /Applications/Textual.app/Contents/Headers/TVCMemberList.h; sourceTree = "<absolute>"; };
+		9101679F1EA566BE00198DAC /* TVCServerList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCServerList.h; path = /Applications/Textual.app/Contents/Headers/TVCServerList.h; sourceTree = "<absolute>"; };
+		910167A01EA566BE00198DAC /* TVCTextFieldWithValueValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCTextFieldWithValueValidation.h; path = /Applications/Textual.app/Contents/Headers/TVCTextFieldWithValueValidation.h; sourceTree = "<absolute>"; };
+		910167A11EA566BE00198DAC /* TVCTextViewWithIRCFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TVCTextViewWithIRCFormatter.h; path = /Applications/Textual.app/Contents/Headers/TVCTextViewWithIRCFormatter.h; sourceTree = "<absolute>"; };
+		910167A21EA566BE00198DAC /* TXGlobalModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TXGlobalModels.h; path = /Applications/Textual.app/Contents/Headers/TXGlobalModels.h; sourceTree = "<absolute>"; };
+		910167A31EA566BE00198DAC /* TXMasterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TXMasterController.h; path = /Applications/Textual.app/Contents/Headers/TXMasterController.h; sourceTree = "<absolute>"; };
+		910167A41EA566BE00198DAC /* TXMenuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TXMenuController.h; path = /Applications/Textual.app/Contents/Headers/TXMenuController.h; sourceTree = "<absolute>"; };
+		910167A51EA566BE00198DAC /* TXSharedApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TXSharedApplication.h; path = /Applications/Textual.app/Contents/Headers/TXSharedApplication.h; sourceTree = "<absolute>"; };
+		910167A61EA566BE00198DAC /* TXUserInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TXUserInterface.h; path = /Applications/Textual.app/Contents/Headers/TXUserInterface.h; sourceTree = "<absolute>"; };
+		910167A81EA566DE00198DAC /* TPI_Hachidori.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPI_Hachidori.h; sourceTree = "<group>"; };
+		910167A91EA566DE00198DAC /* TPI_Hachidori.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPI_Hachidori.m; sourceTree = "<group>"; };
 		91041A671E79EC8000F268FE /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		912859551E7B2F0E005E9A2B /* MASPreferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASPreferences.framework; path = Frameworks/MASPreferences.framework; sourceTree = "<group>"; };
 		912859591E7B3599005E9A2B /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Frameworks/MASShortcut.framework; sourceTree = "<group>"; };
@@ -286,6 +387,13 @@
 				91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */,
 				9128595B1E7B35A3005E9A2B /* MASShortcut.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9101673E1EA5659900198DAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +466,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* Hachidori.app */,
 				5CD7FF3C1A449A140050E6CC /* Hachidori Tests.xctest */,
+				910167411EA5659900198DAC /* Hachiori_Textual_Plugin.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -369,6 +478,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				5CD7FF3D1A449A140050E6CC /* Hachidori Unit Tests */,
+				910167421EA5659900198DAC /* Hachiori_Textual_Plugin */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -553,6 +663,120 @@
 			name = DetectStream;
 			sourceTree = "<group>";
 		};
+		910167421EA5659900198DAC /* Hachiori_Textual_Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				910167A81EA566DE00198DAC /* TPI_Hachidori.h */,
+				910167A91EA566DE00198DAC /* TPI_Hachidori.m */,
+				910167A71EA566C500198DAC /* Headers */,
+				910167431EA5659900198DAC /* Info.plist */,
+			);
+			path = Hachiori_Textual_Plugin;
+			sourceTree = "<group>";
+		};
+		910167A71EA566C500198DAC /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				910167471EA566BE00198DAC /* GCDAsyncSocket.h */,
+				910167481EA566BE00198DAC /* GRMustache.h */,
+				910167491EA566BE00198DAC /* GRMustacheAvailabilityMacros.h */,
+				9101674A1EA566BE00198DAC /* GRMustacheConfiguration.h */,
+				9101674B1EA566BE00198DAC /* GRMustacheContentType.h */,
+				9101674C1EA566BE00198DAC /* GRMustacheContext.h */,
+				9101674D1EA566BE00198DAC /* GRMustacheError.h */,
+				9101674E1EA566BE00198DAC /* GRMustacheFilter.h */,
+				9101674F1EA566BE00198DAC /* GRMustacheLocalizer.h */,
+				910167501EA566BE00198DAC /* GRMustacheRendering.h */,
+				910167511EA566BE00198DAC /* GRMustacheSafeKeyAccess.h */,
+				910167521EA566BE00198DAC /* GRMustacheTag.h */,
+				910167531EA566BE00198DAC /* GRMustacheTagDelegate.h */,
+				910167541EA566BE00198DAC /* GRMustacheTemplate.h */,
+				910167551EA566BE00198DAC /* GRMustacheTemplateRepository.h */,
+				910167561EA566BE00198DAC /* GRMustacheVersion.h */,
+				910167571EA566BE00198DAC /* GTMEncodeHTML.h */,
+				910167581EA566BE00198DAC /* IRC.h */,
+				910167591EA566BE00198DAC /* IRCAddressBook.h */,
+				9101675A1EA566BE00198DAC /* IRCAddressBookUserTracking.h */,
+				9101675B1EA566BE00198DAC /* IRCChannel.h */,
+				9101675C1EA566BE00198DAC /* IRCChannelConfig.h */,
+				9101675D1EA566BE00198DAC /* IRCChannelMode.h */,
+				9101675E1EA566BE00198DAC /* IRCChannelUser.h */,
+				9101675F1EA566BE00198DAC /* IRCClient.h */,
+				910167601EA566BE00198DAC /* IRCClientConfig.h */,
+				910167611EA566BE00198DAC /* IRCColorFormat.h */,
+				910167621EA566BE00198DAC /* IRCCommandIndex.h */,
+				910167631EA566BE00198DAC /* IRCConnection.h */,
+				910167641EA566BE00198DAC /* IRCConnectionConfig.h */,
+				910167651EA566BE00198DAC /* IRCHighlightLogEntry.h */,
+				910167661EA566BE00198DAC /* IRCHighlightMatchCondition.h */,
+				910167671EA566BE00198DAC /* IRCISupportInfo.h */,
+				910167681EA566BE00198DAC /* IRCMessage.h */,
+				910167691EA566BE00198DAC /* IRCModeInfo.h */,
+				9101676A1EA566BE00198DAC /* IRCNetworkList.h */,
+				9101676B1EA566BE00198DAC /* IRCPrefix.h */,
+				9101676C1EA566BE00198DAC /* IRCSendingMessage.h */,
+				9101676D1EA566BE00198DAC /* IRCTreeItem.h */,
+				9101676E1EA566BE00198DAC /* IRCUser.h */,
+				9101676F1EA566BE00198DAC /* IRCUserRelations.h */,
+				910167701EA566BE00198DAC /* IRCWorld.h */,
+				910167711EA566BE00198DAC /* NSColorHelper.h */,
+				910167721EA566BE00198DAC /* NSStringHelper.h */,
+				910167731EA566BE00198DAC /* NSViewHelper.h */,
+				910167741EA566BE00198DAC /* OELReachability.h */,
+				910167751EA566BE00198DAC /* StaticDefinitions.h */,
+				910167761EA566BE00198DAC /* TDCSheetBase.h */,
+				910167771EA566BE00198DAC /* TDCWindowBase.h */,
+				910167781EA566BE00198DAC /* TextualApplication.h */,
+				910167791EA566BE00198DAC /* THOPluginProtocol.h */,
+				9101677A1EA566BE00198DAC /* THOUnicodeHelper.h */,
+				9101677B1EA566BE00198DAC /* TLOEncryptionManager.h */,
+				9101677C1EA566BE00198DAC /* TLOGrowlController.h */,
+				9101677D1EA566BE00198DAC /* TLOInternetAddressLookup.h */,
+				9101677E1EA566BE00198DAC /* TLOKeyEventHandler.h */,
+				9101677F1EA566BE00198DAC /* TLOLanguagePreferences.h */,
+				910167801EA566BE00198DAC /* TLOLinkParser.h */,
+				910167811EA566BE00198DAC /* TLOpenLink.h */,
+				910167821EA566BE00198DAC /* TLOPopupPrompts.h */,
+				910167831EA566BE00198DAC /* TLOSoundPlayer.h */,
+				910167841EA566BE00198DAC /* TLOTimer.h */,
+				910167851EA566BE00198DAC /* TPCApplicationInfo.h */,
+				910167861EA566BE00198DAC /* TPCPathInfo.h */,
+				910167871EA566BE00198DAC /* TPCPreferences.h */,
+				910167881EA566BE00198DAC /* TPCPreferencesImportExport.h */,
+				910167891EA566BE00198DAC /* TPCPreferencesReload.h */,
+				9101678A1EA566BE00198DAC /* TPCPreferencesUserDefaults.h */,
+				9101678B1EA566BE00198DAC /* TPCPreferencesUserDefaultsMigrate.h */,
+				9101678C1EA566BE00198DAC /* TPCResourceManager.h */,
+				9101678D1EA566BE00198DAC /* TPCThemeController.h */,
+				9101678E1EA566BE00198DAC /* TPCThemeSettings.h */,
+				9101678F1EA566BE00198DAC /* TVCAutoExpandingTextField.h */,
+				910167901EA566BE00198DAC /* TVCAutoExpandingTokenField.h */,
+				910167911EA566BE00198DAC /* TVCBasicTableView.h */,
+				910167921EA566BE00198DAC /* TVCChannelSelectionViewController.h */,
+				910167931EA566BE00198DAC /* TVCComboBoxWithValueValidation.h */,
+				910167941EA566BE00198DAC /* TVCImageURLParser.h */,
+				910167951EA566BE00198DAC /* TVCInputPromptDialog.h */,
+				910167961EA566BE00198DAC /* TVCLogController.h */,
+				910167971EA566BE00198DAC /* TVCLogLine.h */,
+				910167981EA566BE00198DAC /* TVCLogRenderer.h */,
+				910167991EA566BE00198DAC /* TVCLogView.h */,
+				9101679A1EA566BE00198DAC /* TVCMainWindow.h */,
+				9101679B1EA566BE00198DAC /* TVCMainWindowLoadingScreen.h */,
+				9101679C1EA566BE00198DAC /* TVCMainWindowSplitView.h */,
+				9101679D1EA566BE00198DAC /* TVCMainWindowTextView.h */,
+				9101679E1EA566BE00198DAC /* TVCMemberList.h */,
+				9101679F1EA566BE00198DAC /* TVCServerList.h */,
+				910167A01EA566BE00198DAC /* TVCTextFieldWithValueValidation.h */,
+				910167A11EA566BE00198DAC /* TVCTextViewWithIRCFormatter.h */,
+				910167A21EA566BE00198DAC /* TXGlobalModels.h */,
+				910167A31EA566BE00198DAC /* TXMasterController.h */,
+				910167A41EA566BE00198DAC /* TXMenuController.h */,
+				910167A51EA566BE00198DAC /* TXSharedApplication.h */,
+				910167A61EA566BE00198DAC /* TXUserInterface.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
 		9130A6371E81D75E00E744EF /* Stream Link Open Wiindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -615,6 +839,23 @@
 			productReference = 8D1107320486CEB800E47090 /* Hachidori.app */;
 			productType = "com.apple.product-type.application";
 		};
+		910167401EA5659900198DAC /* Hachiori_Textual_Plugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 910167461EA5659900198DAC /* Build configuration list for PBXNativeTarget "Hachiori_Textual_Plugin" */;
+			buildPhases = (
+				9101673D1EA5659900198DAC /* Sources */,
+				9101673E1EA5659900198DAC /* Frameworks */,
+				9101673F1EA5659900198DAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Hachiori_Textual_Plugin;
+			productName = Hachiori_Textual_Plugin;
+			productReference = 910167411EA5659900198DAC /* Hachiori_Textual_Plugin.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -635,6 +876,11 @@
 								enabled = 0;
 							};
 						};
+					};
+					910167401EA5659900198DAC = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9HDZTER525;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -657,6 +903,7 @@
 			targets = (
 				8D1107260486CEB800E47090 /* Hachidori */,
 				5CD7FF3B1A449A140050E6CC /* Hachidori Tests */,
+				910167401EA5659900198DAC /* Hachiori_Textual_Plugin */,
 			);
 		};
 /* End PBXProject section */
@@ -693,6 +940,13 @@
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
 				5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */,
 				5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9101673F1EA5659900198DAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,6 +1032,14 @@
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
 				8245D7641A8B27AA00B1ED73 /* Hachidori+Update.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9101673D1EA5659900198DAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				910167AA1EA566DE00198DAC /* TPI_Hachidori.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -998,6 +1260,77 @@
 			};
 			name = Release;
 		};
+		910167441EA5659900198DAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = /Applications/Textual.app/Contents/MacOS/Textual;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9HDZTER525;
+				FRAMEWORK_SEARCH_PATHS = "\"/Applications/Textual.app/Contents/Frameworks/**\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Hachiori_Textual_Plugin/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.Hachiori-Textual-Plugin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${SDKROOT}/usr/include/libxml2\"/** \"/Applications/Textual.app/Contents/Headers/**\"/**";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		910167451EA5659900198DAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = /Applications/Textual.app/Contents/MacOS/Textual;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9HDZTER525;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"/Applications/Textual.app/Contents/Frameworks/**\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Hachiori_Textual_Plugin/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.Hachiori-Textual-Plugin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${SDKROOT}/usr/include/libxml2\"/** \"/Applications/Textual.app/Contents/Headers/**\"/**";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1158,6 +1491,15 @@
 			buildConfigurations = (
 				5CD7FF451A449A140050E6CC /* Debug */,
 				5CD7FF461A449A140050E6CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		910167461EA5659900198DAC /* Build configuration list for PBXNativeTarget "Hachiori_Textual_Plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				910167441EA5659900198DAC /* Debug */,
+				910167451EA5659900198DAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
