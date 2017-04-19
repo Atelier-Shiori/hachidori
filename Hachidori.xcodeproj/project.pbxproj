@@ -82,7 +82,7 @@
 		9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9130A6331E81C3D700E744EF /* streamlinkdetect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9130A6381E81D76F00E744EF /* streamlinkopen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63A1E81D76F00E744EF /* streamlinkopen.xib */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
-		9131B20E1E915B9000EC4614 /* LoginItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 9131B20D1E915B9000EC4614 /* LoginItems.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
 		91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
 		91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
@@ -335,8 +335,8 @@
 		9130A6331E81C3D700E744EF /* streamlinkdetect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = streamlinkdetect.framework; path = Frameworks/streamlinkdetect.framework; sourceTree = "<group>"; };
 		9130A6391E81D76F00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/streamlinkopen.xib; sourceTree = "<group>"; };
 		9130A63C1E81D77A00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OfflineViewQueue.xib; sourceTree = "<group>"; };
-		9131B20C1E915B9000EC4614 /* LoginItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItems.h; sourceTree = "<group>"; };
-		9131B20D1E915B9000EC4614 /* LoginItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItems.m; sourceTree = "<group>"; };
+		9182EBDB1EA688BF001F9A74 /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
+		9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
 		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
 		91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOniguruma.framework; path = Frameworks/CocoaOniguruma.framework; sourceTree = "<group>"; };
@@ -403,27 +403,27 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6F0F849F1B34699100EEEC32 /* Scripting Support */,
-				5C07DA691A815C2C0003A827 /* Window Controllers */,
-				6FAA87821A7EB6B200EFFAC1 /* Support Classes */,
-				5C8ACEB619F409C60001A101 /* Other Classes */,
-				5CD36B9419F2EA91007BB6B6 /* Preferences */,
 				256AC3D80F4B6AC300CF3369 /* AppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* AppDelegate.m */,
-				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
-				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
-				593B55851CC41FDB00B7B254 /* Hachidori+MALSync.h */,
-				593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */,
-				2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */,
-				2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */,
-				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
-				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
-				8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */,
-				8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */,
-				8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */,
-				8245D7601A8B265900B1ED73 /* Hachidori+Search.m */,
 				918C4F9B1E79C819001E7B30 /* ClientConstants.h */,
 				918C4F9C1E79C819001E7B30 /* ClientConstants.m */,
+				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
+				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
+				2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */,
+				2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */,
+				593B55851CC41FDB00B7B254 /* Hachidori+MALSync.h */,
+				593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */,
+				8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */,
+				8245D7601A8B265900B1ED73 /* Hachidori+Search.m */,
+				8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */,
+				8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */,
+				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
+				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
+				5C8ACEB619F409C60001A101 /* Other Classes */,
+				5CD36B9419F2EA91007BB6B6 /* Preferences */,
+				6F0F849F1B34699100EEEC32 /* Scripting Support */,
+				6FAA87821A7EB6B200EFFAC1 /* Support Classes */,
+				5C07DA691A815C2C0003A827 /* Window Controllers */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -560,6 +560,8 @@
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
 				593B55821CC41DC200B7B254 /* Base64Category.h */,
 				593B55831CC41DC200B7B254 /* Base64Category.m */,
+				9182EBDB1EA688BF001F9A74 /* NSBundle+LoginItem.h */,
+				9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */,
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				912859621E7B39BF005E9A2B /* MSWeakTimer.h */,
 				912859631E7B39BF005E9A2B /* MSWeakTimer.m */,
@@ -581,8 +583,6 @@
 				825D878F1A18FD2700C5E1BF /* ExceptionsPref.m */,
 				5CD36BB819F2ED88007BB6B6 /* GeneralPrefController.h */,
 				5CD36BB919F2ED88007BB6B6 /* GeneralPrefController.m */,
-				9131B20C1E915B9000EC4614 /* LoginItems.h */,
-				9131B20D1E915B9000EC4614 /* LoginItems.m */,
 				5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */,
 				5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */,
 				5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */,
@@ -995,8 +995,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
+				9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */,
 				599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */,
-				9131B20E1E915B9000EC4614 /* LoginItems.m in Sources */,
 				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
@@ -1310,7 +1310,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9HDZTER525;

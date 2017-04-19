@@ -9,7 +9,7 @@
 #import "GeneralPrefController.h"
 #import "AppDelegate.h"
 #import "AutoExceptions.h"
-#import "LoginItems.h"
+#import "NSBundle+LoginItem.h"
 
 
 @implementation GeneralPrefController
@@ -17,8 +17,16 @@
 {
 	return [super initWithNibName:@"GeneralPreferenceView" bundle:nil];
 }
--(IBAction)toggleLaunchAtStartup:(id)sender{
-    [LoginItems toggleLaunchAtStartup];
+-(IBAction)toggleLaunchAtStartup:(id)sender {
+    [self toggleLaunchAtStartup];
+}
+- (void)toggleLaunchAtStartup {
+    if ([NSBundle.mainBundle isLoginItem]){
+        [NSBundle.mainBundle removeFromLoginItems];
+    }
+    else{
+        [NSBundle.mainBundle addToLoginItems];
+    }
 }
 #pragma mark -
 #pragma mark MASPreferencesViewController
@@ -29,7 +37,7 @@
         [disablenewtitlebar setEnabled:NO];
         [disablevibarency setEnabled: NO];
     }
-    startatlogin.state = [LoginItems isLaunchAtStartup]; // Set Launch at Startup State
+    startatlogin.state = [NSBundle.mainBundle isLoginItem]; // Set Launch at Startup State
 }
 - (NSString *)identifier
 {
