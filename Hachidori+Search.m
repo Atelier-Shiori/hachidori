@@ -84,6 +84,8 @@
     //Initalize NSString to dump the title temporarily
     NSString *theshowtitle = @"";
     NSString *alttitle = @"";
+    // Remove Colons
+    term = [term stringByReplacingOccurrencesOfString:@":" withString:@""];
     //Create Regular Expression
     OnigRegexp   *regex;
     //Retrieve the ID. Note that the most matched title will be on the top
