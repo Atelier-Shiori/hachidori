@@ -316,6 +316,8 @@
             NSDictionary * detectioninfo = [Detection checksstreamlinkinfo:d];
             if (detectioninfo) {
                 int result = [self populatevalues:detectioninfo];
+                // Check Exceptions
+                [self checkExceptions];
                 // Start Stream
                 [detector startStream];
                 if (result == ScrobblerDetectedMedia) {
