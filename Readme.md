@@ -8,9 +8,9 @@ Requires latest SDK (10.12) and XCode 8 or later to compile. Deployment target i
 Like this program and want to support the development of this program? [Become our Patreon](http://www.patreon.com/ateliershiori) or [Donate](http://hachidori.ateliershiori.moe/donate/). By donating more than $5 or becoming a patron, you will recieve a donation key to remove the reminder message when MAL Sync is enabled.
 
 You can also donate cryptocurrencies to these addresses (send an email with the transaction ID and address to get a donation key as long the amount is equilivant to $5 USD or more):
-* Bitcoin - Use the Bitpay form on the [donation page](http://hachidori.ateliershiori.moe/donate/).
+* Bitcoin - 1ELQEQXi1MNwSmv2mwWUGt6RbSNVgHqBUA
 * Ethereum - 7DDfd7443d3D4A7ec76e25d481E68BE43533b509
-
+* Zcash - t1WR1Q6ioNdqdWscyrx2v4iFH7GdQwmDQdt
 
 ## How to use
 See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Started).
@@ -45,6 +45,8 @@ All the frameworks are included. Just build! Here are the frameworks that are us
 * Sparkle.framework
 * CocoaOniguruma.framework
 * streamlinkdetect.framework
+* Reachability.framework
+* DetectionKit.framework
  
 Licenses for these frameworks and related classes can be seen [here](https://github.com/Atelier-Shiori/wiki/Credits).
 
