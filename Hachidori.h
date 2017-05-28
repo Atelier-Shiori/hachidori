@@ -14,48 +14,7 @@
 @class Reachability;
 @class Detection;
 
-@interface Hachidori : NSObject {
-	NSString * LastScrobbledTitle;
-	NSString * LastScrobbledEpisode;
-    NSString * LastScrobbledActualTitle;
-    NSString * LastScrobbledSource;
-    NSString * username;
-    NSString * malusername;
-	NSDictionary * LastScrobbledInfo;
-    BOOL LastScrobbledTitleNew;
-    BOOL isPrivate;
-    BOOL _online;
-	NSString * DetectedTitle;
-    NSString * DetectedEpisode;
-    NSString * DetectedSource;
-    NSString * DetectedGroup;
-    NSString * DetectedType;
-    NSString * FailedTitle;
-    NSString * FailedEpisode;
-    NSString * FailedSource;
-    int DetectedSeason;
-	int DetectedCurrentEpisode;
-    BOOL DetectedTitleisMovie;
-    BOOL DetectedTitleisEpisodeZero;
-	int TotalEpisodes;
-	NSString * WatchStatus;
-	int TitleScore;
-    long rewatchcount;
-    BOOL rewatching;
-    NSString * TitleNotes;
-    NSString * AniID;
-    NSString * EntryID;
-    NSString * MALID;
-    NSString * MALApiUrl;
-    NSString * slug;
-    BOOL confirmed;
-	BOOL Success;
-    BOOL correcting;
-    BOOL unittesting;
-    Reachability* reach;
-	NSManagedObjectContext *managedObjectContext;
-    streamlinkdetector * detector;
-}
+@interface Hachidori : NSObject
 typedef NS_ENUM(unsigned int, ScrobbleStatus) {
     ScrobblerNothingPlaying = 0,
     ScrobblerSameEpisodePlaying = 1,
@@ -75,30 +34,54 @@ typedef NS_ENUM(unsigned int, ratingType){
     ratingStandard = 1,
     ratingAdvanced = 2
 };
-@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
+@property (strong, getter=getLastScrobbledTitle) NSString *LastScrobbledTitle;
+@property (strong, getter=getLastScrobbledEpisode) NSString *LastScrobbledEpisode;
+@property (strong, getter=getLastScrobbledActualTitle) NSString *LastScrobbledActualTitle;
+@property (strong, getter=getLastScrobbledSource) NSString *LastScrobbledSource;
+@property (strong) NSString *username;
+@property (strong) NSString *malusername;
+@property (strong, getter=getLastScrobbledInfo) NSDictionary *LastScrobbledInfo;
+@property (getter=getisNewTitle) BOOL LastScrobbledTitleNew;
+@property (getter=getPrivate) BOOL isPrivate;
+@property BOOL _online;
+@property (strong) NSString *DetectedTitle;
+@property (strong) NSString *DetectedEpisode;
+@property (strong) NSString *DetectedSource;
+@property (strong) NSString *DetectedGroup;
+@property (strong) NSString *DetectedType;
+@property (strong, getter=getFailedTitle) NSString *FailedTitle;
+@property (strong, getter=getFailedEpisode) NSString *FailedEpisode;
+@property (strong) NSString *FailedSource;
+@property int DetectedSeason;
+@property (getter=getCurrentEpisode) int DetectedCurrentEpisode;
+@property BOOL DetectedTitleisMovie;
+@property BOOL DetectedTitleisEpisodeZero;
+@property (getter=getTotalEpisodes) int TotalEpisodes;
+@property (strong) NSString *WatchStatus;
+@property (getter=getTitleScore) int TitleScore;
+@property long rewatchcount;
+@property (getter=getRewatching) BOOL rewatching;
+@property (strong, getter=getNotes) NSString *TitleNotes;
+@property (strong, getter=getAniID) NSString *AniID;
+@property (strong) NSString *EntryID;
+@property (strong) NSString *MALID;
+@property (strong) NSString *MALApiUrl;
+@property (strong, getter=getSlug) NSString *slug;
+@property (getter=getConfirmed) BOOL confirmed;
+@property (getter=getSuccess) BOOL Success;
+@property BOOL correcting;
+@property BOOL unittesting;
+@property (strong) Reachability* reach;
+@property (strong) NSManagedObjectContext *managedObjectContext;
+@property (strong) streamlinkdetector *detector;
 @property (getter=getOnlineStatus) bool online;
 @property (getter=getRatingType) int ratingtype;
 @property (strong) Detection *detection;
 - (void)setManagedObjectContext:(NSManagedObjectContext *)context;
-- (NSString *)getLastScrobbledTitle;
-- (NSString *)getLastScrobbledEpisode;
-- (NSString *)getLastScrobbledActualTitle;
-- (NSString *)getLastScrobbledSource;
-- (NSString *)getAniID;
-- (int)getTotalEpisodes;
-- (int)getCurrentEpisode;
-- (BOOL)getConfirmed;
-- (float)getScore;
 - (int)getWatchStatus;
-- (BOOL)getRewatching;
-- (NSString *)getNotes;
-- (BOOL)getSuccess;
-- (BOOL)getPrivate;
-- (BOOL)getisNewTitle;
-- (NSDictionary *)getLastScrobbledInfo;
-- (NSString *)getFailedTitle;
-- (NSString *)getFailedEpisode;
 - (int)getQueueCount;
+- (AFOAuthCredential *)getFirstAccount;
+- (NSString *)getUserid;
 - (int)startscrobbling;
 - (NSDictionary *)scrobblefromqueue;
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
@@ -106,9 +89,6 @@ typedef NS_ENUM(unsigned int, ratingType){
 - (int)scrobble;
 - (BOOL)confirmupdate;
 - (void)clearAnimeInfo;
-- (AFOAuthCredential *)getFirstAccount;
-- (NSString *)getUserid;
-- (NSString *)getSlug;
 - (bool)checkexpired;
 - (void)refreshtoken;
 // Unit Testing Only

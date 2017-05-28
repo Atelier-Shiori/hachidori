@@ -34,38 +34,38 @@
         d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
         if (((NSArray *)d[@"data"]).count > 0) {
             d = [NSArray arrayWithArray:d[@"data"]][0];
-            EntryID = d[@"id"];
+            self.EntryID = d[@"id"];
             d = d[@"attributes"];
             NSLog(@"Title on list");
             [self populateStatusData:d id:titleid];
         }
         else {
             NSLog(@"Title not on list");
-            EntryID = nil;
-            WatchStatus = @"current";
-            LastScrobbledInfo = [self retrieveAnimeInfo:AniID];
-            DetectedCurrentEpisode = 0;
-            TitleScore  = 0;
-            isPrivate = [defaults boolForKey:@"setprivate"];
-            TitleNotes = @"";
-            LastScrobbledTitleNew = true;
-            rewatching = false;
-            rewatchcount = 0;
+            self.EntryID = nil;
+            self.WatchStatus = @"current";
+            self.LastScrobbledInfo = [self retrieveAnimeInfo:self.AniID];
+            self.DetectedCurrentEpisode = 0;
+            self.TitleScore  = 0;
+            self.isPrivate = [defaults boolForKey:@"setprivate"];
+            self.TitleNotes = @"";
+            self.LastScrobbledTitleNew = true;
+            self.rewatching = false;
+            self.rewatchcount = 0;
         }
-        if (!LastScrobbledInfo[@"episode_count"]) { // To prevent the scrobbler from failing because there is no episode total.
-            TotalEpisodes = 0; // No Episode Total, Set to 0.
+        if (!self.LastScrobbledInfo[@"episode_count"]) { // To prevent the scrobbler from failing because there is no episode total.
+            self.TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists
-            TotalEpisodes = ((NSNumber *)LastScrobbledInfo[@"episodeCount"]).intValue;
+            self.TotalEpisodes = ((NSNumber *)self.LastScrobbledInfo[@"episodeCount"]).intValue;
         }
         // New Update Confirmation
-        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && LastScrobbledTitleNew && !correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !LastScrobbledTitleNew && !correcting)) {
+        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && self.LastScrobbledTitleNew && !self.correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !self.LastScrobbledTitleNew && !self.correcting)) {
             // Manually confirm updates
-            confirmed = false;
+            self.confirmed = false;
         }
         else {
             // Automatically confirm updates
-            confirmed = true;
+            self.confirmed = true;
         }
         return YES;
     }
@@ -111,42 +111,42 @@
 - (void)populateStatusData:(NSDictionary *)d id:(NSString *)aid{
     // Retrieve Anime Information
     NSDictionary * tmpinfo = [self retrieveAnimeInfo:aid];
-    WatchStatus = d[@"status"];
+    self.WatchStatus = d[@"status"];
     //Get Notes;
     if (d[@"notes"] == [NSNull null]) {
-        TitleNotes = @"";
+        self.TitleNotes = @"";
     }
     else {
-        TitleNotes = d[@"notes"];
+        self.TitleNotes = d[@"notes"];
     }
     self.ratingtype = [self getRatingType];
     if (d[@"ratingTwenty"] != [NSNull null]) {
         // If user is using the new rating system
-        TitleScore = ((NSNumber *)d[@"ratingTwenty"]).intValue;
+        self.TitleScore = ((NSNumber *)d[@"ratingTwenty"]).intValue;
     }
     else if (d[@"rating"] != [NSNull null]) {
         // Old rating system
         float tempscore = ((NSNumber *)d[@"rating"]).floatValue;
         if (self.ratingtype == ratingStandard || self.ratingtype == ratingSimple) {
-            TitleScore = [Utility translatestandardKitsuRatingtoRatingTwenty:tempscore];
+            self.TitleScore = [Utility translatestandardKitsuRatingtoRatingTwenty:tempscore];
         }
         else {
-            TitleScore = [Utility translateadvancedKitsuRatingtoRatingTwenty:tempscore];
+            self.TitleScore = [Utility translateadvancedKitsuRatingtoRatingTwenty:tempscore];
         }
     }
     else {
         // Score is null, set to 0
-        TitleScore = 0;
+        self.TitleScore = 0;
     }
     // Rewatch Information
-    rewatching = [d[@"reconsuming"] boolValue];
-    rewatchcount = [d[@"reconsumeCount"] longValue];
+    self.rewatching = [d[@"reconsuming"] boolValue];
+    self.rewatchcount = [d[@"reconsumeCount"] longValue];
     // Privacy Settings
-    isPrivate = [d[@"private"] boolValue];
-    DetectedCurrentEpisode = ((NSNumber *)d[@"progress"]).intValue;
-    LastScrobbledInfo = tmpinfo;
-    LastScrobbledTitleNew = false;
-    if (rewatching) {
+    self.isPrivate = [d[@"private"] boolValue];
+    self.DetectedCurrentEpisode = ((NSNumber *)d[@"progress"]).intValue;
+    self.LastScrobbledInfo = tmpinfo;
+    self.LastScrobbledTitleNew = false;
+    if (self.rewatching) {
         NSLog(@"Title is being rewatched.");
     }
 }

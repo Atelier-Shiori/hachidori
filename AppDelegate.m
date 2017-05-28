@@ -955,7 +955,7 @@
             showscore.menu = _simpleratingmenu;
             break;
     }
-    [showscore selectItemWithTag:[haengine getScore]];
+    [showscore selectItemWithTag:[haengine getTitleScore]];
     episodefield.stringValue = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
     if ([haengine getTotalEpisodes]  !=0) {
         epiformatter.maximum = @([haengine getTotalEpisodes]);
@@ -1161,7 +1161,7 @@
     //Title
     NSDictionary * titles = d[@"titles"];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", titles[@"en_jp"]]];
-    if (titles[@"en"] != [NSNull null] && [NSString stringWithFormat:@"%@", titles[@"en"]].length >0) {
+    if (titles[@"en"] && titles[@"en"] != [NSNull null] && [NSString stringWithFormat:@"%@", titles[@"en"]].length >0) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", titles[@"en"]]];
     }
     [self appendToAnimeInfo:@""];
@@ -1175,7 +1175,7 @@
     if (d[@"endDate"] != [NSNull null]) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"endDate"]]];
     }
-    if (d[@"episode_count"]) {
+    if (d[@"episodeCount"]) {
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episodeCount"]]];
     }
     else {
