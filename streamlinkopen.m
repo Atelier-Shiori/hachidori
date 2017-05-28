@@ -15,7 +15,7 @@
 @end
 
 @implementation streamlinkopen
--(instancetype)init{
+- (instancetype)init{
     self = [super initWithWindowNibName:@"streamlinkopen"];
     if(!self)
         return nil;

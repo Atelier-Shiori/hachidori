@@ -1,0 +1,6 @@
+framework module Reachability {
+  umbrella header "Reachability.h"
+
+  export *
+  module * { export * }
+}

@@ -15,13 +15,13 @@
     AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return appDelegate.managedObjectContext;
 }
--(instancetype)init {
+- (instancetype)init {
     self = [super initWithWindowNibName:@"HistoryWindow"];
     if(!self)
         return nil;
     return self;
 }
--(void)awakeFromNib {
+- (void)awakeFromNib {
     arraycontroller.managedObjectContext = self.managedObjectContext;
     [arraycontroller prepareContent];
     historytable.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"Date" ascending:NO]];
@@ -33,7 +33,7 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 
 }
-+(void)addrecord:(NSString *)title
++ (void)addrecord:(NSString *)title
          Episode:(NSString *)episode
             Date:(NSDate *)date {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -50,7 +50,7 @@
         [moc save:nil];
     });
 }
--(IBAction)clearhistory:(id)sender {
+- (IBAction)clearhistory:(id)sender {
     // Set Up Prompt Message Window
     NSAlert * alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
@@ -66,7 +66,7 @@
                         contextInfo:NULL];
     
 }
--(void)clearhistoryended:(NSAlert *)alert
+- (void)clearhistoryended:(NSAlert *)alert
                     code:(int)echoice
                   conext:(void *)v {
     if (echoice == 1000) {

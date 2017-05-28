@@ -7,20 +7,20 @@
 //
 
 #import "Hachidori.h"
-#import "Detection.h"
+#import <DetectionKit/DetectionKit.h>
 #import "Hachidori+Keychain.h"
 #import "Hachidori+Search.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+UserStatus.h"
 #import "ClientConstants.h"
 #import "AppDelegate.h"
-#import "Reachability.h"
+#import <Reachability/Reachability.h>
 
 
 @implementation Hachidori
 @synthesize managedObjectContext;
 @synthesize online;
--(instancetype)init{
+- (instancetype)init{
     confirmed = true;
     //Create Reachability Object
     reach = [Reachability reachabilityWithHostname:@"kitsu.io"];
@@ -41,10 +41,11 @@
     // Start notifier
     [reach startNotifier];
     //Set up Kodi Reachability
-    [self setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
+    _detection = [Detection new];
+    [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
     return [super init];
 }
--(void)setManagedObjectContext:(NSManagedObjectContext *)context{
+- (void)setManagedObjectContext:(NSManagedObjectContext *)context{
     managedObjectContext = context;
 }
 /* 
@@ -52,51 +53,51 @@
  Accessors
  
  */
--(NSString *)getLastScrobbledTitle
+- (NSString *)getLastScrobbledTitle
 {
     return LastScrobbledTitle;
 }
--(NSString *)getLastScrobbledEpisode
+- (NSString *)getLastScrobbledEpisode
 {
     return LastScrobbledEpisode;
 }
--(NSString *)getLastScrobbledActualTitle{
+- (NSString *)getLastScrobbledActualTitle{
     return LastScrobbledActualTitle;
 }
--(NSString *)getLastScrobbledSource{
+- (NSString *)getLastScrobbledSource{
     return LastScrobbledSource;
 }
--(NSString *)getFailedTitle{
+- (NSString *)getFailedTitle{
     return FailedTitle;
 }
--(NSString *)getFailedEpisode{
+- (NSString *)getFailedEpisode{
     return FailedEpisode;
 }
--(NSString *)getAniID
+- (NSString *)getAniID
 {
     return AniID;
 }
--(int)getTotalEpisodes
+- (int)getTotalEpisodes
 {
 	return TotalEpisodes;
 }
--(float)getScore
+- (float)getScore
 {
     return TitleScore;
 }
--(int)getCurrentEpisode{
+- (int)getCurrentEpisode{
     return DetectedCurrentEpisode;
 }
--(BOOL)getConfirmed{
+- (BOOL)getConfirmed{
     return confirmed;
 }
--(BOOL)getRewatching{
+- (BOOL)getRewatching{
     return rewatching;
 }
--(BOOL)getisNewTitle{
+- (BOOL)getisNewTitle{
     return LastScrobbledTitleNew;
 }
--(int)getWatchStatus
+- (int)getWatchStatus
 {
 	if ([WatchStatus isEqualToString:@"currently-watching"])
 		return 0;
@@ -111,22 +112,22 @@
 	else
 		return 0; //fallback
 }
--(BOOL)getSuccess{
+- (BOOL)getSuccess{
     return Success;
 }
--(NSDictionary *)getLastScrobbledInfo{
+- (NSDictionary *)getLastScrobbledInfo{
     return LastScrobbledInfo;
 }
--(NSString *)getNotes{
+- (NSString *)getNotes{
     return TitleNotes;
 }
--(BOOL)getPrivate{
+- (BOOL)getPrivate{
     return isPrivate;
 }
--(NSString *)getSlug{
+- (NSString *)getSlug{
     return slug;
 }
--(int)getQueueCount{
+- (int)getQueueCount{
     __block int count = 0;
     NSManagedObjectContext * moc = self.managedObjectContext;
     [moc performBlockAndWait:^{
@@ -140,10 +141,10 @@
     }];
     return count;
 }
--(AFOAuthCredential *)getFirstAccount{
+- (AFOAuthCredential *)getFirstAccount{
    return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
 }
--(NSString *)getUserid{
+- (NSString *)getUserid{
     NSString * userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID"];
     if (userid) {
         return userid;
@@ -213,7 +214,7 @@
 	}
     return detectstatus;
 }
--(NSDictionary *)scrobblefromqueue{
+- (NSDictionary *)scrobblefromqueue{
     // Restore Detected Media
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
@@ -278,7 +279,7 @@
     }
     return @{@"success": [NSNumber numberWithInt:successc], @"fail": [NSNumber numberWithInt:fail], @"confirmneeded" : [NSNumber numberWithBool:confirmneeded]};
 }
--(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)correctonce{
+- (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)correctonce{
     correcting = true;
     NSString * lasttitle;
     if (correctonce) {
@@ -301,7 +302,7 @@
     }
     return status;
 }
--(int)scrobblefromstreamlink:(NSString *)url withStream:(NSString *)stream {
+- (int)scrobblefromstreamlink:(NSString *)url withStream:(NSString *)stream {
     if (!detector) {
         detector = [streamlinkdetector new];
     }
@@ -313,7 +314,7 @@
         if ([[detector getdetectinfo] count] > 0) {
             NSDictionary * d = [[detector getdetectinfo] objectAtIndex:0];
             // Check if title is ignored. Update if not on list.
-            NSDictionary * detectioninfo = [Detection checksstreamlinkinfo:d];
+            NSDictionary * detectioninfo = [_detection checksstreamlinkinfo:d];
             if (detectioninfo) {
                 int result = [self populatevalues:detectioninfo];
                 // Check Exceptions
@@ -329,7 +330,7 @@
     }
     return ScrobblerNothingPlaying;
 }
--(int)scrobble{
+- (int)scrobble{
     int status;
 	NSLog(@"=============");
 	NSLog(@"Scrobbling...");
@@ -409,7 +410,7 @@
     // Release Detected Title/Episode.
     return status;
 }
--(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type{
+- (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type{
     //For unit testing only
     DetectedTitle = title;
     DetectedEpisode = episode;
@@ -425,11 +426,11 @@
     NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
     return d;
 }
--(int)detectmedia {
-    NSDictionary * result = [Detection detectmedia];
+- (int)detectmedia {
+    NSDictionary * result = [_detection detectmedia];
     return [self populatevalues:result];
 }
--(int)populatevalues:(NSDictionary *) result{
+- (int)populatevalues:(NSDictionary *) result{
     if (result !=nil) {
         //Populate Data
         DetectedTitle = result[@"detectedtitle"];
@@ -461,13 +462,13 @@
     }
 
 }
--(BOOL)checkBlankDetectedEpisode{
+- (BOOL)checkBlankDetectedEpisode{
     if ([LastScrobbledEpisode isEqualToString:@"1"] && DetectedEpisode.length ==0) {
         return true;
     }
     return false;
 }
--(void)checkzeroEpisode{
+- (void)checkzeroEpisode{
     // For 00 Episodes
     if ([DetectedEpisode isEqualToString:@"00"]||[DetectedEpisode isEqualToString:@"0"]) {
         DetectedEpisode = @"1";
@@ -478,7 +479,7 @@
     }
     else {DetectedTitleisEpisodeZero = false;}
 }
--(BOOL)confirmupdate{
+- (BOOL)confirmupdate{
     DetectedTitle = LastScrobbledTitle;
     DetectedEpisode = LastScrobbledEpisode;
     DetectedSource  = LastScrobbledSource;
@@ -497,10 +498,10 @@
             return false;
     }
 }
--(void)clearAnimeInfo{
+- (void)clearAnimeInfo{
     LastScrobbledInfo = nil;
 }
--(NSString *)checkCache{
+- (NSString *)checkCache{
     NSManagedObjectContext *moc = managedObjectContext;
     NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
     allCaches.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
@@ -523,7 +524,7 @@
     }
     return @"";
 }
--(void)checkExceptions{
+- (void)checkExceptions{
     // Check Exceptions
     NSManagedObjectContext * moc = self.managedObjectContext;
 	bool found = false;
@@ -605,7 +606,7 @@
         }
     }
 }
--(NSManagedObject *)checkifexistinqueue{
+- (NSManagedObject *)checkifexistinqueue{
     // Return existing offline queue item
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
@@ -622,51 +623,14 @@
     }
     return nil;
 }
--(void)setKodiReach:(BOOL)enable{
-    if (enable == 1) {
-        //Create Reachability Object
-        kodireach = [Reachability reachabilityWithHostname:(NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"kodiaddress"]];
-        // Set up blocks
-        kodireach.reachableBlock = ^(Reachability*reach)
-        {
-            _kodionline = true;
-        };
-        kodireach.unreachableBlock = ^(Reachability*reach)
-        {
-            _kodionline = false;
-        };
-        // Start notifier
-        [kodireach startNotifier];
-    }
-    else {
-        [kodireach stopNotifier];
-        kodireach = nil;
-    }
-}
--(void)setKodiReachAddress:(NSString *)url{
-    [kodireach stopNotifier];
-    kodireach = [Reachability reachabilityWithHostname:url];
-    // Set up blocks
-    // Set the blocks
-    kodireach.reachableBlock = ^(Reachability*reach)
-    {
-        _kodionline = true;
-    };
-    kodireach.unreachableBlock = ^(Reachability*reach)
-    {
-        _kodionline = false;
-    };
-    // Start notifier
-    [kodireach startNotifier];
-}
 /*
  Token Refresh
  */
--(bool)checkexpired{
+- (bool)checkexpired{
     AFOAuthCredential * cred = [self getFirstAccount];
     return cred.expired;
 }
--(void)refreshtoken{
+- (void)refreshtoken{
     AFOAuthCredential *cred =
     [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
     NSURL *baseURL = [NSURL URLWithString:kBaseURL];

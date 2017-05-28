@@ -10,6 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Utility.h"
 #import "Base64Category.h"
+#import <DetectionKit/DetectionKit.h>
 
 @interface AdvancedPrefController ()
 
@@ -25,12 +26,12 @@
     appdelegate = adelegate;
     return [super initWithNibName:@"AdvancedPrefController" bundle:nil];
 }
--(void)loadView{
+- (void)loadView{
     [super loadView];
     // Load Login State
     [self loadlogin];
 }
--(void)loadlogin
+- (void)loadlogin
 {
     //Load Hachidori Engine Instance from AppDelegate
     haengine = appdelegate.getHachidoriInstance;
@@ -65,14 +66,14 @@
 {
     return NSLocalizedString(@"Advanced", @"Toolbar item name for the Advanced preference pane");
 }
--(IBAction)getHelp:(id)sender{
+- (IBAction)getHelp:(id)sender{
     //Show Help
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Advanced-Options"]];
 }
--(IBAction)registermal:(id)sender{
+- (IBAction)registermal:(id)sender{
     
 }
--(IBAction)startlogin:(id)sender{
+- (IBAction)startlogin:(id)sender{
     {
         //Start Login Process
         //Disable Login Button
@@ -95,7 +96,7 @@
         }
     }
 }
--(IBAction)clearlogin:(id)sender{
+- (IBAction)clearlogin:(id)sender{
     if (![appdelegate getisScrobbling] && ![appdelegate getisScrobblingActive]) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
@@ -126,7 +127,7 @@
         [Utility showsheetmessage:@"Cannot Logout" explaination:@"Please turn off automatic scrobbling before logging out." window:self.view.window];
     }
 }
--(void)login:(NSString *)username password:(NSString *)password{
+- (void)login:(NSString *)username password:(NSString *)password{
     [savebut setEnabled:NO];
     //Set Login URL
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -157,18 +158,18 @@
     }];
  }
 
--(IBAction)resetMALAPI:(id)sender{
+- (IBAction)resetMALAPI:(id)sender{
     //Reset Unofficial MAL API URL
     fieldmalapi.stringValue = @"https://malapi.ateliershiori.moe";
     // Set MAL API URL in settings
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults] ;
     [defaults setObject:fieldmalapi.stringValue forKey:@"MALAPIURL"];
 }
--(IBAction)testMALAPI:(id)sender{
+- (IBAction)testMALAPI:(id)sender{
     [testapibtn setEnabled:NO];
     //Load API URL
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [Utility manager];
     [manager GET:[NSString stringWithFormat:@"%@/1/animelist/chikorita157", [defaults objectForKey:@"MALAPIURL"]] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         [Utility showsheetmessage:@"API Test Successful" explaination:@"MAL API is functional." window: self.view.window];
             [testapibtn setEnabled:YES];
@@ -178,22 +179,22 @@
     }];
 
 }
--(IBAction)addLicense:(id)sender{
+- (IBAction)addLicense:(id)sender{
     [appdelegate enterDonationKey];
 
 }
 - (void)controlTextDidChange:(NSNotification *)notification {
     NSTextField * textfield = [notification object];
-    [[appdelegate getHachidoriInstance] setKodiReachAddress:[textfield stringValue]];
+    [[appdelegate getHachidoriInstance].detection setKodiReachAddress:[textfield stringValue]];
 }
--(IBAction)setKodiReach:(id)sender{
+- (IBAction)setKodiReach:(id)sender{
     if ([_kodicheck state] == 0) {
         // Turn off reachability notification for Kodi
-        [[appdelegate getHachidoriInstance] setKodiReach:false];
+        [[appdelegate getHachidoriInstance].detection setKodiReach:false];
     }
     else {
         // Turn on reachability notification for Kodi
-        [[appdelegate getHachidoriInstance] setKodiReach:true];
+        [[appdelegate getHachidoriInstance].detection setKodiReach:true];
     }
 }
 @end

@@ -8,9 +8,10 @@
 
 #import "Utility.h"
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <AFNetworking/AFNetworking.h>
 
 @implementation Utility
-+(bool)checkMatch:(NSString *)title
++ (bool)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OnigRegexp *)regex
            option:(int)i{
@@ -20,7 +21,7 @@
     }
     return false;
 }
-+(NSString *)desensitizeSeason:(NSString *)title {
++ (NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
     OnigRegexp * regex = [OnigRegexp compile:@"(s)\\d" options:OnigOptionIgnorecase];
     title = [title replaceByRegexp:regex with:@""];
@@ -28,7 +29,7 @@
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;
 }
-+(void)showsheetmessage:(NSString *)message
++ (void)showsheetmessage:(NSString *)message
            explaination:(NSString *)explaination
                  window:(NSWindow *)w {
     // Set Up Prompt Message Window
@@ -44,7 +45,7 @@
                      didEndSelector:nil
                         contextInfo:NULL];
 }
-+(NSString *)urlEncodeString:(NSString *)string{
++ (NSString *)urlEncodeString:(NSString *)string{
 	return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
                                                                                                   NULL,
                                                                                                   (CFStringRef)string,
@@ -52,7 +53,7 @@
                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                   kCFStringEncodingUTF8 ));
 }
-+(void)donateCheck:(AppDelegate*)delegate{
++ (void)donateCheck:(AppDelegate*)delegate{
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"]) {
         [Utility setReminderDate];
     }
@@ -78,7 +79,7 @@
         }
     }
 }
-+(void)showDonateReminder:(AppDelegate*)delegate{
++ (void)showDonateReminder:(AppDelegate*)delegate{
     // Shows Donation Reminder
     NSAlert * alert = [[NSAlert alloc] init] ;
     [alert addButtonWithTitle:NSLocalizedString(@"Donate",nil)];
@@ -106,13 +107,13 @@
     }
 }
 
-+(void)setReminderDate{
++ (void)setReminderDate{
     //Sets Reminder Date
     NSDate *now = [NSDate date];
     NSDate * reminderdate = [now dateByAddingTimeInterval:60*60*24*14];
     [[NSUserDefaults standardUserDefaults] setObject:reminderdate forKey:@"donatereminderdate"];
 }
-+(int)checkDonationKey:(NSString *)key name:(NSString *)name{
++ (int)checkDonationKey:(NSString *)key name:(NSString *)name{
     //Set Search API
     NSURL *url = [NSURL URLWithString:@"https://updates.ateliershiori.moe/keycheck/check.php"];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
@@ -141,7 +142,53 @@
         // No Internet
         return 2;
     }
-    
-    
 }
++ (AFHTTPSessionManager*)manager {
+    static dispatch_once_t onceToken;
+    static AFHTTPSessionManager *manager = nil;
+    if (manager) {
+        [manager.requestSerializer clearAuthorizationHeader];
+        manager.requestSerializer = [Utility httprequestserializer];
+        manager.responseSerializer =  [Utility jsonresponseserializer];
+    }
+    dispatch_once(&onceToken, ^{
+        manager = [AFHTTPSessionManager manager];
+        manager.requestSerializer = [Utility httprequestserializer];
+        manager.responseSerializer =  [Utility jsonresponseserializer];
+    });
+    return manager;
+}
++ (AFJSONRequestSerializer *)jsonrequestserializer {
+    static dispatch_once_t jronceToken;
+    static AFJSONRequestSerializer *jsonrequest = nil;
+    dispatch_once(&jronceToken, ^{
+        jsonrequest = [AFJSONRequestSerializer serializer];
+    });
+    return jsonrequest;
+}
++ (AFHTTPRequestSerializer *)httprequestserializer {
+    static dispatch_once_t hronceToken;
+    static AFHTTPRequestSerializer *httprequest = nil;
+    dispatch_once(&hronceToken, ^{
+        httprequest = [AFHTTPRequestSerializer serializer];
+    });
+    return httprequest;
+}
++ (AFJSONResponseSerializer *) jsonresponseserializer {
+    static dispatch_once_t jonceToken;
+    static AFJSONResponseSerializer *jsonresponse = nil;
+    dispatch_once(&jonceToken, ^{
+        jsonresponse = [AFJSONResponseSerializer serializer];
+    });
+    return jsonresponse;
+}
++ (AFHTTPResponseSerializer *) httpresponseserializer {
+    static dispatch_once_t honceToken;
+    static AFHTTPResponseSerializer *httpresponse = nil;
+    dispatch_once(&honceToken, ^{
+        httpresponse = [AFHTTPResponseSerializer serializer];
+    });
+    return httpresponse;
+}
+
 @end

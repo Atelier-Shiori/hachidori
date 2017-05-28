@@ -11,6 +11,8 @@
 #import "Utility.h"
 #import <AFNetworking/AFOAuth2Manager.h>
 #import "ClientConstants.h"
+#import "AppDelegate.h"
+#import "Hachidori.h"
 
 @implementation LoginPref
 @synthesize loginpanel;
@@ -21,14 +23,14 @@
 }
 - (id)initwithAppDelegate:(AppDelegate *)adelegate{
     
-    appdelegate = adelegate;
+    _appdelegate = adelegate;
     return [super initWithNibName:@"LoginView" bundle:nil];
     
 }
--(void)loadView{
+- (void)loadView{
     [super loadView];
     // Set Logo
-    logo.image = NSApp.applicationIconImage;
+    _logo.image = NSApp.applicationIconImage;
     // Load Login State
 	[self loadlogin];
 }
@@ -51,48 +53,48 @@
     return NSLocalizedString(@"Login", @"Toolbar item name for the Login preference pane");
 }
 
--(void)loadlogin
+- (void)loadlogin
 {
 	// Load Username
     AFOAuthCredential *ac = [self getFirstAccount];
 	if (ac) {
-		[clearbut setEnabled: YES];
-		[savebut setEnabled: NO];
-        [loggedinview setHidden:NO];
-        [loginview setHidden:YES];
-        loggedinuser.stringValue = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
+		[_clearbut setEnabled: YES];
+		[_savebut setEnabled: NO];
+        [_loggedinview setHidden:NO];
+        [_loginview setHidden:YES];
+        _loggedinuser.stringValue = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
 	}
 	else {
 		//Disable Clearbut
-		[clearbut setEnabled: NO];
-		[savebut setEnabled: YES];
+		[_clearbut setEnabled: NO];
+		[_savebut setEnabled: YES];
 	}
 }
--(IBAction)startlogin:(id)sender
+- (IBAction)startlogin:(id)sender
 {
 	{
 		//Start Login Process
 		//Disable Login Button
-		[savebut setEnabled: NO];
-		[savebut displayIfNeeded];
-		if ( fieldusername.stringValue.length == 0) {
+		[_savebut setEnabled: NO];
+		[_savebut displayIfNeeded];
+		if (_fieldusername.stringValue.length == 0) {
 			//No Username Entered! Show error message
 			[Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a username" explaination:@"Enter a valid username and try logging in again" window:self.view.window];
-			[savebut setEnabled: YES];
+			[_savebut setEnabled: YES];
 		}
 		else {
-			if ( fieldpassword.stringValue.length == 0 ) {
+			if (_fieldpassword.stringValue.length == 0 ) {
 				//No Password Entered! Show error message.
 				[Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a password" explaination:@"Enter a valid password and try logging in again." window:self.view.window];
-				[savebut setEnabled: YES];
+				[_savebut setEnabled: YES];
 			}
 			else {
-                    [self login:fieldusername.stringValue password:fieldpassword.stringValue];
+                    [self login:_fieldusername.stringValue password:_fieldpassword.stringValue];
                 }
 		}
        	}
 }
--(void)login:(NSString *)username password:(NSString *)password{
+- (void)login:(NSString *)username password:(NSString *)password{
     NSURL *baseURL = [NSURL URLWithString:kBaseURL];
     AFOAuth2Manager *OAuth2Manager =
     [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
@@ -101,14 +103,16 @@
         [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL parameters:@{@"grant_type":@"password", @"username":username, @"password":password} success:^(AFOAuthCredential *credential) {
         // Update your UI
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
-            [AFOAuthCredential storeCredential:credential
+        [AFOAuthCredential storeCredential:credential
                                 withIdentifier:@"Hachidori"];
-            [[NSUserDefaults standardUserDefaults] setValue:fieldusername.stringValue forKey:@"loggedinusername"];
-            [[NSUserDefaults standardUserDefaults] setValue:[self retrieveUserID:fieldusername.stringValue] forKey:@"UserID"];
-        [clearbut setEnabled: YES];
-        loggedinuser.stringValue = username;
-        [loggedinview setHidden:NO];
-        [loginview setHidden:YES];
+        [[NSUserDefaults standardUserDefaults] setValue:_fieldusername.stringValue forKey:@"loggedinusername"];
+        [[NSUserDefaults standardUserDefaults] setValue:[self retrieveUserID:_fieldusername.stringValue] forKey:@"UserID"];
+        [_clearbut setEnabled: YES];
+        _loggedinuser.stringValue = username;
+        [_loggedinview setHidden:NO];
+        [_loginview setHidden:YES];
+        _fieldusername.stringValue = @"";
+        _fieldpassword.stringValue = @"";
     }
     failure:^(NSError *error) {
                                                    NSLog(@"Error: %@", error);
@@ -116,25 +120,25 @@
                                                    //Login Failed, show error message
                                                    [Utility showsheetmessage:@"Hachidori was unable to log you in since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:self.view.window];
                                                    NSLog(@"%@",error);
-                                                   [savebut setEnabled: YES];
-                                                   savebut.keyEquivalent = @"\r";
-                                                   [loggedinview setHidden:YES];
-                                                   [loginview setHidden:NO];
+                                                   [_savebut setEnabled: YES];
+                                                   _savebut.keyEquivalent = @"\r";
+                                                   [_loggedinview setHidden:YES];
+                                                   [_loginview setHidden:NO];
                                                }];
    }
--(IBAction)registerhummingbird:(id)sender
+- (IBAction)registerhummingbird:(id)sender
 {
 	//Show Kitsu Registration Page
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://kitsu.io"]];
 }
--(IBAction) showgettingstartedpage:(id)sender
+- (IBAction) showgettingstartedpage:(id)sender
 {
     //Show Getting Started help page
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
 }
--(IBAction)clearlogin:(id)sender
+- (IBAction)clearlogin:(id)sender
 {
-    if (![appdelegate getisScrobbling] && ![appdelegate getisScrobblingActive]) {
+    if (![_appdelegate getisScrobbling] && ![_appdelegate getisScrobblingActive]) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
@@ -150,11 +154,11 @@
                 [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
                 [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
                 //Disable Clearbut
-                [clearbut setEnabled: NO];
-                [savebut setEnabled: YES];
-                loggedinuser.stringValue = @"";
-                [loggedinview setHidden:YES];
-                [loginview setHidden:NO];
+                [_clearbut setEnabled: NO];
+                [_savebut setEnabled: YES];
+                _loggedinuser.stringValue = @"";
+                [_loggedinview setHidden:YES];
+                [_loginview setHidden:NO];
             }
         }];
     }
@@ -165,8 +169,8 @@
 /*
  Reauthorization Panel
  */
--(IBAction)reauthorize:(id)sender{
-    if (![appdelegate getisScrobbling] && ![appdelegate getisScrobblingActive]) {
+- (IBAction)reauthorize:(id)sender{
+    if (![_appdelegate getisScrobbling] && ![_appdelegate getisScrobblingActive]) {
         [NSApp beginSheet:self.loginpanel
            modalForWindow:self.view.window modalDelegate:self
            didEndSelector:@selector(reAuthPanelDidEnd:returnCode:contextInfo:)
@@ -185,37 +189,37 @@
         [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
         [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
         //Perform Login
-        [self login:username password:passwordinput.stringValue];
+        [self login:username password:_passwordinput.stringValue];
     }
     //Reset and Close
-    passwordinput.stringValue = @"";
-    [invalidinput setHidden:YES];
+    _passwordinput.stringValue = @"";
+    [_invalidinput setHidden:YES];
     [self.loginpanel close];
 }
--(IBAction)cancelreauthorization:(id)sender{
+- (IBAction)cancelreauthorization:(id)sender{
     [self.loginpanel orderOut:self];
     [NSApp endSheet:self.loginpanel returnCode:0];
     
 }
--(IBAction)performreauthorization:(id)sender{
-    if (passwordinput.stringValue.length == 0) {
+- (IBAction)performreauthorization:(id)sender{
+    if (_passwordinput.stringValue.length == 0) {
         // No password, indicate it
         NSBeep();
-        [invalidinput setHidden:NO];
+        [_invalidinput setHidden:NO];
     }
     else {
-        [invalidinput setHidden:YES];
+        [_invalidinput setHidden:YES];
         [self.loginpanel orderOut:self];
         [NSApp endSheet:self.loginpanel returnCode:1];
     }
 }
--(AFOAuthCredential *)getFirstAccount{
+- (AFOAuthCredential *)getFirstAccount{
     return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
 }
--(NSString *)getUsername{
+- (NSString *)getUsername{
     return [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
 }
--(NSString *)retrieveUserID:(NSString *)username{
+- (NSString *)retrieveUserID:(NSString *)username{
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/users?filter[name]=%@",username]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];

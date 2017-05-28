@@ -14,7 +14,7 @@
     IBOutlet NSTableView * historytable;
 }
 @property (nonatomic, readonly)  NSManagedObjectContext *managedObjectContext;
-+(void)addrecord:(NSString *)title
++ (void)addrecord:(NSString *)title
          Episode:(NSString *)episode
             Date:(NSDate *)date;
 @end

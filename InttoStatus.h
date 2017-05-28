@@ -10,5 +10,5 @@
 
 @interface InttoStatus : NSValueTransformer
 + (Class)transformedValueClass;
--(id)transformedValue:(id)value;
+- (id)transformedValue:(id)value;
 @end

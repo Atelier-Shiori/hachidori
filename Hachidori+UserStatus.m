@@ -11,7 +11,7 @@
 #import "Hachidori+Keychain.h"
 
 @implementation Hachidori (UserStatus)
--(BOOL)checkstatus:(NSString *)titleid {
+- (BOOL)checkstatus:(NSString *)titleid {
     NSLog(@"Checking %@", titleid);
     // Update the title
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -84,7 +84,7 @@
     //Should never happen, but...
     return NO;
 }
--(NSDictionary *)retrieveAnimeInfo:(NSString *)aid{
+- (NSDictionary *)retrieveAnimeInfo:(NSString *)aid{
     NSLog(@"Getting Additional Info");
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@", aid]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
@@ -107,7 +107,7 @@
         return d;
     }
 }
--(void)populateStatusData:(NSDictionary *)d id:(NSString *)aid{
+- (void)populateStatusData:(NSDictionary *)d id:(NSString *)aid{
     // Retrieve Anime Information
     NSDictionary * tmpinfo = [self retrieveAnimeInfo:aid];
     WatchStatus = d[@"status"];

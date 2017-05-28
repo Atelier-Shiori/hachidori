@@ -9,7 +9,7 @@
 #import "NSNumberFormatterNumberOnly.h"
 
 @implementation NSNumberFormatterNumberOnly
--(BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString **)newString errorDescription:(NSString **) error {
+- (BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString **)newString errorDescription:(NSString **) error {
     // Make sure we clear newString and error to ensure old values aren't being used
     if (newString) { *newString = nil;}
     if (error)     {*error = nil;}

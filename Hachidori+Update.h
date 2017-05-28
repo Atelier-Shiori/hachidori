@@ -9,14 +9,14 @@
 #import "Hachidori.h"
 
 @interface Hachidori (Update)
--(int)updatetitle:(NSString *)titleid;
--(int)performupdate:(NSString *)titleid;
--(BOOL)updatestatus:(NSString *)titleid
+- (int)updatetitle:(NSString *)titleid;
+- (int)performupdate:(NSString *)titleid;
+- (BOOL)updatestatus:(NSString *)titleid
             episode:(NSString *)episode
               score:(float)showscore
         watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note
           isPrivate:(BOOL)privatevalue;
--(BOOL)stopRewatching:(NSString *)titleid;
--(bool)removetitle:(NSString *)titleid;
+- (BOOL)stopRewatching:(NSString *)titleid;
+- (bool)removetitle:(NSString *)titleid;
 @end

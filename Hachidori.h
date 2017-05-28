@@ -12,6 +12,7 @@
 #import <AFNetworking/AFOAuth2Manager.h>
 #import <streamlinkdetect/streamlinkdetect.h>
 @class Reachability;
+@class Detection;
 
 @interface Hachidori : NSObject {
 	NSString * LastScrobbledTitle;
@@ -52,7 +53,6 @@
     BOOL correcting;
     BOOL unittesting;
     Reachability* reach;
-    Reachability* kodireach;
 	NSManagedObjectContext *managedObjectContext;
     streamlinkdetector * detector;
 }
@@ -72,41 +72,39 @@ typedef NS_ENUM(unsigned int, ScrobbleStatus) {
 };
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (getter=getOnlineStatus) bool online;
-@property (getter=getKodiOnlineStatus) bool kodionline;
--(void)setManagedObjectContext:(NSManagedObjectContext *)context;
--(NSString *)getLastScrobbledTitle;
--(NSString *)getLastScrobbledEpisode;
--(NSString *)getLastScrobbledActualTitle;
--(NSString *)getLastScrobbledSource;
--(NSString *)getAniID;
--(int)getTotalEpisodes;
--(int)getCurrentEpisode;
--(BOOL)getConfirmed;
--(float)getScore;
--(int)getWatchStatus;
--(BOOL)getRewatching;
--(NSString *)getNotes;
--(BOOL)getSuccess;
--(BOOL)getPrivate;
--(BOOL)getisNewTitle;
--(NSDictionary *)getLastScrobbledInfo;
--(NSString *)getFailedTitle;
--(NSString *)getFailedEpisode;
--(int)getQueueCount;
--(int)startscrobbling;
--(NSDictionary *)scrobblefromqueue;
--(int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
--(int)scrobblefromstreamlink:(NSString *)url withStream:(NSString *)stream;
--(int)scrobble;
--(BOOL)confirmupdate;
--(void)clearAnimeInfo;
--(AFOAuthCredential *)getFirstAccount;
--(NSString *)getUserid;
--(NSString *)getSlug;
--(void)setKodiReach:(BOOL)enable;
--(void)setKodiReachAddress:(NSString *)url;
--(bool)checkexpired;
--(void)refreshtoken;
+@property (strong) Detection *detection;
+- (void)setManagedObjectContext:(NSManagedObjectContext *)context;
+- (NSString *)getLastScrobbledTitle;
+- (NSString *)getLastScrobbledEpisode;
+- (NSString *)getLastScrobbledActualTitle;
+- (NSString *)getLastScrobbledSource;
+- (NSString *)getAniID;
+- (int)getTotalEpisodes;
+- (int)getCurrentEpisode;
+- (BOOL)getConfirmed;
+- (float)getScore;
+- (int)getWatchStatus;
+- (BOOL)getRewatching;
+- (NSString *)getNotes;
+- (BOOL)getSuccess;
+- (BOOL)getPrivate;
+- (BOOL)getisNewTitle;
+- (NSDictionary *)getLastScrobbledInfo;
+- (NSString *)getFailedTitle;
+- (NSString *)getFailedEpisode;
+- (int)getQueueCount;
+- (int)startscrobbling;
+- (NSDictionary *)scrobblefromqueue;
+- (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
+- (int)scrobblefromstreamlink:(NSString *)url withStream:(NSString *)stream;
+- (int)scrobble;
+- (BOOL)confirmupdate;
+- (void)clearAnimeInfo;
+- (AFOAuthCredential *)getFirstAccount;
+- (NSString *)getUserid;
+- (NSString *)getSlug;
+- (bool)checkexpired;
+- (void)refreshtoken;
 // Unit Testing Only
--(NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
+- (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end

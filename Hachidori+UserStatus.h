@@ -9,7 +9,7 @@
 #import "Hachidori.h"
 
 @interface Hachidori (UserStatus)
--(BOOL)checkstatus:(NSString *)titleid;
--(NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
--(void)populateStatusData:(NSDictionary *)d id:(NSString *)aid;
+- (BOOL)checkstatus:(NSString *)titleid;
+- (NSDictionary *)retrieveAnimeInfo:(NSString *)slug;
+- (void)populateStatusData:(NSDictionary *)d id:(NSString *)aid;
 @end

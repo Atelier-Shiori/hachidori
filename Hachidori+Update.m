@@ -10,7 +10,7 @@
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Hachidori (Update)
--(int)updatetitle:(NSString *)titleid {
+- (int)updatetitle:(NSString *)titleid {
     NSLog(@"Updating Title");
     if (LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !confirmed && !correcting) {
         // Confirm before updating title
@@ -39,7 +39,7 @@
         return [self performupdate:titleid];
     }
 }
--(int)performupdate:(NSString *)titleid{
+- (int)performupdate:(NSString *)titleid{
     // Update the title
     //Set library/scrobble API
     NSString * updatemethod;
@@ -172,7 +172,7 @@
             return ScrobblerUpdateFailed;
     }
 }
--(BOOL)updatestatus:(NSString *)titleid
+- (BOOL)updatestatus:(NSString *)titleid
             episode:(NSString *)episode
               score:(float)showscore
         watchstatus:(NSString*)showwatchstatus
@@ -238,7 +238,7 @@
     }
     return false;
 }
--(BOOL)stopRewatching:(NSString *)titleid{
+- (BOOL)stopRewatching:(NSString *)titleid{
     NSLog(@"Reverting rewatch for %@", titleid);
     // Update the title
     //Set library/scrobble API
@@ -282,7 +282,7 @@
     return false;
 
 }
--(bool)removetitle:(NSString *)titleid{
+- (bool)removetitle:(NSString *)titleid{
     NSLog(@"Removing %@", titleid);
     // Update the title
     //Set library/scrobble API
@@ -305,7 +305,7 @@
     }
     return false;
 }
--(void)storeLastScrobbled{
+- (void)storeLastScrobbled{
     LastScrobbledTitle = DetectedTitle;
     LastScrobbledEpisode = DetectedEpisode;
     LastScrobbledSource = DetectedSource;

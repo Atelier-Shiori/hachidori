@@ -14,6 +14,12 @@
 		2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F581E48FD10003E2FCF /* DonationWindow.xib */; };
 		2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DA3D7651E0A079100BD2457 /* Localizable.strings */; };
 		2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */; };
+		2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D21EDB27CA00E9B7AD /* Reachability.framework */; };
+		2DF623D51EDB27D300E9B7AD /* DetectionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */; };
+		2DF623D61EDB2C0500E9B7AD /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D21EDB27CA00E9B7AD /* Reachability.framework */; };
+		2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DF623D21EDB27CA00E9B7AD /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */; };
+		2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3A20383112122B2B003813B2 /* dsa_pub.pem */; };
 		3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2DCCBD1210B3D900C920F1 /* Security.framework */; };
@@ -42,7 +48,6 @@
 		6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0F84A11B34699F00EEEC32 /* HachidoriScripting.m */; };
 		6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6F0F84A31B3469A800EEEC32 /* hachidori.sdef */; };
 		6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1290971A7D817000B8C3E6 /* AutoExceptions.m */; };
-		6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F18658F1A7D6F7F00C74A47 /* Detection.m */; };
 		6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */; };
 		6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */; };
 		6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */; };
@@ -58,9 +63,7 @@
 		825D87931A1912EF00C5E1BF /* ExceptionsPref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */; };
 		8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8294C45D19F99B2F009DE98B /* Images.xcassets */; };
 		82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */; };
-		82F065B319FB618E00E0B17A /* detectstream in Resources */ = {isa = PBXBuildFile; fileRef = 82F065B219FB618E00E0B17A /* detectstream */; };
 		82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4C61C8120DF37D0032F63A /* CoreServices.framework */; };
-		82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7A9A71A195A8300183EF7 /* Recognition.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -89,7 +92,6 @@
 		91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043B1E901494006B0727 /* Fabric.framework */; };
 		91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043C1E901494006B0727 /* Crashlytics.framework */; };
-		91CC23D61E7C3737008E47F6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D51E7C3737008E47F6 /* Reachability.m */; };
 		91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */; };
 		91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DC1E7C3773008E47F6 /* OfflineViewQueue.m */; };
 		91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DE1E7C3773008E47F6 /* InttoStatus.m */; };
@@ -115,9 +117,11 @@
 			dstSubfolderSpec = 10;
 			files = (
 				91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */,
+				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */,
 				910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */,
+				2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */,
 				91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */,
 				912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */,
 				9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */,
@@ -146,6 +150,8 @@
 		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Keychain.h"; sourceTree = "<group>"; };
 		2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Keychain.m"; sourceTree = "<group>"; };
+		2DF623D21EDB27CA00E9B7AD /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Frameworks/Reachability.framework; sourceTree = "<group>"; };
+		2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DetectionKit.framework; path = Frameworks/DetectionKit.framework; sourceTree = "<group>"; };
 		3A20383112122B2B003813B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
 		3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
@@ -189,8 +195,6 @@
 		6F0F84A31B3469A800EEEC32 /* hachidori.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hachidori.sdef; sourceTree = "<group>"; };
 		6F1290961A7D817000B8C3E6 /* AutoExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoExceptions.h; sourceTree = "<group>"; };
 		6F1290971A7D817000B8C3E6 /* AutoExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoExceptions.m; sourceTree = "<group>"; };
-		6F18658E1A7D6F7F00C74A47 /* Detection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Detection.h; sourceTree = SOURCE_ROOT; };
-		6F18658F1A7D6F7F00C74A47 /* Detection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Detection.m; sourceTree = SOURCE_ROOT; };
 		6F2366491ABE31EF00FDC844 /* AdvancedPrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvancedPrefController.h; sourceTree = "<group>"; };
 		6F23664A1ABE31EF00FDC844 /* AdvancedPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedPrefController.m; sourceTree = "<group>"; };
 		6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionsCache.h; sourceTree = "<group>"; };
@@ -217,9 +221,6 @@
 		829FB42019F739700026EAC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SoftwareUpdateView.xib; sourceTree = "<group>"; };
 		82EBBD1A1A17FD5B009F6179 /* FixSearchDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixSearchDialog.h; sourceTree = "<group>"; };
 		82EBBD1B1A17FD5B009F6179 /* FixSearchDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixSearchDialog.m; sourceTree = "<group>"; };
-		82F065B219FB618E00E0B17A /* detectstream */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = detectstream; path = detectstream/detectstream; sourceTree = "<group>"; };
-		82F7A9A61A195A8300183EF7 /* Recognition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recognition.h; sourceTree = "<group>"; };
-		82F7A9A71A195A8300183EF7 /* Recognition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recognition.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Hachidori-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hachidori-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Hachidori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hachidori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		910167411EA5659900198DAC /* Hachiori_Textual_Plugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hachiori_Textual_Plugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,8 +343,6 @@
 		91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOniguruma.framework; path = Frameworks/CocoaOniguruma.framework; sourceTree = "<group>"; };
 		91CA043B1E901494006B0727 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		91CA043C1E901494006B0727 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
-		91CC23D41E7C3737008E47F6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		91CC23D51E7C3737008E47F6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberFormatterNumberOnly.m; sourceTree = "<group>"; };
 		91CC23D81E7C3742008E47F6 /* NSNumberFormatterNumberOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberFormatterNumberOnly.h; sourceTree = "<group>"; };
 		91CC23DB1E7C3773008E47F6 /* OfflineViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineViewQueue.h; sourceTree = "<group>"; };
@@ -367,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
+				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
 				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
 				912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */,
 				91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */,
@@ -381,10 +381,13 @@
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				912859571E7B3033005E9A2B /* MASPreferences.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
 				9130A6341E81C3D700E744EF /* streamlinkdetect.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
+				2DF623D61EDB2C0500E9B7AD /* Reachability.framework in Frameworks */,
 				91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */,
+				2DF623D51EDB27D300E9B7AD /* DetectionKit.framework in Frameworks */,
 				9128595B1E7B35A3005E9A2B /* MASShortcut.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
@@ -447,7 +450,9 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2DF623D21EDB27CA00E9B7AD /* Reachability.framework */,
 				91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */,
+				2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */,
 				91CA043B1E901494006B0727 /* Fabric.framework */,
 				91CA043C1E901494006B0727 /* Crashlytics.framework */,
 				9130A6331E81C3D700E744EF /* streamlinkdetect.framework */,
@@ -499,7 +504,6 @@
 			isa = PBXGroup;
 			children = (
 				6F0F84A31B3469A800EEEC32 /* hachidori.sdef */,
-				82F065B119FB618300E0B17A /* DetectStream */,
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
 				2DA3D7651E0A079100BD2457 /* Localizable.strings */,
@@ -565,8 +569,6 @@
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
 				912859621E7B39BF005E9A2B /* MSWeakTimer.h */,
 				912859631E7B39BF005E9A2B /* MSWeakTimer.m */,
-				91CC23D41E7C3737008E47F6 /* Reachability.h */,
-				91CC23D51E7C3737008E47F6 /* Reachability.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
@@ -633,10 +635,6 @@
 				6F1290971A7D817000B8C3E6 /* AutoExceptions.m */,
 				6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */,
 				6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */,
-				82F7A9A61A195A8300183EF7 /* Recognition.h */,
-				82F7A9A71A195A8300183EF7 /* Recognition.m */,
-				6F18658E1A7D6F7F00C74A47 /* Detection.h */,
-				6F18658F1A7D6F7F00C74A47 /* Detection.m */,
 				6F0CF36A1A7DB89300261A43 /* Utility.h */,
 				6F0CF36B1A7DB89300261A43 /* Utility.m */,
 				91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */,
@@ -653,14 +651,6 @@
 				824924A11A184C4200A01761 /* FixSearchDialog.xib */,
 			);
 			name = Correction/Exception;
-			sourceTree = "<group>";
-		};
-		82F065B119FB618300E0B17A /* DetectStream */ = {
-			isa = PBXGroup;
-			children = (
-				82F065B219FB618E00E0B17A /* detectstream */,
-			);
-			name = DetectStream;
 			sourceTree = "<group>";
 		};
 		910167421EA5659900198DAC /* Hachiori_Textual_Plugin */ = {
@@ -924,7 +914,6 @@
 				9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				9130A6381E81D76F00E744EF /* streamlinkopen.xib in Resources */,
-				82F065B319FB618E00E0B17A /* detectstream in Resources */,
 				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
 				6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
@@ -994,7 +983,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82F7A9A81A195A8300183EF7 /* Recognition.m in Sources */,
 				9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */,
 				599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */,
 				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
@@ -1006,7 +994,6 @@
 				2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */,
 				918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
-				6F1865901A7D6F7F00C74A47 /* Detection.m in Sources */,
 				9130A6311E81C39F00E744EF /* streamlinkopen.m in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,
 				91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */,
@@ -1024,7 +1011,6 @@
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
-				91CC23D61E7C3737008E47F6 /* Reachability.m in Sources */,
 				599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */,

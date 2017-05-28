@@ -18,7 +18,7 @@
     AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return appDelegate.managedObjectContext;
 }
--(id)init{
+- (id)init{
     self = [super initWithWindowNibName:@"OfflineViewQueue"];
     if(!self)
         return nil;
@@ -29,7 +29,7 @@
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
--(IBAction)clearqueue:(id)sender
+- (IBAction)clearqueue:(id)sender
 {
     // Set Up Prompt Message Window
     NSAlert * alert = [[NSAlert alloc] init];
@@ -46,7 +46,7 @@
                         contextInfo:NULL];
     
 }
--(void)clearhistoryended:(NSAlert *)alert
+- (void)clearhistoryended:(NSAlert *)alert
                     code:(int)echoice
                   conext:(void *)v
 {

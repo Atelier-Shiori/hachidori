@@ -29,9 +29,9 @@
 }
 @property (strong) IBOutlet NSButton *kodicheck;
 - (id)initwithAppDelegate:(AppDelegate *)adelegate;
--(IBAction)registermal:(id)sender;
--(IBAction)startlogin:(id)sender;
--(IBAction)clearlogin:(id)sender;
--(IBAction)resetMALAPI:(id)sender;
--(IBAction)testMALAPI:(id)sender;
+- (IBAction)registermal:(id)sender;
+- (IBAction)startlogin:(id)sender;
+- (IBAction)clearlogin:(id)sender;
+- (IBAction)resetMALAPI:(id)sender;
+- (IBAction)testMALAPI:(id)sender;
 @end

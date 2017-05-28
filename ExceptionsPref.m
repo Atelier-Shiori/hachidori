@@ -7,7 +7,7 @@
 //
 
 #import "ExceptionsPref.h"
-#import "Recognition.h"
+#import <DetectionKit/DetectionKit.h>
 #import "ExceptionsCache.h"
 
 @interface ExceptionsPref ()
@@ -44,7 +44,7 @@
     return NSLocalizedString(@"Exceptions", @"Toolbar item name for the Exceptions spreference pane");
 }
 #pragma mark Anime Exceptions List Functions
--(IBAction)addTitle:(id)sender{
+- (IBAction)addTitle:(id)sender{
     //Obtain Detected Title from Media File
     NSOpenPanel * op = [NSOpenPanel openPanel];
     op.allowedFileTypes = @[@"mkv", @"mp4", @"avi", @"ogm", @"rm", @"rmvb", @"wmv", @"divx", @"mov", @"flv", @"mpg", @"3gp"];
@@ -70,7 +70,7 @@
               contextInfo:(void *)nil];
     }];
 }
--(void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
         // Check if correct title exists
         if ([self checkifexists:detectedtitle offset:0 correcttitle:[fsdialog getSelectedTitle]]) {
@@ -87,11 +87,11 @@
     fsdialog = nil;
     detectedtitle = nil;
 }
--(IBAction)removeSlection:(id)sender{
+- (IBAction)removeSlection:(id)sender{
     //Remove Selected Object
     [arraycontroller removeObject:arraycontroller.selectedObjects[0]];
 }
--(IBAction)importList:(id)sender{
+- (IBAction)importList:(id)sender{
     // Set Open Dialog to get json file.
     NSOpenPanel * op = [NSOpenPanel openPanel];
     op.allowedFileTypes = @[@"json", NSLocalizedString(@"JSON file",nil)];
@@ -144,7 +144,7 @@
         }
     }];
 }
--(IBAction)exportList:(id)sender{
+- (IBAction)exportList:(id)sender{
     // Save the json file containing titles
     NSSavePanel * sp = [NSSavePanel savePanel];
     sp.allowedFileTypes = @[@"json", NSLocalizedString(@"JSON file",nil)];
@@ -185,11 +185,11 @@
     }];
 }
 #pragma mark Misc Functions
--(IBAction)getHelp:(id)sender{
+- (IBAction)getHelp:(id)sender{
     //Show Help
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Correction-Exception-Help"]];
 }
--(BOOL)checkifexists:(NSString *) title offset:(int)offset correcttitle:(NSString *)ctitle{
+- (BOOL)checkifexists:(NSString *) title offset:(int)offset correcttitle:(NSString *)ctitle{
     // Checks if a title is already on the exception list
     NSArray * a = arraycontroller.arrangedObjects;
     for (NSManagedObject * entry in a) {
@@ -206,7 +206,7 @@
     return false;
 }
 #pragma mark Ignore List
--(IBAction)addDirectory:(id)sender{
+- (IBAction)addDirectory:(id)sender{
     //Selects directory to ignore
     NSOpenPanel * op = [NSOpenPanel openPanel];
     [op setCanChooseDirectories:YES];
@@ -221,12 +221,12 @@
         [ignorearraycontroller addObject:entry];
     }];
 }
--(IBAction)removeDirectory:(id)sender{
+- (IBAction)removeDirectory:(id)sender{
     //Remove Selected Object
     [ignorearraycontroller removeObject:ignorearraycontroller.selectedObjects[0]];
 }
 #pragma mark Title Ignore
--(IBAction)addFifleNameIgnoreRule:(id)sender{
+- (IBAction)addFifleNameIgnoreRule:(id)sender{
     NSDictionary * entry = @{@"rule": @"", @"rulesource": @"All Sources"};
     [ignorefilenamearraycontroller addObject:entry];
     // Selection Workaround
@@ -235,7 +235,7 @@
         [iftb editColumn:0 row:c-1 withEvent:nil select:YES];
     }
 }
--(IBAction)removeFileNameIgnoreRule:(id)sender{
+- (IBAction)removeFileNameIgnoreRule:(id)sender{
     //Remove Selected Object
     [ignorefilenamearraycontroller removeObject:ignorefilenamearraycontroller.selectedObjects[0]];
 }

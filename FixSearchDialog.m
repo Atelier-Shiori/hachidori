@@ -16,7 +16,7 @@
 
 @implementation FixSearchDialog
 
--(instancetype)init{
+- (instancetype)init{
     self = [super initWithWindowNibName:@"FixSearchDialog"];
     if(!self)
         return nil;
@@ -42,11 +42,11 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     
 }
--(IBAction)closesearch:(id)sender {
+- (IBAction)closesearch:(id)sender {
     [self.window orderOut:self];
     [NSApp endSheet:self.window returnCode:0];
 }
--(IBAction)updatesearch:(id)sender {
+- (IBAction)updatesearch:(id)sender {
     NSDictionary * d = arraycontroller.selectedObjects[0];
     if (correction) {
         // Set Up Prompt Message Window
@@ -68,7 +68,7 @@
         [self finish:d];
     }   
 }
--(void)finish:(NSDictionary *)d{
+- (void)finish:(NSDictionary *)d{
     selectedtitle = d[@"title"];
     selectedaniid = d[@"slug"];
     if (d[@"episode_count"] != [NSNull null]) {
@@ -80,7 +80,7 @@
     [self.window orderOut:self];
     [NSApp endSheet:self.window returnCode:1];
 }
--(IBAction)search:(id)sender{
+- (IBAction)search:(id)sender{
     if (search.stringValue.length> 0) {
         dispatch_queue_t queue = dispatch_get_global_queue(
                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -112,11 +112,11 @@
         [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
     }
 }
--(IBAction)getHelp:(id)sender{
+- (IBAction)getHelp:(id)sender{
     //Show Help
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Correction-Exception-Help"]];
 }
--(void)populateData:(NSData *)data{
+- (void)populateData:(NSData *)data{
     //Remove all existing Data
     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
     
@@ -138,28 +138,28 @@
     //Deselect Selection
     [tb deselectAll:self];
 }
--(void)setCorrection:(BOOL)correct{
+- (void)setCorrection:(BOOL)correct{
     correction = correct;
 }
--(void)setAllowDelete:(BOOL)deleteallowed{
+- (void)setAllowDelete:(BOOL)deleteallowed{
     allowdelete = deleteallowed;
 }
--(void)setSearchField:(NSString *)term{
+- (void)setSearchField:(NSString *)term{
     searchquery = term;
 }
--(NSString *)getSelectedTitle{
+- (NSString *)getSelectedTitle{
     return selectedtitle;
 }
--(NSString *)getSelectedAniID{
+- (NSString *)getSelectedAniID{
     return selectedaniid;
 }
--(int)getSelectedTotalEpisodes{
+- (int)getSelectedTotalEpisodes{
     return selectedtotalepisodes;
 }
--(bool)getdeleteTitleonCorrection{
+- (bool)getdeleteTitleonCorrection{
     return (bool) deleteoncorrection.state;
 }
--(bool)getcorrectonce{
+- (bool)getcorrectonce{
     return (bool) onetimecorrection.state;
 }
 

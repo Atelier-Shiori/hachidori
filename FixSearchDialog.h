@@ -21,13 +21,13 @@
     bool correction;
     bool allowdelete;
 }
--(id)init;
--(void)setCorrection:(BOOL)correct;
--(void)setAllowDelete:(BOOL)deleteallowed;
--(NSString *)getSelectedTitle;
--(NSString *)getSelectedAniID;
--(int)getSelectedTotalEpisodes;
--(bool)getdeleteTitleonCorrection;
--(bool)getcorrectonce;
--(void)setSearchField:(NSString *)term;
+- (id)init;
+- (void)setCorrection:(BOOL)correct;
+- (void)setAllowDelete:(BOOL)deleteallowed;
+- (NSString *)getSelectedTitle;
+- (NSString *)getSelectedAniID;
+- (int)getSelectedTotalEpisodes;
+- (bool)getdeleteTitleonCorrection;
+- (bool)getcorrectonce;
+- (void)setSearchField:(NSString *)term;
 @end

@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNumberFormatterNumberOnly : NSNumberFormatter
--(BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString **)newString errorDescription:(NSString **) error ;
+- (BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString **)newString errorDescription:(NSString **) error ;
 @end

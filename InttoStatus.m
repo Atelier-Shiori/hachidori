@@ -14,7 +14,7 @@
     return [NSString class];
 }
 
--(id)transformedValue:(id)value{
+- (id)transformedValue:(id)value{
     if (!value) return nil;
     
     if ([value respondsToSelector:@selector(integerValue)]) {

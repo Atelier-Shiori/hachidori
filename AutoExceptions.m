@@ -12,7 +12,7 @@
 
 @implementation AutoExceptions
 #pragma mark Importing Exceptions and Auto Exceptions
-+(void)importToCoreData{
++ (void)importToCoreData{
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getObjectContext];
     // Check Exceptions
@@ -53,7 +53,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
     }
 }
-+(void)updateAutoExceptions{
++ (void)updateAutoExceptions{
     // This method retrieves the auto exceptions JSON and import new entries
     NSURL *url = [NSURL URLWithString:@"https://exceptions.ateliershiori.moe"];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
@@ -123,7 +123,7 @@
             break;
     }
 }
-+(void)clearAutoExceptions{
++ (void)clearAutoExceptions{
     // Remove All cache data from Auto Exceptions
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getObjectContext];
@@ -139,7 +139,7 @@
     error = nil;
     [moc save:&error];
 }
-+(NSManagedObject *)checkAutoExceptionsEntry:(NSString *)ctitle
++ (NSManagedObject *)checkAutoExceptionsEntry:(NSString *)ctitle
 group:(NSString *)group
 correcttitle:(NSString *)correcttitle
 hcorrecttitle:(NSString *)hcorrecttitle

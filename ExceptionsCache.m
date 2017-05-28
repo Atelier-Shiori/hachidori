@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 
 @implementation ExceptionsCache
-+(void)addtoExceptions:(NSString *)detectedtitle correcttitle:(NSString *)title aniid:(NSString *)showid threshold:(int)threshold offset:(int)offset{
++ (void)addtoExceptions:(NSString *)detectedtitle correcttitle:(NSString *)title aniid:(NSString *)showid threshold:(int)threshold offset:(int)offset{
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getObjectContext];
     NSError * error = nil;
@@ -29,7 +29,7 @@
     //Save
     [moc save:&error];
 }
-+(void)checkandRemovefromCache:(NSString *)detectedtitle{
++ (void)checkandRemovefromCache:(NSString *)detectedtitle{
     // Checks for cache entry. If exists, it will remove that entry.
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getObjectContext];
@@ -50,7 +50,7 @@
         [moc save:&error];
     }
 }
-+(void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes {
++ (void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes {
     //Adds ID to cache
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getObjectContext];

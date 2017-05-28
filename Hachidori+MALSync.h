@@ -9,9 +9,9 @@
 #import "Hachidori.h"
 
 @interface Hachidori (MALSync)
--(BOOL)sync;
--(int)checkStatus;
--(BOOL)updatetitle;
--(BOOL)addtitle;
--(NSString *)getMALID;
+- (BOOL)sync;
+- (int)checkStatus;
+- (BOOL)updatetitle;
+- (BOOL)addtitle;
+- (NSString *)getMALID;
 @end

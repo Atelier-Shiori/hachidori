@@ -303,7 +303,7 @@
     return _preferencesWindowController;
 }
 
--(IBAction)showPreferences:(id)sender
+- (IBAction)showPreferences:(id)sender
 {
 	//Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
 	[NSApp activateIgnoringOtherApps:YES];
@@ -353,7 +353,7 @@
 	
     return NSTerminateNow;
 }
--(IBAction)togglescrobblewindow:(id)sender
+- (IBAction)togglescrobblewindow:(id)sender
 {
 	if (window.visible) {
         [window close];
@@ -363,7 +363,7 @@
 		[window makeKeyAndOrderFront:self]; 
 	} 
 }
--(IBAction)showOfflineQueue:(id)sender{
+- (IBAction)showOfflineQueue:(id)sender{
     //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
     [NSApp activateIgnoringOtherApps:YES];
     if (!_owindow) {
@@ -371,16 +371,16 @@
     }
     [[_owindow window] makeKeyAndOrderFront:nil];
 }
--(IBAction)getHelp:(id)sender{
+- (IBAction)getHelp:(id)sender{
     //Show Help
  	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
 }
--(IBAction)showAboutWindow:(id)sender{
+- (IBAction)showAboutWindow:(id)sender{
     // Properly show the about window in a menu item application
     [NSApp activateIgnoringOtherApps:YES];
     [[NSApplication sharedApplication] orderFrontStandardAboutPanel:self];
 }
--(void)disableUpdateItems{
+- (void)disableUpdateItems{
     // Disables update options to prevent erorrs
     panelactive = true;
     [statusMenu setAutoenablesItems:NO];
@@ -394,7 +394,7 @@
 	[findtitle setEnabled:NO];
     [openstream setEnabled:NO];
 }
--(void)enableUpdateItems{
+- (void)enableUpdateItems{
     // Reenables update options
     panelactive = false;
     [updatenow setEnabled:YES];
@@ -414,7 +414,7 @@
     [findtitle setEnabled:YES];
     [openstream setEnabled:YES];
 }
--(void)unhideMenus{
+- (void)unhideMenus{
     //Show Last Scrobbled Title and operations */
     [seperator setHidden:NO];
     [lastupdateheader setHidden:NO];
@@ -425,7 +425,7 @@
     [updatedcorrecttitle setHidden:NO];
     [shareMenuItem setHidden:NO];
 }
--(void)toggleScrobblingUIEnable:(BOOL)enable{
+- (void)toggleScrobblingUIEnable:(BOOL)enable{
     dispatch_async(dispatch_get_main_queue(), ^{
         ForceMALSync.enabled = enable;
         statusMenu.autoenablesItems = enable;
@@ -444,14 +444,14 @@
         }
     });
 }
--(void)EnableStatusUpdating:(BOOL)enable{
+- (void)EnableStatusUpdating:(BOOL)enable{
     ForceMALSync.enabled = enable;
 	updatecorrect.autoenablesItems = enable;
     updatetoolbaritem.enabled = enable;
     updatedupdatestatus.enabled = enable;
     revertrewatch.enabled = enable;
 }
--(void)enterDonationKey{
+- (void)enterDonationKey{
     //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
     [NSApp activateIgnoringOtherApps:YES];
     if (!_dwindow) {
@@ -460,7 +460,7 @@
     [[_dwindow window] makeKeyAndOrderFront:nil];
     
 }
--(void)performsendupdatenotification:(int)status{
+- (void)performsendupdatenotification:(int)status{
     dispatch_async(dispatch_get_main_queue(), ^{
         //Enable the Update button if a title is detected
         switch (status) { // 0 - nothing playing; 1 - same episode playing; 21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed;
@@ -525,7 +525,7 @@
         }
     });
 }
--(void)performRefreshUI:(int)status{
+- (void)performRefreshUI:(int)status{
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([haengine getSuccess] == 1) {
             [findtitle setHidden:true];
@@ -604,7 +604,7 @@
 	}
 	
 }
--(void)autostarttimer {
+- (void)autostarttimer {
 	//Check to see if there is an API Key stored
 	if (![haengine getFirstAccount]) {
          [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Unable to start scrobbling since there is no login. Please verify your login in Preferences.",nil)];
@@ -617,7 +617,7 @@
 		scrobbling = TRUE;
 	}
 }
--(void)firetimer {
+- (void)firetimer {
 	//Tell haengine to detect and scrobble if necessary.
 	NSLog(@"Starting...");
     if (!scrobbleractive) {
@@ -676,7 +676,7 @@
         [self performRefreshUI:status];
     }
 }
--(void)starttimer {
+- (void)starttimer {
 	NSLog(@"Auto Scrobble Started.");
     timer = [MSWeakTimer scheduledTimerWithTimeInterval:[[(NSNumber *)[NSUserDefaults standardUserDefaults] valueForKey:@"timerinterval"] intValue]
                                                  target:self
@@ -685,13 +685,13 @@
                                                 repeats:YES
                                           dispatchQueue:_privateQueue];
 }
--(void)stoptimer {
+- (void)stoptimer {
 	NSLog(@"Auto Scrobble Stopped.");
 	//Stop Timer
 	[timer invalidate];
 }
 
--(IBAction)updatenow:(id)sender{
+- (IBAction)updatenow:(id)sender{
     if ([haengine getFirstAccount]) {
         dispatch_queue_t queue = dispatch_get_global_queue(
                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -705,7 +705,7 @@
 }
 
 #pragma mark Correction
--(IBAction)showCorrectionSearchWindow:(id)sender{
+- (IBAction)showCorrectionSearchWindow:(id)sender{
     bool isVisible = window.visible;
     // Stop Timer temporarily if scrobbling is turned on
     if (scrobbling == TRUE) {
@@ -744,7 +744,7 @@
     }
 
 }
--(void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
             if ([[fsdialog getSelectedAniID] isEqualToString:[haengine getAniID]]) {
                 NSLog(@"ID matches, correction not needed.");
@@ -829,7 +829,7 @@
         [self starttimer];
     }
 }
--(void)addtoExceptions:(NSString *)detectedtitle newtitle:(NSString *)title showid:(NSString *)showid threshold:(int)threshold{
+- (void)addtoExceptions:(NSString *)detectedtitle newtitle:(NSString *)title showid:(NSString *)showid threshold:(int)threshold{
     NSManagedObjectContext * moc = managedObjectContext;
     NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
     allExceptions.entity = [NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc];
@@ -854,7 +854,7 @@
 
 #pragma mark History Window functions
 
--(IBAction)showhistory:(id)sender
+- (IBAction)showhistory:(id)sender
 {
 		//Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
 		[NSApp activateIgnoringOtherApps:YES];
@@ -867,24 +867,24 @@
 #pragma mark StatusIconTooltip, Status Text, Last Scrobbled Title Setters
 
 
--(void)setStatusToolTip:(NSString*)toolTip
+- (void)setStatusToolTip:(NSString*)toolTip
 {
     statusItem.toolTip = toolTip;
 }
--(void)setStatusText:(NSString*)messagetext
+- (void)setStatusText:(NSString*)messagetext
 {
 	ScrobblerStatus.objectValue = messagetext;
 }
--(void)setLastScrobbledTitle:(NSString*)messagetext
+- (void)setLastScrobbledTitle:(NSString*)messagetext
 {
 	LastScrobbled.objectValue = messagetext;
 }
--(void)setStatusMenuTitleEpisode:(NSString *)title episode:(NSString *) episode{
+- (void)setStatusMenuTitleEpisode:(NSString *)title episode:(NSString *) episode{
     //Set New Title and Episode
     updatedtitle.title = title;
     updatedepisode.title = [NSString stringWithFormat:NSLocalizedString(@"Episode %@",nil), episode];
 }
--(void)updateLastScrobbledTitleStatus:(BOOL)pending{
+- (void)updateLastScrobbledTitleStatus:(BOOL)pending{
     if (pending) {
         [updatecorrect setAutoenablesItems:NO];
         [lastupdateheader setTitle:NSLocalizedString(@"Pending:",nil)];
@@ -912,26 +912,26 @@
 }
 
 #pragma mark Getters
--(bool)getisScrobbling{
+- (bool)getisScrobbling{
     return scrobbling;
 }
--(bool)getisScrobblingActive{
+- (bool)getisScrobblingActive{
     return scrobbleractive;
 }
--(NSManagedObjectContext *)getObjectContext{
+- (NSManagedObjectContext *)getObjectContext{
     return managedObjectContext;
 }
 
 #pragma mark Update Status functions
 
--(IBAction)updatestatus:(id)sender {
+- (IBAction)updatestatus:(id)sender {
     [self showUpdateDialog:self.window];
     [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
 }
--(IBAction)updatestatusmenu:(id)sender{
+- (IBAction)updatestatusmenu:(id)sender{
     [self showUpdateDialog:nil];
 }
--(void)showUpdateDialog:(NSWindow *) w{
+- (void)showUpdateDialog:(NSWindow *) w{
     [NSApp activateIgnoringOtherApps:YES];
     // Show Sheet
     [NSApp beginSheet:updatepanel
@@ -996,16 +996,16 @@
     });
 }
 
--(IBAction)closeupdatestatus:(id)sender {
+- (IBAction)closeupdatestatus:(id)sender {
 	[updatepanel orderOut:self];
 	[NSApp endSheet:updatepanel returnCode:0];
 }
--(IBAction)updatetitlestatus:(id)sender {
+- (IBAction)updatetitlestatus:(id)sender {
 	[updatepanel orderOut:self];
 	[NSApp endSheet:updatepanel returnCode:1];
 }
 
--(IBAction)revertRewatch:(id)sender{
+- (IBAction)revertRewatch:(id)sender{
     //Show Prompt
     NSAlert * alert = [[NSAlert alloc] init] ;
     [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
@@ -1033,7 +1033,7 @@
 
 #pragma mark Notification Center and Title/Update Confirmation
 
--(void)showNotification:(NSString *)title message:(NSString *) message{
+- (void)showNotification:(NSString *)title message:(NSString *) message{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = message;
@@ -1041,7 +1041,7 @@
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
--(void)showConfirmationNotification:(NSString *)title message:(NSString *) message updateData:(NSDictionary *)d{
+- (void)showConfirmationNotification:(NSString *)title message:(NSString *) message updateData:(NSDictionary *)d{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = message;
@@ -1072,10 +1072,10 @@
         [self showCorrectionSearchWindow:nil];
     }
 }
--(IBAction)confirmupdate:(id)sender{
+- (IBAction)confirmupdate:(id)sender{
     [self confirmupdate];
 }
--(void)confirmupdate{
+- (void)confirmupdate{
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -1107,7 +1107,7 @@
             });
 }
 #pragma mark Hotkeys
--(void)registerHotkey{
+- (void)registerHotkey{
     [[MASShortcutBinder sharedBinder]
      bindShortcutWithDefaultsKey:kPreferenceScrobbleNowShortcut toAction:^{
          // Scrobble Now Global Hotkey
@@ -1140,7 +1140,7 @@
 }
 
 #pragma mark Misc
--(void)showAnimeInfo:(NSDictionary *)d{
+- (void)showAnimeInfo:(NSDictionary *)d{
     //Empty
     animeinfo.string = @"";
     //Title
@@ -1184,7 +1184,7 @@
         
         [animeinfo.textStorage appendAttributedString:attr];
 }
--(void)showRevertRewatchMenu{
+- (void)showRevertRewatchMenu{
     if ([haengine getRewatching]) {
         [revertrewatch setHidden:NO];
     }
@@ -1192,7 +1192,7 @@
         [revertrewatch setHidden:YES];
     }
 }
--(NSDictionary *)getNowPlaying{
+- (NSDictionary *)getNowPlaying{
 	// Outputs Currently Playing information into JSON
 	NSMutableDictionary * output = [NSMutableDictionary new];
 	if ((haengine.getLastScrobbledTitle).length > 0) {
@@ -1204,11 +1204,11 @@
 	}
 	return output;
 }
--(Hachidori *)getHachidoriInstance{
+- (Hachidori *)getHachidoriInstance{
     return haengine;
 }
 #pragma mark Share Services
--(void)generateShareMenu{
+- (void)generateShareMenu{
     //Clear Share Menu
     [shareMenu removeAllItems];
     // Workaround for Share Toolbar Item
@@ -1234,12 +1234,12 @@
     // Share Item
     [[sender representedObject] performWithItems:shareItems];
 }
--(IBAction)showLastScrobbledInformation:(id)sender{
+- (IBAction)showLastScrobbledInformation:(id)sender{
     //Open the anime's page on Kitsu in the default web browser
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]];
 }
 #pragma mark MyAnimeList Syncing
--(IBAction)forceMALSync:(id)sender{
+- (IBAction)forceMALSync:(id)sender{
     [ForceMALSync setEnabled:NO];
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -1256,7 +1256,7 @@
             });
         });
 }
--(void)syncMyAnimeList{
+- (void)syncMyAnimeList{
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
         dispatch_queue_t queue = dispatch_get_global_queue(
                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -1310,7 +1310,7 @@
         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Add a login before you use this feature.",nil)];
     }
 }
--(void)streamopenDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)streamopenDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 0) {
         streamlinkopenw = nil;
     }

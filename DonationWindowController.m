@@ -14,7 +14,7 @@
 @end
 
 @implementation DonationWindowController
--(id)init{
+- (id)init{
     self = [super initWithWindowNibName:@"DonationWindow"];
     if(!self)
         return nil;
@@ -25,7 +25,7 @@
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
--(IBAction)validate:(id)sender{
+- (IBAction)validate:(id)sender{
     if ([[name stringValue] length] > 0 && [[key stringValue] length]>0) {
         // Check donation key
         int success = [Utility checkDonationKey:[key stringValue] name:[name stringValue]];
@@ -50,11 +50,11 @@
     }
 }
 
--(IBAction)cancel:(id)sender{
+- (IBAction)cancel:(id)sender{
     [self.window orderOut:self];
 }
 
--(IBAction)donate:(id)sender{
+- (IBAction)donate:(id)sender{
     // Show Donation Page
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://hachidori.ateliershiori.moe/donate/"]];
 }

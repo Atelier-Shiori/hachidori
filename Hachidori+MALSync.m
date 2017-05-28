@@ -11,7 +11,7 @@
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Hachidori (MALSync)
--(BOOL)sync{
+- (BOOL)sync{
     NSLog(@"Starting MyAnimeList Sync...");
     MALApiUrl = [[NSUserDefaults standardUserDefaults] valueForKey:@"MALAPIURL"];
     int syncstatus = [self checkStatus];
@@ -28,7 +28,7 @@
         return NO;
     }
 }
--(int)checkStatus{
+- (int)checkStatus{
     MALID = [self getMALID];
     NSLog(@"Checking Status on MyAnimeList");
     //Set Search API
@@ -68,7 +68,7 @@
     return 0;
 
 }
--(BOOL)updatetitle{
+- (BOOL)updatetitle{
     // Update the title
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/1/animelist/anime/%@", MALApiUrl, MALID]];
@@ -117,7 +117,7 @@
             return NO;
     }
 }
--(BOOL)addtitle{
+- (BOOL)addtitle{
     // Add the title
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/2/animelist/anime", MALApiUrl]];
@@ -155,7 +155,7 @@
     }
 
 }
--(NSString *)getMALID{
+- (NSString *)getMALID{
     NSLog(@"Retrieving MyAnimeList Anime ID from Kitsu...");
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@/mappings", AniID]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
