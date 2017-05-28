@@ -70,7 +70,7 @@
     IBOutlet NSNumberFormatter * epiformatter;
 	IBOutlet NSTextField * showtitle;
 	IBOutlet NSPopUpButton * showstatus;
-    IBOutlet NSTextField * showscore;
+    IBOutlet NSPopUpButton * showscore;
     IBOutlet NSTextView * notes;
     IBOutlet NSButton * isPrivate;
 	NSWindowController *_preferencesWindowController;
@@ -84,9 +84,12 @@
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property(strong) FixSearchDialog *fsdialog;
+@property (strong) FixSearchDialog *fsdialog;
 @property (strong) HistoryWindow *historywindowcontroller;
 @property (strong) DonationWindowController * dwindow;
+@property (strong) IBOutlet NSMenu *simpleratingmenu;
+@property (strong) IBOutlet NSMenu *standardratingmenu;
+@property (weak) IBOutlet NSMenu *advancedratingmenu;
 
 - (void)showhistory:(id)sender;
 - (IBAction)togglescrobblewindow:(id)sender;

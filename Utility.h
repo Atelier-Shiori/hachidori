@@ -31,4 +31,7 @@
 + (AFHTTPRequestSerializer *)httprequestserializer;
 + (AFJSONResponseSerializer *)jsonresponseserializer;
 + (AFHTTPResponseSerializer *)httpresponseserializer;
++ (int)translateKitsuTwentyScoreToMAL:(int)rating;
++ (int)translatestandardKitsuRatingtoRatingTwenty:(double)score;
++ (int)translateadvancedKitsuRatingtoRatingTwenty:(double)score;
 @end

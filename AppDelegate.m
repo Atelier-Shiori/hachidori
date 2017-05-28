@@ -940,7 +940,22 @@
           contextInfo:(void *)nil];
     // Set up UI
     showtitle.objectValue = [haengine getLastScrobbledActualTitle];
-    showscore.stringValue = [NSString stringWithFormat:@"%f", [haengine getScore]];
+    // Set rating menu based on user's rating preferences
+    switch (haengine.ratingtype){
+        case ratingSimple:
+            showscore.menu = _simpleratingmenu;
+            break;
+        case ratingStandard:
+            showscore.menu = _standardratingmenu;
+            break;
+        case ratingAdvanced:
+            showscore.menu = _advancedratingmenu;
+            break;
+        default:
+            showscore.menu = _simpleratingmenu;
+            break;
+    }
+    [showscore selectItemWithTag:[haengine getScore]];
     episodefield.stringValue = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
     if ([haengine getTotalEpisodes]  !=0) {
         epiformatter.maximum = @([haengine getTotalEpisodes]);
@@ -967,7 +982,7 @@
         if (tmpepisode.intValue != [haengine getCurrentEpisode]) {
             episodechanged = true; // Used to update the status window
         }
-        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:showscore.floatValue watchstatus:showstatus.titleOfSelectedItem notes:notes.textStorage.string isPrivate:(BOOL) isPrivate.state];
+        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:(int)showscore.selectedTag watchstatus:showstatus.titleOfSelectedItem notes:notes.textStorage.string isPrivate:(BOOL) isPrivate.state];
         if (result) {
             dispatch_async(dispatch_get_main_queue(), ^{
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];

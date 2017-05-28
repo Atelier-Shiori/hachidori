@@ -119,7 +119,12 @@
     }
     // Set existing score to prevent the score from being erased.
     if (TitleScore > 0) {
+        [attributes setValue:@(TitleScore) forKey:@"ratingTwenty"];
         [attributes setValue:@(TitleScore) forKey:@"rating"];
+    }
+    else {
+        [attributes setValue:[NSNull null] forKey:@"ratingTwenty"];
+        [attributes setValue:[NSNull null] forKey:@"rating"];
     }
     //Privacy
     if (isPrivate)
@@ -174,7 +179,7 @@
 }
 - (BOOL)updatestatus:(NSString *)titleid
             episode:(NSString *)episode
-              score:(float)showscore
+              score:(int)showscore
         watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note
           isPrivate:(BOOL)privatevalue
@@ -202,9 +207,11 @@
     [attributes setValue:showwatchstatus forKey:@"status"];
     //Set new score.
     if (showscore > 0) {
-        [attributes setValue:[NSString stringWithFormat:@"%f", showscore] forKey:@"rating"];
+        [attributes setValue:[NSString stringWithFormat:@"%i", showscore] forKey:@"ratingTwenty"];
+        [attributes setValue:[NSNull null] forKey:@"rating"];
     }
     else {
+        [attributes setValue:[NSNull null] forKey:@"ratingTwenty"];
         [attributes setValue:[NSNull null] forKey:@"rating"];
     }
     //Set new note

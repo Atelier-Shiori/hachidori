@@ -9,6 +9,7 @@
 #import "Hachidori+UserStatus.h"
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 #import "Hachidori+Keychain.h"
+#import "Utility.h"
 
 @implementation Hachidori (UserStatus)
 - (BOOL)checkstatus:(NSString *)titleid {
@@ -118,12 +119,24 @@
     else {
         TitleNotes = d[@"notes"];
     }
-    if (d[@"rating"] == [NSNull null]) {
-        // Score is null, set to 0
-        TitleScore = 0;
+    self.ratingtype = [self getRatingType];
+    if (d[@"ratingTwenty"] != [NSNull null]) {
+        // If user is using the new rating system
+        TitleScore = ((NSNumber *)d[@"ratingTwenty"]).intValue;
+    }
+    else if (d[@"rating"] != [NSNull null]) {
+        // Old rating system
+        float tempscore = ((NSNumber *)d[@"rating"]).floatValue;
+        if (self.ratingtype == ratingStandard || self.ratingtype == ratingSimple) {
+            TitleScore = [Utility translatestandardKitsuRatingtoRatingTwenty:tempscore];
+        }
+        else {
+            TitleScore = [Utility translateadvancedKitsuRatingtoRatingTwenty:tempscore];
+        }
     }
     else {
-        TitleScore = ((NSNumber *)d[@"rating"]).floatValue;
+        // Score is null, set to 0
+        TitleScore = 0;
     }
     // Rewatch Information
     rewatching = [d[@"reconsuming"] boolValue];
@@ -136,5 +149,33 @@
     if (rewatching) {
         NSLog(@"Title is being rewatched.");
     }
+}
+- (int)getRatingType {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/users?filter[name]=%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]]];
+    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    //Ignore Cookies
+    [request setUseCookies:NO];
+    // Get Information
+    [request startRequest];
+    NSDictionary * d;
+    long statusCode = [request getStatusCode];
+    if (statusCode == 200 || statusCode == 201 ) {
+        NSError * jerror;
+        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        if (((NSArray *)d[@"data"]).count > 0) {
+            d = [NSArray arrayWithArray:d[@"data"]][0];
+            NSString *ratingtype = d[@"attributes"][@"ratingSystem"];
+            if ([ratingtype isEqualToString:@"simple"]) {
+                return ratingSimple;
+            }
+            else if ([ratingtype isEqualToString:@"standard"]) {
+                return ratingStandard;
+            }
+            else if ([ratingtype isEqualToString:@"advanced"]) {
+                return ratingAdvanced;
+            }
+        }
+    }
+    return ratingSimple;
 }
 @end

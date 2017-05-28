@@ -39,7 +39,7 @@
     BOOL DetectedTitleisEpisodeZero;
 	int TotalEpisodes;
 	NSString * WatchStatus;
-	float TitleScore;
+	int TitleScore;
     long rewatchcount;
     BOOL rewatching;
     NSString * TitleNotes;
@@ -70,8 +70,14 @@ typedef NS_ENUM(unsigned int, ScrobbleStatus) {
     ScrobblerUpdateFailed = 53,
     ScrobblerFailed = 54
 };
+typedef NS_ENUM(unsigned int, ratingType){
+    ratingSimple = 0,
+    ratingStandard = 1,
+    ratingAdvanced = 2
+};
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (getter=getOnlineStatus) bool online;
+@property (getter=getRatingType) int ratingtype;
 @property (strong) Detection *detection;
 - (void)setManagedObjectContext:(NSManagedObjectContext *)context;
 - (NSString *)getLastScrobbledTitle;

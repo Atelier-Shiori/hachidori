@@ -13,7 +13,7 @@
 - (int)performupdate:(NSString *)titleid;
 - (BOOL)updatestatus:(NSString *)titleid
             episode:(NSString *)episode
-              score:(float)showscore
+              score:(int)showscore
         watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note
           isPrivate:(BOOL)privatevalue;

@@ -8,6 +8,7 @@
 
 #import "Hachidori+MALSync.h"
 #import "Hachidori+Keychain.h"
+#import "Utility.h"
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Hachidori (MALSync)
@@ -98,11 +99,9 @@
     else {
         [request addFormData:WatchStatus forKey:@"status"];
     }
-    
-    
     // Set existing score to prevent the score from being erased.
-    int tmpscore = (int)TitleScore;
-    [request addFormData:@(tmpscore*2).stringValue forKey:@"score"];
+    int tmpscore = [Utility translateKitsuTwentyScoreToMAL:TitleScore];
+    [request addFormData:@(tmpscore).stringValue forKey:@"score"];
     // Do Update
     [request startFormRequest];
     
@@ -137,6 +136,8 @@
     else {
         [request addFormData:WatchStatus forKey:@"status"];
     }
+    int tmpscore = [Utility translateKitsuTwentyScoreToMAL:TitleScore];
+    [request addFormData:@(tmpscore).stringValue forKey:@"score"];
     // Do Update
     [request startFormRequest];
     
