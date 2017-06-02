@@ -54,8 +54,16 @@
     [self.window orderOut:self];
 }
 
+- (IBAction)purchasedonationlicense:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://softwareateliershiori.onfastspring.com/hachidori-mal-sync-donation-license"]];
+
+}
+
 - (IBAction)donate:(id)sender{
     // Show Donation Page
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://hachidori.ateliershiori.moe/donate/"]];
+}
+- (IBAction)lookupkey:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://hachidori.ateliershiori.moe/donate/lostkey.php"]];
 }
 @end

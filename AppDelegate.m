@@ -490,13 +490,7 @@
                     notificationmsg = [NSString stringWithFormat:@"%@ Episode %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]];
                 }
                 [self showNotification:@"Scrobble Successful." message:notificationmsg];
-                // Sync with MAL if Enabled
-                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-                    BOOL malsyncsuccess = [haengine sync];
-                    if (!malsyncsuccess) {
-                        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:@"MyAnimeList Sync failed, see console log."];
-                    }
-                }
+                [self syncMyAnimeList];
                 //Add History Record
                 [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
                 break;
@@ -805,12 +799,7 @@
 						//Regenerate Share Items
 						[self generateShareMenu];
                         // Sync with MAL if Enabled
-                        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-                            BOOL malsyncsuccess = [haengine sync];
-                            if (!malsyncsuccess) {
-                                [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"MyAnimeList Sync failed, see console log.",nil)];
-                            }
-                        }
+                        [self syncMyAnimeList];
                         break;
                     }
                     default:

@@ -93,7 +93,7 @@
     long choice = [alert runModal];
     if (choice == NSAlertFirstButtonReturn) {
         // Open Donation Page
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://hachidori.ateliershiori.moe/donate/"]];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://softwareateliershiori.onfastspring.com/hachidori-mal-sync-donation-license"]];
         [Utility setReminderDate];
     }
     else if (choice == NSAlertSecondButtonReturn) {
@@ -110,7 +110,7 @@
 + (void)setReminderDate{
     //Sets Reminder Date
     NSDate *now = [NSDate date];
-    NSDate * reminderdate = [now dateByAddingTimeInterval:60*60*24*14];
+    NSDate * reminderdate = [now dateByAddingTimeInterval:60*60*24*7];
     [[NSUserDefaults standardUserDefaults] setObject:reminderdate forKey:@"donatereminderdate"];
 }
 + (int)checkDonationKey:(NSString *)key name:(NSString *)name{
