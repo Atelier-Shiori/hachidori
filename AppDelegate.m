@@ -597,6 +597,7 @@
     [haengine resetinfo];
     _nowplayingview.hidden = YES;
     _nothingplayingview.hidden = NO;
+    [self setStatusToolTip:@"Hachidori"];
 }
 
 #pragma mark Timer Functions
