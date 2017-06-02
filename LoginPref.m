@@ -159,6 +159,7 @@
                 _loggedinuser.stringValue = @"";
                 [_loggedinview setHidden:YES];
                 [_loginview setHidden:NO];
+                [_appdelegate resetUI];
             }
         }];
     }

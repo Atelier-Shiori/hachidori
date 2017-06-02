@@ -91,6 +91,7 @@ typedef NS_ENUM(unsigned int, ratingType){
 - (void)clearAnimeInfo;
 - (bool)checkexpired;
 - (void)refreshtoken;
+- (void)resetinfo;
 // Unit Testing Only
 - (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end

@@ -90,6 +90,8 @@
 @property (strong) IBOutlet NSMenu *simpleratingmenu;
 @property (strong) IBOutlet NSMenu *standardratingmenu;
 @property (weak) IBOutlet NSMenu *advancedratingmenu;
+@property (strong) IBOutlet NSView *nowplayingview;
+@property (strong) IBOutlet NSView *nothingplayingview;
 
 - (void)showhistory:(id)sender;
 - (IBAction)togglescrobblewindow:(id)sender;
@@ -119,4 +121,5 @@
 - (NSManagedObjectContext *)getObjectContext;
 - (NSDictionary *)getNowPlaying;
 - (Hachidori *)getHachidoriInstance;
+- (void)resetUI;
 @end

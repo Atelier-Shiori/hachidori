@@ -327,6 +327,8 @@
                 <outlet property="isPrivate" destination="08J-G1-ibd" id="SgD-vy-2Kq"/>
                 <outlet property="lastupdateheader" destination="wRW-vV-uul" id="Aoh-J1-uYk"/>
                 <outlet property="notes" destination="zRV-za-4dp" id="ABq-oY-STM"/>
+                <outlet property="nothingplayingview" destination="QBj-Ek-7Tw" id="nSo-Kf-Fof"/>
+                <outlet property="nowplayingview" destination="rQb-tD-j5e" id="Fm7-mm-Lup"/>
                 <outlet property="openAnimePage" destination="Wgp-94-tio" id="LuB-i6-rKh"/>
                 <outlet property="openstream" destination="nLg-vu-ubx" id="0mP-4a-XO2"/>
                 <outlet property="revertrewatch" destination="NJh-Nj-R5h" id="etD-B4-Gso"/>
@@ -557,13 +559,32 @@ Gw
                     <customView id="OrG-mG-eHz" customClass="NSVisualEffectView">
                         <rect key="frame" x="0.0" y="22" width="440" height="231"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                    </customView>
+                    <customView misplaced="YES" id="QBj-Ek-7Tw">
+                        <rect key="frame" x="0.0" y="21" width="440" height="232"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" id="g2C-hu-jDc">
+                                <rect key="frame" x="-2" y="154" width="444" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Nothing Scrobbled Yet" id="ax6-aQ-n4d">
+                                    <font key="font" metaFont="system" size="30"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </customView>
+                    <customView hidden="YES" id="rQb-tD-j5e">
+                        <rect key="frame" x="0.0" y="21" width="440" height="234"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Flw-vm-3Ig">
-                                <rect key="frame" x="149" y="-4" width="291" height="190"/>
+                                <rect key="frame" x="149" y="1" width="291" height="190"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="ypk-hd-jNn">
                                     <rect key="frame" x="1" y="1" width="274" height="188"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
                                             <rect key="frame" x="0.0" y="0.0" width="274" height="188"/>
@@ -585,14 +606,14 @@ Gw
                                 </scroller>
                             </scrollView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gfr-73-DLn">
-                                <rect key="frame" x="4" y="3" width="137" height="183"/>
+                                <rect key="frame" x="4" y="8" width="137" height="183"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="SDe-v8-QB2"/>
                             </imageView>
-                            <textField verticalHuggingPriority="750" id="792">
-                                <rect key="frame" x="8" y="192" width="424" height="35"/>
+                            <textField verticalHuggingPriority="750" misplaced="YES" id="792">
+                                <rect key="frame" x="8" y="191" width="424" height="35"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Additional Info about the last updated title will appear here." id="796">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Title Epispode X" id="796">
                                     <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

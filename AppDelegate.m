@@ -571,6 +571,34 @@
     
 }
 
+- (void)resetUI {
+    // Resets the UI when the user logs out
+    [shareMenu removeAllItems];
+    // Workaround for Share Toolbar Item
+    NSMenuItem *shareIcon = [[NSMenuItem alloc] init];
+    shareIcon.image = [NSImage imageNamed:NSImageNameShareTemplate];
+    [shareIcon setHidden:YES];
+    shareIcon.title = @"";
+    [shareMenu addItem:shareIcon];
+    [updatecorrect setAutoenablesItems:NO];
+    [self EnableStatusUpdating:NO];
+    [revertrewatch setHidden:YES];
+    [sharetoolbaritem setEnabled:NO];
+    [correcttoolbaritem setEnabled:NO];
+    [openAnimePage setEnabled:NO];
+    [findtitle setHidden:YES];
+    [confirmupdate setHidden:YES];
+    lastupdateheader.hidden = YES;
+    updatedtitle.hidden = YES;
+    updatedepisode.hidden = YES;
+    seperator2.hidden = YES;
+    updatecorrectmenu.hidden = YES;
+    shareMenuItem.hidden = YES;
+    [haengine resetinfo];
+    _nowplayingview.hidden = YES;
+    _nothingplayingview.hidden = NO;
+}
+
 #pragma mark Timer Functions
 
 - (IBAction)toggletimer:(id)sender {
@@ -1180,6 +1208,9 @@
     img.image = dimg; //Get the Image for the title
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
+    // Refresh view
+    _nowplayingview.hidden = NO;
+    _nothingplayingview.hidden = YES;
 }
 
 - (void)appendToAnimeInfo:(NSString*)text
