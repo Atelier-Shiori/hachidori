@@ -1,48 +1,76 @@
-[{
-"player_name":"mplayer",
-"process_name":"mplayer"
-},
-{
-"player_name":"mplayer/SMPlayer",
-"process_name":"mplayer-mt"
-},
-{
-"player_name":"mpv",
-"process_name":"mpv"
-},
-{
-"player_name":"VLC",
-"process_name":"vlc"
-},
-{
-"player_name":"Quicktime",
-"process_name":"QuickTime Plays"
-},
-{
-"player_name":"Quicktime",
-"process_name":"QTKitServer"
-},
-{
-"player_name":"Kodi",
-"process_name":"Kodi"
-},
-{
-"player_name":"Movist",
-"process_name":"Movist"
-},
-{
-"player_name":"Squire",
-"process_name":"Squire"
-},
-{
-"player_name":"Beamer/ffmpeg",
-"process_name":"ffmpeg"
-},
-{
-"player_name":"IINA",
-"process_name":"IINA"
-},
-{
-"player_name":"Niceplayer",
-"process_name":"Niceplayer"
-}]
+ [{
+  "player_name":"MPlayer OSX Extended",
+  "player_bundle_identifier":"hu.mplayerhq.mplayerosx.extended",
+  "process_name":"mplayer"
+  },
+  {
+  "player_name":"MPlayer OSX Extended",
+  "player_bundle_identifier":"hu.mplayerhq.mplayerosx.extended",
+  "process_name":"mplayer2"
+  },
+  {
+  "player_name":"MPlayerX",
+  "player_bundle_identifier":"org.niltsh.MPlayerX",
+  "process_name":"mplayer"
+  },
+  {
+  "player_name":"MPlayerX",
+  "player_bundle_identifier":"org.niltsh.MPlayerX",
+  "process_name":"mplayer2"
+  },
+  {
+  "player_name":"mplayer",
+  "process_name":"mplayer"
+  },
+  {
+  "player_name":"mplayer",
+  "player_bundle_identifier":"org.splayer.splayerx",
+  "process_name":"mplayer-mt"
+  },
+  {
+  "player_name":"mpv",
+  "process_name":"mpv"
+  },
+  {
+  "player_name":"VLC",
+  "player_bundle_identifier":"org.videolan.vlc",
+  "process_name":"vlc"
+  },
+  {
+  "player_name":"Quicktime",
+  "process_name":"QuickTime Playe"
+  },
+  {
+  "player_name":"Quicktime",
+  "process_name":"QTKitServer"
+  },
+  {
+  "player_name":"Kodi",
+  "player_bundle_identifier":"org.xbmc.kodi",
+  "process_name":"Kodi"
+  },
+  {
+  "player_name":"Movist",
+  "player_bundle_identifier":"com.movist.Movist",
+  "process_name":"Movist"
+  },
+  {
+  "player_name":"Squire",
+  "player_bundle_identifier":"Sylion.Squire",
+  "process_name":"Squire"
+  },
+  {
+  "player_name":"Beamer",
+  "player_bundle_identifier":"com.tupil.beamer",
+  "process_name":"ffmpeg"
+  },
+  {
+  "player_name":"IINA",
+  "player_bundle_identifier":"com.colliderli.iina",
+  "process_name":"IINA"
+  },
+  {
+  "player_name":"Niceplayer",
+  "player_bundle_identifier": "indy.jt.niceplayer",
+  "applescript_command":"tell application \"NicePlayer\" to get path of front movie"
+  }]

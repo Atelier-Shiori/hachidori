@@ -359,6 +359,12 @@
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem isSeparatorItem="YES" id="Jc9-U8-9aP"/>
+                                                                        <menuItem title="MPlayer OSX Extended" id="1Aq-B1-gxc" userLabel="MPlayer OS X Extended">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                        <menuItem title="MPlayerX" id="5Gj-8q-yoQ">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
                                                                         <menuItem title="mplayer" id="L7q-SB-SaQ">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
@@ -377,7 +383,7 @@
                                                                         <menuItem title="Kodi/Plex" id="Uq5-pQ-wTu">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="Beamer/ffmpeg" id="6eX-cU-jgM">
+                                                                        <menuItem title="Beamer" id="6eX-cU-jgM" userLabel="Beamer">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem title="Movist" id="ck1-wU-kgL">
