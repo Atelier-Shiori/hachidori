@@ -72,7 +72,6 @@
 @property (strong, nonatomic) dispatch_queue_t privateQueue;
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSWindow *updatepanel;
 @property (strong) OfflineViewQueue * owindow;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -80,9 +79,6 @@
 @property (strong) FixSearchDialog *fsdialog;
 @property (strong) HistoryWindow *historywindowcontroller;
 @property (strong) DonationWindowController * dwindow;
-@property (strong) IBOutlet NSMenu *simpleratingmenu;
-@property (strong) IBOutlet NSMenu *standardratingmenu;
-@property (weak) IBOutlet NSMenu *advancedratingmenu;
 @property (strong) IBOutlet NSView *nowplayingview;
 @property (strong) IBOutlet NSView *nothingplayingview;
 @property (strong) StatusUpdateWindow *updatewindow;
