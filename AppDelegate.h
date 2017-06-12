@@ -98,8 +98,6 @@
 - (IBAction)updatestatusmenu:(id)sender;
 - (void)showUpdateDialog:(NSWindow *) w;
 - (IBAction)updatenow:(id)sender;
-- (IBAction)closeupdatestatus:(id)sender;
-- (IBAction)updatetitlestatus:(id)sender;
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)getHelp:(id)sender;
 - (void)appendToAnimeInfo:(NSString*)text;

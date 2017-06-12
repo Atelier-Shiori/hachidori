@@ -32,7 +32,6 @@
 
 @synthesize window;
 @synthesize historywindowcontroller;
-@synthesize updatepanel;
 @synthesize fsdialog;
 @synthesize managedObjectContext;
 #pragma mark -
@@ -1004,15 +1003,6 @@
         [self enableUpdateItems]; //Reenable update items
     });
     });
-}
-
-- (IBAction)closeupdatestatus:(id)sender {
-	[updatepanel orderOut:self];
-	[NSApp endSheet:updatepanel returnCode:0];
-}
-- (IBAction)updatetitlestatus:(id)sender {
-	[updatepanel orderOut:self];
-	[NSApp endSheet:updatepanel returnCode:1];
 }
 
 - (IBAction)revertRewatch:(id)sender{
