@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16G12b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
@@ -315,18 +315,13 @@
                 <outlet property="ForceMALSync" destination="4a8-WM-NTq" id="jtr-Vm-lvY"/>
                 <outlet property="LastScrobbled" destination="792" id="805"/>
                 <outlet property="ScrobblerStatus" destination="793" id="806"/>
-                <outlet property="advancedratingmenu" destination="mAI-6B-xNx" id="R2A-zN-ZGr"/>
                 <outlet property="animeinfo" destination="bGm-dl-hOF" id="3tY-bt-kdf"/>
                 <outlet property="animeinfooutside" destination="Flw-vm-3Ig" id="wkc-nr-rYl"/>
                 <outlet property="confirmupdate" destination="ri5-oa-eh7" id="rsP-3s-8gi"/>
                 <outlet property="correcttoolbaritem" destination="q9Q-0H-wSc" id="2bQ-jw-mDj"/>
-                <outlet property="epiformatter" destination="2hd-2h-QFD" id="6K0-Y4-yOj"/>
-                <outlet property="episodefield" destination="KPI-Zr-e4Y" id="uSW-Ej-q4r"/>
                 <outlet property="findtitle" destination="CfJ-0Z-4TJ" id="uhY-rw-nZ8"/>
                 <outlet property="img" destination="gfr-73-DLn" id="iLO-3a-xch"/>
-                <outlet property="isPrivate" destination="08J-G1-ibd" id="SgD-vy-2Kq"/>
                 <outlet property="lastupdateheader" destination="wRW-vV-uul" id="Aoh-J1-uYk"/>
-                <outlet property="notes" destination="zRV-za-4dp" id="ABq-oY-STM"/>
                 <outlet property="nothingplayingview" destination="QBj-Ek-7Tw" id="nSo-Kf-Fof"/>
                 <outlet property="nowplayingview" destination="rQb-tD-j5e" id="Fm7-mm-Lup"/>
                 <outlet property="openAnimePage" destination="Wgp-94-tio" id="LuB-i6-rKh"/>
@@ -337,11 +332,6 @@
                 <outlet property="shareMenu" destination="9qZ-L6-NWC" id="LEK-ar-cdA"/>
                 <outlet property="shareMenuItem" destination="21z-ef-0DY" id="eHh-Va-Jmk"/>
                 <outlet property="sharetoolbaritem" destination="5pz-cj-enZ" id="Rno-fh-gsp"/>
-                <outlet property="showscore" destination="vBX-23-tjk" id="Kyg-QU-nJ4"/>
-                <outlet property="showstatus" destination="742" id="785"/>
-                <outlet property="showtitle" destination="746" id="788"/>
-                <outlet property="simpleratingmenu" destination="hbm-mj-LFl" id="616-zC-4yK"/>
-                <outlet property="standardratingmenu" destination="9wt-rd-kZu" id="wgE-1I-vYW"/>
                 <outlet property="statusMenu" destination="543" id="561"/>
                 <outlet property="togglescrobbler" destination="557" id="657"/>
                 <outlet property="updatecorrect" destination="PEE-eA-4CS" id="JgR-gt-2ZA"/>
@@ -351,200 +341,11 @@
                 <outlet property="updatedtitle" destination="a2M-Ci-eiK" id="Ijp-3y-bYv"/>
                 <outlet property="updatedupdatestatus" destination="dU4-FY-DLP" id="eyx-8v-XdS"/>
                 <outlet property="updatenow" destination="Swq-JZ-crS" id="wbq-Tb-8xl"/>
-                <outlet property="updatepanel" destination="725" id="777"/>
                 <outlet property="updatetoolbaritem" destination="k8g-Fn-fps" id="A7q-dc-ToK"/>
                 <outlet property="window" destination="789" id="804"/>
                 <outlet property="windowcontent" destination="OrG-mG-eHz" id="stx-71-rx8"/>
             </connections>
         </customObject>
-        <menu title="Status" id="724">
-            <items>
-                <menuItem title="current" id="774">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="completed" id="773">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="on_hold" id="772">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="dropped" id="771">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-            </items>
-            <point key="canvasLocation" x="293" y="455.5"/>
-        </menu>
-        <window title="Update Status" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="725">
-            <windowStyleMask key="styleMask" titled="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="392" width="353" height="271"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
-            <view key="contentView" id="739">
-                <rect key="frame" x="0.0" y="0.0" width="353" height="271"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <textField verticalHuggingPriority="750" id="745">
-                        <rect key="frame" x="25" y="172" width="92" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Rating:" id="757">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="746">
-                        <rect key="frame" x="8" y="248" width="337" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Show Title" id="756">
-                            <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" misplaced="YES" id="743">
-                        <rect key="frame" x="25" y="223" width="90" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Status:" id="763">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <popUpButton verticalHuggingPriority="750" id="742">
-                        <rect key="frame" x="122" y="219" width="166" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="currently-watching" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="768" id="764">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" title="OtherViews" id="765">
-                                <items>
-                                    <menuItem title="currently-watching" state="on" id="768"/>
-                                    <menuItem title="Item 2" id="767"/>
-                                    <menuItem title="Item 3" id="766"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                        <connections>
-                            <outlet property="menu" destination="724" id="776"/>
-                        </connections>
-                    </popUpButton>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="BPB-rY-AlI">
-                        <rect key="frame" x="124" y="77" width="209" height="84"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <clipView key="contentView" id="M6k-if-Iu7">
-                            <rect key="frame" x="1" y="1" width="192" height="82"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="zRV-za-4dp">
-                                    <rect key="frame" x="0.0" y="0.0" width="192" height="82"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="192" height="82"/>
-                                    <size key="maxSize" width="463" height="10000000"/>
-                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                </textView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="dL7-7w-aP6">
-                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="EbQ-Fj-qgL">
-                            <rect key="frame" x="193" y="1" width="15" height="82"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="vup-Aw-IJN">
-                        <rect key="frame" x="37" y="144" width="78" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Notes:" id="bRt-tC-Vfa">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button id="08J-G1-ibd">
-                        <rect key="frame" x="122" y="53" width="213" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Private" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aGe-7O-pEg">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
-                    <button verticalHuggingPriority="750" id="740">
-                        <rect key="frame" x="253" y="13" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="770">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="updatetitlestatus:" target="560" id="781"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" id="741">
-                        <rect key="frame" x="157" y="13" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="769">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="closeupdatestatus:" target="560" id="782"/>
-                        </connections>
-                    </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="WBK-yZ-e5U">
-                        <rect key="frame" x="37" y="197" width="80" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Episode:" id="CkC-bN-7WT">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="KPI-Zr-e4Y">
-                        <rect key="frame" x="124" y="194" width="53" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="KHa-hp-En9">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="2hd-2h-QFD" customClass="NSNumberFormatterNumberOnly">
-                                <real key="minimum" value="1"/>
-                                <real key="maximum" value="100"/>
-                            </numberFormatter>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <popUpButton verticalHuggingPriority="750" misplaced="YES" id="vBX-23-tjk">
-                        <rect key="frame" x="122" y="165" width="214" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="yZf-kG-jjM" id="qmd-p5-701">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" id="gi8-2d-adg">
-                                <items>
-                                    <menuItem title="Item 1" state="on" id="yZf-kG-jjM"/>
-                                    <menuItem title="Item 2" id="neo-iF-mQR"/>
-                                    <menuItem title="Item 3" id="fF2-z0-HWC"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                    </popUpButton>
-                </subviews>
-            </view>
-            <point key="canvasLocation" x="219.5" y="189.5"/>
-        </window>
-        <numberFormatter formatterBehavior="custom10_4" positiveFormat="#.##" alwaysShowsDecimalSeparator="YES" minimumIntegerDigits="0" maximumIntegerDigits="5" maximumFractionDigits="2" id="zBq-KO-EPV">
-            <real key="minimum" value="0.0"/>
-            <real key="maximum" value="5"/>
-        </numberFormatter>
         <window title="Hachidori" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="StatusWindowPos" animationBehavior="default" id="789" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -732,131 +533,6 @@ Gw
             <point key="canvasLocation" x="308" y="242.5"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="sLK-0h-cju"/>
-        <menu id="hbm-mj-LFl" userLabel="Simple Rating Menu">
-            <items>
-                <menuItem title="No Rating" id="dgM-Dh-rV0">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="qdh-br-kL4"/>
-                <menuItem title="🙁 Awful" tag="2" id="26n-dn-5LE">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="😐 Meh" tag="8" id="qPc-Xd-2xo">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="🙂 Good" tag="14" id="M2z-OS-g5l">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="😍 Great" tag="20" id="e2H-gi-AiE">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-            </items>
-        </menu>
-        <menu id="9wt-rd-kZu" userLabel="Standard Rating Menu">
-            <items>
-                <menuItem title="No Rating" id="TfE-zd-tLC">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="ala-JK-eBk"/>
-                <menuItem title="0.5" tag="2" id="xeQ-Nl-4Ug">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="1.0" tag="4" id="wJ5-7m-p1P">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="1.5" tag="6" id="Wo1-aH-OPg">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="2.0" tag="7" id="5SR-4A-6lf">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="2.5" tag="10" id="WZY-op-aC3">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="3.0" tag="12" id="FtS-do-ma8">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="3.5" tag="14" id="4iP-X7-jnH">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="4.0" tag="16" id="72R-Sw-qlk">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="4.5" tag="18" id="ylK-s3-uDY">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="5.0" tag="20" id="cYu-Po-rlA">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-            </items>
-            <point key="canvasLocation" x="-105" y="406"/>
-        </menu>
-        <menu id="mAI-6B-xNx" userLabel="Advanced Rating Menu">
-            <items>
-                <menuItem title="No Rating" id="fOP-78-oGx">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="nKM-Cd-iXm"/>
-                <menuItem title="1.0" tag="2" id="Cqd-7D-5tc">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="1.5" tag="3" id="7nS-6U-jxp">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="2.0" tag="4" id="gVu-pQ-4LJ">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="2.5" tag="5" id="y8R-c0-ufk">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="3.0" tag="6" id="8o8-rh-smQ">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="3.5" tag="7" id="4yt-89-dkX">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="4.0" tag="8" id="EBZ-Hg-4aU">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="4.5" tag="9" id="btF-I3-nvS">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="5.0" tag="10" id="iV9-U1-Lek">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="5.5" tag="11" id="lyg-Y6-hXu">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="6.0" tag="12" id="XHP-8P-NDf">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="6.5" tag="13" id="WGi-qP-qtZ">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="7.0" tag="14" id="yBo-He-S99">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="7.5" tag="15" id="joJ-WH-mBg">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="8.0" tag="16" id="aE9-uf-sU9">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="8.5" tag="17" id="T1d-YJ-m1M">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="9.0" tag="18" id="Hvw-xb-nvn">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="9.5" tag="19" id="ilg-8F-46w">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="10.0" tag="20" id="zMp-sJ-11F">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-            </items>
-            <point key="canvasLocation" x="233" y="253"/>
-        </menu>
     </objects>
     <resources>
         <image name="Info" width="32" height="32"/>

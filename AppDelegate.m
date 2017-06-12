@@ -24,6 +24,7 @@
 #import "MSWeakTimer.h"
 #import "ClientConstants.h"
 #import "streamlinkopen.h"
+#import "StatusUpdateWindow.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -951,48 +952,24 @@
 }
 - (void)showUpdateDialog:(NSWindow *) w{
     [NSApp activateIgnoringOtherApps:YES];
-    // Show Sheet
-    [NSApp beginSheet:updatepanel
-       modalForWindow:w modalDelegate:self
-       didEndSelector:@selector(updateDidEnd:returnCode:contextInfo:)
-          contextInfo:(void *)nil];
-    // Set up UI
-    showtitle.objectValue = [haengine getLastScrobbledActualTitle];
-    // Set rating menu based on user's rating preferences
-    switch (haengine.ratingtype){
-        case ratingSimple:
-            showscore.menu = _simpleratingmenu;
-            break;
-        case ratingStandard:
-            showscore.menu = _standardratingmenu;
-            break;
-        case ratingAdvanced:
-            showscore.menu = _advancedratingmenu;
-            break;
-        default:
-            showscore.menu = _simpleratingmenu;
-            break;
+    if (!_updatewindow) {
+        _updatewindow = [StatusUpdateWindow new];
+        // Set completion handler
+        __weak AppDelegate *weakself = self;
+        _updatewindow.completion = ^void(int returnCode){
+            [weakself updateDidEnd:returnCode];
+        };
     }
-    [showscore selectItemWithTag:[haengine getTitleScore]];
-    episodefield.stringValue = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
-    if ([haengine getTotalEpisodes]  !=0) {
-        epiformatter.maximum = @([haengine getTotalEpisodes]);
-    }
-    [showstatus selectItemAtIndex:[haengine getWatchStatus]];
-    notes.string = [haengine getNotes];
-    isPrivate.state = [haengine getPrivate];
-    // Stop Timer temporarily if scrobbling is turned on
-    if (scrobbling == TRUE) {
-        [self stoptimer];
-    }
+    // Show Dialog
+    [_updatewindow showUpdateDialog:w withHachidori:haengine];
 }
-- (void)updateDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)updateDidEnd:(int)returnCode {
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
     if (returnCode == 1) {
         // Check if Episode field is empty. If so, set it to last scrobbled episode
-        NSString * tmpepisode = episodefield.stringValue;
+        NSString * tmpepisode = _updatewindow.episodefield.stringValue;
         bool episodechanged = false;
         if (tmpepisode.length == 0) {
             tmpepisode = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
@@ -1000,7 +977,7 @@
         if (tmpepisode.intValue != [haengine getCurrentEpisode]) {
             episodechanged = true; // Used to update the status window
         }
-        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:(int)showscore.selectedTag watchstatus:showstatus.titleOfSelectedItem notes:notes.textStorage.string isPrivate:(BOOL) isPrivate.state];
+        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:(int)_updatewindow.showscore.selectedTag watchstatus:_updatewindow.showstatus.titleOfSelectedItem notes:_updatewindow.notes.textStorage.string isPrivate:(BOOL) _updatewindow.isPrivate.state];
         if (result) {
             dispatch_async(dispatch_get_main_queue(), ^{
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];

@@ -119,7 +119,7 @@
     else {
         self.TitleNotes = d[@"notes"];
     }
-    self.ratingtype = [self getRatingType];
+    self.ratingtype = [self getUserRatingType];
     if (d[@"ratingTwenty"] != [NSNull null]) {
         // If user is using the new rating system
         self.TitleScore = ((NSNumber *)d[@"ratingTwenty"]).intValue;
@@ -150,7 +150,7 @@
         NSLog(@"Title is being rewatched.");
     }
 }
-- (int)getRatingType {
+- (int)getUserRatingType {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/users?filter[name]=%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies

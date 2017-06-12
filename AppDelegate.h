@@ -16,11 +16,11 @@
 @class MSWeakTimer;
 @class OfflineViewQueue;
 @class streamlinkopen;
+@class StatusUpdateWindow;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
 	/* Windows */
     __unsafe_unretained NSWindow *window;
-	__unsafe_unretained NSWindow *updatepanel;
 	/* General Stuff */
 	IBOutlet NSMenu *statusMenu;
     NSStatusItem                *statusItem;
@@ -66,13 +66,6 @@
 	IBOutlet NSToolbarItem * updatetoolbaritem;
     IBOutlet NSToolbarItem * correcttoolbaritem;
     IBOutlet NSToolbarItem * sharetoolbaritem;
-    IBOutlet NSTextField * episodefield;
-    IBOutlet NSNumberFormatter * epiformatter;
-	IBOutlet NSTextField * showtitle;
-	IBOutlet NSPopUpButton * showstatus;
-    IBOutlet NSPopUpButton * showscore;
-    IBOutlet NSTextView * notes;
-    IBOutlet NSButton * isPrivate;
 	NSWindowController *_preferencesWindowController;
     streamlinkopen * streamlinkopenw;
 }
@@ -92,6 +85,7 @@
 @property (weak) IBOutlet NSMenu *advancedratingmenu;
 @property (strong) IBOutlet NSView *nowplayingview;
 @property (strong) IBOutlet NSView *nothingplayingview;
+@property (strong) StatusUpdateWindow *updatewindow;
 
 - (void)showhistory:(id)sender;
 - (IBAction)togglescrobblewindow:(id)sender;
