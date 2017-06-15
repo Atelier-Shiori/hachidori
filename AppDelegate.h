@@ -17,6 +17,7 @@
 @class OfflineViewQueue;
 @class streamlinkopen;
 @class StatusUpdateWindow;
+@class ShareMenu;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
 	/* Windows */
@@ -46,7 +47,6 @@
     IBOutlet NSMenuItem * updatedupdatestatus;
     IBOutlet NSMenuItem * revertrewatch;
     IBOutlet NSMenuItem *shareMenuItem;
-    IBOutlet NSMenu * shareMenu;
     IBOutlet NSMenuItem  *  ForceMALSync;
     /* Status Window */
 	IBOutlet NSTextField * ScrobblerStatus;
@@ -82,6 +82,7 @@
 @property (strong) IBOutlet NSView *nowplayingview;
 @property (strong) IBOutlet NSView *nothingplayingview;
 @property (strong) StatusUpdateWindow *updatewindow;
+@property (strong) IBOutlet ShareMenu *shareMenu;
 
 - (void)showhistory:(id)sender;
 - (IBAction)togglescrobblewindow:(id)sender;

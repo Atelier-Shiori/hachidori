@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
+		2D226B2C1EF312BC0030E9C5 /* ShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */; };
 		2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
 		2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D807F521E201332003E2FCF /* DonationWindowController.m */; };
 		2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F581E48FD10003E2FCF /* DonationWindow.xib */; };
@@ -143,6 +144,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2D226B2A1EF312BC0030E9C5 /* ShareMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareMenu.h; sourceTree = "<group>"; };
+		2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareMenu.m; sourceTree = "<group>"; };
 		2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2D807F511E201332003E2FCF /* DonationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonationWindowController.h; sourceTree = "<group>"; };
@@ -427,6 +430,8 @@
 				8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */,
 				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
 				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
+				2D226B2A1EF312BC0030E9C5 /* ShareMenu.h */,
+				2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */,
 				5C8ACEB619F409C60001A101 /* Other Classes */,
 				5CD36B9419F2EA91007BB6B6 /* Preferences */,
 				6F0F849F1B34699100EEEC32 /* Scripting Support */,
@@ -1000,6 +1005,7 @@
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
 				593B55841CC41DC200B7B254 /* Base64Category.m in Sources */,
 				5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */,
+				2D226B2C1EF312BC0030E9C5 /* ShareMenu.m in Sources */,
 				2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */,
 				918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16G12b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16G16b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
@@ -329,7 +329,7 @@
                 <outlet property="revertrewatch" destination="NJh-Nj-R5h" id="etD-B4-Gso"/>
                 <outlet property="seperator" destination="555" id="QKS-yU-V76"/>
                 <outlet property="seperator2" destination="E8T-4Q-mLF" id="HiB-iA-9wo"/>
-                <outlet property="shareMenu" destination="9qZ-L6-NWC" id="LEK-ar-cdA"/>
+                <outlet property="shareMenu" destination="sQY-Kl-PMA" id="Hjb-mV-NnL"/>
                 <outlet property="shareMenuItem" destination="21z-ef-0DY" id="eHh-Va-Jmk"/>
                 <outlet property="sharetoolbaritem" destination="5pz-cj-enZ" id="Rno-fh-gsp"/>
                 <outlet property="statusMenu" destination="543" id="561"/>
@@ -533,6 +533,11 @@
             <point key="canvasLocation" x="308" y="242.5"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="sLK-0h-cju"/>
+        <customObject id="sQY-Kl-PMA" customClass="ShareMenu">
+            <connections>
+                <outlet property="shareMenu" destination="9qZ-L6-NWC" id="AoE-eK-skr"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="Info" width="32" height="32"/>

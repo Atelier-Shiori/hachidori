@@ -27,6 +27,7 @@
 #import "StatusUpdateWindow.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "ShareMenu.h"
 
 @implementation AppDelegate
 
@@ -554,7 +555,7 @@
             NSDictionary * ainfo = [haengine getLastScrobbledInfo];
             if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
                 [self showAnimeInfo:ainfo];
-                [self generateShareMenu];
+                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]]];
             }
         }
         if (status == ScrobblerTitleNotFound) {
@@ -573,13 +574,7 @@
 
 - (void)resetUI {
     // Resets the UI when the user logs out
-    [shareMenu removeAllItems];
-    // Workaround for Share Toolbar Item
-    NSMenuItem *shareIcon = [[NSMenuItem alloc] init];
-    shareIcon.image = [NSImage imageNamed:NSImageNameShareTemplate];
-    [shareIcon setHidden:YES];
-    shareIcon.title = @"";
-    [shareMenu addItem:shareIcon];
+    [_shareMenu resetShareMenu];
     [updatecorrect setAutoenablesItems:NO];
     [self EnableStatusUpdating:NO];
     [revertrewatch setHidden:YES];
@@ -826,7 +821,7 @@
                         [findtitle setHidden:YES];
                         [confirmupdate setHidden:true];
 						//Regenerate Share Items
-						[self generateShareMenu];
+                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]]];
                         // Sync with MAL if Enabled
                         [self syncMyAnimeList];
                         break;
@@ -1209,33 +1204,6 @@
 }
 - (Hachidori *)getHachidoriInstance{
     return haengine;
-}
-#pragma mark Share Services
-- (void)generateShareMenu{
-    //Clear Share Menu
-    [shareMenu removeAllItems];
-    // Workaround for Share Toolbar Item
-    NSMenuItem *shareIcon = [[NSMenuItem alloc] init];
-    shareIcon.image = [NSImage imageNamed:NSImageNameShareTemplate];
-    [shareIcon setHidden:YES];
-    shareIcon.title = @"";
-    [shareMenu addItem:shareIcon];
-    //Generate Items to Share
-    shareItems = @[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]];
-    //Get Share Services for Items
-    NSArray *shareServiceforItems = [NSSharingService sharingServicesForItems:shareItems];
-    //Generate Share Items and populate Share Menu
-    for (NSSharingService * cservice in shareServiceforItems) {
-        NSMenuItem * item = [[NSMenuItem alloc] initWithTitle:cservice.title action:@selector(shareFromService:) keyEquivalent:@""];
-        item.representedObject = cservice;
-        item.image = cservice.image;
-        item.target = self;
-        [shareMenu addItem:item];
-    }
-}
-- (IBAction)shareFromService:(id)sender{
-    // Share Item
-    [[sender representedObject] performWithItems:shareItems];
 }
 - (IBAction)showLastScrobbledInformation:(id)sender{
     //Open the anime's page on Kitsu in the default web browser
