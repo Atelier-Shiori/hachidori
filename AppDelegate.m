@@ -35,6 +35,45 @@
 @synthesize historywindowcontroller;
 @synthesize fsdialog;
 @synthesize managedObjectContext;
+@synthesize statusMenu;
+@synthesize statusItem;
+@synthesize statusImage;
+@synthesize timer;
+@synthesize openstream;
+@synthesize togglescrobbler;
+@synthesize updatenow;
+@synthesize confirmupdate;
+@synthesize findtitle;
+@synthesize seperator;
+@synthesize lastupdateheader;
+@synthesize updatecorrectmenu;
+@synthesize updatecorrect;
+@synthesize updatedtitle;
+@synthesize updatedepisode;
+@synthesize seperator2;
+@synthesize updatedcorrecttitle;
+@synthesize updatedupdatestatus;
+@synthesize revertrewatch;
+@synthesize shareMenuItem;
+@synthesize ForceMALSync;
+@synthesize ScrobblerStatus;
+@synthesize LastScrobbled;
+@synthesize openAnimePage;
+@synthesize animeinfo;
+@synthesize img;
+@synthesize windowcontent;
+@synthesize animeinfooutside;
+@synthesize scrobbling;
+@synthesize scrobbleractive;
+@synthesize panelactive;
+@synthesize haengine;
+@synthesize updatetoolbaritem;
+@synthesize correcttoolbaritem;
+@synthesize sharetoolbaritem;
+@synthesize _preferencesWindowController;
+@synthesize streamlinkopenw;
+
+
 #pragma mark -
 #pragma mark Initalization
 /**
@@ -924,17 +963,6 @@
     }
 }
 
-#pragma mark Getters
-- (bool)getisScrobbling{
-    return scrobbling;
-}
-- (bool)getisScrobblingActive{
-    return scrobbleractive;
-}
-- (NSManagedObjectContext *)getObjectContext{
-    return managedObjectContext;
-}
-
 #pragma mark Update Status functions
 
 - (IBAction)updatestatus:(id)sender {
@@ -1201,9 +1229,6 @@
 		output[@"source"] = [haengine getLastScrobbledSource];
 	}
 	return output;
-}
-- (Hachidori *)getHachidoriInstance{
-    return haengine;
 }
 - (IBAction)showLastScrobbledInformation:(id)sender{
     //Open the anime's page on Kitsu in the default web browser

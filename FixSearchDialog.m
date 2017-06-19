@@ -16,6 +16,18 @@
 
 @implementation FixSearchDialog
 
+@synthesize arraycontroller;
+@synthesize search;
+@synthesize deleteoncorrection;
+@synthesize onetimecorrection;
+@synthesize tb;
+@synthesize selectedtitle;
+@synthesize selectedaniid;
+@synthesize selectedtotalepisodes;
+@synthesize searchquery;
+@synthesize correction;
+@synthesize allowdelete;
+
 - (instancetype)init{
     self = [super initWithWindowNibName:@"FixSearchDialog"];
     if(!self)
@@ -138,27 +150,11 @@
     //Deselect Selection
     [tb deselectAll:self];
 }
-- (void)setCorrection:(BOOL)correct{
-    correction = correct;
-}
-- (void)setAllowDelete:(BOOL)deleteallowed{
-    allowdelete = deleteallowed;
-}
-- (void)setSearchField:(NSString *)term{
-    searchquery = term;
-}
-- (NSString *)getSelectedTitle{
-    return selectedtitle;
-}
-- (NSString *)getSelectedAniID{
-    return selectedaniid;
-}
-- (int)getSelectedTotalEpisodes{
-    return selectedtotalepisodes;
-}
+
 - (bool)getdeleteTitleonCorrection{
     return (bool) deleteoncorrection.state;
 }
+
 - (bool)getcorrectonce{
     return (bool) onetimecorrection.state;
 }

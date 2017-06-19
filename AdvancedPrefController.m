@@ -18,21 +18,33 @@
 
 @implementation AdvancedPrefController
 
-- (instancetype)init
-{
+@synthesize fieldusername;
+@synthesize fieldpassword;
+@synthesize fieldmalapi;
+@synthesize savebut;
+@synthesize clearbut;
+@synthesize loggedinuser;
+@synthesize testapibtn;
+@synthesize appdelegate;
+@synthesize loginview;
+@synthesize loggedinview;
+@synthesize haengine;
+
+- (instancetype)init {
     return [super initWithNibName:@"AdvancedPrefController" bundle:nil];
 }
-- (id)initwithAppDelegate:(AppDelegate *)adelegate{
+
+- (id)initwithAppDelegate:(AppDelegate *)adelegate {
     appdelegate = adelegate;
     return [super initWithNibName:@"AdvancedPrefController" bundle:nil];
 }
-- (void)loadView{
+
+- (void)loadView {
     [super loadView];
     // Load Login State
     [self loadlogin];
 }
-- (void)loadlogin
-{
+- (void)loadlogin {
     //Load Hachidori Engine Instance from AppDelegate
     haengine = appdelegate.getHachidoriInstance;
     
@@ -52,28 +64,25 @@
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
-- (NSString *)identifier
-{
+- (NSString *)identifier {
     return @"AdvancedPreferences";
 }
 
-- (NSImage *)toolbarItemImage
-{
+- (NSImage *)toolbarItemImage {
     return [NSImage imageNamed:NSImageNameAdvanced];
 }
 
-- (NSString *)toolbarItemLabel
-{
+- (NSString *)toolbarItemLabel {
     return NSLocalizedString(@"Advanced", @"Toolbar item name for the Advanced preference pane");
 }
-- (IBAction)getHelp:(id)sender{
+- (IBAction)getHelp:(id)sender {
     //Show Help
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Advanced-Options"]];
 }
-- (IBAction)registermal:(id)sender{
+- (IBAction)registermal:(id)sender {
     
 }
-- (IBAction)startlogin:(id)sender{
+- (IBAction)startlogin:(id)sender {
     {
         //Start Login Process
         //Disable Login Button
@@ -96,7 +105,7 @@
         }
     }
 }
-- (IBAction)clearlogin:(id)sender{
+- (IBAction)clearlogin:(id)sender {
     if (![appdelegate getisScrobbling] && ![appdelegate getisScrobblingActive]) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
@@ -127,7 +136,7 @@
         [Utility showsheetmessage:@"Cannot Logout" explaination:@"Please turn off automatic scrobbling before logging out." window:self.view.window];
     }
 }
-- (void)login:(NSString *)username password:(NSString *)password{
+- (void)login:(NSString *)username password:(NSString *)password {
     [savebut setEnabled:NO];
     //Set Login URL
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -158,14 +167,14 @@
     }];
  }
 
-- (IBAction)resetMALAPI:(id)sender{
+- (IBAction)resetMALAPI:(id)sender {
     //Reset Unofficial MAL API URL
     fieldmalapi.stringValue = @"https://malapi.ateliershiori.moe";
     // Set MAL API URL in settings
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults] ;
     [defaults setObject:fieldmalapi.stringValue forKey:@"MALAPIURL"];
 }
-- (IBAction)testMALAPI:(id)sender{
+- (IBAction)testMALAPI:(id)sender {
     [testapibtn setEnabled:NO];
     //Load API URL
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -179,7 +188,7 @@
     }];
 
 }
-- (IBAction)addLicense:(id)sender{
+- (IBAction)addLicense:(id)sender {
     [appdelegate enterDonationKey];
 
 }
@@ -187,7 +196,7 @@
     NSTextField * textfield = [notification object];
     [[appdelegate getHachidoriInstance].detection setKodiReachAddress:[textfield stringValue]];
 }
-- (IBAction)setKodiReach:(id)sender{
+- (IBAction)setKodiReach:(id)sender {
     if ([_kodicheck state] == 0) {
         // Turn off reachability notification for Kodi
         [[appdelegate getHachidoriInstance].detection setKodiReach:false];

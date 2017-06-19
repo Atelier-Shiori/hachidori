@@ -9,10 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "AppDelegate.h"
 
-@interface HistoryWindow : NSWindowController <NSWindowDelegate>{
-    IBOutlet NSArrayController * arraycontroller;
-    IBOutlet NSTableView * historytable;
-}
+@interface HistoryWindow : NSWindowController <NSWindowDelegate>
+@property (strong) IBOutlet NSArrayController * arraycontroller;
+@property (strong) IBOutlet NSTableView * historytable;
 @property (nonatomic, readonly)  NSManagedObjectContext *managedObjectContext;
 + (void)addrecord:(NSString *)title
          Episode:(NSString *)episode

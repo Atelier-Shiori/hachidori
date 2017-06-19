@@ -8,8 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface DonationWindowController : NSWindowController{
-    IBOutlet NSTextField * name;
-    IBOutlet NSTextField * key;
-}
+@interface DonationWindowController : NSWindowController
+@property (strong) IBOutlet NSTextField * name;
+@property (strong) IBOutlet NSTextField * key;
 @end

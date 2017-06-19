@@ -9,9 +9,8 @@
 #import <Cocoa/Cocoa.h>
 @class streamlinkdetector;
 
-@interface streamlinkopen : NSWindowController{
-    streamlinkdetector * detector;
-}
+@interface streamlinkopen : NSWindowController
+@property (strong) streamlinkdetector * detector;
 @property (strong) IBOutlet NSTextField *streamurl;
 @property (strong) IBOutlet NSButton *openstreambtn;
 @property (strong) IBOutlet NSPopUpButton *streams;

@@ -12,21 +12,20 @@
 #import "Hachidori.h"
 #import "Hachidori+Keychain.h"
 
-@interface AdvancedPrefController : NSViewController <MASPreferencesViewController>{
-    //Login Preferences
-    IBOutlet NSTextField * fieldusername;
-    IBOutlet NSTextField * fieldpassword;
-    IBOutlet NSTextField * fieldmalapi;
-    IBOutlet NSButton * savebut;
-    IBOutlet NSButton * clearbut;
-    IBOutlet NSTextField * loggedinuser;
-    IBOutlet NSButton *testapibtn;
-    AppDelegate * appdelegate;
-    IBOutlet NSView * loginview;
-    IBOutlet NSView * loggedinview;
-    //Hachidori instance
-    Hachidori * haengine;
-}
+@interface AdvancedPrefController : NSViewController <MASPreferencesViewController>
+//Login Preferences
+@property (strong) IBOutlet NSTextField * fieldusername;
+@property (strong) IBOutlet NSTextField * fieldpassword;
+@property (strong) IBOutlet NSTextField * fieldmalapi;
+@property (strong) IBOutlet NSButton * savebut;
+@property (strong) IBOutlet NSButton * clearbut;
+@property (strong) IBOutlet NSTextField * loggedinuser;
+@property (strong) IBOutlet NSButton *testapibtn;
+@property (strong) AppDelegate * appdelegate;
+@property (strong) IBOutlet NSView * loginview;
+@property (strong) IBOutlet NSView * loggedinview;
+//Hachidori instance
+@property (strong) Hachidori * haengine;
 @property (strong) IBOutlet NSButton *kodicheck;
 - (id)initwithAppDelegate:(AppDelegate *)adelegate;
 - (IBAction)registermal:(id)sender;

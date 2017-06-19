@@ -9,6 +9,9 @@
 #import "HistoryWindow.h"
 
 @implementation HistoryWindow
+
+@synthesize historytable;
+@synthesize arraycontroller;
 @dynamic managedObjectContext;
 
 - (NSManagedObjectContext *)managedObjectContext {

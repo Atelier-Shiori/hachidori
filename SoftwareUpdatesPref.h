@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import <MASPreferences/MASPreferences.h>
 
-@interface SoftwareUpdatesPref : NSViewController <MASPreferencesViewController>  {
+@interface SoftwareUpdatesPref : NSViewController <MASPreferencesViewController>
 
-}
 @end

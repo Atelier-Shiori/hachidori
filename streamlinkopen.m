@@ -15,6 +15,9 @@
 @end
 
 @implementation streamlinkopen
+
+@synthesize detector;
+
 - (instancetype)init{
     self = [super initWithWindowNibName:@"streamlinkopen"];
     if(!self)

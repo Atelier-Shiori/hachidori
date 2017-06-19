@@ -10,9 +10,8 @@
 #import <MASPreferences/MASPreferences.h>
 #import <MASShortcut/Shortcut.h>
 
-@interface HotkeysPrefs : NSViewController <MASPreferencesViewController>{
-    
-}
+@interface HotkeysPrefs : NSViewController <MASPreferencesViewController>
+
 @property (nonatomic, weak) IBOutlet MASShortcutView *confirmupdateshortcutView;
 @property (nonatomic, weak) IBOutlet MASShortcutView *scrobblenowshortcutView;
 @property (nonatomic, weak) IBOutlet MASShortcutView *statusshortcutView;

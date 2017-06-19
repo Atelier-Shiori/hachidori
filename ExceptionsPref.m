@@ -15,6 +15,13 @@
 @end
 
 @implementation ExceptionsPref
+
+@synthesize arraycontroller;
+@synthesize ignorearraycontroller;
+@synthesize ignorefilenamearraycontroller;
+@synthesize tb;
+@synthesize iftb;
+@synthesize detectedtitle;
 @synthesize fsdialog;
 @dynamic managedObjectContext;
 

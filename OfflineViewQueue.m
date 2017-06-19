@@ -13,7 +13,10 @@
 @end
 
 @implementation OfflineViewQueue
+
+@synthesize delegate;
 @dynamic managedObjectContext;
+
 - (NSManagedObjectContext *)managedObjectContext {
     AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return appDelegate.managedObjectContext;

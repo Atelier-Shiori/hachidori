@@ -14,6 +14,10 @@
 @end
 
 @implementation DonationWindowController
+
+@synthesize name;
+@synthesize key;
+
 - (id)init{
     self = [super initWithWindowNibName:@"DonationWindow"];
     if(!self)

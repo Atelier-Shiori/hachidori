@@ -10,8 +10,8 @@
 #import "AppDelegate.h"
 
 @interface OfflineViewQueue : NSWindowController{
-    	NSManagedObjectContext *managedObjectContext;
-        AppDelegate * delegate;
+    NSManagedObjectContext *managedObjectContext;
 }
+@property (strong) AppDelegate * delegate;
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @end

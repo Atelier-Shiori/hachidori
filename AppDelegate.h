@@ -20,62 +20,17 @@
 @class ShareMenu;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
-	/* Windows */
-    __unsafe_unretained NSWindow *window;
-	/* General Stuff */
-	IBOutlet NSMenu *statusMenu;
-    NSStatusItem                *statusItem;
-    NSImage                        *statusImage;
     NSManagedObjectModel *managedObjectModel;
 	NSManagedObjectContext *managedObjectContext;
 	NSPersistentStoreCoordinator *persistentStoreCoordinator;
-	MSWeakTimer * timer;
-    IBOutlet NSMenuItem *openstream;
-	IBOutlet NSMenuItem * togglescrobbler;
-    IBOutlet NSMenuItem * updatenow;
-    IBOutlet NSMenuItem * confirmupdate;
-	IBOutlet NSMenuItem * findtitle;
-    /* Updated Title Display and Operations */
-    IBOutlet NSMenuItem * seperator;
-    IBOutlet NSMenuItem * lastupdateheader;
-    IBOutlet NSMenuItem * updatecorrectmenu;
-    IBOutlet NSMenu * updatecorrect;
-    IBOutlet NSMenuItem * updatedtitle;
-    IBOutlet NSMenuItem * updatedepisode;
-    IBOutlet NSMenuItem * seperator2;
-    IBOutlet NSMenuItem * updatedcorrecttitle;
-    IBOutlet NSMenuItem * updatedupdatestatus;
-    IBOutlet NSMenuItem * revertrewatch;
-    IBOutlet NSMenuItem *shareMenuItem;
-    IBOutlet NSMenuItem  *  ForceMALSync;
-    /* Status Window */
-	IBOutlet NSTextField * ScrobblerStatus;
-	IBOutlet NSTextField * LastScrobbled;
-    IBOutlet NSToolbarItem * openAnimePage;
-    IBOutlet NSTextView * animeinfo;
-    IBOutlet NSImageView * img;
-    IBOutlet NSVisualEffectView * windowcontent;
-    IBOutlet NSScrollView *animeinfooutside;
-	BOOL scrobbling;
-    BOOL scrobbleractive;
-    bool panelactive;
-    NSArray * shareItems;
-	/* Hachidori Scrobbling/Updating Class */
-	Hachidori * haengine;
-	/* Update Status Sheet Window IBOutlets */
-	IBOutlet NSToolbarItem * updatetoolbaritem;
-    IBOutlet NSToolbarItem * correcttoolbaritem;
-    IBOutlet NSToolbarItem * sharetoolbaritem;
-	NSWindowController *_preferencesWindowController;
-    streamlinkopen * streamlinkopenw;
 }
 @property (strong, nonatomic) dispatch_queue_t privateQueue;
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
-@property (assign) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSWindow *window;
 @property (strong) OfflineViewQueue * owindow;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, readonly, getter=getObjectContext) NSManagedObjectContext *managedObjectContext;
 @property (strong) FixSearchDialog *fsdialog;
 @property (strong) HistoryWindow *historywindowcontroller;
 @property (strong) DonationWindowController * dwindow;
@@ -83,6 +38,48 @@
 @property (strong) IBOutlet NSView *nothingplayingview;
 @property (strong) StatusUpdateWindow *updatewindow;
 @property (strong) IBOutlet ShareMenu *shareMenu;
+/* General Stuff */
+@property (strong) IBOutlet NSMenu *statusMenu;
+@property (strong) NSStatusItem *statusItem;
+@property (strong) NSImage *statusImage;
+@property (strong) MSWeakTimer * timer;
+@property (strong) IBOutlet NSMenuItem *openstream;
+@property (strong) IBOutlet NSMenuItem * togglescrobbler;
+@property (strong) IBOutlet NSMenuItem * updatenow;
+@property (strong) IBOutlet NSMenuItem * confirmupdate;
+@property (strong) IBOutlet NSMenuItem * findtitle;
+/* Updated Title Display and Operations */
+@property (strong) IBOutlet NSMenuItem * seperator;
+@property (strong) IBOutlet NSMenuItem * lastupdateheader;
+@property (strong) IBOutlet NSMenuItem * updatecorrectmenu;
+@property (strong) IBOutlet NSMenu * updatecorrect;
+@property (strong) IBOutlet NSMenuItem * updatedtitle;
+@property (strong) IBOutlet NSMenuItem * updatedepisode;
+@property (strong) IBOutlet NSMenuItem * seperator2;
+@property (strong) IBOutlet NSMenuItem * updatedcorrecttitle;
+@property (strong) IBOutlet NSMenuItem * updatedupdatestatus;
+@property (strong) IBOutlet NSMenuItem * revertrewatch;
+@property (strong) IBOutlet NSMenuItem *shareMenuItem;
+@property (strong) IBOutlet NSMenuItem  *  ForceMALSync;
+/* Status Window */
+@property (strong) IBOutlet NSTextField * ScrobblerStatus;
+@property (strong) IBOutlet NSTextField * LastScrobbled;
+@property (strong) IBOutlet NSToolbarItem * openAnimePage;
+@property (strong) IBOutlet NSTextView * animeinfo;
+@property (strong) IBOutlet NSImageView * img;
+@property (strong) IBOutlet NSVisualEffectView * windowcontent;
+@property (strong) IBOutlet NSScrollView *animeinfooutside;
+@property (getter=getisScrobbling) bool scrobbling;
+@property (getter=getisScrobblingActive) bool scrobbleractive;
+@property bool panelactive;
+/* Hachidori Scrobbling/Updating Class */
+@property (strong, getter=getHachidoriInstance) Hachidori * haengine;
+/* Update Status Sheet Window IBOutlets */
+@property (strong)IBOutlet NSToolbarItem * updatetoolbaritem;
+@property (strong) IBOutlet NSToolbarItem * correcttoolbaritem;
+@property (strong) IBOutlet NSToolbarItem * sharetoolbaritem;
+@property (strong) NSWindowController *_preferencesWindowController;
+@property (strong) streamlinkopen * streamlinkopenw;
 
 - (void)showhistory:(id)sender;
 - (IBAction)togglescrobblewindow:(id)sender;
@@ -105,10 +102,6 @@
 - (void)showNotification:(NSString *)title message:(NSString *) message;
 - (IBAction)showAboutWindow:(id)sender;
 - (void)enterDonationKey;
-- (bool)getisScrobbling;
-- (bool)getisScrobblingActive;
-- (NSManagedObjectContext *)getObjectContext;
 - (NSDictionary *)getNowPlaying;
-- (Hachidori *)getHachidoriInstance;
 - (void)resetUI;
 @end

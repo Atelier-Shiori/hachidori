@@ -8,26 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FixSearchDialog : NSWindowController{
-    IBOutlet NSArrayController * arraycontroller;
-    IBOutlet NSTextField *search;
-    IBOutlet NSButton * deleteoncorrection;
-    IBOutlet NSButton * onetimecorrection;
-    IBOutlet NSTableView *tb;
-    NSString * selectedtitle;
-    NSString * selectedaniid;
-	int selectedtotalepisodes;
-    NSString * searchquery;
-    bool correction;
-    bool allowdelete;
-}
+@interface FixSearchDialog : NSWindowController
+@property (strong) IBOutlet NSArrayController *arraycontroller;
+@property (strong) IBOutlet NSTextField *search;
+@property (strong) IBOutlet NSButton *deleteoncorrection;
+@property (strong) IBOutlet NSButton *onetimecorrection;
+@property (strong) IBOutlet NSTableView *tb;
+@property (strong, getter=getSelectedTitle) NSString *selectedtitle;
+@property (strong, getter=getSelectedAniID) NSString *selectedaniid;
+@property (getter=getSelectedTotalEpisodes) int selectedtotalepisodes;
+@property (strong, setter=setSearchField:) NSString *searchquery;
+@property (setter=setCorrection:) bool correction;
+@property (setter=setAllowDelete:) bool allowdelete;
+
 - (id)init;
-- (void)setCorrection:(BOOL)correct;
-- (void)setAllowDelete:(BOOL)deleteallowed;
-- (NSString *)getSelectedTitle;
-- (NSString *)getSelectedAniID;
-- (int)getSelectedTotalEpisodes;
 - (bool)getdeleteTitleonCorrection;
 - (bool)getcorrectonce;
-- (void)setSearchField:(NSString *)term;
 @end

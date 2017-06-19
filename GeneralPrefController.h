@@ -12,12 +12,11 @@
 
 
 
-@interface GeneralPrefController : NSViewController <MASPreferencesViewController> {
-    IBOutlet NSButton * disablenewtitlebar;
-    IBOutlet NSButton * disablevibarency;
-    IBOutlet NSButton * startatlogin;
-    IBOutlet NSProgressIndicator * indicator;
-    IBOutlet NSButton * updateexceptionsbtn;
-    IBOutlet NSButton * updateexceptionschk;
-}
+@interface GeneralPrefController : NSViewController <MASPreferencesViewController>
+@property (strong) IBOutlet NSButton * disablenewtitlebar;
+@property (strong) IBOutlet NSButton * disablevibarency;
+@property (strong) IBOutlet NSButton * startatlogin;
+@property (strong) IBOutlet NSProgressIndicator * indicator;
+@property (strong) IBOutlet NSButton * updateexceptionsbtn;
+@property (strong) IBOutlet NSButton * updateexceptionschk;
 @end
