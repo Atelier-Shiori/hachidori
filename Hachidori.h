@@ -72,7 +72,7 @@ typedef NS_ENUM(unsigned int, ratingType){
 @property BOOL correcting;
 @property BOOL unittesting;
 @property (strong) Reachability* reach;
-@property (strong) NSManagedObjectContext *managedObjectContext;
+@property (strong, setter=setManagedObjectContext:) NSManagedObjectContext *managedObjectContext;
 @property (strong) streamlinkdetector *detector;
 @property (getter=getOnlineStatus) bool online;
 @property (getter=getRatingType) int ratingtype;

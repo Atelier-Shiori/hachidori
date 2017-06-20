@@ -1084,7 +1084,7 @@
         // Only confirm update if the title and episode is the same with the last scrobbled.
         if ([[haengine getLastScrobbledTitle] isEqualToString:title] && episode.intValue == [haengine getLastScrobbledEpisode].intValue) {
             //Confirm Update
-            [self confirmupdate];
+            [self performconfirmupdate];
         }
         else {
             return;
@@ -1096,9 +1096,9 @@
     }
 }
 - (IBAction)confirmupdate:(id)sender{
-    [self confirmupdate];
+    [self performconfirmupdate];
 }
-- (void)confirmupdate{
+- (void)performconfirmupdate{
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -1157,7 +1157,7 @@
      bindShortcutWithDefaultsKey:kPreferenceConfirmUpdateShortcut toAction:^{
          // Confirm Update Hotkey
          if (!confirmupdate.hidden) {
-             [self confirmupdate];
+             [self performconfirmupdate];
          }
      }];
 }
