@@ -77,7 +77,12 @@
 		//Disable Login Button
 		[_savebut setEnabled: NO];
 		[_savebut displayIfNeeded];
-		if (_fieldusername.stringValue.length == 0) {
+        if (![self canRetrieveUserID]) {
+            //No Username Entered! Show error message
+            [Utility showsheetmessage:@"Hachidori was unable to log you in since it can't retrieve the user ID of the associated account." explaination:@"Make sure the username is correct or try again." window:self.view.window];
+            [_savebut setEnabled: YES];
+        }
+		else if (_fieldusername.stringValue.length == 0) {
 			//No Username Entered! Show error message
 			[Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a username" explaination:@"Enter a valid username and try logging in again" window:self.view.window];
 			[_savebut setEnabled: YES];
@@ -235,9 +240,18 @@
         NSError * jerror;
         d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
         NSArray * tmp = d[@"data"];
-        NSDictionary * uinfo = tmp[0];
-        return [NSString stringWithFormat:@"%@",uinfo[@"id"]];
+        if (tmp.count > 0) {
+            NSDictionary * uinfo = tmp[0];
+            return [NSString stringWithFormat:@"%@",uinfo[@"id"]];
+        }
+        return @"";
     }
     return @"";
+}
+- (bool)canRetrieveUserID {
+    if ([self retrieveUserID:_fieldusername.stringValue].length > 0) {
+        return true;
+    }
+    return false;
 }
 @end
