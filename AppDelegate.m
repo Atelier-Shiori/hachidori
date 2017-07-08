@@ -206,6 +206,10 @@
     defaultValues[@"timerinterval"] = @(300);
     defaultValues[@"showcorrection"] = @YES;
     defaultValues[@"NSApplicationCrashOnExceptions"] = @YES;
+    defaultValues[@"enableplexapi"] = @NO;
+    defaultValues[@"plexaddress"] = @"localhost";
+    defaultValues[@"plexport"] = @"32400";
+    defaultValues[@"plexidentifier"] = @"Hachidori_Plex_Client";
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];

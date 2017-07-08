@@ -7,7 +7,7 @@
 //
 
 #import "Hachidori.h"
-#import "SSKeychain.h"
+#import <SAMKeychain/SAMKeychain.h>
 
 @interface Hachidori (Keychain)
 - (BOOL)checkmalaccount;

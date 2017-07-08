@@ -1,0 +1,6 @@
+framework module XMLReader {
+  umbrella header "XMLReader.h"
+
+  export *
+  module * { export * }
+}

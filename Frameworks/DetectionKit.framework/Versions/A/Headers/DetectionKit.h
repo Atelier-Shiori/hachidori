@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char DetectionKitVersionString[];
 
 #import <DetectionKit/Detection.h>
 #import <DetectionKit/Recognition.h>
+#import <DetectionKit/PlexAuth.h>

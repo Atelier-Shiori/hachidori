@@ -57,7 +57,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
     //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
@@ -192,7 +192,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -254,7 +254,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -298,7 +298,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    [request addHeader:[NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]] forKey:@"Authorization"];
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
     [request setPostMethod:@"DELETE"];
         // Do Update
     [request startFormRequest];

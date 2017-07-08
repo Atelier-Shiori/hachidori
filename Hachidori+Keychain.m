@@ -13,15 +13,13 @@
 @implementation Hachidori (Keychain)
 - (BOOL)checkmalaccount{
     // This method checks for any accounts that Hachidori can use
-    NSArray * accounts = [SSKeychain accountsForService:@"Hachidori - MyAnimeList"];
+    NSArray * accounts = [SAMKeychain accountsForService:@"Hachidori - MyAnimeList"];
     if (accounts > 0) {
         //retrieve first valid account
         for (NSDictionary * account in accounts) {
             self.malusername = (NSString *)account[@"acct"];
             return true;
         }
-        
-        
     }
     self.malusername = @"";
     return false;
@@ -38,16 +36,16 @@
     [defaults setObject:@"" forKey:@"Base64Token"];
     [defaults setObject:@"" forKey:@"Username"];
     self.malusername = uname;
-    return [SSKeychain setPassword:password forService:@"Hachidori - MyAnimeList" account:uname];
+    return [SAMKeychain setPassword:password forService:@"Hachidori - MyAnimeList" account:uname];
 }
 - (BOOL)removemalaccount{
-    bool success = [SSKeychain deletePasswordForService:@"Hachidori - MyAnimeList" account:self.username];
+    bool success = [SAMKeychain deletePasswordForService:@"Hachidori - MyAnimeList" account:self.username];
     // Set Username to blank
     self.malusername = @"";
     return success;
 }
 - (NSString *)getBase64{
-    return [[NSString stringWithFormat:@"%@:%@", [self getmalusername], [SSKeychain passwordForService:@"Hachidori - MyAnimeList" account:self.malusername]] base64Encoding];
+    return [[NSString stringWithFormat:@"%@:%@", [self getmalusername], [SAMKeychain passwordForService:@"Hachidori - MyAnimeList" account:self.malusername]] base64Encoding];
 }
 
 @end

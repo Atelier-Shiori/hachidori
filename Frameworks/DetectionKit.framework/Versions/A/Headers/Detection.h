@@ -19,6 +19,10 @@
  The current Kodi Json RPC reachability status.
  */
 @property (getter=getKodiOnlineStatus) bool kodionline;
+/**
+ The current Kodi Json RPC reachability status.
+ */
+@property (getter=getPlexOnlineStatus) bool plexonline;
 
 /**
  This detects media from open video players, streams or web browsers
@@ -41,4 +45,14 @@
  @pram url The host name to the computer running Kodi.
  */
 - (void)setKodiReachAddress:(NSString *)url;
+/**
+ Turns on/off Plex Media Server API reachability.
+ @pram enable The state of the Plex API reachability.
+ */
+- (void)setPlexReach:(BOOL)enable;
+/**
+ Sets the address for the Plex Media Server reachability
+ @pram url The host name/IP Address to the computer running Plex Media Server.
+ */
+- (void)setPlexReachAddress:(NSString *)url;
 @end

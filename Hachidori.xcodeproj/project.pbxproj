@@ -29,8 +29,6 @@
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
 		593B55841CC41DC200B7B254 /* Base64Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55831CC41DC200B7B254 /* Base64Category.m */; };
 		593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */; };
-		599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B361BBC817B00FF466E /* SSKeychain.m */; };
-		599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 599E9B381BBC817B00FF466E /* SSKeychainQuery.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
@@ -88,11 +86,19 @@
 		9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9130A6331E81C3D700E744EF /* streamlinkdetect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9130A6381E81D76F00E744EF /* streamlinkopen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63A1E81D76F00E744EF /* streamlinkopen.xib */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
+		914AE2D11F113AD0009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
+		914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
+		914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 914AE2D51F11415C009E43FC /* PlexLogin.m */; };
+		914AE2D91F1152FE009E43FC /* PlexLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914AE2DB1F1152FE009E43FC /* PlexLogin.xib */; };
 		9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
 		91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
 		91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
 		91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91AFCF571F100D7E0029AC09 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; };
+		91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; };
+		91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043B1E901494006B0727 /* Fabric.framework */; };
 		91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043C1E901494006B0727 /* Crashlytics.framework */; };
 		91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */; };
@@ -122,8 +128,10 @@
 				91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */,
 				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
+				914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */,
 				9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */,
 				910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */,
+				91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */,
 				2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */,
 				91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */,
 				912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */,
@@ -172,10 +180,6 @@
 		593B55831CC41DC200B7B254 /* Base64Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Category.m; sourceTree = "<group>"; };
 		593B55851CC41FDB00B7B254 /* Hachidori+MALSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+MALSync.h"; sourceTree = "<group>"; };
 		593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+MALSync.m"; sourceTree = "<group>"; };
-		599E9B351BBC817B00FF466E /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
-		599E9B361BBC817B00FF466E /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
-		599E9B371BBC817B00FF466E /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
-		599E9B381BBC817B00FF466E /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftwareUpdatesPref.h; sourceTree = "<group>"; };
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
@@ -344,11 +348,16 @@
 		9130A6331E81C3D700E744EF /* streamlinkdetect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = streamlinkdetect.framework; path = Frameworks/streamlinkdetect.framework; sourceTree = "<group>"; };
 		9130A6391E81D76F00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/streamlinkopen.xib; sourceTree = "<group>"; };
 		9130A63C1E81D77A00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OfflineViewQueue.xib; sourceTree = "<group>"; };
+		914AE2D01F113AD0009E43FC /* XMLReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XMLReader.framework; path = Frameworks/XMLReader.framework; sourceTree = "<group>"; };
+		914AE2D41F11415C009E43FC /* PlexLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlexLogin.h; sourceTree = "<group>"; };
+		914AE2D51F11415C009E43FC /* PlexLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlexLogin.m; sourceTree = "<group>"; };
+		914AE2DA1F1152FE009E43FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PlexLogin.xib; sourceTree = "<group>"; };
 		9182EBDB1EA688BF001F9A74 /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
 		9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
 		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
 		91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOniguruma.framework; path = Frameworks/CocoaOniguruma.framework; sourceTree = "<group>"; };
+		91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		91CA043B1E901494006B0727 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		91CA043C1E901494006B0727 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberFormatterNumberOnly.m; sourceTree = "<group>"; };
@@ -374,7 +383,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
+				91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */,
+				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
 				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
+				91AFCF571F100D7E0029AC09 /* SAMKeychain.framework in Frameworks */,
 				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
 				912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */,
 				91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */,
@@ -394,6 +406,7 @@
 				9130A6341E81C3D700E744EF /* streamlinkdetect.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
 				2DF623D61EDB2C0500E9B7AD /* Reachability.framework in Frameworks */,
+				914AE2D11F113AD0009E43FC /* XMLReader.framework in Frameworks */,
 				91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */,
 				2DF623D51EDB27D300E9B7AD /* DetectionKit.framework in Frameworks */,
 				9128595B1E7B35A3005E9A2B /* MASShortcut.framework in Frameworks */,
@@ -460,6 +473,8 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				914AE2D01F113AD0009E43FC /* XMLReader.framework */,
+				91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */,
 				2DF623D21EDB27CA00E9B7AD /* Reachability.framework */,
 				91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */,
 				2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */,
@@ -522,6 +537,7 @@
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
 				2DDFFEE51EEEEB1500EB1509 /* StatusUpdateWindow.xib */,
 				6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */,
+				914AE2DB1F1152FE009E43FC /* PlexLogin.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				2D807F581E48FD10003E2FCF /* DonationWindow.xib */,
 				825D87951A1912EF00C5E1BF /* ExceptionsPref.xib */,
@@ -555,6 +571,8 @@
 				82EBBD191A17FD45009F6179 /* Correction/Exception */,
 				2DDFFEDE1EEEE4AF00EB1509 /* StatusUpdateWindow.h */,
 				2DDFFEDF1EEEE4AF00EB1509 /* StatusUpdateWindow.m */,
+				914AE2D41F11415C009E43FC /* PlexLogin.h */,
+				914AE2D51F11415C009E43FC /* PlexLogin.m */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -640,10 +658,6 @@
 				9128595D1E7B37A1005E9A2B /* HotKeyConstants.h */,
 				912859611E7B394D005E9A2B /* Hotkeys.h */,
 				9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */,
-				599E9B351BBC817B00FF466E /* SSKeychain.h */,
-				599E9B361BBC817B00FF466E /* SSKeychain.m */,
-				599E9B371BBC817B00FF466E /* SSKeychainQuery.h */,
-				599E9B381BBC817B00FF466E /* SSKeychainQuery.m */,
 				6F1290961A7D817000B8C3E6 /* AutoExceptions.h */,
 				6F1290971A7D817000B8C3E6 /* AutoExceptions.m */,
 				6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */,
@@ -924,6 +938,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				914AE2D91F1152FE009E43FC /* PlexLogin.xib in Resources */,
 				9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				9130A6381E81D76F00E744EF /* streamlinkopen.xib in Resources */,
@@ -998,7 +1013,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */,
-				599E9B3A1BBC817B00FF466E /* SSKeychainQuery.m in Sources */,
 				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
@@ -1026,11 +1040,11 @@
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
-				599E9B391BBC817B00FF466E /* SSKeychain.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */,
 				6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
+				914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
 				2DDFFEE11EEEE4AF00EB1509 /* StatusUpdateWindow.m in Sources */,
 				8245D7641A8B27AA00B1ED73 /* Hachidori+Update.m in Sources */,
@@ -1174,6 +1188,14 @@
 				9130A63C1E81D77A00E744EF /* Base */,
 			);
 			name = OfflineViewQueue.xib;
+			sourceTree = "<group>";
+		};
+		914AE2DB1F1152FE009E43FC /* PlexLogin.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				914AE2DA1F1152FE009E43FC /* Base */,
+			);
+			name = PlexLogin.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

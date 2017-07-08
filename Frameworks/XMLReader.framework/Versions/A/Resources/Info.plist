@@ -3,29 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>15G31</string>
+	<string>16F73</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>Crashlytics</string>
+	<string>XMLReader</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.twitter.crashlytics.mac</string>
+	<string>moe.ateliershiori.XMLReader</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Crashlytics</string>
+	<string>XMLReader</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.8.5</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>1.0</string>
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>MacOSX</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>123</string>
+	<string>1</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
@@ -41,13 +39,6 @@
 	<key>DTXcodeBuild</key>
 	<string>8C1002</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2016 Crashlytics, Inc. All rights reserved.</string>
-	<key>UIDeviceFamily</key>
-	<array>
-		<integer>3</integer>
-		<integer>2</integer>
-		<integer>1</integer>
-		<integer>4</integer>
-	</array>
+	<string>Copyright © 2017年 Antoine Marcadet. All rights reserved.</string>
 </dict>
 </plist>

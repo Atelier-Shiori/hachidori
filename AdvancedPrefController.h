@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "Hachidori.h"
 #import "Hachidori+Keychain.h"
-
+@class PlexLogin;
 @interface AdvancedPrefController : NSViewController <MASPreferencesViewController>
 //Login Preferences
 @property (strong) IBOutlet NSTextField * fieldusername;
@@ -27,6 +27,11 @@
 //Hachidori instance
 @property (strong) Hachidori * haengine;
 @property (strong) IBOutlet NSButton *kodicheck;
+@property (strong) IBOutlet NSButton *plexlogin;
+@property (strong) IBOutlet NSButton *plexlogout;
+@property (strong) IBOutlet NSButton *plexcheck;
+@property (strong) IBOutlet NSTextField *plexusernamelabel;
+@property (strong) PlexLogin *plexloginwindowcontroller;
 - (id)initwithAppDelegate:(AppDelegate *)adelegate;
 - (IBAction)registermal:(id)sender;
 - (IBAction)startlogin:(id)sender;

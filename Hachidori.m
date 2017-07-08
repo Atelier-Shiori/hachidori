@@ -43,6 +43,7 @@
     //Set up Kodi Reachability
     _detection = [Detection new];
     [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
+    [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
     return [super init];
 }
 /* 
