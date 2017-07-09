@@ -14,6 +14,16 @@
 @implementation Hachidori (MALSync)
 - (BOOL)sync{
     NSLog(@"Starting MyAnimeList Sync...");
+    // Set check Date if it doesn't exist
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"credentialscheckdate"]){
+        // Check credentials now if user has an account and these values are not set
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:@"credentialscheckdate"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"credentialsvalid"];
+    }
+    // Check Credentials status
+    if ([self checkMALCredentials] == 0) {
+        return NO;
+    }
     self.MALApiUrl = [[NSUserDefaults standardUserDefaults] valueForKey:@"MALAPIURL"];
     int syncstatus = [self checkStatus];
     if (syncstatus == 1) {
@@ -38,7 +48,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
     //Perform Search
     [request startRequest];
     // Get Status Code
@@ -77,7 +87,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-        request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
     [request setPostMethod:@"PUT"];
     // Set info
     [request addFormData:self.LastScrobbledEpisode forKey:@"episodes"];
@@ -124,7 +134,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
     [request addFormData:self.MALID forKey:@"anime_id"];
     [request addFormData:self.LastScrobbledEpisode forKey:@"episodes"];
     

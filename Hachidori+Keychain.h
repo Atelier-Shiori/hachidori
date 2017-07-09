@@ -15,5 +15,6 @@
 - (BOOL)removemalaccount;
 - (NSString *)getmalusername;
 - (NSString *)getBase64;
+- (int)checkMALCredentials;
 @end
 

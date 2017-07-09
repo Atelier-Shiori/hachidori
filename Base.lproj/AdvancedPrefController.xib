@@ -38,11 +38,11 @@
                     <tabViewItems>
                         <tabViewItem label="Kodi/Plex Theater RPC" identifier="1" id="Raw-cz-FaZ">
                             <view key="view" id="uxH-VE-ISN">
-                                <rect key="frame" x="10" y="33" width="431" height="285"/>
+                                <rect key="frame" x="10" y="33" width="184" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gnC-PW-UbL">
-                                        <rect key="frame" x="23" y="232" width="103" height="17"/>
+                                        <rect key="frame" x="23" y="-53" width="103" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="Sfk-hk-xua">
                                             <font key="font" metaFont="system"/>
@@ -51,7 +51,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField identifier="kodiaddress" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSC-qD-cvb">
-                                        <rect key="frame" x="138" y="227" width="263" height="22"/>
+                                        <rect key="frame" x="138" y="-58" width="263" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8SV-i3-wT0">
                                             <font key="font" metaFont="system"/>
@@ -69,7 +69,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-m2-aJf">
-                                        <rect key="frame" x="138" y="139" width="96" height="22"/>
+                                        <rect key="frame" x="138" y="-146" width="96" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ch8-ks-Y5e">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="tme-m8-2zX" customClass="NSNumberFormatterNumberOnly">
@@ -89,7 +89,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-U0-q8z">
-                                        <rect key="frame" x="35" y="142" width="91" height="17"/>
+                                        <rect key="frame" x="35" y="-143" width="91" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="pU8-xG-g07">
                                             <font key="font" metaFont="system"/>
@@ -98,7 +98,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zuh-Gd-n0d">
-                                        <rect key="frame" x="63" y="258" width="347" height="18"/>
+                                        <rect key="frame" x="63" y="-27" width="347" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Enable Kodi/Plex Theater RPC API Detection" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="58w-YA-ei0">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -110,7 +110,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3P-ov-X8s">
-                                        <rect key="frame" x="63" y="37" width="340" height="34"/>
+                                        <rect key="frame" x="63" y="-248" width="340" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="In order to make Kodi/Plex Theater JSON RPC API detection work, you need to have HTTP JSON-RPC enabled." id="Agl-d8-C1u">
                                             <font key="font" metaFont="smallSystem"/>
@@ -119,7 +119,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxp-Ed-WKM">
-                                        <rect key="frame" x="135" y="107" width="275" height="28"/>
+                                        <rect key="frame" x="135" y="-178" width="275" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The default port number is 3005 in Plex Theater and 80 in Kodi." id="XKP-As-iQI">
                                             <font key="font" metaFont="smallSystem"/>
@@ -128,7 +128,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-Mp-fU3">
-                                        <rect key="frame" x="4" y="10" width="25" height="25"/>
+                                        <rect key="frame" x="4" y="-275" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tfu-ok-Pcb">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,7 +139,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-ss-Mwe">
-                                        <rect key="frame" x="135" y="169" width="268" height="56"/>
+                                        <rect key="frame" x="135" y="-116" width="268" height="56"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="7G9-zR-zjL">
                                             <font key="font" metaFont="smallSystem"/>
@@ -149,7 +149,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLR-wg-ocK">
-                                        <rect key="frame" x="89" y="77" width="306" height="18"/>
+                                        <rect key="frame" x="89" y="-208" width="306" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <string key="toolTip">Uses the filename of the media being played in Kodi/Plex Theater for recognition instead of the title. Enable this if you use a Plex Agent. Not compatable with transcoded media files.</string>
                                         <buttonCell key="cell" type="check" title="Use Filename for Recognition" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7GS-84-pZU">
@@ -165,7 +165,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="MyAnimeList Sync" identifier="2" id="OFg-cA-88Q">
-                            <view key="view" id="1Sa-gR-NS9">
+                            <view key="view" ambiguous="YES" id="1Sa-gR-NS9">
                                 <rect key="frame" x="10" y="33" width="431" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -179,7 +179,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q8O-iP-Q0g">
-                                        <rect key="frame" x="47" y="207" width="94" height="17"/>
+                                        <rect key="frame" x="47" y="210" width="94" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="API URL:" id="Ygm-YV-IFl">
                                             <font key="font" metaFont="system"/>
@@ -389,7 +389,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Plex Media Server" identifier="" id="4tO-Qi-kFQ">
-                            <view key="view" ambiguous="YES" id="6hg-MD-aDV">
+                            <view key="view" id="6hg-MD-aDV">
                                 <rect key="frame" x="10" y="33" width="431" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -503,6 +503,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="plexlogin:" target="-2" id="BWa-CT-Wob"/>
+                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enableplexapi" id="767-Rv-GlQ"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lpe-CH-H0U">
@@ -514,6 +515,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="plexlogout:" target="-2" id="e9F-cm-cu9"/>
+                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enableplexapi" id="9jR-Gf-nxj"/>
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7l5-rQ-BLq">

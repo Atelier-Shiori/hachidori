@@ -159,14 +159,17 @@
 - (void)login:(NSString *)username password:(NSString *)password {
     [savebut setEnabled:NO];
     //Set Login URL
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [Utility manager];
+    manager.responseSerializer = [Utility httpresponseserializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", [[NSString stringWithFormat:@"%@:%@", username, password] base64Encoding]] forHTTPHeaderField:@"Authorization"];
-    [manager GET:[NSString stringWithFormat:@"%@/1/account/verify_credentials", [defaults objectForKey:@"MALAPIURL"]] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+    [manager GET:@"https://myanimelist.net/api/account/verify_credentials.xml" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         //Login successful
         [Utility showsheetmessage:@"Login Successful" explaination: @"Login is successful." window:self.view.window];
         // Store account in login keychain
         [haengine storemalaccount:fieldusername.stringValue password:fieldpassword.stringValue];
+        // Set the date to Verify Credentials
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:60*60*24] forKey:@"credentialscheckdate"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"credentialsvalid"];
         [clearbut setEnabled: YES];
         loggedinuser.stringValue = username;
         [loggedinview setHidden:NO];

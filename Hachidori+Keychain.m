@@ -48,4 +48,42 @@
     return [[NSString stringWithFormat:@"%@:%@", [self getmalusername], [SAMKeychain passwordForService:@"Hachidori - MyAnimeList" account:self.malusername]] base64Encoding];
 }
 
+- (int)checkMALCredentials {
+    // Check if the credentialsvalid flag is not set to false/NO
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"credentialsvalid"]) {
+        return 0;
+    }
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"credentialscheckdate"] timeIntervalSinceNow] < 0) {
+        // Check credentials
+        //Set Login URL
+        NSURL *url = [NSURL URLWithString:@"https://myanimelist.net/api/account/verify_credentials.xml"];
+        EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+        //Ignore Cookies
+        [request setUseCookies:NO];
+        //Set Username and Password
+        request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
+        //Verify Username/Password
+        [request startRequest];
+        // Check for errors
+        NSError *error = [request getError];
+        if ([request getStatusCode] == 200 && !error) {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:60*60*24] forKey:@"credentialscheckdate"];
+            NSLog(@"User credentials valid.");
+            return 1;
+        }
+        else if ([request getStatusCode] == 204) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"credentialsvalid"];
+            NSLog(@"ERROR: User credentials are invalid. Aborting MAL Sync...");
+            return 0;
+        }
+        else {
+            NSLog(@"Unable to check user credentials. Trying again later.");
+            return 2;
+        }
+    }
+    return 1;
+    
+    
+}
+
 @end
