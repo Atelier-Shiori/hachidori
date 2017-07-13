@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AdvancedPrefController">
@@ -16,10 +15,6 @@
                 <outlet property="loggedinuser" destination="oTJ-M0-3Mc" id="sbm-E0-2PT"/>
                 <outlet property="loggedinview" destination="sE7-OH-iBA" id="Kvd-9c-RJp"/>
                 <outlet property="loginview" destination="6ds-Av-lqq" id="Eh7-Ok-Gh6"/>
-                <outlet property="plexcheck" destination="FOG-jX-MrV" id="rIY-cm-4kc"/>
-                <outlet property="plexlogin" destination="9kz-0K-aDL" id="KQg-xx-PsR"/>
-                <outlet property="plexlogout" destination="lpe-CH-H0U" id="WVK-41-oOF"/>
-                <outlet property="plexusernamelabel" destination="7l5-rQ-BLq" id="W5T-si-slh"/>
                 <outlet property="savebut" destination="GkH-Ij-yQW" id="n2R-KA-f70"/>
                 <outlet property="testapibtn" destination="LfW-yE-ZYK" id="sZK-eQ-cyA"/>
                 <outlet property="view" destination="c22-O7-iKe" id="n4d-Z2-zna"/>
@@ -37,12 +32,12 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Kodi/Plex Theater RPC" identifier="1" id="Raw-cz-FaZ">
-                            <view key="view" id="uxH-VE-ISN">
-                                <rect key="frame" x="10" y="33" width="184" height="0.0"/>
+                            <view key="view" ambiguous="YES" id="uxH-VE-ISN">
+                                <rect key="frame" x="10" y="33" width="431" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gnC-PW-UbL">
-                                        <rect key="frame" x="23" y="-53" width="103" height="17"/>
+                                        <rect key="frame" x="23" y="232" width="103" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="Sfk-hk-xua">
                                             <font key="font" metaFont="system"/>
@@ -51,7 +46,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField identifier="kodiaddress" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSC-qD-cvb">
-                                        <rect key="frame" x="138" y="-58" width="263" height="22"/>
+                                        <rect key="frame" x="138" y="227" width="263" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8SV-i3-wT0">
                                             <font key="font" metaFont="system"/>
@@ -69,7 +64,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-m2-aJf">
-                                        <rect key="frame" x="138" y="-146" width="96" height="22"/>
+                                        <rect key="frame" x="138" y="139" width="96" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ch8-ks-Y5e">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="tme-m8-2zX" customClass="NSNumberFormatterNumberOnly">
@@ -89,7 +84,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-U0-q8z">
-                                        <rect key="frame" x="35" y="-143" width="91" height="17"/>
+                                        <rect key="frame" x="35" y="142" width="91" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="pU8-xG-g07">
                                             <font key="font" metaFont="system"/>
@@ -98,7 +93,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zuh-Gd-n0d">
-                                        <rect key="frame" x="63" y="-27" width="347" height="18"/>
+                                        <rect key="frame" x="63" y="258" width="347" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Enable Kodi/Plex Theater RPC API Detection" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="58w-YA-ei0">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -110,7 +105,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3P-ov-X8s">
-                                        <rect key="frame" x="63" y="-248" width="340" height="34"/>
+                                        <rect key="frame" x="63" y="37" width="340" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="In order to make Kodi/Plex Theater JSON RPC API detection work, you need to have HTTP JSON-RPC enabled." id="Agl-d8-C1u">
                                             <font key="font" metaFont="smallSystem"/>
@@ -119,7 +114,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxp-Ed-WKM">
-                                        <rect key="frame" x="135" y="-178" width="275" height="28"/>
+                                        <rect key="frame" x="135" y="107" width="275" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The default port number is 3005 in Plex Theater and 80 in Kodi." id="XKP-As-iQI">
                                             <font key="font" metaFont="smallSystem"/>
@@ -128,7 +123,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-Mp-fU3">
-                                        <rect key="frame" x="4" y="-275" width="25" height="25"/>
+                                        <rect key="frame" x="4" y="10" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tfu-ok-Pcb">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,7 +134,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-ss-Mwe">
-                                        <rect key="frame" x="135" y="-116" width="268" height="56"/>
+                                        <rect key="frame" x="135" y="169" width="268" height="56"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="7G9-zR-zjL">
                                             <font key="font" metaFont="smallSystem"/>
@@ -149,7 +144,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLR-wg-ocK">
-                                        <rect key="frame" x="89" y="-208" width="306" height="18"/>
+                                        <rect key="frame" x="89" y="77" width="306" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <string key="toolTip">Uses the filename of the media being played in Kodi/Plex Theater for recognition instead of the title. Enable this if you use a Plex Agent. Not compatable with transcoded media files.</string>
                                         <buttonCell key="cell" type="check" title="Use Filename for Recognition" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7GS-84-pZU">
@@ -165,7 +160,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="MyAnimeList Sync" identifier="2" id="OFg-cA-88Q">
-                            <view key="view" ambiguous="YES" id="1Sa-gR-NS9">
+                            <view key="view" id="1Sa-gR-NS9">
                                 <rect key="frame" x="10" y="33" width="431" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -385,148 +380,6 @@
                                             <binding destination="8ch-Z3-2Y0" name="hidden" keyPath="values.donated" id="95t-7h-dN5"/>
                                         </connections>
                                     </button>
-                                </subviews>
-                            </view>
-                        </tabViewItem>
-                        <tabViewItem label="Plex Media Server" identifier="" id="4tO-Qi-kFQ">
-                            <view key="view" id="6hg-MD-aDV">
-                                <rect key="frame" x="10" y="33" width="431" height="285"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <textField identifier="plexaddress" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Son-md-Ufv">
-                                        <rect key="frame" x="137" y="230" width="263" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="NOQ-TZ-p2X">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enableplexapi" id="NKC-o5-8eB"/>
-                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.plexaddress" id="Zog-W3-Fuv"/>
-                                            <outlet property="delegate" destination="-2" id="JB4-iH-USe"/>
-                                        </connections>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sd0-5i-cCF">
-                                        <rect key="frame" x="137" y="140" width="96" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="10e-hy-hhh">
-                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="BZC-FD-vuX" customClass="NSNumberFormatterNumberOnly">
-                                                <real key="minimum" value="1"/>
-                                            </numberFormatter>
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enableplexapi" id="3WL-2W-cfz"/>
-                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.plexport" id="t9I-My-HK7"/>
-                                        </connections>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGH-oZ-buJ">
-                                        <rect key="frame" x="134" y="105" width="275" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The default port number is 32400 for Plex Media Server" id="MAx-Ih-M3J">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOG-jX-MrV">
-                                        <rect key="frame" x="62" y="256" width="347" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Enable Plex Media Server Detection" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7g0-jf-bxX">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="setPlexReach:" target="-2" id="08H-Lj-707"/>
-                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.enableplexapi" id="pIP-p5-JaS"/>
-                                        </connections>
-                                    </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fo0-8v-A8c">
-                                        <rect key="frame" x="22" y="233" width="103" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="JBT-Df-ThH">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGS-Vh-JJ6">
-                                        <rect key="frame" x="134" y="166" width="268" height="56"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="ljO-Tc-u2C">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <string key="title">This is usually an IP address that is running Plex Media Server. If you are running Plex Media Server on the same machine, please specify localhost as the host.</string>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zG3-wT-3oT">
-                                        <rect key="frame" x="34" y="143" width="91" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="TGn-xk-mKk">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EfU-OD-shF">
-                                        <rect key="frame" x="137" y="87" width="263" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="rOE-5V-vdK">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enableplexapi" id="MC9-cT-GFb"/>
-                                            <binding destination="8ch-Z3-2Y0" name="value" keyPath="values.plexidentifier" id="CAq-Ng-lBn"/>
-                                        </connections>
-                                    </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQY-01-fZM">
-                                        <rect key="frame" x="34" y="91" width="91" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Client ID:" id="cFK-HU-x2D">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9kz-0K-aDL">
-                                        <rect key="frame" x="200" y="36" width="71" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KXF-fp-vhl">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="plexlogin:" target="-2" id="BWa-CT-Wob"/>
-                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enableplexapi" id="767-Rv-GlQ"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lpe-CH-H0U">
-                                        <rect key="frame" x="195" y="36" width="80" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" title="Logout" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c0W-OJ-qcA">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="plexlogout:" target="-2" id="e9F-cm-cu9"/>
-                                            <binding destination="8ch-Z3-2Y0" name="enabled" keyPath="values.enableplexapi" id="9jR-Gf-nxj"/>
-                                        </connections>
-                                    </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7l5-rQ-BLq">
-                                        <rect key="frame" x="69" y="13" width="333" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Logged in as: " id="A9P-OA-ceg">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                 </subviews>
                             </view>
                         </tabViewItem>

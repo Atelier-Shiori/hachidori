@@ -11,7 +11,6 @@
 #import "Utility.h"
 #import "Base64Category.h"
 #import <DetectionKit/DetectionKit.h>
-#import "PlexLogin.h"
 
 @interface AdvancedPrefController ()
 
@@ -30,9 +29,6 @@
 @synthesize loginview;
 @synthesize loggedinview;
 @synthesize haengine;
-@synthesize plexlogin;
-@synthesize plexlogout;
-@synthesize plexusernamelabel;
 
 - (instancetype)init {
     return [super initWithNibName:@"AdvancedPrefController" bundle:nil];
@@ -47,8 +43,6 @@
     [super loadView];
     // Load Login State
     [self loadlogin];
-    // Load Login State for Plex
-    [self loadplexlogin];
 }
 - (void)loadlogin {
     //Load Hachidori Engine Instance from AppDelegate
@@ -65,19 +59,6 @@
         loggedinview.hidden = YES;
         clearbut.enabled = NO;
         savebut.enabled = YES;
-    }
-}
-- (void)loadplexlogin {
-    NSString *username = [PlexAuth checkplexaccount];
-    if (username.length > 0) {
-        plexusernamelabel.stringValue = [NSString stringWithFormat:@"Logged in as: %@", username];
-        plexlogin.hidden = YES;
-        plexlogout.hidden = NO;
-    }
-    else {
-        plexusernamelabel.stringValue = @"Not logged in.";
-        plexlogin.hidden = NO;
-        plexlogout.hidden = YES;
     }
 }
 
@@ -233,39 +214,6 @@
     else {
         // Turn on reachability notification for Kodi
         [[appdelegate getHachidoriInstance].detection setKodiReach:true];
-    }
-}
-
-- (IBAction)setPlexReach:(id)sender {
-    if ([_plexcheck state] == 0) {
-        // Turn off reachability notification for Kodi
-        [[appdelegate getHachidoriInstance].detection setPlexReach:false];
-    }
-    else {
-        // Turn on reachability notification for Kodi
-        [[appdelegate getHachidoriInstance].detection setPlexReach:true];
-    }
-}
-
-- (IBAction)plexlogin:(id)sender {
-    if (!_plexloginwindowcontroller) {
-        _plexloginwindowcontroller = [PlexLogin new];
-    }
-    [NSApp beginSheet:_plexloginwindowcontroller.window
-       modalForWindow:self.view.window modalDelegate:self
-       didEndSelector:@selector(plexloginDidEnd:returnCode:contextInfo:)
-          contextInfo:(void *)nil];
-}
-
-- (void)plexloginDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == 1) {
-        [self loadplexlogin];
-    }
-}
-
-- (IBAction)plexlogout:(id)sender {
-    if ([PlexAuth removeplexaccount]) {
-        [self loadplexlogin];
     }
 }
 

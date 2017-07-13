@@ -16,5 +16,6 @@
 #import "ExceptionsPref.h"
 #import "SoftwareUpdatesPref.h"
 #import "AdvancedPrefController.h"
+#import "PlexPrefs.h"
 
 #endif
