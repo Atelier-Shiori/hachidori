@@ -11,6 +11,9 @@
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
 		2D226B2C1EF312BC0030E9C5 /* ShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */; };
 		2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
+		2D7CD47C1F2109C700171028 /* PFAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */; };
+		2D7CD4801F210F1900171028 /* EULA.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2D7CD47F1F210F1900171028 /* EULA.rtf */; };
+		2D7CD4811F210F2B00171028 /* PFAboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D7CD4831F210F2B00171028 /* PFAboutWindow.xib */; };
 		2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D807F521E201332003E2FCF /* DonationWindowController.m */; };
 		2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F581E48FD10003E2FCF /* DonationWindow.xib */; };
 		2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DA3D7651E0A079100BD2457 /* Localizable.strings */; };
@@ -158,6 +161,10 @@
 		2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareMenu.m; sourceTree = "<group>"; };
 		2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2D7CD47A1F2109C700171028 /* PFAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFAboutWindowController.h; sourceTree = "<group>"; };
+		2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFAboutWindowController.m; sourceTree = "<group>"; };
+		2D7CD47F1F210F1900171028 /* EULA.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = EULA.rtf; sourceTree = "<group>"; };
+		2D7CD4821F210F2B00171028 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PFAboutWindow.xib; sourceTree = "<group>"; };
 		2D807F511E201332003E2FCF /* DonationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonationWindowController.h; sourceTree = "<group>"; };
 		2D807F521E201332003E2FCF /* DonationWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonationWindowController.m; sourceTree = "<group>"; };
 		2D807F571E48FD10003E2FCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DonationWindow.xib; sourceTree = "<group>"; };
@@ -533,6 +540,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2D7CD47F1F210F1900171028 /* EULA.rtf */,
 				6F0F84A31B3469A800EEEC32 /* hachidori.sdef */,
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
@@ -540,6 +548,7 @@
 				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
+				2D7CD4831F210F2B00171028 /* PFAboutWindow.xib */,
 				2DDFFEE51EEEEB1500EB1509 /* StatusUpdateWindow.xib */,
 				6FBA5A0F1ABE486500B6DB79 /* AdvancedPrefController.xib */,
 				914AE2DB1F1152FE009E43FC /* PlexLogin.xib */,
@@ -569,6 +578,8 @@
 		5C07DA691A815C2C0003A827 /* Window Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2D7CD47A1F2109C700171028 /* PFAboutWindowController.h */,
+				2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */,
 				9130A6371E81D75E00E744EF /* Stream Link Open Wiindow */,
 				91CC23DA1E7C375F008E47F6 /* Offline Queue */,
 				2D807F511E201332003E2FCF /* DonationWindowController.h */,
@@ -955,6 +966,7 @@
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
 				5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */,
+				2D7CD4811F210F2B00171028 /* PFAboutWindow.xib in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				3A20383212122B2B003813B2 /* dsa_pub.pem in Resources */,
 				5C0A2C4B122C7F960096908D /* Credits.rtf in Resources */,
@@ -964,6 +976,7 @@
 				6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */,
 				2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
+				2D7CD4801F210F1900171028 /* EULA.rtf in Resources */,
 				2DF749241F17C209009EE500 /* PlexPrefs.xib in Resources */,
 				5CBE9FEC19F2F9CA00CA3E5D /* LoginView.xib in Resources */,
 				5C97491D19F3117D000EC02E /* SoftwareUpdateView.xib in Resources */,
@@ -1022,6 +1035,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */,
+				2D7CD47C1F2109C700171028 /* PFAboutWindowController.m in Sources */,
 				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
@@ -1094,6 +1108,14 @@
 				829FB41D19F739700026EAC2 /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		2D7CD4831F210F2B00171028 /* PFAboutWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2D7CD4821F210F2B00171028 /* Base */,
+			);
+			name = PFAboutWindow.xib;
 			sourceTree = "<group>";
 		};
 		2D807F581E48FD10003E2FCF /* DonationWindow.xib */ = {

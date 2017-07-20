@@ -115,7 +115,7 @@
 }
 + (int)checkDonationKey:(NSString *)key name:(NSString *)name{
     //Set Search API
-    NSURL *url = [NSURL URLWithString:@"https://updates.ateliershiori.moe/keycheck/check.php"];
+    NSURL *url = [NSURL URLWithString:@"https://updates.ateliershiori.moe/keycheck/check_hachidori.php"];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     [request addFormData:name forKey:@"name"];
     [request addFormData:key forKey:@"key"];

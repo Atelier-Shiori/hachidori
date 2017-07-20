@@ -18,6 +18,7 @@
 @class streamlinkopen;
 @class StatusUpdateWindow;
 @class ShareMenu;
+@class PFAboutWindowController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
     NSManagedObjectModel *managedObjectModel;
@@ -80,6 +81,7 @@
 @property (strong) IBOutlet NSToolbarItem * sharetoolbaritem;
 @property (strong) NSWindowController *_preferencesWindowController;
 @property (strong) streamlinkopen * streamlinkopenw;
+@property (strong) PFAboutWindowController *aboutWindowController;
 
 - (void)showhistory:(id)sender;
 - (IBAction)togglescrobblewindow:(id)sender;

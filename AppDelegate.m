@@ -28,6 +28,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "ShareMenu.h"
+#import "PFAboutWindowController.h"
 
 @implementation AppDelegate
 
@@ -423,7 +424,25 @@
 - (IBAction)showAboutWindow:(id)sender{
     // Properly show the about window in a menu item application
     [NSApp activateIgnoringOtherApps:YES];
-    [[NSApplication sharedApplication] orderFrontStandardAboutPanel:self];
+    if (!_aboutWindowController) {
+        _aboutWindowController = [PFAboutWindowController new];
+    }
+    (self.aboutWindowController).appURL = [[NSURL alloc] initWithString:@"https://hachidori.ateliershiori.moe/"];
+    NSMutableString *copyrightstr = [NSMutableString new];
+    NSDictionary *bundleDict = [NSBundle mainBundle].infoDictionary;
+    [copyrightstr appendFormat:@"%@ \r\r",bundleDict[@"NSHumanReadableCopyright"]];
+    if (((NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"donated"]).boolValue) {
+        [copyrightstr appendFormat:@"This copy is registered to: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"donor"]];
+    }
+    else {
+        [copyrightstr appendString:@"UNREGISTERED COPY"];
+    }
+    (self.aboutWindowController).appCopyright = [[NSAttributedString alloc] initWithString:copyrightstr
+                                                                                attributes:@{
+                                                                                             NSForegroundColorAttributeName:[NSColor labelColor],
+                                                                                             NSFontAttributeName:[NSFont fontWithName:[NSFont systemFontOfSize:12.0f].familyName size:11]}];
+    
+    [self.aboutWindowController showWindow:nil];
 }
 - (void)disableUpdateItems{
     // Disables update options to prevent erorrs
@@ -504,6 +523,9 @@
     }
     [[_dwindow window] makeKeyAndOrderFront:nil];
     
+}
+- (IBAction)enterDonationKey:(id)sender {
+    [self enterDonationKey];
 }
 - (void)performsendupdatenotification:(int)status{
     dispatch_async(dispatch_get_main_queue(), ^{
