@@ -71,9 +71,17 @@
                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true]forKey:@"updatedaexceptions"];
             }
             //Parse and Import
+            //Parse and Import
             NSData *jsonData = [request getResponseData];
             NSError *error = nil;
-            NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+            NSArray *a;
+            @try {
+                a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+            }
+            @catch (NSException *e) {
+                NSLog(@"Unable to refresh auto exceptions database: %@", e);
+                return;
+            }
             AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
             NSManagedObjectContext *moc = [delegate getObjectContext];
             [moc performBlockAndWait:^{
