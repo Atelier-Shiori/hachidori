@@ -14,7 +14,7 @@
 @implementation ExceptionsCache
 + (void)addtoExceptions:(NSString *)detectedtitle correcttitle:(NSString *)title aniid:(NSString *)showid threshold:(int)threshold offset:(int)offset{
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate getObjectContext];
+    NSManagedObjectContext *moc = delegate.managedObjectContext;
     NSError * error = nil;
     // Add to Cache in Core Data
     NSManagedObject *obj = [NSEntityDescription
@@ -32,7 +32,7 @@
 + (void)checkandRemovefromCache:(NSString *)detectedtitle{
     // Checks for cache entry. If exists, it will remove that entry.
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate getObjectContext];
+    NSManagedObjectContext *moc = delegate.managedObjectContext;
     // Load present cache data
     NSFetchRequest * allCache = [[NSFetchRequest alloc] init];
     allCache.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
@@ -53,7 +53,7 @@
 + (void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes {
     //Adds ID to cache
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate getObjectContext];
+    NSManagedObjectContext *moc = delegate.managedObjectContext;
     // Add to Cache in Core Data
     NSManagedObject *obj = [NSEntityDescription
                             insertNewObjectForEntityForName :@"Cache"

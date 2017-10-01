@@ -10,7 +10,6 @@
 #import <CocoaOniguruma/OnigRegexp.h>
 #import <CocoaOniguruma/OnigRegexpUtility.h>
 #import <AFNetworking/AFOAuth2Manager.h>
-#import <streamlinkdetect/streamlinkdetect.h>
 @class Reachability;
 @class Detection;
 
@@ -73,7 +72,6 @@ typedef NS_ENUM(unsigned int, ratingType){
 @property BOOL unittesting;
 @property (strong) Reachability* reach;
 @property (strong, setter=setManagedObjectContext:) NSManagedObjectContext *managedObjectContext;
-@property (strong) streamlinkdetector *detector;
 @property (getter=getOnlineStatus) bool online;
 @property (getter=getRatingType) int ratingtype;
 @property (strong) Detection *detection;
@@ -85,7 +83,6 @@ typedef NS_ENUM(unsigned int, ratingType){
 - (int)startscrobbling;
 - (NSDictionary *)scrobblefromqueue;
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
-- (int)scrobblefromstreamlink:(NSString *)url withStream:(NSString *)stream;
 - (int)scrobble;
 - (BOOL)confirmupdate;
 - (void)clearAnimeInfo;

@@ -39,25 +39,16 @@
         return [self performupdate:titleid];
     }
 }
-- (int)performupdate:(NSString *)titleid{
+- (int)performupdate:(NSString *)titleid {
     // Update the title
     //Set library/scrobble API
-    NSString * updatemethod;
-    if (self.EntryID) {
-        //Set URL to update existing entry
-        updatemethod = [NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID];
-    }
-    else {
-        //Create new entry
-        //Set URL to update existing entry
-        updatemethod = @"https://kitsu.io/api/edge/library-entries/";
-    }
+    NSString * updatemethod = self.EntryID ? [NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] : @"https://kitsu.io/api/edge/library-entries/";
     NSURL *url = [NSURL URLWithString:updatemethod];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
@@ -111,26 +102,11 @@
         tmprewatching = self.rewatching;
     }
     // Set rewatch status in form data
-    if (tmprewatching) {
-        [attributes setValue:@"true" forKey:@"reconsuming"];
-    }
-    else {
-        [attributes setValue:@"false" forKey:@"reconsuming"];
-    }
+    [attributes setValue:tmprewatching ? @"true" : @"false" forKey:@"reconsuming"];
     // Set existing score to prevent the score from being erased.
-    if (self.TitleScore > 0) {
-        [attributes setValue:@(self.TitleScore) forKey:@"ratingTwenty"];
-        [attributes setValue:@(self.TitleScore) forKey:@"rating"];
-    }
-    else {
-        [attributes setValue:[NSNull null] forKey:@"ratingTwenty"];
-        [attributes setValue:[NSNull null] forKey:@"rating"];
-    }
+    [attributes setValue:self.TitleScore > 0 ? @(self.TitleScore) : [NSNull null] forKey:@"ratingTwenty"];
     //Privacy
-    if (self.isPrivate)
-        [attributes setValue:@"true" forKey:@"private"];
-    else
-        [attributes setValue:@"false" forKey:@"private"];
+    [attributes setValue:self.isPrivate ? @"true" : @"false" forKey:@"private"];
     
     // Assemble JSON
     [tmpd setValue:attributes forKey:@"attributes"];
@@ -192,7 +168,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -245,7 +221,7 @@
     }
     return false;
 }
-- (BOOL)stopRewatching:(NSString *)titleid{
+- (BOOL)stopRewatching:(NSString *)titleid {
     NSLog(@"Reverting rewatch for %@", titleid);
     // Update the title
     //Set library/scrobble API
@@ -254,7 +230,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -289,7 +265,7 @@
     return false;
 
 }
-- (bool)removetitle:(NSString *)titleid{
+- (bool)removetitle:(NSString *)titleid {
     NSLog(@"Removing %@", titleid);
     // Update the title
     //Set library/scrobble API
@@ -298,7 +274,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     [request setPostMethod:@"DELETE"];
         // Do Update
     [request startFormRequest];
@@ -312,7 +288,7 @@
     }
     return false;
 }
-- (void)storeLastScrobbled{
+- (void)storeLastScrobbled {
     self.LastScrobbledTitle = self.DetectedTitle;
     self.LastScrobbledEpisode = self.DetectedEpisode;
     self.LastScrobbledSource = self.DetectedSource;

@@ -38,10 +38,10 @@
     NSAlert * alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"Yes"];
     [alert addButtonWithTitle:@"No"];
-    [alert setMessageText:@"Are you sure you want to clear the Offline Queue?"];
-    [alert setInformativeText:@"Once done, this action cannot be undone."];
+    alert.messageText = @"Are you sure you want to clear the Offline Queue?";
+    alert.informativeText = @"Once done, this action cannot be undone.";
     // Set Message type to Warning
-    [alert setAlertStyle:NSWarningAlertStyle];
+    alert.alertStyle = NSWarningAlertStyle;
     // Show as Sheet on historywindow
     [alert beginSheetModalForWindow:self.window
                       modalDelegate:self
@@ -55,9 +55,9 @@
 {
     if (echoice == 1000) {
         // Remove All Data
-        NSManagedObjectContext *moc = [self managedObjectContext];
+        NSManagedObjectContext *moc = self.managedObjectContext;
         NSFetchRequest * allQueue = [[NSFetchRequest alloc] init];
-        [allQueue setEntity:[NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc]];
+        allQueue.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
         
         NSError * error = nil;
         NSArray * queue = [moc executeFetchRequest:allQueue error:&error];

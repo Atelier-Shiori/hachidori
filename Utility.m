@@ -16,7 +16,7 @@
             regex:(OnigRegexp *)regex
            option:(int)i{
     //Checks for matches
-    if ([regex match:title] || ([regex match:atitle] && [atitle length] >0 && i==0)) {
+    if ([regex match:title] || ([regex match:atitle] && atitle.length >0 && i==0)) {
         return true;
     }
     return false;
@@ -71,7 +71,7 @@
                 //Invalid Key
                 [Utility showsheetmessage:NSLocalizedString(@"Donation Key Error",nil) explaination:NSLocalizedString(@"This key has been revoked. Please contact the author of this program or enter a valid key.",nil) window:nil];
                 [Utility showDonateReminder:delegate];
-                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"donated"];
+                [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"donated"];
             }
         }
         else {
@@ -89,7 +89,7 @@
     [alert setInformativeText:NSLocalizedString(@"We noticed that you have been using the MAL Sync functionality for a while. Although this functionality is aviliable to everyone, it cost us money to host the Unofficial MAL API to make this function possible. \r\rIf you find this function helpful, please consider making a donation. You will recieve a key to remove this message while MAL Sync is enabled.",nil)];
     [alert setShowsSuppressionButton:NO];
     // Set Message type to Warning
-    [alert setAlertStyle:NSInformationalAlertStyle];
+    alert.alertStyle = NSInformationalAlertStyle;
     long choice = [alert runModal];
     if (choice == NSAlertFirstButtonReturn) {
         // Open Donation Page
@@ -128,7 +128,7 @@
     if (statusCode == 200) {
         NSError* jerror;
         NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
-        int valid = [(NSNumber *)d[@"valid"] intValue];
+        int valid = ((NSNumber *)d[@"valid"]).intValue;
         if (valid == 1) {
             // Valid Key
             return 1;

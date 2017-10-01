@@ -14,9 +14,9 @@
     [_shareMenu removeAllItems];
     // Workaround for Share Toolbar Item
     NSMenuItem *shareIcon = [[NSMenuItem alloc] init];
-    [shareIcon setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
+    shareIcon.image = [NSImage imageNamed:NSImageNameShareTemplate];
     [shareIcon setHidden:YES];
-    [shareIcon setTitle:@""];
+    shareIcon.title = @"";
     [_shareMenu addItem:shareIcon];
     //Generate Items to Share
     _shareItems = items;
@@ -24,10 +24,10 @@
     NSArray *shareServiceforItems = [NSSharingService sharingServicesForItems:_shareItems];
     //Generate Share Items and populate Share Menu
     for (NSSharingService *cservice in shareServiceforItems) {
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[cservice title] action:@selector(shareFromService:) keyEquivalent:@""];
-        [item setRepresentedObject:cservice];
-        [item setImage:[cservice image]];
-        [item setTarget:self];
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:cservice.title action:@selector(shareFromService:) keyEquivalent:@""];
+        item.representedObject = cservice;
+        item.image = cservice.image;
+        item.target = self;
         [_shareMenu addItem:item];
     }
 }

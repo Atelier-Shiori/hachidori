@@ -11,6 +11,12 @@
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
 		2D226B2C1EF312BC0030E9C5 /* ShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */; };
 		2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */; };
+		2D621EC61F814364003274F2 /* GBPing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D621EC41F814234003274F2 /* GBPing.framework */; };
+		2D621EC71F814364003274F2 /* GBPing.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2D621EC41F814234003274F2 /* GBPing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D621EC51F814234003274F2 /* MSWeakTimer_macOS.framework */; };
+		2D621EC91F81436C003274F2 /* MSWeakTimer_macOS.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2D621EC51F814234003274F2 /* MSWeakTimer_macOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D621ECB1F8143EB003274F2 /* PingNotifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D621ECA1F8143C9003274F2 /* PingNotifier.framework */; };
+		2D621ECC1F8143EB003274F2 /* PingNotifier.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2D621ECA1F8143C9003274F2 /* PingNotifier.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2D7CD47C1F2109C700171028 /* PFAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */; };
 		2D7CD4801F210F1900171028 /* EULA.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2D7CD47F1F210F1900171028 /* EULA.rtf */; };
 		2D7CD4811F210F2B00171028 /* PFAboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D7CD4831F210F2B00171028 /* PFAboutWindow.xib */; };
@@ -84,12 +90,6 @@
 		9128595B1E7B35A3005E9A2B /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859591E7B3599005E9A2B /* MASShortcut.framework */; };
 		9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 912859591E7B3599005E9A2B /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */; };
-		912859641E7B39BF005E9A2B /* MSWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 912859631E7B39BF005E9A2B /* MSWeakTimer.m */; };
-		9130A6311E81C39F00E744EF /* streamlinkopen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9130A62F1E81C39F00E744EF /* streamlinkopen.m */; };
-		9130A6341E81C3D700E744EF /* streamlinkdetect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9130A6331E81C3D700E744EF /* streamlinkdetect.framework */; };
-		9130A6351E81C45C00E744EF /* streamlinkdetect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9130A6331E81C3D700E744EF /* streamlinkdetect.framework */; };
-		9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9130A6331E81C3D700E744EF /* streamlinkdetect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9130A6381E81D76F00E744EF /* streamlinkopen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63A1E81D76F00E744EF /* streamlinkopen.xib */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
 		914AE2D11F113AD0009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
 		914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
@@ -134,13 +134,15 @@
 				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */,
-				9130A6361E81C45C00E744EF /* streamlinkdetect.framework in CopyFiles */,
 				910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */,
 				91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */,
 				2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */,
+				2D621EC71F814364003274F2 /* GBPing.framework in CopyFiles */,
 				91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */,
 				912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */,
+				2D621EC91F81436C003274F2 /* MSWeakTimer_macOS.framework in CopyFiles */,
 				9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */,
+				2D621ECC1F8143EB003274F2 /* PingNotifier.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,6 +163,9 @@
 		2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareMenu.m; sourceTree = "<group>"; };
 		2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MAL_Updater_OS_X_DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2D621EC41F814234003274F2 /* GBPing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GBPing.framework; path = Frameworks/GBPing.framework; sourceTree = "<group>"; };
+		2D621EC51F814234003274F2 /* MSWeakTimer_macOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MSWeakTimer_macOS.framework; path = Frameworks/MSWeakTimer_macOS.framework; sourceTree = "<group>"; };
+		2D621ECA1F8143C9003274F2 /* PingNotifier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PingNotifier.framework; path = Frameworks/PingNotifier.framework; sourceTree = "<group>"; };
 		2D7CD47A1F2109C700171028 /* PFAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFAboutWindowController.h; sourceTree = "<group>"; };
 		2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFAboutWindowController.m; sourceTree = "<group>"; };
 		2D7CD47F1F210F1900171028 /* EULA.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = EULA.rtf; sourceTree = "<group>"; };
@@ -353,12 +358,6 @@
 		9128595D1E7B37A1005E9A2B /* HotKeyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKeyConstants.h; sourceTree = "<group>"; };
 		9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeyConstants.m; sourceTree = "<group>"; };
 		912859611E7B394D005E9A2B /* Hotkeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hotkeys.h; sourceTree = "<group>"; };
-		912859621E7B39BF005E9A2B /* MSWeakTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSWeakTimer.h; sourceTree = "<group>"; };
-		912859631E7B39BF005E9A2B /* MSWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSWeakTimer.m; sourceTree = "<group>"; };
-		9130A62E1E81C39F00E744EF /* streamlinkopen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = streamlinkopen.h; sourceTree = "<group>"; };
-		9130A62F1E81C39F00E744EF /* streamlinkopen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = streamlinkopen.m; sourceTree = "<group>"; };
-		9130A6331E81C3D700E744EF /* streamlinkdetect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = streamlinkdetect.framework; path = Frameworks/streamlinkdetect.framework; sourceTree = "<group>"; };
-		9130A6391E81D76F00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/streamlinkopen.xib; sourceTree = "<group>"; };
 		9130A63C1E81D77A00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OfflineViewQueue.xib; sourceTree = "<group>"; };
 		914AE2D01F113AD0009E43FC /* XMLReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XMLReader.framework; path = Frameworks/XMLReader.framework; sourceTree = "<group>"; };
 		914AE2D41F11415C009E43FC /* PlexLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlexLogin.h; sourceTree = "<group>"; };
@@ -394,6 +393,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D621ECB1F8143EB003274F2 /* PingNotifier.framework in Frameworks */,
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
 				91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */,
 				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
@@ -405,17 +405,17 @@
 				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
 				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
 				91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */,
-				9130A6351E81C45C00E744EF /* streamlinkdetect.framework in Frameworks */,
 				91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */,
 				910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */,
 				91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */,
+				2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				912859571E7B3033005E9A2B /* MASPreferences.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */,
+				2D621EC61F814364003274F2 /* GBPing.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
-				9130A6341E81C3D700E744EF /* streamlinkdetect.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
 				2DF623D61EDB2C0500E9B7AD /* Reachability.framework in Frameworks */,
 				914AE2D11F113AD0009E43FC /* XMLReader.framework in Frameworks */,
@@ -485,6 +485,9 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D621ECA1F8143C9003274F2 /* PingNotifier.framework */,
+				2D621EC41F814234003274F2 /* GBPing.framework */,
+				2D621EC51F814234003274F2 /* MSWeakTimer_macOS.framework */,
 				914AE2D01F113AD0009E43FC /* XMLReader.framework */,
 				91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */,
 				2DF623D21EDB27CA00E9B7AD /* Reachability.framework */,
@@ -492,7 +495,6 @@
 				2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */,
 				91CA043B1E901494006B0727 /* Fabric.framework */,
 				91CA043C1E901494006B0727 /* Crashlytics.framework */,
-				9130A6331E81C3D700E744EF /* streamlinkdetect.framework */,
 				912859591E7B3599005E9A2B /* MASShortcut.framework */,
 				912859551E7B2F0E005E9A2B /* MASPreferences.framework */,
 				91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */,
@@ -559,7 +561,6 @@
 				6FAA87851A7EB70E00EFFAC1 /* HotkeysPrefs.xib */,
 				9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */,
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
-				9130A63A1E81D76F00E744EF /* streamlinkopen.xib */,
 				5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */,
 				5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */,
 			);
@@ -580,7 +581,6 @@
 			children = (
 				2D7CD47A1F2109C700171028 /* PFAboutWindowController.h */,
 				2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */,
-				9130A6371E81D75E00E744EF /* Stream Link Open Wiindow */,
 				91CC23DA1E7C375F008E47F6 /* Offline Queue */,
 				2D807F511E201332003E2FCF /* DonationWindowController.h */,
 				2D807F521E201332003E2FCF /* DonationWindowController.m */,
@@ -615,8 +615,6 @@
 				9182EBDB1EA688BF001F9A74 /* NSBundle+LoginItem.h */,
 				9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */,
 				3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */,
-				912859621E7B39BF005E9A2B /* MSWeakTimer.h */,
-				912859631E7B39BF005E9A2B /* MSWeakTimer.m */,
 			);
 			name = "Other Classes";
 			sourceTree = "<group>";
@@ -813,15 +811,6 @@
 			name = Headers;
 			sourceTree = "<group>";
 		};
-		9130A6371E81D75E00E744EF /* Stream Link Open Wiindow */ = {
-			isa = PBXGroup;
-			children = (
-				9130A62E1E81C39F00E744EF /* streamlinkopen.h */,
-				9130A62F1E81C39F00E744EF /* streamlinkopen.m */,
-			);
-			name = "Stream Link Open Wiindow";
-			sourceTree = "<group>";
-		};
 		91CC23DA1E7C375F008E47F6 /* Offline Queue */ = {
 			isa = PBXGroup;
 			children = (
@@ -960,7 +949,6 @@
 				914AE2D91F1152FE009E43FC /* PlexLogin.xib in Resources */,
 				9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
-				9130A6381E81D76F00E744EF /* streamlinkopen.xib in Resources */,
 				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
 				6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
@@ -1046,7 +1034,6 @@
 				2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */,
 				918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
-				9130A6311E81C39F00E744EF /* streamlinkopen.m in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,
 				91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
@@ -1056,7 +1043,6 @@
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
 				91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */,
-				912859641E7B39BF005E9A2B /* MSWeakTimer.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
 				6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */,
@@ -1212,14 +1198,6 @@
 				825D87941A1912EF00C5E1BF /* Base */,
 			);
 			name = ExceptionsPref.xib;
-			sourceTree = "<group>";
-		};
-		9130A63A1E81D76F00E744EF /* streamlinkopen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9130A6391E81D76F00E744EF /* Base */,
-			);
-			name = streamlinkopen.xib;
 			sourceTree = "<group>";
 		};
 		9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */ = {

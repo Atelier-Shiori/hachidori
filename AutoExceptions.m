@@ -14,7 +14,7 @@
 #pragma mark Importing Exceptions and Auto Exceptions
 + (void)importToCoreData{
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate getObjectContext];
+    NSManagedObjectContext *moc = delegate.managedObjectContext;
     // Check Exceptions
     NSArray *oexceptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"exceptions"];
     if (oexceptions.count > 0) {
@@ -83,15 +83,15 @@
                 return;
             }
             AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-            NSManagedObjectContext *moc = [delegate getObjectContext];
+            NSManagedObjectContext *moc = delegate.managedObjectContext;
             [moc performBlockAndWait:^{
                 for (NSDictionary *d in a) {
                     NSString * detectedtitle = d[@"detectedtitle"];
                     NSString * group = d[@"group"];
                     NSString * correcttitle = d[@"correcttitle"];
                     NSString * hcorrecttitle = (NSString *)d[@"hcorrecttitle"];
-                    bool iszeroepisode = [(NSNumber *)d[@"iszeroepisode"] boolValue];
-                    int offset = [(NSNumber *)d[@"offset"] intValue];
+                    bool iszeroepisode = ((NSNumber *)d[@"iszeroepisode"]).boolValue;
+                    int offset = ((NSNumber *)d[@"offset"]).intValue;
                     //NSLog(@"%@-%@-%@-%i-%i-%@",detectedtitle,group,correcttitle,iszeroepisode,offset,d[@"mappedepisode"]);
                     NSError * error = nil;
                     NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode offset:offset];
@@ -106,16 +106,16 @@
                                inManagedObjectContext: moc];
                         // Set values in the new record
                         [obj setValue:detectedtitle forKey:@"detectedTitle"];
-                        if ([hcorrecttitle length] > 0) {
+                        if (hcorrecttitle.length > 0) {
                             [obj setValue:hcorrecttitle forKey:@"correctTitle"]; // Use Correct Kitsu Title
                         }
                         else {
                             [obj setValue:correcttitle forKey:@"correctTitle"]; // Use Universal Correct Title
                         }
-                        [obj setValue:[NSNumber numberWithInt:offset] forKey:@"episodeOffset"];
+                        [obj setValue:@(offset) forKey:@"episodeOffset"];
                         [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                         [obj setValue:group forKey:@"group"];
-                        [obj setValue:[NSNumber numberWithBool:iszeroepisode] forKey:@"iszeroepisode"];
+                        [obj setValue:@(iszeroepisode) forKey:@"iszeroepisode"];
                         [obj setValue:d[@"mappedepisode"] forKey:@"mappedepisode"];
                     }
                     //Save
@@ -134,7 +134,7 @@
 + (void)clearAutoExceptions{
     // Remove All cache data from Auto Exceptions
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate getObjectContext];
+    NSManagedObjectContext *moc = delegate.managedObjectContext;
     NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
     allExceptions.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
     
@@ -156,7 +156,7 @@ offset:(int)offset{
     // Return existing offline queue item
     NSError * error;
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSManagedObjectContext * moc = [delegate getObjectContext];
+    NSManagedObjectContext * moc = delegate.managedObjectContext;
     NSString * rctitle;
     if (hcorrecttitle.length > 0) {
         rctitle = hcorrecttitle;
@@ -167,7 +167,7 @@ offset:(int)offset{
     NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (correctTitle == %@) AND (group ==[c] %@) AND (iszeroepisode == %i) AND (episodeOffset == %i)", ctitle,rctitle, group, zeroepisode, offset] ;
     NSFetchRequest * exfetch = [[NSFetchRequest alloc] init];
     exfetch.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
-    [exfetch setPredicate: predicate];
+    exfetch.predicate = predicate;
     NSArray * exceptions = [moc executeFetchRequest:exfetch error:&error];
     if (exceptions.count > 0) {
         return (NSManagedObject *)exceptions[0];

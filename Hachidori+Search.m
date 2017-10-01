@@ -13,7 +13,7 @@
 #import <DetectionKit/Recognition.h>
 
 @implementation Hachidori (Search)
-- (NSString *)searchanime{
+- (NSString *)searchanime {
     // Searches for ID of associated title
     NSString * searchtitle = self.DetectedTitle;
     if (self.DetectedSeason > 1) {
@@ -39,7 +39,7 @@
     }
     return [self performSearch:searchtitle];
 }
-- (NSString *)performSearch:(NSString *)searchtitle{
+- (NSString *)performSearch:(NSString *)searchtitle {
     // Begin Search
     NSLog(@"Searching For Title");
     // Set Season for Search Term if any detected.
@@ -67,7 +67,7 @@
     }
     
 }
-- (NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term{
+- (NSString *)findaniid:(NSData *)ResponseData searchterm:(NSString *) term {
     // Initalize JSON parser
     NSError* error;
     NSDictionary *data = [NSJSONSerialization JSONObjectWithData:ResponseData options:kNilOptions error:&error];
@@ -90,16 +90,8 @@
     OnigRegexp   *regex;
     //Retrieve the ID. Note that the most matched title will be on the top
     // For Sanity (TV shows and OVAs usually have more than one episode)
-    if(self.DetectedEpisode.length == 0) {
-        // Title is a movie
-        NSLog(@"Title is a movie");
-        self.DetectedTitleisMovie = true;
-    }
-    else {
-        // Is TV Show
-        NSLog(@"Title is not a movie.");
-        self.DetectedTitleisMovie = false;
-    }
+    self.DetectedTitleisMovie = [self.DetectedType isEqualToString:@"Movie"] || [self.DetectedType isEqualToString:@"movie"];
+    NSLog(@"%@", self.DetectedTitleisMovie ? @"Title is a movie" : @"Title is not a movie.");
     // Populate Sorted Array
     NSArray * sortedArray = [self filterArray:searchdata];
     searchdata = nil;
@@ -122,8 +114,8 @@
         
         // Check TV, ONA, Special, OVA, Other
         for (NSDictionary *searchentry in sortedArray) {
+            // Populate titles
             NSDictionary * titles = searchentry[@"titles"];
-
             theshowtitle = [NSString stringWithFormat:@"%@",titles[@"en_jp"]];
             alttitle = [NSString stringWithFormat:@"%@", titles[@"en"]];
             // Remove colons as they are invalid characters for filenames and to improve accuracy
@@ -156,15 +148,7 @@
                     }
                 }
                 //Return titleid if episode is valid
-                int episodecount;
-                if (!searchentry[@"episodeCount"]) {
-                    // No episode Count, set episode count to zero
-                    episodecount = 0;
-                }
-                else {
-                    //Set Episode Count
-                    episodecount = [NSString stringWithFormat:@"%@", searchentry[@"episode_count"]].intValue;
-                }
+                int episodecount = !searchentry[@"episodeCount"] ? 0 : [NSString stringWithFormat:@"%@", searchentry[@"episode_count"]].intValue;
                 if (episodecount == 0 || ( episodecount >= self.DetectedEpisode.intValue)) {
                     NSLog(@"Valid Episode Count");
                     if (sortedArray.count == 1 || self.DetectedSeason >= 2) {
@@ -178,13 +162,7 @@
                     }
                     else if (titlematch1) {
                         titlematch2 = searchentry;
-                        if (titlematch1 != titlematch2) {
-                            return [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus];
-                        }
-                        else {
-                            // Only Result, return
-                            return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
-                        }
+                        return titlematch1 != titlematch2 ? [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus] : [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
                     else {
                         // Only Result, return
@@ -200,14 +178,11 @@
         }
     }
     // If one match is found and not null, then return the id.
-    if (titlematch1) {
-        // Only Result, return
-        return [self foundtitle:[NSString stringWithFormat:@"%@",titlematch1[@"id"]] info:titlematch1];
-    }
+    return titlematch1 ? [self foundtitle:[NSString stringWithFormat:@"%@",titlematch1[@"id"]] info:titlematch1] : @"";
     // Nothing found, return empty string
     return @"";
 }
-- (NSArray *)filterArray:(NSArray *)searchdata{
+- (NSArray *)filterArray:(NSArray *)searchdata {
     NSMutableArray * sortedArray;
     // Filter array based on if the title is a movie or if there is a season detected
     if (self.DetectedTitleisMovie) {
@@ -236,7 +211,7 @@
     }
     return sortedArray;
 }
-- (NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2 mstatus:(int)a mstatus2:(int)b{
+- (NSString *)comparetitle:(NSString *)title match1:(NSDictionary *)match1 match2:(NSDictionary *)match2 mstatus:(int)a mstatus2:(int)b {
     // Perform string score between two titles to see if one is the correct match or not
     float score1, score2, ascore1, ascore2;
     double fuzziness = 0.3;
@@ -274,20 +249,8 @@
     }
     
     // Take the highest of both matches scores
-    float finalscore1;
-    float finalscore2;
-    if(score1 > ascore1) {
-        finalscore1 = score1;
-    }
-    else {
-        finalscore1 = ascore1;
-    }
-    if(score2 > ascore2) {
-        finalscore2 = score2;
-    }
-    else {
-        finalscore2 = ascore2;
-    }
+    float finalscore1 = score1 > ascore1 ? score1 : ascore1;
+    float finalscore2 = score2 > ascore2 ? score2 : ascore2;
     // Compare Scores
     if (finalscore1 == finalscore2 || finalscore1 == INFINITY) {
         //Scores can't be reliably compared, just return the first match
@@ -303,16 +266,11 @@
         return [self foundtitle:[NSString stringWithFormat:@"%@",match2[@"id"]] info:match2];
     }
 }
-- (NSString *)foundtitle:(NSString *)titleid info:(NSDictionary *)found{
+- (NSString *)foundtitle:(NSString *)titleid info:(NSDictionary *)found {
     //Check to see if Seach Cache is enabled. If so, add it to the cache.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"] && titleid.length > 0 && !self.unittesting) {
         NSNumber * totalepisodes;
-        if (found[@"episode_count"]) {
-            totalepisodes = (NSNumber *)found[@"episodeCount"];
-        }
-        else {
-            totalepisodes = @(0);
-        }
+        totalepisodes = found[@"episode_count"] ? (NSNumber *)found[@"episodeCount"] : @(0);
         //Save AniID
         NSDictionary * title = found[@"titles"];
         [ExceptionsCache addtoCache:self.DetectedTitle showid:titleid actualtitle:(NSString *)title[@"en_jp"] totalepisodes: totalepisodes.intValue];

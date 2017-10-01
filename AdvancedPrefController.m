@@ -107,7 +107,7 @@
     }
 }
 - (IBAction)clearlogin:(id)sender {
-    if (![appdelegate getisScrobbling] && ![appdelegate getisScrobblingActive]) {
+    if (!appdelegate.scrobbling && !appdelegate.scrobbleractive) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
@@ -116,7 +116,7 @@
         [alert setInformativeText:NSLocalizedString(@"Once you logged out, you need to log back in before you can enable MyAnimeList sync functionality.",nil)];
         // Set Message type to Warning
         alert.alertStyle = NSWarningAlertStyle;
-        [alert beginSheetModalForWindow:[[self view] window] completionHandler:^(NSModalResponse returnCode) {
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode== NSAlertFirstButtonReturn) {
                 //Remove MyAnimeList account from keychain
                 [haengine removemalaccount];
@@ -197,23 +197,23 @@
 
 }
 - (void)controlTextDidChange:(NSNotification *)notification {
-    NSTextField * textfield = [notification object];
+    NSTextField * textfield = notification.object;
     if ([textfield.identifier isEqualToString:@"kodiaddress"]) {
-    [[appdelegate getHachidoriInstance].detection setKodiReachAddress:[textfield stringValue]];
+    [appdelegate.haengine.detection setKodiReachAddress:textfield.stringValue];
     }
     else if ([textfield.identifier isEqualToString:@"plexaddress"]) {
-        [[appdelegate getHachidoriInstance].detection setPlexReachAddress:[textfield stringValue]];
+        [appdelegate.haengine.detection setPlexReachAddress:textfield.stringValue];
     }
     
 }
 - (IBAction)setKodiReach:(id)sender {
-    if ([_kodicheck state] == 0) {
+    if (_kodicheck.state == 0) {
         // Turn off reachability notification for Kodi
-        [[appdelegate getHachidoriInstance].detection setKodiReach:false];
+        [appdelegate.haengine.detection setKodiReach:false];
     }
     else {
         // Turn on reachability notification for Kodi
-        [[appdelegate getHachidoriInstance].detection setKodiReach:true];
+        [appdelegate.haengine.detection setKodiReach:true];
     }
 }
 

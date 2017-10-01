@@ -1,0 +1,6 @@
+framework module GBPing {
+  umbrella header "GBPing.h"
+
+  export *
+  module * { export * }
+}

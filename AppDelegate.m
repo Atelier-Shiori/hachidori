@@ -21,9 +21,8 @@
 #import "Utility.h"
 #import "HistoryWindow.h"
 #import "DonationWindowController.h"
-#import "MSWeakTimer.h"
+#import <MSWeakTimer_macOS/MSWeakTimer.h>
 #import "ClientConstants.h"
-#import "streamlinkopen.h"
 #import "StatusUpdateWindow.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -243,7 +242,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
-	[haengine setManagedObjectContext:managedObjectContext];
+	haengine.managedObjectContext = managedObjectContext;
     if (floor(NSAppKitVersionNumber) < 1485) {
     #ifdef DEBUG
     #else
@@ -415,7 +414,7 @@
     if (!_owindow) {
         _owindow = [[OfflineViewQueue alloc] init];
     }
-    [[_owindow window] makeKeyAndOrderFront:nil];
+    [_owindow.window makeKeyAndOrderFront:nil];
 }
 - (IBAction)getHelp:(id)sender{
     //Show Help
@@ -467,7 +466,7 @@
     if (confirmupdate.hidden) {
         [updatedupdatestatus setEnabled:YES];
     }
-    if (!confirmupdate.hidden && ![haengine getisNewTitle]) {
+    if (!confirmupdate.hidden && !haengine.LastScrobbledTitleNew) {
         [updatedupdatestatus setEnabled:YES];
         [updatecorrect setAutoenablesItems:YES];
         [revertrewatch setEnabled:YES];
@@ -521,7 +520,7 @@
     if (!_dwindow) {
         _dwindow = [[DonationWindowController alloc] init];
     }
-    [[_dwindow window] makeKeyAndOrderFront:nil];
+    [_dwindow.window makeKeyAndOrderFront:nil];
     
 }
 - (IBAction)enterDonationKey:(id)sender {
@@ -542,34 +541,34 @@
                 break;
             case ScrobblerConfirmNeeded:{
                 [self setStatusText:@"Scrobble Status: Please confirm update."];
-                NSDictionary * userinfo = @{@"title": [haengine getLastScrobbledTitle],  @"episode": [haengine getLastScrobbledEpisode]};
-                [self showConfirmationNotification:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
+                NSDictionary * userinfo = @{@"title": haengine.LastScrobbledTitle,  @"episode": haengine.LastScrobbledEpisode};
+                [self showConfirmationNotification:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode] updateData:userinfo];
                 break;
             }
             case ScrobblerAddTitleSuccessful:
             case ScrobblerUpdateSuccessful:{
                 [self setStatusText:@"Scrobble Status: Scrobble Successful..."];
                 NSString * notificationmsg;
-                if ([haengine getRewatching]) {
-                    notificationmsg = [NSString stringWithFormat:@"Rewatching %@ Episode %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]];
+                if (haengine.rewatching) {
+                    notificationmsg = [NSString stringWithFormat:@"Rewatching %@ Episode %@",haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode];
                 }
                 else {
-                    notificationmsg = [NSString stringWithFormat:@"%@ Episode %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]];
+                    notificationmsg = [NSString stringWithFormat:@"%@ Episode %@",haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode];
                 }
                 [self showNotification:@"Scrobble Successful." message:notificationmsg];
                 [self syncMyAnimeList];
                 //Add History Record
-                [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
+                [HistoryWindow addrecord:haengine.LastScrobbledActualTitle Episode:haengine.LastScrobbledEpisode Date:[NSDate date]];
                 break;
             }
             case ScrobblerOfflineQueued:
                 [self setStatusText:@"Scrobble Status: Scrobble Queued..."];
-                [self showNotification:@"Scrobble Queued." message:[NSString stringWithFormat:@"%@ - %@",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+                [self showNotification:@"Scrobble Queued." message:[NSString stringWithFormat:@"%@ - %@",haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode]];
                 break;
             case ScrobblerTitleNotFound:
-                if (![(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"] boolValue]) {
+                if (!((NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"]).boolValue) {
                     [self setStatusText:NSLocalizedString(@"Scrobble Status: Can't find title. Retrying in 5 mins...",nil)];
-                    [self showNotification:NSLocalizedString(@"Couldn't find title.",nil) message:[NSString stringWithFormat:NSLocalizedString(@"Click here to find %@ manually.",nil), [haengine getFailedTitle]]];
+                    [self showNotification:NSLocalizedString(@"Couldn't find title.",nil) message:[NSString stringWithFormat:NSLocalizedString(@"Click here to find %@ manually.",nil), haengine.FailedTitle]];
                 } 
                 break;
             case ScrobblerAddTitleFailed:
@@ -588,10 +587,10 @@
 }
 - (void)performRefreshUI:(int)status{
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([haengine getSuccess] == 1) {
+        if (haengine.Success == 1) {
             [findtitle setHidden:true];
-            [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
-            if (status != 3 && [haengine getConfirmed]) {
+            [self setStatusMenuTitleEpisode:haengine.LastScrobbledActualTitle episode:haengine.LastScrobbledEpisode];
+            if (status != 3 && haengine.confirmed) {
                 // Show normal info
                 [self updateLastScrobbledTitleStatus:false];
                 //Enable Update Status functions
@@ -603,7 +602,7 @@
                 // Show that user needs to confirm update
                 [self updateLastScrobbledTitleStatus:true];
                 [confirmupdate setHidden:NO];
-                if ([haengine getisNewTitle]) {
+                if (haengine.LastScrobbledTitleNew) {
                     // Disable Update Status functions for new and unconfirmed titles.
                     [self EnableStatusUpdating:NO];
                     [revertrewatch setHidden:YES];
@@ -618,16 +617,16 @@
             [openAnimePage setEnabled:YES];
             // Show hidden menus
             [self unhideMenus];
-            NSDictionary * ainfo = [haengine getLastScrobbledInfo];
+            NSDictionary * ainfo = haengine.LastScrobbledInfo;
             if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
                 [self showAnimeInfo:ainfo];
-                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]]];
+                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]]];
             }
         }
         if (status == ScrobblerTitleNotFound) {
             //Show option to find title
             [findtitle setHidden:false];
-            if ([(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"] boolValue]) {
+            if (((NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"]).boolValue) {
                 [self showCorrectionSearchWindow:self];
             }
         }
@@ -730,7 +729,7 @@
         int status = 0;
         for (int i = 0; i < 2; i++) {
             if (i == 0) {
-                if ([haengine getQueueCount] > 0 && [haengine getOnlineStatus]) {
+                if ([haengine getQueueCount] > 0 && haengine.online) {
                     NSDictionary * status = [haengine scrobblefromqueue];
                     int success = [status[@"success"] intValue];
                     int fail = [status[@"fail"] intValue];
@@ -738,8 +737,8 @@
                     if (confirmneeded) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self setStatusText:@"Scrobble Status: Please confirm update."];
-                            NSDictionary * userinfo = @{@"title": [haengine getLastScrobbledTitle],  @"episode": [haengine getLastScrobbledEpisode]};
-                            [self showConfirmationNotification:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]] updateData:userinfo];
+                            NSDictionary * userinfo = @{@"title": haengine.LastScrobbledTitle,  @"episode": haengine.LastScrobbledEpisode};
+                            [self showConfirmationNotification:@"Confirm Update" message:[NSString stringWithFormat:@"Click here to confirm update for %@ Episode %@.",haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode] updateData:userinfo];
                         });
                         break;
                     }
@@ -797,7 +796,7 @@
     }
     fsdialog = [FixSearchDialog new];
     // Check if Confirm is on for new title. If so, then disable ability to delete title.
-    if ((!confirmupdate.hidden && [haengine getisNewTitle]) || !findtitle.hidden) {
+    if ((!confirmupdate.hidden && haengine.LastScrobbledTitleNew) || !findtitle.hidden) {
         [fsdialog setCorrection:YES];
         [fsdialog setAllowDelete:NO];
     }
@@ -807,11 +806,11 @@
     }
     if (!findtitle.hidden) {
         //Use failed title
-         [fsdialog setSearchField:[haengine getFailedTitle]];
+         fsdialog.searchquery = haengine.FailedTitle;
     }
     else {
         //Get last scrobbled title
-        [fsdialog setSearchField:[haengine getLastScrobbledTitle]];
+        fsdialog.searchquery = haengine.LastScrobbledTitle;
     }
     if (isVisible) {
         [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
@@ -830,37 +829,37 @@
 }
 - (void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
-            if ([[fsdialog getSelectedAniID] isEqualToString:[haengine getAniID]]) {
+            if ([fsdialog.selectedaniid isEqualToString:haengine.AniID]) {
                 NSLog(@"ID matches, correction not needed.");
             }
             else {
                 BOOL correctonce = [fsdialog getcorrectonce];
 				if (!findtitle.hidden) {
-					 [self addtoExceptions:[haengine getFailedTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[fsdialog getSelectedTotalEpisodes]];
+					 [self addtoExceptions:haengine.FailedTitle newtitle:fsdialog.selectedtitle showid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes];
 				}
-                else if ([haengine getLastScrobbledEpisode].intValue == [fsdialog getSelectedTotalEpisodes]) {
+                else if (haengine.LastScrobbledEpisode.intValue == fsdialog.selectedtotalepisodes) {
                     // Detected episode equals the total episodes, do not add a rule and only do a correction just once.
                     correctonce = true;
                 }
 				else if (!correctonce) {
                     // Add to Exceptions
-					 [self addtoExceptions:[haengine getLastScrobbledTitle] newtitle:[fsdialog getSelectedTitle] showid:[fsdialog getSelectedAniID] threshold:[fsdialog getSelectedTotalEpisodes]];
+					 [self addtoExceptions:haengine.LastScrobbledTitle newtitle:fsdialog.selectedtitle showid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes];
 				}
                 if([fsdialog getdeleteTitleonCorrection]) {
-                    if([haengine removetitle:[haengine getAniID]]) {
+                    if([haengine removetitle:haengine.AniID]) {
                         NSLog(@"Removal Successful");
                     }
                 }
                 NSLog(@"Updating corrected title...");
                 int status;
 				if (!findtitle.hidden) {
-					status = [haengine scrobbleagain:[haengine getFailedTitle] Episode:[haengine getFailedEpisode] correctonce:false];
+					status = [haengine scrobbleagain:haengine.FailedTitle Episode:haengine.FailedEpisode correctonce:false];
 				}
                 else if (correctonce) {
-                    status = [haengine scrobbleagain:[fsdialog getSelectedTitle] Episode:[haengine getLastScrobbledEpisode] correctonce:true];
+                    status = [haengine scrobbleagain:fsdialog.selectedtitle Episode:haengine.LastScrobbledEpisode correctonce:true];
                 }
 				else {
-                    status = [haengine scrobbleagain:[haengine getLastScrobbledTitle] Episode:[haengine getLastScrobbledEpisode] correctonce:false];
+                    status = [haengine scrobbleagain:haengine.LastScrobbledTitle Episode:haengine.LastScrobbledEpisode correctonce:false];
 				}
 					
                 switch (status) {
@@ -870,7 +869,7 @@
                     case ScrobblerUpdateSuccessful: {
                         [self setStatusText:NSLocalizedString(@"Scrobble Status: Correction Successful...",nil)];
                         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Correction was successful",nil)];
-                        [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
+                        [self setStatusMenuTitleEpisode:haengine.LastScrobbledActualTitle episode:haengine.LastScrobbledEpisode];
                         [self updateLastScrobbledTitleStatus:false];
 	                    if (!findtitle.hidden) {
 	                        //Unhide menus and enable functions on the toolbar
@@ -882,12 +881,12 @@
                             [self showRevertRewatchMenu];
 	                    }
                         //Show Anime Correct Information
-                        NSDictionary * ainfo = [haengine getLastScrobbledInfo];
+                        NSDictionary * ainfo = haengine.LastScrobbledInfo;
                         [self showAnimeInfo:ainfo];
                         [findtitle setHidden:YES];
                         [confirmupdate setHidden:true];
 						//Regenerate Share Items
-                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", [haengine getLastScrobbledActualTitle], [haengine getLastScrobbledEpisode] ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]]];
+                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]]];
                         // Sync with MAL if Enabled
                         [self syncMyAnimeList];
                         break;
@@ -967,26 +966,26 @@
     if (pending) {
         [updatecorrect setAutoenablesItems:NO];
         [lastupdateheader setTitle:NSLocalizedString(@"Pending:",nil)];
-        [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Pending: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
-        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Pending)",nil),[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Pending: %@ - Episode %@ playing from %@",nil),haengine.LastScrobbledTitle,haengine.LastScrobbledEpisode, haengine.LastScrobbledSource]];
+        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Pending)",nil),haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode]];
     }
-    else if (![haengine getOnlineStatus]) {
+    else if (!haengine.online) {
         [updatecorrect setAutoenablesItems:NO];
         [lastupdateheader setTitle:NSLocalizedString(@"Queued:",nil)];
-        [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Queued: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
-        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Queued)",nil),[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Queued: %@ - Episode %@ playing from %@",nil),haengine.LastScrobbledTitle,haengine.LastScrobbledEpisode, haengine.LastScrobbledSource]];
+        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Queued)",nil),haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode]];
     }
     else {
         [updatecorrect setAutoenablesItems:YES];
-        if ([haengine getRewatching]) {
+        if (haengine.rewatching) {
             [lastupdateheader setTitle:NSLocalizedString(@"Rewatching:",nil)];
-            [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Rewatching: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+            [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Rewatching: %@ - Episode %@ playing from %@",nil),haengine.LastScrobbledTitle,haengine.LastScrobbledEpisode, haengine.LastScrobbledSource]];
         }
         else {
             [lastupdateheader setTitle:NSLocalizedString(@"Last Scrobbled:",nil)];
-            [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Last Scrobbled: %@ - Episode %@ playing from %@",nil),[haengine getLastScrobbledTitle],[haengine getLastScrobbledEpisode], [haengine getLastScrobbledSource]]];
+            [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Last Scrobbled: %@ - Episode %@ playing from %@",nil),haengine.LastScrobbledTitle,haengine.LastScrobbledEpisode, haengine.LastScrobbledSource]];
         }
-        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@",nil),[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
+        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@",nil),haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode]];
     }
 }
 
@@ -1021,18 +1020,18 @@
         NSString * tmpepisode = _updatewindow.episodefield.stringValue;
         bool episodechanged = false;
         if (tmpepisode.length == 0) {
-            tmpepisode = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
+            tmpepisode = [NSString stringWithFormat:@"%i", haengine.DetectedCurrentEpisode];
         }
-        if (tmpepisode.intValue != [haengine getCurrentEpisode]) {
+        if (tmpepisode.intValue != haengine.DetectedCurrentEpisode) {
             episodechanged = true; // Used to update the status window
         }
-        BOOL result = [haengine updatestatus:[haengine getAniID] episode:tmpepisode score:(int)_updatewindow.showscore.selectedTag watchstatus:_updatewindow.showstatus.titleOfSelectedItem notes:_updatewindow.notes.textStorage.string isPrivate:(BOOL) _updatewindow.isPrivate.state];
+        BOOL result = [haengine updatestatus:haengine.AniID episode:tmpepisode score:(int)_updatewindow.showscore.selectedTag watchstatus:_updatewindow.showstatus.titleOfSelectedItem notes:_updatewindow.notes.textStorage.string isPrivate:(BOOL) _updatewindow.isPrivate.state];
         if (result) {
             dispatch_async(dispatch_get_main_queue(), ^{
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
             if (episodechanged) {
                 // Update the tooltip, menu and last scrobbled title
-                [self setStatusMenuTitleEpisode:[haengine getLastScrobbledActualTitle] episode:[haengine getLastScrobbledEpisode]];
+                [self setStatusMenuTitleEpisode:haengine.LastScrobbledActualTitle episode:haengine.LastScrobbledEpisode];
                 [self updateLastScrobbledTitleStatus:false];
             }
             });
@@ -1060,15 +1059,15 @@
     NSAlert * alert = [[NSAlert alloc] init] ;
     [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
-    alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to stop rewatching %@?",nil),[haengine getLastScrobbledTitle]];
+    alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to stop rewatching %@?",nil),haengine.LastScrobbledTitle];
     [alert setInformativeText:NSLocalizedString(@"This will revert the title status back to it's completed state.",nil)];
     // Set Message type to Informational
     alert.alertStyle = NSInformationalAlertStyle;
     if ([alert runModal]== NSAlertFirstButtonReturn) {
         // Revert title
-        BOOL success = [haengine stopRewatching:[haengine getAniID]];
+        BOOL success = [haengine stopRewatching:haengine.AniID];
         if (success) {
-            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:NSLocalizedString(@"%@'s rewatch status has been reverted.",nil), [haengine getLastScrobbledTitle]]];
+            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:NSLocalizedString(@"%@'s rewatch status has been reverted.",nil), haengine.LastScrobbledTitle]];
             // Show Correct State in the UI
             [self showRevertRewatchMenu];
             [self updateLastScrobbledTitleStatus:false];
@@ -1109,7 +1108,7 @@
         NSString * title = (notification.userInfo)[@"title"];
         NSString * episode = (notification.userInfo)[@"episode"];
         // Only confirm update if the title and episode is the same with the last scrobbled.
-        if ([[haengine getLastScrobbledTitle] isEqualToString:title] && episode.intValue == [haengine getLastScrobbledEpisode].intValue) {
+        if ([haengine.LastScrobbledTitle isEqualToString:title] && episode.intValue == haengine.LastScrobbledEpisode.intValue) {
             //Confirm Update
             [self performconfirmupdate];
         }
@@ -1135,11 +1134,11 @@
     if (success) {
          dispatch_async(dispatch_get_main_queue(), ^{
             [self updateLastScrobbledTitleStatus:false];
-            [HistoryWindow addrecord:[haengine getLastScrobbledActualTitle] Episode:[haengine getLastScrobbledEpisode] Date:[NSDate date]];
+            [HistoryWindow addrecord:haengine.LastScrobbledActualTitle Episode:haengine.LastScrobbledEpisode Date:[NSDate date]];
             [confirmupdate setHidden:YES];
             [self setStatusText:@"Scrobble Status: Update was successful."];
-            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",[haengine getLastScrobbledActualTitle],[haengine getLastScrobbledEpisode]]];
-            if ([haengine getisNewTitle]) {
+            [self showNotification:NSLocalizedString(@"Hachidori",nil) message:[NSString stringWithFormat:@"%@ Episode %@ has been updated.",haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode]];
+            if (haengine.LastScrobbledTitleNew) {
                 // Enable Update Status functions for new and unconfirmed titles.
                 [self EnableStatusUpdating:YES];
             }
@@ -1238,7 +1237,7 @@
         [animeinfo.textStorage appendAttributedString:attr];
 }
 - (void)showRevertRewatchMenu{
-    if ([haengine getRewatching]) {
+    if (haengine.rewatching) {
         [revertrewatch setHidden:NO];
     }
     else {
@@ -1249,17 +1248,17 @@
 	// Outputs Currently Playing information into JSON
 	NSMutableDictionary * output = [NSMutableDictionary new];
 	if ((haengine.getLastScrobbledTitle).length > 0) {
-		output[@"id"] = [haengine getAniID];
-		output[@"scrobbledtitle"] = [haengine getLastScrobbledTitle];
-		output[@"scrobbledactualtitle"] = [haengine getLastScrobbledActualTitle];
-		output[@"scrobbledEpisode"] = [haengine getLastScrobbledEpisode];
-		output[@"source"] = [haengine getLastScrobbledSource];
+		output[@"id"] = haengine.AniID;
+		output[@"scrobbledtitle"] = haengine.LastScrobbledTitle;
+		output[@"scrobbledactualtitle"] = haengine.LastScrobbledActualTitle;
+		output[@"scrobbledEpisode"] = haengine.LastScrobbledEpisode;
+		output[@"source"] = haengine.LastScrobbledSource;
 	}
 	return output;
 }
 - (IBAction)showLastScrobbledInformation:(id)sender{
     //Open the anime's page on Kitsu in the default web browser
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", [haengine getAniID]]]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]];
 }
 #pragma mark MyAnimeList Syncing
 - (IBAction)forceMALSync:(id)sender{
@@ -1292,65 +1291,6 @@
                  // Show Donation Message
                  [Utility donateCheck:self];
              });
-        });
-    }
-}
-#pragma mark Streamlink
-- (IBAction)openstream:(id)sender {
-    if ([haengine getFirstAccount]) {
-        streamlinkdetector * detector = [streamlinkdetector new];
-        if ([detector checkifStreamLinkExists]) {
-            // Shows the Open Stream dialog
-            [NSApp activateIgnoringOtherApps:YES];
-            if ([haengine getOnlineStatus]) {
-                if (!streamlinkopenw)
-                    streamlinkopenw = [streamlinkopen new];
-                
-                bool isVisible = window.visible;
-                if (isVisible) {
-                    [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
-                    [NSApp beginSheet:streamlinkopenw.window
-                       modalForWindow:window modalDelegate:self
-                       didEndSelector:@selector(streamopenDidEnd:returnCode:contextInfo:)
-                          contextInfo:(void *)nil];
-                }
-                else {
-                    [NSApp beginSheet:streamlinkopenw.window
-                       modalForWindow:nil modalDelegate:self
-                       didEndSelector:@selector(streamopenDidEnd:returnCode:contextInfo:)
-                          contextInfo:(void *)nil];
-                }
-            }
-            else {
-                [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"You need to be online to use this feature.",nil)];
-            }
-        }
-        else {
-            [detector checkStreamLink:nil];
-        }
-    }
-    else {
-        [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Add a login before you use this feature.",nil)];
-    }
-}
-- (void)streamopenDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == 0) {
-        streamlinkopenw = nil;
-    }
-    else {
-        [self toggleScrobblingUIEnable:false];
-        NSString * streamurl = streamlinkopenw.streamurl.stringValue;
-        NSString * stream = streamlinkopenw.streams.title;
-        dispatch_queue_t queue = dispatch_get_global_queue(
-                                                           DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        
-        dispatch_async(queue, ^{
-            int status = [haengine scrobblefromstreamlink:streamurl withStream:stream];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self performsendupdatenotification:status];
-                [self performRefreshUI:status];
-                streamlinkopenw = nil;
-            });
         });
     }
 }

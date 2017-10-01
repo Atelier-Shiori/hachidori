@@ -70,7 +70,7 @@
         }
         fsdialog = [FixSearchDialog new];
         [fsdialog setCorrection:false];
-        [fsdialog setSearchField:detectedtitle];
+        fsdialog.searchquery = detectedtitle;
         [NSApp beginSheet:fsdialog.window
            modalForWindow:self.view.window modalDelegate:self
            didEndSelector:@selector(correctionDidEnd:returnCode:contextInfo:)
@@ -80,12 +80,12 @@
 - (void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
         // Check if correct title exists
-        if ([self checkifexists:detectedtitle offset:0 correcttitle:[fsdialog getSelectedTitle]]) {
+        if ([self checkifexists:detectedtitle offset:0 correcttitle:fsdialog.selectedtitle]) {
             // Exists, don't do anything
             return;
         }
         // Add to Exceptions
-        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:[fsdialog getSelectedTitle] aniid:[fsdialog getSelectedAniID] threshold:[fsdialog getSelectedTotalEpisodes] offset:0];
+        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:fsdialog.selectedtitle aniid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes offset:0];
         //Check Cache
         [ExceptionsCache checkandRemovefromCache:detectedtitle];
     }

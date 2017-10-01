@@ -12,7 +12,7 @@
 #import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
 
 @implementation Hachidori (MALSync)
-- (BOOL)sync{
+- (BOOL)sync {
     NSLog(@"Starting MyAnimeList Sync...");
     // Set check Date if it doesn't exist
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"credentialscheckdate"]){
@@ -39,7 +39,7 @@
         return NO;
     }
 }
-- (int)checkStatus{
+- (int)checkStatus {
     self.MALID = [self getMALID];
     NSLog(@"Checking Status on MyAnimeList");
     //Set Search API
@@ -58,16 +58,11 @@
         NSError* jerror;
         NSDictionary *animeinfo = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:NSJSONReadingMutableContainers error:&jerror];
         // Check if title needs to be added or not.
-        if (animeinfo[@"watched_status"] == [NSNull null]) {
-            NSLog(@"Not on MAL List");
-            return 1;
-        }
-        else {
-            NSLog(@"Title on MAL List");
-            return 2;
-        }
+        bool onlist = animeinfo[@"watched_status"] == [NSNull null];
+        NSLog(@"%@", onlist ? @"Not on MAL List" : @"Title on MAL List");
+        return onlist ? 1 : 2;
     }
-    else if (error !=nil) {
+    else if (error != nil) {
         NSLog(@"MAL Sync Failed, incorrect credentials or connectivity error.");
         return 0;
     }
@@ -79,7 +74,7 @@
     return 0;
 
 }
-- (BOOL)updatetitle{
+- (BOOL)updatetitle {
     // Update the title
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/1/animelist/anime/%@", self.MALApiUrl, self.MALID]];
@@ -92,26 +87,17 @@
     // Set info
     [request addFormData:self.LastScrobbledEpisode forKey:@"episodes"];
     //Rewatch Status
-    if (self.rewatching) {
-            [request addFormData:@"1" forKey:@"is_rewatching"];
-    }
-    else {
-            [request addFormData:@"0" forKey:@"is_rewatching"];
-    }
+    [request addFormData:self.rewatching ? @"1" : @"0" forKey:@"is_rewatching"];
     [request addFormData:@(self.rewatchcount).stringValue forKey:@"rewatch_count"];
-    
     [request addFormData:self.TitleNotes forKey:@"comments"];
     
     //Set Status
-    if ([self.WatchStatus isEqual:@"current"]) {
-        [request addFormData:@"watching" forKey:@"status"];
-    }
-    else {
-        [request addFormData:self.WatchStatus forKey:@"status"];
-    }
-    // Set existing score to prevent the score from being erased.
+    [request addFormData:[self.WatchStatus isEqual:@"current"] ? @"watching" : self.WatchStatus forKey:@"status"];
+    
+    // Convert score
     int tmpscore = [Utility translateKitsuTwentyScoreToMAL:self.TitleScore];
     [request addFormData:@(tmpscore).stringValue forKey:@"score"];
+    
     // Do Update
     [request startFormRequest];
     
@@ -126,7 +112,7 @@
             return NO;
     }
 }
-- (BOOL)addtitle{
+- (BOOL)addtitle {
     // Add the title
     //Set library/scrobble API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/2/animelist/anime", self.MALApiUrl]];
@@ -140,20 +126,15 @@
     
     // Check if the detected episode is equal to total episodes. If so, set it as complete (mostly for specials and movies)
     //Set Status
-    if ([self.WatchStatus isEqual:@"current"]) {
-        [request addFormData:@"watching" forKey:@"status"];
-    }
-    else {
-        [request addFormData:self.WatchStatus forKey:@"status"];
-    }
+    [request addFormData:[self.WatchStatus isEqual:@"current"] ? @"watching" : self.WatchStatus forKey:@"status"];
+    
+    //Convert score
     int tmpscore = [Utility translateKitsuTwentyScoreToMAL:self.TitleScore];
     [request addFormData:@(tmpscore).stringValue forKey:@"score"];
+    
     // Do Update
     [request startFormRequest];
-    
-    
-    //Set Title State for Title
-    self.WatchStatus = @"watching";
+
     switch ([request getStatusCode]) {
         case 200:
         case 201:
@@ -166,7 +147,7 @@
     }
 
 }
-- (NSString *)getMALID{
+- (NSString *)getMALID {
     NSLog(@"Retrieving MyAnimeList Anime ID from Kitsu...");
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@/mappings", self.AniID]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
@@ -186,7 +167,6 @@
             }
         }
     }
-    
     return @"";
 }
 @end

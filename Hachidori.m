@@ -80,7 +80,7 @@
         NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (status == %i)", false, 23];
         NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
         queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
-        [queuefetch setPredicate: predicate];
+        queuefetch.predicate = predicate;
         NSArray * queue = [moc executeFetchRequest:queuefetch error:&error];
         count = (int)queue.count;
     }];
@@ -130,10 +130,10 @@
                     [obj setValue:_DetectedEpisode forKey:@"detectedepisode"];
                     [obj setValue:_DetectedType forKey:@"detectedtype"];
                     [obj setValue:_DetectedSource forKey:@"source"];
-                    [obj setValue:[NSNumber numberWithInteger:_DetectedSeason] forKey:@"detectedseason"];
-                    [obj setValue:[NSNumber numberWithBool:_DetectedTitleisMovie] forKey:@"ismovie"];
-                    [obj setValue:[NSNumber numberWithBool:_DetectedTitleisEpisodeZero] forKey:@"iszeroepisode"];
-                    [obj setValue:[NSNumber numberWithInteger:23] forKey:@"status"];
+                    [obj setValue:@(_DetectedSeason) forKey:@"detectedseason"];
+                    [obj setValue:@(_DetectedTitleisMovie) forKey:@"ismovie"];
+                    [obj setValue:@(_DetectedTitleisEpisodeZero) forKey:@"iszeroepisode"];
+                    [obj setValue:@23 forKey:@"status"];
                     [obj setValue:[NSNumber numberWithBool:false] forKey:@"scrobbled"];
                     //Save
                     [managedObjectContext save:&error];
@@ -142,7 +142,7 @@
             // Store Last Scrobbled Title
             _LastScrobbledTitle = _DetectedTitle;
             _LastScrobbledEpisode = _DetectedEpisode;
-            _DetectedCurrentEpisode = [_DetectedEpisode intValue];
+            _DetectedCurrentEpisode = _DetectedEpisode.intValue;
             _LastScrobbledSource = _DetectedSource;
             _LastScrobbledActualTitle = _DetectedTitle;
             _confirmed = true;
@@ -167,7 +167,7 @@
     NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND ((status == %i) OR (status == %i))", false, 23, 3];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
-    [queuefetch setPredicate: predicate];
+    queuefetch.predicate = predicate;
     [moc performBlockAndWait:^{
         queue = [moc executeFetchRequest:queuefetch error:&error];
     }];
@@ -188,7 +188,7 @@
             bool scrobbled;
             NSManagedObject * record = [self checkifexistinqueue];
             // Record Results
-            [record setValue:[NSNumber numberWithInteger:result] forKey:@"status"];
+            [record setValue:@(result) forKey:@"status"];
             // 0 - nothing playing; 1 - same episode playing; 2 - No Update Needed; 3 - Confirm title before updating  21 - Add Title Successful; 22 - Update Title Successful;  51 - Can't find Title; 52 - Add Failed; 53 - Update Failed; 54 - Scrobble Failed - 23 - Offline Queue;
             switch (result) {
                 case ScrobblerTitleNotFound:
@@ -207,7 +207,7 @@
                     scrobbled = true;
                     break;
             }
-            [record setValue:[NSNumber numberWithBool:scrobbled] forKey:@"scrobbled"];
+            [record setValue:@(scrobbled) forKey:@"scrobbled"];
             [moc performBlockAndWait:^{
                 [moc save:&error];
             }];
@@ -222,7 +222,7 @@
     if (successc > 0) {
         _Success = true;
     }
-    return @{@"success": [NSNumber numberWithInt:successc], @"fail": [NSNumber numberWithInt:fail], @"confirmneeded" : [NSNumber numberWithBool:confirmneeded]};
+    return @{@"success": @(successc), @"fail": @(fail), @"confirmneeded" : @(confirmneeded)};
 }
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)correctonce{
     _correcting = true;
@@ -247,34 +247,7 @@
     }
     return status;
 }
-- (int)scrobblefromstreamlink:(NSString *)url withStream:(NSString *)stream {
-    if (!_detector) {
-        _detector = [streamlinkdetector new];
-    }
-    // Set stream URL and stream
-    [_detector setStreamURL:url];
-    [_detector setStream:stream];
-    // Get detection information
-    if ([_detector getDetectionInfo]) {
-        if ([[_detector getdetectinfo] count] > 0) {
-            NSDictionary * d = [[_detector getdetectinfo] objectAtIndex:0];
-            // Check if title is ignored. Update if not on list.
-            NSDictionary * detectioninfo = [_detection checksstreamlinkinfo:d];
-            if (detectioninfo) {
-                int result = [self populatevalues:detectioninfo];
-                // Check Exceptions
-                [self checkExceptions];
-                // Start Stream
-                [_detector startStream];
-                if (result == ScrobblerDetectedMedia) {
-                    // Perform the update
-                    return [self scrobble];
-                }
-            }
-        }
-    }
-    return ScrobblerNothingPlaying;
-}
+
 - (int)scrobble{
     int status;
 	NSLog(@"=============");
@@ -489,7 +462,7 @@
         }
         else {break;}
 		// Set Predicate and filter exceiptions array
-        [allExceptions setPredicate: predicate];
+        allExceptions.predicate = predicate;
         __block NSArray * exceptions;
         [managedObjectContext performBlockAndWait:^{
         exceptions = [moc executeFetchRequest:allExceptions error:&error];
@@ -507,14 +480,14 @@
                     int mappedepisode;
 					
 					if (i==1) {
-						mappedepisode = [(NSNumber *)[entry valueForKey:@"mappedepisode"] intValue];
+						mappedepisode = ((NSNumber *)[entry valueForKey:@"mappedepisode"]).intValue;
 					}
 					else {
                         mappedepisode = 0;
 					}
 					bool iszeroepisode;
 					if (i==1) {
-						iszeroepisode = [(NSNumber *)[entry valueForKey:@"iszeroepisode"] boolValue];
+						iszeroepisode = ((NSNumber *)[entry valueForKey:@"iszeroepisode"]).boolValue;
 					}
 					else {
 						iszeroepisode = false;
@@ -559,7 +532,7 @@
     NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@)", _DetectedTitle, _DetectedEpisode, _DetectedType, _DetectedTitleisMovie, _DetectedTitleisEpisodeZero, _DetectedSeason, _DetectedSource];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
-    [queuefetch setPredicate: predicate];
+    queuefetch.predicate = predicate;
     __block NSArray * queue;
     [moc performBlockAndWait:^{
         queue = [moc executeFetchRequest:queuefetch error:&error];
@@ -589,7 +562,7 @@
         NSLog(@"Token refreshed");
         [AFOAuthCredential storeCredential:credential
                             withIdentifier:@"Hachidori"];
-        AppDelegate * appdel = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+        AppDelegate * appdel = (AppDelegate *)[NSApplication sharedApplication].delegate;
         [appdel updatenow:self];
     }
                                                failure:^(NSError *error) {

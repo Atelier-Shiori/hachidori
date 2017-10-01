@@ -1,0 +1,6 @@
+framework module PingNotifier {
+  umbrella header "PingNotifier.h"
+
+  export *
+  module * { export * }
+}

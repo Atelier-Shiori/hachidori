@@ -1,6 +1,0 @@
-framework module streamlinkdetect {
-  umbrella header "streamlinkdetect.h"
-
-  export *
-  module * { export * }
-}

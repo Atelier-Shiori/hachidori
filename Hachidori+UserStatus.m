@@ -22,7 +22,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     // Get Information
     [request startRequest];
     NSDictionary * d;
@@ -85,14 +85,14 @@
     //Should never happen, but...
     return NO;
 }
-- (NSDictionary *)retrieveAnimeInfo:(NSString *)aid{
+- (NSDictionary *)retrieveAnimeInfo:(NSString *)aid {
     NSLog(@"Getting Additional Info");
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@", aid]];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
     //Ignore Cookies
     [request setUseCookies:NO];
     // Set Auth Header
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [[self getFirstAccount] accessToken]]};
+    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     //Get Information
     [request startRequest];
     // Get Status Code
@@ -108,7 +108,7 @@
         return d;
     }
 }
-- (void)populateStatusData:(NSDictionary *)d id:(NSString *)aid{
+- (void)populateStatusData:(NSDictionary *)d id:(NSString *)aid {
     // Retrieve Anime Information
     NSDictionary * tmpinfo = [self retrieveAnimeInfo:aid];
     self.WatchStatus = d[@"status"];

@@ -36,7 +36,7 @@
        didEndSelector:@selector(updateDidEnd:returnCode:contextInfo:)
           contextInfo:(void *)nil];
     // Set up UI
-    _showtitle.objectValue = [haengine getLastScrobbledActualTitle];
+    _showtitle.objectValue = haengine.LastScrobbledActualTitle;
     // Set rating menu based on user's rating preferences
     switch (haengine.ratingtype){
         case ratingSimple:
@@ -52,17 +52,17 @@
             _showscore.menu = _simpleratingmenu;
             break;
     }
-    [_showscore selectItemWithTag:[haengine getTitleScore]];
-    _episodefield.stringValue = [NSString stringWithFormat:@"%i", [haengine getCurrentEpisode]];
-    if ([haengine getTotalEpisodes]  !=0) {
-        _epiformatter.maximum = @([haengine getTotalEpisodes]);
+    [_showscore selectItemWithTag:haengine.TitleScore];
+    _episodefield.stringValue = [NSString stringWithFormat:@"%i", haengine.DetectedCurrentEpisode];
+    if (haengine.TotalEpisodes  !=0) {
+        _epiformatter.maximum = @(haengine.TotalEpisodes);
     }
     [_showstatus selectItemAtIndex:[haengine getWatchStatus]];
-    _notes.string = [haengine getNotes];
-    _isPrivate.state = [haengine getPrivate];
+    _notes.string = haengine.TitleNotes;
+    _isPrivate.state = haengine.isPrivate;
     // Stop Timer temporarily if scrobbling is turned on
     AppDelegate *appdel = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    if ([appdel getisScrobbling]) {
+    if (appdel.scrobbling) {
         [appdel stoptimer];
     }
     

@@ -64,7 +64,7 @@
 - (IBAction)clearSearchCache:(id)sender{
     // Remove All cache data from Core Data Entity
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate getObjectContext];
+    NSManagedObjectContext *moc = delegate.managedObjectContext;
     NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
     allCaches.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
     
@@ -111,7 +111,7 @@
     [alert setInformativeText:NSLocalizedString(@"Since you are disabling Auto Exceptions, you can delete the Auto Exceptions Data. You will be able to download it again.",nil)];
     // Set Message type to Warning
     alert.alertStyle = NSWarningAlertStyle;
-        [alert beginSheetModalForWindow:[[self view] window] completionHandler:^(NSModalResponse returnCode) {
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode== NSAlertFirstButtonReturn) {
         [AutoExceptions clearAutoExceptions];
             }
@@ -121,7 +121,7 @@
 - (IBAction)changetimerinterval:(id)sender {
     // Sets new time for the timer, if running
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    if ([delegate getisScrobbling]) {
+    if (delegate.scrobbling) {
         [delegate stoptimer];
         [delegate starttimer];
     }

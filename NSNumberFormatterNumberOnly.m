@@ -16,10 +16,10 @@
     
     static NSCharacterSet *nonDecimalCharacters = nil;
     if (!nonDecimalCharacters) {
-        nonDecimalCharacters = [[NSCharacterSet decimalDigitCharacterSet] invertedSet] ;
+        nonDecimalCharacters = [NSCharacterSet decimalDigitCharacterSet].invertedSet ;
     }
     
-    if ([partialString length] == 0) {
+    if (partialString.length == 0) {
         return YES; // The empty string is okay (the user might just be deleting everything and starting over)
     } else if ([partialString rangeOfCharacterFromSet:nonDecimalCharacters].location != NSNotFound) {
         return NO; // Non-decimal characters aren't cool!

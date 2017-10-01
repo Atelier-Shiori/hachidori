@@ -74,13 +74,13 @@
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification {
-    NSTextField * textfield = [notification object];
-    [HaEngine.detection setPlexReachAddress:[textfield stringValue]];
+    NSTextField * textfield = notification.object;
+    [HaEngine.detection setPlexReachAddress:textfield.stringValue];
     
 }
 
 - (IBAction)setPlexReach:(id)sender {
-    if ([_plexcheck state] == 0) {
+    if (_plexcheck.state == 0) {
         // Turn off reachability notification for Kodi
         [HaEngine.detection setPlexReach:false];
     }

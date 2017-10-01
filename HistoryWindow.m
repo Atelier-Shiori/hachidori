@@ -42,7 +42,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         // Add scrobble history record to the SQLite Database via Core Data
         AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-        NSManagedObjectContext *moc = [appDelegate getObjectContext];
+        NSManagedObjectContext *moc = appDelegate.managedObjectContext;
         NSManagedObject *obj = [NSEntityDescription
                                 insertNewObjectForEntityForName :@"History"
                                 inManagedObjectContext: moc];

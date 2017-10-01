@@ -143,7 +143,7 @@
 }
 - (IBAction)clearlogin:(id)sender
 {
-    if (![_appdelegate getisScrobbling] && ![_appdelegate getisScrobblingActive]) {
+    if (!_appdelegate.scrobbling && !_appdelegate.scrobbleractive) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
@@ -152,7 +152,7 @@
         [alert setInformativeText:NSLocalizedString(@"Once you remove this account, you need to reauthenticate your account before you can use this application.",nil)];
         // Set Message type to Warning
         alert.alertStyle = NSWarningAlertStyle;
-        [alert beginSheetModalForWindow:[[self view] window] completionHandler:^(NSModalResponse returnCode) {
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode== NSAlertFirstButtonReturn) {
                 // Remove Oauth Account
                 [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
@@ -176,7 +176,7 @@
  Reauthorization Panel
  */
 - (IBAction)reauthorize:(id)sender{
-    if (![_appdelegate getisScrobbling] && ![_appdelegate getisScrobblingActive]) {
+    if (!_appdelegate.scrobbling && !_appdelegate.scrobbleractive) {
         [NSApp beginSheet:self.loginpanel
            modalForWindow:self.view.window modalDelegate:self
            didEndSelector:@selector(reAuthPanelDidEnd:returnCode:contextInfo:)
