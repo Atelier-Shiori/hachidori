@@ -34,7 +34,7 @@
   {
   "player_name":"VLC",
   "player_bundle_identifier":"org.videolan.vlc",
-  "process_name":"vlc"
+  "applescript_command":"tell application \"VLC\" to get path of current item"
   },
   {
   "player_name":"Quicktime",

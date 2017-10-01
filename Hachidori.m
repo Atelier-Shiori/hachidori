@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by James M. on 8/7/10.
-//  Copyright 2009-2015 Atelier Shiori. All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2018 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori.h"
@@ -381,10 +381,7 @@
 
 }
 - (BOOL)checkBlankDetectedEpisode{
-    if ([_LastScrobbledEpisode isEqualToString:@"1"] && _DetectedEpisode.length ==0) {
-        return true;
-    }
-    return false;
+    return [_LastScrobbledEpisode isEqualToString:@"1"] && _DetectedEpisode.length == 0;
 }
 - (void)checkzeroEpisode{
     // For 00 Episodes
@@ -395,7 +392,9 @@
     else if (([_DetectedType isLike:@"Movie"] || [_DetectedType isLike:@"OVA"] || [_DetectedType isLike:@"Special"]) && ([_DetectedEpisode isEqualToString:@"0"] || _DetectedEpisode.length == 0)) {
         _DetectedEpisode = @"1";
     }
-    else {_DetectedTitleisEpisodeZero = false;}
+    else {
+        _DetectedTitleisEpisodeZero = false;
+    }
 }
 - (BOOL)confirmupdate{
     _DetectedTitle = _LastScrobbledTitle;
@@ -521,7 +520,9 @@
                     }
                 }
             }
-			if (found) {break;} //Break from exceptions check loop
+			if (found) {
+                break;
+            } //Break from exceptions check loop
         }
     }
 }

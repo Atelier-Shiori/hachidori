@@ -3,7 +3,7 @@
 //  MAL Updater OS X
 //
 //  Created by 桐間紗路 on 2017/03/05.
-//  Copyright © 2017 Atelier Shiori. All rights reserved. Code licensed under New BSD License
+//  Copyright © 2017 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "NSNumberFormatterNumberOnly.h"

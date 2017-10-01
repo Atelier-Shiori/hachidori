@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by アナスタシア on 2016/04/17.
-//  Copyright 2009-2016 Atelier Shiori. All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2016 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori+MALSync.h"

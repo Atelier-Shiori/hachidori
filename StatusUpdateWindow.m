@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by 桐間紗路 on 2017/06/12.
-//  Copyright 2009-2015 Atelier Shiori. All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2018 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "StatusUpdateWindow.h"
