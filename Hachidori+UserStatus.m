@@ -52,7 +52,7 @@
             self.rewatching = false;
             self.rewatchcount = 0;
         }
-        if (!self.LastScrobbledInfo[@"episodeCount"]) { // To prevent the scrobbler from failing because there is no episode total.
+        if (!self.LastScrobbledInfo[@"episodeCount"] || self.LastScrobbledInfo[@"episodeCount"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
             self.TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists
