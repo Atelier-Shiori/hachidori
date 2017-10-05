@@ -1221,7 +1221,7 @@
     }
     //Image
     NSDictionary * posterimg = d[@"posterImage"];
-    NSImage * dimg = [[NSImage alloc]initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", posterimg[@"original"]]]]; //Downloads Image
+    NSImage * dimg = (posterimg[@"original"] != [NSNull null] || posterimg[@"original"]) ? [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:(NSString *)posterimg[@"original"]]] : [NSImage imageNamed:@"missing"]; //Downloads Image
     img.image = dimg; //Get the Image for the title
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
