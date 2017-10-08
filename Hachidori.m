@@ -420,20 +420,21 @@
 }
 - (NSString *)checkCache{
     NSManagedObjectContext *moc = managedObjectContext;
-    NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
+    NSFetchRequest *allCaches = [[NSFetchRequest alloc] init];
     allCaches.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
     NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", _DetectedTitle];
     allCaches.predicate = predicate;
-    NSError * error = nil;
-    NSArray * cache = [moc executeFetchRequest:allCaches error:&error];
+    NSError *error = nil;
+    NSArray *cache = [moc executeFetchRequest:allCaches error:&error];
     if (cache.count > 0) {
-        for (NSManagedObject * cacheentry in cache) {
-            NSString * title = [cacheentry valueForKey:@"detectedTitle"];
-            if ([title isEqualToString:_DetectedTitle]) {
-                NSLog(@"%@ found in cache!", title);
+        for (NSManagedObject *cacheentry in cache) {
+            NSString *title = [cacheentry valueForKey:@"detectedTitle"];
+            NSNumber *season = [cacheentry valueForKey:@"detectedSeason"];
+            if ([title isEqualToString:_DetectedTitle] && _DetectedSeason == season.intValue) {
+                NSLog(@"%@", season.intValue > 1 ? [NSString stringWithFormat:@"%@ Season %i is found in cache.", title, season.intValue] : [NSString stringWithFormat:@"%@ is found in cache.", title]);
                 // Total Episode check
-                NSNumber * totalepisodes = [cacheentry valueForKey:@"totalEpisodes"];
-                if (_DetectedEpisode.intValue <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
+                NSNumber *totalepisodes = [cacheentry valueForKey:@"totalEpisodes"];
+                if ( _DetectedEpisode.intValue <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
                     return [cacheentry valueForKey:@"id"];
                 }
             }

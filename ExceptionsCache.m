@@ -50,9 +50,9 @@
         [moc save:&error];
     }
 }
-+ (void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes {
++ (void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes detectedSeason:(int)season {
     //Adds ID to cache
-    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = delegate.managedObjectContext;
     // Add to Cache in Core Data
     NSManagedObject *obj = [NSEntityDescription
@@ -63,7 +63,8 @@
     [obj setValue:showid forKey:@"id"];
     [obj setValue:atitle forKey:@"actualTitle"];
     [obj setValue:@(totalepisodes) forKey:@"totalEpisodes"];
-    NSError * error = nil;
+    [obj setValue:@(season) forKey:@"detectedSeason"];
+    NSError *error = nil;
     // Save
     [moc save:&error];
     

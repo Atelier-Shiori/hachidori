@@ -322,4 +322,30 @@
     }
     return 0;
 }
++ (NSString *)numbertoordinal:(int)number {
+    NSString *tmpnum = [NSString stringWithFormat:@"%i", number];
+    tmpnum = [tmpnum substringFromIndex:tmpnum.length-1];
+    NSString *ordinal = @"";
+    switch (tmpnum.intValue) {
+        case 1:
+            ordinal = @"st";
+            break;
+        case 2:
+            ordinal = @"nd";
+            break;
+        case 3:
+            ordinal = @"rd";
+            break;
+        case 0:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+            ordinal = @"th";
+            break;
+    }
+    return [NSString stringWithFormat:@"%i%@", number, ordinal];
+}
 @end

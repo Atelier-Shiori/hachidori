@@ -173,6 +173,7 @@
 		2D807F511E201332003E2FCF /* DonationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonationWindowController.h; sourceTree = "<group>"; };
 		2D807F521E201332003E2FCF /* DonationWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonationWindowController.m; sourceTree = "<group>"; };
 		2D807F571E48FD10003E2FCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DonationWindow.xib; sourceTree = "<group>"; };
+		2D907A381F8AC43C00DF47A5 /* MAL_Updater_OS_X_DataModel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 5.xcdatamodel"; sourceTree = "<group>"; };
 		2DA086061E2DBA4200DD9C26 /* MAL_Updater_OS_X_DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
 		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2DDFFEDE1EEEE4AF00EB1509 /* StatusUpdateWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusUpdateWindow.h; sourceTree = "<group>"; };
@@ -1578,12 +1579,13 @@
 		2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				2D907A381F8AC43C00DF47A5 /* MAL_Updater_OS_X_DataModel 5.xcdatamodel */,
 				91CC23E11E7C3FA9008E47F6 /* MAL_Updater_OS_X_DataModel 4.xcdatamodel */,
 				2DA086061E2DBA4200DD9C26 /* MAL_Updater_OS_X_DataModel 3.xcdatamodel */,
 				2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */,
 				2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
 			);
-			currentVersion = 91CC23E11E7C3FA9008E47F6 /* MAL_Updater_OS_X_DataModel 4.xcdatamodel */;
+			currentVersion = 2D907A381F8AC43C00DF47A5 /* MAL_Updater_OS_X_DataModel 5.xcdatamodel */;
 			path = MAL_Updater_OS_X_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

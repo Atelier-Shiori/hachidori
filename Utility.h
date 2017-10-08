@@ -34,4 +34,5 @@
 + (int)translateKitsuTwentyScoreToMAL:(int)rating;
 + (int)translatestandardKitsuRatingtoRatingTwenty:(double)score;
 + (int)translateadvancedKitsuRatingtoRatingTwenty:(double)score;
++ (NSString *)numbertoordinal:(int)number;
 @end

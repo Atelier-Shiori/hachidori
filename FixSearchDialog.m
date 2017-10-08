@@ -94,11 +94,11 @@
 }
 - (IBAction)search:(id)sender{
     if (search.stringValue.length> 0) {
+        __block NSString *searchterm = [Utility urlEncodeString:search.stringValue];
         dispatch_queue_t queue = dispatch_get_global_queue(
                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_async(queue, ^{
-        NSString * searchterm = [Utility urlEncodeString:search.stringValue];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm]];
         EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
         //Ignore Cookies
