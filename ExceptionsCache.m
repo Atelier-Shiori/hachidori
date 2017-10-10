@@ -12,10 +12,10 @@
 #import "AppDelegate.h"
 
 @implementation ExceptionsCache
-+ (void)addtoExceptions:(NSString *)detectedtitle correcttitle:(NSString *)title aniid:(NSString *)showid threshold:(int)threshold offset:(int)offset{
-    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
++ (void)addtoExceptions:(NSString *)detectedtitle correcttitle:(NSString *)title aniid:(NSString *)showid threshold:(int)threshold offset:(int)offset detectedSeason:(int)season {
+    AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = delegate.managedObjectContext;
-    NSError * error = nil;
+    NSError *error = nil;
     // Add to Cache in Core Data
     NSManagedObject *obj = [NSEntityDescription
                             insertNewObjectForEntityForName:@"Exceptions"
@@ -26,25 +26,26 @@
     [obj setValue:showid forKey:@"id"];
     [obj setValue:@(threshold) forKey:@"episodethreshold"];
     [obj setValue:@(offset) forKey:@"episodeOffset"];
+    [obj setValue:@(season) forKey:@"detectedSeason"];
     //Save
     [moc save:&error];
 }
-+ (void)checkandRemovefromCache:(NSString *)detectedtitle{
++ (void)checkandRemovefromCache:(NSString *)detectedtitle detectedSeason:(int)season {
     // Checks for cache entry. If exists, it will remove that entry.
-    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = delegate.managedObjectContext;
     // Load present cache data
-    NSFetchRequest * allCache = [[NSFetchRequest alloc] init];
+    NSFetchRequest *allCache = [[NSFetchRequest alloc] init];
     allCache.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
-    NSError * error = nil;
-    NSArray * caches = [moc executeFetchRequest:allCache error:&error];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", detectedtitle];
+    NSError *error = nil;
+    NSArray *caches = [moc executeFetchRequest:allCache error:&error];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (detectedSeason == %i)", detectedtitle, season];
     allCache.predicate = predicate;
     if (caches.count > 0) {
         //Check Cache to remove conflicts
-        for (NSManagedObject * cacheentry in caches) {
-                [moc deleteObject:cacheentry];
-                break;
+        for (NSManagedObject *cacheentry in caches) {
+            [moc deleteObject:cacheentry];
+            break;
         }
         //Save
         [moc save:&error];

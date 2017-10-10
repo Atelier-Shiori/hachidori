@@ -15,7 +15,7 @@
 #import "ClientConstants.h"
 #import "AppDelegate.h"
 #import <Reachability/Reachability.h>
-
+#import "Utility.h"
 
 @implementation Hachidori
 @synthesize managedObjectContext;
@@ -232,6 +232,7 @@
     }
     _DetectedTitle = showtitle;
     _DetectedEpisode = episode;
+    _DetectedSeason = _FailedSeason;
     if (!_FailedSource) {
         _DetectedSource = _LastScrobbledSource;
     }
@@ -248,7 +249,7 @@
     return status;
 }
 
-- (int)scrobble{
+- (int)scrobble {
     int status;
 	NSLog(@"=============");
 	NSLog(@"Scrobbling...");
@@ -276,6 +277,7 @@
         _FailedTitle = nil;
         _FailedEpisode = nil;
         _FailedSource = nil;
+        _FailedSeason = 0;
         // Check Status and Update
         BOOL UpdateBool = [self checkstatus:_AniID];
         if (UpdateBool == 1) {
@@ -316,6 +318,7 @@
             _FailedTitle = _DetectedTitle;
             _FailedEpisode = _DetectedEpisode;
             _FailedSource = _DetectedSource;
+            _FailedSeason = _DetectedSeason;
             status = ScrobblerTitleNotFound;
         }
         else {
@@ -442,7 +445,7 @@
     }
     return @"";
 }
-- (void)checkExceptions{
+- (void)checkExceptions {
     // Check Exceptions
     NSManagedObjectContext * moc = self.managedObjectContext;
 	bool found = false;
@@ -453,14 +456,26 @@
         if (i == 0) {
             NSLog(@"Check Exceptions List");
             allExceptions.entity = [NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc];
-			predicate = [NSPredicate predicateWithFormat: @"detectedTitle ==[c] %@", _DetectedTitle];
+            if (_DetectedSeason > 1) {
+                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (detectedSeason == %i)", _DetectedTitle, _DetectedSeason];
+            }
+            else {
+                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((detectedSeason == %i) OR (detectedSeason == %i))", _DetectedTitle, 0, 1];
+            }
         }
         else if (i== 1 && [[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
                 NSLog(@"Checking Auto Exceptions");
                 allExceptions.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
-                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", _DetectedTitle, _DetectedGroup, @"ALL"];
+                if (_DetectedSeason == 1 || _DetectedSeason == 0) {
+                    predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", _DetectedTitle, _DetectedGroup, @"ALL"];
+                }
+                else {
+                    predicate = [NSPredicate predicateWithFormat: @"((detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@) OR    (detectedTitle ==[c] %@)) AND ((group == %@) OR (group == %@))", [NSString stringWithFormat:@"%@ %i", _DetectedTitle, _DetectedSeason], [NSString stringWithFormat:@"%@ S%i", _DetectedTitle, _DetectedSeason], [NSString stringWithFormat:@"%@ %@ Season", _DetectedTitle, [Utility numbertoordinal:_DetectedSeason]], _DetectedGroup, @"ALL"];
+                }
         }
-        else {break;}
+        else {
+            break;
+        }
 		// Set Predicate and filter exceiptions array
         allExceptions.predicate = predicate;
         __block NSArray * exceptions;
@@ -471,7 +486,7 @@
             NSString * correcttitle;
             for (NSManagedObject * entry in exceptions) {
                 NSLog(@"%@",(NSString *)[entry valueForKey:@"detectedTitle"]);
-                if ([_DetectedTitle isEqualToString:(NSString *)[entry valueForKey:@"detectedTitle"]]) {
+                if ([_DetectedTitle caseInsensitiveCompare:(NSString *)[entry valueForKey:@"detectedTitle"]] == NSOrderedSame) {
                     correcttitle = (NSString *)[entry valueForKey:@"correctTitle"];
                     // Set Correct Title and Episode offset (if any)
                     int threshold = ((NSNumber *)[entry valueForKey:@"episodethreshold"]).intValue;

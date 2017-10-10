@@ -51,6 +51,7 @@ typedef NS_ENUM(unsigned int, ratingType){
 @property (strong, getter=getFailedTitle) NSString *FailedTitle;
 @property (strong, getter=getFailedEpisode) NSString *FailedEpisode;
 @property (strong) NSString *FailedSource;
+@property (getter=getFailedSeason) int FailedSeason;
 @property int DetectedSeason;
 @property (getter=getCurrentEpisode) int DetectedCurrentEpisode;
 @property BOOL DetectedTitleisMovie;

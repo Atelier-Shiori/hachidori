@@ -64,6 +64,7 @@
         [op orderOut:nil];
         NSDictionary * d = [[Recognition alloc] recognize:op.URL.path];
         detectedtitle = d[@"title"];
+        _detectedseason = ((NSNumber *)d[@"season"]).intValue;
         if ([self checkifexists:detectedtitle offset:0 correcttitle:nil]) {
             // Exists, don't do anything
             return;
@@ -85,9 +86,9 @@
             return;
         }
         // Add to Exceptions
-        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:fsdialog.selectedtitle aniid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes offset:0];
+        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:fsdialog.selectedtitle aniid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes offset:0 detectedSeason:_detectedseason];
         //Check Cache
-        [ExceptionsCache checkandRemovefromCache:detectedtitle];
+        [ExceptionsCache checkandRemovefromCache:detectedtitle detectedSeason:_detectedseason];
     }
     // Refetch Exceptions Data
     [arraycontroller fetch:self];
@@ -120,6 +121,13 @@
         NSArray * a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
         for (NSDictionary *d in a) {
             NSString * detectedtitlea = d[@"detectedtitle"];
+            int detectseason;
+            if (d[@"detectedseason"]) {
+                detectseason = ((NSNumber *)d[@"detectedseason"]).intValue;
+            }
+            else {
+                detectseason = 1;
+            }
             int doffset;
             if (d[@"offset"]) {
                 doffset = ((NSNumber *)d[@"offset"]).intValue;
@@ -142,9 +150,9 @@
                 else {
                     threshold = 0;
                 }
-                [ExceptionsCache addtoExceptions:d[@"detectedtitle"] correcttitle:d[@"correcttitle"] aniid:d[@"showid"] threshold:threshold offset:doffset];
+                [ExceptionsCache addtoExceptions:d[@"detectedtitle"] correcttitle:d[@"correcttitle"] aniid:d[@"showid"] threshold:threshold offset:doffset detectedSeason:detectseason];
                 //Check Cache
-                [ExceptionsCache checkandRemovefromCache:(NSString *)d[@"detectedtitle"]];
+                [ExceptionsCache checkandRemovefromCache:(NSString *)d[@"detectedtitle"] detectedSeason:_detectedseason];
             }
             // Refetch Exceptions Data
             [arraycontroller fetch:self];
@@ -167,7 +175,7 @@
         NSMutableArray * jsonOutput = [[NSMutableArray alloc] init];
         for (NSManagedObject * o in arraycontroller.arrangedObjects) {
             @autoreleasepool {
-            NSDictionary * d = @{@"detectedtitle": [o valueForKey:@"detectedTitle"], @"correcttitle": [o valueForKey:@"correctTitle"], @"showid": [o valueForKey:@"id"], @"offset": [o valueForKey:@"episodeOffset"], @"threshold": [o valueForKey:@"episodethreshold"]};
+            NSDictionary *d = @{@"detectedtitle": [o valueForKey:@"detectedTitle"], @"correcttitle": [o valueForKey:@"correctTitle"], @"showid": [o valueForKey:@"id"], @"offset": [o valueForKey:@"episodeOffset"], @"threshold": [o valueForKey:@"episodethreshold"], @"detectedseason": [o valueForKey:@"detectedSeason"]};
             [jsonOutput addObject:d];
             }
         }

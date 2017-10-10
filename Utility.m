@@ -16,7 +16,7 @@
             regex:(OnigRegexp *)regex
            option:(int)i{
     //Checks for matches
-    if ([regex match:title] || ([regex match:atitle] && atitle.length >0 && i==0)) {
+    if ([regex search:title].count > 0 || ([regex search:atitle] && atitle.length >0 && i==0)) {
         return true;
     }
     return false;

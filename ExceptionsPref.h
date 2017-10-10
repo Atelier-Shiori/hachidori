@@ -20,6 +20,7 @@
 @property (strong) IBOutlet NSTableView * tb;
 @property (strong) IBOutlet NSTableView * iftb;
 @property (strong) NSString *detectedtitle;
+@property int detectedseason;
 @property(strong) FixSearchDialog *fsdialog;
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @end

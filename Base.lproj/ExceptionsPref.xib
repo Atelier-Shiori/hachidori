@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ExceptionsPref">
@@ -38,12 +39,12 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Anime Title Exceptions" identifier="1" id="dDU-b1-Ua0">
-                            <view key="view" id="mi1-sZ-x1p">
-                                <rect key="frame" x="10" y="33" width="174" height="0.0"/>
+                            <view key="view" ambiguous="YES" id="mi1-sZ-x1p">
+                                <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="Removes title from exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2FI-VL-IAQ">
-                                        <rect key="frame" x="33" y="-204" width="24" height="24"/>
+                                        <rect key="frame" x="33" y="17" width="24" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Hje-TO-QKF">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -55,7 +56,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Adds a title to the dection list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7es-2w-wEy">
-                                        <rect key="frame" x="10" y="-204" width="24" height="24"/>
+                                        <rect key="frame" x="10" y="17" width="24" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dqZ-Vv-lY3">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -66,7 +67,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Imports an exception list." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-sz-D9M">
-                                        <rect key="frame" x="417" y="-211" width="82" height="32"/>
+                                        <rect key="frame" x="417" y="10" width="82" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ctM-pM-8N2">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -77,7 +78,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Exports an exception list in JSON format." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-OY-6j2">
-                                        <rect key="frame" x="498" y="-211" width="82" height="32"/>
+                                        <rect key="frame" x="498" y="10" width="82" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="Export" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KLI-rf-IFn">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -88,7 +89,7 @@
                                         </connections>
                                     </button>
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orw-aQ-yjO">
-                                        <rect key="frame" x="10" y="-163" width="564" height="154"/>
+                                        <rect key="frame" x="10" y="58" width="564" height="154"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" id="fLT-H6-Adh">
                                             <rect key="frame" x="1" y="0.0" width="562" height="153"/>
@@ -101,7 +102,7 @@
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="218" minWidth="40" maxWidth="1000" id="8fi-uM-Lr1">
+                                                        <tableColumn identifier="" editable="NO" width="237" minWidth="40" maxWidth="1000" id="8fi-uM-Lr1">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Detected Title">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -114,15 +115,19 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.detectedTitle" id="oFU-te-7wL">
+                                                                <binding destination="WNZ-Fa-W8F" name="displayPatternValue1" keyPath="arrangedObjects.detectedTitle" id="ryr-al-f8l">
                                                                     <dictionary key="options">
-                                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                                        <string key="NSDisplayPattern">%{value1}@ (Season %{value2}@)</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="WNZ-Fa-W8F" name="displayPatternValue2" keyPath="arrangedObjects.detectedSeason" previousBinding="ryr-al-f8l" id="3C7-L4-Pua">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSDisplayPattern">%{value1}@ (Season %{value2}@)</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn editable="NO" width="221" minWidth="40" maxWidth="1000" id="AjX-Bc-piW">
+                                                        <tableColumn identifier="" editable="NO" width="205" minWidth="40" maxWidth="1000" id="AjX-Bc-piW">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Correct Title">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -138,7 +143,7 @@
                                                                 <binding destination="WNZ-Fa-W8F" name="value" keyPath="arrangedObjects.correctTitle" id="tds-Qd-ipc"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="50" minWidth="10" maxWidth="50" id="shT-zK-XYX">
+                                                        <tableColumn identifier="" width="50" minWidth="10" maxWidth="50" id="shT-zK-XYX">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Offset">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -160,7 +165,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="60" minWidth="10" maxWidth="60" id="fEq-C1-gSA">
+                                                        <tableColumn identifier="" width="57" minWidth="10" maxWidth="60" id="fEq-C1-gSA">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Threshold">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -193,7 +198,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Lp6-QF-eWj">
-                                            <rect key="frame" x="-14" y="16" width="15" height="0.0"/>
+                                            <rect key="frame" x="-14" y="15" width="15" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" focusRingType="none" id="nAC-LU-93c">
@@ -214,7 +219,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" id="tOB-JE-5PV">
                                             <rect key="frame" x="1" y="1" width="559" height="160"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="xDf-U7-Rbg">
                                                     <rect key="frame" x="0.0" y="0.0" width="559" height="160"/>
@@ -223,7 +228,7 @@
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn editable="NO" width="556" minWidth="40" maxWidth="1000" id="wqQ-Is-Qm5">
+                                                        <tableColumn identifier="" editable="NO" width="556" minWidth="40" maxWidth="1000" id="wqQ-Is-Qm5">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -309,7 +314,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Title Ignore" identifier="" id="RJZ-6G-zST">
-                            <view key="view" ambiguous="YES" id="aDo-4b-5DM">
+                            <view key="view" id="aDo-4b-5DM">
                                 <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -318,7 +323,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" id="uQX-ol-vKO">
                                             <rect key="frame" x="1" y="0.0" width="559" height="126"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="Y7w-8K-yca" id="cUG-zP-Xvg">
                                                     <rect key="frame" x="0.0" y="0.0" width="559" height="103"/>
@@ -327,7 +332,7 @@
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="400" minWidth="40" maxWidth="400" id="rj6-7y-jpp">
+                                                        <tableColumn identifier="" width="400" minWidth="40" maxWidth="400" id="rj6-7y-jpp">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Rule">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -343,7 +348,7 @@
                                                                 <binding destination="3VA-hS-t5V" name="value" keyPath="arrangedObjects.rule" id="n8z-Dr-DfK"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="153" minWidth="10" maxWidth="3.4028234663852886e+38" id="als-gq-RmQ">
+                                                        <tableColumn identifier="" width="153" minWidth="10" maxWidth="3.4028234663852886e+38" id="als-gq-RmQ">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Source">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -457,7 +462,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="qqs-n7-ngN">
-                                            <rect key="frame" x="-14" y="16" width="15" height="0.0"/>
+                                            <rect key="frame" x="-14" y="15" width="15" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="Y7w-8K-yca">
@@ -504,7 +509,7 @@
                     </tabViewItems>
                 </tabView>
             </subviews>
-            <point key="canvasLocation" x="281.5" y="244.5"/>
+            <point key="canvasLocation" x="377" y="110"/>
         </customView>
         <arrayController mode="entity" entityName="Exceptions" automaticallyPreparesContent="YES" selectsInsertedObjects="NO" id="WNZ-Fa-W8F">
             <declaredKeys>
