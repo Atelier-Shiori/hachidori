@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GBPing/GBPing.h>
+#import "GBPing/GBPing.h"
 @class GBPing;
 
 @interface PingNotifier : NSObject <GBPingDelegate>

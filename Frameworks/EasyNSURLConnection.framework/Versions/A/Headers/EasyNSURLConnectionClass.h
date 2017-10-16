@@ -14,76 +14,70 @@
 typedef enum JsonType{
 	/** 
 		This option will set the body type of a JSON request to "application/json".
-		@return 0
 	*/
     EasyNSURLConnectionJsonType = 0,
 	/** 
-		This option will set the body type of a JSON request to "application/vnd.api+json". Some web APIs might require the use of this.
-		@return 1
+		This option will set the body type of a JSON request to "application/vnd.api+json". Some web APIs might require this.
 	*/
     EasyNSURLConnectionvndapiJsonType = 1
 } EasyNSURLConnectionJsonTypes;
 
 /** 
-This constant is used to set the request method to POST 
-	@return "POST"
+This constant is used to set the request method to POST
 */
 extern NSString * const EasyNSURLPostMethod;
 /** 
-This constant is used to set the request method to PUT 
-	@return "PUT"
+This constant is used to set the request method to PUT
 */
 extern NSString * const EasyNSURLPutMethod;
 /** 
-This constant is used to set the request method to PATCH 
-	@return "PATCH"
+This constant is used to set the request method to PATCH
 */
 extern NSString * const EasyNSURLPatchMethod;
 /** 
-This constant is used to set the request method to DELETE 
-	@return "DELETE"
+This constant is used to set the request method to DELETE
 */
 extern NSString * const EasyNSURLDeleteMethod;
 
 @interface EasyNSURLConnection : NSObject
 /**
- The user agent of the request. Example: "MAL Updater OS X 2.2.13 (Macintosh; Mac OS X 10.12.3; en_US)"
- @see setUserAgent:
-	*/
-@property (strong) NSString * useragent;
+    The user agent of the request. Example: "MAL Updater OS X 2.2.13 (Macintosh; Mac OS X 10.12.3; en_US)"
+    @see setUserAgent:
+*/
+@property (strong, setter=setUserAgent:) NSString *useragent;
 /**
- The post method of a request. (e.g. POST)
-	*/
-@property (strong) NSString * postmethod;
+    The post method of a request. (e.g. POST)
+*/
+@property (strong, setter=setPostMethod:) NSString *postmethod;
 /**
- The request's headers.
-	*/
-@property (strong) NSDictionary * headers;
+    The request's headers.
+*/
+@property (strong) NSMutableDictionary *headers;
 /**
- The request's form data.
-	*/
-@property (strong) NSMutableArray * formdata;
+    The request's form data.
+*/
+@property (strong, setter=setFormData:) NSMutableDictionary *formdata;
 /**
- The request's Response.
-	*/
-@property (weak) NSHTTPURLResponse * response;
+    The request's Response.
+*/
+@property (weak) NSHTTPURLResponse *response;
 /**
- The request's response data.
-	*/
-@property (strong) NSData * responsedata;
+    The request's response data.
+*/
+@property (strong, getter=getResponseData) NSData *responsedata;
 /**
- Contains any errors when executing the request.
-	*/
-@property (weak) NSError * error;
+    Contains any errors when executing the request.
+*/
+@property (weak, getter=getError) NSError *error;
 /**
- The URL of the request.
-	*/
-@property (strong)NSURL * URL;
+    The URL of the request.
+*/
+@property (strong, setter=setURL:, getter=getURL) NSURL *URL;
 /**
- States whether or not a request should use cookies or not.
-	*/
-@property BOOL usecookies;
-/**
+    States whether or not a request should use cookies or not.
+*/
+@property (setter=setUseCookies:) BOOL usecookies;
+/** 
 	Initalizes a EasyNSURLConnection instance.
 	@return EasyNSURLConnection An instance of EasyNSURLConnection.
 */
@@ -95,11 +89,6 @@ extern NSString * const EasyNSURLDeleteMethod;
 */
 -(id)initWithURL:(NSURL *)address;
 /** 
-	Retruns the data from a response as NSData.
-	@return NSData The response data.
-*/
--(NSData *)getResponseData;
-/** 
 	Retruns the data from a response as a string.
 	@return NSString The response data.
 */
@@ -109,16 +98,18 @@ extern NSString * const EasyNSURLDeleteMethod;
 	@return id The pharsed response data.
 */
 -(id)getResponseDataJsonParsed;
-/** 
-	Returns the status code of a request.
-	@return int The status code of a request.
+/**
+    Returns the status code of a request.
+    @return int The status code of a request.
 */
 -(long)getStatusCode;
-/** 
-	Returns the error of an executed request.
-	@return NSError The error of the executed request.
+/**
+	Allows you to add a HTTP header to a request.
+	@param object The value of the header.
+	@param key The name of the header.
 */
--(NSError *)getError;
+-(void)addHeader:(id)object
+         forKey:(NSString *)key;
 /** 
 	Allows you to add a parameter containing data.
 	@param object The value of the parameter.
@@ -126,26 +117,6 @@ extern NSString * const EasyNSURLDeleteMethod;
 */
 -(void)addFormData:(id)object
            forKey:(NSString *)key;
-/** 
-	Allows you to specify a custom User Agent
-	@param string The user agent.
-*/
--(void)setUserAgent:(NSString *)string;
-/** 
-	Allows you to specify whether or not you should use existing cookies
-	@param choice Determines if a request should use cookies or not.
-*/
--(void)setUseCookies:(BOOL)choice;
-/** 
-	Sets a URL
-	@param address Specifies a URL for the request.
-*/
--(void)setURL:(NSURL *)address;
-/** 
-	Allows you to set the post method (e.g. POST, PUT, PATCH, DELETE). This is not required for GET requests.
-	@param method The method of the request.
-*/
--(void)setPostMethod:(NSString *)method;
 /** 
 	Starts a GET synchronous request.
 */

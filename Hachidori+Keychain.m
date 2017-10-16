@@ -61,7 +61,7 @@
         //Ignore Cookies
         [request setUseCookies:NO];
         //Set Username and Password
-        request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
+        request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
         //Verify Username/Password
         [request startRequest];
         // Check for errors

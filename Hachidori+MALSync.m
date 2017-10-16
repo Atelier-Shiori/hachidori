@@ -48,7 +48,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
+    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
     //Perform Search
     [request startRequest];
     // Get Status Code
@@ -82,7 +82,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
+    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
     [request setPostMethod:@"PUT"];
     // Set info
     [request addFormData:self.LastScrobbledEpisode forKey:@"episodes"];
@@ -120,7 +120,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
+    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
     [request addFormData:self.MALID forKey:@"anime_id"];
     [request addFormData:self.LastScrobbledEpisode forKey:@"episodes"];
     

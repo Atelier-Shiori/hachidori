@@ -1012,12 +1012,16 @@
     [_updatewindow showUpdateDialog:w withHachidori:haengine];
 }
 - (void)updateDidEnd:(int)returnCode {
-    dispatch_queue_t queue = dispatch_get_global_queue(
+    __block NSString * tmpepisode = _updatewindow.episodefield.stringValue;
+    __block int tmpscore = (int)_updatewindow.showscore.selectedTag;
+    __block NSString *tmpshowstatus = _updatewindow.showstatus.titleOfSelectedItem;
+    __block  NSString *tmpnotes = _updatewindow.notes.textStorage.string;
+    __block bool tmpprivate = (bool)_updatewindow.isPrivate.state;
+    __block dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
     if (returnCode == 1) {
         // Check if Episode field is empty. If so, set it to last scrobbled episode
-        NSString * tmpepisode = _updatewindow.episodefield.stringValue;
         bool episodechanged = false;
         if (tmpepisode.length == 0) {
             tmpepisode = [NSString stringWithFormat:@"%i", haengine.DetectedCurrentEpisode];
@@ -1025,7 +1029,7 @@
         if (tmpepisode.intValue != haengine.DetectedCurrentEpisode) {
             episodechanged = true; // Used to update the status window
         }
-        BOOL result = [haengine updatestatus:haengine.AniID episode:tmpepisode score:(int)_updatewindow.showscore.selectedTag watchstatus:_updatewindow.showstatus.titleOfSelectedItem notes:_updatewindow.notes.textStorage.string isPrivate:(BOOL) _updatewindow.isPrivate.state];
+        BOOL result = [haengine updatestatus:haengine.AniID episode:tmpepisode score:tmpscore watchstatus:tmpshowstatus notes:tmpnotes isPrivate:tmpprivate];
         if (result) {
             dispatch_async(dispatch_get_main_queue(), ^{
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
@@ -1054,7 +1058,7 @@
     });
 }
 
-- (IBAction)revertRewatch:(id)sender{
+- (IBAction)revertRewatch:(id)sender {
     //Show Prompt
     NSAlert * alert = [[NSAlert alloc] init] ;
     [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
@@ -1082,7 +1086,7 @@
 
 #pragma mark Notification Center and Title/Update Confirmation
 
-- (void)showNotification:(NSString *)title message:(NSString *) message{
+- (void)showNotification:(NSString *)title message:(NSString *) message {
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = message;
@@ -1156,7 +1160,7 @@
             });
 }
 #pragma mark Hotkeys
-- (void)registerHotkey{
+- (void)registerHotkey {
     [[MASShortcutBinder sharedBinder]
      bindShortcutWithDefaultsKey:kPreferenceScrobbleNowShortcut toAction:^{
          // Scrobble Now Global Hotkey
@@ -1189,7 +1193,7 @@
 }
 
 #pragma mark Misc
-- (void)showAnimeInfo:(NSDictionary *)d{
+- (void)showAnimeInfo:(NSDictionary *)d {
     //Empty
     animeinfo.string = @"";
     //Title
@@ -1256,12 +1260,12 @@
 	}
 	return output;
 }
-- (IBAction)showLastScrobbledInformation:(id)sender{
+- (IBAction)showLastScrobbledInformation:(id)sender {
     //Open the anime's page on Kitsu in the default web browser
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]];
 }
 #pragma mark MyAnimeList Syncing
-- (IBAction)forceMALSync:(id)sender{
+- (IBAction)forceMALSync:(id)sender {
     [ForceMALSync setEnabled:NO];
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);

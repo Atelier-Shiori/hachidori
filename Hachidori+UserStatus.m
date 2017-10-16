@@ -22,7 +22,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     //Set OAuth Token
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
+    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     // Get Information
     [request startRequest];
     NSDictionary * d;
@@ -92,7 +92,7 @@
     //Ignore Cookies
     [request setUseCookies:NO];
     // Set Auth Header
-    request.headers = @{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
+    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     //Get Information
     [request startRequest];
     // Get Status Code
