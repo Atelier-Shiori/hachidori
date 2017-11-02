@@ -157,9 +157,14 @@
         [loginview setHidden:YES];
         [savebut setEnabled:YES];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        if([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+        if ([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
             //Login Failed, show error message
             [Utility showsheetmessage:@"Hachidori was unable to log you into your MyAnimeList account since you don't have the correct username and/or password." explaination:@"Check your username and password and try logging in again. If you recently changed your password, enter your new password and try again." window:self.view.window];
+            [savebut setEnabled: YES];
+            savebut.keyEquivalent = @"\r";
+        }
+        else if ([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: forbidden (403)"]) {
+            [Utility showsheetmessage:@"Hachidori was unable to log you into your MyAnimeList account since you had too many login attempts." explaination:@"Check your username and password and try logging in again after several hours." window:self.view.window];
             [savebut setEnabled: YES];
             savebut.keyEquivalent = @"\r";
         }

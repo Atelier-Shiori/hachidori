@@ -7,7 +7,7 @@
 //
 
 #import "LoginPref.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import "Utility.h"
 #import <AFNetworking/AFOAuth2Manager.h>
 #import "ClientConstants.h"
@@ -237,8 +237,7 @@
     long statusCode = [request getStatusCode];
     if (statusCode == 200 || statusCode == 201 ) {
         //return Data
-        NSError * jerror;
-        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        d = [request.response getResponseDataJsonParsed];
         NSArray * tmp = d[@"data"];
         if (tmp.count > 0) {
             NSDictionary * uinfo = tmp[0];

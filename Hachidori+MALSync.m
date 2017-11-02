@@ -9,7 +9,7 @@
 #import "Hachidori+MALSync.h"
 #import "Hachidori+Keychain.h"
 #import "Utility.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 
 @implementation Hachidori (MALSync)
 - (BOOL)sync {
@@ -55,8 +55,7 @@
     long statusCode = [request getStatusCode];
     NSError * error = [request getError]; // Error Detection
     if (statusCode == 200 ) {
-        NSError* jerror;
-        NSDictionary *animeinfo = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:NSJSONReadingMutableContainers error:&jerror];
+        NSDictionary *animeinfo = [request.response getResponseDataJsonParsed];
         // Check if title needs to be added or not.
         bool onlist = animeinfo[@"watched_status"] == [NSNull null];
         NSLog(@"%@", onlist ? @"Not on MAL List" : @"Title on MAL List");
@@ -158,8 +157,7 @@
     // Get Status Code
     long statusCode = [request getStatusCode];
     if (statusCode == 200) {
-        NSError* error;
-        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
+        NSDictionary * d = [request.response getResponseDataJsonParsed];
         NSArray * mappings = d[@"data"];
         for (NSDictionary * m in mappings) {
             if ([[NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalSite"]] isEqualToString:@"myanimelist/anime"]) {

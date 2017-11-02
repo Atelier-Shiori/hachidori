@@ -4,10 +4,14 @@
 //  Created by Nanoha Takamachi on 2014/11/25.
 //  Copyright (c) 2014年 Atelier Shiori. Licensed under MIT License.
 //
-//  This class allows easy access to NSURLConnection Functions
+//  This class allows easy creation of synchronous and asynchronous request using NSURLSession
 //
 
 #import <Foundation/Foundation.h>
+/**
+     This class allows easy creation of synchronous and asynchronous request using NSURLSession
+ */
+@class EasyNSURLResponse;
 /** 
 	This defines the body types of a JSON request.
 */
@@ -26,6 +30,10 @@ typedef enum JsonType{
 This constant is used to set the request method to POST
 */
 extern NSString * const EasyNSURLPostMethod;
+/**
+ This constant is used to set the request method to HEAD
+ */
+extern NSString * const EasyNSURLHeadMethod;
 /** 
 This constant is used to set the request method to PUT
 */
@@ -58,13 +66,9 @@ extern NSString * const EasyNSURLDeleteMethod;
 */
 @property (strong, setter=setFormData:) NSMutableDictionary *formdata;
 /**
-    The request's Response.
-*/
-@property (weak) NSHTTPURLResponse *response;
-/**
-    The request's response data.
-*/
-@property (strong, getter=getResponseData) NSData *responsedata;
+     The request's response
+ */
+@property (strong, getter=getResponse) EasyNSURLResponse *response;
 /**
     Contains any errors when executing the request.
 */
@@ -77,6 +81,17 @@ extern NSString * const EasyNSURLDeleteMethod;
     States whether or not a request should use cookies or not.
 */
 @property (setter=setUseCookies:) BOOL usecookies;
+/**
+ This property will make EasyURLConnection to send JSON data opposed to URL Encoded
+ */
+@property (setter=setuseJSON:) bool usejson;
+/**
+ This property sets the JSON type if usejson propertty is true or YES
+ */
+@property (setter=setJSONType:) int jsontype;
+/**
+ */
+@property (setter=setJSONBody:) NSString *jsonbody;
 /** 
 	Initalizes a EasyNSURLConnection instance.
 	@return EasyNSURLConnection An instance of EasyNSURLConnection.
@@ -92,6 +107,7 @@ extern NSString * const EasyNSURLDeleteMethod;
 	Retruns the data from a response as a string.
 	@return NSString The response data.
 */
+
 -(NSString *)getResponseDataString;
 /** 
 	Convenience method to return a JSON response data as an NSArray or NSDictionary.
@@ -136,4 +152,57 @@ extern NSString * const EasyNSURLDeleteMethod;
 	@param bodytype The body type of the JSON data in the body. See JsonType Enums to see aviliable options.
 */
 -(void)startJSONFormRequest:(int)bodytype;
+/**
+     Performs a asynchronous GET request.
+     @param url A url of a request.
+     @param headers The headers to add to a request.
+     @param completion A block object that is executed when a request is successful. Block have an EasyNSURLResponse object as arguments and no return values.
+     @param error A block object that is executed when a request fails. Block have an NSError and integer containing the HTTP status code and no return values;
+ */
+- (void)GET:(NSString *)url headers:(NSDictionary *)headers completion:(void (^)(EasyNSURLResponse *response))completion error:(void (^)(NSError *error, int statuscode))error;
+/**
+     Performs a asynchronous HEAD request.
+     @param url A url of a request.
+     @param param Contains parameters/form data of a request;
+     @param headers The headers to add to a request.
+     @param completion A block object that is executed when a request is successful. Block have an EasyNSURLResponse object as arguments and no return values.
+     @param error A block object that is executed when a request fails. Block have an NSError and integer containing the HTTP status code and no return values;
+ */
+- (void)HEAD:(NSString *)url parameters:(NSDictionary *)param headers:(NSDictionary *)headers completion:(void (^)(EasyNSURLResponse *response))completion error:(void (^)(NSError *error, int statuscode))error;
+/**
+     Performs a asynchronous PATCH request.
+     @param url A url of a request.
+     @param param Contains parameters/form data of a request;
+     @param headers The headers to add to a request.
+     @param completion A block object that is executed when a request is successful. Block have an EasyNSURLResponse object as arguments and no return values.
+     @param error A block object that is executed when a request fails. Block have an NSError and integer containing the HTTP status code and no return values;
+ */
+- (void)PATCH:(NSString *)url parameters:(NSDictionary *)param headers:(NSDictionary *)headers completion:(void (^)(EasyNSURLResponse *response))completion error:(void (^)(NSError *error, int statuscode))error;
+/**
+ Performs a asynchronous POST request.
+ @param url A url of a request.
+ @param param Contains parameters/form data of a request;
+ @param headers The headers to add to a request.
+ @param completion A block object that is executed when a request is successful. Block have an EasyNSURLResponse object as arguments and no return values.
+ @param error A block object that is executed when a request fails. Block have an NSError and integer containing the HTTP status code and no return values;
+ */
+- (void)POST:(NSString *)url parameters:(NSDictionary *)param headers:(NSDictionary *)headers completion:(void (^)(EasyNSURLResponse *response))completion error:(void (^)(NSError *error, int statuscode))error;
+/**
+ Performs a asynchronous PUT request.
+ @param url A url of a request.
+ @param param Contains parameters/form data of a request;
+ @param headers The headers to add to a request.
+ @param completion A block object that is executed when a request is successful. Block have an EasyNSURLResponse object as arguments and no return values.
+ @param error A block object that is executed when a request fails. Block have an NSError and integer containing the HTTP status code and no return values;
+ */
+- (void)PUT:(NSString *)url parameters:(NSDictionary *)param headers:(NSDictionary *)headers completion:(void (^)(EasyNSURLResponse *response))completion error:(void (^)(NSError *error, int statuscode))error;
+/**
+     Performs a asynchronous DELETE request.
+     @param url A url of a request.
+     @param param Contains parameters/form data of a request;
+     @param headers The headers to add to a request.
+     @param completion A block object that is executed when a request is successful. Block have an EasyNSURLResponse object as arguments and no return values.
+     @param error A block object that is executed when a request fails. Block have an NSError and integer containing the HTTP status code and no return values;
+ */
+- (void)DELETE:(NSString *)url parameters:(NSDictionary *)param headers:(NSDictionary *)headers completion:(void (^)(EasyNSURLResponse *response))completion error:(void (^)(NSError *error, int statuscode))error;
 @end

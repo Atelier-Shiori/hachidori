@@ -7,7 +7,7 @@
 //
 
 #import "Hachidori+Update.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 
 @implementation Hachidori (Update)
 - (int)updatetitle:(NSString *)titleid {
@@ -128,8 +128,7 @@
             self.WatchStatus = tmpWatchStatus;
             if (!self.EntryID) {
                 // Retrieve new entry id
-                NSError * jerror;
-                NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+                NSDictionary * d = [request.response getResponseDataJsonParsed];
                 d = d[@"data"];
                 self.EntryID = d[@"id"];
             }
@@ -153,26 +152,25 @@
             return ScrobblerUpdateFailed;
     }
 }
-- (BOOL)updatestatus:(NSString *)titleid
+- (void)updatestatus:(NSString *)titleid
             episode:(NSString *)episode
               score:(int)showscore
         watchstatus:(NSString*)showwatchstatus
               notes:(NSString*)note
           isPrivate:(BOOL)privatevalue
+          completion:(void (^)(bool success))completionhandler
 {
     NSLog(@"Updating Status for %@", titleid);
     // Update the title
-    //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID]];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    EasyNSURLConnection *request = [EasyNSURLConnection new];
     //Ignore Cookies
     [request setUseCookies:NO];
-    //Set OAuth Token
-    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
+    // Set JSON
+    request.usejson = true;
+    request.jsontype = EasyNSURLConnectionvndapiJsonType;
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
-    [request setPostMethod:@"PATCH"];
     [tmpd setValue:self.EntryID forKey:@"id"];
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
     //Set current episode
@@ -182,44 +180,28 @@
     //Set new watch status
     [attributes setValue:showwatchstatus forKey:@"status"];
     //Set new score.
-    if (showscore > 0) {
-        [attributes setValue:[NSString stringWithFormat:@"%i", showscore] forKey:@"ratingTwenty"];
-        [attributes setValue:[NSNull null] forKey:@"rating"];
-    }
-    else {
-        [attributes setValue:[NSNull null] forKey:@"ratingTwenty"];
-        [attributes setValue:[NSNull null] forKey:@"rating"];
-    }
+    [attributes setValue:showscore > 0 ? [NSString stringWithFormat:@"%i", showscore]:[NSNull null] forKey:@"ratingTwenty"];
+    [attributes setValue:[NSNull null] forKey:@"rating"];
     //Set new note
     [attributes setValue:note forKey:@"notes"];
     //Privacy
-    if (privatevalue)
-        [attributes setValue:@"true" forKey:@"private"];
-    else
-        [attributes setValue:@"false" forKey:@"private"];
+    [attributes setValue:privatevalue ? @"true" : @"false" forKey:@"private"];
     // Assemble JSON
     [tmpd setValue:attributes forKey:@"attributes"];
-    [request addFormData:tmpd forKey:@"data"];
     // Do Update
-    [request startJSONFormRequest:EasyNSURLConnectionvndapiJsonType];
-    switch ([request getStatusCode]) {
-        case 200:
-        case 201:
-            //Set New Values
-            self.TitleScore = showscore;
-            self.WatchStatus = showwatchstatus;
-            self.TitleNotes = note;
-            self.isPrivate = privatevalue;
-            self.LastScrobbledEpisode = episode;
-            self.DetectedCurrentEpisode = episode.intValue;
-            return true;
-        default:
-            // Update Unsuccessful
-            NSLog(@"Update failed: %@", [request getResponseDataString]);
-            return false;
-            break;
-    }
-    return false;
+    [request PATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:@{@"data":tmpd} headers:@{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]} completion:^(EasyNSURLResponse *response) {
+        //Set New Values
+        self.TitleScore = showscore;
+        self.WatchStatus = showwatchstatus;
+        self.TitleNotes = note;
+        self.isPrivate = privatevalue;
+        self.LastScrobbledEpisode = episode;
+        self.DetectedCurrentEpisode = episode.intValue;
+        completionhandler(true);
+    } error:^(NSError *error, int statuscode) {
+        NSLog(@"%@", error);
+        completionhandler(false);
+    }];
 }
 - (BOOL)stopRewatching:(NSString *)titleid {
     NSLog(@"Reverting rewatch for %@", titleid);

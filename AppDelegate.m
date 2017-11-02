@@ -776,10 +776,7 @@
 
 - (IBAction)updatenow:(id)sender{
     if ([haengine getFirstAccount]) {
-        dispatch_queue_t queue = dispatch_get_global_queue(
-                                                           DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        
-        dispatch_async(queue, ^{
+        dispatch_async(_privateQueue, ^{
             [self firetimer];
         });
     }
@@ -1012,14 +1009,11 @@
     [_updatewindow showUpdateDialog:w withHachidori:haengine];
 }
 - (void)updateDidEnd:(int)returnCode {
-    __block NSString * tmpepisode = _updatewindow.episodefield.stringValue;
-    __block int tmpscore = (int)_updatewindow.showscore.selectedTag;
-    __block NSString *tmpshowstatus = _updatewindow.showstatus.titleOfSelectedItem;
-    __block  NSString *tmpnotes = _updatewindow.notes.textStorage.string;
-    __block bool tmpprivate = (bool)_updatewindow.isPrivate.state;
-    __block dispatch_queue_t queue = dispatch_get_global_queue(
-                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, ^{
+    NSString * tmpepisode = _updatewindow.episodefield.stringValue;
+    int tmpscore = (int)_updatewindow.showscore.selectedTag;
+    NSString *tmpshowstatus = _updatewindow.showstatus.titleOfSelectedItem;
+    NSString *tmpnotes = _updatewindow.notes.textStorage.string;
+    bool tmpprivate = (bool)_updatewindow.isPrivate.state;
     if (returnCode == 1) {
         // Check if Episode field is empty. If so, set it to last scrobbled episode
         bool episodechanged = false;
@@ -1029,33 +1023,36 @@
         if (tmpepisode.intValue != haengine.DetectedCurrentEpisode) {
             episodechanged = true; // Used to update the status window
         }
-        BOOL result = [haengine updatestatus:haengine.AniID episode:tmpepisode score:tmpscore watchstatus:tmpshowstatus notes:tmpnotes isPrivate:tmpprivate];
-        if (result) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-            [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
-            if (episodechanged) {
-                // Update the tooltip, menu and last scrobbled title
-                [self setStatusMenuTitleEpisode:haengine.LastScrobbledActualTitle episode:haengine.LastScrobbledEpisode];
-                [self updateLastScrobbledTitleStatus:false];
+        [haengine updatestatus:haengine.AniID episode:tmpepisode score:tmpscore watchstatus:tmpshowstatus notes:tmpnotes isPrivate:tmpprivate completion:^(bool success) {
+            if (success) {
+                [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
+                if (episodechanged) {
+                    // Update the tooltip, menu and last scrobbled title
+                    [self setStatusMenuTitleEpisode:haengine.LastScrobbledActualTitle episode:haengine.LastScrobbledEpisode];
+                    [self updateLastScrobbledTitleStatus:false];
+                }
+                dispatch_async(_privateQueue, ^{
+                    // Sync MyAnimeList
+                    [self syncMyAnimeList];
+                });
             }
-            });
-            // Sync MyAnimeList
-            [self syncMyAnimeList];
-        }
-        else {
-          dispatch_async(dispatch_get_main_queue(), ^{
-            [self setStatusText:NSLocalizedString(@"Scrobble Status: Unable to update Watch Status/Score.",nil)];
-          });
-        }
+            else {
+                [self setStatusText:NSLocalizedString(@"Scrobble Status: Unable to update Watch Status/Score.",nil)];
+            }
+            //If scrobbling is on, restart timer
+            if (scrobbling == TRUE) {
+                [self starttimer];
+            }
+            [self enableUpdateItems]; //Reenable update items
+        }];
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-    //If scrobbling is on, restart timer
-	if (scrobbling == TRUE) {
-		[self starttimer];
-	}
+    else {
+        //If scrobbling is on, restart timer
+        if (scrobbling == TRUE) {
+            [self starttimer];
+        }
         [self enableUpdateItems]; //Reenable update items
-    });
-    });
+    }
 }
 
 - (IBAction)revertRewatch:(id)sender {
@@ -1129,10 +1126,7 @@
     [self performconfirmupdate];
 }
 - (void)performconfirmupdate{
-    dispatch_queue_t queue = dispatch_get_global_queue(
-                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(queue, ^{
+    dispatch_async(_privateQueue, ^{
 
     BOOL success = [haengine confirmupdate];
     if (success) {
@@ -1164,10 +1158,7 @@
     [[MASShortcutBinder sharedBinder]
      bindShortcutWithDefaultsKey:kPreferenceScrobbleNowShortcut toAction:^{
          // Scrobble Now Global Hotkey
-         dispatch_queue_t queue = dispatch_get_global_queue(
-                                                            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-         
-         dispatch_async(queue, ^{
+         dispatch_async(_privateQueue, ^{
              if ([haengine getFirstAccount] && !panelactive) {
                  [self firetimer];
              }
@@ -1267,10 +1258,7 @@
 #pragma mark MyAnimeList Syncing
 - (IBAction)forceMALSync:(id)sender {
     [ForceMALSync setEnabled:NO];
-    dispatch_queue_t queue = dispatch_get_global_queue(
-                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(queue, ^{
+    dispatch_async(_privateQueue, ^{
         BOOL malsyncsuccess = [haengine sync];
          dispatch_async(dispatch_get_main_queue(), ^{
              if (!malsyncsuccess) {
@@ -1284,9 +1272,7 @@
 }
 - (void)syncMyAnimeList{
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-        dispatch_queue_t queue = dispatch_get_global_queue(
-                                                           DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(queue, ^{
+        dispatch_async(_privateQueue, ^{
             BOOL malsyncsuccess = [haengine sync];
              dispatch_async(dispatch_get_main_queue(), ^{
                  if (!malsyncsuccess) {

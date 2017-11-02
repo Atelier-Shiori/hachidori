@@ -7,7 +7,7 @@
 //
 
 #import "Hachidori+Keychain.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import "Base64Category.h"
 
 @implementation Hachidori (Keychain)
@@ -71,9 +71,13 @@
             NSLog(@"User credentials valid.");
             return 1;
         }
-        else if ([request getStatusCode] == 204) {
+        else if ([request getStatusCode] == 204 || [request getStatusCode] == 401) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"credentialsvalid"];
             NSLog(@"ERROR: User credentials are invalid. Aborting MAL Sync...");
+            return 0;
+        }
+        else if ([request getStatusCode] == 403) {
+            NSLog(@"ERROR: Too many login attempts. Try again later.");
             return 0;
         }
         else {

@@ -7,7 +7,7 @@
 //
 
 #import "Utility.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import <AFNetworking/AFNetworking.h>
 
 @implementation Utility
@@ -126,8 +126,7 @@
     // Get Status Code
     long statusCode = [request getStatusCode];
     if (statusCode == 200) {
-        NSError* jerror;
-        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        NSDictionary * d = [request.response getResponseDataJsonParsed];
         int valid = ((NSNumber *)d[@"valid"]).intValue;
         if (valid == 1) {
             // Valid Key

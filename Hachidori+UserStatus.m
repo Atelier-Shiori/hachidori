@@ -7,7 +7,7 @@
 //
 
 #import "Hachidori+UserStatus.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import "Hachidori+Keychain.h"
 #import "Utility.h"
 
@@ -30,8 +30,7 @@
     NSError * error = [request getError];
     if (statusCode == 200 || statusCode == 201 ) {
         //return Data
-        NSError * jerror;
-        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        d = [request.response getResponseDataJsonParsed];
         if (((NSArray *)d[@"data"]).count > 0) {
             d = [NSArray arrayWithArray:d[@"data"]][0];
             self.EntryID = d[@"id"];
@@ -98,8 +97,7 @@
     // Get Status Code
     long statusCode = [request getStatusCode];
     if (statusCode == 200) {
-        NSError* error;
-        NSDictionary * d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&error];
+        NSDictionary * d = [request.response getResponseDataJsonParsed];
         d = d[@"data"];
         return d[@"attributes"];
     }
@@ -160,8 +158,7 @@
     NSDictionary * d;
     long statusCode = [request getStatusCode];
     if (statusCode == 200 || statusCode == 201 ) {
-        NSError * jerror;
-        d = [NSJSONSerialization JSONObjectWithData:[request getResponseData] options:kNilOptions error:&jerror];
+        d = [request.response getResponseDataJsonParsed];
         if (((NSArray *)d[@"data"]).count > 0) {
             d = [NSArray arrayWithArray:d[@"data"]][0];
             NSString *ratingtype = d[@"attributes"][@"ratingSystem"];

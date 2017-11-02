@@ -11,12 +11,13 @@
 @interface Hachidori (Update)
 - (int)updatetitle:(NSString *)titleid;
 - (int)performupdate:(NSString *)titleid;
-- (BOOL)updatestatus:(NSString *)titleid
-            episode:(NSString *)episode
-              score:(int)showscore
-        watchstatus:(NSString*)showwatchstatus
-              notes:(NSString*)note
-          isPrivate:(BOOL)privatevalue;
+- (void)updatestatus:(NSString *)titleid
+             episode:(NSString *)episode
+               score:(int)showscore
+         watchstatus:(NSString*)showwatchstatus
+               notes:(NSString*)note
+           isPrivate:(BOOL)privatevalue
+          completion:(void (^)(bool success))completionhandler;
 - (BOOL)stopRewatching:(NSString *)titleid;
 - (bool)removetitle:(NSString *)titleid;
 @end

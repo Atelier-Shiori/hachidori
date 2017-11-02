@@ -8,7 +8,7 @@
 
 #import "Hachidori+Search.h"
 #import "Utility.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import "ExceptionsCache.h"
 #import <DetectionKit/Recognition.h>
 
@@ -60,7 +60,7 @@
             self.Success = NO;
             return @"";
         case 200:
-            return [self findaniid:[request getResponseData] searchterm:searchtitle];
+            return [self findaniid:request.response.responsedata searchterm:searchtitle];
         default:
             self.Success = NO;
             return @"";

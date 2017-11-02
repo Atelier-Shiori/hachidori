@@ -7,7 +7,7 @@
 //
 
 #import "FixSearchDialog.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import "Utility.h"
 
 @interface FixSearchDialog ()
@@ -94,34 +94,13 @@
 }
 - (IBAction)search:(id)sender{
     if (search.stringValue.length> 0) {
-        __block NSString *searchterm = [Utility urlEncodeString:search.stringValue];
-        dispatch_queue_t queue = dispatch_get_global_queue(
-                                                           DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        
-        dispatch_async(queue, ^{
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm]];
-        EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-        //Ignore Cookies
-        [request setUseCookies:NO];
-        //Perform Search
-        [request startRequest];
-        // Get Status Code
-        long statusCode = [request getStatusCode];
-        NSData *response = [request getResponseData];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    switch (statusCode) {
-                        case 200:
-                            [self populateData:response];
-                            break;
-                        default:
-                            break;
-                    }
-                });
-                });
-    }
-    else {
-        //Remove all existing Data
-        [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
+        NSString *searchterm = [Utility urlEncodeString:search.stringValue];
+        EasyNSURLConnection *request = [EasyNSURLConnection new];
+        [request GET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] headers:@{} completion:^(EasyNSURLResponse *response) {
+            [self populateData:response.responsedata];
+        } error:^(NSError *error, int statuscode) {
+            [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
+        }];
     }
 }
 - (IBAction)getHelp:(id)sender{

@@ -7,7 +7,7 @@
 //
 
 #import "AutoExceptions.h"
-#import <EasyNSURLConnection/EasyNSURLConnectionClass.h>
+#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import "AppDelegate.h"
 
 @implementation AutoExceptions
@@ -72,7 +72,7 @@
             }
             //Parse and Import
             //Parse and Import
-            NSData *jsonData = [request getResponseData];
+            NSData *jsonData = request.response.responsedata;
             NSError *error = nil;
             NSArray *a;
             @try {
