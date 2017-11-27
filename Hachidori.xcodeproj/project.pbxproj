@@ -22,7 +22,6 @@
 		2D7CD4811F210F2B00171028 /* PFAboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D7CD4831F210F2B00171028 /* PFAboutWindow.xib */; };
 		2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D807F521E201332003E2FCF /* DonationWindowController.m */; };
 		2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D807F581E48FD10003E2FCF /* DonationWindow.xib */; };
-		2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DA3D7651E0A079100BD2457 /* Localizable.strings */; };
 		2DDFFEE11EEEE4AF00EB1509 /* StatusUpdateWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDFFEDF1EEEE4AF00EB1509 /* StatusUpdateWindow.m */; };
 		2DDFFEE31EEEEB1500EB1509 /* StatusUpdateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DDFFEE51EEEEB1500EB1509 /* StatusUpdateWindow.xib */; };
 		2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */; };
@@ -176,7 +175,6 @@
 		2D8E2FEB1F8D0AF7009F8967 /* MAL_Updater_OS_X_DataModel 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 6.xcdatamodel"; sourceTree = "<group>"; };
 		2D907A381F8AC43C00DF47A5 /* MAL_Updater_OS_X_DataModel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 5.xcdatamodel"; sourceTree = "<group>"; };
 		2DA086061E2DBA4200DD9C26 /* MAL_Updater_OS_X_DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
-		2DA3D7661E0A079100BD2457 /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2DDFFEDE1EEEE4AF00EB1509 /* StatusUpdateWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusUpdateWindow.h; sourceTree = "<group>"; };
 		2DDFFEDF1EEEE4AF00EB1509 /* StatusUpdateWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusUpdateWindow.m; sourceTree = "<group>"; };
 		2DDFFEE41EEEEB1500EB1509 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StatusUpdateWindow.xib; sourceTree = "<group>"; };
@@ -548,7 +546,6 @@
 				6F0F84A31B3469A800EEEC32 /* hachidori.sdef */,
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
 				5C0A2C4A122C7F960096908D /* Credits.rtf */,
-				2DA3D7651E0A079100BD2457 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Hachidori-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				3A20383112122B2B003813B2 /* dsa_pub.pem */,
@@ -964,7 +961,6 @@
 				2DDFFEE31EEEEB1500EB1509 /* StatusUpdateWindow.xib in Resources */,
 				2D807F561E48FD10003E2FCF /* DonationWindow.xib in Resources */,
 				6FAA87831A7EB70E00EFFAC1 /* HotkeysPrefs.xib in Resources */,
-				2DA3D7671E0A079100BD2457 /* Localizable.strings in Resources */,
 				5CBE9FEF19F2F9E500CA3E5D /* GeneralPreferenceView.xib in Resources */,
 				2D7CD4801F210F1900171028 /* EULA.rtf in Resources */,
 				2DF749241F17C209009EE500 /* PlexPrefs.xib in Resources */,
@@ -1112,14 +1108,6 @@
 				2D807F571E48FD10003E2FCF /* Base */,
 			);
 			name = DonationWindow.xib;
-			sourceTree = "<group>";
-		};
-		2DA3D7651E0A079100BD2457 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2DA3D7661E0A079100BD2457 /* Base */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		2DDFFEE51EEEEB1500EB1509 /* StatusUpdateWindow.xib */ = {

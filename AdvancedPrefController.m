@@ -178,7 +178,7 @@
 
 - (IBAction)resetMALAPI:(id)sender {
     //Reset Unofficial MAL API URL
-    fieldmalapi.stringValue = @"https://malapi.ateliershiori.moe";
+    fieldmalapi.stringValue = @"https://malapi.malupdaterosx.moe";
     // Set MAL API URL in settings
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults] ;
     [defaults setObject:fieldmalapi.stringValue forKey:@"MALAPIURL"];

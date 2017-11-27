@@ -43,12 +43,14 @@
     _cancelbutton.enabled = NO;
     _status.stringValue = @"";
     _progressindicator.hidden = NO;
+    NSString *username = _username.stringValue;
+    NSString *password = _password.stringValue;
     [_progressindicator startAnimation:self];
     dispatch_queue_t queue = dispatch_get_global_queue(
                                                        DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(queue, ^{
-        bool success = [PlexAuth performplexlogin:_username.stringValue withPassword:_password.stringValue];
+        bool success = [PlexAuth performplexlogin:username withPassword:password];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success) {
                 _status.stringValue = @"";

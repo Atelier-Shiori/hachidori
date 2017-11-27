@@ -197,7 +197,7 @@
     defaultValues[@"RewatchEnabled"] = @YES;
     defaultValues[@"kodiaddress"] = @"";
     defaultValues[@"kodiport"] = @"3005";
-    defaultValues[@"MALAPIURL"] = @"https://malapi.ateliershiori.moe";
+    defaultValues[@"MALAPIURL"] = @"https://malapi.malupdaterosx.moe";
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9) {
             //Yosemite Specific Advanced Options
         	defaultValues[@"DisableYosemiteTitleBar"] = @NO;
@@ -426,7 +426,7 @@
     if (!_aboutWindowController) {
         _aboutWindowController = [PFAboutWindowController new];
     }
-    (self.aboutWindowController).appURL = [[NSURL alloc] initWithString:@"https://hachidori.ateliershiori.moe/"];
+    (self.aboutWindowController).appURL = [[NSURL alloc] initWithString:@"https://malupdaterosx.moe/hachidori/"];
     NSMutableString *copyrightstr = [NSMutableString new];
     NSDictionary *bundleDict = [NSBundle mainBundle].infoDictionary;
     [copyrightstr appendFormat:@"%@ \r\r",bundleDict[@"NSHumanReadableCopyright"]];
@@ -438,7 +438,7 @@
     }
     (self.aboutWindowController).appCopyright = [[NSAttributedString alloc] initWithString:copyrightstr
                                                                                 attributes:@{
-                                                                                             NSForegroundColorAttributeName:[NSColor labelColor],
+                                                                                             NSForegroundColorAttributeName:[NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f],
                                                                                              NSFontAttributeName:[NSFont fontWithName:[NSFont systemFontOfSize:12.0f].familyName size:11]}];
     
     [self.aboutWindowController showWindow:nil];
