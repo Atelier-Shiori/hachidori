@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,7 +39,7 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Anime Title Exceptions" identifier="1" id="dDU-b1-Ua0">
-                            <view key="view" ambiguous="YES" id="mi1-sZ-x1p">
+                            <view key="view" id="mi1-sZ-x1p">
                                 <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -115,12 +115,12 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="WNZ-Fa-W8F" name="displayPatternValue1" keyPath="arrangedObjects.detectedTitle" id="ryr-al-f8l">
+                                                                <binding destination="WNZ-Fa-W8F" name="displayPatternValue2" keyPath="arrangedObjects.detectedSeason" previousBinding="ryr-al-f8l" id="3C7-L4-Pua">
                                                                     <dictionary key="options">
                                                                         <string key="NSDisplayPattern">%{value1}@ (Season %{value2}@)</string>
                                                                     </dictionary>
                                                                 </binding>
-                                                                <binding destination="WNZ-Fa-W8F" name="displayPatternValue2" keyPath="arrangedObjects.detectedSeason" previousBinding="ryr-al-f8l" id="3C7-L4-Pua">
+                                                                <binding destination="WNZ-Fa-W8F" name="displayPatternValue1" keyPath="arrangedObjects.detectedTitle" id="ryr-al-f8l">
                                                                     <dictionary key="options">
                                                                         <string key="NSDisplayPattern">%{value1}@ (Season %{value2}@)</string>
                                                                     </dictionary>
@@ -219,7 +219,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" id="tOB-JE-5PV">
                                             <rect key="frame" x="1" y="1" width="559" height="160"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="xDf-U7-Rbg">
                                                     <rect key="frame" x="0.0" y="0.0" width="559" height="160"/>
@@ -314,7 +314,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Title Ignore" identifier="" id="RJZ-6G-zST">
-                            <view key="view" id="aDo-4b-5DM">
+                            <view key="view" ambiguous="YES" id="aDo-4b-5DM">
                                 <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -323,7 +323,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" id="uQX-ol-vKO">
                                             <rect key="frame" x="1" y="0.0" width="559" height="126"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="Y7w-8K-yca" id="cUG-zP-Xvg">
                                                     <rect key="frame" x="0.0" y="0.0" width="559" height="103"/>
@@ -406,6 +406,9 @@
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem isSeparatorItem="YES" id="zeX-r5-Ux4"/>
+                                                                        <menuItem title="Amazon" id="pui-bG-cM9">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
                                                                         <menuItem title="AnimeNewsNetwork" id="01Q-Xx-pgR">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
