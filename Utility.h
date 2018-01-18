@@ -13,7 +13,12 @@
 #import "AppDelegate.h"
 
 @interface Utility : NSObject
-+ (bool)checkMatch:(NSString *)title
+typedef NS_ENUM(unsigned int, matchtype) {
+    NoMatch = 0,
+    PrimaryTitleMatch = 1,
+    AlternateTitleMatch = 2
+};
++ (int)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OnigRegexp *)regex
            option:(int)i;

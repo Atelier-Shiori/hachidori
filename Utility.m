@@ -11,15 +11,18 @@
 #import <AFNetworking/AFNetworking.h>
 
 @implementation Utility
-+ (bool)checkMatch:(NSString *)title
++ (int)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OnigRegexp *)regex
            option:(int)i{
     //Checks for matches
-    if ([regex search:title].count > 0 || ([regex search:atitle] && atitle.length >0 && i==0)) {
-        return true;
+    if ([regex search:title].count > 0) {
+        return PrimaryTitleMatch;
     }
-    return false;
+    else if (([regex search:atitle] && atitle.length >0 && i==0)) {
+        return AlternateTitleMatch;
+    }
+    return NoMatch;
 }
 + (NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references

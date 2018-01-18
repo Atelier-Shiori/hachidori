@@ -123,7 +123,7 @@
             alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
             // Perform Recognition
             int matchstatus = [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i];
-            if (matchstatus == 1 || matchstatus == 2) {
+            if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
                 if (self.DetectedTitleisMovie) {
                     self.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
                     if ([[NSString stringWithFormat:@"%@", searchentry[@"showType"]] isEqualToString:@"Special"]) {
@@ -155,7 +155,7 @@
                         // Only Result, return
                         return [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
-                    else if (!titlematch1 && sortedArray.count > 1 && ((term.length < theshowtitle.length)||(term.length< alttitle.length && alttitle.length > 0 && matchstatus == 2))) {
+                    else if (!titlematch1 && sortedArray.count > 1 && ((term.length < theshowtitle.length+1)||(term.length< alttitle.length+1 && alttitle.length > 0 && matchstatus == AlternateTitleMatch))) {
                         mstatus = matchstatus;
                         titlematch1 = searchentry;
                         continue;
