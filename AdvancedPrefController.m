@@ -204,7 +204,7 @@
 - (void)controlTextDidChange:(NSNotification *)notification {
     NSTextField * textfield = notification.object;
     if ([textfield.identifier isEqualToString:@"kodiaddress"]) {
-    [appdelegate.haengine.detection setKodiReachAddress:textfield.stringValue];
+        [appdelegate.haengine.detection setKodiReachAddress:textfield.stringValue];
     }
     else if ([textfield.identifier isEqualToString:@"plexaddress"]) {
         [appdelegate.haengine.detection setPlexReachAddress:textfield.stringValue];

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,12 +28,12 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9c6-yL-tcO">
-                    <rect key="frame" x="0.0" y="1" width="451" height="331"/>
+                    <rect key="frame" x="0.0" y="0.0" width="451" height="331"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Kodi/Plex Theater RPC" identifier="1" id="Raw-cz-FaZ">
-                            <view key="view" id="uxH-VE-ISN">
+                            <view key="view" ambiguous="YES" id="uxH-VE-ISN">
                                 <rect key="frame" x="10" y="33" width="431" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -161,7 +161,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="MyAnimeList Sync" identifier="2" id="OFg-cA-88Q">
-                            <view key="view" ambiguous="YES" id="1Sa-gR-NS9">
+                            <view key="view" id="1Sa-gR-NS9">
                                 <rect key="frame" x="10" y="33" width="431" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -197,6 +197,7 @@
                                                     <bool key="NSValidatesImmediately" value="YES"/>
                                                 </dictionary>
                                             </binding>
+                                            <outlet property="delegate" destination="-2" id="oMp-ud-Pel"/>
                                         </connections>
                                     </textField>
                                     <button toolTip="Resets the MAL API URL to it's original values." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="guW-ye-UUR">

@@ -9,6 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import <MASPreferences/MASPreferences.h>
 
-@interface PlexPrefs : NSViewController <MASPreferencesViewController>
+@interface PlexPrefs : NSViewController <MASPreferencesViewController, NSTextFieldDelegate>
 
 @end

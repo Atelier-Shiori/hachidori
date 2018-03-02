@@ -12,7 +12,7 @@
 #import "Hachidori.h"
 #import "Hachidori+Keychain.h"
 @class PlexLogin;
-@interface AdvancedPrefController : NSViewController <MASPreferencesViewController>
+@interface AdvancedPrefController : NSViewController <MASPreferencesViewController, NSTextFieldDelegate>
 //Login Preferences
 @property (strong) IBOutlet NSTextField * fieldusername;
 @property (strong) IBOutlet NSTextField * fieldpassword;
