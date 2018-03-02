@@ -10,7 +10,6 @@
 
 @class OnigRegexp;
 @class OnigResult;
-@class Reachability;
 /**
  This class allows you to detect media that is playing
  */
