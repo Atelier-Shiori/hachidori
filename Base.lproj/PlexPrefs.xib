@@ -30,12 +30,13 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="Jx5-ZX-QCd" name="enabled" keyPath="values.enableplexapi" id="kdL-eH-BV4"/>
-                        <binding destination="Jx5-ZX-QCd" name="value" keyPath="values.plexaddress" id="htj-iU-xVT">
+                        <binding destination="Jx5-ZX-QCd" name="value" keyPath="values.plexaddress" id="uiz-Rn-66d">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSValidatesImmediately" value="YES"/>
                             </dictionary>
                         </binding>
+                        <binding destination="Jx5-ZX-QCd" name="enabled" keyPath="values.enableplexapi" id="kdL-eH-BV4"/>
                         <outlet property="delegate" destination="-2" id="WbS-bd-dPF"/>
                     </connections>
                 </textField>
@@ -51,12 +52,13 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="Jx5-ZX-QCd" name="enabled" keyPath="values.enableplexapi" id="dyR-bv-fph"/>
-                        <binding destination="Jx5-ZX-QCd" name="value" keyPath="values.plexport" id="0eo-qU-XEU">
+                        <binding destination="Jx5-ZX-QCd" name="value" keyPath="values.plexport" id="QRV-W2-joV">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSValidatesImmediately" value="YES"/>
                             </dictionary>
                         </binding>
+                        <binding destination="Jx5-ZX-QCd" name="enabled" keyPath="values.enableplexapi" id="dyR-bv-fph"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NuJ-kY-AbM">
@@ -117,12 +119,13 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="Jx5-ZX-QCd" name="enabled" keyPath="values.enableplexapi" id="1Rw-kz-GTO"/>
-                        <binding destination="Jx5-ZX-QCd" name="value" keyPath="values.plexidentifier" id="6lT-BO-o19">
+                        <binding destination="Jx5-ZX-QCd" name="value" keyPath="values.plexidentifier" id="7a1-JB-ez6">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSValidatesImmediately" value="YES"/>
                             </dictionary>
                         </binding>
+                        <binding destination="Jx5-ZX-QCd" name="enabled" keyPath="values.enableplexapi" id="1Rw-kz-GTO"/>
                         <outlet property="delegate" destination="-2" id="KIp-8D-7Mm"/>
                     </connections>
                 </textField>
