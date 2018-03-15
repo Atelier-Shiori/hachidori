@@ -77,12 +77,7 @@
 		//Disable Login Button
 		[_savebut setEnabled: NO];
 		[_savebut displayIfNeeded];
-        if (![self canRetrieveUserID]) {
-            //No Username Entered! Show error message
-            [Utility showsheetmessage:@"Hachidori was unable to log you in since it can't retrieve the user ID of the associated account." explaination:@"Make sure the username is correct or try again." window:self.view.window];
-            [_savebut setEnabled: YES];
-        }
-		else if (_fieldusername.stringValue.length == 0) {
+		if (_fieldusername.stringValue.length == 0) {
 			//No Username Entered! Show error message
 			[Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a username" explaination:@"Enter a valid username and try logging in again" window:self.view.window];
 			[_savebut setEnabled: YES];
@@ -111,7 +106,7 @@
         [AFOAuthCredential storeCredential:credential
                                 withIdentifier:@"Hachidori"];
         [[NSUserDefaults standardUserDefaults] setValue:_fieldusername.stringValue forKey:@"loggedinusername"];
-        [[NSUserDefaults standardUserDefaults] setValue:[self retrieveUserID:_fieldusername.stringValue] forKey:@"UserID"];
+            [[NSUserDefaults standardUserDefaults] setValue:[self retrieveUserID:[self getFirstAccount]] forKey:@"UserID"];
         [_clearbut setEnabled: YES];
         _loggedinuser.stringValue = username;
         [_loggedinview setHidden:NO];
@@ -225,10 +220,11 @@
 - (NSString *)getUsername{
     return [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
 }
-- (NSString *)retrieveUserID:(NSString *)username{
+- (NSString *)retrieveUserID:(AFOAuthCredential *)cred {
     //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/users?filter[name]=%@",username]];
+    NSURL *url = [NSURL URLWithString:@"https://kitsu.io/api/edge/users?filter[self]=true"];
     EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
+    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
     //Ignore Cookies
     [request setUseCookies:NO];
     // Get Information
@@ -247,8 +243,8 @@
     }
     return @"";
 }
-- (bool)canRetrieveUserID {
-    if ([self retrieveUserID:_fieldusername.stringValue].length > 0) {
+- (bool)canRetrieveUserID:(AFOAuthCredential *)cred {
+    if ([self retrieveUserID:cred].length > 0) {
         return true;
     }
     return false;
