@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "Hachidori.h"
-#import "Recognition.h"
+#import <DetectionKit/DetectionKit.h>
 #import "AppDelegate.h"
 #import "AutoExceptions.h"
 

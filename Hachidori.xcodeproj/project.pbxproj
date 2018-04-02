@@ -26,8 +26,6 @@
 		2DDFFEE31EEEEB1500EB1509 /* StatusUpdateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DDFFEE51EEEEB1500EB1509 /* StatusUpdateWindow.xib */; };
 		2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */; };
 		2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D21EDB27CA00E9B7AD /* Reachability.framework */; };
-		2DF623D51EDB27D300E9B7AD /* DetectionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */; };
-		2DF623D61EDB2C0500E9B7AD /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D21EDB27CA00E9B7AD /* Reachability.framework */; };
 		2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DF623D21EDB27CA00E9B7AD /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */; };
 		2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -79,18 +77,14 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		910167AA1EA566DE00198DAC /* TPI_Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 910167A91EA566DE00198DAC /* TPI_Hachidori.m */; };
-		91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
 		910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
 		910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; };
-		912859571E7B3033005E9A2B /* MASPreferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; };
 		912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859591E7B3599005E9A2B /* MASShortcut.framework */; };
-		9128595B1E7B35A3005E9A2B /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859591E7B3599005E9A2B /* MASShortcut.framework */; };
 		9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 912859591E7B3599005E9A2B /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
-		914AE2D11F113AD0009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
 		914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
 		914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 914AE2D51F11415C009E43FC /* PlexLogin.m */; };
@@ -98,9 +92,7 @@
 		9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
 		91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
-		91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
 		91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		91AFCF571F100D7E0029AC09 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; };
 		91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; };
 		91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043B1E901494006B0727 /* Fabric.framework */; };
@@ -109,7 +101,7 @@
 		91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DC1E7C3773008E47F6 /* OfflineViewQueue.m */; };
 		91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DE1E7C3773008E47F6 /* InttoStatus.m */; };
 		91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
+		F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,30 +390,21 @@
 				91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */,
 				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
 				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
-				91AFCF571F100D7E0029AC09 /* SAMKeychain.framework in Frameworks */,
-				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
+				F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */,
 				912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */,
 				91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */,
 				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
-				91041A681E79EC8000F268FE /* AFNetworking.framework in Frameworks */,
 				91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */,
 				91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */,
 				910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */,
-				91FA520B1E79EDBC002DF0AB /* EasyNSURLConnection.framework in Frameworks */,
 				2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
-				912859571E7B3033005E9A2B /* MASPreferences.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */,
 				2D621EC61F814364003274F2 /* GBPing.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
-				2DF623D61EDB2C0500E9B7AD /* Reachability.framework in Frameworks */,
-				914AE2D11F113AD0009E43FC /* XMLReader.framework in Frameworks */,
-				91A609F81EA3F61C00EF40AB /* CocoaOniguruma.framework in Frameworks */,
-				2DF623D51EDB27D300E9B7AD /* DetectionKit.framework in Frameworks */,
-				9128595B1E7B35A3005E9A2B /* MASShortcut.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -886,7 +869,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0920;
 				TargetAttributes = {
 					5CD7FF3B1A449A140050E6CC = {
 						CreatedOnToolsVersion = 6.1;
@@ -1402,7 +1385,7 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Debug";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
@@ -1439,7 +1422,7 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
@@ -1454,12 +1437,18 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1476,7 +1465,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"${SDKROOT}/usr/include/libxml2\"/**";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx;
@@ -1490,12 +1479,18 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1513,7 +1508,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"${SDKROOT}/usr/include/libxml2\"/**";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				SDKROOT = macosx;
