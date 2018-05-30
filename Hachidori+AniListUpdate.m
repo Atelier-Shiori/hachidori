@@ -61,7 +61,7 @@
     // Set existing score to prevent the score from being erased.
     [attributes setValue:@(self.TitleScore) forKey:@"score"];
     //Privacy
-    [attributes setValue:self.isPrivate ? @"true" : @"false" forKey:@"private"];
+    [attributes setValue:@(self.isPrivate) forKey:@"private"];
     
     // Notes
     [attributes setValue:self.TitleNotes forKey:@"notes"];
