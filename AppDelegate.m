@@ -11,12 +11,14 @@
 #import "Hachidori+Update.h"
 #import "Hachidori+Keychain.h"
 #import "Hachidori+MALSync.h"
+#import "Hachidori+userinfo.h"
 #import "OfflineViewQueue.h"
 #import "PFMoveApplication.h"
 #import "Preferences.h"
 #import "FixSearchDialog.h"
 #import "Hotkeys.h"
 #import "AutoExceptions.h"
+#import "AnimeRelations.h"
 #import "ExceptionsCache.h"
 #import "Utility.h"
 #import "HistoryWindow.h"
@@ -26,8 +28,11 @@
 #import "StatusUpdateWindow.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <TorrentBrowser/TorrentBrowser.h>
 #import "ShareMenu.h"
 #import "PFAboutWindowController.h"
+#import "servicemenucontroller.h"
+#import "AniListScoreConvert.h"
 
 @implementation AppDelegate
 
@@ -193,10 +198,20 @@
     defaultValues[@"ConfirmNewTitle"] = @YES;
     defaultValues[@"ConfirmUpdates"] = @NO;
 	defaultValues[@"UseAutoExceptions"] = @YES;
+    defaultValues[@"UseAnimeRelations"] = @YES;
     defaultValues[@"enablekodiapi"] = @NO;
     defaultValues[@"RewatchEnabled"] = @YES;
     defaultValues[@"kodiaddress"] = @"";
     defaultValues[@"kodiport"] = @"3005";
+#ifdef oss
+    defaultValues[@"donated"] = @YES;
+    defaultValues[@"oss"] = @YES;
+#else
+    defaultValues[@"donated"] = @NO;
+    defaultValues[@"oss"] = @NO;
+    defaultValues[@"autodownloadtorrents"] = @NO;
+    defaultValues[@"autodownloadinterval"] = @(3600);
+#endif
     defaultValues[@"MALAPIURL"] = @"https://malapi.malupdaterosx.moe";
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9) {
             //Yosemite Specific Advanced Options
@@ -210,6 +225,18 @@
     defaultValues[@"plexaddress"] = @"localhost";
     defaultValues[@"plexport"] = @"32400";
     defaultValues[@"plexidentifier"] = @"Hachidori_Plex_Client";
+    defaultValues[@"currentservice"] = @(0);
+    defaultValues[@"torrentagreement"] = @NO;
+    defaultValues[@"torrentsiteselected"] = @(0);
+    // Social
+    defaultValues[@"tweetonscrobble"] = @NO;
+    defaultValues[@"twitteraddanime"] = @YES;
+    defaultValues[@"twitterupdateanime"] = @YES;
+    defaultValues[@"twitterupdatestatus"] = @NO;
+    defaultValues[@"twitteraddanimeformat"] = @"Started watching %title% Episode %episode% on %service% - %url% #hachidori";
+    defaultValues[@"twitterupdateanimeformat"] = @"%status% %title% Episode %episode% on %service% - %url% #hachidori";
+    defaultValues[@"twitterupdatestatusformat"] =  @"Updated %title% Episode %episode% (%status%) on %service% - %url% #hachidori";
+    defaultValues[@"usediscordrichpresence"] = @NO;
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -240,6 +267,7 @@
     [statusItem setHighlightMode:YES];
 }
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [Fabric with:@[[Crashlytics class]]];
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
 	haengine.managedObjectContext = managedObjectContext;
@@ -252,6 +280,9 @@
         PFMoveToApplicationsFolderIfNecessary();
     #endif
     }
+    
+    // Show Donation Message
+    [Utility donateCheck:self];
     // Set Defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set Notification Center Delegate
@@ -304,15 +335,38 @@
             image = [NSImage imageNamed:imagename];
             [image setTemplate:YES];
     }
-
+    // Set up Service Menu
+    [_servicemenu setmenuitemvaluefromdefaults];
+    __weak AppDelegate *weakself = self;
+    _servicemenu.actionblock = ^(int selected, int previousservice) {
+        [weakself.haengine setNotifier];
+        [weakself showNotification:@"Changed Services" message:[NSString stringWithFormat:@"Now using %@", [weakself.haengine currentServiceName]]];
+        [weakself.haengine resetinfo];
+        [weakself resetUI];
+    };
+    [haengine checkaccountinformation];
+#ifdef oss
+#else
+    // Set up Torrent Browser (closed source)
+    _tbc = [[TorrentBrowserController alloc] initwithManagedObjectContext:managedObjectContext];
+    // Start Timer for Auto Downloading of Torrents if enabled
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"autodownloadtorrents"]) {
+        if ([_tbc.tmanager startAutoDownloadTimer]) {
+            NSLog(@"Timer started");
+        }
+        else {
+            NSLog(@"Failed to start timer.");
+        }
+    }
+#endif
 	// Notify User if there is no Account Info
-	if (![haengine getFirstAccount]) {
+	if (![haengine getCurrentFirstAccount]) {
         // First time prompt
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
         [alert setMessageText:NSLocalizedString(@"Welcome to Hachidori",nil)];
-        [alert setInformativeText:NSLocalizedString(@"Before using this program, you need to add an account. Do you want to open Preferences to authenticate an account now? \r\rPlease note that Hachidori has transitioned to Kitsu and therefore, you must reauthenticate.",nil)];
+        [alert setInformativeText:NSLocalizedString(@"Before using this program, you need to add an account. Do you want to open Preferences to authorize your account now?",nil)];
         // Set Message type to Warning
         alert.alertStyle = NSInformationalAlertStyle;
         if ([alert runModal]== NSAlertFirstButtonReturn) {
@@ -328,7 +382,6 @@
 	}
     // Import existing Exceptions Data
     [AutoExceptions importToCoreData];
-    [Fabric with:@[[Crashlytics class]]];
 }
 #pragma mark General UI Functions
 - (NSWindowController *)preferencesWindowController
@@ -342,7 +395,13 @@
         NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
         NSViewController *plexviewController = [PlexPrefs new];
         NSViewController *advancedViewController = [[AdvancedPrefController alloc] initwithAppDelegate:self];
-        NSArray *controllers = @[generalViewController, loginViewController, hotkeyViewController , plexviewController, exceptionsViewController, suViewController, advancedViewController];
+        NSViewController *socialViewController = [[SocialPrefController alloc] initWithTwitterManager:haengine.twittermanager withDiscordManager:haengine.discordmanager];
+        NSArray *controllers;
+#ifdef oss
+        controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, exceptionsViewController, suViewController, advancedViewController];
+#else
+        controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, [_tbc getBittorrentPreferences], exceptionsViewController, suViewController, advancedViewController];
+#endif
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers];
     }
     return _preferencesWindowController;
@@ -456,6 +515,7 @@
     [confirmupdate setEnabled:NO];
 	[findtitle setEnabled:NO];
     [openstream setEnabled:NO];
+    [_servicemenu enableservicemenuitems:NO];
 }
 - (void)enableUpdateItems{
     // Reenables update options
@@ -476,6 +536,7 @@
     [confirmupdate setEnabled:YES];
     [findtitle setEnabled:YES];
     [openstream setEnabled:YES];
+    [_servicemenu enableservicemenuitems:YES];
 }
 - (void)unhideMenus{
     //Show Last Scrobbled Title and operations */
@@ -620,7 +681,16 @@
             NSDictionary * ainfo = haengine.LastScrobbledInfo;
             if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
                 [self showAnimeInfo:ainfo];
-                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]]];
+                switch (haengine.currentService) {
+                    case 0:
+                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]]];
+                        break;
+                    case 1:
+                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.AniID]]]];
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         if (status == ScrobblerTitleNotFound) {
@@ -664,7 +734,7 @@
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
-	if (![haengine getFirstAccount]) {
+	if (![haengine getCurrentFirstAccount]) {
         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Please log in with your account in Preferences before you enable scrobbling",nil)];
     }
 	else {
@@ -689,7 +759,7 @@
 }
 - (void)autostarttimer {
 	//Check to see if there is an API Key stored
-	if (![haengine getFirstAccount]) {
+	if (![haengine getCurrentFirstAccount]) {
          [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Unable to start scrobbling since there is no login. Please verify your login in Preferences.",nil)];
 	}
 	else {
@@ -709,7 +779,15 @@
         [self toggleScrobblingUIEnable:false];
         
         if ([haengine checkexpired]) {
-            [haengine refreshtoken];
+            __weak AppDelegate *weakself = self;
+            [haengine refreshtokenWithService:0 successHandler:^(bool success) {
+                if (success) {
+                    [weakself firetimer];
+                }
+                else {
+                    [weakself showNotification:@"Can't Refresh Kitsu Token." message:@"Please reauthorize your Kitsu account and try again."];
+                }
+            }];
             scrobbleractive = false;
             return;
         }
@@ -725,6 +803,19 @@
 				// First time, populate
 				[AutoExceptions updateAutoExceptions];
 			}
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseAnimeRelations"]) {
+            // Check for latest list of Anime Relations automatically each week
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"AnimeRelationsLastUpdated"]) {
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"AnimeRelationsLastUpdated"] timeIntervalSinceNow] < -604800) {
+                    // Has been 1 Week, update Anime Relations
+                    [AnimeRelations updateRelations];
+                }
+            }
+            else {
+                // First time, populate
+                [AnimeRelations updateRelations];
+            }
         }
         int status = 0;
         for (int i = 0; i < 2; i++) {
@@ -775,7 +866,7 @@
 }
 
 - (IBAction)updatenow:(id)sender{
-    if ([haengine getFirstAccount]) {
+    if ([haengine getCurrentFirstAccount]) {
         dispatch_async(_privateQueue, ^{
             [self firetimer];
         });
@@ -883,7 +974,16 @@
                         [findtitle setHidden:YES];
                         [confirmupdate setHidden:true];
 						//Regenerate Share Items
-                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]]];
+                        switch (haengine.currentService) {
+                            case 0:
+                                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]]];
+                                break;
+                            case 1:
+                                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.LastScrobbledActualTitle, haengine.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.AniID]]]];
+                                break;
+                            default:
+                                break;
+                        }
                         // Sync with MAL if Enabled
                         [self syncMyAnimeList];
                         break;
@@ -923,7 +1023,7 @@
         [ExceptionsCache addtoExceptions:detectedtitle correcttitle:title aniid:showid threshold:threshold offset:0 detectedSeason:season];
     }
     //Check if title exists in cache and then remove it
-    [ExceptionsCache checkandRemovefromCache:detectedtitle detectedSeason:season];
+    [ExceptionsCache checkandRemovefromCache:detectedtitle detectedSeason:season withService:0];
 
 }
 
@@ -1010,7 +1110,21 @@
 }
 - (void)updateDidEnd:(int)returnCode {
     NSString * tmpepisode = _updatewindow.episodefield.stringValue;
-    int tmpscore = (int)_updatewindow.showscore.selectedTag;
+    int tmpscore;
+    switch (haengine.currentService) {
+        case 0:
+            tmpscore = (int)_updatewindow.showscore.selectedTag;
+            break;
+        case 1:
+            if (haengine.ratingtype == ratingPoint100 || haengine.ratingtype == ratingPoint10Decimal) {
+                tmpscore = [AniListScoreConvert convertScoretoScoreRaw:_updatewindow.advancedscorefield.floatValue withScoreType:haengine.ratingtype];
+            }
+            else {
+                tmpscore = [AniListScoreConvert convertScoretoScoreRaw:_updatewindow.showscore.selectedTag withScoreType:haengine.ratingtype];
+            }
+            break;
+    }
+
     NSString *tmpshowstatus = _updatewindow.showstatus.titleOfSelectedItem;
     NSString *tmpnotes = _updatewindow.notes.textStorage.string;
     bool tmpprivate = (bool)_updatewindow.isPrivate.state;
@@ -1159,7 +1273,7 @@
      bindShortcutWithDefaultsKey:kPreferenceScrobbleNowShortcut toAction:^{
          // Scrobble Now Global Hotkey
          dispatch_async(_privateQueue, ^{
-             if ([haengine getFirstAccount] && !panelactive) {
+             if ([haengine getCurrentFirstAccount] && !panelactive) {
                  [self firetimer];
              }
          });
@@ -1187,36 +1301,39 @@
 - (void)showAnimeInfo:(NSDictionary *)d {
     //Empty
     animeinfo.string = @"";
-    //Title
-    NSDictionary * titles = d[@"titles"];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"%@", titles[@"en_jp"]]];
-    if (titles[@"en"] && titles[@"en"] != [NSNull null] && [NSString stringWithFormat:@"%@", titles[@"en"]].length >0) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Also known as %@", titles[@"en"]]];
-    }
+    // Show Actual Title
+    [self appendToAnimeInfo:haengine.LastScrobbledActualTitle];
     [self appendToAnimeInfo:@""];
     //Description
-    [self appendToAnimeInfo:@"Description"];
-    [self appendToAnimeInfo:d[@"synopsis"]];
+    NSString *anidescription = d[@"synopsis"];
+    if (d[@"synopsis"] != [NSNull null]) {
+        [self appendToAnimeInfo:@"Description"];
+        
+    }
+    else {
+        anidescription = @"No description available.";
+    }
+    [self appendToAnimeInfo:anidescription];
     //Meta Information
     [self appendToAnimeInfo:@""];
     [self appendToAnimeInfo:@"Other Information"];
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"startDate"]]];
-    if (d[@"endDate"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Finished Airing: %@", d[@"endDate"]]];
-    }
-    if (d[@"episodeCount"]) {
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", d[@"episodeCount"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Classification: %@", d[@"classification"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"start_date"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", d[@"status"]]];
+    NSString *epi;
+    if (d[@"episodes"] == [NSNull null]) {
+        epi = @"Unknown";
     }
     else {
-        [self appendToAnimeInfo:@"Episodes: Unknown"];
+        epi = d[@"episodes"];
     }
-    [self appendToAnimeInfo:[NSString stringWithFormat:@"Show Type: %@", d[@"showType"]]];
-    if (d[@"age_rating"] != [NSNull null]) {
-        [self appendToAnimeInfo:[NSString stringWithFormat:@"Age Rating: %@", d[@"ageRating"]]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Episodes: %@", epi]];
+    [self appendToAnimeInfo:[NSString stringWithFormat:@"Popularity: %@", d[@"popularity_rank"]]];
+    if (d[@"favorited_count"]) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"Favorited: %@", d[@"favorited_count"]]];
     }
     //Image
-    NSDictionary * posterimg = d[@"posterImage"];
-    NSImage * dimg = (posterimg[@"original"] != [NSNull null] || posterimg[@"original"]) ? [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:(NSString *)posterimg[@"original"]]] : [NSImage imageNamed:@"missing"]; //Downloads Image
+    NSImage *dimg = (d[@"image_url"] != [NSNull null]) ? [[NSImage alloc]initByReferencingURL:[NSURL URLWithString: (NSString *)d[@"image_url"]]] : [NSImage imageNamed:@"missing"]; //Downloads Image
     img.image = dimg; //Get the Image for the title
     // Clear Anime Info so that Hachidori won't attempt to retrieve it if the same episode and title is playing
     [haengine clearAnimeInfo];
@@ -1253,7 +1370,16 @@
 }
 - (IBAction)showLastScrobbledInformation:(id)sender {
     //Open the anime's page on Kitsu in the default web browser
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]];
+    switch (haengine.currentService) {
+        case 0:
+             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.AniID]]];
+            break;
+        case 1:
+             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.AniID]]];
+            break;
+        default:
+            break;
+    }
 }
 #pragma mark MyAnimeList Syncing
 - (IBAction)forceMALSync:(id)sender {
@@ -1265,8 +1391,6 @@
                  [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"MyAnimeList Sync failed, see console log.",nil)];
              }
              [ForceMALSync setEnabled:YES];
-             // Show Donation Message
-             [Utility donateCheck:self];
             });
         });
 }
@@ -1278,11 +1402,17 @@
                  if (!malsyncsuccess) {
                      [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"MyAnimeList Sync failed, see console log.",nil)];
                  }
-                 // Show Donation Message
-                 [Utility donateCheck:self];
              });
         });
     }
 }
-
+#pragma mark Torrent Browser
+- (IBAction)openTorrentBrowser:(id)sender {
+#ifdef oss
+#else
+    //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
+    [NSApp activateIgnoringOtherApps:YES];
+    [_tbc.window makeKeyAndOrderFront:self];
+#endif
+}
 @end

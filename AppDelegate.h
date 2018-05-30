@@ -19,6 +19,11 @@
 @class StatusUpdateWindow;
 @class ShareMenu;
 @class PFAboutWindowController;
+@class servicemenucontroller;
+#ifdef oss
+#else
+@class TorrentBrowserController;
+#endif
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
     NSManagedObjectModel *managedObjectModel;
@@ -39,6 +44,7 @@
 @property (strong) IBOutlet NSView *nothingplayingview;
 @property (strong) StatusUpdateWindow *updatewindow;
 @property (strong) IBOutlet ShareMenu *shareMenu;
+@property (strong) IBOutlet servicemenucontroller *servicemenu;
 /* General Stuff */
 @property (strong) IBOutlet NSMenu *statusMenu;
 @property (strong) NSStatusItem *statusItem;
@@ -82,6 +88,10 @@
 @property (strong) NSWindowController *_preferencesWindowController;
 @property (strong) streamlinkopen * streamlinkopenw;
 @property (strong) PFAboutWindowController *aboutWindowController;
+#ifdef oss
+#else
+@property (strong) TorrentBrowserController *tbc;
+#endif
 
 - (void)showhistory:(id)sender;
 - (IBAction)togglescrobblewindow:(id)sender;

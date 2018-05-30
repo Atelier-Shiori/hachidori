@@ -7,7 +7,7 @@
 //
 
 #import "Hachidori+Keychain.h"
-#import <EasyNSURLConnection/EasyNSURLConnection.h>
+#import <AFNetworking/AFNetworking.h>
 #import "Base64Category.h"
 
 @implementation Hachidori (Keychain)
@@ -55,28 +55,24 @@
     }
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"credentialscheckdate"] timeIntervalSinceNow] < 0) {
         // Check credentials
-        //Set Login URL
-        NSURL *url = [NSURL URLWithString:@"https://myanimelist.net/api/account/verify_credentials.xml"];
-        EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-        //Ignore Cookies
-        [request setUseCookies:NO];
         //Set Username and Password
-        request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
+        [self.malcredmanager.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", [self getBase64]] forHTTPHeaderField:@"Authorization"];
         //Verify Username/Password
-        [request startRequest];
-        // Check for errors
-        NSError *error = [request getError];
-        if ([request getStatusCode] == 200 && !error) {
+        NSURLSessionDataTask *task;
+        NSError *error;
+        id responseObject = [self.malcredmanager syncGET:@"https://myanimelist.net/api/account/verify_credentials.xml" parameters:nil task:&task error:&error];
+        long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+        if (statusCode == 200 && !error) {
             [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:60*60*24] forKey:@"credentialscheckdate"];
             NSLog(@"User credentials valid.");
             return 1;
         }
-        else if ([request getStatusCode] == 204 || [request getStatusCode] == 401) {
+        else if (statusCode == 204 || statusCode == 401) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"credentialsvalid"];
             NSLog(@"ERROR: User credentials are invalid. Aborting MAL Sync...");
             return 0;
         }
-        else if ([request getStatusCode] == 403) {
+        else if (statusCode == 403) {
             NSLog(@"ERROR: Too many login attempts. Try again later.");
             return 0;
         }

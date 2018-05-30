@@ -10,6 +10,7 @@
 #import <MASPreferences/MASPreferences.h>
 @class Hachidori;
 @class AppDelegate;
+@class AniListAuthWindow;
 
 @interface LoginPref : NSViewController <MASPreferencesViewController>
 @property (strong) IBOutlet NSImageView * logo;
@@ -22,10 +23,15 @@
 @property (strong) AppDelegate * appdelegate;
 @property (strong) IBOutlet NSView * loginview;
 @property (strong) IBOutlet NSView * loggedinview;
-//Reauth Panel
-@property (weak) NSWindow *loginpanel;
-@property (strong) IBOutlet NSTextField * passwordinput;
-@property (strong) IBOutlet NSImageView * invalidinput;
+
+// AniList Auth
+@property (strong) IBOutlet NSButton *anilistclearbut;
+@property (strong) IBOutlet NSTextField *anilistloggedinuser;
+@property (strong) IBOutlet NSView *anilistloginview;
+@property (strong) IBOutlet NSView *anilistloggedinview;
+@property (strong) IBOutlet AniListAuthWindow *anilistauthw;
+@property (strong) IBOutlet NSButton *anilistauthorizebtn;
+
 //Hachidori instance
 @property (strong) Hachidori * haengine;
 

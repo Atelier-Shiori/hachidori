@@ -77,20 +77,37 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		910167AA1EA566DE00198DAC /* TPI_Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 910167A91EA566DE00198DAC /* TPI_Hachidori.m */; };
-		910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; };
-		910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9126066920BEDD900052CB30 /* TorrentBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126066820BEDD900052CB30 /* TorrentBrowser.framework */; };
+		9126066B20BEE0150052CB30 /* TorrentBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126066820BEDD900052CB30 /* TorrentBrowser.framework */; };
+		9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126066820BEDD900052CB30 /* TorrentBrowser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9126066F20BEE5410052CB30 /* Hachidori+Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126066E20BEE5410052CB30 /* Hachidori+Twitter.m */; };
+		9126067220BEE55C0052CB30 /* Hachidori+Discord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126067120BEE55C0052CB30 /* Hachidori+Discord.m */; };
+		9126067520BEE5C20052CB30 /* DiscordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126067320BEE5C20052CB30 /* DiscordManager.m */; };
+		9126067820BEEC710052CB30 /* SocialPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126067620BEEC710052CB30 /* SocialPrefController.m */; };
+		9126067A20BEED8C0052CB30 /* DiscordRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067920BEED8C0052CB30 /* DiscordRPC.framework */; };
+		9126067B20BEED920052CB30 /* DiscordRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067920BEED8C0052CB30 /* DiscordRPC.framework */; };
+		9126067C20BEED920052CB30 /* DiscordRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126067920BEED8C0052CB30 /* DiscordRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9126067E20BEEFAC0052CB30 /* TwitterManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; };
+		9126067F20BEEFAE0052CB30 /* TwitterManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; };
+		9126068020BEEFAE0052CB30 /* TwitterManagerKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9126068320BEEFE20052CB30 /* SocialPrefController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9126068520BEEFE20052CB30 /* SocialPrefController.xib */; };
 		912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; };
 		912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859591E7B3599005E9A2B /* MASShortcut.framework */; };
 		9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 912859591E7B3599005E9A2B /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */; };
+		912B575820B5CB7D0002C7BD /* Hachidori+AnimeRelations.m in Sources */ = {isa = PBXBuildFile; fileRef = 912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
 		914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
 		914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 914AE2D51F11415C009E43FC /* PlexLogin.m */; };
 		914AE2D91F1152FE009E43FC /* PlexLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914AE2DB1F1152FE009E43FC /* PlexLogin.xib */; };
+		914EFF1820B8E7E40050B716 /* AniListAuthWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 914EFF1620B8E7E30050B716 /* AniListAuthWindow.m */; };
+		914EFF1920B8E7E40050B716 /* AniListAuthWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914EFF1720B8E7E40050B716 /* AniListAuthWindow.xib */; };
 		9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
+		9191FC3E20BDAF4B00F48DD0 /* servicemenucontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 9191FC3D20BDAF4A00F48DD0 /* servicemenucontroller.m */; };
+		9191FC4120BDBB9100F48DD0 /* AniListScoreConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 9191FC4020BDBB9000F48DD0 /* AniListScoreConvert.m */; };
 		91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; };
 		91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; };
@@ -100,8 +117,17 @@
 		91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */; };
 		91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DC1E7C3773008E47F6 /* OfflineViewQueue.m */; };
 		91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DE1E7C3773008E47F6 /* InttoStatus.m */; };
+		91CF574620B706030044DC9F /* AtarashiiAPIListFormatKitsu.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CF574020B706030044DC9F /* AtarashiiAPIListFormatKitsu.m */; };
+		91CF574720B706030044DC9F /* AtarashiiAPIListFormatAniList.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CF574120B706030044DC9F /* AtarashiiAPIListFormatAniList.m */; };
+		91CF574820B706030044DC9F /* AtarashiiDataObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CF574220B706030044DC9F /* AtarashiiDataObjects.m */; };
+		91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D116F720BC4BCD006E4271 /* AuthWebView.m */; };
+		91D116FC20BC5502006E4271 /* AniListConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D116FB20BC5502006E4271 /* AniListConstants.m */; };
+		91D116FF20BC7D43006E4271 /* Hachidori+userinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D116FE20BC7D43006E4271 /* Hachidori+userinfo.m */; };
+		91D1170220BCB4C8006E4271 /* Hachidori+KitsuUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */; };
+		91D1170520BCB4D7006E4271 /* Hachidori+AniListUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */; };
 		91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
+		F88D55DD20B3178D00DB84B9 /* AnimeRelations.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D55DB20B3178C00DB84B9 /* AnimeRelations.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,9 +149,10 @@
 			files = (
 				91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */,
 				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
+				9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */,
+				9126067C20BEED920052CB30 /* DiscordRPC.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */,
-				910CB9181E79F76A00E4A869 /* EasyNSURLConnection.framework in CopyFiles */,
 				91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */,
 				2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */,
 				2D621EC71F814364003274F2 /* GBPing.framework in CopyFiles */,
@@ -133,6 +160,7 @@
 				912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */,
 				2D621EC91F81436C003274F2 /* MSWeakTimer_macOS.framework in CopyFiles */,
 				9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */,
+				9126068020BEEFAE0052CB30 /* TwitterManagerKit.framework in CopyFiles */,
 				2D621ECC1F8143EB003274F2 /* PingNotifier.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
 			);
@@ -225,7 +253,7 @@
 		6FBA5A0E1ABE486500B6DB79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefController.xib; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Search.h"; sourceTree = "<group>"; };
-		8245D7601A8B265900B1ED73 /* Hachidori+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Search.m"; sourceTree = "<group>"; };
+		8245D7601A8B265900B1ED73 /* Hachidori+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Search.m"; sourceTree = "<group>"; wrapsLines = 0; };
 		8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Update.h"; sourceTree = "<group>"; };
 		8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Update.m"; sourceTree = "<group>"; };
 		8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+UserStatus.h"; sourceTree = "<group>"; };
@@ -345,20 +373,42 @@
 		910167A81EA566DE00198DAC /* TPI_Hachidori.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPI_Hachidori.h; sourceTree = "<group>"; };
 		910167A91EA566DE00198DAC /* TPI_Hachidori.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPI_Hachidori.m; sourceTree = "<group>"; };
 		91041A671E79EC8000F268FE /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
+		9126066820BEDD900052CB30 /* TorrentBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TorrentBrowser.framework; path = Frameworks/TorrentBrowser.framework; sourceTree = "<group>"; };
+		9126066A20BEDE0B0052CB30 /* MAL_Updater_OS_X_DataModel 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 8.xcdatamodel"; sourceTree = "<group>"; };
+		9126066D20BEE5410052CB30 /* Hachidori+Twitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Twitter.h"; sourceTree = "<group>"; };
+		9126066E20BEE5410052CB30 /* Hachidori+Twitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Twitter.m"; sourceTree = "<group>"; };
+		9126067020BEE55C0052CB30 /* Hachidori+Discord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Discord.h"; sourceTree = "<group>"; };
+		9126067120BEE55C0052CB30 /* Hachidori+Discord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Discord.m"; sourceTree = "<group>"; };
+		9126067320BEE5C20052CB30 /* DiscordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscordManager.m; sourceTree = "<group>"; };
+		9126067420BEE5C20052CB30 /* DiscordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscordManager.h; sourceTree = "<group>"; };
+		9126067620BEEC710052CB30 /* SocialPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialPrefController.m; sourceTree = "<group>"; };
+		9126067720BEEC710052CB30 /* SocialPrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialPrefController.h; sourceTree = "<group>"; };
+		9126067920BEED8C0052CB30 /* DiscordRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiscordRPC.framework; path = Frameworks/DiscordRPC.framework; sourceTree = "<group>"; };
+		9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterManagerKit.framework; path = Frameworks/TwitterManagerKit.framework; sourceTree = "<group>"; };
+		9126068420BEEFE20052CB30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SocialPrefController.xib; sourceTree = "<group>"; };
 		912859551E7B2F0E005E9A2B /* MASPreferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASPreferences.framework; path = Frameworks/MASPreferences.framework; sourceTree = "<group>"; };
 		912859591E7B3599005E9A2B /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Frameworks/MASShortcut.framework; sourceTree = "<group>"; };
 		9128595D1E7B37A1005E9A2B /* HotKeyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKeyConstants.h; sourceTree = "<group>"; };
 		9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeyConstants.m; sourceTree = "<group>"; };
 		912859611E7B394D005E9A2B /* Hotkeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hotkeys.h; sourceTree = "<group>"; };
+		912B575620B5CB7D0002C7BD /* Hachidori+AnimeRelations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+AnimeRelations.h"; sourceTree = "<group>"; };
+		912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+AnimeRelations.m"; sourceTree = "<group>"; };
 		9130A63C1E81D77A00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OfflineViewQueue.xib; sourceTree = "<group>"; };
 		914AE2D01F113AD0009E43FC /* XMLReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XMLReader.framework; path = Frameworks/XMLReader.framework; sourceTree = "<group>"; };
 		914AE2D41F11415C009E43FC /* PlexLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlexLogin.h; sourceTree = "<group>"; };
 		914AE2D51F11415C009E43FC /* PlexLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlexLogin.m; sourceTree = "<group>"; };
 		914AE2DA1F1152FE009E43FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PlexLogin.xib; sourceTree = "<group>"; };
+		914EFF1520B8E7E30050B716 /* AniListAuthWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AniListAuthWindow.h; sourceTree = "<group>"; };
+		914EFF1620B8E7E30050B716 /* AniListAuthWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AniListAuthWindow.m; sourceTree = "<group>"; };
+		914EFF1720B8E7E40050B716 /* AniListAuthWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AniListAuthWindow.xib; sourceTree = "<group>"; };
 		9182EBDB1EA688BF001F9A74 /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
 		9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
 		918C4F9C1E79C819001E7B30 /* ClientConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConstants.m; sourceTree = "<group>"; };
+		9191FC3C20BDAF4A00F48DD0 /* servicemenucontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servicemenucontroller.h; sourceTree = "<group>"; };
+		9191FC3D20BDAF4A00F48DD0 /* servicemenucontroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = servicemenucontroller.m; sourceTree = "<group>"; };
+		9191FC3F20BDBB9000F48DD0 /* AniListScoreConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AniListScoreConvert.h; sourceTree = "<group>"; };
+		9191FC4020BDBB9000F48DD0 /* AniListScoreConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AniListScoreConvert.m; sourceTree = "<group>"; };
 		91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOniguruma.framework; path = Frameworks/CocoaOniguruma.framework; sourceTree = "<group>"; };
 		91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		91CA043B1E901494006B0727 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
@@ -370,7 +420,25 @@
 		91CC23DD1E7C3773008E47F6 /* InttoStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InttoStatus.h; sourceTree = "<group>"; };
 		91CC23DE1E7C3773008E47F6 /* InttoStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InttoStatus.m; sourceTree = "<group>"; };
 		91CC23E11E7C3FA9008E47F6 /* MAL_Updater_OS_X_DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
-		91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyNSURLConnection.framework; path = Frameworks/EasyNSURLConnection.framework; sourceTree = "<group>"; };
+		91CF574020B706030044DC9F /* AtarashiiAPIListFormatKitsu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtarashiiAPIListFormatKitsu.m; sourceTree = "<group>"; };
+		91CF574120B706030044DC9F /* AtarashiiAPIListFormatAniList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtarashiiAPIListFormatAniList.m; sourceTree = "<group>"; };
+		91CF574220B706030044DC9F /* AtarashiiDataObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtarashiiDataObjects.m; sourceTree = "<group>"; };
+		91CF574320B706030044DC9F /* AtarashiiAPIListFormatKitsu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtarashiiAPIListFormatKitsu.h; sourceTree = "<group>"; };
+		91CF574420B706030044DC9F /* AtarashiiAPIListFormatAniList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtarashiiAPIListFormatAniList.h; sourceTree = "<group>"; };
+		91CF574520B706030044DC9F /* AtarashiiDataObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtarashiiDataObjects.h; sourceTree = "<group>"; };
+		91D116F720BC4BCD006E4271 /* AuthWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthWebView.m; sourceTree = "<group>"; };
+		91D116F820BC4BCD006E4271 /* AuthWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthWebView.h; sourceTree = "<group>"; };
+		91D116FA20BC5502006E4271 /* AniListConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AniListConstants.h; sourceTree = "<group>"; };
+		91D116FB20BC5502006E4271 /* AniListConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AniListConstants.m; sourceTree = "<group>"; };
+		91D116FD20BC7D43006E4271 /* Hachidori+userinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+userinfo.h"; sourceTree = "<group>"; };
+		91D116FE20BC7D43006E4271 /* Hachidori+userinfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+userinfo.m"; sourceTree = "<group>"; };
+		91D1170020BCB4C8006E4271 /* Hachidori+KitsuUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+KitsuUpdate.h"; sourceTree = "<group>"; };
+		91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+KitsuUpdate.m"; sourceTree = "<group>"; };
+		91D1170320BCB4D7006E4271 /* Hachidori+AniListUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+AniListUpdate.h"; sourceTree = "<group>"; };
+		91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+AniListUpdate.m"; sourceTree = "<group>"; };
+		F88D55DA20B3121F00DB84B9 /* MAL_Updater_OS_X_DataModel 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 7.xcdatamodel"; sourceTree = "<group>"; };
+		F88D55DB20B3178C00DB84B9 /* AnimeRelations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimeRelations.m; sourceTree = "<group>"; };
+		F88D55DC20B3178D00DB84B9 /* AnimeRelations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimeRelations.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,25 +453,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9126067A20BEED8C0052CB30 /* DiscordRPC.framework in Frameworks */,
 				2D621ECB1F8143EB003274F2 /* PingNotifier.framework in Frameworks */,
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
 				91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */,
 				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
 				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
 				F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */,
+				9126066B20BEE0150052CB30 /* TorrentBrowser.framework in Frameworks */,
 				912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */,
 				91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */,
 				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
 				91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */,
 				91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */,
-				910CB9171E79F76A00E4A869 /* EasyNSURLConnection.framework in Frameworks */,
 				2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */,
+				9126066920BEDD900052CB30 /* TorrentBrowser.framework in Frameworks */,
+				9126067E20BEEFAC0052CB30 /* TwitterManagerKit.framework in Frameworks */,
 				2D621EC61F814364003274F2 /* GBPing.framework in Frameworks */,
+				9126067F20BEEFAE0052CB30 /* TwitterManagerKit.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
+				9126067B20BEED920052CB30 /* DiscordRPC.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
@@ -424,22 +497,40 @@
 			children = (
 				256AC3D80F4B6AC300CF3369 /* AppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* AppDelegate.m */,
+				9191FC3F20BDBB9000F48DD0 /* AniListScoreConvert.h */,
+				9191FC4020BDBB9000F48DD0 /* AniListScoreConvert.m */,
+				91D116FA20BC5502006E4271 /* AniListConstants.h */,
+				91D116FB20BC5502006E4271 /* AniListConstants.m */,
 				918C4F9B1E79C819001E7B30 /* ClientConstants.h */,
 				918C4F9C1E79C819001E7B30 /* ClientConstants.m */,
 				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
+				91D116FD20BC7D43006E4271 /* Hachidori+userinfo.h */,
+				91D116FE20BC7D43006E4271 /* Hachidori+userinfo.m */,
 				2DF126E01E01DA7200A58A90 /* Hachidori+Keychain.h */,
 				2DF126E11E01DA7200A58A90 /* Hachidori+Keychain.m */,
 				593B55851CC41FDB00B7B254 /* Hachidori+MALSync.h */,
 				593B55861CC41FDB00B7B254 /* Hachidori+MALSync.m */,
 				8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */,
 				8245D7601A8B265900B1ED73 /* Hachidori+Search.m */,
+				912B575620B5CB7D0002C7BD /* Hachidori+AnimeRelations.h */,
+				912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */,
 				8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */,
 				8245D7631A8B27AA00B1ED73 /* Hachidori+Update.m */,
+				91D1170020BCB4C8006E4271 /* Hachidori+KitsuUpdate.h */,
+				91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */,
+				91D1170320BCB4D7006E4271 /* Hachidori+AniListUpdate.h */,
+				91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */,
+				9126066D20BEE5410052CB30 /* Hachidori+Twitter.h */,
+				9126066E20BEE5410052CB30 /* Hachidori+Twitter.m */,
+				9126067020BEE55C0052CB30 /* Hachidori+Discord.h */,
+				9126067120BEE55C0052CB30 /* Hachidori+Discord.m */,
 				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
 				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
 				2D226B2A1EF312BC0030E9C5 /* ShareMenu.h */,
 				2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */,
+				9191FC3C20BDAF4A00F48DD0 /* servicemenucontroller.h */,
+				9191FC3D20BDAF4A00F48DD0 /* servicemenucontroller.m */,
 				5C8ACEB619F409C60001A101 /* Other Classes */,
 				5CD36B9419F2EA91007BB6B6 /* Preferences */,
 				6F0F849F1B34699100EEEC32 /* Scripting Support */,
@@ -468,6 +559,9 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */,
+				9126067920BEED8C0052CB30 /* DiscordRPC.framework */,
+				9126066820BEDD900052CB30 /* TorrentBrowser.framework */,
 				2D621ECA1F8143C9003274F2 /* PingNotifier.framework */,
 				2D621EC41F814234003274F2 /* GBPing.framework */,
 				2D621EC51F814234003274F2 /* MSWeakTimer_macOS.framework */,
@@ -480,7 +574,6 @@
 				91CA043C1E901494006B0727 /* Crashlytics.framework */,
 				912859591E7B3599005E9A2B /* MASShortcut.framework */,
 				912859551E7B2F0E005E9A2B /* MASPreferences.framework */,
-				91FA520A1E79EDBC002DF0AB /* EasyNSURLConnection.framework */,
 				91041A671E79EC8000F268FE /* AFNetworking.framework */,
 				59D5037A1CB016840002532D /* Sparkle.framework */,
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
@@ -501,6 +594,7 @@
 		29B97314FDCFA39411CA2CEA /* MAL Updater OS X */ = {
 			isa = PBXGroup;
 			children = (
+				91CF573F20B705E70044DC9F /* AtarashiiDataFormatters */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -525,6 +619,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9126068520BEEFE20052CB30 /* SocialPrefController.xib */,
 				2D7CD47F1F210F1900171028 /* EULA.rtf */,
 				6F0F84A31B3469A800EEEC32 /* hachidori.sdef */,
 				8294C45D19F99B2F009DE98B /* Images.xcassets */,
@@ -561,6 +656,7 @@
 		5C07DA691A815C2C0003A827 /* Window Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				914EFF1420B8E7CF0050B716 /* AniList Auth */,
 				2D7CD47A1F2109C700171028 /* PFAboutWindowController.h */,
 				2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */,
 				91CC23DA1E7C375F008E47F6 /* Offline Queue */,
@@ -589,6 +685,8 @@
 		5C8ACEB619F409C60001A101 /* Other Classes */ = {
 			isa = PBXGroup;
 			children = (
+				91D116F820BC4BCD006E4271 /* AuthWebView.h */,
+				91D116F720BC4BCD006E4271 /* AuthWebView.m */,
 				5C8C22EE1A85E80000D2FCC5 /* string_score.c */,
 				5C8C22EF1A85E80000D2FCC5 /* string_score.h */,
 				3A2DCCB41210B3BF00C920F1 /* PFMoveApplication.h */,
@@ -619,6 +717,8 @@
 				5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */,
 				5CBE9EC119F2F0E300CA3E5D /* LoginPref.h */,
 				5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */,
+				9126067720BEEC710052CB30 /* SocialPrefController.h */,
+				9126067620BEEC710052CB30 /* SocialPrefController.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -659,10 +759,14 @@
 				9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */,
 				6F1290961A7D817000B8C3E6 /* AutoExceptions.h */,
 				6F1290971A7D817000B8C3E6 /* AutoExceptions.m */,
+				F88D55DC20B3178D00DB84B9 /* AnimeRelations.h */,
+				F88D55DB20B3178C00DB84B9 /* AnimeRelations.m */,
 				6FAA0C1A1A7E8CE800416079 /* ExceptionsCache.h */,
 				6FAA0C1B1A7E8CE800416079 /* ExceptionsCache.m */,
 				6F0CF36A1A7DB89300261A43 /* Utility.h */,
 				6F0CF36B1A7DB89300261A43 /* Utility.m */,
+				9126067420BEE5C20052CB30 /* DiscordManager.h */,
+				9126067320BEE5C20052CB30 /* DiscordManager.m */,
 				91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */,
 				91CC23D81E7C3742008E47F6 /* NSNumberFormatterNumberOnly.h */,
 			);
@@ -793,6 +897,16 @@
 			name = Headers;
 			sourceTree = "<group>";
 		};
+		914EFF1420B8E7CF0050B716 /* AniList Auth */ = {
+			isa = PBXGroup;
+			children = (
+				914EFF1520B8E7E30050B716 /* AniListAuthWindow.h */,
+				914EFF1620B8E7E30050B716 /* AniListAuthWindow.m */,
+				914EFF1720B8E7E40050B716 /* AniListAuthWindow.xib */,
+			);
+			name = "AniList Auth";
+			sourceTree = "<group>";
+		};
 		91CC23DA1E7C375F008E47F6 /* Offline Queue */ = {
 			isa = PBXGroup;
 			children = (
@@ -802,6 +916,19 @@
 				91CC23DE1E7C3773008E47F6 /* InttoStatus.m */,
 			);
 			name = "Offline Queue";
+			sourceTree = "<group>";
+		};
+		91CF573F20B705E70044DC9F /* AtarashiiDataFormatters */ = {
+			isa = PBXGroup;
+			children = (
+				91CF574420B706030044DC9F /* AtarashiiAPIListFormatAniList.h */,
+				91CF574120B706030044DC9F /* AtarashiiAPIListFormatAniList.m */,
+				91CF574320B706030044DC9F /* AtarashiiAPIListFormatKitsu.h */,
+				91CF574020B706030044DC9F /* AtarashiiAPIListFormatKitsu.m */,
+				91CF574520B706030044DC9F /* AtarashiiDataObjects.h */,
+				91CF574220B706030044DC9F /* AtarashiiDataObjects.m */,
+			);
+			path = AtarashiiDataFormatters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -930,11 +1057,13 @@
 			files = (
 				914AE2D91F1152FE009E43FC /* PlexLogin.xib in Resources */,
 				9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */,
+				914EFF1920B8E7E40050B716 /* AniListAuthWindow.xib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
 				6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
+				9126068320BEEFE20052CB30 /* SocialPrefController.xib in Resources */,
 				5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */,
 				2D7CD4811F210F2B00171028 /* PFAboutWindow.xib in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
@@ -1006,32 +1135,47 @@
 				9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */,
 				2D7CD47C1F2109C700171028 /* PFAboutWindowController.m in Sources */,
 				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
+				91CF574720B706030044DC9F /* AtarashiiAPIListFormatAniList.m in Sources */,
+				914EFF1820B8E7E40050B716 /* AniListAuthWindow.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
 				593B55841CC41DC200B7B254 /* Base64Category.m in Sources */,
 				5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */,
+				9126067520BEE5C20052CB30 /* DiscordManager.m in Sources */,
 				2D226B2C1EF312BC0030E9C5 /* ShareMenu.m in Sources */,
 				2D807F531E201332003E2FCF /* DonationWindowController.m in Sources */,
+				9191FC3E20BDAF4B00F48DD0 /* servicemenucontroller.m in Sources */,
+				9126067220BEE55C0052CB30 /* Hachidori+Discord.m in Sources */,
 				918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */,
 				3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */,
+				912B575820B5CB7D0002C7BD /* Hachidori+AnimeRelations.m in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,
 				91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */,
+				91D1170220BCB4C8006E4271 /* Hachidori+KitsuUpdate.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
+				91D116FC20BC5502006E4271 /* AniListConstants.m in Sources */,
 				2DF126E21E01DA7200A58A90 /* Hachidori+Keychain.m in Sources */,
 				8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */,
 				2DF749211F17C06A009EE500 /* PlexPrefs.m in Sources */,
 				825D87911A18FD2700C5E1BF /* ExceptionsPref.m in Sources */,
 				2D61676E1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld in Sources */,
 				91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */,
+				9191FC4120BDBB9100F48DD0 /* AniListScoreConvert.m in Sources */,
+				91CF574820B706030044DC9F /* AtarashiiDataObjects.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
+				91CF574620B706030044DC9F /* AtarashiiAPIListFormatKitsu.m in Sources */,
 				6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */,
+				91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */,
 				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
+				F88D55DD20B3178D00DB84B9 /* AnimeRelations.m in Sources */,
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
+				91D1170520BCB4D7006E4271 /* Hachidori+AniListUpdate.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
+				9126067820BEEC710052CB30 /* SocialPrefController.m in Sources */,
 				593B55871CC41FDB00B7B254 /* Hachidori+MALSync.m in Sources */,
 				6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
@@ -1039,6 +1183,8 @@
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
 				2DDFFEE11EEEE4AF00EB1509 /* StatusUpdateWindow.m in Sources */,
 				8245D7641A8B27AA00B1ED73 /* Hachidori+Update.m in Sources */,
+				91D116FF20BC7D43006E4271 /* Hachidori+userinfo.m in Sources */,
+				9126066F20BEE5410052CB30 /* Hachidori+Twitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,6 +1317,14 @@
 				825D87941A1912EF00C5E1BF /* Base */,
 			);
 			name = ExceptionsPref.xib;
+			sourceTree = "<group>";
+		};
+		9126068520BEEFE20052CB30 /* SocialPrefController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9126068420BEEFE20052CB30 /* Base */,
+			);
+			name = SocialPrefController.xib;
 			sourceTree = "<group>";
 		};
 		9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */ = {
@@ -1563,6 +1717,8 @@
 		2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				9126066A20BEDE0B0052CB30 /* MAL_Updater_OS_X_DataModel 8.xcdatamodel */,
+				F88D55DA20B3121F00DB84B9 /* MAL_Updater_OS_X_DataModel 7.xcdatamodel */,
 				2D8E2FEB1F8D0AF7009F8967 /* MAL_Updater_OS_X_DataModel 6.xcdatamodel */,
 				2D907A381F8AC43C00DF47A5 /* MAL_Updater_OS_X_DataModel 5.xcdatamodel */,
 				91CC23E11E7C3FA9008E47F6 /* MAL_Updater_OS_X_DataModel 4.xcdatamodel */,
@@ -1570,7 +1726,7 @@
 				2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */,
 				2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
 			);
-			currentVersion = 2D8E2FEB1F8D0AF7009F8967 /* MAL_Updater_OS_X_DataModel 6.xcdatamodel */;
+			currentVersion = 9126066A20BEDE0B0052CB30 /* MAL_Updater_OS_X_DataModel 8.xcdatamodel */;
 			path = MAL_Updater_OS_X_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

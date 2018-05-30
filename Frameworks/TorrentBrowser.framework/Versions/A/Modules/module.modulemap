@@ -1,0 +1,6 @@
+framework module TorrentBrowser {
+  umbrella header "TorrentBrowser.h"
+
+  export *
+  module * { export * }
+}

@@ -7,7 +7,6 @@
 //
 
 #import "Utility.h"
-#import <EasyNSURLConnection/EasyNSURLConnection.h>
 #import <AFNetworking/AFNetworking.h>
 
 @implementation Utility
@@ -60,14 +59,13 @@
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"]) {
         [Utility setReminderDate];
     }
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"] timeIntervalSinceNow] < 0) {
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"donated"]) {
-            int validkey = [Utility checkDonationKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"donatekey"] name:[[NSUserDefaults standardUserDefaults] objectForKey:@"donor"]];
-            if (validkey == 1) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"donated"]) {
+        [Utility checkDonationKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"donatekey"] name:[[NSUserDefaults standardUserDefaults] objectForKey:@"donor"] completion:^(int success) {
+            if (success == 1) {
                 //Reset check
                 [Utility setReminderDate];
             }
-            else if (validkey == 2) {
+            else if (success == 2) {
                 //Try again when there is internet access
             }
             else {
@@ -76,10 +74,11 @@
                 [Utility showDonateReminder:delegate];
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"donated"];
             }
-        }
-        else {
+        }];
+        return;
+    }
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"] timeIntervalSinceNow] < 0) {
             [Utility showDonateReminder:delegate];
-        }
     }
 }
 + (void)showDonateReminder:(AppDelegate*)delegate{
@@ -89,7 +88,7 @@
     [alert addButtonWithTitle:NSLocalizedString(@"Enter Key",nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Remind Me Later",nil)];
     [alert setMessageText:NSLocalizedString(@"Please Support Hachidori",nil)];
-    [alert setInformativeText:NSLocalizedString(@"We noticed that you have been using the MAL Sync functionality for a while. Although this functionality is aviliable to everyone, it cost us money to host the Unofficial MAL API to make this function possible. \r\rIf you find this function helpful, please consider making a donation. You will recieve a key to remove this message while MAL Sync is enabled.",nil)];
+    [alert setInformativeText:NSLocalizedString(@"We noticed that you have been using Hachidori for a while. Hachidori is donationware and we rely on donations to substain the development of our programs. By donating, you can remove this message and unlock additional features.",nil)];
     [alert setShowsSuppressionButton:NO];
     // Set Message type to Warning
     alert.alertStyle = NSInformationalAlertStyle;
@@ -116,34 +115,27 @@
     NSDate * reminderdate = [now dateByAddingTimeInterval:60*60*24*7];
     [[NSUserDefaults standardUserDefaults] setObject:reminderdate forKey:@"donatereminderdate"];
 }
-+ (int)checkDonationKey:(NSString *)key name:(NSString *)name{
-    //Set Search API
-    NSURL *url = [NSURL URLWithString:@"https://updates.malupdaterosx.moe/keycheck/check_hachidori.php"];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    [request addFormData:name forKey:@"name"];
-    [request addFormData:key forKey:@"key"];
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    //Perform Search
-    [request startJSONFormRequest:EasyNSURLConnectionJsonType];
-    // Get Status Code
-    long statusCode = [request getStatusCode];
-    if (statusCode == 200) {
-        NSDictionary * d = [request.response getResponseDataJsonParsed];
-        int valid = ((NSNumber *)d[@"valid"]).intValue;
++ (void)checkDonationKey:(NSString *)key name:(NSString *)name completion:(void (^)(int success)) completionHandler{
+    AFHTTPSessionManager *manager = [self jsonmanager];
+    [manager POST:@"https://licensing.malupdaterosx.moe/check_hachidori.php" parameters:@{@"name" : name, @"key" : key} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        int valid = ((NSNumber *)responseObject[@"valid"]).intValue;
         if (valid == 1) {
             // Valid Key
-            return 1;
+            /*if (responseObject[@"newlicense"]) {
+                [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"newlicense"] forKey:@"donatekey"];
+            }
+            else {
+                [[NSUserDefaults standardUserDefaults] setObject:key forKey:@"donatekey"];
+            }*/
+            completionHandler(1);
         }
         else {
             // Invalid Key
-            return 0;
+            completionHandler(0);
         }
-    }
-    else {
-        // No Internet
-        return 2;
-    }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completionHandler(2);
+    }];
 }
 + (AFHTTPSessionManager*)manager {
     static dispatch_once_t onceToken;
@@ -349,5 +341,45 @@
             break;
     }
     return [NSString stringWithFormat:@"%i%@", number, ordinal];
+}
++ (AFHTTPSessionManager*)jsonmanager {
+    static dispatch_once_t jsononceToken;
+    static AFHTTPSessionManager *jsonmanager = nil;
+    dispatch_once(&jsononceToken, ^{
+        jsonmanager = [AFHTTPSessionManager manager];
+        jsonmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+        jsonmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+        jsonmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
+        [jsonmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
+    });
+    return jsonmanager;
+}
++ (double)calculatedays:(NSArray *)list {
+    double duration = 0;
+    for (NSDictionary *entry in list) {
+        duration += ((NSNumber *)entry[@"watched_episodes"]).integerValue * ((NSNumber *)entry[@"duration"]).intValue;
+    }
+    duration = (duration/60)/24;
+    return duration;
+}
+
++ (NSString *)dateIntervalToDateString:(double)timeinterval {
+    NSDate *aDate = [NSDate dateWithTimeIntervalSince1970:timeinterval];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    return [dateFormatter stringFromDate:aDate];
+}
+
++ (NSString *)convertAnimeType:(NSString *)type {
+    NSString *tmpstr = type.lowercaseString;
+    if ([tmpstr isEqualToString: @"tv"]||[tmpstr isEqualToString: @"ova"]||[tmpstr isEqualToString: @"ona"]) {
+        tmpstr = tmpstr.uppercaseString;
+    }
+    else {
+        tmpstr = tmpstr.capitalizedString;
+        tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+        tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"Tv" withString:@"TV"];
+    }
+    return tmpstr;
 }
 @end

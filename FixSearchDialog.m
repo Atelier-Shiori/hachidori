@@ -7,11 +7,14 @@
 //
 
 #import "FixSearchDialog.h"
-#import <EasyNSURLConnection/EasyNSURLConnection.h>
+#import "AtarashiiAPIListFormatKitsu.h"
+#import "AtarashiiAPIListFormatAniList.h"
+#import "AniListConstants.h"
+#import <AFNetworking/AFNetworking.h>
 #import "Utility.h"
 
 @interface FixSearchDialog ()
-
+@property (strong) AFHTTPSessionManager *searchmanager;
 @end
 
 @implementation FixSearchDialog
@@ -30,9 +33,19 @@
 
 - (instancetype)init{
     self = [super initWithWindowNibName:@"FixSearchDialog"];
-    if(!self)
+    if (!self) {
         return nil;
+    }
+    // Init AFNetworking
+    _searchmanager = [AFHTTPSessionManager manager];
+    _searchmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+    _searchmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+    _searchmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
+    [_searchmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
     return self;
+}
+- (long)currentservice {
+    return [NSUserDefaults.standardUserDefaults integerForKey:@"currentservice"];
 }
 - (void)windowDidLoad {
     if (correction) {
@@ -82,9 +95,9 @@
 }
 - (void)finish:(NSDictionary *)d{
     selectedtitle = d[@"title"];
-    selectedaniid = d[@"slug"];
-    if (d[@"episode_count"] != [NSNull null]) {
-        selectedtotalepisodes = ((NSNumber *)d[@"episode_count"]).intValue;
+    selectedaniid = d[@"id"];
+    if (d[@"episodes"] != [NSNull null]) {
+        selectedtotalepisodes = ((NSNumber *)d[@"episodes"]).intValue;
     }
     else {
         selectedtotalepisodes = 0;
@@ -95,32 +108,39 @@
 - (IBAction)search:(id)sender{
     if (search.stringValue.length> 0) {
         NSString *searchterm = [Utility urlEncodeString:search.stringValue];
-        EasyNSURLConnection *request = [EasyNSURLConnection new];
-        [request GET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] headers:@{} completion:^(EasyNSURLResponse *response) {
-            [self populateData:response.responsedata];
-        } error:^(NSError *error, int statuscode) {
-            [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
-        }];
+        switch (self.currentservice) {
+            case 0: {
+                [_searchmanager GET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    [self populateData:[AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject]];
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
+                }];
+                break;
+            }
+            case 1: {
+                [_searchmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : search.stringValue, @"type" : @"ANIME"}} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    [self populateData:[AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject]];
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
+                }];
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 }
 - (IBAction)getHelp:(id)sender{
     //Show Help
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Correction-Exception-Help"]];
 }
-- (void)populateData:(NSData *)data{
+- (void)populateData:(id)data{
     //Remove all existing Data
     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
-    
-    //Parse Data
-    NSError* error;
     //Translate the Kitsu search data to old format
-    NSDictionary *tmpd = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    NSArray * atmp = tmpd[@"data"];
     NSMutableArray *searchdata = [NSMutableArray new];
-    for (NSDictionary * d in atmp) {
-        NSDictionary * attributes = d[@"attributes"];
-        [searchdata addObject:@{@"slug" : d[@"id"],@"title":attributes[@"canonicalTitle"], @"episode_count" : attributes[@"episodeCount"], @"synopsis" : attributes[@"synopsis"], @"show_type":attributes[@"showType"]}];
-    }
+    [searchdata addObjectsFromArray:data];
     //Add it to the array controller
     [arraycontroller addObjects:searchdata];
     

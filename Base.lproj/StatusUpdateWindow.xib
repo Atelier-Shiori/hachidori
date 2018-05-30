@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StatusUpdateWindow">
             <connections>
                 <outlet property="advancedratingmenu" destination="oYZ-Dr-rNQ" id="q1f-uW-jcZ"/>
+                <outlet property="advancedscorefield" destination="qFQ-CM-xt2" id="55n-8h-iSe"/>
+                <outlet property="advancedscoreformatter" destination="a3g-Lz-LlH" id="C9j-Zm-ZYQ"/>
+                <outlet property="anilistfivescoremenu" destination="ASp-HF-XnA" id="Tx8-Oi-uKk"/>
+                <outlet property="anilistthreescoremenu" destination="O2x-Lf-7bz" id="gdO-SI-elj"/>
                 <outlet property="epiformatter" destination="BxM-lu-ccO" id="Lyr-Nq-iF5"/>
                 <outlet property="episodefield" destination="8Cf-BD-MMn" id="CPe-Dc-SYT"/>
                 <outlet property="isPrivate" destination="BoU-I9-y45" id="auR-97-VBh"/>
                 <outlet property="notes" destination="Udg-Gz-PMs" id="2v3-DC-3zE"/>
+                <outlet property="scoremenu" destination="0Ok-Qq-IcG" id="8EQ-ce-acV"/>
                 <outlet property="showscore" destination="q57-ZR-5Bu" id="wKR-Hd-bDw"/>
                 <outlet property="showstatus" destination="Bsf-U3-ocu" id="Me2-4i-B7U"/>
                 <outlet property="showtitle" destination="jyu-Zl-4aW" id="i6h-tN-uLM"/>
@@ -83,7 +89,7 @@
                             <rect key="frame" x="1" y="1" width="192" height="82"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView ambiguous="YES" importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Udg-Gz-PMs">
+                                <textView ambiguous="YES" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Udg-Gz-PMs">
                                     <rect key="frame" x="0.0" y="0.0" width="192" height="82"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -186,6 +192,16 @@ Gw
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
+                    <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qFQ-CM-xt2">
+                        <rect key="frame" x="123" y="167" width="54" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Vgs-2B-uHj">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="a3g-Lz-LlH"/>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>
@@ -195,13 +211,13 @@ Gw
         </window>
         <menu title="Status" id="61H-i7-Qfe">
             <items>
-                <menuItem title="current" id="7np-jC-dCN">
+                <menuItem title="watching" id="7np-jC-dCN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="completed" id="1A7-hU-V0O">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
-                <menuItem title="on_hold" id="fpV-gA-Izg">
+                <menuItem title="on-hold" id="fpV-gA-Izg">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="dropped" id="f7k-jc-aOB">
@@ -209,6 +225,45 @@ Gw
                 </menuItem>
             </items>
             <point key="canvasLocation" x="293" y="455.5"/>
+        </menu>
+        <menu title="Score" id="0Ok-Qq-IcG" userLabel="Score Menu">
+            <items>
+                <menuItem title="0 - No Score" id="pcP-fa-3Ou">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="JoJ-jb-PI0"/>
+                <menuItem title="10 - Masterpiece" tag="10" id="jCs-ZZ-w3j">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="9 - Great" tag="9" id="u6n-Ot-zGV">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="8 - Very Good" tag="8" id="RT0-id-PFx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="7 - Good" tag="7" id="SEM-Ll-9fG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="6 - Fine" tag="6" id="Qp1-tZ-hkj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="5 - Average" tag="5" id="d9C-F4-JRL">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="4 - Bad" tag="4" id="r9d-pU-Fd6">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="3 - Very Bad" tag="3" id="C56-7Q-1DC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="2 - Horrible" tag="2" id="UTk-b7-m3Y">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="1 - Unwatchable" tag="1" id="uVa-0m-tpO">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-87" y="163"/>
         </menu>
         <menu id="5fe-nA-xDN" userLabel="Simple Rating Menu">
             <items>
@@ -334,6 +389,47 @@ Gw
                 </menuItem>
             </items>
             <point key="canvasLocation" x="233" y="253"/>
+        </menu>
+        <menu id="ASp-HF-XnA">
+            <items>
+                <menuItem title="No Rating" id="Tvu-5q-P13">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="dp9-7H-ZRV"/>
+                <menuItem title="⭐️" tag="1" id="tSI-MU-pUA">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="⭐️⭐️" tag="2" id="K5u-gW-HUr">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="⭐️⭐️⭐️" tag="3" id="hud-Jr-erB">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="⭐️⭐️⭐️⭐️" tag="4" id="QoD-Lv-TVQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="⭐️⭐️⭐️⭐️⭐️" tag="5" id="4Ne-KI-QDR">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-517" y="830"/>
+        </menu>
+        <menu id="O2x-Lf-7bz">
+            <items>
+                <menuItem title="No Rating" id="Gql-mF-cK3">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="PKp-6Y-9de"/>
+                <menuItem title="🙁" tag="1" id="djt-Gi-TfN">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="😐" tag="2" id="89g-eT-m28">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="🙂" tag="3" id="1yr-V9-6Ps">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
         </menu>
     </objects>
 </document>

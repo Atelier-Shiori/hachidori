@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="OfflineViewQueue">
@@ -16,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="783" height="341"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
             <value key="minSize" type="size" width="783" height="341"/>
             <view key="contentView" id="xsz-hb-rIV">
                 <rect key="frame" x="0.0" y="0.0" width="783" height="341"/>
@@ -36,7 +37,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn editable="NO" width="500" minWidth="40" maxWidth="1000" id="wZ1-Fg-mbd">
+                                        <tableColumn identifier="" editable="NO" width="500" minWidth="40" maxWidth="1000" id="wZ1-Fg-mbd">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -52,7 +53,7 @@
                                                 <binding destination="MCq-KR-O5z" name="value" keyPath="arrangedObjects.detectedtitle" id="ClP-ip-AIg"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="50" minWidth="40" maxWidth="1000" id="JSX-7I-V86">
+                                        <tableColumn identifier="" editable="NO" width="50" minWidth="40" maxWidth="1000" id="JSX-7I-V86">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Episode">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -113,7 +114,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Ez5-zg-WcI">
-                            <rect key="frame" x="-14" y="16" width="15" height="0.0"/>
+                            <rect key="frame" x="-14" y="15" width="15" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="lZh-jB-JxL">
@@ -129,7 +130,7 @@
                         <size key="minSize" width="32" height="25"/>
                         <size key="maxSize" width="32" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="9Gd-ke-WNi">
-                            <rect key="frame" x="16" y="14" width="32" height="25"/>
+                            <rect key="frame" x="17" y="14" width="32" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="clear" imagePosition="below" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QfS-xR-vX9">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

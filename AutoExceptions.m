@@ -7,7 +7,7 @@
 //
 
 #import "AutoExceptions.h"
-#import <EasyNSURLConnection/EasyNSURLConnection.h>
+#import <AFNetworking/AFNetworking.h>
 #import "AppDelegate.h"
 
 @implementation AutoExceptions
@@ -53,56 +53,42 @@
         [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"exceptions"];
     }
 }
-+ (void)updateAutoExceptions{
++ (void)updateAutoExceptions {
     // This method retrieves the auto exceptions JSON and import new entries
-    NSURL *url = [NSURL URLWithString:@"https://exceptions.malupdaterosx.moe"];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    //Test API
-    [request startRequest];
+    AFHTTPSessionManager *manager = [self manager];
+    NSError *error;
+    NSURLSessionDataTask *task;
+    id responseObject = [manager syncGET:@"http://exceptions.malupdaterosx.moe/corrections/" parameters:nil task:&task error:&error];
     // Get Status Code
-    long statusCode = [request getStatusCode];
-    switch (statusCode) {
+    switch (((NSHTTPURLResponse *)task.response).statusCode) {
         case 200:{
             NSLog(@"Updating Auto Exceptions!");
             if (![[NSUserDefaults standardUserDefaults] valueForKey:@"updatedaexceptions"]) {
                 [AutoExceptions clearAutoExceptions];
-               [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true]forKey:@"updatedaexceptions"];
+                [[NSUserDefaults standardUserDefaults] setObject:@(true)forKey:@"updatedaexceptions"];
             }
             //Parse and Import
-            //Parse and Import
-            NSData *jsonData = request.response.responsedata;
-            NSError *error = nil;
-            NSArray *a;
-            @try {
-                a = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-            }
-            @catch (NSException *e) {
-                NSLog(@"Unable to refresh auto exceptions database: %@", e);
-                return;
-            }
-            AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+            AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
             NSManagedObjectContext *moc = delegate.managedObjectContext;
             [moc performBlockAndWait:^{
-                for (NSDictionary *d in a) {
+                for (NSDictionary *d in responseObject) {
                     NSString * detectedtitle = d[@"detectedtitle"];
                     NSString * group = d[@"group"];
                     NSString * correcttitle = d[@"correcttitle"];
                     NSString * hcorrecttitle = (NSString *)d[@"hcorrecttitle"];
                     bool iszeroepisode = ((NSNumber *)d[@"iszeroepisode"]).boolValue;
                     int offset = ((NSNumber *)d[@"offset"]).intValue;
-                    //NSLog(@"%@-%@-%@-%i-%i-%@",detectedtitle,group,correcttitle,iszeroepisode,offset,d[@"mappedepisode"]);
-                    NSError * error = nil;
+                    NSError *derror = nil;
                     NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode offset:offset];
                     if (obj) {
                         // Update Entry
+                        [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
                         [obj setValue:d[@"threshold"] forKey:@"episodethreshold"];
                     }
                     else {
                         // Add Entry to Auto Exceptions
                         obj = [NSEntityDescription
-                               insertNewObjectForEntityForName:@"AutoExceptions"
+                               insertNewObjectForEntityForName:@"AutoCorrection"
                                inManagedObjectContext: moc];
                         // Set values in the new record
                         [obj setValue:detectedtitle forKey:@"detectedTitle"];
@@ -119,7 +105,7 @@
                         [obj setValue:d[@"mappedepisode"] forKey:@"mappedepisode"];
                     }
                     //Save
-                    [moc save:&error];
+                    [moc save:&derror];
                 }
             }];
             // Set the last updated date
@@ -174,5 +160,15 @@ offset:(int)offset{
     }
     return nil;
 }
-
++ (AFHTTPSessionManager*)manager {
+    static dispatch_once_t onceToken;
+    static AFHTTPSessionManager *manager = nil;
+    dispatch_once(&onceToken, ^{
+        manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
+    });
+    
+    return manager;
+}
 @end

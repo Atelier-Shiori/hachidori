@@ -15,9 +15,9 @@
  Authenticates a Plex account with a given username and password. If authentication is successful, the token is saved to the login keychain.
  @pram username The plex account's username.
  @pram password The password for the provided account.
- @return bool If login is successful or not.
+ @param completionHandler The completion handler containing the success status
  */
-+ (bool)performplexlogin:(NSString *)username withPassword:(NSString *)password;
++ (void)performplexlogin:(NSString *)username withPassword:(NSString *)password completion:(void (^)(bool success)) completionHandler;
 /**
  Removes a plex account
  @return bool If account removal is successful.

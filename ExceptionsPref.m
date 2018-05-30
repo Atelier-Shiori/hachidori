@@ -88,7 +88,7 @@
         // Add to Exceptions
         [ExceptionsCache addtoExceptions:detectedtitle correcttitle:fsdialog.selectedtitle aniid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes offset:0 detectedSeason:_detectedseason];
         //Check Cache
-        [ExceptionsCache checkandRemovefromCache:detectedtitle detectedSeason:_detectedseason];
+        [ExceptionsCache checkandRemovefromCache:detectedtitle detectedSeason:_detectedseason withService:0];
     }
     // Refetch Exceptions Data
     [arraycontroller fetch:self];
@@ -152,7 +152,7 @@
                 }
                 [ExceptionsCache addtoExceptions:d[@"detectedtitle"] correcttitle:d[@"correcttitle"] aniid:d[@"showid"] threshold:threshold offset:doffset detectedSeason:detectseason];
                 //Check Cache
-                [ExceptionsCache checkandRemovefromCache:(NSString *)d[@"detectedtitle"] detectedSeason:_detectedseason];
+                [ExceptionsCache checkandRemovefromCache:(NSString *)d[@"detectedtitle"] detectedSeason:_detectedseason withService:0];
             }
             // Refetch Exceptions Data
             [arraycontroller fetch:self];

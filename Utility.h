@@ -30,7 +30,7 @@ typedef NS_ENUM(unsigned int, matchtype) {
 + (void)donateCheck:(AppDelegate*)delegate;
 + (void)showDonateReminder:(AppDelegate*)delegate;
 + (void)setReminderDate;
-+ (int)checkDonationKey:(NSString *)key name:(NSString *)name;
++ (void)checkDonationKey:(NSString *)key name:(NSString *)name completion:(void (^)(int success)) completionHandler;
 + (AFHTTPSessionManager*)manager;
 + (AFJSONRequestSerializer *)jsonrequestserializer;
 + (AFHTTPRequestSerializer *)httprequestserializer;
@@ -40,4 +40,8 @@ typedef NS_ENUM(unsigned int, matchtype) {
 + (int)translatestandardKitsuRatingtoRatingTwenty:(double)score;
 + (int)translateadvancedKitsuRatingtoRatingTwenty:(double)score;
 + (NSString *)numbertoordinal:(int)number;
++ (AFHTTPSessionManager*)jsonmanager;
++ (double)calculatedays:(NSArray *)list;
++ (NSString *)dateIntervalToDateString:(double)timeinterval;
++ (NSString *)convertAnimeType:(NSString *)type;
 @end

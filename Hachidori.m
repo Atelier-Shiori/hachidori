@@ -7,7 +7,11 @@
 //
 
 #import "Hachidori.h"
+#import "Hachidori+AnimeRelations.h"
+#import "AniListConstants.h"
 #import <DetectionKit/DetectionKit.h>
+#import <AFNetworking/AFNetworking.h>
+#import <TwitterManagerKit/TwitterManagerKit.h>
 #import "Hachidori+Keychain.h"
 #import "Hachidori+Search.h"
 #import "Hachidori+Update.h"
@@ -22,28 +26,40 @@
 @synthesize online;
 - (instancetype)init{
     _confirmed = true;
-    //Create Reachability Object
-    _reach = [Reachability reachabilityWithHostname:@"kitsu.io"];
-    // Set up blocks
-    // Set the blocks
-    _reach.reachableBlock = ^(Reachability*reach)
-    {
-        online = true;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Kitsu is reachable.");
-        });
-    };
-    _reach.unreachableBlock = ^(Reachability*reach)
-    {
-        online = false;
-        NSLog(@"Computer not connected to internet or Kitsu is down");
-    };
-    // Start notifier
-    [_reach startNotifier];
+    //Reachability
+    [self setNotifier];
     //Set up Kodi Reachability
     _detection = [Detection new];
     [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
     [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
+    // Init Twitter Manager
+    self.twittermanager = [[TwitterManager alloc] initWithConsumerKeyUsingFirstAccount:kConsumerKey withConsumerSecret:kConsumerSecret];
+    // Init Discord
+    self.discordmanager = [DiscordManager new];
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
+        [self.discordmanager startDiscordRPC];
+    }
+    // Init AFNetworking
+    _syncmanager = [AFHTTPSessionManager manager];
+    _syncmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+    _syncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+    _syncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
+    [_syncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
+    _syncmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
+    _asyncmanager = [AFHTTPSessionManager manager];
+    _asyncmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+    _asyncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+    _asyncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
+    [_asyncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
+    _malcredmanager = [AFHTTPSessionManager manager];
+    _malcredmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    _malcredmanager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    _malcredmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
+    _malmanager = [AFHTTPSessionManager manager];
+    _malmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    _malmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+    _malmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
+    
     return [super init];
 }
 /* 
@@ -53,31 +69,31 @@
  */
 - (int)getWatchStatus
 {
-    if ([_WatchStatus isEqualToString:@"currently-watching"]) {
-		return 0;
+    if ([_WatchStatus isEqualToString:@"watching"]) {
+        return 0;
     }
     else if ([_WatchStatus isEqualToString:@"completed"]) {
-		return 1;
+        return 1;
     }
     else if ([_WatchStatus isEqualToString:@"on-hold"]) {
-		return 2;
+        return 2;
     }
     else if ([_WatchStatus isEqualToString:@"dropped"]) {
-		return 3;
+        return 3;
     }
     else if ([_WatchStatus isEqualToString:@"plan-to-watch"]) {
         return 4;
     }
     else {
-		return 0; //fallback
+        return 0; //fallback
     }
 }
-- (int)getQueueCount{
+- (int)getQueueCount {
     __block int count = 0;
     NSManagedObjectContext * moc = self.managedObjectContext;
     [moc performBlockAndWait:^{
         NSError * error;
-        NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (status == %i)", false, 23];
+        NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (status == %i) AND (service == %li)", false, 23, [self currentService]];
         NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
         queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
         queuefetch.predicate = predicate;
@@ -86,13 +102,53 @@
     }];
     return count;
 }
-- (AFOAuthCredential *)getFirstAccount{
-   return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
+- (long)currentService {
+    return [NSUserDefaults.standardUserDefaults integerForKey:@"currentservice"];
 }
-- (NSString *)getUserid{
-    NSString * userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID"];
-    if (userid) {
-        return userid;
+
+- (NSString *)currentServiceName {
+    switch ([self currentService]) {
+        case 0:
+            return @"Kitsu";
+        case 1:
+            return @"AniList";
+        default:
+            break;
+    }
+    return @"";
+}
+
+- (AFOAuthCredential *)getCurrentFirstAccount {
+    return [self getFirstAccount:[self currentService]];
+}
+- (AFOAuthCredential *)getFirstAccount: (long)service {
+    switch (service) {
+        case 0:
+            return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
+        case 1:
+            return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - AniList"];
+        default:
+            return nil;
+    }
+}
+- (NSString *)getUserid {
+    NSString * userid;
+    switch ([self currentService]) {
+        case 0: {
+            userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID"];
+            if (userid) {
+                return userid;
+            }
+        }
+        case 1: {
+            userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID-anilist"];
+            if (userid) {
+                return userid;
+            }
+        }
+        default: {
+            break;
+        }
     }
     return nil;
 }
@@ -159,12 +215,12 @@
 	}
     return detectstatus;
 }
-- (NSDictionary *)scrobblefromqueue{
+- (NSDictionary *)scrobblefromqueue {
     // Restore Detected Media
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
     __block NSArray * queue;
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND ((status == %i) OR (status == %i))", false, 23, 3];
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (service == %li) AND ((status == %i) OR (status == %i)))", false, self.currentService, 23, 3];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     queuefetch.predicate = predicate;
@@ -421,11 +477,11 @@
 - (void)clearAnimeInfo{
     _LastScrobbledInfo = nil;
 }
-- (NSString *)checkCache{
+- (NSString *)checkCache {
     NSManagedObjectContext *moc = managedObjectContext;
     NSFetchRequest *allCaches = [[NSFetchRequest alloc] init];
     allCaches.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@", _DetectedTitle];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@  AND service == %i", _DetectedTitle, self.currentService];
     allCaches.predicate = predicate;
     NSError *error = nil;
     NSArray *cache = [moc executeFetchRequest:allCaches error:&error];
@@ -440,6 +496,16 @@
                 if ( _DetectedEpisode.intValue <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
                     return [cacheentry valueForKey:@"id"];
                 }
+                else {
+                    // Check Anime Relations
+                    if ([NSUserDefaults.standardUserDefaults boolForKey:@"UseAnimeRelations"]) {
+                        int newid = [self checkAnimeRelations:((NSString *)[cacheentry valueForKey:@"id"]).intValue];
+                        if (newid > 0) {
+                            NSLog(@"Using Anime Relations mapping id...");
+                            return @(newid).stringValue;
+                        }
+                    }
+                }
             }
         }
     }
@@ -450,7 +516,7 @@
     NSManagedObjectContext * moc = self.managedObjectContext;
 	bool found = false;
 	NSPredicate *predicate;
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
         __block NSError * error = nil;
         if (i == 0) {
@@ -463,14 +529,19 @@
                 predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((detectedSeason == %i) OR (detectedSeason == %i))", _DetectedTitle, 0, 1];
             }
         }
-        else if (i== 1 && [[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
+        else if (i < 3 && [[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
                 NSLog(@"Checking Auto Exceptions");
-                allExceptions.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
+                allExceptions.entity = [NSEntityDescription entityForName:@"AutoCorrection" inManagedObjectContext:moc];
                 if (_DetectedSeason == 1 || _DetectedSeason == 0) {
                     predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", _DetectedTitle, _DetectedGroup, @"ALL"];
                 }
                 else {
-                    predicate = [NSPredicate predicateWithFormat: @"((detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@) OR    (detectedTitle ==[c] %@)) AND ((group == %@) OR (group == %@))", [NSString stringWithFormat:@"%@ %i", _DetectedTitle, _DetectedSeason], [NSString stringWithFormat:@"%@ S%i", _DetectedTitle, _DetectedSeason], [NSString stringWithFormat:@"%@ %@ Season", _DetectedTitle, [Utility numbertoordinal:_DetectedSeason]], _DetectedGroup, @"ALL"];
+                    if (i == 1) {
+                        predicate = [NSPredicate predicateWithFormat: @"((detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@)) AND ((group == %@) OR (group == %@))", [NSString stringWithFormat:@"%@ %i", _DetectedTitle, _DetectedSeason], [NSString stringWithFormat:@"%@ S%i", _DetectedTitle, _DetectedSeason], [NSString stringWithFormat:@"%@ %@ Season", _DetectedTitle, [Utility numbertoordinal:_DetectedSeason]], _DetectedGroup, @"ALL"];
+                    }
+                    else {
+                        predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", _DetectedTitle, _DetectedGroup, @"ALL"];
+                    }
                 }
         }
         else {
@@ -527,9 +598,11 @@
                         if (tmpepisode > 0) {
                             _DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
                         }
+                        if (_DetectedSeason > 0 && i != 2) {
+                            _DetectedSeason = 0;
+                        }
                         _DetectedType = @"";
                         _DetectedTitle = correcttitle;
-                        _DetectedSeason = 0;
                         _DetectedTitleisEpisodeZero = false;
                         found = true;
 						break;
@@ -546,7 +619,7 @@
     // Return existing offline queue item
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@)", _DetectedTitle, _DetectedEpisode, _DetectedType, _DetectedTitleisMovie, _DetectedTitleisEpisodeZero, _DetectedSeason, _DetectedSource];
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@) AND (service == %li)", _DetectedTitle, _DetectedEpisode, _DetectedType, _DetectedTitleisMovie, _DetectedTitleisEpisodeZero, _DetectedSeason, _DetectedSource, self.currentService];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     queuefetch.predicate = predicate;
@@ -563,29 +636,97 @@
  Token Refresh
  */
 - (bool)checkexpired{
-    AFOAuthCredential * cred = [self getFirstAccount];
+    AFOAuthCredential * cred = [self getCurrentFirstAccount];
     return cred.expired;
 }
-- (void)refreshtoken{
-    AFOAuthCredential *cred =
-    [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
-    NSURL *baseURL = [NSURL URLWithString:kBaseURL];
-    AFOAuth2Manager *OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
-                                                                     clientID:kclient
-                                                                       secret:ksecretkey];
-    [OAuth2Manager setUseHTTPBasicAuthentication:NO];
-    [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL
-                                            parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} success:^(AFOAuthCredential *credential) {
-        NSLog(@"Token refreshed");
-        [AFOAuthCredential storeCredential:credential
-                            withIdentifier:@"Hachidori"];
-        AppDelegate * appdel = (AppDelegate *)[NSApplication sharedApplication].delegate;
-        [appdel updatenow:self];
+- (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler {
+    AFOAuthCredential *cred;
+    switch (service) {
+        case 0: {
+            cred =
+            [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
+            NSURL *baseURL = [NSURL URLWithString:kBaseURL];
+            AFOAuth2Manager *OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
+                                                                             clientID:kclient
+                                                                               secret:ksecretkey];
+            [OAuth2Manager setUseHTTPBasicAuthentication:NO];
+            [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} success:^(AFOAuthCredential *credential) {
+                                                        NSLog(@"Token refreshed");
+                                                        [AFOAuthCredential storeCredential:credential
+                                                                            withIdentifier:@"Hachidori"];
+                                                        successHandler(true);
+                                                    }
+                                                       failure:^(NSError *error) {
+                                                           NSLog(@"Token cannot be refreshed: %@", error);
+                                                           successHandler(false);
+                                                       }];
+            break;
+        }
+        case 1:
+            successHandler(false);
+            break;
+        default:
+            break;
     }
-                                               failure:^(NSError *error) {
-                                                   NSLog(@"Token cannot be refreshed: %@", error);
-                                               }];
-   
+}
+
+- (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service {
+    AFOAuthCredential *cred = [self getFirstAccount:service];
+    if (cred && cred.expired) {
+        errorHandler(nil);
+        return;
+    }
+    [_asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
+    switch (service) {
+        case 0: {
+            [_asyncmanager GET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                if (((NSArray *)responseObject[@"data"]).count > 0) {
+                    NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];
+                    int scoreformat = 0;
+                    NSString *ratingtype = d[@"attributes"][@"ratingSystem"];
+                    if (ratingtype) {
+                        if ([ratingtype isEqualToString:@"simple"]) {
+                            scoreformat = ratingSimple;
+                        }
+                        else if ([ratingtype isEqualToString:@"standard"]) {
+                            scoreformat = ratingStandard;
+                        }
+                        else if ([ratingtype isEqualToString:@"advanced"]) {
+                            scoreformat = ratingAdvanced;
+                        }
+                    }
+                    else {
+                        scoreformat = ratingSimple;
+                    }
+                    completionHandler(((NSNumber *)d[@"id"]).intValue,d[@"attributes"][@"slug"], @(scoreformat).stringValue);
+                }
+                else {
+                    completionHandler(-1,@"",@"");
+                }
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                errorHandler(error);
+            }];
+            break;
+        }
+        case 1: {
+            [_asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                if (responseObject[@"data"][@"Viewer"] != [NSNull null]) {
+                    NSDictionary *d = responseObject[@"data"][@"Viewer"];
+                    completionHandler(((NSNumber *)d[@"id"]).intValue,d[@"name"], d[@"mediaListOptions"][@"scoreFormat"]);
+                }
+                else {
+                    completionHandler(-1,@"",@"");
+                }
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                errorHandler(error);
+            }];
+            break;
+        }
+        default:
+            break;
+    }
+
 }
 
 - (void)resetinfo {
@@ -598,6 +739,36 @@
     _LastScrobbledActualTitle = nil;
     _AniID = nil;
     _slug = nil;
+}
+
+- (void)setNotifier {
+    if (_reach) {
+        [_reach stopNotifier];
+    }
+    //Create Reachability Object
+    switch (self.currentService) {
+        case 0:
+            _reach = [Reachability reachabilityWithHostname:@"kitsu.io"];
+            break;
+        case 1:
+            _reach = [Reachability reachabilityWithHostname:@"anilist.co"];
+            break;
+    }
+    __weak Hachidori *weakSelf = self;
+    _reach.reachableBlock = ^(Reachability*reach)
+    {
+        online = true;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"%@ is reachable.", weakSelf.currentServiceName);
+        });
+    };
+    _reach.unreachableBlock = ^(Reachability*reach)
+    {
+        online = false;
+        NSLog(@"Computer not connected to internet or %@ is down", weakSelf.currentServiceName);
+    };
+    // Start notifier
+    [_reach startNotifier];
 }
 
 @end

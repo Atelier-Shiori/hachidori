@@ -17,5 +17,5 @@
 #import "SoftwareUpdatesPref.h"
 #import "AdvancedPrefController.h"
 #import "PlexPrefs.h"
-
+#import "SocialPrefController.h"
 #endif

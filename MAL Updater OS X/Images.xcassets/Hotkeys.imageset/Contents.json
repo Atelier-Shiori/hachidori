@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "hotkeys.png"
+      "filename" : "hotkey.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "hotkey2x.png"
+      "filename" : "hotkey@2.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

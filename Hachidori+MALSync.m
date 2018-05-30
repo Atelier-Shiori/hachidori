@@ -9,7 +9,7 @@
 #import "Hachidori+MALSync.h"
 #import "Hachidori+Keychain.h"
 #import "Utility.h"
-#import <EasyNSURLConnection/EasyNSURLConnection.h>
+#import <AFNetworking/AFNetworking.h>
 
 @implementation Hachidori (MALSync)
 - (BOOL)sync {
@@ -40,24 +40,18 @@
     }
 }
 - (int)checkStatus {
+    // Checks status of the entry associated to a title id
     self.MALID = [self getMALID];
     NSLog(@"Checking Status on MyAnimeList");
-    //Set Search API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/1/anime/%@?mine=1",self.MALApiUrl, self.MALID]];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    //Set Token
-    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
-    //Perform Search
-    [request startRequest];
+    [self.malmanager.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", [self getBase64]] forHTTPHeaderField:@"Authorization"];
+    NSURLSessionDataTask *task;
+    NSError *error;
+    id responseObject = [self.malmanager syncGET:[NSString stringWithFormat:@"%@/1/anime/%@?mine=1",self.MALApiUrl, self.MALID] parameters:nil task:&task error:&error];
     // Get Status Code
-    long statusCode = [request getStatusCode];
-    NSError * error = [request getError]; // Error Detection
+    long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     if (statusCode == 200 ) {
-        NSDictionary *animeinfo = [request.response getResponseDataJsonParsed];
         // Check if title needs to be added or not.
-        bool onlist = animeinfo[@"watched_status"] == [NSNull null];
+        bool onlist = responseObject[@"watched_status"] == [NSNull null];
         NSLog(@"%@", onlist ? @"Not on MAL List" : @"Title on MAL List");
         return onlist ? 1 : 2;
     }
@@ -75,32 +69,25 @@
 }
 - (BOOL)updatetitle {
     // Update the title
-    //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/1/animelist/anime/%@", self.MALApiUrl, self.MALID]];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    //Set Token
-    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
-    [request setPostMethod:@"PUT"];
-    // Set info
-    [request addFormData:self.LastScrobbledEpisode forKey:@"episodes"];
+    [self.malmanager.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", [self getBase64]] forHTTPHeaderField:@"Authorization"];
+    NSURLSessionDataTask *task;
+    NSError *error;
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    //Watrch Status
+    parameters[@"episodes"] = self.LastScrobbledEpisode;
+    parameters[@"status"] = [self.WatchStatus isEqual:@"current"] ? @"watching" : self.WatchStatus;
     //Rewatch Status
-    [request addFormData:self.rewatching ? @"1" : @"0" forKey:@"is_rewatching"];
-    [request addFormData:@(self.rewatchcount).stringValue forKey:@"rewatch_count"];
-    [request addFormData:self.TitleNotes forKey:@"comments"];
-    
-    //Set Status
-    [request addFormData:[self.WatchStatus isEqual:@"current"] ? @"watching" : self.WatchStatus forKey:@"status"];
-    
+    parameters[@"is_rewatching"] = @(self.rewatching);
+    parameters[@"rewatch_count"] = @(self.rewatchcount);
+    parameters[@"comments"] = self.TitleNotes;
     // Convert score
     int tmpscore = [Utility translateKitsuTwentyScoreToMAL:self.TitleScore];
-    [request addFormData:@(tmpscore).stringValue forKey:@"score"];
+    parameters[@"score"] = @(tmpscore);
+    id responseObject = [self.malmanager syncPUT:[NSString stringWithFormat:@"%@/1/animelist/anime/%@", self.MALApiUrl, self.MALID] parameters:parameters task:&task error:&error];
+    // Get Status Code
+    long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     
-    // Do Update
-    [request startFormRequest];
-    
-    switch ([request getStatusCode]) {
+    switch (statusCode) {
         case 200:
             // Update Successful
             NSLog(@"MAL Sync OK.");
@@ -113,28 +100,23 @@
 }
 - (BOOL)addtitle {
     // Add the title
-    //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/2/animelist/anime", self.MALApiUrl]];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    //Set Token
-    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Basic %@", [self getBase64]]};
-    [request addFormData:self.MALID forKey:@"anime_id"];
-    [request addFormData:self.LastScrobbledEpisode forKey:@"episodes"];
-    
-    // Check if the detected episode is equal to total episodes. If so, set it as complete (mostly for specials and movies)
-    //Set Status
-    [request addFormData:[self.WatchStatus isEqual:@"current"] ? @"watching" : self.WatchStatus forKey:@"status"];
-    
+    [self.malmanager.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", [self getBase64]] forHTTPHeaderField:@"Authorization"];
+    NSURLSessionDataTask *task;
+    NSError *error;
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"anime_id"] = self.MALID;
+    parameters[@"episodes"] = self.LastScrobbledEpisode;
+    parameters[@"status"] = [self.WatchStatus isEqual:@"current"] ? @"watching" : self.WatchStatus;
     //Convert score
     int tmpscore = [Utility translateKitsuTwentyScoreToMAL:self.TitleScore];
-    [request addFormData:@(tmpscore).stringValue forKey:@"score"];
+    parameters[@"score"] = @(tmpscore);
     
     // Do Update
-    [request startFormRequest];
+    id responseObject = [self.malmanager syncPUT:[NSString stringWithFormat:@"%@/2/animelist/anime", self.MALApiUrl] parameters:parameters task:&task error:&error];
+    // Get Status Code
+    long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
 
-    switch ([request getStatusCode]) {
+    switch (statusCode) {
         case 200:
         case 201:
             NSLog(@"MAL Sync OK.");
@@ -148,17 +130,14 @@
 }
 - (NSString *)getMALID {
     NSLog(@"Retrieving MyAnimeList Anime ID from Kitsu...");
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@/mappings", self.AniID]];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    //Get Information
-    [request startRequest];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    NSURLSessionDataTask *task;
+    NSError *error;
+    id responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@/mappings", self.AniID] parameters:nil task:&task error:&error];
     // Get Status Code
-    long statusCode = [request getStatusCode];
+    long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     if (statusCode == 200) {
-        NSDictionary * d = [request.response getResponseDataJsonParsed];
-        NSArray * mappings = d[@"data"];
+        NSArray * mappings = responseObject[@"data"];
         for (NSDictionary * m in mappings) {
             if ([[NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalSite"]] isEqualToString:@"myanimelist/anime"]) {
                 return [NSString stringWithFormat:@"%@",[m[@"attributes"] valueForKey:@"externalId"]];

@@ -30,7 +30,7 @@
     //Save
     [moc save:&error];
 }
-+ (void)checkandRemovefromCache:(NSString *)detectedtitle detectedSeason:(int)season {
++ (void)checkandRemovefromCache:(NSString *)detectedtitle detectedSeason:(int)season withService:(int)service {
     // Checks for cache entry. If exists, it will remove that entry.
     AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = delegate.managedObjectContext;
@@ -39,7 +39,7 @@
     allCache.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
     NSError *error = nil;
     NSArray *caches = [moc executeFetchRequest:allCache error:&error];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (detectedSeason == %i)", detectedtitle, season];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"(detectedTitle == %@) AND (detectedSeason == %i) AND (service == %i)", detectedtitle, season, service];
     allCache.predicate = predicate;
     if (caches.count > 0) {
         //Check Cache to remove conflicts
@@ -51,7 +51,7 @@
         [moc save:&error];
     }
 }
-+ (void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes detectedSeason:(int)season {
++ (void)addtoCache:(NSString *)title showid:(NSString *)showid actualtitle:(NSString *) atitle totalepisodes:(int)totalepisodes detectedSeason:(int)season withService:(int)service {
     //Adds ID to cache
     AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = delegate.managedObjectContext;

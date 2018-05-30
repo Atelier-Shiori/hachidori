@@ -7,7 +7,8 @@
 //
 
 #import "LoginPref.h"
-#import <EasyNSURLConnection/EasyNSURLConnection.h>
+#import "AniListAuthWindow.h"
+#import <AFNetworking/AFNetworking.h>
 #import "Utility.h"
 #import <AFNetworking/AFOAuth2Manager.h>
 #import "ClientConstants.h"
@@ -15,7 +16,6 @@
 #import "Hachidori.h"
 
 @implementation LoginPref
-@synthesize loginpanel;
 
 - (instancetype)init
 {
@@ -24,6 +24,7 @@
 - (id)initwithAppDelegate:(AppDelegate *)adelegate{
     
     _appdelegate = adelegate;
+    _haengine = _appdelegate.haengine;
     return [super initWithNibName:@"LoginView" bundle:nil];
     
 }
@@ -33,6 +34,10 @@
     _logo.image = NSApp.applicationIconImage;
     // Load Login State
 	[self loadlogin];
+}
+
+- (Hachidori *)hachidori {
+    return [_appdelegate getHachidoriInstance];
 }
 
 #pragma mark -
@@ -56,8 +61,7 @@
 - (void)loadlogin
 {
 	// Load Username
-    AFOAuthCredential *ac = [self getFirstAccount];
-	if (ac) {
+	if ([_haengine getFirstAccount:0]) {
 		[_clearbut setEnabled: YES];
 		[_savebut setEnabled: NO];
         [_loggedinview setHidden:NO];
@@ -69,6 +73,19 @@
 		[_clearbut setEnabled: NO];
 		[_savebut setEnabled: YES];
 	}
+    // Anilist
+    if ([_haengine getFirstAccount:1]) {
+        [_anilistclearbut setEnabled: YES];
+        [_anilistauthorizebtn setEnabled: NO];
+        [_anilistloggedinview setHidden:NO];
+        [_anilistloginview setHidden:YES];
+        _anilistloggedinuser.stringValue = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername-anilist"]];
+    }
+    else {
+        //Disable Clearbut
+        [_anilistclearbut setEnabled: NO];
+        [_anilistauthorizebtn setEnabled: YES];
+    }
 }
 - (IBAction)startlogin:(id)sender
 {
@@ -94,6 +111,27 @@
 		}
        	}
 }
+- (IBAction)authorize:(id)sender {
+    if (!_anilistauthw) {
+        _anilistauthw = [AniListAuthWindow new];
+    }
+    else {
+        [_anilistauthw.window makeKeyAndOrderFront:self];
+        [_anilistauthw loadAuthorization];
+        [_anilistauthw close];
+    }
+    _anilistauthorizebtn.enabled = NO;
+    [self.view.window beginSheet:_anilistauthw.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSModalResponseOK) {
+            NSString *pin = _anilistauthw.pin.copy;
+            _anilistauthw.pin = nil;
+            [self authorizeWithPin:pin withService:1];
+        }
+        else {
+            _anilistauthorizebtn.enabled = YES;
+        }
+    }];
+}
 - (void)login:(NSString *)username password:(NSString *)password{
     NSURL *baseURL = [NSURL URLWithString:kBaseURL];
     AFOAuth2Manager *OAuth2Manager =
@@ -105,14 +143,28 @@
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
         [AFOAuthCredential storeCredential:credential
                                 withIdentifier:@"Hachidori"];
-        [[NSUserDefaults standardUserDefaults] setValue:_fieldusername.stringValue forKey:@"loggedinusername"];
-            [[NSUserDefaults standardUserDefaults] setValue:[self retrieveUserID:[self getFirstAccount]] forKey:@"UserID"];
-        [_clearbut setEnabled: YES];
-        _loggedinuser.stringValue = username;
-        [_loggedinview setHidden:NO];
-        [_loginview setHidden:YES];
-        _fieldusername.stringValue = @"";
-        _fieldpassword.stringValue = @"";
+            [_haengine retrieveUserID:^(int userid, NSString *username, NSString *scoreformat) {
+                [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"loggedinusername"];
+                [[NSUserDefaults standardUserDefaults] setValue:@(userid) forKey:@"UserID"];
+                [_clearbut setEnabled: YES];
+                _loggedinuser.stringValue = username;
+                [_loggedinview setHidden:NO];
+                [_loginview setHidden:YES];
+                _fieldusername.stringValue = @"";
+                _fieldpassword.stringValue = @"";
+            } error:^(NSError *error) {
+                NSLog(@"Error: %@", error);
+                // Do something with the error
+                //Login Failed, show error message
+                [Utility showsheetmessage:@"Hachidori was unable to log you in since it can't retrieve user metadata." explaination:@"Please try again later." window:self.view.window];
+                NSLog(@"%@",error);
+                [_savebut setEnabled: YES];
+                _savebut.keyEquivalent = @"\r";
+                [_loggedinview setHidden:YES];
+                [_loginview setHidden:NO];
+                [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
+            } withService:0];
+
     }
     failure:^(NSError *error) {
                                                    NSLog(@"Error: %@", error);
@@ -125,41 +177,114 @@
                                                    [_loggedinview setHidden:YES];
                                                    [_loginview setHidden:NO];
                                                }];
-   }
+}
+- (void)authorizeWithPin:(NSString *)pin withService: (int)service {
+    AFOAuth2Manager *OAuth2Manager =
+    [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://anilist.co/"]
+                                    clientID:kanilistclient
+                                      secret:kanilistsecretkey];
+    [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token" parameters:@{@"grant_type":@"authorization_code", @"code" : pin} success:^(AFOAuthCredential *credential) {
+        // Update your UI
+        [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
+        [AFOAuthCredential storeCredential:credential
+                            withIdentifier:@"Hachidori - AniList"];
+        [_haengine retrieveUserID:^(int userid, NSString *username, NSString *scoreformat) {
+            [[NSUserDefaults standardUserDefaults] setValue:@(userid) forKey:@"UserID-anilist"];
+            [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"loggedinusername-anilist"];
+            [_anilistauthorizebtn setEnabled: YES];
+            [_anilistclearbut setEnabled: YES];
+            _anilistloggedinuser.stringValue = username;
+            [_anilistloggedinview setHidden:NO];
+            [_anilistloginview setHidden:YES];
+        } error:^(NSError *error) {
+            NSLog(@"Error: %@", error);
+            // Do something with the error
+            //Login Failed, show error message
+            [Utility showsheetmessage:@"Hachidori was unable to authorize your account." explaination:@"Please try again later." window:self.view.window];
+            NSLog(@"%@",error);
+            [_anilistauthorizebtn setEnabled: YES];
+            _anilistauthorizebtn.keyEquivalent = @"\r";
+            [_anilistloggedinview setHidden:YES];
+            [_anilistloginview setHidden:NO];
+        } withService:1];
+
+    }
+                                               failure:^(NSError *error) {
+                                                   NSLog(@"Error: %@", error);
+                                                   // Do something with the error
+                                                   //Login Failed, show error message
+                                                   [Utility showsheetmessage:@"Hachidori was unable to log you in since it can't retrieve user metadata." explaination:@"Please try again later." window:self.view.window];
+                                                   NSLog(@"%@",error);
+                                                   [_anilistauthorizebtn setEnabled: YES];
+                                                   _anilistauthorizebtn.keyEquivalent = @"\r";
+                                                   [_anilistloggedinview setHidden:YES];
+                                                   [_anilistloginview setHidden:NO];
+                                                   [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - AniList"];
+                                               }];
+}
+
 - (IBAction)registerhummingbird:(id)sender
 {
 	//Show Kitsu Registration Page
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://kitsu.io"]];
 }
+
+- (IBAction)registerAnilist:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://anilist.co/register"]];
+}
+
 - (IBAction) showgettingstartedpage:(id)sender
 {
     //Show Getting Started help page
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
 }
+
 - (IBAction)clearlogin:(id)sender
 {
+    long service = ((NSButton *)sender).tag;
     if (!_appdelegate.scrobbling && !_appdelegate.scrobbleractive) {
         // Set Up Prompt Message Window
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
         [alert setMessageText:NSLocalizedString(@"Do you want to remove this account?",nil)];
-        [alert setInformativeText:NSLocalizedString(@"Once you remove this account, you need to reauthenticate your account before you can use this application.",nil)];
+        [alert setInformativeText:NSLocalizedString(@"Once you remove this account, you need to reauthorize your account before you can use this application.",nil)];
         // Set Message type to Warning
         alert.alertStyle = NSWarningAlertStyle;
         [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode== NSAlertFirstButtonReturn) {
-                // Remove Oauth Account
-                [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
-                [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
-                [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
-                //Disable Clearbut
-                [_clearbut setEnabled: NO];
-                [_savebut setEnabled: YES];
-                _loggedinuser.stringValue = @"";
-                [_loggedinview setHidden:YES];
-                [_loginview setHidden:NO];
-                [_appdelegate resetUI];
+                switch (service) {
+                    case 0: {
+                        // Remove Oauth Account
+                        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
+                        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
+                        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
+                        //Disable Clearbut
+                        [_clearbut setEnabled: NO];
+                        [_savebut setEnabled: YES];
+                        _loggedinuser.stringValue = @"";
+                        [_loggedinview setHidden:YES];
+                        [_loginview setHidden:NO];
+                        break;
+                    }
+                    case 1: {
+                        // Remove Oauth Account
+                        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - AniList"];
+                        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername-anilist"];
+                        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID-anilist"];
+                        //Disable Clearbut
+                        [_anilistclearbut setEnabled: NO];
+                        [_anilistauthorizebtn setEnabled: YES];
+                        _anilistloggedinuser.stringValue = @"";
+                        [_anilistloggedinview setHidden:YES];
+                        [_anilistloginview setHidden:NO];
+                        break;
+                    }
+                }
+                if (service == [_haengine currentService]) {
+                    // Only reset UI if the service id of the account being removed is the same as the current account
+                    [_appdelegate resetUI];
+                }
             }
         }];
     }
@@ -167,86 +292,9 @@
         [Utility showsheetmessage:@"Cannot Remove Account" explaination:@"Please turn off automatic scrobbling before removing this account." window:self.view.window];
     }
 }
-/*
- Reauthorization Panel
- */
-- (IBAction)reauthorize:(id)sender{
-    if (!_appdelegate.scrobbling && !_appdelegate.scrobbleractive) {
-        [NSApp beginSheet:self.loginpanel
-           modalForWindow:self.view.window modalDelegate:self
-           didEndSelector:@selector(reAuthPanelDidEnd:returnCode:contextInfo:)
-              contextInfo:(void *)nil];
-    }
-    else {
-        [Utility showsheetmessage:@"Cannot Remove Account" explaination:@"Please turn off automatic scrobbling before removing this account." window:self.view.window];
-    }
-}
-- (void)reAuthPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == 1) {
-        // Get Username
-        NSString * username = [self getUsername];
-        // Remove Oauth Account
-        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
-        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername"];
-        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID"];
-        //Perform Login
-        [self login:username password:_passwordinput.stringValue];
-    }
-    //Reset and Close
-    _passwordinput.stringValue = @"";
-    [_invalidinput setHidden:YES];
-    [self.loginpanel close];
-}
-- (IBAction)cancelreauthorization:(id)sender{
-    [self.loginpanel orderOut:self];
-    [NSApp endSheet:self.loginpanel returnCode:0];
-    
-}
-- (IBAction)performreauthorization:(id)sender{
-    if (_passwordinput.stringValue.length == 0) {
-        // No password, indicate it
-        NSBeep();
-        [_invalidinput setHidden:NO];
-    }
-    else {
-        [_invalidinput setHidden:YES];
-        [self.loginpanel orderOut:self];
-        [NSApp endSheet:self.loginpanel returnCode:1];
-    }
-}
-- (AFOAuthCredential *)getFirstAccount{
-    return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
-}
+
 - (NSString *)getUsername{
     return [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
 }
-- (NSString *)retrieveUserID:(AFOAuthCredential *)cred {
-    //Set library/scrobble API
-    NSURL *url = [NSURL URLWithString:@"https://kitsu.io/api/edge/users?filter[self]=true"];
-    EasyNSURLConnection *request = [[EasyNSURLConnection alloc] initWithURL:url];
-    request.headers = (NSMutableDictionary *)@{@"Authorization": [NSString stringWithFormat:@"Bearer %@", [self getFirstAccount].accessToken]};
-    //Ignore Cookies
-    [request setUseCookies:NO];
-    // Get Information
-    [request startRequest];
-    NSDictionary * d;
-    long statusCode = [request getStatusCode];
-    if (statusCode == 200 || statusCode == 201 ) {
-        //return Data
-        d = [request.response getResponseDataJsonParsed];
-        NSArray * tmp = d[@"data"];
-        if (tmp.count > 0) {
-            NSDictionary * uinfo = tmp[0];
-            return [NSString stringWithFormat:@"%@",uinfo[@"id"]];
-        }
-        return @"";
-    }
-    return @"";
-}
-- (bool)canRetrieveUserID:(AFOAuthCredential *)cred {
-    if ([self retrieveUserID:cred].length > 0) {
-        return true;
-    }
-    return false;
-}
+
 @end

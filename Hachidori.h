@@ -10,8 +10,13 @@
 #import <CocoaOniguruma/OnigRegexp.h>
 #import <CocoaOniguruma/OnigRegexpUtility.h>
 #import <AFNetworking/AFOAuth2Manager.h>
+#import "AniListConstants.h"
+#import "DiscordManager.h"
+
 @class Reachability;
 @class Detection;
+@class AFHTTPSessionManager;
+@class TwitterManager;
 
 @interface Hachidori : NSObject
 typedef NS_ENUM(unsigned int, ScrobbleStatus) {
@@ -28,11 +33,22 @@ typedef NS_ENUM(unsigned int, ScrobbleStatus) {
     ScrobblerUpdateFailed = 53,
     ScrobblerFailed = 54
 };
-typedef NS_ENUM(unsigned int, ratingType){
+typedef NS_ENUM(unsigned int, ratingType) {
     ratingSimple = 0,
     ratingStandard = 1,
     ratingAdvanced = 2
 };
+typedef NS_ENUM(unsigned int, anilistRatingType) {
+    ratingPoint100 = 0,
+    ratingPoint10Decimal = 1,
+    ratingPoint10 = 2,
+    ratingPoint5 = 3,
+    ratingPoint3 = 4
+};
+@property (strong) AFHTTPSessionManager *syncmanager;
+@property (strong) AFHTTPSessionManager *asyncmanager;
+@property (strong) AFHTTPSessionManager *malcredmanager;
+@property (strong) AFHTTPSessionManager *malmanager;
 @property (strong, getter=getLastScrobbledTitle) NSString *LastScrobbledTitle;
 @property (strong, getter=getLastScrobbledEpisode) NSString *LastScrobbledEpisode;
 @property (strong, getter=getLastScrobbledActualTitle) NSString *LastScrobbledActualTitle;
@@ -43,6 +59,7 @@ typedef NS_ENUM(unsigned int, ratingType){
 @property (getter=getisNewTitle) BOOL LastScrobbledTitleNew;
 @property (getter=getPrivate) BOOL isPrivate;
 @property BOOL _online;
+@property BOOL testing;
 @property (strong) NSString *DetectedTitle;
 @property (strong) NSString *DetectedEpisode;
 @property (strong) NSString *DetectedSource;
@@ -76,10 +93,16 @@ typedef NS_ENUM(unsigned int, ratingType){
 @property (getter=getOnlineStatus) bool online;
 @property (getter=getRatingType) int ratingtype;
 @property (strong) Detection *detection;
+@property (strong) TwitterManager *twittermanager;
+@property (strong) DiscordManager *discordmanager;
+
 - (void)setManagedObjectContext:(NSManagedObjectContext *)context;
 - (int)getWatchStatus;
 - (int)getQueueCount;
-- (AFOAuthCredential *)getFirstAccount;
+- (long)currentService;
+- (NSString *)currentServiceName;
+- (AFOAuthCredential *)getCurrentFirstAccount;
+- (AFOAuthCredential *)getFirstAccount:(long)service;
 - (NSString *)getUserid;
 - (int)startscrobbling;
 - (NSDictionary *)scrobblefromqueue;
@@ -88,8 +111,10 @@ typedef NS_ENUM(unsigned int, ratingType){
 - (BOOL)confirmupdate;
 - (void)clearAnimeInfo;
 - (bool)checkexpired;
-- (void)refreshtoken;
+- (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler;
+- (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service;
 - (void)resetinfo;
+- (void)setNotifier;
 // Unit Testing Only
 - (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end

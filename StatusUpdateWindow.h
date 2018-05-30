@@ -20,5 +20,10 @@
 @property (strong) IBOutlet NSMenu *standardratingmenu;
 @property (strong) IBOutlet NSMenu *advancedratingmenu;
 @property (nonatomic, copy) void (^completion)(int returncode);
+@property (strong) IBOutlet NSMenu *anilistfivescoremenu;
+@property (strong) IBOutlet NSMenu *anilistthreescoremenu;
+@property (strong) IBOutlet NSTextField *advancedscorefield;
+@property (strong) IBOutlet NSNumberFormatter *advancedscoreformatter;
+@property (strong) IBOutlet NSMenu *scoremenu;
 - (void)showUpdateDialog:(NSWindow *) w withHachidori:(Hachidori *)haengine;
 @end

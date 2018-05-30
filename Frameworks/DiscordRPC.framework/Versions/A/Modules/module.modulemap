@@ -1,0 +1,6 @@
+framework module DiscordRPC {
+  umbrella header "DiscordRPC.h"
+
+  export *
+  module * { export * }
+}

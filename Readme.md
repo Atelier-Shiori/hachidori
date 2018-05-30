@@ -1,13 +1,11 @@
 # Hachidori
-Hachidori (はちどり) is an open sourced kitsu.io client for OS X based on the same codebase as MAL Updater OS X, but designed exclusively for Kitsu formerly known as Hummingbird.
+Hachidori (はちどり) is an open sourced [Kitsu](https://kitsu.io) and [AniList](https://anilist.co) scrobbler for macOS.
  
-Requires latest SDK (10.12) and XCode 8 or later to compile. Deployment target is 10.9.
+Requires latest SDK (10.13) and XCode 9 or later to compile. Deployment target is 10.11.
 
 ## Supporting this Project
 
-Like this program and want to support the development of this program? [Become our Patreon](http://www.patreon.com/ateliershiori) or [Donate](http://hachidori.ateliershiori.moe/donate/). By donating more than $3 or becoming a patron, you will recieve a donation key to remove the reminder message when MAL Sync is enabled.
-
-Note that the program does not require registration, only when MAL Sync is enabled to remove the reminder dialog.
+Like this program and want to support the development of this program? You can [Donate](https://malupdaterosx.moe/donate/) $5 and you will recieve a donation key to remove the reminder message at startup every two weeks and enable additional features like the Bittorrent browser.
 
 ## How to use
 See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Started).

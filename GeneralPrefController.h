@@ -19,4 +19,7 @@
 @property (strong) IBOutlet NSProgressIndicator * indicator;
 @property (strong) IBOutlet NSButton * updateexceptionsbtn;
 @property (strong) IBOutlet NSButton * updateexceptionschk;
+@property (strong) IBOutlet NSButton *animerealtionschk;
+@property (strong) IBOutlet NSButton *updateanimerelationsbtn;
+@property (strong) IBOutlet NSProgressIndicator *animerelationindicator;
 @end

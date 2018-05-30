@@ -9,6 +9,7 @@
 #import "StatusUpdateWindow.h"
 #import "Hachidori.h"
 #import "AppDelegate.h"
+#import "AniListScoreConvert.h"
 
 @interface StatusUpdateWindow ()
 
@@ -38,21 +39,68 @@
     // Set up UI
     _showtitle.objectValue = haengine.LastScrobbledActualTitle;
     // Set rating menu based on user's rating preferences
-    switch (haengine.ratingtype){
-        case ratingSimple:
-            _showscore.menu = _simpleratingmenu;
+    switch (haengine.currentService) {
+        case 0: {
+            _showscore.hidden = NO;
+            _advancedscorefield.hidden = YES;
+            switch (haengine.ratingtype){
+                case ratingSimple:
+                    _showscore.menu = _simpleratingmenu;
+                    break;
+                case ratingStandard:
+                    _showscore.menu = _standardratingmenu;
+                    break;
+                case ratingAdvanced:
+                    _showscore.menu = _advancedratingmenu;
+                    break;
+                default:
+                    _showscore.menu = _simpleratingmenu;
+                    break;
+            }
+            [_showscore selectItemWithTag:haengine.TitleScore];
             break;
-        case ratingStandard:
-            _showscore.menu = _standardratingmenu;
+        }
+        case 1: {
+            switch (haengine.ratingtype) {
+                case ratingPoint100:
+                    _showscore.hidden = YES;
+                    _advancedscorefield.hidden = NO;
+                    _advancedscoreformatter.maximum = @(100);
+                    break;
+                case ratingPoint10Decimal:
+                    _showscore.hidden = YES;
+                    _advancedscorefield.hidden = NO;
+                    _advancedscoreformatter.maximum = @(100);
+                    break;
+                case ratingPoint10:
+                    _showscore.hidden = NO;
+                    _advancedscorefield.hidden = YES;
+                    _showscore.menu = _scoremenu;
+                    break;
+                case ratingPoint5:
+                    _showscore.hidden = NO;
+                    _advancedscorefield.hidden = YES;
+                    _showscore.menu = _anilistfivescoremenu;
+                    break;
+                case ratingPoint3:
+                    _showscore.hidden = NO;
+                    _advancedscorefield.hidden = YES;
+                    _showscore.menu = _anilistthreescoremenu;
+                    break;
+            }
+            // Convert scores
+            if (haengine.ratingtype == ratingPoint100) {
+                _advancedscorefield.intValue = [AniListScoreConvert convertAniListScoreToActualScore:haengine.TitleScore withScoreType:haengine.ratingtype].intValue;
+            }
+            else if (haengine.ratingtype == ratingPoint10Decimal) {
+                _advancedscorefield.floatValue = [AniListScoreConvert convertAniListScoreToActualScore:haengine.TitleScore withScoreType:haengine.ratingtype].floatValue;
+            }
+            else {
+                [_showscore selectItemWithTag:[AniListScoreConvert convertAniListScoreToActualScore:haengine.TitleScore withScoreType:haengine.ratingtype].intValue];
+            }
             break;
-        case ratingAdvanced:
-            _showscore.menu = _advancedratingmenu;
-            break;
-        default:
-            _showscore.menu = _simpleratingmenu;
-            break;
+        }
     }
-    [_showscore selectItemWithTag:haengine.TitleScore];
     _episodefield.stringValue = [NSString stringWithFormat:@"%i", haengine.DetectedCurrentEpisode];
     if (haengine.TotalEpisodes  !=0) {
         _epiformatter.maximum = @(haengine.TotalEpisodes);

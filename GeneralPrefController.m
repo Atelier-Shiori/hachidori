@@ -9,6 +9,7 @@
 #import "GeneralPrefController.h"
 #import "AppDelegate.h"
 #import "AutoExceptions.h"
+#import "AnimeRelations.h"
 #import "NSBundle+LoginItem.h"
 
 
@@ -20,6 +21,9 @@
 @synthesize indicator;
 @synthesize updateexceptionsbtn;
 @synthesize updateexceptionschk;
+@synthesize animerealtionschk;
+@synthesize updateanimerelationsbtn;
+@synthesize animerelationindicator;
 
 - (instancetype)init
 {
@@ -114,6 +118,47 @@
         [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode== NSAlertFirstButtonReturn) {
         [AutoExceptions clearAutoExceptions];
+            }
+        }];
+    }
+}
+- (IBAction)updateRelations:(id)sender{
+    // Updates Auto Exceptions List
+    dispatch_queue_t queue = dispatch_get_global_queue(
+                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(queue, ^{
+        // In a queue, download latest Anime Relations data, disable button until done and show progress wheel
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [updateanimerelationsbtn setEnabled:NO];
+            [animerealtionschk setEnabled:NO];
+            [animerelationindicator startAnimation:self];});
+        [AnimeRelations updateRelations];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [animerelationindicator stopAnimation:self];
+            [updateanimerelationsbtn setEnabled:YES];
+            [animerealtionschk setEnabled:YES];
+        });
+    });
+}
+
+- (IBAction)disableAnimeRelations:(id)sender{
+    if (animerealtionschk.state) {
+        [self updateRelations:self];
+    }
+    else {
+        // Clears anime relations if User chooses
+        // Set Up Prompt Message Window
+        NSAlert *alert = [[NSAlert alloc] init] ;
+        [alert addButtonWithTitle:@"Yes"];
+        [alert addButtonWithTitle:@"No"];
+        alert.messageText = @"Do you want to remove all Anime Relations Data?";
+        alert.informativeText = @"Since you are disabling Anime Relations, you can delete the Anime Relations data You will be able to download it again.";
+        // Set Message type to Warning
+        alert.alertStyle = NSWarningAlertStyle;
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode== NSAlertFirstButtonReturn) {
+                [AnimeRelations clearAnimeRelations];
             }
         }];
     }

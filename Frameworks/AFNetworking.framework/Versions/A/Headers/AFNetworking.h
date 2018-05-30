@@ -38,9 +38,10 @@ FOUNDATION_EXPORT const unsigned char AFNetworkingVersionString[];
 #import <AFNetworking/AFURLRequestSerialization.h>
 #import <AFNetworking/AFURLResponseSerialization.h>
 #import <AFNetworking/AFSecurityPolicy.h>
-#import <AFNetworking/AFOAuthCredential.h>
-#import <AFNetworking/AFHTTPRequestSerializer+OAuth2.h>
 #import <AFNetworking/AFOAuth2Manager.h>
+#import <AFNetworking/AFOAuthCredential.h>
+#import <AFNetworking/AFHTTPSessionManager+Synchronous.h>
+
 #if !TARGET_OS_WATCH
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 #endif
