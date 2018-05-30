@@ -129,7 +129,7 @@
         [attributes setValue:@"REPEATING" forKey:@"status"];
     }
     //Set new score.
-    [attributes setValue:showscore > 0 ? [NSString stringWithFormat:@"%i", showscore]:[NSNull null] forKey:@"score"];
+    [attributes setValue:@(showscore)forKey:@"score"];
     //Set new note
     [attributes setValue:note forKey:@"notes"];
     //Privacy
