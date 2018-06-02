@@ -56,11 +56,15 @@
     switch (self.currentService) {
         case 0:
             responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil task:&task error:&error];
-            responseObject = [AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject];
+            if (responseObject) {
+                responseObject = [AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject];
+            }
             break;
         case 1:
             responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : searchtitle, @"type" : @"ANIME"}} task:&task error:&error];
-            responseObject = [AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject];
+            if (responseObject) {
+                responseObject = [AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject];
+            }
             break;
         default:
             self.Success = NO;

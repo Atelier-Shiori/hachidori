@@ -65,6 +65,7 @@
     [obj setValue:atitle forKey:@"actualTitle"];
     [obj setValue:@(totalepisodes) forKey:@"totalEpisodes"];
     [obj setValue:@(season) forKey:@"detectedSeason"];
+    [obj setValue:@(service) forKey:@"service"];
     NSError *error = nil;
     // Save
     [moc save:&error];
