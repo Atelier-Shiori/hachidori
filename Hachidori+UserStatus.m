@@ -159,7 +159,7 @@
     self.rewatching = [(NSNumber *)d[@"rewatching"] boolValue];
     self.rewatchcount = [(NSNumber *)d[@"rewatch_count"] longValue];
     // Privacy Settings
-    self.isPrivate = d[@"private"] != [NSNull null] ? [(NSNumber *)d[@"private"] boolValue] : false;
+    self.isPrivate = [(NSNumber *)d[@"private"] boolValue];
     self.DetectedCurrentEpisode = ((NSNumber *)d[@"watched_episodes"]).intValue;
     self.LastScrobbledInfo = tmpinfo;
     self.LastScrobbledTitleNew = false;
