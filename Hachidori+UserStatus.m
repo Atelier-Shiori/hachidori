@@ -147,7 +147,7 @@
         self.TitleNotes = d[@"personal_comments"];
     }
     self.ratingtype = [self getUserRatingType];
-    if (d[@"score"] != 0) {
+    if (((NSNumber *)d[@"score"]).intValue != 0) {
         // If user is using the new rating system
         self.TitleScore = ((NSNumber *)d[@"score"]).intValue;
     }
@@ -156,10 +156,10 @@
         self.TitleScore = 0;
     }
     // Rewatch Information
-    self.rewatching = [d[@"rewatching"] boolValue];
-    self.rewatchcount = [d[@"rewatch_count"] longValue];
+    self.rewatching = [(NSNumber *)d[@"rewatching"] boolValue];
+    self.rewatchcount = [(NSNumber *)d[@"rewatch_count"] longValue];
     // Privacy Settings
-    self.isPrivate = [d[@"private"] boolValue];
+    self.isPrivate = d[@"private"] != [NSNull null] ? [(NSNumber *)d[@"private"] boolValue] : false;
     self.DetectedCurrentEpisode = ((NSNumber *)d[@"watched_episodes"]).intValue;
     self.LastScrobbledInfo = tmpinfo;
     self.LastScrobbledTitleNew = false;
