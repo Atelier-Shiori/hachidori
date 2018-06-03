@@ -1,5 +1,5 @@
 //
-//  PFMoveApplication.h, version 1.14
+//  PFMoveApplication.h, version 1.22
 //  LetsMove
 //
 //  Created by Andy Kim at Potion Factory LLC on 9/17/09
@@ -9,9 +9,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
-    void PFMoveToApplicationsFolderIfNecessary(void);
-    
+
+void PFMoveToApplicationsFolderIfNecessary(void);
+
 #ifdef __cplusplus
 }
 #endif

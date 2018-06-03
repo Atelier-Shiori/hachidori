@@ -271,7 +271,6 @@
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
 	haengine.managedObjectContext = managedObjectContext;
-    if (floor(NSAppKitVersionNumber) < 1485) {
     #ifdef DEBUG
     #else
         // Check if Application is in the /Applications Folder
@@ -279,7 +278,6 @@
         // Note: Sierra Appkit Version is 1485
         PFMoveToApplicationsFolderIfNecessary();
     #endif
-    }
     
     // Show Donation Message
     [Utility donateCheck:self];
