@@ -63,7 +63,7 @@
         aobject.image_url = title[@"coverImage"][@"large"] && title[@"coverImage"] != [NSNull null] && title[@"coverImage"][@"large"] && allowed ?  title[@"coverImage"][@"large"] : @"";
         aobject.synposis = allowed ? title[@"description"] : @"Synopsis not available for adult titles";
     #endif
-    aobject.type = [Utility convertAnimeType:title[@"format"]];
+    aobject.type = title[@"format"] != [NSNull null] ? [Utility convertAnimeType:title[@"format"]] : @"";
     aobject.episodes = title[@"episodes"] != [NSNull null] ? ((NSNumber *)title[@"episodes"]).intValue : 0;
     aobject.start_date = title[@"startDate"] != [NSNull null] ? [NSString stringWithFormat:@"%@-%@-%@",title[@"startDate"][@"year"],title[@"startDate"][@"month"],title[@"startDate"][@"day"]] : @"";
     aobject.end_date = title[@"endDate"] != [NSNull null] ? [NSString stringWithFormat:@"%@-%@-%@",title[@"endDate"][@"year"],title[@"endDate"][@"month"],title[@"endDate"][@"day"]] : @"";
