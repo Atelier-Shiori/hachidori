@@ -915,7 +915,7 @@
 }
 - (void)correctionDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
-            if ([fsdialog.selectedaniid isEqualToString:haengine.AniID]) {
+            if (fsdialog.selectedaniid.intValue == haengine.AniID.intValue) {
                 NSLog(@"ID matches, correction not needed.");
             }
             else {

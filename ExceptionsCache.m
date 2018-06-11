@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 
 @implementation ExceptionsCache
-+ (void)addtoExceptions:(NSString *)detectedtitle correcttitle:(NSString *)title aniid:(NSString *)showid threshold:(int)threshold offset:(int)offset detectedSeason:(int)season {
++ (void)addtoExceptions:(NSString *)detectedtitle correcttitle:(NSString *)title aniid:(NSNumber *)showid threshold:(int)threshold offset:(int)offset detectedSeason:(int)season {
     AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = delegate.managedObjectContext;
     NSError *error = nil;

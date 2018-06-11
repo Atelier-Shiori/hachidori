@@ -15,7 +15,7 @@
 @property (strong) IBOutlet NSButton *onetimecorrection;
 @property (strong) IBOutlet NSTableView *tb;
 @property (strong, getter=getSelectedTitle) NSString *selectedtitle;
-@property (strong, getter=getSelectedAniID) NSString *selectedaniid;
+@property (strong, getter=getSelectedAniID) NSNumber *selectedaniid;
 @property (getter=getSelectedTotalEpisodes) int selectedtotalepisodes;
 @property (strong, setter=setSearchField:) NSString *searchquery;
 @property (setter=setCorrection:) bool correction;
