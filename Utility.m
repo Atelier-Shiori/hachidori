@@ -8,6 +8,7 @@
 
 #import "Utility.h"
 #import <AFNetworking/AFNetworking.h>
+#import <DonationCheck_KeyOnly/DonationKeyVerify.h>
 
 @implementation Utility
 + (int)checkMatch:(NSString *)title
@@ -115,7 +116,11 @@
     NSDate * reminderdate = [now dateByAddingTimeInterval:60*60*24*7];
     [[NSUserDefaults standardUserDefaults] setObject:reminderdate forKey:@"donatereminderdate"];
 }
-+ (void)checkDonationKey:(NSString *)key name:(NSString *)name completion:(void (^)(int success)) completionHandler{
++ (void)checkDonationKey:(NSString *)key name:(NSString *)name completion:(void (^)(int success)) completionHandler {
+    if ([DonationKeyVerify checkHachidoriLicense:name withDonationKey:key]) {
+        completionHandler(1);
+        return;
+    }
     AFHTTPSessionManager *manager = [self jsonmanager];
     [manager POST:@"https://licensing.malupdaterosx.moe/check_hachidori.php" parameters:@{@"name" : name, @"key" : key} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         int valid = ((NSNumber *)responseObject[@"valid"]).intValue;

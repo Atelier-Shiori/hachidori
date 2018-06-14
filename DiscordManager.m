@@ -52,8 +52,8 @@ static void handleDiscordError(int errcode, const char* message)
         DiscordRichPresence discordPresence;
         discordPresence.state = state.UTF8String;
         discordPresence.details = details.UTF8String;
-        discordPresence.startTimestamp = 1;
-        discordPresence.endTimestamp = 3600;
+        discordPresence.startTimestamp = [NSDate date].timeIntervalSince1970;
+        discordPresence.endTimestamp = [NSDate dateWithTimeIntervalSinceNow:86400].timeIntervalSince1970;
         discordPresence.largeImageKey = "default";
         discordPresence.smallImageKey = "default";
         discordPresence.largeImageText = "";

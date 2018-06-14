@@ -699,7 +699,14 @@
                     else {
                         scoreformat = ratingSimple;
                     }
-                    completionHandler(((NSNumber *)d[@"id"]).intValue,d[@"attributes"][@"slug"], @(scoreformat).stringValue);
+                    NSString *username = @"Unknown User";
+                    if (d[@"attributes"][@"name"] != [NSNull null]) {
+                        username = d[@"attributes"][@"name"];
+                    }
+                    else if (d[@"attributes"][@"slug"] != [NSNull null]) {
+                        username = d[@"attributes"][@"slug"];
+                    }
+                    completionHandler(((NSNumber *)d[@"id"]).intValue,username, @(scoreformat).stringValue);
                 }
                 else {
                     completionHandler(-1,@"",@"");

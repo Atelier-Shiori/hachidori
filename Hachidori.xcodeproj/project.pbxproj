@@ -127,6 +127,9 @@
 		91D1170520BCB4D7006E4271 /* Hachidori+AniListUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */; };
 		91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
+		F8531F1320D2A80700CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */; };
+		F8531F1420D2A84F00CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */; };
+		F8531F1520D2A84F00CE78D9 /* DonationCheck_KeyOnly.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F88D55DD20B3178D00DB84B9 /* AnimeRelations.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D55DB20B3178C00DB84B9 /* AnimeRelations.m */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +163,7 @@
 				912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */,
 				2D621EC91F81436C003274F2 /* MSWeakTimer_macOS.framework in CopyFiles */,
 				9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */,
+				F8531F1520D2A84F00CE78D9 /* DonationCheck_KeyOnly.framework in CopyFiles */,
 				9126068020BEEFAE0052CB30 /* TwitterManagerKit.framework in CopyFiles */,
 				2D621ECC1F8143EB003274F2 /* PingNotifier.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
@@ -436,6 +440,7 @@
 		91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+KitsuUpdate.m"; sourceTree = "<group>"; };
 		91D1170320BCB4D7006E4271 /* Hachidori+AniListUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+AniListUpdate.h"; sourceTree = "<group>"; };
 		91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+AniListUpdate.m"; sourceTree = "<group>"; };
+		F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DonationCheck_KeyOnly.framework; sourceTree = "<group>"; };
 		F88D55DA20B3121F00DB84B9 /* MAL_Updater_OS_X_DataModel 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 7.xcdatamodel"; sourceTree = "<group>"; };
 		F88D55DB20B3178C00DB84B9 /* AnimeRelations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimeRelations.m; sourceTree = "<group>"; };
 		F88D55DC20B3178D00DB84B9 /* AnimeRelations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimeRelations.h; sourceTree = "<group>"; };
@@ -460,6 +465,7 @@
 				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
 				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
 				F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */,
+				F8531F1420D2A84F00CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */,
 				9126066B20BEE0150052CB30 /* TorrentBrowser.framework in Frameworks */,
 				912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */,
 				91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */,
@@ -470,6 +476,7 @@
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				F8531F1320D2A80700CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */,
 				2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */,
 				9126066920BEDD900052CB30 /* TorrentBrowser.framework in Frameworks */,
 				9126067E20BEEFAC0052CB30 /* TwitterManagerKit.framework in Frameworks */,
@@ -559,6 +566,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */,
 				9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */,
 				9126067920BEED8C0052CB30 /* DiscordRPC.framework */,
 				9126066820BEDD900052CB30 /* TorrentBrowser.framework */,

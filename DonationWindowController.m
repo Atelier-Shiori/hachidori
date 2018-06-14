@@ -34,7 +34,7 @@
         // Check donation key
         [Utility checkDonationKey:key.stringValue name:name.stringValue completion:^(int success) {
             if (success == 1) {
-                [Utility showsheetmessage:NSLocalizedString(@"Registered",nil) explaination:NSLocalizedString(@"Thank you for donating. The donation reminder will no longer appear for every two weeks when MAL Sync is enabled.",nil) window:nil];
+                [Utility showsheetmessage:NSLocalizedString(@"Registered",nil) explaination:NSLocalizedString(@"Thank you for donating. The donation reminder will no longer appear and exclusive features are unlocked.",nil) window:nil];
                 // Add to the preferences
                 [[NSUserDefaults standardUserDefaults] setObject:name.stringValue forKey:@"donor"];
                 [[NSUserDefaults standardUserDefaults] setObject:key.stringValue forKey:@"donatekey"];
