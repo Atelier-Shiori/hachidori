@@ -191,7 +191,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    id responseObject = [self.syncmanager syncPATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:@{@"data" : tmpd} task:&task error:&error];
+    [self.syncmanager syncPATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:@{@"data" : tmpd} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -218,7 +218,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    id responseObject = [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:nil task:&task error:&error];
+    [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:nil task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {

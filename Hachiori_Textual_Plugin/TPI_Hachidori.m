@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by 天々座理世 on 2017/04/16.
-//  Copyright 2009-2017 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2017 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "TPI_Hachidori.h"

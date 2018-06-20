@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by 高町なのは on 2014/11/15.
-//  Copyright (c) 2014年 Atelier Shiori and James Moy All rights reserved.
+//  Copyright (c) 2014年 MAL Updater OS X Group and James Moy All rights reserved.
 //
 
 #import "FixSearchDialog.h"
@@ -95,7 +95,7 @@
 }
 - (void)finish:(NSDictionary *)d{
     selectedtitle = d[@"title"];
-    selectedaniid = ((NSNumber *)d[@"id"]).stringValue;
+    selectedaniid = (NSNumber *)d[@"id"];
     if (d[@"episodes"] != [NSNull null]) {
         selectedtotalepisodes = ((NSNumber *)d[@"episodes"]).intValue;
     }

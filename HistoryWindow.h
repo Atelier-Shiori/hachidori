@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by Nanoha Takamachi on 2015/02/03.
-//  Copyright 2015 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2015 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import <Cocoa/Cocoa.h>

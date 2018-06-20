@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by James M. on 8/7/10.
-//  Copyright 2009-2018 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2018 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori.h"

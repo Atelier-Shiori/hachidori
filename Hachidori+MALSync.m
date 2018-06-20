@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by アナスタシア on 2016/04/17.
-//  Copyright 2009-2016 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2016 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori+MALSync.h"
@@ -83,7 +83,7 @@
     // Convert score
     int tmpscore = [Utility translateKitsuTwentyScoreToMAL:self.TitleScore];
     parameters[@"score"] = @(tmpscore);
-    id responseObject = [self.malmanager syncPUT:[NSString stringWithFormat:@"%@/1/animelist/anime/%@", self.MALApiUrl, self.MALID] parameters:parameters task:&task error:&error];
+    [self.malmanager syncPUT:[NSString stringWithFormat:@"%@/1/animelist/anime/%@", self.MALApiUrl, self.MALID] parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     
@@ -112,7 +112,7 @@
     parameters[@"score"] = @(tmpscore);
     
     // Do Update
-    id responseObject = [self.malmanager syncPUT:[NSString stringWithFormat:@"%@/2/animelist/anime", self.MALApiUrl] parameters:parameters task:&task error:&error];
+    [self.malmanager syncPUT:[NSString stringWithFormat:@"%@/2/animelist/anime", self.MALApiUrl] parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
 

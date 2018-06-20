@@ -169,7 +169,7 @@
     NSURLSessionDataTask *task;
     NSError *error;
     NSDictionary *parameters = @{@"query" : kAnilistUpdateAnimeListEntrySimple, @"variables" : attributes.copy};
-    id responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
+    [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -196,7 +196,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    id responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co"  parameters:@{@"query" : kAnilistDeleteListEntry, @"variables" : @{@"id" : self.EntryID}} task:&task error:&error];
+    [self.syncmanager syncPOST:@"https://graphql.anilist.co"  parameters:@{@"query" : kAnilistDeleteListEntry, @"variables" : @{@"id" : self.EntryID}} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
