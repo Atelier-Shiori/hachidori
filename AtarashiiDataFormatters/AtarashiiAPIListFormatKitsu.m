@@ -49,10 +49,12 @@
     aobject.titleid = ((NSNumber *)title[@"id"]).intValue;
     aobject.title = attributes[@"canonicalTitle"];
     // Create other titles
-    aobject.other_titles = @{@"synonyms" : (attributes[@"abbreviatedTitles"] && attributes[@"abbreviatedTitles"]  != [NSNull null]) ? attributes[@"abbreviatedTitles"] : @[], @"english" : attributes[@"titles"][@"en"] ? @[attributes[@"titles"][@"en"]] : @[], @"japanese" : attributes[@"titles"][@"ja_jp"] ? @[attributes[@"titles"][@"ja_jp"]] : @[] };
+    aobject.other_titles = @{@"synonyms" : (attributes[@"abbreviatedTitles"] && attributes[@"abbreviatedTitles"]  != [NSNull null]) ? attributes[@"abbreviatedTitles"] : @[], @"english" : attributes[@"titles"][@"en"] && attributes[@"titles"][@"en"] != [NSNull null] ? @[attributes[@"titles"][@"en"]] : attributes[@"titles"][@"en_jp"] && attributes[@"titles"][@"en_jp"] != [NSNull null] ? @[attributes[@"titles"][@"en_jp"]] : @[], @"japanese" : attributes[@"titles"][@"ja_jp"] && attributes[@"titles"][@"ja_jp"] != [NSNull null] ?  @[attributes[@"titles"][@"ja_jp"]] : @[] };
     aobject.rank = attributes[@"ratingRank"] != [NSNull null] ? ((NSNumber *)attributes[@"ratingRank"]).intValue : 0;
     aobject.popularity_rank = attributes[@"popularityRank"] != [NSNull null] ? ((NSNumber *)attributes[@"popularityRank"]).intValue : 0;
-    aobject.image_url = attributes[@"posterImage"][@"large"] && attributes[@"posterimage"][@"large"] != [NSNull null] ? attributes[@"posterImage"][@"large"] : @"";
+    if (attributes[@"posterImage"] != [NSNull null]) {
+        aobject.image_url = attributes[@"posterImage"][@"large"] && attributes[@"posterimage"][@"large"] != [NSNull null] ? attributes[@"posterImage"][@"large"] : @"";
+    }
     aobject.type = [Utility convertAnimeType:attributes[@"subtype"]];
     aobject.episodes = attributes[@"episodeCount"] != [NSNull null] ? ((NSNumber *)attributes[@"episodeCount"]).intValue : 0;
     aobject.start_date = attributes[@"startDate"];
@@ -100,7 +102,7 @@
             AtarashiiAnimeObject *aobject = [AtarashiiAnimeObject new];
             aobject.titleid = ((NSNumber *)d[@"id"]).intValue;
             aobject.title = d[@"attributes"][@"canonicalTitle"];
-            aobject.other_titles = @{@"synonyms" : (d[@"attributes"][@"abbreviatedTitles"] && d[@"attributes"][@"abbreviatedTitles"]  != [NSNull null]) ? d[@"attributes"][@"abbreviatedTitles"] : @[], @"english" : d[@"attributes"][@"titles"][@"en"] ? @[d[@"attributes"][@"titles"][@"en"]] : @[], @"japanese" : d[@"attributes"][@"titles"][@"ja_jp"] ? @[d[@"attributes"][@"titles"][@"ja_jp"]] : @[] };
+            aobject.other_titles =  @{@"synonyms" : (d[@"attributes"][@"abbreviatedTitles"] && d[@"attributes"][@"abbreviatedTitles"]  != [NSNull null]) ? d[@"attributes"][@"abbreviatedTitles"] : @[], @"english" : d[@"attributes"][@"titles"][@"en"] && d[@"attributes"][@"titles"][@"en"] != [NSNull null] ? @[d[@"attributes"][@"titles"][@"en"]] : d[@"attributes"][@"titles"][@"en_jp"] && d[@"attributes"][@"titles"][@"en_jp"] != [NSNull null] ? @[d[@"attributes"][@"titles"][@"en_jp"]] : @[], @"japanese" : d[@"attributes"][@"titles"][@"ja_jp"] && d[@"attributes"][@"titles"][@"ja_jp"] != [NSNull null] ?  @[d[@"attributes"][@"titles"][@"ja_jp"]] : @[] };
             aobject.episodes = d[@"attributes"][@"episodeCount"] != [NSNull null] ? ((NSNumber *)d[@"attributes"][@"episodeCount"]).intValue : 0;
             aobject.type = [Utility convertAnimeType:d[@"attributes"][@"subtype"]];
             if (d[@"attributes"][@"posterImage"] != [NSNull null]) {

@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by アナスタシア on 2015/09/30.
-//  Copyright 2009-2018 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2018 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "Hachidori+Keychain.h"
@@ -60,7 +60,7 @@
         //Verify Username/Password
         NSURLSessionDataTask *task;
         NSError *error;
-        id responseObject = [self.malcredmanager syncGET:@"https://myanimelist.net/api/account/verify_credentials.xml" parameters:nil task:&task error:&error];
+        [self.malcredmanager syncGET:@"https://myanimelist.net/api/account/verify_credentials.xml" parameters:nil task:&task error:&error];
         long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
         if (statusCode == 200 && !error) {
             [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:60*60*24] forKey:@"credentialscheckdate"];

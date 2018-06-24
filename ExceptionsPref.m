@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by 高町なのは on 2014/11/16.
-//  Copyright 2014-2015 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2014-2015 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "ExceptionsPref.h"
@@ -86,7 +86,7 @@
             return;
         }
         // Add to Exceptions
-        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:fsdialog.selectedtitle aniid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes offset:0 detectedSeason:_detectedseason];
+        [ExceptionsCache addtoExceptions:detectedtitle correcttitle:fsdialog.selectedtitle aniid:fsdialog.selectedaniid.stringValue threshold:fsdialog.selectedtotalepisodes offset:0 detectedSeason:_detectedseason];
         //Check Cache
         [ExceptionsCache checkandRemovefromCache:detectedtitle detectedSeason:_detectedseason withService:0];
     }

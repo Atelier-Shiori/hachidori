@@ -381,7 +381,7 @@
                 <outlet property="updatenow" destination="Swq-JZ-crS" id="wbq-Tb-8xl"/>
                 <outlet property="updatetoolbaritem" destination="k8g-Fn-fps" id="A7q-dc-ToK"/>
                 <outlet property="window" destination="789" id="804"/>
-                <outlet property="windowcontent" destination="OrG-mG-eHz" id="stx-71-rx8"/>
+                <outlet property="windowcontent" destination="6po-93-3UB" id="gBR-v4-IxG"/>
             </connections>
         </customObject>
         <window title="Hachidori" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="StatusWindowPos" animationBehavior="default" id="789" customClass="NSPanel">
@@ -395,10 +395,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="440" height="253"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView id="OrG-mG-eHz" customClass="NSVisualEffectView">
-                        <rect key="frame" x="0.0" y="22" width="440" height="231"/>
+                    <visualEffectView appearanceType="vibrantDark" misplaced="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" id="6po-93-3UB">
+                        <rect key="frame" x="0.0" y="22" width="440" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                    </customView>
+                    </visualEffectView>
                     <customView misplaced="YES" id="QBj-Ek-7Tw">
                         <rect key="frame" x="0.0" y="21" width="440" height="232"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

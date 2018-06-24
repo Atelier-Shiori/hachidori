@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by James M. on 8/7/10.
-//  Copyright 2009-2018 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2009-2018 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "AppDelegate.h"
@@ -213,11 +213,6 @@
     defaultValues[@"autodownloadinterval"] = @(3600);
 #endif
     defaultValues[@"MALAPIURL"] = @"https://malapi.malupdaterosx.moe";
-    if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9) {
-            //Yosemite Specific Advanced Options
-        	defaultValues[@"DisableYosemiteTitleBar"] = @NO;
-        	defaultValues[@"DisableYosemiteVibrance"] = @NO;
-    }
     defaultValues[@"timerinterval"] = @(300);
     defaultValues[@"showcorrection"] = @YES;
     defaultValues[@"NSApplicationCrashOnExceptions"] = @YES;
@@ -274,8 +269,6 @@
     #ifdef DEBUG
     #else
         // Check if Application is in the /Applications Folder
-        // Only Activate in OS X/macOS is 10.11 or earlier due to Gatekeeper changes in macOS Sierra
-        // Note: Sierra Appkit Version is 1485
         PFMoveToApplicationsFolderIfNecessary();
     #endif
     
@@ -297,34 +290,31 @@
 	[window close];
 	
     //Set up Yosemite UI Enhancements
-    if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9)
-    {
-        if ([defaults boolForKey:@"DisableYosemiteTitleBar"] != 1) {
-            // OS X 10.10 code here.
-            //Hide Title Bar
-            self.window.titleVisibility = NSWindowTitleHidden;
-            // Fix Window Size
-            NSRect frame = window.frame;
-            frame.size = CGSizeMake(440, 291);
-            [window setFrame:frame display:YES];
-         }
-        if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
-            //Add NSVisualEffectView to Window
-            windowcontent.blendingMode = NSVisualEffectBlendingModeBehindWindow;
-            windowcontent.material = NSVisualEffectMaterialLight;
-            windowcontent.state = NSVisualEffectStateFollowsWindowActiveState;
-            windowcontent.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
-            //Make Animeinfo textview transparrent
-            [animeinfooutside setDrawsBackground:NO];
-            animeinfo.backgroundColor = [NSColor clearColor];
-        }
-        else {
-            windowcontent.state = NSVisualEffectStateInactive;
-            [animeinfooutside setDrawsBackground:NO];
-            animeinfo.backgroundColor = [NSColor clearColor];
-        }
-        
+    if ([defaults boolForKey:@"DisableYosemiteTitleBar"] != 1) {
+        // OS X 10.10 code here.
+        //Hide Title Bar
+        self.window.titleVisibility = NSWindowTitleHidden;
+        // Fix Window Size
+        NSRect frame = window.frame;
+        frame.size = CGSizeMake(440, 291);
+        [window setFrame:frame display:YES];
+     }
+    if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
+        //Add NSVisualEffectView to Window
+        windowcontent.blendingMode = NSVisualEffectBlendingModeBehindWindow;
+        windowcontent.material = NSVisualEffectMaterialLight;
+        windowcontent.state = NSVisualEffectStateFollowsWindowActiveState;
+        windowcontent.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
+        //Make Animeinfo textview transparrent
+        [animeinfooutside setDrawsBackground:NO];
+        animeinfo.backgroundColor = [NSColor clearColor];
     }
+    else {
+        windowcontent.state = NSVisualEffectStateInactive;
+        [animeinfooutside setDrawsBackground:NO];
+        animeinfo.backgroundColor = [NSColor clearColor];
+    }
+
     // Fix template images
     // There is a bug where template images are not made even if they are set in XCAssets
     NSArray *images = @[@"update", @"history", @"correct", @"Info", @"clear"];
@@ -380,6 +370,9 @@
 	}
     // Import existing Exceptions Data
     [AutoExceptions importToCoreData];
+    
+    // Temporarily disable MAL Sync
+    [defaults setBool:FALSE forKey:@"MALSyncEnabled"];
 }
 #pragma mark General UI Functions
 - (NSWindowController *)preferencesWindowController
@@ -921,7 +914,7 @@
             else {
                 BOOL correctonce = [fsdialog getcorrectonce];
 				if (!findtitle.hidden) {
-					 [self addtoExceptions:haengine.FailedTitle newtitle:fsdialog.selectedtitle showid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes season:haengine.FailedSeason];
+					 [self addtoExceptions:haengine.FailedTitle newtitle:fsdialog.selectedtitle showid:fsdialog.selectedaniid.stringValue threshold:fsdialog.selectedtotalepisodes season:haengine.FailedSeason];
 				}
                 else if (haengine.LastScrobbledEpisode.intValue == fsdialog.selectedtotalepisodes) {
                     // Detected episode equals the total episodes, do not add a rule and only do a correction just once.
@@ -929,7 +922,7 @@
                 }
 				else if (!correctonce) {
                     // Add to Exceptions
-					 [self addtoExceptions:haengine.LastScrobbledTitle newtitle:fsdialog.selectedtitle showid:fsdialog.selectedaniid threshold:fsdialog.selectedtotalepisodes season:haengine.DetectedSeason];
+					 [self addtoExceptions:haengine.LastScrobbledTitle newtitle:fsdialog.selectedtitle showid:fsdialog.selectedaniid.stringValue threshold:fsdialog.selectedtotalepisodes season:haengine.DetectedSeason];
 				}
                 if([fsdialog getdeleteTitleonCorrection]) {
                     if([haengine removetitle:haengine.AniID]) {

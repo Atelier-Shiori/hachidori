@@ -3,7 +3,7 @@
 //  Hachidori
 //
 //  Created by Tail Red on 1/31/15.
-//  Copyright 2015 Atelier Shiori and James Moy All rights reserved. Code licensed under New BSD License
+//  Copyright 2015 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
 
 #import "AutoExceptions.h"
