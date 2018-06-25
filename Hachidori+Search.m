@@ -86,7 +86,6 @@
     
 }
 - (NSString *)findaniid:(id)responseObject searchterm:(NSString *) term {
-    NSMutableArray * searchdata = [NSMutableArray new];
     //Initalize NSString to dump the title temporarily
     NSString *theshowtitle = @"";
     NSString *alttitle = @"";
@@ -100,7 +99,6 @@
     NSLog(@"%@", self.DetectedTitleisMovie ? @"Title is a movie" : @"Title is not a movie.");
     // Populate Sorted Array
     NSArray * sortedArray = [self filterArray:responseObject];
-    searchdata = nil;
     // Used for String Comparison
     NSDictionary * titlematch1;
     NSDictionary * titlematch2;

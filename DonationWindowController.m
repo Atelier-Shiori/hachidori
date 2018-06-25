@@ -18,7 +18,7 @@
 @synthesize name;
 @synthesize key;
 
-- (id)init{
+- (instancetype)init{
     self = [super initWithWindowNibName:@"DonationWindow"];
     if(!self)
         return nil;

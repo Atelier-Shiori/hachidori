@@ -27,7 +27,7 @@
 
 - (instancetype)init
 {
-	return [super initWithNibName:@"GeneralPreferenceView" bundle:nil];
+    return [super initWithNibName:@"GeneralPreferenceView" bundle:nil];
 }
 - (IBAction)toggleLaunchAtStartup:(id)sender {
     [self toggleLaunchAtStartup];

@@ -19,7 +19,7 @@
 
 - (instancetype)init
 {
-	return [super initWithNibName:@"LoginView" bundle:nil];
+    return [super initWithNibName:@"LoginView" bundle:nil];
 }
 - (id)initwithAppDelegate:(AppDelegate *)adelegate{
     
@@ -33,11 +33,11 @@
     // Set Logo
     _logo.image = NSApp.applicationIconImage;
     // Load Login State
-	[self loadlogin];
+    [self loadlogin];
 }
 
 - (Hachidori *)hachidori {
-    return [_appdelegate getHachidoriInstance];
+    return _appdelegate.haengine;
 }
 
 #pragma mark -
@@ -60,19 +60,19 @@
 
 - (void)loadlogin
 {
-	// Load Username
-	if ([_haengine getFirstAccount:0]) {
-		[_clearbut setEnabled: YES];
-		[_savebut setEnabled: NO];
+    // Load Username
+    if ([_haengine getFirstAccount:0]) {
+        [_clearbut setEnabled: YES];
+        [_savebut setEnabled: NO];
         [_loggedinview setHidden:NO];
         [_loginview setHidden:YES];
         _loggedinuser.stringValue = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
-	}
-	else {
-		//Disable Clearbut
-		[_clearbut setEnabled: NO];
-		[_savebut setEnabled: YES];
-	}
+    }
+    else {
+        //Disable Clearbut
+        [_clearbut setEnabled: NO];
+        [_savebut setEnabled: YES];
+    }
     // Anilist
     if ([_haengine getFirstAccount:1]) {
         [_anilistclearbut setEnabled: YES];
@@ -89,27 +89,27 @@
 }
 - (IBAction)startlogin:(id)sender
 {
-	{
-		//Start Login Process
-		//Disable Login Button
-		[_savebut setEnabled: NO];
-		[_savebut displayIfNeeded];
-		if (_fieldusername.stringValue.length == 0) {
-			//No Username Entered! Show error message
-			[Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a username" explaination:@"Enter a valid username and try logging in again" window:self.view.window];
-			[_savebut setEnabled: YES];
-		}
-		else {
-			if (_fieldpassword.stringValue.length == 0 ) {
-				//No Password Entered! Show error message.
-				[Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a password" explaination:@"Enter a valid password and try logging in again." window:self.view.window];
-				[_savebut setEnabled: YES];
-			}
-			else {
+    {
+        //Start Login Process
+        //Disable Login Button
+        [_savebut setEnabled: NO];
+        [_savebut displayIfNeeded];
+        if (_fieldusername.stringValue.length == 0) {
+            //No Username Entered! Show error message
+            [Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a username" explaination:@"Enter a valid username and try logging in again" window:self.view.window];
+            [_savebut setEnabled: YES];
+        }
+        else {
+            if (_fieldpassword.stringValue.length == 0 ) {
+                //No Password Entered! Show error message.
+                [Utility showsheetmessage:@"Hachidori was unable to log you in since you didn't enter a password" explaination:@"Enter a valid password and try logging in again." window:self.view.window];
+                [_savebut setEnabled: YES];
+            }
+            else {
                     [self login:_fieldusername.stringValue password:_fieldpassword.stringValue];
                 }
-		}
-       	}
+        }
+           }
 }
 - (IBAction)authorize:(id)sender {
     if (!_anilistauthw) {
@@ -225,8 +225,8 @@
 
 - (IBAction)registerhummingbird:(id)sender
 {
-	//Show Kitsu Registration Page
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://kitsu.io"]];
+    //Show Kitsu Registration Page
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://kitsu.io"]];
 }
 
 - (IBAction)registerAnilist:(id)sender {

@@ -21,7 +21,7 @@
     AppDelegate *appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return appDelegate.managedObjectContext;
 }
-- (id)init{
+- (instancetype)init{
     self = [super initWithWindowNibName:@"OfflineViewQueue"];
     if(!self)
         return nil;

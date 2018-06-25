@@ -12,7 +12,7 @@
 @implementation SoftwareUpdatesPref
 - (instancetype)init
 {
-	return [super initWithNibName:@"SoftwareUpdateView" bundle:nil];
+    return [super initWithNibName:@"SoftwareUpdateView" bundle:nil];
 }
 
 #pragma mark -

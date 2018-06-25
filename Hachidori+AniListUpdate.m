@@ -81,7 +81,6 @@
     // Assemble JSON
     NSURLSessionDataTask *task;
     NSError *error;
-    id responseObject;
     // Use the appropriate graphQL query to update list entry.
     NSString *query = kAnilistUpdateAnimeListEntryAdvanced;
     if (attributes[@"startedAt"] && !attributes[@"completedAt"]) {
@@ -94,7 +93,7 @@
         query = kAnilistUpdateAnimeListEntryAdvancedBothDate;
     }
     NSDictionary *parameters = @{@"query" : query, @"variables" : attributes.copy};
-    responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
+    [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
