@@ -12,7 +12,9 @@
 #import "AniListScoreConvert.h"
 
 @interface StatusUpdateWindow ()
-
+@property bool airing;
+@property bool completedairing;
+@property int currentwatchedepisode;
 @end
 
 @implementation StatusUpdateWindow
@@ -38,6 +40,9 @@
           contextInfo:(void *)nil];
     // Set up UI
     _showtitle.objectValue = haengine.LastScrobbledActualTitle;
+    _airing = haengine.airing;
+    _completedairing = haengine.completedairing;
+    _currentwatchedepisode = haengine.DetectedCurrentEpisode;
     // Set rating menu based on user's rating preferences
     switch (haengine.currentService) {
         case 0: {
@@ -105,6 +110,9 @@
     if (haengine.TotalEpisodes  !=0) {
         _epiformatter.maximum = @(haengine.TotalEpisodes);
     }
+    else {
+        _epiformatter.maximum = @(99999999);
+    }
     [_showstatus selectItemAtIndex:[haengine getWatchStatus]];
     _notes.string = haengine.TitleNotes;
     _isPrivate.state = haengine.isPrivate;
@@ -122,6 +130,18 @@
 }
 
 - (IBAction)updatetitlestatus:(id)sender {
+    if (_airing && !_completedairing && [_showstatus.selectedItem.title isEqualToString:@"completed"]) {
+        NSBeep();
+        return;
+    }
+    else if (_episodefield.intValue > _epiformatter.maximum.intValue || _episodefield.intValue < 0) {
+        NSBeep();
+        _episodefield.intValue = _currentwatchedepisode;
+        return;
+    }
+    else if ([_showstatus.selectedItem.title isEqualToString:@"completed"]) {
+        _episodefield.intValue = _epiformatter.maximum.intValue;
+    }
     [self.window orderOut:self];
     [NSApp endSheet:self.window returnCode:1];
 }

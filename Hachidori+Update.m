@@ -15,6 +15,14 @@
 
 @implementation Hachidori (Update)
 - (int)updatetitle:(NSString *)titleid {
+    if (!self.airing && !self.completedairing) {
+        // User attempting to update title that haven't been aired.
+        return ScrobblerInvalidScrobble;
+    }
+    else if ((self.DetectedEpisode).intValue == self.TotalEpisodes && self.airing && !self.completedairing) {
+        // User attempting to complete a title, which haven't finished airing
+        return ScrobblerInvalidScrobble;
+    }
     NSLog(@"Updating Title");
     if (self.LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !self.confirmed && !self.correcting) {
         // Confirm before updating title
