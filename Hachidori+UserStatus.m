@@ -64,6 +64,8 @@
             self.TitleScore  = 0;
             self.isPrivate = [defaults boolForKey:@"setprivate"];
             self.TitleNotes = @"";
+            self.startDate = @"";
+            self.endDate = @"";
             self.LastScrobbledTitleNew = true;
             self.rewatching = false;
             self.rewatchcount = 0;
@@ -163,6 +165,8 @@
     self.DetectedCurrentEpisode = ((NSNumber *)d[@"watched_episodes"]).intValue;
     self.LastScrobbledInfo = tmpinfo;
     self.LastScrobbledTitleNew = false;
+    self.startDate = d[@"watching_start"];
+    self.endDate = d[@"watching_end"];
     if (self.rewatching) {
         NSLog(@"Title is being rewatched.");
     }

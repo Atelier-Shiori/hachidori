@@ -58,6 +58,8 @@ typedef NS_ENUM(unsigned int, anilistRatingType) {
 @property (strong, getter=getLastScrobbledInfo) NSDictionary *LastScrobbledInfo;
 @property (getter=getisNewTitle) BOOL LastScrobbledTitleNew;
 @property (getter=getPrivate) BOOL isPrivate;
+@property (strong) NSString *startDate;
+@property (strong) NSString *endDate;
 @property BOOL _online;
 @property BOOL testing;
 @property (strong) NSString *DetectedTitle;
