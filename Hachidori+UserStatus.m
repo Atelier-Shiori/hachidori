@@ -71,8 +71,9 @@
             self.rewatchcount = 0;
         }
         // Set air status
-        self.airing = ((((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && self.LastScrobbledInfo[@"end_date"] == [NSNull null]) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"currently airing"]);
-        self.completedairing = (((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && ((NSString *)self.LastScrobbledInfo[@"end_date"]).length > 0) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"finished airing"];
+        self.airing = ((self.LastScrobbledInfo[@"start_date"] != [NSNull null] && ((((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && self.LastScrobbledInfo[@"end_date"] == [NSNull null]))) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"currently airing"]);
+        self.completedairing = ((self.LastScrobbledInfo[@"start_date"] != [NSNull null] && self.LastScrobbledInfo[@"end_date"] != [NSNull null]) && (((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && ((NSString *)self.LastScrobbledInfo[@"end_date"]).length > 0)) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"finished airing"];
+
         if (!self.LastScrobbledInfo[@"episodes"] || self.LastScrobbledInfo[@"episodes"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
             self.TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
