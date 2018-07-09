@@ -13,5 +13,5 @@
 @interface SocialPrefController : NSViewController <MASPreferencesViewController>
 @property (strong) TwitterManager *tw;
 @property (strong) DiscordManager *dm;
-- (id)initWithTwitterManager:(TwitterManager *)tm withDiscordManager:(DiscordManager *)dm;
+- (instancetype)initWithTwitterManager:(TwitterManager *)tm withDiscordManager:(DiscordManager *)dm;
 @end

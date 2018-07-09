@@ -632,6 +632,10 @@
                 [self showNotification:NSLocalizedString(@"Scrobble Unsuccessful.",nil) message:NSLocalizedString(@"Check user credentials in Preferences. You may need to login again.",nil)];
                 [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobble Failed. User credentials might have expired.",nil)];
                 break;
+            case ScrobblerInvalidScrobble:
+                [self showNotification:@"Invalid Scrobble" message:@"You are trying to scrobble a title that haven't been aired or finished airing yet, which is not allowed."];
+                [self setStatusText:@"Scrobble Status: Invalid Scrobble."];
+                break;
             default:
                 break;
         }

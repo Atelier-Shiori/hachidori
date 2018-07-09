@@ -14,6 +14,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "ExceptionsCache.h"
 #import <DetectionKit/Recognition.h>
+#include <math.h>
 
 @implementation Hachidori (Search)
 - (NSString *)searchanime {
@@ -85,7 +86,6 @@
     
 }
 - (NSString *)findaniid:(id)responseObject searchterm:(NSString *) term {
-    NSMutableArray * searchdata = [NSMutableArray new];
     //Initalize NSString to dump the title temporarily
     NSString *theshowtitle = @"";
     NSString *alttitle = @"";
@@ -99,7 +99,6 @@
     NSLog(@"%@", self.DetectedTitleisMovie ? @"Title is a movie" : @"Title is not a movie.");
     // Populate Sorted Array
     NSArray * sortedArray = [self filterArray:responseObject];
-    searchdata = nil;
     // Used for String Comparison
     NSDictionary * titlematch1;
     NSDictionary * titlematch2;
@@ -232,10 +231,14 @@
     //Score first title
     score1 = string_fuzzy_score([NSString stringWithFormat:@"%@",match1[@"title"]].UTF8String, title.UTF8String, fuzziness);
     ascore1 = string_fuzzy_score([NSString stringWithFormat:@"%@", ((NSArray *)match1[@"other_titles"][@"english"]).count > 0 ? match1[@"other_titles"][@"english"][0] : ((NSArray *)match1[@"other_titles"][@"japanese"]).count ? match1[@"other_titles"][@"japanese"][0] : @""].UTF8String, title.UTF8String, fuzziness);
+    // Check for NaN. If Nan, use a negative number
+    ascore1 = isnan(ascore1) ? -1 : ascore1;
     NSLog(@"match 1: %@ - %f alt: %f", match1[@"title"], score1, ascore1 );
     //Score Second Title
     score2 = string_fuzzy_score([NSString stringWithFormat:@"%@",match2[@"title"]].UTF8String, title.UTF8String, fuzziness);
     ascore2 = string_fuzzy_score([NSString stringWithFormat:@"%@", ((NSArray *)match2[@"other_titles"][@"english"]).count > 0 ? match2[@"other_titles"][@"english"][0] : ((NSArray *)match2[@"other_titles"][@"japanese"]).count ? match2[@"other_titles"][@"japanese"][0] : @""].UTF8String, title.UTF8String, fuzziness);
+    // Check for NaN. If Nan, use a negative number
+    ascore2 = isnan(ascore2) ? -1 : ascore2;
     NSLog(@"match 2: %@ - %f alt: %f", match2[@"title"], score2, ascore2 );
     //First Season Score Bonus
     if (self.DetectedSeason == 0 || self.DetectedSeason == 1) {

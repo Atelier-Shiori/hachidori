@@ -18,11 +18,11 @@
 @end
 
 @implementation SocialPrefController
-- (id)init {
+- (instancetype)init {
     return [super initWithNibName:@"SocialPrefController" bundle:nil];
 }
 
-- (id)initWithTwitterManager:(TwitterManager *)tm withDiscordManager:(DiscordManager *)dm{
+- (instancetype)initWithTwitterManager:(TwitterManager *)tm withDiscordManager:(DiscordManager *)dm{
     self.tw = tm;
     self.dm = dm;
     return [self init];

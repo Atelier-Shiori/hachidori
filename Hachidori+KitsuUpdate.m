@@ -35,6 +35,12 @@
     }
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
     [attributes setValue:self.DetectedEpisode forKey:@"progress"];
+    // Set Start Date
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.dateFormat = @"yyyy-MM-dd";
+    if (self.startDate.length == 0 && !self.rewatching && (!self.EntryID || [self.WatchStatus isEqualToString:@"plan to watch"])) {
+        [attributes setValue:[df stringFromDate:[NSDate date]] forKey:@"startedAt"];
+    }
     if (self.DetectedEpisode.intValue == self.TotalEpisodes) {
         //Set Title State
         tmpWatchStatus = @"completed";
@@ -42,6 +48,10 @@
         [attributes setValue:tmpWatchStatus forKey:@"status"];
         //Set rewatch status to false
         tmprewatching = false;
+        // Set end date
+        if (self.endDate.length == 0  && !self.rewatching) {
+            [attributes setValue:[df stringFromDate:[NSDate date]] forKey:@"finishedAt"];
+        }
         if (self.rewatching) {
             // Increment rewatch count
             tmprewatchedcount = self.rewatchcount + 1;
@@ -116,6 +126,8 @@
         default:
             // Update Unsuccessful
             NSLog(@"Update failed: %@", error.localizedDescription);
+            NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
+            NSLog(@"%@",ErrorResponse);
             if (self.LastScrobbledTitleNew) {
                 return ScrobblerAddTitleFailed;
             }

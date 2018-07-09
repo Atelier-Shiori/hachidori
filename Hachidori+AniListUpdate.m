@@ -21,11 +21,23 @@
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     [attributes setValue:titleid forKey:@"mediaid"];
     [attributes setValue:self.DetectedEpisode forKey:@"progress"];
+    // Set Start Date
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.dateFormat = @"yyyy-MM-dd";
+    if (self.startDate.length == 0 && !self.rewatching && (!self.EntryID || [self.WatchStatus isEqualToString:@"plan to watch"])) {
+        NSString *tmpstr = [df stringFromDate:[NSDate date]];
+        attributes[@"startedAt"] = @{@"year" : [tmpstr substringWithRange:NSMakeRange(0, 4)], @"month" : [tmpstr substringWithRange:NSMakeRange(5, 2)], @"day" : [tmpstr substringWithRange:NSMakeRange(8, 2)]};
+    }
     if (self.DetectedEpisode.intValue == self.TotalEpisodes) {
         //Set Title State
         tmpWatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
         [attributes setValue:tmpWatchStatus.uppercaseString forKey:@"status"];
+        // Set end date
+        if (self.endDate.length == 0 && !self.rewatching) {
+            NSString *tmpstr = [df stringFromDate:[NSDate date]];
+            attributes[@"completedAt"] = @{@"year" : [tmpstr substringWithRange:NSMakeRange(0, 4)], @"month" : [tmpstr substringWithRange:NSMakeRange(5, 2)], @"day" : [tmpstr substringWithRange:NSMakeRange(8, 2)]};
+        }
         //Set rewatch status to false
         tmprewatching = false;
         if (self.rewatching) {
@@ -69,9 +81,19 @@
     // Assemble JSON
     NSURLSessionDataTask *task;
     NSError *error;
-    id responseObject;
-    NSDictionary *parameters = @{@"query" : kAnilistUpdateAnimeListEntryAdvanced, @"variables" : attributes.copy};
-    responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
+    // Use the appropriate graphQL query to update list entry.
+    NSString *query = kAnilistUpdateAnimeListEntryAdvanced;
+    if (attributes[@"startedAt"] && !attributes[@"completedAt"]) {
+        query = kAnilistUpdateAnimeListEntryAdvancedStartDate;
+    }
+    if (!attributes[@"startedAt"] && attributes[@"completedAt"]) {
+        query = kAnilistUpdateAnimeListEntryAdvancedEndDate;
+    }
+    else  if (attributes[@"startedAt"] && attributes[@"completedAt"]) {
+        query = kAnilistUpdateAnimeListEntryAdvancedBothDate;
+    }
+    NSDictionary *parameters = @{@"query" : query, @"variables" : attributes.copy};
+    [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {

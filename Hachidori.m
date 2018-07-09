@@ -24,43 +24,44 @@
 @implementation Hachidori
 @synthesize managedObjectContext;
 @synthesize online;
-- (instancetype)init{
-    _confirmed = true;
-    //Reachability
-    [self setNotifier];
-    //Set up Kodi Reachability
-    _detection = [Detection new];
-    [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
-    [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
-    // Init Twitter Manager
-    self.twittermanager = [[TwitterManager alloc] initWithConsumerKeyUsingFirstAccount:kConsumerKey withConsumerSecret:kConsumerSecret];
-    // Init Discord
-    self.discordmanager = [DiscordManager new];
-    if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
-        [self.discordmanager startDiscordRPC];
+- (instancetype)init {
+    if ([super init]) {
+        _confirmed = true;
+        //Reachability
+        [self setNotifier];
+        //Set up Kodi Reachability
+        _detection = [Detection new];
+        [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
+        [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
+        // Init Twitter Manager
+        self.twittermanager = [[TwitterManager alloc] initWithConsumerKeyUsingFirstAccount:kConsumerKey withConsumerSecret:kConsumerSecret];
+        // Init Discord
+        self.discordmanager = [DiscordManager new];
+        if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
+            [self.discordmanager startDiscordRPC];
+        }
+        // Init AFNetworking
+        _syncmanager = [AFHTTPSessionManager manager];
+        _syncmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+        _syncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+        _syncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
+        [_syncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
+        _syncmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
+        _asyncmanager = [AFHTTPSessionManager manager];
+        _asyncmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+        _asyncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+        _asyncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
+        [_asyncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
+        _malcredmanager = [AFHTTPSessionManager manager];
+        _malcredmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        _malcredmanager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _malcredmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
+        _malmanager = [AFHTTPSessionManager manager];
+        _malmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        _malmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+        _malmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
     }
-    // Init AFNetworking
-    _syncmanager = [AFHTTPSessionManager manager];
-    _syncmanager.requestSerializer = [AFJSONRequestSerializer serializer];
-    _syncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
-    _syncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
-    [_syncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
-    _syncmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
-    _asyncmanager = [AFHTTPSessionManager manager];
-    _asyncmanager.requestSerializer = [AFJSONRequestSerializer serializer];
-    _asyncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
-    _asyncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
-    [_asyncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
-    _malcredmanager = [AFHTTPSessionManager manager];
-    _malcredmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    _malcredmanager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    _malcredmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
-    _malmanager = [AFHTTPSessionManager manager];
-    _malmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    _malmanager.responseSerializer = [AFJSONResponseSerializer serializer];
-    _malmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
-    
-    return [super init];
+    return self;
 }
 /* 
  
@@ -190,7 +191,7 @@
                     [obj setValue:@(_DetectedTitleisMovie) forKey:@"ismovie"];
                     [obj setValue:@(_DetectedTitleisEpisodeZero) forKey:@"iszeroepisode"];
                     [obj setValue:@23 forKey:@"status"];
-                    [obj setValue:[NSNumber numberWithBool:false] forKey:@"scrobbled"];
+                    [obj setValue:@NO forKey:@"scrobbled"];
                     //Save
                     [managedObjectContext save:&error];
                 }];

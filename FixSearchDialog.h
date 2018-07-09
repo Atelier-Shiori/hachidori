@@ -21,7 +21,7 @@
 @property (setter=setCorrection:) bool correction;
 @property (setter=setAllowDelete:) bool allowdelete;
 
-- (id)init;
+- (instancetype)init;
 - (bool)getdeleteTitleonCorrection;
 - (bool)getcorrectonce;
 @end

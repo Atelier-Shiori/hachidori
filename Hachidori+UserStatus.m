@@ -64,10 +64,16 @@
             self.TitleScore  = 0;
             self.isPrivate = [defaults boolForKey:@"setprivate"];
             self.TitleNotes = @"";
+            self.startDate = @"";
+            self.endDate = @"";
             self.LastScrobbledTitleNew = true;
             self.rewatching = false;
             self.rewatchcount = 0;
         }
+        // Set air status
+        self.airing = ((self.LastScrobbledInfo[@"start_date"] != [NSNull null] && ((((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && self.LastScrobbledInfo[@"end_date"] == [NSNull null]))) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"currently airing"]);
+        self.completedairing = ((self.LastScrobbledInfo[@"start_date"] != [NSNull null] && self.LastScrobbledInfo[@"end_date"] != [NSNull null]) && (((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && ((NSString *)self.LastScrobbledInfo[@"end_date"]).length > 0)) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"finished airing"];
+
         if (!self.LastScrobbledInfo[@"episodes"] || self.LastScrobbledInfo[@"episodes"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
             self.TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
@@ -156,13 +162,15 @@
         self.TitleScore = 0;
     }
     // Rewatch Information
-    self.rewatching = [(NSNumber *)d[@"rewatching"] boolValue];
-    self.rewatchcount = [(NSNumber *)d[@"rewatch_count"] longValue];
+    self.rewatching = ((NSNumber *)d[@"rewatching"]).boolValue;
+    self.rewatchcount = ((NSNumber *)d[@"rewatch_count"]).longValue;
     // Privacy Settings
-    self.isPrivate = [(NSNumber *)d[@"private"] boolValue];
+    self.isPrivate = ((NSNumber *)d[@"private"]).boolValue;
     self.DetectedCurrentEpisode = ((NSNumber *)d[@"watched_episodes"]).intValue;
     self.LastScrobbledInfo = tmpinfo;
     self.LastScrobbledTitleNew = false;
+    self.startDate = d[@"watching_start"];
+    self.endDate = d[@"watching_end"];
     if (self.rewatching) {
         NSLog(@"Title is being rewatched.");
     }
