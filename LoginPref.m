@@ -141,6 +141,7 @@
         [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL parameters:@{@"grant_type":@"password", @"username":username, @"password":password} success:^(AFOAuthCredential *credential) {
         // Update your UI
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
+            [self showServiceMenuReminder:0];
         [AFOAuthCredential storeCredential:credential
                                 withIdentifier:@"Hachidori"];
             [_haengine retrieveUserID:^(int userid, NSString *username, NSString *scoreformat) {
@@ -186,6 +187,7 @@
     [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token" parameters:@{@"grant_type":@"authorization_code", @"code" : pin} success:^(AFOAuthCredential *credential) {
         // Update your UI
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
+        [self showServiceMenuReminder:1];
         [AFOAuthCredential storeCredential:credential
                             withIdentifier:@"Hachidori - AniList"];
         [_haengine retrieveUserID:^(int userid, NSString *username, NSString *scoreformat) {
@@ -297,4 +299,29 @@
     return [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername"]];
 }
 
+- (void)showServiceMenuReminder:(int)service {
+    NSAlert *alert = [NSAlert new];
+    NSString *servicename = @"";
+    switch (service) {
+        case 0:
+            servicename = @"Kitsu";
+            break;
+        case 1:
+            servicename = @"AniList";
+            break;
+        default:
+            break;
+    }
+    alert.messageText = [NSString stringWithFormat:@"To use %@, you can select it from the Service menu", servicename];
+    alert.informativeText = @"The service menu allows you to switch between services you wish to automatically update your list with.\n\nThis menu can be accessed by clicking the Hachidori icon on the menubar and moving your mouse pointer to Services sub menu and selecting the desired service to switch to.";
+    alert.showsSuppressionButton = true;
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    if (![defaults boolForKey:@"showServiceMenuReminder"]) {
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            if (alert.suppressionButton.state == 1) {
+                [defaults setBool:true forKey:@"showServiceMenuReminder"];
+            }
+        }];
+    }
+}
 @end
