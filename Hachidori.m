@@ -12,7 +12,6 @@
 #import <DetectionKit/DetectionKit.h>
 #import <AFNetworking/AFNetworking.h>
 #import <TwitterManagerKit/TwitterManagerKit.h>
-#import "Hachidori+Keychain.h"
 #import "Hachidori+Search.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+UserStatus.h"

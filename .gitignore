@@ -13,3 +13,5 @@ Hachidori.xcodeproj/xcuserdata/kirimasharo.xcuserdatad/xcschemes/xcschememanagem
 Hachidori.xcodeproj/xcuserdata/tedezarize.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 ClientConstants.m
 DonationCheck_KeyOnly.framework/**
+Frameworks/TorrentBrowser.framework.dSYM/**
+Frameworks/TorrentBrowser.framework/**

@@ -253,17 +253,6 @@
                                     <action selector="showCorrectionSearchWindow:" target="560" id="Z18-IA-AIJ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Force MAL Status Sync" id="4a8-WM-NTq">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="forceMALSync:" target="560" id="2Gb-zf-K9L"/>
-                                    <binding destination="sLK-0h-cju" name="hidden" keyPath="values.MALSyncEnabled" id="zRo-iJ-jj6">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Stop Rewatching…" hidden="YES" id="NJh-Nj-R5h">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -350,7 +339,6 @@
         </menu>
         <customObject id="560" customClass="AppDelegate">
             <connections>
-                <outlet property="ForceMALSync" destination="4a8-WM-NTq" id="jtr-Vm-lvY"/>
                 <outlet property="LastScrobbled" destination="792" id="805"/>
                 <outlet property="ScrobblerStatus" destination="793" id="806"/>
                 <outlet property="animeinfo" destination="bGm-dl-hOF" id="3tY-bt-kdf"/>

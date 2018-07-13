@@ -10,7 +10,6 @@
 #import "AtarashiiAPIListFormatKitsu.h"
 #import "AtarashiiAPIListFormatAniList.h"
 #import <AFNetworking/AFNetworking.h>
-#import "Hachidori+Keychain.h"
 #import "Utility.h"
 
 @implementation Hachidori (UserStatus)

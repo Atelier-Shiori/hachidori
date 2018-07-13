@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "Hachidori.h"
 #import "Hachidori+Update.h"
-#import "Hachidori+Keychain.h"
-#import "Hachidori+MALSync.h"
 #import "Hachidori+userinfo.h"
 #import "OfflineViewQueue.h"
 #import "PFMoveApplication.h"
@@ -60,7 +58,6 @@
 @synthesize updatedupdatestatus;
 @synthesize revertrewatch;
 @synthesize shareMenuItem;
-@synthesize ForceMALSync;
 @synthesize ScrobblerStatus;
 @synthesize LastScrobbled;
 @synthesize openAnimePage;
@@ -542,7 +539,6 @@
 }
 - (void)toggleScrobblingUIEnable:(BOOL)enable{
     dispatch_async(dispatch_get_main_queue(), ^{
-        ForceMALSync.enabled = enable;
         statusMenu.autoenablesItems = enable;
         updatenow.enabled = enable;
         togglescrobbler.enabled = enable;
@@ -560,7 +556,6 @@
     });
 }
 - (void)EnableStatusUpdating:(BOOL)enable{
-    ForceMALSync.enabled = enable;
 	updatecorrect.autoenablesItems = enable;
     updatetoolbaritem.enabled = enable;
     updatedupdatestatus.enabled = enable;
@@ -608,7 +603,6 @@
                     notificationmsg = [NSString stringWithFormat:@"%@ Episode %@",haengine.LastScrobbledActualTitle,haengine.LastScrobbledEpisode];
                 }
                 [self showNotification:@"Scrobble Successful." message:notificationmsg];
-                [self syncMyAnimeList];
                 //Add History Record
                 [HistoryWindow addrecord:haengine.LastScrobbledActualTitle Episode:haengine.LastScrobbledEpisode Date:[NSDate date]];
                 break;
@@ -979,8 +973,6 @@
                             default:
                                 break;
                         }
-                        // Sync with MAL if Enabled
-                        [self syncMyAnimeList];
                         break;
                     }
                     default:
@@ -1140,10 +1132,6 @@
                     [self setStatusMenuTitleEpisode:haengine.LastScrobbledActualTitle episode:haengine.LastScrobbledEpisode];
                     [self updateLastScrobbledTitleStatus:false];
                 }
-                dispatch_async(_privateQueue, ^{
-                    // Sync MyAnimeList
-                    [self syncMyAnimeList];
-                });
             }
             else {
                 [self setStatusText:NSLocalizedString(@"Scrobble Status: Unable to update Watch Status/Score.",nil)];
@@ -1181,8 +1169,6 @@
             // Show Correct State in the UI
             [self showRevertRewatchMenu];
             [self updateLastScrobbledTitleStatus:false];
-            // Sync with MAL if Enabled
-            [self syncMyAnimeList];
         }
         else {
             [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Rewatch revert was unsuccessful.",nil)];
@@ -1251,8 +1237,6 @@
             }
              [self showRevertRewatchMenu];
          });
-        // Sync with MAL if Enabled
-        [self syncMyAnimeList];
     }
     else {
          dispatch_async(dispatch_get_main_queue(), ^{
@@ -1374,31 +1358,6 @@
             break;
         default:
             break;
-    }
-}
-#pragma mark MyAnimeList Syncing
-- (IBAction)forceMALSync:(id)sender {
-    [ForceMALSync setEnabled:NO];
-    dispatch_async(_privateQueue, ^{
-        BOOL malsyncsuccess = [haengine sync];
-         dispatch_async(dispatch_get_main_queue(), ^{
-             if (!malsyncsuccess) {
-                 [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"MyAnimeList Sync failed, see console log.",nil)];
-             }
-             [ForceMALSync setEnabled:YES];
-            });
-        });
-}
-- (void)syncMyAnimeList{
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MALSyncEnabled"]) {
-        dispatch_async(_privateQueue, ^{
-            BOOL malsyncsuccess = [haengine sync];
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 if (!malsyncsuccess) {
-                     [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"MyAnimeList Sync failed, see console log.",nil)];
-                 }
-             });
-        });
     }
 }
 #pragma mark Torrent Browser

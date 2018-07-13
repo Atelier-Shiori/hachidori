@@ -67,7 +67,6 @@
 @property (strong) IBOutlet NSMenuItem * updatedupdatestatus;
 @property (strong) IBOutlet NSMenuItem * revertrewatch;
 @property (strong) IBOutlet NSMenuItem *shareMenuItem;
-@property (strong) IBOutlet NSMenuItem  *  ForceMALSync;
 /* Status Window */
 @property (strong) IBOutlet NSTextField * ScrobblerStatus;
 @property (strong) IBOutlet NSTextField * LastScrobbled;
