@@ -112,7 +112,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:reminderdate forKey:@"donatereminderdate"];
 }
 + (void)checkDonationKey:(NSString *)key name:(NSString *)name completion:(void (^)(int success)) completionHandler {
-    if ([DonationKeyVerify checkHachidoriLicense:name withDonationKey:key]) {
+    if ([DonationKeyVerify checkHachidoriLicense:name withDonationKey:key] || [DonationKeyVerify checkMALULicense:name withDonationKey:key]) {
         completionHandler(1);
         return;
     }
