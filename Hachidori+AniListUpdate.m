@@ -93,7 +93,7 @@
         query = kAnilistUpdateAnimeListEntryAdvancedBothDate;
     }
     NSDictionary *parameters = @{@"query" : query, @"variables" : attributes.copy};
-    [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
+    id responseobject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -112,6 +112,7 @@
             }
             self.confirmed = true;
             if (self.LastScrobbledTitleNew) {
+                self.EntryID = ((NSNumber *)responseobject[@"data"][@"SaveMediaListEntry"][@"id"]).stringValue;
                 return ScrobblerAddTitleSuccessful;
             }
             // Update Successful
