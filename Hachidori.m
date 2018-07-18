@@ -51,14 +51,6 @@
         _asyncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
         _asyncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
         [_asyncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
-        _malcredmanager = [AFHTTPSessionManager manager];
-        _malcredmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        _malcredmanager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        _malcredmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
-        _malmanager = [AFHTTPSessionManager manager];
-        _malmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        _malmanager.responseSerializer = [AFJSONResponseSerializer serializer];
-        _malmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
     }
     return self;
 }

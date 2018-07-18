@@ -48,8 +48,6 @@ typedef NS_ENUM(unsigned int, anilistRatingType) {
 };
 @property (strong) AFHTTPSessionManager *syncmanager;
 @property (strong) AFHTTPSessionManager *asyncmanager;
-@property (strong) AFHTTPSessionManager *malcredmanager;
-@property (strong) AFHTTPSessionManager *malmanager;
 @property (strong, getter=getLastScrobbledTitle) NSString *LastScrobbledTitle;
 @property (strong, getter=getLastScrobbledEpisode) NSString *LastScrobbledEpisode;
 @property (strong, getter=getLastScrobbledActualTitle) NSString *LastScrobbledActualTitle;
