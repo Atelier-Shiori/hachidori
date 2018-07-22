@@ -168,7 +168,7 @@
                 <outlet property="servicemenuitem" destination="Ffd-xt-7ta" id="tti-y7-nUM"/>
             </connections>
         </customObject>
-        <menu id="543" userLabel="StatusMenu">
+        <menu autoenablesItems="NO" id="543" userLabel="StatusMenu">
             <items>
                 <menuItem title="About Hachidori" id="547">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -203,6 +203,17 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showPreferences:" target="560" id="jzy-Ci-YIa"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="bVQ-D3-lzw"/>
+                <menuItem title="Service Name" enabled="NO" id="zU8-Sc-9pO">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <binding destination="sLK-0h-cju" name="title" keyPath="values.currentservice" id="DlD-90-4Y2">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">ServiceIDToServiceTitle</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </menuItem>
                 <menuItem title="Service" id="Ffd-xt-7ta">
@@ -355,6 +366,7 @@
                 <outlet property="seperator" destination="555" id="QKS-yU-V76"/>
                 <outlet property="seperator2" destination="E8T-4Q-mLF" id="HiB-iA-9wo"/>
                 <outlet property="servicemenu" destination="n9r-J5-biA" id="Xap-FA-a5X"/>
+                <outlet property="servicenamemenu" destination="zU8-Sc-9pO" id="AAV-W9-sCz"/>
                 <outlet property="shareMenu" destination="sQY-Kl-PMA" id="Hjb-mV-NnL"/>
                 <outlet property="shareMenuItem" destination="21z-ef-0DY" id="eHh-Va-Jmk"/>
                 <outlet property="sharetoolbaritem" destination="5pz-cj-enZ" id="Rno-fh-gsp"/>

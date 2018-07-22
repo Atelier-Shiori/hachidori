@@ -257,6 +257,7 @@
     
     //Enables highlighting
     [statusItem setHighlightMode:YES];
+    
 }
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [Fabric with:@[[Crashlytics class]]];
@@ -328,6 +329,8 @@
         [weakself showNotification:@"Changed Services" message:[NSString stringWithFormat:@"Now using %@", [weakself.haengine currentServiceName]]];
         [weakself.haengine resetinfo];
         [weakself resetUI];
+        weakself.statusMenu.autoenablesItems = NO;
+        weakself.servicenamemenu.enabled = NO;
     };
     [haengine checkaccountinformation];
 #ifdef oss
@@ -370,6 +373,7 @@
     
     // Temporarily disable MAL Sync
     [defaults setBool:FALSE forKey:@"MALSyncEnabled"];
+    _servicenamemenu.enabled = NO;
 }
 #pragma mark General UI Functions
 - (NSWindowController *)preferencesWindowController
@@ -504,6 +508,7 @@
 	[findtitle setEnabled:NO];
     [openstream setEnabled:NO];
     [_servicemenu enableservicemenuitems:NO];
+    _servicenamemenu.enabled = NO;
 }
 - (void)enableUpdateItems{
     // Reenables update options
@@ -525,6 +530,7 @@
     [findtitle setEnabled:YES];
     [openstream setEnabled:YES];
     [_servicemenu enableservicemenuitems:YES];
+    _servicenamemenu.enabled = NO;
 }
 - (void)unhideMenus{
     //Show Last Scrobbled Title and operations */
@@ -546,6 +552,7 @@
         findtitle.enabled = enable;
         revertrewatch.enabled = enable;
         openstream.enabled = enable;
+        _servicenamemenu.enabled = NO;
         if (!enable) {
             [updatenow setTitle:NSLocalizedString(@"Updating...",nil)];
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobbling...",nil)];
@@ -560,6 +567,7 @@
     updatetoolbaritem.enabled = enable;
     updatedupdatestatus.enabled = enable;
     revertrewatch.enabled = enable;
+    _servicenamemenu.enabled = NO;
 }
 - (void)enterDonationKey{
     //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.

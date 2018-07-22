@@ -87,6 +87,7 @@
 @property (strong) NSWindowController *_preferencesWindowController;
 @property (strong) streamlinkopen * streamlinkopenw;
 @property (strong) PFAboutWindowController *aboutWindowController;
+@property (weak) IBOutlet NSMenuItem *servicenamemenu;
 #ifdef oss
 #else
 @property (strong) TorrentBrowserController *tbc;
