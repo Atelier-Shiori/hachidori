@@ -1097,7 +1097,7 @@
 }
 - (void)updateDidEnd:(int)returnCode {
     NSString * tmpepisode = _updatewindow.episodefield.stringValue;
-    int tmpscore;
+    int tmpscore = 0;
     switch (haengine.currentService) {
         case 0:
             tmpscore = (int)_updatewindow.showscore.selectedTag;

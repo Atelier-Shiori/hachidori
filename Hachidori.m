@@ -24,7 +24,7 @@
 @synthesize managedObjectContext;
 @synthesize online;
 - (instancetype)init {
-    if ([super init]) {
+    if (self = [super init]) {
         _confirmed = true;
         //Reachability
         [self setNotifier];
@@ -183,6 +183,7 @@
                     [obj setValue:@(_DetectedTitleisEpisodeZero) forKey:@"iszeroepisode"];
                     [obj setValue:@23 forKey:@"status"];
                     [obj setValue:@NO forKey:@"scrobbled"];
+                        [obj setValue:@(self.currentService) forKey:@"service"];
                     //Save
                     [managedObjectContext save:&error];
                 }];
@@ -212,7 +213,7 @@
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
     __block NSArray * queue;
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (service == %li) AND ((status == %i) OR (status == %i)))", false, self.currentService, 23, 3];
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (service == %li) AND ((status == %i) OR (status == %i))", false, self.currentService, 23, 3];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     queuefetch.predicate = predicate;

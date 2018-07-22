@@ -37,7 +37,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="" editable="NO" width="500" minWidth="40" maxWidth="1000" id="wZ1-Fg-mbd">
+                                        <tableColumn identifier="" editable="NO" width="434" minWidth="40" maxWidth="1000" id="wZ1-Fg-mbd">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -101,6 +101,26 @@
                                                 <binding destination="MCq-KR-O5z" name="value" keyPath="arrangedObjects.status" id="A1L-nJ-btp">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">InttoStatus</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="" editable="NO" width="63" minWidth="10" maxWidth="3.4028234663852886e+38" id="Jm9-fR-kfN">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Service">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Qwo-pM-vlO">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="MCq-KR-O5z" name="value" keyPath="arrangedObjects.service" id="ggZ-p2-gXh">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">ServiceIDToServiceTitle</string>
                                                     </dictionary>
                                                 </binding>
                                             </connections>
