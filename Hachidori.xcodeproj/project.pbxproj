@@ -75,6 +75,7 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		910167AA1EA566DE00198DAC /* TPI_Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 910167A91EA566DE00198DAC /* TPI_Hachidori.m */; };
+		9106873421061B1E001A93BE /* NSString_stripHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 9106873321061B1D001A93BE /* NSString_stripHtml.m */; };
 		9107644A21052F6100E9B12C /* ServiceIDToServiceTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9107644921052F6100E9B12C /* ServiceIDToServiceTitle.m */; };
 		9126066920BEDD900052CB30 /* TorrentBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126066820BEDD900052CB30 /* TorrentBrowser.framework */; };
 		9126066B20BEE0150052CB30 /* TorrentBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126066820BEDD900052CB30 /* TorrentBrowser.framework */; };
@@ -372,6 +373,8 @@
 		910167A81EA566DE00198DAC /* TPI_Hachidori.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPI_Hachidori.h; sourceTree = "<group>"; };
 		910167A91EA566DE00198DAC /* TPI_Hachidori.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPI_Hachidori.m; sourceTree = "<group>"; };
 		91041A671E79EC8000F268FE /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
+		9106873221061B1D001A93BE /* NSString_stripHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_stripHtml.h; sourceTree = "<group>"; };
+		9106873321061B1D001A93BE /* NSString_stripHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_stripHtml.m; sourceTree = "<group>"; };
 		9107644821052F6100E9B12C /* ServiceIDToServiceTitle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceIDToServiceTitle.h; sourceTree = "<group>"; };
 		9107644921052F6100E9B12C /* ServiceIDToServiceTitle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceIDToServiceTitle.m; sourceTree = "<group>"; };
 		9126066820BEDD900052CB30 /* TorrentBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TorrentBrowser.framework; path = Frameworks/TorrentBrowser.framework; sourceTree = "<group>"; };
@@ -686,6 +689,8 @@
 		5C8ACEB619F409C60001A101 /* Other Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9106873221061B1D001A93BE /* NSString_stripHtml.h */,
+				9106873321061B1D001A93BE /* NSString_stripHtml.m */,
 				91D116F820BC4BCD006E4271 /* AuthWebView.h */,
 				91D116F720BC4BCD006E4271 /* AuthWebView.m */,
 				5C8C22EE1A85E80000D2FCC5 /* string_score.c */,
@@ -1171,6 +1176,7 @@
 				91CF574620B706030044DC9F /* AtarashiiAPIListFormatKitsu.m in Sources */,
 				6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */,
 				91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */,
+				9106873421061B1E001A93BE /* NSString_stripHtml.m in Sources */,
 				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
 				F88D55DD20B3178D00DB84B9 /* AnimeRelations.m in Sources */,
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,

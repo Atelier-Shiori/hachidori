@@ -9,6 +9,7 @@
 #import "AtarashiiAPIListFormatAniList.h"
 #import "AtarashiiDataObjects.h"
 #import "Utility.h"
+#import "NSString_stripHtml.h"
 
 @implementation AtarashiiAPIListFormatAniList
 + (id)AniListtoAtarashiiAnimeSingle:(id)data {
@@ -59,20 +60,20 @@
     if (title[@"coverImage"] != [NSNull null]) {
         aobject.image_url = title[@"coverImage"][@"large"] && title[@"coverImage"] != [NSNull null] && !((NSNumber *)title[@"isAdult"]).boolValue ? title[@"coverImage"][@"large"] : @"";
     }
-        aobject.synposis = !((NSNumber *)title[@"isAdult"]).boolValue ? title[@"description"] : @"Synopsis not available for adult titles";
+        aobject.synposis = !((NSNumber *)title[@"isAdult"]).boolValue ? [(NSString *)title[@"description"] stripHtml] : @"Synopsis not available for adult titles";
     #else
     bool allowed = ([NSUserDefaults.standardUserDefaults boolForKey:@"showadult"] || !((NSNumber *)title[@"isAdult"]).boolValue);
     if (title[@"coverImage"] != [NSNull null]) {
         aobject.image_url = title[@"coverImage"][@"large"] && title[@"coverImage"] != [NSNull null] && title[@"coverImage"][@"large"] && allowed ?  title[@"coverImage"][@"large"] : @"";
     }
-        aobject.synposis = allowed ? title[@"description"] : @"Synopsis not available for adult titles";
+        aobject.synposis = allowed ? [(NSString *)title[@"description"] stripHtml] : @"Synopsis not available for adult titles";
     #endif
     aobject.type = title[@"format"] != [NSNull null] ? [Utility convertAnimeType:title[@"format"]] : @"";
     aobject.episodes = title[@"episodes"] != [NSNull null] ? ((NSNumber *)title[@"episodes"]).intValue : 0;
-    aobject.start_date = title[@"startDate"] != [NSNull null] ? [NSString stringWithFormat:@"%@-%@-%@",title[@"startDate"][@"year"],title[@"startDate"][@"month"],title[@"startDate"][@"day"]] : @"";
-    aobject.end_date = title[@"endDate"] != [NSNull null] ? [NSString stringWithFormat:@"%@-%@-%@",title[@"endDate"][@"year"],title[@"endDate"][@"month"],title[@"endDate"][@"day"]] : @"";
+    aobject.start_date = title[@"startDate"][@"year"] != [NSNull null] && title[@"startDate"][@"month"] != [NSNull null] && title[@"startDate"][@"day"] != [NSNull null] ? [NSString stringWithFormat:@"%@-%@-%@",title[@"startDate"][@"year"],((NSNumber *)title[@"startDate"][@"month"]).intValue < 10 ? [NSString stringWithFormat:@"0%i",((NSNumber *)title[@"startDate"][@"month"]).intValue] : title[@"startDate"][@"month"],((NSNumber *)title[@"startDate"][@"day"]).intValue < 10 ? [NSString stringWithFormat:@"0%i",((NSNumber *)title[@"startDate"][@"day"]).intValue] : title[@"startDate"][@"day"]] : @"";
+    aobject.end_date = title[@"endDate"][@"year"] != [NSNull null] && title[@"endDate"][@"month"] != [NSNull null] && title[@"endDate"][@"day"] != [NSNull null] ? [NSString stringWithFormat:@"%@-%@-%@",title[@"endDate"][@"year"],((NSNumber *)title[@"endDate"][@"month"]).intValue < 10 ? [NSString stringWithFormat:@"0%i",((NSNumber *)title[@"endDate"][@"month"]).intValue] : title[@"endDate"][@"month"],((NSNumber *)title[@"endDate"][@"day"]).intValue < 10 ? [NSString stringWithFormat:@"0%i",((NSNumber *)title[@"endDate"][@"day"]).intValue] : title[@"endDate"][@"day"]] : @"";
     aobject.duration = title[@"duration"] != [NSNull null] ? ((NSNumber *)title[@"duration"]).intValue : 0;
-    aobject.classification = @"";
+    aobject.classification = @"None available";
     aobject.members_score = title[@"averageScore"] != [NSNull null] ? ((NSNumber *)title[@"averageScore"]).floatValue : 0;
     NSString *tmpstatus  = title[@"status"] != [NSNull null] ? title[@"status"] : @"NOT_YET_RELEASED";
     if ([tmpstatus isEqualToString:@"FINISHED"]||[tmpstatus isEqualToString:@"CANCELLED"]) {
@@ -148,6 +149,7 @@
             }
             aobject.episodes = d[@"episodes"] != [NSNull null] ? ((NSNumber *)d[@"episodes"]).intValue : 0;
             aobject.type = d[@"format"] != [NSNull null] ? [Utility convertAnimeType:d[@"format"]] : @"";
+            aobject.synposis = [(NSString *)d[@"description"] stripHtml];
             [tmparray addObject:aobject.NSDictionaryRepresentation];
         }
     }

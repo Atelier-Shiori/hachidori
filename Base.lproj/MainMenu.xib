@@ -543,11 +543,11 @@
                             </connections>
                         </popUpButton>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="14AB25E1-2349-4D89-9A2B-0EA8900F6A47" label="View on Kitsu" paletteLabel="View on Kitsu" toolTip="View on Kitsu" image="Info" id="Wgp-94-tio">
+                    <toolbarItem implicitItemIdentifier="14AB25E1-2349-4D89-9A2B-0EA8900F6A47" label="View More Information" paletteLabel="View More Information" toolTip="View More Information" image="Info" id="Wgp-94-tio">
                         <size key="minSize" width="32" height="25"/>
                         <size key="maxSize" width="32" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="Qjl-L9-xqy">
-                            <rect key="frame" x="20" y="14" width="32" height="25"/>
+                            <rect key="frame" x="43" y="14" width="32" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Info" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Quc-kl-lAO">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

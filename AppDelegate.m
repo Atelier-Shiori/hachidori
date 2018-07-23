@@ -329,7 +329,6 @@
         [weakself showNotification:@"Changed Services" message:[NSString stringWithFormat:@"Now using %@", [weakself.haengine currentServiceName]]];
         [weakself.haengine resetinfo];
         [weakself resetUI];
-        weakself.statusMenu.autoenablesItems = NO;
         weakself.servicenamemenu.enabled = NO;
     };
     [haengine checkaccountinformation];
@@ -545,7 +544,6 @@
 }
 - (void)toggleScrobblingUIEnable:(BOOL)enable{
     dispatch_async(dispatch_get_main_queue(), ^{
-        statusMenu.autoenablesItems = enable;
         updatenow.enabled = enable;
         togglescrobbler.enabled = enable;
         confirmupdate.enabled = enable;
@@ -560,6 +558,7 @@
         else {
             [updatenow setTitle:NSLocalizedString(@"Update Now",nil)];
         }
+        _servicenamemenu.enabled = NO;
     });
 }
 - (void)EnableStatusUpdating:(BOOL)enable{
@@ -672,6 +671,7 @@
             }
             [sharetoolbaritem setEnabled:YES];
             [correcttoolbaritem setEnabled:YES];
+            _servicenamemenu.enabled = NO;
             [openAnimePage setEnabled:YES];
             // Show hidden menus
             [self unhideMenus];
@@ -724,6 +724,7 @@
     [haengine resetinfo];
     _nowplayingview.hidden = YES;
     _nothingplayingview.hidden = NO;
+    _servicenamemenu.enabled = NO;
     [self setStatusToolTip:@"Hachidori"];
 }
 
@@ -1306,6 +1307,9 @@
     [self appendToAnimeInfo:@"Other Information"];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Classification: %@", d[@"classification"]]];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"start_date"]]];
+    if (((NSString *)d[@"end_date"]).length > 0) {
+        [self appendToAnimeInfo:[NSString stringWithFormat:@"End Date: %@", d[@"end_date"]]];
+    }
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", d[@"status"]]];
     NSString *epi;
     if (d[@"episodes"] == [NSNull null]) {
