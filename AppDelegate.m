@@ -1307,7 +1307,7 @@
     [self appendToAnimeInfo:@"Other Information"];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Classification: %@", d[@"classification"]]];
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Start Date: %@", d[@"start_date"]]];
-    if (((NSString *)d[@"end_date"]).length > 0) {
+    if (d[@"end_date"] != [NSNull null] && ((NSString *)d[@"end_date"]).length > 0) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"End Date: %@", d[@"end_date"]]];
     }
     [self appendToAnimeInfo:[NSString stringWithFormat:@"Airing Status: %@", d[@"status"]]];
