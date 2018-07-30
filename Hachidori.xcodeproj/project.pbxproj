@@ -251,6 +251,7 @@
 		6FAA877E1A7EB47800EFFAC1 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		6FAA87841A7EB70E00EFFAC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HotkeysPrefs.xib; sourceTree = "<group>"; };
 		6FBA5A0E1ABE486500B6DB79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefController.xib; sourceTree = "<group>"; };
+		7C3DED2D210F7BB6004E9B3D /* Hachidori.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hachidori.entitlements; sourceTree = "<group>"; };
 		8227C1131A1D89FB005F3301 /* anitomy-osx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "anitomy-osx.framework"; path = "Frameworks/anitomy-osx.framework"; sourceTree = "<group>"; };
 		8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hachidori+Search.h"; sourceTree = "<group>"; };
 		8245D7601A8B265900B1ED73 /* Hachidori+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+Search.m"; sourceTree = "<group>"; wrapsLines = 0; };
@@ -598,6 +599,7 @@
 		29B97314FDCFA39411CA2CEA /* MAL Updater OS X */ = {
 			isa = PBXGroup;
 			children = (
+				7C3DED2D210F7BB6004E9B3D /* Hachidori.entitlements */,
 				91CF573F20B705E70044DC9F /* AtarashiiDataFormatters */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1014,6 +1016,9 @@
 						DevelopmentTeam = 9HDZTER525;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 0;
 							};
@@ -1523,11 +1528,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Hachidori.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 9HDZTER525;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
 					"$(SRCROOT)/\"Frameworks\"/**",
@@ -1551,6 +1559,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -1563,12 +1572,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Hachidori.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9HDZTER525;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
 					"$(SRCROOT)/\"Frameworks\"/**",
@@ -1588,6 +1600,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = YES;
 			};
