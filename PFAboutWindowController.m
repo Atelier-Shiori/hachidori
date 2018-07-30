@@ -61,9 +61,9 @@
 
 - (id)init {
     self.windowShouldHaveShadow = YES;
-    self.backgroundColor = [NSColor whiteColor];
-    self.titleColor = [NSColor blackColor];
-    self.textColor = (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) ? [NSColor lightGrayColor] : [NSColor tertiaryLabelColor];
+    //self.backgroundColor = [NSColor whiteColor];
+    //self.titleColor = [NSColor blackColor];
+    self.textColor = (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) ? NSColor.lightGrayColor : NSColor.controlTextColor;
     
     return [super initWithWindowNibName:[[self class] nibName]];
 }

@@ -60,13 +60,13 @@
     if (title[@"coverImage"] != [NSNull null]) {
         aobject.image_url = title[@"coverImage"][@"large"] && title[@"coverImage"] != [NSNull null] && !((NSNumber *)title[@"isAdult"]).boolValue ? title[@"coverImage"][@"large"] : @"";
     }
-        aobject.synposis = !((NSNumber *)title[@"isAdult"]).boolValue ? [(NSString *)title[@"description"] stripHtml] : @"Synopsis not available for adult titles";
+    aobject.synposis = !((NSNumber *)title[@"isAdult"]).boolValue ? title[@"description"] != [NSNull null] ? [(NSString *)title[@"description"] stripHtml] : @"No synopsis available" : @"Synopsis not available for adult titles";
     #else
     bool allowed = ([NSUserDefaults.standardUserDefaults boolForKey:@"showadult"] || !((NSNumber *)title[@"isAdult"]).boolValue);
     if (title[@"coverImage"] != [NSNull null]) {
         aobject.image_url = title[@"coverImage"][@"large"] && title[@"coverImage"] != [NSNull null] && title[@"coverImage"][@"large"] && allowed ?  title[@"coverImage"][@"large"] : @"";
     }
-        aobject.synposis = allowed ? [(NSString *)title[@"description"] stripHtml] : @"Synopsis not available for adult titles";
+        aobject.synposis = allowed ?  title[@"description"] != [NSNull null] ? [(NSString *)title[@"description"] stripHtml] : @"No synopsis available" : @"Synopsis not available for adult titles";
     #endif
     aobject.type = title[@"format"] != [NSNull null] ? [Utility convertAnimeType:title[@"format"]] : @"";
     aobject.episodes = title[@"episodes"] != [NSNull null] ? ((NSNumber *)title[@"episodes"]).intValue : 0;
@@ -149,7 +149,7 @@
             }
             aobject.episodes = d[@"episodes"] != [NSNull null] ? ((NSNumber *)d[@"episodes"]).intValue : 0;
             aobject.type = d[@"format"] != [NSNull null] ? [Utility convertAnimeType:d[@"format"]] : @"";
-            aobject.synposis = [(NSString *)d[@"description"] stripHtml];
+            aobject.synposis = d[@"description"] != [NSNull null] ? [(NSString *)d[@"description"] stripHtml] : @"No synopsis available.";
             [tmparray addObject:aobject.NSDictionaryRepresentation];
         }
     }

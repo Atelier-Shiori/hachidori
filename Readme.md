@@ -1,7 +1,7 @@
 # Hachidori
 Hachidori (はちどり) is an open sourced [Kitsu](https://kitsu.io) and [AniList](https://anilist.co) scrobbler for macOS.
  
-Requires latest SDK (10.13) and XCode 9 or later to compile. Deployment target is 10.11.
+Requires latest SDK (10.14) and XCode 10 or later to compile. Deployment target is 10.11.
 
 ## Supporting this Project
 
@@ -12,6 +12,8 @@ See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Start
 
 ## How to Compile in XCode
 Warning: This won't work if you don't have a Developer ID installed. If you don't have one, obtain one by joining the Apple Developer Program or turn off code signing.
+
+Notary support will come after macOS Mojave final release.
 
 1. Get the Source
 2. Type 'xcodebuild' to build

@@ -300,9 +300,7 @@
     if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
         //Add NSVisualEffectView to Window
         windowcontent.blendingMode = NSVisualEffectBlendingModeBehindWindow;
-        windowcontent.material = NSVisualEffectMaterialLight;
         windowcontent.state = NSVisualEffectStateFollowsWindowActiveState;
-        windowcontent.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
         //Make Animeinfo textview transparrent
         [animeinfooutside setDrawsBackground:NO];
         animeinfo.backgroundColor = [NSColor clearColor];
@@ -524,7 +522,6 @@
         [revertrewatch setEnabled:YES];
     }
     [updatecorrect setAutoenablesItems:YES];
-    [statusMenu setAutoenablesItems:YES];
     [confirmupdate setEnabled:YES];
     [findtitle setEnabled:YES];
     [openstream setEnabled:YES];
@@ -1323,6 +1320,7 @@
     if (d[@"favorited_count"]) {
         [self appendToAnimeInfo:[NSString stringWithFormat:@"Favorited: %@", d[@"favorited_count"]]];
     }
+    self.animeinfo.textColor = NSColor.controlTextColor;
     //Image
     NSImage *dimg = (d[@"image_url"] != [NSNull null]) ? [[NSImage alloc]initByReferencingURL:[NSURL URLWithString: (NSString *)d[@"image_url"]]] : [NSImage imageNamed:@"missing"]; //Downloads Image
     img.image = dimg; //Get the Image for the title
