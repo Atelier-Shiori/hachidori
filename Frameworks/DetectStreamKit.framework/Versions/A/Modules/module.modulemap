@@ -1,0 +1,6 @@
+framework module DetectStreamKit {
+  umbrella header "DetectStreamKit.h"
+
+  export *
+  module * { export * }
+}

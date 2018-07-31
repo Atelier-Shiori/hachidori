@@ -104,6 +104,8 @@
 		914AE2D91F1152FE009E43FC /* PlexLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914AE2DB1F1152FE009E43FC /* PlexLogin.xib */; };
 		914EFF1820B8E7E40050B716 /* AniListAuthWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 914EFF1620B8E7E30050B716 /* AniListAuthWindow.m */; };
 		914EFF1920B8E7E40050B716 /* AniListAuthWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914EFF1720B8E7E40050B716 /* AniListAuthWindow.xib */; };
+		916207262110C88B008AFAC5 /* DetectStreamKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916207252110C88B008AFAC5 /* DetectStreamKit.framework */; };
+		916207272110C88B008AFAC5 /* DetectStreamKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 916207252110C88B008AFAC5 /* DetectStreamKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9182EBDD1EA688BF001F9A74 /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */; };
 		918C4F9D1E79C819001E7B30 /* ClientConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 918C4F9C1E79C819001E7B30 /* ClientConstants.m */; };
 		9191FC3E20BDAF4B00F48DD0 /* servicemenucontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 9191FC3D20BDAF4A00F48DD0 /* servicemenucontroller.m */; };
@@ -154,6 +156,7 @@
 				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
 				9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */,
 				9126067C20BEED920052CB30 /* DiscordRPC.framework in CopyFiles */,
+				916207272110C88B008AFAC5 /* DetectStreamKit.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */,
 				91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */,
@@ -405,6 +408,8 @@
 		914EFF1520B8E7E30050B716 /* AniListAuthWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AniListAuthWindow.h; sourceTree = "<group>"; };
 		914EFF1620B8E7E30050B716 /* AniListAuthWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AniListAuthWindow.m; sourceTree = "<group>"; };
 		914EFF1720B8E7E40050B716 /* AniListAuthWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AniListAuthWindow.xib; sourceTree = "<group>"; };
+		916207242110C78D008AFAC5 /* Hachidori.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hachidori.entitlements; sourceTree = "<group>"; };
+		916207252110C88B008AFAC5 /* DetectStreamKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DetectStreamKit.framework; path = Frameworks/DetectStreamKit.framework; sourceTree = "<group>"; };
 		9182EBDB1EA688BF001F9A74 /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
 		9182EBDC1EA688BF001F9A74 /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
 		918C4F9B1E79C819001E7B30 /* ClientConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConstants.h; sourceTree = "<group>"; };
@@ -472,6 +477,7 @@
 				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
 				91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */,
 				91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */,
+				916207262110C88B008AFAC5 /* DetectStreamKit.framework in Frameworks */,
 				2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
@@ -562,6 +568,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				916207252110C88B008AFAC5 /* DetectStreamKit.framework */,
 				F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */,
 				9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */,
 				9126067920BEED8C0052CB30 /* DiscordRPC.framework */,
@@ -598,6 +605,7 @@
 		29B97314FDCFA39411CA2CEA /* MAL Updater OS X */ = {
 			isa = PBXGroup;
 			children = (
+				916207242110C78D008AFAC5 /* Hachidori.entitlements */,
 				91CF573F20B705E70044DC9F /* AtarashiiDataFormatters */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1014,6 +1022,9 @@
 						DevelopmentTeam = 9HDZTER525;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 0;
 							};
@@ -1523,11 +1534,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Hachidori.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 9HDZTER525;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
 					"$(SRCROOT)/\"Frameworks\"/**",
@@ -1563,12 +1576,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Hachidori.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9HDZTER525;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
 					"$(SRCROOT)/\"Frameworks\"/**",
