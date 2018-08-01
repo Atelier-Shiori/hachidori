@@ -7,6 +7,7 @@ Requires latest SDK (10.14) and XCode 10 or later to compile. Deployment target 
 
 Like this program and want to support the development of this program? You can [Donate](https://malupdaterosx.moe/donate/) $5 and you will recieve a donation key to remove the reminder message at startup every two weeks and enable additional features like the Bittorrent browser.
 
+
 ## How to use
 See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Started).
 
@@ -22,23 +23,25 @@ If you are going to distribute your own version and change the name, please chan
 
 
 ## Dependencies
-All the frameworks are included. Just build! Here are the frameworks that are used in this app:
+All the frameworks are included. Just build! Here are the frameworks that are used in this app (excluding related projects):
 
-* anitomy-osx.framework (Included as a submodule)
 * AFNetworking.framework
-* DetectionKit.framework
 * GBPing.framework
 * PingNotifier.framework
-* EasyNSURLConnection.framework
 * MASPreferences.framework
 * MASShortcut.framework
 * Sparkle.framework
 * CocoaOniguruma.framework
-* streamlinkdetect.framework
 * Reachability.framework
 * DetectionKit.framework
  
 Licenses for these frameworks and related classes can be seen [here](https://github.com/Atelier-Shiori/wiki/Credits).
+
+## Related Projects
+Hachidori depends on these frameworks, which provides core functionality.
+* [DetectionKit](https://github.com/Atelier-Shiori/DetectionKit) - Cocoa Framework responsible for all media detection.
+* [detectstream](https://github.com/Atelier-Shiori/detectstream) - A Cocoa Framework that detects legal streaming sites from web browser. Provides parsing for streamlink as well, which is handled by DetectionKit.
+* [anitomy-for-cocoa](https://github.com/Atelier-Shiori/anitomy-for-cocoa) - Anitomy wrapper for Objective-C to parse video file names.
 
 ## License
 
