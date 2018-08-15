@@ -62,7 +62,7 @@
             }
             break;
         case 1:
-            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : searchtitle, @"type" : @"ANIME"}} task:&task error:&error];
+            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : [self cleanupsearchterm:searchtitle], @"type" : @"ANIME"}} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject];
             }
@@ -95,7 +95,7 @@
     OnigRegexp   *regex;
     //Retrieve the ID. Note that the most matched title will be on the top
     // For Sanity (TV shows and OVAs usually have more than one episode)
-    self.DetectedTitleisMovie = [self.DetectedType isEqualToString:@"Movie"] || [self.DetectedType isEqualToString:@"movie"];
+    self.DetectedTitleisMovie = [self.DetectedType isEqualToString:@"Movie"] || [self.DetectedType isEqualToString:@"movie"] || self.DetectedEpisode.length == 0;
     NSLog(@"%@", self.DetectedTitleisMovie ? @"Title is a movie" : @"Title is not a movie.");
     // Populate Sorted Array
     NSArray * sortedArray = [self filterArray:responseObject];
@@ -198,6 +198,7 @@
     if (self.DetectedTitleisMovie) {
         sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)" , @"Movie"]]];
         [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"Special"]]];
+        [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"OVA"]]];
     }
     else if (self.DetectedTitleisEpisodeZero) {
         sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(title CONTAINS %@) AND (type ==[c] %@)" , @"Episode 0", @"TV"]]];
@@ -289,5 +290,9 @@
     }
     //Return the AniID
     return titleid;
+}
+- (NSString *)cleanupsearchterm:(NSString *)term {
+    NSString *tmpterm = [term stringByReplacingOccurrencesOfString:@"?" withString:@""];
+    return tmpterm;
 }
 @end
