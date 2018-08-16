@@ -217,6 +217,7 @@
     defaultValues[@"plexaddress"] = @"localhost";
     defaultValues[@"plexport"] = @"32400";
     defaultValues[@"plexidentifier"] = @"Hachidori_Plex_Client";
+    defaultValues[@"plexusehttps"] = @NO;
     defaultValues[@"currentservice"] = @(0);
     defaultValues[@"torrentagreement"] = @NO;
     defaultValues[@"torrentsiteselected"] = @(0);
