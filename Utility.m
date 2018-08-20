@@ -91,7 +91,7 @@
     long choice = [alert runModal];
     if (choice == NSAlertFirstButtonReturn) {
         // Open Donation Page
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://softwareateliershiori.onfastspring.com/hachidori-mal-sync-donation-license"]];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://malupdaterosx.moe/donate/"]];
         [Utility setReminderDate];
     }
     else if (choice == NSAlertSecondButtonReturn) {
