@@ -31,6 +31,7 @@
 #import "PFAboutWindowController.h"
 #import "servicemenucontroller.h"
 #import "AniListScoreConvert.h"
+#import "PatreonController.h"
 
 @implementation AppDelegate
 
@@ -205,6 +206,7 @@
     defaultValues[@"oss"] = @YES;
 #else
     defaultValues[@"donated"] = @NO;
+    defaultValues[@"activepatron"] = @NO;
     defaultValues[@"oss"] = @NO;
     defaultValues[@"autodownloadtorrents"] = @NO;
     defaultValues[@"autodownloadinterval"] = @(3600);
@@ -265,6 +267,10 @@
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
 	haengine.managedObjectContext = managedObjectContext;
+    
+    // Initalize Patreon Controller
+    _pc = [PatreonController new];
+    
     #ifdef DEBUG
     #else
         // Check if Application is in the /Applications Folder
@@ -272,7 +278,12 @@
     #endif
     
     // Show Donation Message
-    [Utility donateCheck:self];
+    if (_pc.pamanager.getFirstAccount) {
+        [_pc checkPatreonAccount:nil];
+    }
+    else {
+        [Utility donateCheck:self];
+    }
     // Set Defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //Set Notification Center Delegate
@@ -571,6 +582,7 @@
     [NSApp activateIgnoringOtherApps:YES];
     if (!_dwindow) {
         _dwindow = [[DonationWindowController alloc] init];
+        [_dwindow setPatreonController:_pc];
     }
     [_dwindow.window makeKeyAndOrderFront:nil];
     
@@ -1370,6 +1382,9 @@
         default:
             break;
     }
+}
+- (IBAction)deauthorizepatreon:(id)sender {
+    [_pc deauthorizePatreonAccount];
 }
 #pragma mark Torrent Browser
 - (IBAction)openTorrentBrowser:(id)sender {

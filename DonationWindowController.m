@@ -8,9 +8,10 @@
 
 #import "DonationWindowController.h"
 #import "Utility.h"
+#import "PatreonController.h"
 
 @interface DonationWindowController ()
-
+@property (strong)PatreonController *pc;
 @end
 
 @implementation DonationWindowController
@@ -18,17 +19,23 @@
 @synthesize name;
 @synthesize key;
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super initWithWindowNibName:@"DonationWindow"];
     if(!self)
         return nil;
     return self;
 }
+
+- (void)setPatreonController:(PatreonController *)patreoncontroller {
+    self.pc = patreoncontroller;
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
+
 - (IBAction)validate:(id)sender{
     if (name.stringValue.length > 0 && key.stringValue.length>0) {
         // Check donation key
@@ -68,7 +75,14 @@
     // Show Donation Page
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://malupdaterosx.moe/donate/"]];
 }
+
 - (IBAction)lookupkey:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://malupdaterosx.moe/hachidori/lostkey.php"]];
+}
+- (IBAction)signinPatreon:(id)sender {
+    [_pc authorizePatreonAccount:self.window];
+}
+- (IBAction)becomepatron:(id)sender {
+    [_pc openpledgepage];
 }
 @end

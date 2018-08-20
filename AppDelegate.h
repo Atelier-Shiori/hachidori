@@ -23,6 +23,7 @@
 #ifdef oss
 #else
 @class TorrentBrowserController;
+@class PatreonController;
 #endif
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
@@ -91,6 +92,7 @@
 #ifdef oss
 #else
 @property (strong) TorrentBrowserController *tbc;
+@property (strong) PatreonController *pc;
 #endif
 
 - (void)showhistory:(id)sender;

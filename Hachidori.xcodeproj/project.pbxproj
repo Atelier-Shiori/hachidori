@@ -98,8 +98,10 @@
 		9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */; };
 		912B575820B5CB7D0002C7BD /* Hachidori+AnimeRelations.m in Sources */ = {isa = PBXBuildFile; fileRef = 912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
+		9134C39B212B0BD800F4982D /* Patreon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91376034212AF6C60093919F /* Patreon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91376035212AF6C60093919F /* Patreon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91376034212AF6C60093919F /* Patreon.framework */; };
 		91376038212AF7600093919F /* PatreonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 91376037212AF7600093919F /* PatreonConstants.m */; };
+		9137603B212AF92D0093919F /* PatreonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9137603A212AF92D0093919F /* PatreonController.m */; };
 		914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
 		914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 914AE2D51F11415C009E43FC /* PlexLogin.m */; };
@@ -155,6 +157,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */,
+				9134C39B212B0BD800F4982D /* Patreon.framework in CopyFiles */,
 				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
 				9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */,
 				9126067C20BEED920052CB30 /* DiscordRPC.framework in CopyFiles */,
@@ -406,6 +409,8 @@
 		91376034212AF6C60093919F /* Patreon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Patreon.framework; path = Frameworks/Patreon.framework; sourceTree = "<group>"; };
 		91376036212AF7600093919F /* PatreonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatreonConstants.h; sourceTree = "<group>"; };
 		91376037212AF7600093919F /* PatreonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatreonConstants.m; sourceTree = "<group>"; };
+		91376039212AF92D0093919F /* PatreonController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatreonController.h; sourceTree = "<group>"; };
+		9137603A212AF92D0093919F /* PatreonController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatreonController.m; sourceTree = "<group>"; };
 		914AE2D01F113AD0009E43FC /* XMLReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XMLReader.framework; path = Frameworks/XMLReader.framework; sourceTree = "<group>"; };
 		914AE2D41F11415C009E43FC /* PlexLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlexLogin.h; sourceTree = "<group>"; };
 		914AE2D51F11415C009E43FC /* PlexLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlexLogin.m; sourceTree = "<group>"; };
@@ -553,6 +558,8 @@
 				6F0F849F1B34699100EEEC32 /* Scripting Support */,
 				6FAA87821A7EB6B200EFFAC1 /* Support Classes */,
 				5C07DA691A815C2C0003A827 /* Window Controllers */,
+				91376039212AF92D0093919F /* PatreonController.h */,
+				9137603A212AF92D0093919F /* PatreonController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1199,6 +1206,7 @@
 				91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */,
 				9106873421061B1E001A93BE /* NSString_stripHtml.m in Sources */,
 				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
+				9137603B212AF92D0093919F /* PatreonController.m in Sources */,
 				F88D55DD20B3178D00DB84B9 /* AnimeRelations.m in Sources */,
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,

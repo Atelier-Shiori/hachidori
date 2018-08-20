@@ -19,3 +19,5 @@ Frameworks/Patreon.framework.dSYM/**
 Frameworks/Patreon.framework/**
 PatreonConstants.h
 PatreonConstants.m
+PatreonController.h
+PatreonController.m
