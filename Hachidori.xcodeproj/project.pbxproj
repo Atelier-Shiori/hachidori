@@ -98,6 +98,8 @@
 		9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */; };
 		912B575820B5CB7D0002C7BD /* Hachidori+AnimeRelations.m in Sources */ = {isa = PBXBuildFile; fileRef = 912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
+		91376035212AF6C60093919F /* Patreon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91376034212AF6C60093919F /* Patreon.framework */; };
+		91376038212AF7600093919F /* PatreonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 91376037212AF7600093919F /* PatreonConstants.m */; };
 		914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
 		914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 914AE2D51F11415C009E43FC /* PlexLogin.m */; };
@@ -401,6 +403,9 @@
 		912B575620B5CB7D0002C7BD /* Hachidori+AnimeRelations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+AnimeRelations.h"; sourceTree = "<group>"; };
 		912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+AnimeRelations.m"; sourceTree = "<group>"; };
 		9130A63C1E81D77A00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OfflineViewQueue.xib; sourceTree = "<group>"; };
+		91376034212AF6C60093919F /* Patreon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Patreon.framework; path = Frameworks/Patreon.framework; sourceTree = "<group>"; };
+		91376036212AF7600093919F /* PatreonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatreonConstants.h; sourceTree = "<group>"; };
+		91376037212AF7600093919F /* PatreonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatreonConstants.m; sourceTree = "<group>"; };
 		914AE2D01F113AD0009E43FC /* XMLReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XMLReader.framework; path = Frameworks/XMLReader.framework; sourceTree = "<group>"; };
 		914AE2D41F11415C009E43FC /* PlexLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlexLogin.h; sourceTree = "<group>"; };
 		914AE2D51F11415C009E43FC /* PlexLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlexLogin.m; sourceTree = "<group>"; };
@@ -467,6 +472,7 @@
 				2D621ECB1F8143EB003274F2 /* PingNotifier.framework in Frameworks */,
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
 				91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */,
+				91376035212AF6C60093919F /* Patreon.framework in Frameworks */,
 				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
 				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
 				F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */,
@@ -516,6 +522,8 @@
 				91D116FB20BC5502006E4271 /* AniListConstants.m */,
 				918C4F9B1E79C819001E7B30 /* ClientConstants.h */,
 				918C4F9C1E79C819001E7B30 /* ClientConstants.m */,
+				91376036212AF7600093919F /* PatreonConstants.h */,
+				91376037212AF7600093919F /* PatreonConstants.m */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
 				91D116FD20BC7D43006E4271 /* Hachidori+userinfo.h */,
 				91D116FE20BC7D43006E4271 /* Hachidori+userinfo.m */,
@@ -568,6 +576,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91376034212AF6C60093919F /* Patreon.framework */,
 				916207252110C88B008AFAC5 /* DetectStreamKit.framework */,
 				F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */,
 				9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */,
@@ -1182,6 +1191,7 @@
 				9191FC4120BDBB9100F48DD0 /* AniListScoreConvert.m in Sources */,
 				91CF574820B706030044DC9F /* AtarashiiDataObjects.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
+				91376038212AF7600093919F /* PatreonConstants.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
 				9107644A21052F6100E9B12C /* ServiceIDToServiceTitle.m in Sources */,
 				91CF574620B706030044DC9F /* AtarashiiAPIListFormatKitsu.m in Sources */,

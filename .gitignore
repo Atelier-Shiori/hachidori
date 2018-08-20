@@ -15,3 +15,7 @@ ClientConstants.m
 DonationCheck_KeyOnly.framework/**
 Frameworks/TorrentBrowser.framework.dSYM/**
 Frameworks/TorrentBrowser.framework/**
+Frameworks/Patreon.framework.dSYM/**
+Frameworks/Patreon.framework/**
+PatreonConstants.h
+PatreonConstants.m
