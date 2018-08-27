@@ -268,6 +268,21 @@
     haengine = [[Hachidori alloc] init];
 	haengine.managedObjectContext = managedObjectContext;
     
+#ifdef oss
+#else
+    // Set up Torrent Browser (closed source)
+    _tbc = [[TorrentBrowserController alloc] initwithManagedObjectContext:managedObjectContext];
+    // Start Timer for Auto Downloading of Torrents if enabled
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"autodownloadtorrents"]) {
+        if ([_tbc.tmanager startAutoDownloadTimer]) {
+            NSLog(@"Timer started");
+        }
+        else {
+            NSLog(@"Failed to start timer.");
+        }
+    }
+#endif
+    
     // Initalize Patreon Controller
     _pc = [PatreonController new];
     
@@ -342,20 +357,6 @@
         weakself.servicenamemenu.enabled = NO;
     };
     [haengine checkaccountinformation];
-#ifdef oss
-#else
-    // Set up Torrent Browser (closed source)
-    _tbc = [[TorrentBrowserController alloc] initwithManagedObjectContext:managedObjectContext];
-    // Start Timer for Auto Downloading of Torrents if enabled
-    if ([NSUserDefaults.standardUserDefaults boolForKey:@"autodownloadtorrents"]) {
-        if ([_tbc.tmanager startAutoDownloadTimer]) {
-            NSLog(@"Timer started");
-        }
-        else {
-            NSLog(@"Failed to start timer.");
-        }
-    }
-#endif
 	// Notify User if there is no Account Info
 	if (![haengine getCurrentFirstAccount]) {
         // First time prompt

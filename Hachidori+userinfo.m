@@ -31,7 +31,15 @@
             NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];
             NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
             [defaults setValue:d[@"id"] forKey:@"UserID"];
-            [defaults setValue:d[@"attributes"][@"slug"] forKey:@"loggedinusername"];
+            if (d[@"attributes"][@"name"] != [NSNull null]) {
+                [defaults setValue:d[@"attributes"][@"name"] forKey:@"loggedinusername"];
+            }
+            else if (d[@"attributes"][@"slug"] != [NSNull null]) {
+                [defaults setValue:d[@"attributes"][@"slug"] forKey:@"loggedinusername"];
+            }
+            else {
+                [defaults setValue:@"Unknown User" forKey:@"loggedinusername"];
+            }
         }
         else {
             // Remove Account, invalid token
