@@ -54,4 +54,12 @@
  @pram url The host name/IP Address to the computer running Plex Media Server.
  */
 - (void)setPlexReachAddress:(NSString *)url;
+/**
+ Prompts Automation Permissions in macOS 10.14 or later
+ */
+- (void)promptAutomation;
+/**
+ Requests permission for Automation in macOS 10.14 or later
+ */
+- (void)getAutomationPermission;
 @end
