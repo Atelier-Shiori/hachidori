@@ -53,28 +53,28 @@
 }
 + (void)donateCheck:(AppDelegate*)delegate{
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"]) {
-        [Utility setReminderDate];
+        [self setReminderDate];
     }
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"donated"]) {
-        [Utility checkDonationKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"donatekey"] name:[[NSUserDefaults standardUserDefaults] objectForKey:@"donor"] completion:^(int success) {
+        [self checkDonationKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"donatekey"] name:[[NSUserDefaults standardUserDefaults] objectForKey:@"donor"] completion:^(int success) {
             if (success == 1) {
                 //Reset check
-                [Utility setReminderDate];
+                [self setReminderDate];
             }
             else if (success == 2) {
                 //Try again when there is internet access
             }
             else {
                 //Invalid Key
-                [Utility showsheetmessage:NSLocalizedString(@"Donation Key Error",nil) explaination:NSLocalizedString(@"This key has been revoked. Please contact the author of this program or enter a valid key.",nil) window:nil];
-                [Utility showDonateReminder:delegate];
+                [self showsheetmessage:NSLocalizedString(@"Donation Key Error",nil) explaination:NSLocalizedString(@"This key has been revoked. Please contact the author of this program or enter a valid key.",nil) window:nil];
+                [self showDonateReminder:delegate];
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"donated"];
             }
         }];
         return;
     }
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"donatereminderdate"] timeIntervalSinceNow] < 0) {
-            [Utility showDonateReminder:delegate];
+            [self showDonateReminder:delegate];
     }
 }
 + (void)showDonateReminder:(AppDelegate*)delegate{
@@ -92,16 +92,16 @@
     if (choice == NSAlertFirstButtonReturn) {
         // Open Donation Page
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://malupdaterosx.moe/donate/"]];
-        [Utility setReminderDate];
+        [self setReminderDate];
     }
     else if (choice == NSAlertSecondButtonReturn) {
         // Show Add Donation Key dialog.
         [delegate enterDonationKey];
-        [Utility setReminderDate];
+        [self setReminderDate];
     }
     else {
         // Surpress message for 2 weeks.
-        [Utility setReminderDate];
+        [self setReminderDate];
     }
 }
 
@@ -142,13 +142,13 @@
     static AFHTTPSessionManager *manager = nil;
     if (manager) {
         [manager.requestSerializer clearAuthorizationHeader];
-        manager.requestSerializer = [Utility httprequestserializer];
-        manager.responseSerializer =  [Utility jsonresponseserializer];
+        manager.requestSerializer = [self httprequestserializer];
+        manager.responseSerializer =  [self jsonresponseserializer];
     }
     dispatch_once(&onceToken, ^{
         manager = [AFHTTPSessionManager manager];
-        manager.requestSerializer = [Utility httprequestserializer];
-        manager.responseSerializer =  [Utility jsonresponseserializer];
+        manager.requestSerializer = [self httprequestserializer];
+        manager.responseSerializer =  [self jsonresponseserializer];
     });
     return manager;
 }

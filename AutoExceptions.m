@@ -64,7 +64,7 @@
         case 200:{
             NSLog(@"Updating Auto Exceptions!");
             if (![[NSUserDefaults standardUserDefaults] valueForKey:@"updatedaexceptions"]) {
-                [AutoExceptions clearAutoExceptions];
+                [self clearAutoExceptions];
                 [[NSUserDefaults standardUserDefaults] setObject:@(true)forKey:@"updatedaexceptions"];
             }
             //Parse and Import

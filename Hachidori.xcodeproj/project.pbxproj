@@ -1613,6 +1613,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MAL_Updater_OS_X_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
