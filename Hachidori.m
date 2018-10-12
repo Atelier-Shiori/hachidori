@@ -154,7 +154,7 @@
     int detectstatus = [self detectmedia];
 	if (detectstatus == ScrobblerDetectedMedia) { // Detects Title
         if (online) {
-            return [self scrobble];
+            int result = [self scrobble];
             // Empty out Detected Title/Episode to prevent same title detection
             _DetectedTitle = nil;
             _DetectedEpisode = nil;
@@ -164,6 +164,7 @@
             _DetectedSeason = 0;
             // Reset correcting Value
             _correcting = false;
+            return result;
         }
         else {
             __block NSError * error;

@@ -49,6 +49,11 @@
     // Set Season for Search Term if any detected.
     //Escape Search Term
     NSString * searchterm = [Utility urlEncodeString:searchtitle];
+    if (!searchterm) {
+        // Null search term, error out
+        NSLog(@"Invalid Search Term: %@");
+        return @"";
+    }
     // Set up Request
     [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
     NSURLSessionDataTask *task;
