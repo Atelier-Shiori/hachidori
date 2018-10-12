@@ -26,8 +26,10 @@
         case 200:{
             NSLog(@"Updating Anime Relations!");
             [self processAnimeRelations:[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]];
+        dispatch_async(dispatch_get_main_queue(), ^{
             // Set the last updated date
             [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"AnimeRelationsLastUpdated"];
+        });
             break;
         }
         default:

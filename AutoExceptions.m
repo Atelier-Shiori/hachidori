@@ -108,8 +108,10 @@
                     [moc save:&derror];
                 }
             }];
-            // Set the last updated date
-            [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"ExceptionsLastUpdated"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Set the last updated date
+                [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"ExceptionsLastUpdated"];
+            });
             break;
         }
         default:
