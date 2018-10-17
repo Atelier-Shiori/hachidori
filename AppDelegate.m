@@ -402,7 +402,8 @@
 #ifdef oss
         controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, exceptionsViewController, suViewController, advancedViewController];
 #else
-        controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, [_tbc getBittorrentPreferences], exceptionsViewController, suViewController, advancedViewController];
+        NSViewController *bittorrentpreferences = [[BittorrentPreferences alloc] initwithTorrentManager:_tbc.tmanager];
+        controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, bittorrentpreferences, exceptionsViewController, suViewController, advancedViewController];
 #endif
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers];
     }
