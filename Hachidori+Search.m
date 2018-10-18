@@ -51,7 +51,7 @@
     NSString * searchterm = [Utility urlEncodeString:searchtitle];
     if (!searchterm) {
         // Null search term, error out
-        NSLog(@"Invalid Search Term: %@");
+        NSLog(@"Invalid Search Term");
         return @"";
     }
     // Set up Request
