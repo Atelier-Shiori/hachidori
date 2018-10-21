@@ -114,7 +114,12 @@
         _epiformatter.maximum = @(99999999);
     }
     [_showstatus selectItemAtIndex:[haengine getWatchStatus]];
-    _notes.string = haengine.TitleNotes;
+    if (haengine.TitleNotes) {
+        _notes.string = haengine.TitleNotes;
+    }
+    else {
+        _notes.string = @"";
+    }
     _isPrivate.state = haengine.isPrivate;
     // Stop Timer temporarily if scrobbling is turned on
     AppDelegate *appdel = (AppDelegate *)[NSApplication sharedApplication].delegate;

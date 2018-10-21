@@ -162,7 +162,7 @@
         //Set New Values
         self.TitleScore = showscore;
         self.WatchStatus = showwatchstatus;
-        self.TitleNotes = note;
+        self.TitleNotes = note.length > 0 ? note : @"";
         self.isPrivate = privatevalue;
         self.LastScrobbledEpisode = episode;
         self.DetectedCurrentEpisode = episode.intValue;

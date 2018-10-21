@@ -145,7 +145,7 @@
     NSDictionary * tmpinfo = [self retrieveAnimeInfo:aid];
     self.WatchStatus = d[@"watched_status"];
     //Get Notes;
-    if (d[@"personal_comments"] == [NSNull null]) {
+    if (d[@"personal_comments"] == [NSNull null] && d[@"personal_comments"]) {
         self.TitleNotes = @"";
     }
     else {
