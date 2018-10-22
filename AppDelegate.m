@@ -562,6 +562,7 @@
         revertrewatch.enabled = enable;
         openstream.enabled = enable;
         _servicenamemenu.enabled = NO;
+        [_servicemenu enableservicemenuitems:enable];
         if (!enable) {
             [updatenow setTitle:NSLocalizedString(@"Updating...",nil)];
             [self setStatusText:NSLocalizedString(@"Scrobble Status: Scrobbling...",nil)];

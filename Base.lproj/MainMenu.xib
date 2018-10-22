@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -229,7 +229,7 @@
                 </menuItem>
                 <menuItem title="Service" id="Ffd-xt-7ta">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Service" id="FLu-az-Wi6">
+                    <menu key="submenu" title="Service" autoenablesItems="NO" id="FLu-az-Wi6">
                         <items>
                             <menuItem title="Kitsu" id="gfE-Ea-BJ8">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -418,8 +418,8 @@
                                         <rect key="frame" x="149" y="1" width="291" height="190"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="ypk-hd-jNn">
-                                            <rect key="frame" x="1" y="1" width="274" height="188"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <rect key="frame" x="1" y="1" width="289" height="188"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
                                                     <rect key="frame" x="0.0" y="0.0" width="274" height="188"/>
@@ -436,7 +436,7 @@
                                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="T9f-gy-fHS">
+                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="T9f-gy-fHS">
                                             <rect key="frame" x="275" y="1" width="15" height="188"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
