@@ -20,10 +20,6 @@
   },
   {
   "player_name":"mplayer",
-  "process_name":"mplayer"
-  },
-  {
-  "player_name":"mplayer",
   "player_bundle_identifier":"org.splayer.splayerx",
   "process_name":"mplayer-mt"
   },
@@ -73,4 +69,19 @@
   "player_name":"Niceplayer",
   "player_bundle_identifier": "indy.jt.niceplayer",
   "applescript_command":"tell application \"NicePlayer\" to get path of front movie"
-  }]
+  },
+  {
+  "player_name":"Elmedia Player",
+  "player_bundle_identifier":"com.Eltima.ElmediaPlayer",
+  "process_name":"Elmedia Player"
+  },
+  {
+  "player_name":"Elmedia Video Player",
+  "player_bundle_identifier":"com.eltima.elmedia6.mas",
+  "process_name":"mplayer"
+  },
+  {
+  "player_name":"mplayer",
+  "process_name":"mplayer"
+  }
+ ]
