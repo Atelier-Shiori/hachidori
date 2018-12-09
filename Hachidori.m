@@ -8,6 +8,7 @@
 
 #import "Hachidori.h"
 #import "Hachidori+AnimeRelations.h"
+#import "Hachidori+userinfo.h"
 #import "AniListConstants.h"
 #import <DetectionKit/DetectionKit.h>
 #import <AFNetworking/AFNetworking.h>
@@ -303,6 +304,8 @@
     int status;
 	NSLog(@"=============");
 	NSLog(@"Scrobbling...");
+    NSLog(@"Check Account Information");
+    [self checkaccountinformation];
     NSLog(@"Getting AniID");
     // Regular Search
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useSearchCache"]) {
@@ -321,7 +324,7 @@
     else {
         _AniID = [self searchanime]; // Search Cache Disabled
     }
-    if (_AniID.length > 0) {
+    if (_AniID.length > 0 && [self hasUserInfoCurrentService]) {
         NSLog(@"Found %@", _AniID);
         // Nil out Failed Title and Episode
         _FailedTitle = nil;

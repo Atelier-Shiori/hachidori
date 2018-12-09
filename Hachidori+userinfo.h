@@ -9,4 +9,5 @@
 
 @interface Hachidori (userinfo)
 - (void)checkaccountinformation;
+- (bool)hasUserInfoCurrentService;
 @end

@@ -99,4 +99,15 @@
         }
     }
 }
+
+- (bool)hasUserInfoCurrentService {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    switch (self.currentService) {
+        case serviceKitsu:
+            return ([defaults valueForKey:@"loggedinusername"] && [defaults valueForKey:@"UserID"]);
+        case serviceAniList:
+            return ([defaults valueForKey:@"loggedinusername-anilist"] && [defaults valueForKey:@"UserID-anilist"]);
+    }
+    return NO;
+}
 @end

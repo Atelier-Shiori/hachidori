@@ -46,6 +46,10 @@ typedef NS_ENUM(unsigned int, anilistRatingType) {
     ratingPoint5 = 3,
     ratingPoint3 = 4
 };
+typedef NS_ENUM(unsigned int, hachidoriservice) {
+    serviceKitsu = 0,
+    serviceAniList = 1
+};
 @property (strong) AFHTTPSessionManager *syncmanager;
 @property (strong) AFHTTPSessionManager *asyncmanager;
 @property (strong, getter=getLastScrobbledTitle) NSString *LastScrobbledTitle;
