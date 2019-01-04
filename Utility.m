@@ -32,6 +32,21 @@
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return title;
 }
++ (int)parseSeason:(NSString *)string {
+    // Season Parsing
+    OnigRegexp    *regex;
+    OnigResult *smatch;
+    NSString *tmpseason;
+    regex = [OnigRegexp compile:@"((S|s|Season )\\d+|\\d+(st|nd|rd|th) Season|\\d+)" options:OnigOptionIgnorecase];
+    smatch = [regex search:string];
+    if (smatch.count > 0) {
+        tmpseason = [smatch stringAt:0];
+        regex = [OnigRegexp compile:@"((st|nd|rd|th) Season)|Season |S|s|" options:OnigOptionIgnorecase];
+        tmpseason = [tmpseason replaceByRegexp:regex with:@""];
+        return tmpseason.intValue;
+    }
+    return -1;
+}
 + (void)showsheetmessage:(NSString *)message
            explaination:(NSString *)explaination
                  window:(NSWindow *)w {

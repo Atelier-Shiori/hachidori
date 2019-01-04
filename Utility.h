@@ -23,6 +23,7 @@ typedef NS_ENUM(unsigned int, matchtype) {
             regex:(OnigRegexp *)regex
            option:(int)i;
 + (NSString *)desensitizeSeason:(NSString *)title;
++ (int)parseSeason:(NSString *)string;
 + (void)showsheetmessage:(NSString *)message
            explaination:(NSString *)explaination
                  window:(NSWindow *)w;

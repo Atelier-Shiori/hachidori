@@ -109,12 +109,12 @@
     NSDictionary * titlematch2;
     int mstatus = 0;
     // Search
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         switch (i) {
-            case 0:
+            case 1:
                 regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@)",term] options:OnigOptionIgnorecase];
                 break;
-            case 1:
+            case 2:
                 regex = [OnigRegexp compile:[[NSString stringWithFormat:@"(%@)",term] stringByReplacingOccurrencesOfString:@" " withString:@"|"] options:OnigOptionIgnorecase];
                 break;
             default:
@@ -130,7 +130,7 @@
             theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
             alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
             // Perform Recognition
-            int matchstatus = [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i];
+            int matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
             if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
                 if (self.DetectedTitleisMovie) {
                     self.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
@@ -141,17 +141,8 @@
                 else {
                     if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
                         // Used for Season Checking
-                        OnigRegexp   *regex2 = [OnigRegexp compile:[NSString stringWithFormat:@"(%i(st|nd|rd|th) season|\\W%i)", self.DetectedSeason, self.DetectedSeason] options:OnigOptionIgnorecase];
-                        OnigResult * smatch = [regex2 search:[NSString stringWithFormat:@"%@ - %@ - %@", theshowtitle, alttitle, searchentry[@"slug"]]];
-                        if (self.DetectedSeason >= 2) { // Season detected, check to see if there is a matcch. If not, continue.
-                            if (smatch.count == 0) {
-                                continue;
-                            }
-                        }
-                        else {
-                            if (smatch.count > 0 && self.DetectedSeason >= 2) { // No Season, check to see if there is a season or not. If so, continue.
-                                continue;
-                            }
+                        if (self.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
+                            continue;
                         }
                     }
                 }
