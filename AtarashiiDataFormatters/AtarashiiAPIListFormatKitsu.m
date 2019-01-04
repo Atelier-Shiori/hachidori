@@ -121,35 +121,7 @@
                 aobject.status = @"not yet aired";
             }
                 
-            // Season Parsing
-            int tmpseason;
-            for (int i = 0; i < 2; i++) {
-                if (i == 0) {
-                    tmpseason = [Utility parseSeason:aobject.title];
-                    if (tmpseason > 0) {
-                        aobject.parsedseason = tmpseason;
-                        break;
-                    }
-                    NSMutableArray *tmparray = [NSMutableArray new];
-                    [tmparray addObjectsFromArray:aobject.other_titles[@"synonyms"]];
-                    [tmparray addObjectsFromArray:aobject.other_titles[@"english"]];
-                    [tmparray addObjectsFromArray:aobject.other_titles[@"japanese"]];
-                    for (NSString *title in tmparray) {
-                        tmpseason = [Utility parseSeason:title];
-                        if (tmpseason > 0) {
-                            aobject.parsedseason = tmpseason;
-                            break;
-                        }
-                    }
-                }
-                else {
-                    tmpseason = [Utility parseSeason:aobject.synposis];
-                    if (tmpseason > 0) {
-                        aobject.parsedseason = tmpseason;
-                        break;
-                    }
-                }
-            }
+            [aobject parseSeason];
             [tmparray addObject:aobject.NSDictionaryRepresentation];
         }
     }

@@ -7,6 +7,7 @@
 //
 
 #import "AtarashiiDataObjects.h"
+#import "Utility.h"
 
 @implementation AtarashiiAnimeObject
 - (id)init {
@@ -47,6 +48,37 @@
         _parsedseason = 0;
     }
     return self;
+}
+- (void)parseSeason {
+    // Season Parsing
+    int tmpseason;
+    for (int i = 0; i < 2; i++) {
+        if (i == 0) {
+            tmpseason = [Utility parseSeason:_title];
+            if (tmpseason > 0) {
+                _parsedseason = tmpseason;
+                break;
+            }
+            NSMutableArray *tmparray = [NSMutableArray new];
+            [tmparray addObjectsFromArray:_other_titles[@"synonyms"]];
+            [tmparray addObjectsFromArray:_other_titles[@"english"]];
+            [tmparray addObjectsFromArray:_other_titles[@"japanese"]];
+            for (NSString *title in tmparray) {
+                tmpseason = [Utility parseSeason:title];
+                if (tmpseason > 0) {
+                    _parsedseason = tmpseason;
+                    break;
+                }
+            }
+        }
+        else {
+            tmpseason = [Utility parseSeason:_synposis];
+            if (tmpseason > 0) {
+                _parsedseason = tmpseason;
+                break;
+            }
+        }
+    }
 }
 
 - (NSDictionary *)NSDictionaryRepresentation {
