@@ -10,7 +10,7 @@
 @implementation Hachidori (Discord)
 - (void)sendDiscordPresence {
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"] && self.discordmanager.discordrpcrunning) {
-        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", self.WatchStatus,self.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  self.LastScrobbledActualTitle ]];
+        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", self.lastscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  self.lastscrobble.LastScrobbledActualTitle ]];
     }
 }
 @end

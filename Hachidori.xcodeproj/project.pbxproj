@@ -35,6 +35,9 @@
 		3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2DCCBD1210B3D900C920F1 /* Security.framework */; };
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
 		593B55841CC41DC200B7B254 /* Base64Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55831CC41DC200B7B254 /* Base64Category.m */; };
+		594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */; };
+		594F0A2021E50427001875AF /* LastScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1F21E50427001875AF /* LastScrobbleStatus.m */; };
+		594F0A2321E65800001875AF /* Scrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A2221E65800001875AF /* Scrobble.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
@@ -225,6 +228,12 @@
 		3AFEF128120DF8CE0098B59D /* Hachidori.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Hachidori.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		593B55821CC41DC200B7B254 /* Base64Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Category.h; sourceTree = "<group>"; };
 		593B55831CC41DC200B7B254 /* Base64Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Category.m; sourceTree = "<group>"; };
+		594F0A1B21E50414001875AF /* DetectedScrobbleStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectedScrobbleStatus.h; sourceTree = "<group>"; };
+		594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetectedScrobbleStatus.m; sourceTree = "<group>"; };
+		594F0A1E21E50427001875AF /* LastScrobbleStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LastScrobbleStatus.h; sourceTree = "<group>"; };
+		594F0A1F21E50427001875AF /* LastScrobbleStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LastScrobbleStatus.m; sourceTree = "<group>"; };
+		594F0A2121E65800001875AF /* Scrobble.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scrobble.h; sourceTree = "<group>"; };
+		594F0A2221E65800001875AF /* Scrobble.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Scrobble.m; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftwareUpdatesPref.h; sourceTree = "<group>"; };
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
@@ -621,6 +630,7 @@
 		29B97314FDCFA39411CA2CEA /* MAL Updater OS X */ = {
 			isa = PBXGroup;
 			children = (
+				594F0A1A21E503E5001875AF /* ScrobbleObjects */,
 				916207242110C78D008AFAC5 /* Hachidori.entitlements */,
 				91CF573F20B705E70044DC9F /* AtarashiiDataFormatters */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -679,6 +689,19 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		594F0A1A21E503E5001875AF /* ScrobbleObjects */ = {
+			isa = PBXGroup;
+			children = (
+				594F0A1B21E50414001875AF /* DetectedScrobbleStatus.h */,
+				594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */,
+				594F0A1E21E50427001875AF /* LastScrobbleStatus.h */,
+				594F0A1F21E50427001875AF /* LastScrobbleStatus.m */,
+				594F0A2121E65800001875AF /* Scrobble.h */,
+				594F0A2221E65800001875AF /* Scrobble.m */,
+			);
+			path = ScrobbleObjects;
 			sourceTree = "<group>";
 		};
 		5C07DA691A815C2C0003A827 /* Window Controllers */ = {
@@ -1171,6 +1194,7 @@
 				2D7CD47C1F2109C700171028 /* PFAboutWindowController.m in Sources */,
 				91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */,
 				91CF574720B706030044DC9F /* AtarashiiAPIListFormatAniList.m in Sources */,
+				594F0A2021E50427001875AF /* LastScrobbleStatus.m in Sources */,
 				914EFF1820B8E7E40050B716 /* AniListAuthWindow.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
@@ -1189,6 +1213,7 @@
 				91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */,
 				91D1170220BCB4C8006E4271 /* Hachidori+KitsuUpdate.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
+				594F0A2321E65800001875AF /* Scrobble.m in Sources */,
 				91D116FC20BC5502006E4271 /* AniListConstants.m in Sources */,
 				8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */,
 				2DF749211F17C06A009EE500 /* PlexPrefs.m in Sources */,
@@ -1204,6 +1229,7 @@
 				91CF574620B706030044DC9F /* AtarashiiAPIListFormatKitsu.m in Sources */,
 				6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */,
 				91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */,
+				594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */,
 				9106873421061B1E001A93BE /* NSString_stripHtml.m in Sources */,
 				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
 				9137603B212AF92D0093919F /* PatreonController.m in Sources */,

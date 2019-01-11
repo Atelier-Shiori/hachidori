@@ -19,17 +19,17 @@
 @implementation Hachidori (Search)
 - (NSString *)searchanime {
     // Searches for ID of associated title
-    NSString * searchtitle = self.DetectedTitle;
-    if (self.DetectedSeason > 1) {
+    NSString * searchtitle = self.detectedscrobble.DetectedTitle;
+    if (self.detectedscrobble.DetectedSeason > 1) {
         // Specifically search for season
         for (int i = 0; i < 2; i++) {
             NSString * tmpid;
             switch (i) {
                 case 0:
-                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i", [Utility desensitizeSeason:searchtitle], self.DetectedSeason]];
+                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %i", [Utility desensitizeSeason:searchtitle], self.detectedscrobble.DetectedSeason]];
                     break;
                 case 1:
-                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %@ Season", [Utility desensitizeSeason:searchtitle], [Utility numbertoordinal:self.DetectedSeason]]];
+                    tmpid = [self performSearch:[NSString stringWithFormat:@"%@ %@ Season", [Utility desensitizeSeason:searchtitle], [Utility numbertoordinal:self.detectedscrobble.DetectedSeason]]];
                 default:
                     break;
             }
@@ -100,8 +100,8 @@
     OnigRegexp   *regex;
     //Retrieve the ID. Note that the most matched title will be on the top
     // For Sanity (TV shows and OVAs usually have more than one episode)
-    self.DetectedTitleisMovie = [self.DetectedType isEqualToString:@"Movie"] || [self.DetectedType isEqualToString:@"movie"] || self.DetectedEpisode.length == 0;
-    NSLog(@"%@", self.DetectedTitleisMovie ? @"Title is a movie" : @"Title is not a movie.");
+    self.detectedscrobble.DetectedTitleisMovie = [self.detectedscrobble.DetectedType isEqualToString:@"Movie"] || [self.detectedscrobble.DetectedType isEqualToString:@"movie"] || self.detectedscrobble.DetectedEpisode.length == 0;
+    NSLog(@"%@", self.detectedscrobble.DetectedTitleisMovie ? @"Title is a movie" : @"Title is not a movie.");
     // Populate Sorted Array
     NSArray * sortedArray = [self filterArray:responseObject];
     // Used for String Comparison
@@ -132,34 +132,34 @@
             // Perform Recognition
             int matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
             if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
-                if (self.DetectedTitleisMovie) {
-                    self.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
+                if (self.detectedscrobble.DetectedTitleisMovie) {
+                    self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
                     if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"Special"]) {
-                        self.DetectedTitleisMovie = false;
+                        self.detectedscrobble.DetectedTitleisMovie = false;
                     }
                 }
                 else {
                     if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
                         // Used for Season Checking
-                        if (self.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
+                        if (self.detectedscrobble.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.detectedscrobble.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
                             continue;
                         }
                     }
                 }
                 //Return titleid if episode is valid
                 int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
-                if (episodes == 0 || ((episodes >= self.DetectedEpisode.intValue) && self.DetectedEpisode.intValue > 0)) {
+                if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {
                     NSLog(@"Valid Episode Count");
-                    if (sortedArray.count == 1 || self.DetectedSeason >= 2) {
+                    if (sortedArray.count == 1 || self.detectedscrobble.DetectedSeason >= 2) {
                         // Only Result, return
                         return [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
                     }
-                    else if (episodes >= self.DetectedEpisode.intValue && !titlematch1 && sortedArray.count > 1 && ((term.length < theshowtitle.length+1)||(term.length< alttitle.length+1 && alttitle.length > 0 && matchstatus == AlternateTitleMatch))) {
+                    else if (episodes >= self.detectedscrobble.DetectedEpisode.intValue && !titlematch1 && sortedArray.count > 1 && ((term.length < theshowtitle.length+1)||(term.length< alttitle.length+1 && alttitle.length > 0 && matchstatus == AlternateTitleMatch))) {
                         mstatus = matchstatus;
                         titlematch1 = searchentry;
                         continue;
                     }
-                    else if (titlematch1 && episodes >= self.DetectedEpisode.intValue) {
+                    else if (titlematch1 && episodes >= self.detectedscrobble.DetectedEpisode.intValue) {
                         titlematch2 = searchentry;
                         return titlematch1 != titlematch2 ? [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus] : [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
@@ -191,12 +191,12 @@
 - (NSArray *)filterArray:(NSArray *)searchdata {
     NSMutableArray * sortedArray;
     // Filter array based on if the title is a movie or if there is a season detected
-    if (self.DetectedTitleisMovie) {
+    if (self.detectedscrobble.DetectedTitleisMovie) {
         sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)" , @"Movie"]]];
         [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"Special"]]];
         [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"OVA"]]];
     }
-    else if (self.DetectedTitleisEpisodeZero) {
+    else if (self.detectedscrobble.DetectedTitleisEpisodeZero) {
         sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(title CONTAINS %@) AND (type ==[c] %@)" , @"Episode 0", @"TV"]]];
         [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"Special"]]];
         [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"Movie"]]];
@@ -204,14 +204,14 @@
         [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"ONA"]]];
     }
     else {
-        if (self.DetectedType.length > 0) {
-            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type ==[c] %@)", self.DetectedType]]];
+        if (self.detectedscrobble.DetectedType.length > 0) {
+            sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type ==[c] %@)", self.detectedscrobble.DetectedType]]];
         }
         else {
             sortedArray = [NSMutableArray arrayWithArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"TV"]]];
             [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"TV Short"]]];
             [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"ONA"]]];
-            if (self.DetectedSeason == 1 | self.DetectedSeason == 0) {
+            if (self.detectedscrobble.DetectedSeason == 1 | self.detectedscrobble.DetectedSeason == 0) {
                 [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"Special"]]];
                 [sortedArray addObjectsFromArray:[searchdata filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(type == %@)", @"OVA"]]];
             }
@@ -238,7 +238,7 @@
     ascore2 = isnan(ascore2) ? -1 : ascore2;
     NSLog(@"match 2: %@ - %f alt: %f", match2[@"title"], score2, ascore2 );
     //First Season Score Bonus
-    if (self.DetectedSeason == 0 || self.DetectedSeason == 1) {
+    if (self.detectedscrobble.DetectedSeason == 0 || self.detectedscrobble.DetectedSeason == 1) {
         if ([(NSString *)match1[@"title"] rangeOfString:@"First"].location != NSNotFound || [(NSString *)match1[@"title"] rangeOfString:@"1st"].location != NSNotFound) {
             score1 = score1 + .25;
             ascore1 = ascore1 + .25;
@@ -249,11 +249,11 @@
         }
     }
     //Season Scoring Calculation
-    if (season1 != self.DetectedSeason) {
+    if (season1 != self.detectedscrobble.DetectedSeason) {
         ascore1 = ascore1 - .5;
         score1 = score1 - .5;
     }
-    if (season2 != self.DetectedSeason) {
+    if (season2 != self.detectedscrobble.DetectedSeason) {
         ascore2 = ascore2 - .5;
         score2 = score2 - .5;
     }
@@ -282,7 +282,7 @@
         NSNumber * totalepisodes;
         totalepisodes = found[@"episodes"] ? (NSNumber *)found[@"episodes"] : @(0);
         //Save AniID
-        [ExceptionsCache addtoCache:self.DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes: totalepisodes.intValue detectedSeason:self.DetectedSeason withService:(int)self.currentService];
+        [ExceptionsCache addtoCache:self.detectedscrobble.DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes: totalepisodes.intValue detectedSeason:self.detectedscrobble.DetectedSeason withService:(int)self.currentService];
     }
     //Return the AniID
     return titleid;

@@ -40,24 +40,24 @@
 - (NSString *)generateTweetStringWithFormat:(NSString *)formatstring {
     NSString *tmpstr = formatstring;
     // Replace $title% with actual title
-    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%title%" withString:self.LastScrobbledActualTitle];
+    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%title%" withString:self.lastscrobble.LastScrobbledActualTitle];
     // Replace %status% with actual status
-    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%status%" withString:self.WatchStatus];
+    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%status%" withString:self.lastscrobble.WatchStatus];
     // Replace %episode% with actual episode number
-    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%episode%" withString:self.LastScrobbledEpisode];
+    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%episode%" withString:self.lastscrobble.LastScrobbledEpisode];
     // Replace %malurl% with actual MAL URL
     switch (self.currentService) {
         case 0:
-            tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%url%" withString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", self.AniID]];
+            tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%url%" withString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", self.lastscrobble.AniID]];
             break;
         case 1:
-            tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%url%" withString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", self.AniID]];
+            tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%url%" withString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", self.lastscrobble.AniID]];
             break;
         default:
             break;
     }
     // Replace %score$ with the actual score
-    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%score%" withString:[NSString stringWithFormat:@"%i/10", self.TitleScore]];
+    tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%score%" withString:[NSString stringWithFormat:@"%i/10", self.lastscrobble.TitleScore]];
     tmpstr = [tmpstr stringByReplacingOccurrencesOfString:@"%service%" withString:self.currentServiceName];
     return tmpstr;
 }

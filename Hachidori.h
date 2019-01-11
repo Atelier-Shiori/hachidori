@@ -12,6 +12,8 @@
 #import <AFNetworking/AFOAuth2Manager.h>
 #import "AniListConstants.h"
 #import "DiscordManager.h"
+#import "DetectedScrobbleStatus.h"
+#import "LastScrobbleStatus.h"
 
 @class Reachability;
 @class Detection;
@@ -50,61 +52,28 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
     serviceKitsu = 0,
     serviceAniList = 1
 };
-@property (strong) AFHTTPSessionManager *syncmanager;
-@property (strong) AFHTTPSessionManager *asyncmanager;
-@property (strong, getter=getLastScrobbledTitle) NSString *LastScrobbledTitle;
-@property (strong, getter=getLastScrobbledEpisode) NSString *LastScrobbledEpisode;
-@property (strong, getter=getLastScrobbledActualTitle) NSString *LastScrobbledActualTitle;
-@property (strong, getter=getLastScrobbledSource) NSString *LastScrobbledSource;
-@property (strong) NSString *username;
-@property (strong) NSString *malusername;
-@property (strong, getter=getLastScrobbledInfo) NSDictionary *LastScrobbledInfo;
-@property (getter=getisNewTitle) BOOL LastScrobbledTitleNew;
-@property (getter=getPrivate) BOOL isPrivate;
-@property (strong) NSString *startDate;
-@property (strong) NSString *endDate;
-@property bool airing;
-@property bool completedairing;
-@property BOOL _online;
-@property BOOL testing;
-@property (strong) NSString *DetectedTitle;
-@property (strong) NSString *DetectedEpisode;
-@property (strong) NSString *DetectedSource;
-@property (strong) NSString *DetectedGroup;
-@property (strong) NSString *DetectedType;
-@property (strong, getter=getFailedTitle) NSString *FailedTitle;
-@property (strong, getter=getFailedEpisode) NSString *FailedEpisode;
-@property (strong) NSString *FailedSource;
-@property (getter=getFailedSeason) int FailedSeason;
-@property int DetectedSeason;
-@property (getter=getCurrentEpisode) int DetectedCurrentEpisode;
-@property BOOL DetectedTitleisMovie;
-@property BOOL DetectedTitleisEpisodeZero;
-@property (getter=getTotalEpisodes) int TotalEpisodes;
-@property (strong) NSString *WatchStatus;
-@property (getter=getTitleScore) int TitleScore;
-@property long rewatchcount;
-@property (getter=getRewatching) BOOL rewatching;
-@property (strong, getter=getNotes) NSString *TitleNotes;
-@property (strong, getter=getAniID) NSString *AniID;
-@property (strong) NSString *EntryID;
-@property (strong) NSString *MALID;
-@property (strong) NSString *MALApiUrl;
-@property (strong, getter=getSlug) NSString *slug;
-@property (getter=getConfirmed) BOOL confirmed;
-@property (getter=getSuccess) BOOL Success;
-@property BOOL correcting;
-@property BOOL unittesting;
-@property (strong) Reachability* reach;
-@property (strong, setter=setManagedObjectContext:) NSManagedObjectContext *managedObjectContext;
-@property (getter=getOnlineStatus) bool online;
-@property (getter=getRatingType) int ratingtype;
-@property (strong) Detection *detection;
-@property (strong) TwitterManager *twittermanager;
-@property (strong) DiscordManager *discordmanager;
+    @property (strong) AFHTTPSessionManager *syncmanager;
+    @property (strong) AFHTTPSessionManager *asyncmanager;
+    @property (strong) NSString *username;
+    @property (strong) NSString *malusername;
+    @property BOOL _online;
+    @property BOOL testing;
+    @property (getter=getSuccess) BOOL Success;
+    @property (strong) NSString *MALID;
+    @property (strong) NSString *MALApiUrl;
+    @property BOOL correcting;
+    @property BOOL unittesting;
+    @property (strong) Reachability* reach;
+    @property (strong, setter=setManagedObjectContext:) NSManagedObjectContext *managedObjectContext;
+    @property (getter=getOnlineStatus) bool online;
+    @property (getter=getRatingType) int ratingtype;
+    @property (strong) Detection *detection;
+    @property (strong) TwitterManager *twittermanager;
+    @property (strong) DiscordManager *discordmanager;
+    @property (strong) DetectedScrobbleStatus *detectedscrobble;
+    @property (strong) LastScrobbleStatus *lastscrobble;
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)context;
-- (int)getWatchStatus;
 - (int)getQueueCount;
 - (long)currentService;
 - (NSString *)currentServiceName;
@@ -116,7 +85,6 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
 - (int)scrobble;
 - (BOOL)confirmupdate;
-- (void)clearAnimeInfo;
 - (bool)checkexpired;
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler;
 - (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service;

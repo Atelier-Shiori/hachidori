@@ -20,38 +20,38 @@
     NSString * tmpWatchStatus;
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     [attributes setValue:titleid forKey:@"mediaid"];
-    [attributes setValue:self.DetectedEpisode forKey:@"progress"];
+    [attributes setValue:self.detectedscrobble.DetectedEpisode forKey:@"progress"];
     // Set Start Date
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd";
-    if (self.startDate.length == 0 && !self.rewatching && (!self.EntryID || [self.WatchStatus isEqualToString:@"plan to watch"])) {
+    if (self.detectedscrobble.startDate.length == 0 && !self.detectedscrobble.rewatching && (!self.detectedscrobble.EntryID || [self.detectedscrobble.WatchStatus isEqualToString:@"plan to watch"])) {
         NSString *tmpstr = [df stringFromDate:[NSDate date]];
         attributes[@"startedAt"] = @{@"year" : [tmpstr substringWithRange:NSMakeRange(0, 4)], @"month" : [tmpstr substringWithRange:NSMakeRange(5, 2)], @"day" : [tmpstr substringWithRange:NSMakeRange(8, 2)]};
     }
-    if (self.DetectedEpisode.intValue == self.TotalEpisodes) {
+    if (self.detectedscrobble.DetectedEpisode.intValue == self.detectedscrobble.TotalEpisodes) {
         //Set Title State
         tmpWatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
         [attributes setValue:tmpWatchStatus.uppercaseString forKey:@"status"];
         // Set end date
-        if (self.endDate.length == 0 && !self.rewatching) {
+        if (self.detectedscrobble.endDate.length == 0 && !self.detectedscrobble.rewatching) {
             NSString *tmpstr = [df stringFromDate:[NSDate date]];
             attributes[@"completedAt"] = @{@"year" : [tmpstr substringWithRange:NSMakeRange(0, 4)], @"month" : [tmpstr substringWithRange:NSMakeRange(5, 2)], @"day" : [tmpstr substringWithRange:NSMakeRange(8, 2)]};
         }
         //Set rewatch status to false
         tmprewatching = false;
-        if (self.rewatching) {
+        if (self.detectedscrobble.rewatching) {
             // Increment rewatch count
-            tmprewatchedcount = self.rewatchcount + 1;
+            tmprewatchedcount = self.detectedscrobble.rewatchcount + 1;
             [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"repeat"];
         }
-        else if (self.DetectedEpisode.intValue == self.DetectedCurrentEpisode && self.DetectedCurrentEpisode == self.TotalEpisodes) {
+        else if (self.detectedscrobble.DetectedEpisode.intValue == self.detectedscrobble.DetectedCurrentEpisode && self.detectedscrobble.DetectedCurrentEpisode == self.detectedscrobble.TotalEpisodes) {
             //Increment Rewatch Count only
-            tmprewatchedcount = self.rewatchcount + 1;
+            tmprewatchedcount = self.detectedscrobble.rewatchcount + 1;
             [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"repeat"];
         }
     }
-    else if ([self.WatchStatus isEqualToString:@"completed"] && self.DetectedEpisode.intValue < self.TotalEpisodes) {
+    else if ([self.detectedscrobble.WatchStatus isEqualToString:@"completed"] && self.detectedscrobble.DetectedEpisode.intValue < self.detectedscrobble.TotalEpisodes) {
         //Set rewatch status to true
         tmprewatching = true;
         //Set Title State to currently watching
@@ -63,20 +63,20 @@
         tmpWatchStatus = @"watching";
         // Still Watching
         [attributes setValue:@"CURRENT" forKey:@"status"];
-        tmprewatching = self.rewatching;
+        tmprewatching = self.detectedscrobble.rewatching;
     }
     // Set rewatch status in form data
-    [attributes setValue:@(self.rewatchcount) forKey:@"repeat"];
+    [attributes setValue:@(self.detectedscrobble.rewatchcount) forKey:@"repeat"];
     if (tmprewatching) {
         [attributes setValue:@"REPEATING" forKey:@"status"];
     }
     // Set existing score to prevent the score from being erased.
-    [attributes setValue:@(self.TitleScore) forKey:@"score"];
+    [attributes setValue:@(self.detectedscrobble.TitleScore) forKey:@"score"];
     //Privacy
-    [attributes setValue:@(self.isPrivate) forKey:@"private"];
+    [attributes setValue:@(self.detectedscrobble.isPrivate) forKey:@"private"];
     
     // Notes
-    [attributes setValue:self.TitleNotes forKey:@"notes"];
+    [attributes setValue:self.detectedscrobble.TitleNotes forKey:@"notes"];
     
     // Assemble JSON
     NSURLSessionDataTask *task;
@@ -100,19 +100,18 @@
         case 201:
         case 200:
             // Store Scrobbled Title and Episode
-            self.LastScrobbledTitle = self.DetectedTitle;
-            self.LastScrobbledEpisode = self.DetectedEpisode;
-            self.DetectedCurrentEpisode = self.LastScrobbledEpisode.intValue;
-            self.LastScrobbledSource = self.DetectedSource;
-            self.rewatching = tmprewatching;
-            self.WatchStatus = tmpWatchStatus;
-            if (self.confirmed) { // Will only store actual title if confirmation feature is not turned on
+            self.lastscrobble = [LastScrobbleStatus new];
+            [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
+            self.lastscrobble.rewatching = tmprewatching;
+            self.lastscrobble.WatchStatus = tmpWatchStatus;
+            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
                 // Store Actual Title
-                self.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.LastScrobbledInfo[@"title"]];
+                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
             }
-            self.confirmed = true;
-            if (self.LastScrobbledTitleNew) {
-                self.EntryID = ((NSNumber *)responseobject[@"data"][@"SaveMediaListEntry"][@"id"]).stringValue;
+            self.lastscrobble.confirmed = true;
+            if (self.lastscrobble.LastScrobbledTitleNew) {
+                self.lastscrobble.EntryID = ((NSNumber *)responseobject[@"data"][@"SaveMediaListEntry"][@"id"]).stringValue;
                 return ScrobblerAddTitleSuccessful;
             }
             // Update Successful
@@ -120,7 +119,7 @@
         default:
             // Update Unsuccessful
             NSLog(@"Update failed: %@", error.localizedDescription);
-            if (self.LastScrobbledTitleNew) {
+            if (self.detectedscrobble.LastScrobbledTitleNew) {
                 return ScrobblerAddTitleFailed;
             }
             return ScrobblerUpdateFailed;
@@ -139,16 +138,16 @@
     [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
-    [attributes setValue:self.AniID forKey:@"mediaid"];
+    [attributes setValue:self.lastscrobble.AniID forKey:@"mediaid"];
     //Set current episode
-    if (episode.intValue != self.DetectedCurrentEpisode) {
+    if (episode.intValue != self.lastscrobble.DetectedCurrentEpisode) {
         [attributes setValue:episode forKey:@"progress"];
     }
     //Set new watch status
     [attributes setValue:[self convertWatchStatus:showwatchstatus] forKey:@"status"];
     // Set rewatch status in form data
-    [attributes setValue:@(self.rewatchcount) forKey:@"repeat"];
-    if (self.rewatching) {
+    [attributes setValue:@(self.lastscrobble.rewatchcount) forKey:@"repeat"];
+    if (self.lastscrobble.rewatching) {
         [attributes setValue:@"REPEATING" forKey:@"status"];
     }
     //Set new score.
@@ -160,12 +159,12 @@
     // Do Update
     [self.asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistUpdateAnimeListEntryAdvanced, @"variables" : attributes} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //Set New Values
-        self.TitleScore = showscore;
-        self.WatchStatus = showwatchstatus;
-        self.TitleNotes = note.length > 0 ? note : @"";
-        self.isPrivate = privatevalue;
-        self.LastScrobbledEpisode = episode;
-        self.DetectedCurrentEpisode = episode.intValue;
+        self.lastscrobble.TitleScore = showscore;
+        self.lastscrobble.WatchStatus = showwatchstatus;
+        self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
+        self.lastscrobble.isPrivate = privatevalue;
+        self.lastscrobble.LastScrobbledEpisode = episode;
+        self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
         [self sendDiscordPresence];
         [self postupdatestatustweet];
         completionhandler(true);
@@ -183,9 +182,9 @@
     [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
-    [attributes setValue:self.AniID forKey:@"mediaid"];
+    [attributes setValue:self.lastscrobble.AniID forKey:@"mediaid"];
     //Set current episode to total episodes
-    [attributes setValue:@(self.TotalEpisodes).stringValue forKey:@"progress"];
+    [attributes setValue:@(self.lastscrobble.TotalEpisodes).stringValue forKey:@"progress"];
     //Revert watch status to complete
     [attributes setValue:@"COMPLETED" forKey:@"status"];
     // Do Update
@@ -199,10 +198,10 @@
         case 200:
         case 201:
             //Set New Values
-            self.rewatching = false;
-            self.WatchStatus = @"completed";
-            self.LastScrobbledEpisode = @(self.TotalEpisodes).stringValue;
-            self.DetectedCurrentEpisode = self.TotalEpisodes;
+            self.lastscrobble.rewatching = false;
+            self.lastscrobble.WatchStatus = @"completed";
+            self.lastscrobble.LastScrobbledEpisode = @(self.lastscrobble.TotalEpisodes).stringValue;
+            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.TotalEpisodes;
             return true;
         default:
             // Rewatch revert unsuccessful
@@ -219,7 +218,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncPOST:@"https://graphql.anilist.co"  parameters:@{@"query" : kAnilistDeleteListEntry, @"variables" : @{@"id" : self.EntryID}} task:&task error:&error];
+    [self.syncmanager syncPOST:@"https://graphql.anilist.co"  parameters:@{@"query" : kAnilistDeleteListEntry, @"variables" : @{@"id" : self.lastscrobble.EntryID}} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -234,10 +233,9 @@
     return false;
 }
 - (void)aniliststoreLastScrobbled {
-    self.LastScrobbledTitle = self.DetectedTitle;
-    self.LastScrobbledEpisode = self.DetectedEpisode;
-    self.LastScrobbledSource = self.DetectedSource;
-    self.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.LastScrobbledInfo[@"title"]];
+    self.lastscrobble = [LastScrobbleStatus new];
+    [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+    self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
 }
 - (NSString *)convertWatchStatus:(NSString *)status {
     if ([status isEqualToString:@"watching"]) {

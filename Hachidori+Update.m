@@ -15,36 +15,36 @@
 
 @implementation Hachidori (Update)
 - (int)updatetitle:(NSString *)titleid {
-    if (!self.airing && !self.completedairing) {
+    if (!self.detectedscrobble.airing && !self.detectedscrobble.completedairing) {
         // User attempting to update title that haven't been aired.
         return ScrobblerInvalidScrobble;
     }
-    else if ((self.DetectedEpisode).intValue == self.TotalEpisodes && self.airing && !self.completedairing) {
+    else if ((self.detectedscrobble.DetectedEpisode).intValue == self.detectedscrobble.TotalEpisodes && self.detectedscrobble.airing && !self.detectedscrobble.completedairing) {
         // User attempting to complete a title, which haven't finished airing
         return ScrobblerInvalidScrobble;
     }
     NSLog(@"Updating Title");
-    if (self.LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !self.confirmed && !self.correcting) {
+    if (self.detectedscrobble.LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !self.detectedscrobble.confirmed && !self.correcting) {
         // Confirm before updating title
-        [self storeLastScrobbled];
+        //[self storeLastScrobbled];
         return ScrobblerConfirmNeeded;
     }
-    if (self.DetectedEpisode.intValue <= self.DetectedCurrentEpisode && (![self.WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
+    if (self.detectedscrobble.DetectedEpisode.intValue <= self.detectedscrobble.DetectedCurrentEpisode && (![self.detectedscrobble.WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
         // Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
         [self storeLastScrobbled];
         [self sendDiscordPresence];
-        self.confirmed = true;
+        self.detectedscrobble.confirmed = true;
         return ScrobblerUpdateNotNeeded;
     }
-    else if (self.DetectedEpisode.intValue == self.DetectedCurrentEpisode && self.DetectedCurrentEpisode == self.TotalEpisodes && self.TotalEpisodes > 1 && [self.WatchStatus isEqualToString:@"completed"]) {
+    else if (self.detectedscrobble.DetectedEpisode.intValue == self.detectedscrobble.DetectedCurrentEpisode && self.detectedscrobble.DetectedCurrentEpisode == self.detectedscrobble.TotalEpisodes && self.detectedscrobble.TotalEpisodes > 1 && [self.detectedscrobble.WatchStatus isEqualToString:@"completed"]) {
        //Do not set rewatch status for current episode equal to total episodes.
         [self storeLastScrobbled];
         [self sendDiscordPresence];
-        self.confirmed = true;
+        self.detectedscrobble.confirmed = true;
         return ScrobblerUpdateNotNeeded;
     }
-    else if (!self.LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !self.confirmed && !self.correcting) {
+    else if (!self.detectedscrobble.LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !self.detectedscrobble.confirmed && !self.correcting) {
         // Confirm before updating title
         [self storeLastScrobbled];
         return ScrobblerConfirmNeeded;

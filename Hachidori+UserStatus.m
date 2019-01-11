@@ -50,43 +50,43 @@
         }
         //return Data
         if (entry) {
-            self.EntryID = entry[@"entryid"];
+            self.detectedscrobble.EntryID = entry[@"entryid"];
             NSLog(@"Title on list");
             [self populateStatusData:entry id:titleid];
         }
         else {
             NSLog(@"Title not on list");
-            self.EntryID = nil;
-            self.WatchStatus = @"watching";
-            self.LastScrobbledInfo = [self retrieveAnimeInfo:self.AniID];
-            self.DetectedCurrentEpisode = 0;
-            self.TitleScore  = 0;
-            self.isPrivate = [defaults boolForKey:@"setprivate"];
-            self.TitleNotes = @"";
-            self.startDate = @"";
-            self.endDate = @"";
-            self.LastScrobbledTitleNew = true;
-            self.rewatching = false;
-            self.rewatchcount = 0;
+            self.detectedscrobble.EntryID = nil;
+            self.detectedscrobble.WatchStatus = @"watching";
+            self.detectedscrobble.LastScrobbledInfo = [self retrieveAnimeInfo:self.detectedscrobble.AniID];
+            self.detectedscrobble.DetectedCurrentEpisode = 0;
+            self.detectedscrobble.TitleScore  = 0;
+            self.detectedscrobble.isPrivate = [defaults boolForKey:@"setprivate"];
+            self.detectedscrobble.TitleNotes = @"";
+            self.detectedscrobble.startDate = @"";
+            self.detectedscrobble.endDate = @"";
+            self.detectedscrobble.LastScrobbledTitleNew = true;
+            self.detectedscrobble.rewatching = false;
+            self.detectedscrobble.rewatchcount = 0;
         }
         // Set air status
-        self.airing = ((self.LastScrobbledInfo[@"start_date"] != [NSNull null] && ((((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && self.LastScrobbledInfo[@"end_date"] == [NSNull null]))) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"currently airing"]);
-        self.completedairing = ((self.LastScrobbledInfo[@"start_date"] != [NSNull null] && self.LastScrobbledInfo[@"end_date"] != [NSNull null]) && (((NSString *)self.LastScrobbledInfo[@"start_date"]).length > 0 && ((NSString *)self.LastScrobbledInfo[@"end_date"]).length > 0)) || [(NSString *)self.LastScrobbledInfo[@"status"] isEqualToString:@"finished airing"];
+        self.detectedscrobble.airing = ((self.detectedscrobble.LastScrobbledInfo[@"start_date"] != [NSNull null] && ((((NSString *)self.detectedscrobble.LastScrobbledInfo[@"start_date"]).length > 0 && self.detectedscrobble.LastScrobbledInfo[@"end_date"] == [NSNull null]))) || [(NSString *)self.detectedscrobble.LastScrobbledInfo[@"status"] isEqualToString:@"currently airing"]);
+        self.detectedscrobble.completedairing = ((self.detectedscrobble.LastScrobbledInfo[@"start_date"] != [NSNull null] && self.detectedscrobble.LastScrobbledInfo[@"end_date"] != [NSNull null]) && (((NSString *)self.detectedscrobble.LastScrobbledInfo[@"start_date"]).length > 0 && ((NSString *)self.detectedscrobble.LastScrobbledInfo[@"end_date"]).length > 0)) || [(NSString *)self.detectedscrobble.LastScrobbledInfo[@"status"] isEqualToString:@"finished airing"];
 
-        if (!self.LastScrobbledInfo[@"episodes"] || self.LastScrobbledInfo[@"episodes"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
-            self.TotalEpisodes = 0; // No Episode Total, Set to 0.
+        if (!self.detectedscrobble.LastScrobbledInfo[@"episodes"] || self.detectedscrobble.LastScrobbledInfo[@"episodes"] == [NSNull null]) { // To prevent the scrobbler from failing because there is no episode total.
+            self.detectedscrobble.TotalEpisodes = 0; // No Episode Total, Set to 0.
         }
         else { // Episode Total Exists
-            self.TotalEpisodes = ((NSNumber *)self.LastScrobbledInfo[@"episodes"]).intValue;
+            self.detectedscrobble.TotalEpisodes = ((NSNumber *)self.detectedscrobble.LastScrobbledInfo[@"episodes"]).intValue;
         }
         // New Update Confirmation
-        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && self.LastScrobbledTitleNew && !self.correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !self.LastScrobbledTitleNew && !self.correcting)) {
+        if (([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && self.detectedscrobble.LastScrobbledTitleNew && !self.correcting)|| ([[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !self.detectedscrobble.LastScrobbledTitleNew && !self.correcting)) {
             // Manually confirm updates
-            self.confirmed = false;
+            self.detectedscrobble.confirmed = false;
         }
         else {
             // Automatically confirm updates
-            self.confirmed = true;
+            self.detectedscrobble.confirmed = true;
         }
         return YES;
     }
@@ -143,34 +143,34 @@
 - (void)populateStatusData:(NSDictionary *)d id:(NSString *)aid {
     // Retrieve Anime Information
     NSDictionary * tmpinfo = [self retrieveAnimeInfo:aid];
-    self.WatchStatus = d[@"watched_status"];
+    self.detectedscrobble.WatchStatus = d[@"watched_status"];
     //Get Notes;
     if (d[@"personal_comments"] == [NSNull null] && d[@"personal_comments"]) {
-        self.TitleNotes = @"";
+        self.detectedscrobble.TitleNotes = @"";
     }
     else {
-        self.TitleNotes = d[@"personal_comments"];
+        self.detectedscrobble.TitleNotes = d[@"personal_comments"];
     }
     self.ratingtype = [self getUserRatingType];
     if (((NSNumber *)d[@"score"]).intValue != 0) {
         // If user is using the new rating system
-        self.TitleScore = ((NSNumber *)d[@"score"]).intValue;
+        self.detectedscrobble.TitleScore = ((NSNumber *)d[@"score"]).intValue;
     }
     else {
         // Score is null, set to 0
-        self.TitleScore = 0;
+        self.detectedscrobble.TitleScore = 0;
     }
     // Rewatch Information
-    self.rewatching = ((NSNumber *)d[@"rewatching"]).boolValue;
-    self.rewatchcount = ((NSNumber *)d[@"rewatch_count"]).longValue;
+    self.detectedscrobble.rewatching = ((NSNumber *)d[@"rewatching"]).boolValue;
+    self.detectedscrobble.rewatchcount = ((NSNumber *)d[@"rewatch_count"]).longValue;
     // Privacy Settings
-    self.isPrivate = ((NSNumber *)d[@"private"]).boolValue;
-    self.DetectedCurrentEpisode = ((NSNumber *)d[@"watched_episodes"]).intValue;
-    self.LastScrobbledInfo = tmpinfo;
-    self.LastScrobbledTitleNew = false;
-    self.startDate = d[@"watching_start"];
-    self.endDate = d[@"watching_end"];
-    if (self.rewatching) {
+    self.detectedscrobble.isPrivate = ((NSNumber *)d[@"private"]).boolValue;
+    self.detectedscrobble.DetectedCurrentEpisode = ((NSNumber *)d[@"watched_episodes"]).intValue;
+    self.detectedscrobble.LastScrobbledInfo = tmpinfo;
+    self.detectedscrobble.LastScrobbledTitleNew = false;
+    self.detectedscrobble.startDate = d[@"watching_start"];
+    self.detectedscrobble.endDate = d[@"watching_end"];
+    if (self.detectedscrobble.rewatching) {
         NSLog(@"Title is being rewatched.");
     }
 }

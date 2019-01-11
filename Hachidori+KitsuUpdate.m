@@ -14,7 +14,7 @@
 - (int)kitsuperformupdate:(NSString *)titleid {
     // Update the title
     //Set library/scrobble API
-    NSString * updatemethod = self.EntryID ? [NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] : @"https://kitsu.io/api/edge/library-entries/";
+    NSString * updatemethod = self.detectedscrobble.EntryID ? [NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.detectedscrobble.EntryID] : @"https://kitsu.io/api/edge/library-entries/";
     // Set up Request
     [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
     //Set Status
@@ -23,25 +23,25 @@
     NSString * tmpWatchStatus;
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
-    if (self.EntryID) {
-        [tmpd setValue:self.EntryID forKey:@"id"];
+    if (self.detectedscrobble.EntryID) {
+        [tmpd setValue:self.detectedscrobble.EntryID forKey:@"id"];
     }
     else {
         //Create relationship JSON for a new library entry
         NSDictionary * userd =  @{@"data" : @{@"id" : [self getUserid], @"type" : @"users"}};
-        NSDictionary * mediad = @{@"data" : @{@"id" : self.AniID, @"type" : @"anime"}};
+        NSDictionary * mediad = @{@"data" : @{@"id" : self.detectedscrobble.AniID, @"type" : @"anime"}};
         NSDictionary * relationshipsd = @{@"user" : userd, @"media" : mediad};
         tmpd[@"relationships"] = relationshipsd;
     }
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
-    [attributes setValue:self.DetectedEpisode forKey:@"progress"];
+    [attributes setValue:self.detectedscrobble.DetectedEpisode forKey:@"progress"];
     // Set Start Date
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd";
-    if (self.startDate.length == 0 && !self.rewatching && (!self.EntryID || [self.WatchStatus isEqualToString:@"plan to watch"])) {
+    if (self.detectedscrobble.startDate.length == 0 && !self.detectedscrobble.rewatching && (!self.detectedscrobble.EntryID || [self.detectedscrobble.WatchStatus isEqualToString:@"plan to watch"])) {
         [attributes setValue:[df stringFromDate:[NSDate date]] forKey:@"startedAt"];
     }
-    if (self.DetectedEpisode.intValue == self.TotalEpisodes) {
+    if (self.detectedscrobble.DetectedEpisode.intValue == self.detectedscrobble.TotalEpisodes) {
         //Set Title State
         tmpWatchStatus = @"completed";
         // Since Detected Episode = Total Episode, set the status as "Complete"
@@ -49,21 +49,21 @@
         //Set rewatch status to false
         tmprewatching = false;
         // Set end date
-        if (self.endDate.length == 0  && !self.rewatching) {
+        if (self.detectedscrobble.endDate.length == 0  && !self.detectedscrobble.rewatching) {
             [attributes setValue:[df stringFromDate:[NSDate date]] forKey:@"finishedAt"];
         }
-        if (self.rewatching) {
+        if (self.detectedscrobble.rewatching) {
             // Increment rewatch count
-            tmprewatchedcount = self.rewatchcount + 1;
+            tmprewatchedcount = self.detectedscrobble.rewatchcount + 1;
             [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"reconsumeCount"];
         }
-        else if (self.DetectedEpisode.intValue == self.DetectedCurrentEpisode && self.DetectedCurrentEpisode == self.TotalEpisodes) {
+        else if (self.detectedscrobble.DetectedEpisode.intValue == self.detectedscrobble.DetectedCurrentEpisode && self.detectedscrobble.DetectedCurrentEpisode == self.detectedscrobble.TotalEpisodes) {
             //Increment Rewatch Count only
-            tmprewatchedcount = self.rewatchcount + 1;
+            tmprewatchedcount = self.detectedscrobble.rewatchcount + 1;
             [attributes setValue:@(tmprewatchedcount).stringValue forKey:@"reconsumeCount"];
         }
     }
-    else if ([self.WatchStatus isEqualToString:@"completed"] && self.DetectedEpisode.intValue < self.TotalEpisodes) {
+    else if ([self.detectedscrobble.WatchStatus isEqualToString:@"completed"] && self.detectedscrobble.DetectedEpisode.intValue < self.detectedscrobble.TotalEpisodes) {
         //Set rewatch status to true
         tmprewatching = true;
         //Set Title State to currently watching
@@ -75,14 +75,14 @@
         tmpWatchStatus = @"watching";
         // Still Watching
         [attributes setValue:@"current" forKey:@"status"];
-        tmprewatching = self.rewatching;
+        tmprewatching = self.detectedscrobble.rewatching;
     }
     // Set rewatch status in form data
     [attributes setValue:tmprewatching ? @"true" : @"false" forKey:@"reconsuming"];
     // Set existing score to prevent the score from being erased.
-    [attributes setValue:self.TitleScore > 0 ? @(self.TitleScore) : [NSNull null] forKey:@"ratingTwenty"];
+    [attributes setValue:self.detectedscrobble.TitleScore > 0 ? @(self.detectedscrobble.TitleScore) : [NSNull null] forKey:@"ratingTwenty"];
     //Privacy
-    [attributes setValue:self.isPrivate ? @"true" : @"false" forKey:@"private"];
+    [attributes setValue:self.detectedscrobble.isPrivate ? @"true" : @"false" forKey:@"private"];
     
     // Assemble JSON
     [tmpd setValue:attributes forKey:@"attributes"];
@@ -90,7 +90,7 @@
     NSError *error;
     id responseObject;
     NSDictionary *parameters = @{@"data" : tmpd.copy};
-    if (self.EntryID) {
+    if (self.detectedscrobble.EntryID) {
         responseObject = [self.syncmanager syncPATCH:updatemethod parameters:parameters task:&task error:&error];
     }
     else {
@@ -102,23 +102,22 @@
         case 201:
         case 200:
             // Store Scrobbled Title and Episode
-            self.LastScrobbledTitle = self.DetectedTitle;
-            self.LastScrobbledEpisode = self.DetectedEpisode;
-            self.DetectedCurrentEpisode = self.LastScrobbledEpisode.intValue;
-            self.LastScrobbledSource = self.DetectedSource;
-            self.rewatching = tmprewatching;
-            self.WatchStatus = tmpWatchStatus;
-            if (!self.EntryID) {
+        self.lastscrobble = [LastScrobbleStatus new];
+        [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
+            self.lastscrobble.rewatching = tmprewatching;
+            self.lastscrobble.WatchStatus = tmpWatchStatus;
+            if (!self.lastscrobble.EntryID) {
                 // Retrieve new entry id
                 NSDictionary *d = responseObject[@"data"];
-                self.EntryID = d[@"id"];
+                self.lastscrobble.EntryID = d[@"id"];
             }
-            if (self.confirmed) { // Will only store actual title if confirmation feature is not turned on
+            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
                 // Store Actual Title
-                self.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.LastScrobbledInfo[@"title"]];
+                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
             }
-            self.confirmed = true;
-            if (self.LastScrobbledTitleNew) {
+            self.lastscrobble.confirmed = true;
+            if (self.lastscrobble.LastScrobbledTitleNew) {
                 return ScrobblerAddTitleSuccessful;
             }
             // Update Successful
@@ -128,7 +127,7 @@
             NSLog(@"Update failed: %@", error.localizedDescription);
             NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
             NSLog(@"%@",ErrorResponse);
-            if (self.LastScrobbledTitleNew) {
+            if (self.detectedscrobble.LastScrobbledTitleNew) {
                 return ScrobblerAddTitleFailed;
             }
             return ScrobblerUpdateFailed;
@@ -148,10 +147,10 @@
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
-    [tmpd setValue:self.EntryID forKey:@"id"];
+    [tmpd setValue:self.lastscrobble.EntryID forKey:@"id"];
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
     //Set current episode
-    if (episode.intValue != self.DetectedCurrentEpisode) {
+    if (episode.intValue != self.lastscrobble.DetectedCurrentEpisode) {
         [attributes setValue:episode forKey:@"progress"];
     }
     //Set new watch status
@@ -166,14 +165,14 @@
     // Assemble JSON
     [tmpd setValue:attributes forKey:@"attributes"];
     // Do Update
-    [self.asyncmanager PATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:@{@"data":tmpd} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.asyncmanager PATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data":tmpd} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //Set New Values
-        self.TitleScore = showscore;
-        self.WatchStatus = showwatchstatus;
-        self.TitleNotes = note.length > 0 ? note : @"";
-        self.isPrivate = privatevalue;
-        self.LastScrobbledEpisode = episode;
-        self.DetectedCurrentEpisode = episode.intValue;
+        self.lastscrobble.TitleScore = showscore;
+        self.lastscrobble.WatchStatus = showwatchstatus;
+        self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
+        self.lastscrobble.isPrivate = privatevalue;
+        self.lastscrobble.LastScrobbledEpisode = episode;
+        self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
         [self postupdatestatustweet];
         [self sendDiscordPresence];
         completionhandler(true);
@@ -190,10 +189,10 @@
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
-    [tmpd setValue:self.EntryID forKey:@"id"];
+    [tmpd setValue:self.lastscrobble.EntryID forKey:@"id"];
     [tmpd setValue:@"libraryEntries" forKey:@"type"];
     //Set current episode to total episodes
-    [attributes setValue:@(self.TotalEpisodes).stringValue forKey:@"progress"];
+    [attributes setValue:@(self.lastscrobble.TotalEpisodes).stringValue forKey:@"progress"];
     //Revert watch status to complete
     [attributes setValue:@"completed" forKey:@"status"];
     //Set Rewatch status to false
@@ -203,17 +202,17 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncPATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:@{@"data" : tmpd} task:&task error:&error];
+    [self.syncmanager syncPATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data" : tmpd} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
         case 200:
         case 201:
             //Set New Values
-            self.rewatching = false;
-            self.WatchStatus = @"completed";
-            self.LastScrobbledEpisode = @(self.TotalEpisodes).stringValue;
-            self.DetectedCurrentEpisode = self.TotalEpisodes;
+            self.lastscrobble.rewatching = false;
+            self.lastscrobble.WatchStatus = @"completed";
+            self.lastscrobble.LastScrobbledEpisode = @(self.lastscrobble.TotalEpisodes).stringValue;
+            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.TotalEpisodes;
             return true;
         default:
             // Rewatch revert unsuccessful
@@ -230,7 +229,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.EntryID] parameters:nil task:&task error:&error];
+    [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:nil task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -244,11 +243,10 @@
     return false;
 }
 - (void)kitsustoreLastScrobbled {
-    self.LastScrobbledTitle = self.DetectedTitle;
-    self.LastScrobbledEpisode = self.DetectedEpisode;
-    self.LastScrobbledSource = self.DetectedSource;
-    self.slug = self.LastScrobbledInfo[@"slug"];
-    self.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.LastScrobbledInfo[@"title"]];
+    self.lastscrobble = [LastScrobbleStatus new];
+    [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+    self.lastscrobble.slug = self.lastscrobble.LastScrobbledInfo[@"slug"];
+    self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
 }
 - (NSString *)convertKitsuWatchStatus:(NSString *)status {
     if ([status isEqualToString:@"watching"]) {

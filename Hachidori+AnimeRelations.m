@@ -31,20 +31,20 @@
                     break;
             }
                     
-            if (self.DetectedEpisode.intValue < sourcefromepisode.intValue && self.DetectedEpisode.intValue > sourcetoepisode.intValue) {
+            if (self.detectedscrobble.DetectedEpisode.intValue < sourcefromepisode.intValue && self.detectedscrobble.DetectedEpisode.intValue > sourcetoepisode.intValue) {
                 continue;
             }
-            int tmpep = self.DetectedEpisode.intValue - (sourcefromepisode.intValue-1);
+            int tmpep = self.detectedscrobble.DetectedEpisode.intValue - (sourcefromepisode.intValue-1);
             if (tmpep > 0 && tmpep <= targettoepisode.intValue) {
-                self.DetectedEpisode = @(tmpep).stringValue;
+                self.detectedscrobble.DetectedEpisode = @(tmpep).stringValue;
                 return targetid.intValue;
             }
-            else if (self.DetectedTitleisEpisodeZero && iszeroepisode.boolValue) {
-                self.DetectedEpisode = targetfromepisode.stringValue;
+            else if (self.detectedscrobble.DetectedTitleisEpisodeZero && iszeroepisode.boolValue) {
+                self.detectedscrobble.DetectedEpisode = targetfromepisode.stringValue;
                 return targetid.intValue;
             }
-            else if (self.DetectedTitleisMovie && targetfromepisode.intValue == targettoepisode.intValue) {
-                self.DetectedEpisode = targetfromepisode.stringValue;
+            else if (self.detectedscrobble.DetectedTitleisMovie && targetfromepisode.intValue == targettoepisode.intValue) {
+                self.detectedscrobble.DetectedEpisode = targetfromepisode.stringValue;
                 return targetid.intValue;
             }
         }

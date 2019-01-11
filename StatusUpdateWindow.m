@@ -39,10 +39,10 @@
        didEndSelector:@selector(updateDidEnd:returnCode:contextInfo:)
           contextInfo:(void *)nil];
     // Set up UI
-    _showtitle.objectValue = haengine.LastScrobbledActualTitle;
-    _airing = haengine.airing;
-    _completedairing = haengine.completedairing;
-    _currentwatchedepisode = haengine.DetectedCurrentEpisode;
+    _showtitle.objectValue = haengine.lastscrobble.LastScrobbledActualTitle;
+    _airing = haengine.lastscrobble.airing;
+    _completedairing = haengine.lastscrobble.completedairing;
+    _currentwatchedepisode = haengine.lastscrobble.DetectedCurrentEpisode;
     // Set rating menu based on user's rating preferences
     switch (haengine.currentService) {
         case 0: {
@@ -62,7 +62,7 @@
                     _showscore.menu = _simpleratingmenu;
                     break;
             }
-            [_showscore selectItemWithTag:haengine.TitleScore];
+            [_showscore selectItemWithTag:haengine.lastscrobble.TitleScore];
             break;
         }
         case 1: {
@@ -95,32 +95,32 @@
             }
             // Convert scores
             if (haengine.ratingtype == ratingPoint100) {
-                _advancedscorefield.intValue = [AniListScoreConvert convertAniListScoreToActualScore:haengine.TitleScore withScoreType:haengine.ratingtype].intValue;
+                _advancedscorefield.intValue = [AniListScoreConvert convertAniListScoreToActualScore:haengine.lastscrobble.TitleScore withScoreType:haengine.ratingtype].intValue;
             }
             else if (haengine.ratingtype == ratingPoint10Decimal) {
-                _advancedscorefield.floatValue = [AniListScoreConvert convertAniListScoreToActualScore:haengine.TitleScore withScoreType:haengine.ratingtype].floatValue;
+                _advancedscorefield.floatValue = [AniListScoreConvert convertAniListScoreToActualScore:haengine.lastscrobble.TitleScore withScoreType:haengine.ratingtype].floatValue;
             }
             else {
-                [_showscore selectItemWithTag:[AniListScoreConvert convertAniListScoreToActualScore:haengine.TitleScore withScoreType:haengine.ratingtype].intValue];
+                [_showscore selectItemWithTag:[AniListScoreConvert convertAniListScoreToActualScore:haengine.lastscrobble.TitleScore withScoreType:haengine.ratingtype].intValue];
             }
             break;
         }
     }
-    _episodefield.stringValue = [NSString stringWithFormat:@"%i", haengine.DetectedCurrentEpisode];
-    if (haengine.TotalEpisodes  !=0) {
-        _epiformatter.maximum = @(haengine.TotalEpisodes);
+    _episodefield.stringValue = [NSString stringWithFormat:@"%i", haengine.lastscrobble.DetectedCurrentEpisode];
+    if (haengine.lastscrobble.TotalEpisodes  !=0) {
+        _epiformatter.maximum = @(haengine.lastscrobble.TotalEpisodes);
     }
     else {
         _epiformatter.maximum = @(99999999);
     }
-    [_showstatus selectItemAtIndex:[haengine getWatchStatus]];
-    if (haengine.TitleNotes) {
-        _notes.string = haengine.TitleNotes;
+    [_showstatus selectItemAtIndex:[haengine.lastscrobble getWatchStatus]];
+    if (haengine.lastscrobble.TitleNotes) {
+        _notes.string = haengine.lastscrobble.TitleNotes;
     }
     else {
         _notes.string = @"";
     }
-    _isPrivate.state = haengine.isPrivate;
+    _isPrivate.state = haengine.lastscrobble.isPrivate;
     // Stop Timer temporarily if scrobbling is turned on
     AppDelegate *appdel = (AppDelegate *)[NSApplication sharedApplication].delegate;
     if (appdel.scrobbling) {
