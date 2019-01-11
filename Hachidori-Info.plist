@@ -50,7 +50,7 @@
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2009-2018 MAL Updater OS X Group and Moy IT Solutions. All rights reserved.</string>
+	<string>© 2009-2019 MAL Updater OS X Group and Moy IT Solutions. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
