@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,11 +18,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="218"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="218"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p5P-kO-JdF">
-                    <rect key="frame" x="141" y="181" width="81" height="17"/>
+                    <rect key="frame" x="166" y="181" width="81" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Hotkeys:" id="Eo3-6b-Knh">
                         <font key="font" metaFont="system"/>
@@ -31,7 +31,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BtF-5i-BJZ">
-                    <rect key="frame" x="235" y="134" width="163" height="17"/>
+                    <rect key="frame" x="260" y="134" width="163" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Scrobble Now:" id="ILO-in-6kf">
                         <font key="font" metaFont="system"/>
@@ -40,11 +40,11 @@
                     </textFieldCell>
                 </textField>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92i-Bw-Ikp" customClass="MASShortcutView">
-                    <rect key="frame" x="235" y="111" width="184" height="22"/>
+                    <rect key="frame" x="260" y="111" width="184" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLe-CD-K0D">
-                    <rect key="frame" x="235" y="87" width="224" height="17"/>
+                    <rect key="frame" x="260" y="87" width="224" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Show Status Window:" id="Hkd-8F-FHp">
                         <font key="font" metaFont="system"/>
@@ -53,11 +53,11 @@
                     </textFieldCell>
                 </textField>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4sC-b1-PhG" customClass="MASShortcutView">
-                    <rect key="frame" x="235" y="63" width="184" height="22"/>
+                    <rect key="frame" x="260" y="63" width="184" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLD-75-I9w">
-                    <rect key="frame" x="235" y="38" width="224" height="17"/>
+                    <rect key="frame" x="260" y="38" width="224" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Toggle Automatic Scrobbling:" id="IW9-Km-O4N">
                         <font key="font" metaFont="system"/>
@@ -66,11 +66,11 @@
                     </textFieldCell>
                 </textField>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIW-ml-Qf0" customClass="MASShortcutView">
-                    <rect key="frame" x="235" y="14" width="184" height="22"/>
+                    <rect key="frame" x="260" y="14" width="184" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJc-O7-Vqg">
-                    <rect key="frame" x="235" y="181" width="163" height="17"/>
+                    <rect key="frame" x="260" y="181" width="163" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Confirm Update:" id="OE9-NP-7tI">
                         <font key="font" metaFont="system"/>
@@ -79,7 +79,7 @@
                     </textFieldCell>
                 </textField>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nq-jo-QY8" customClass="MASShortcutView">
-                    <rect key="frame" x="235" y="158" width="184" height="22"/>
+                    <rect key="frame" x="260" y="158" width="184" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
             </subviews>

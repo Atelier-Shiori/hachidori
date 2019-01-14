@@ -231,6 +231,13 @@
     defaultValues[@"twitterupdateanimeformat"] = @"%status% %title% Episode %episode% on %service% - %url% #hachidori";
     defaultValues[@"twitterupdatestatusformat"] =  @"Updated %title% Episode %episode% (%status%) on %service% - %url% #hachidori";
     defaultValues[@"usediscordrichpresence"] = @NO;
+    // MultiScrobble
+    defaultValues[@"multiscrobbleenabled"] = @NO;
+    defaultValues[@"multiscrobblescrobblesenabled"] = @YES;
+    defaultValues[@"multiscrobbleentryupdatesenabled"] = @YES;
+    defaultValues[@"multiscrobblescorrectionsenabled"] = @NO;
+    defaultValues[@"multiscrobbleanilistenabled"] = @NO;
+    defaultValues[@"multiscrobblekitsuenabled"] = @NO;
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -385,12 +392,12 @@
     _servicenamemenu.enabled = NO;
 }
 #pragma mark General UI Functions
-- (NSWindowController *)preferencesWindowController
-{
+- (NSWindowController *)preferencesWindowController {
     if (!_preferencesWindowController)
     {
         NSViewController *generalViewController = [[GeneralPrefController alloc] init];
         NSViewController *loginViewController = [[LoginPref alloc] initwithAppDelegate:self];
+        NSViewController *syncController = [SyncPrefs new];
 		NSViewController *suViewController = [[SoftwareUpdatesPref alloc] init];
         NSViewController *exceptionsViewController = [[ExceptionsPref alloc] init];
         NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
@@ -399,10 +406,10 @@
         NSViewController *socialViewController = [[SocialPrefController alloc] initWithTwitterManager:haengine.twittermanager.twittermanager];
         NSArray *controllers;
 #ifdef oss
-        controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, exceptionsViewController, suViewController, advancedViewController];
+        controllers = @[generalViewController, loginViewController, socialViewController, syncController, hotkeyViewController , plexviewController, exceptionsViewController, suViewController, advancedViewController];
 #else
         NSViewController *bittorrentpreferences = [[BittorrentPreferences alloc] initwithTorrentManager:_tbc.tmanager];
-        controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, bittorrentpreferences, exceptionsViewController, suViewController, advancedViewController];
+        controllers = @[generalViewController, loginViewController, socialViewController, syncController, hotkeyViewController , plexviewController, bittorrentpreferences, exceptionsViewController, suViewController, advancedViewController];
 #endif
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers];
     }

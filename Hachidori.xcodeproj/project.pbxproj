@@ -34,11 +34,14 @@
 		3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2DCCB51210B3BF00C920F1 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2DCCBD1210B3D900C920F1 /* Security.framework */; };
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
+		592AE56621ED2904009163CF /* SyncPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 592AE56821ED2904009163CF /* SyncPrefs.xib */; };
+		592AE56B21ED2986009163CF /* Hachidori+MultiScrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 592AE56A21ED2986009163CF /* Hachidori+MultiScrobble.m */; };
 		593B55841CC41DC200B7B254 /* Base64Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55831CC41DC200B7B254 /* Base64Category.m */; };
 		594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */; };
 		594F0A2021E50427001875AF /* LastScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1F21E50427001875AF /* LastScrobbleStatus.m */; };
 		594F0A2321E65800001875AF /* Scrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A2221E65800001875AF /* Scrobble.m */; };
 		59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */; };
+		59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9E21ED1952004A52CE /* SyncPrefs.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
@@ -225,6 +228,9 @@
 		3A4C61C8120DF37D0032F63A /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		3AFEF127120DF8CE0098B59D /* Hachidori.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hachidori.h; sourceTree = "<group>"; };
 		3AFEF128120DF8CE0098B59D /* Hachidori.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Hachidori.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		592AE56721ED2904009163CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SyncPrefs.xib; sourceTree = "<group>"; };
+		592AE56921ED2986009163CF /* Hachidori+MultiScrobble.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+MultiScrobble.h"; sourceTree = "<group>"; };
+		592AE56A21ED2986009163CF /* Hachidori+MultiScrobble.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+MultiScrobble.m"; sourceTree = "<group>"; };
 		593B55821CC41DC200B7B254 /* Base64Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Category.h; sourceTree = "<group>"; };
 		593B55831CC41DC200B7B254 /* Base64Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Category.m; sourceTree = "<group>"; };
 		594F0A1B21E50414001875AF /* DetectedScrobbleStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectedScrobbleStatus.h; sourceTree = "<group>"; };
@@ -235,6 +241,8 @@
 		594F0A2221E65800001875AF /* Scrobble.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Scrobble.m; sourceTree = "<group>"; };
 		59A38E9121ECD722004A52CE /* HachidoriTwitterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HachidoriTwitterManager.h; sourceTree = "<group>"; };
 		59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HachidoriTwitterManager.m; sourceTree = "<group>"; };
+		59A38E9D21ED1952004A52CE /* SyncPrefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPrefs.h; sourceTree = "<group>"; };
+		59A38E9E21ED1952004A52CE /* SyncPrefs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncPrefs.m; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftwareUpdatesPref.h; sourceTree = "<group>"; };
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
@@ -541,6 +549,8 @@
 				912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */,
 				91D1170020BCB4C8006E4271 /* Hachidori+KitsuUpdate.h */,
 				91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */,
+				592AE56921ED2986009163CF /* Hachidori+MultiScrobble.h */,
+				592AE56A21ED2986009163CF /* Hachidori+MultiScrobble.m */,
 				8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */,
 				8245D7601A8B265900B1ED73 /* Hachidori+Search.m */,
 				8245D7621A8B27AA00B1ED73 /* Hachidori+Update.h */,
@@ -672,6 +682,7 @@
 				5CBE9FEE19F2F9E500CA3E5D /* GeneralPreferenceView.xib */,
 				5CBE9FEB19F2F9CA00CA3E5D /* LoginView.xib */,
 				5C97491C19F3117D000EC02E /* SoftwareUpdateView.xib */,
+				592AE56821ED2904009163CF /* SyncPrefs.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -775,6 +786,8 @@
 				5CBE9EC219F2F0E300CA3E5D /* LoginPref.m */,
 				9126067720BEEC710052CB30 /* SocialPrefController.h */,
 				9126067620BEEC710052CB30 /* SocialPrefController.m */,
+				59A38E9D21ED1952004A52CE /* SyncPrefs.h */,
+				59A38E9E21ED1952004A52CE /* SyncPrefs.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -1119,6 +1132,7 @@
 				914AE2D91F1152FE009E43FC /* PlexLogin.xib in Resources */,
 				9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */,
 				914EFF1920B8E7E40050B716 /* AniListAuthWindow.xib in Resources */,
+				592AE56621ED2904009163CF /* SyncPrefs.xib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
 				6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */,
@@ -1230,6 +1244,8 @@
 				9107644A21052F6100E9B12C /* ServiceIDToServiceTitle.m in Sources */,
 				91CF574620B706030044DC9F /* AtarashiiAPIListFormatKitsu.m in Sources */,
 				6F1290981A7D817000B8C3E6 /* AutoExceptions.m in Sources */,
+				592AE56B21ED2986009163CF /* Hachidori+MultiScrobble.m in Sources */,
+				59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */,
 				91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */,
 				594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */,
 				9106873421061B1E001A93BE /* NSString_stripHtml.m in Sources */,
@@ -1318,6 +1334,14 @@
 				2DF749251F17C209009EE500 /* Base */,
 			);
 			name = PlexPrefs.xib;
+			sourceTree = "<group>";
+		};
+		592AE56821ED2904009163CF /* SyncPrefs.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				592AE56721ED2904009163CF /* Base */,
+			);
+			name = SyncPrefs.xib;
 			sourceTree = "<group>";
 		};
 		5C07DA741A815F4B0003A827 /* HistoryWindow.xib */ = {

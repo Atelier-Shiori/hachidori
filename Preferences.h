@@ -18,4 +18,5 @@
 #import "AdvancedPrefController.h"
 #import "PlexPrefs.h"
 #import "SocialPrefController.h"
+#import "SyncPrefs.h"
 #endif
