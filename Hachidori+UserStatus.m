@@ -22,7 +22,7 @@
     NSURLSessionDataTask *task;
     NSError *error;
     id responseObject;
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [self getUserid], titleid] parameters:nil task:&task error:&error];
             break;
@@ -36,7 +36,7 @@
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     if (statusCode == 200 || statusCode == 201 ) {
         NSDictionary *entry;
-        switch (self.currentService) {
+        switch ([Hachidori currentService]) {
             case 0:
                 entry = [AtarashiiAPIListFormatKitsu KitsuAnimeListEntrytoAtarashii:responseObject];
                 break;
@@ -113,7 +113,7 @@
     NSURLSessionDataTask *task;
     NSError *error;
     id responseObject;
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@", aid] parameters:nil task:&task error:&error];
             break;
@@ -126,7 +126,7 @@
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     if (statusCode == 200) {
-        switch (self.currentService) {
+        switch ([Hachidori currentService]) {
             case 0:
                 return [AtarashiiAPIListFormatKitsu KitsuAnimeInfotoAtarashii:responseObject];
             case 1:
@@ -180,7 +180,7 @@
     NSURLSessionDataTask *task;
     NSError *error;
     id responseObject;
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true" parameters:nil task:&task error:&error];
             break;
@@ -193,7 +193,7 @@
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     if (statusCode == 200 || statusCode == 201 ) {
-        switch (self.currentService) {
+        switch ([Hachidori currentService]) {
             case 0: {
                 if (((NSArray *)responseObject[@"data"]).count > 0) {
                     NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];

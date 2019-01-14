@@ -10,7 +10,7 @@
 
 @implementation Hachidori (AnimeRelations)
 - (int)checkAnimeRelations:(int)titleid {
-    int currentservice = (int)self.currentService;
+    int currentservice = (int)[Hachidori currentService];
     NSArray *relations = [AnimeRelations retrieveRelationsEntriesForTitleID:titleid withService:currentservice];
     for (NSManagedObject *relation in relations) {
         @autoreleasepool {

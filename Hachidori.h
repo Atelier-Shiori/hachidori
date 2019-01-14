@@ -14,11 +14,12 @@
 #import "DiscordManager.h"
 #import "DetectedScrobbleStatus.h"
 #import "LastScrobbleStatus.h"
+#import "HachidoriTwitterManager.h"
 
 @class Reachability;
 @class Detection;
 @class AFHTTPSessionManager;
-@class TwitterManager;
+@class HachidoriTwitterManager;
 
 @interface Hachidori : NSObject
 typedef NS_ENUM(unsigned int, ScrobbleStatus) {
@@ -68,15 +69,15 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
     @property (getter=getOnlineStatus) bool online;
     @property (getter=getRatingType) int ratingtype;
     @property (strong) Detection *detection;
-    @property (strong) TwitterManager *twittermanager;
+    @property (strong) HachidoriTwitterManager *twittermanager;
     @property (strong) DiscordManager *discordmanager;
     @property (strong) DetectedScrobbleStatus *detectedscrobble;
     @property (strong) LastScrobbleStatus *lastscrobble;
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)context;
 - (int)getQueueCount;
-- (long)currentService;
-- (NSString *)currentServiceName;
++ (long)currentService;
++ (NSString *)currentServiceName;
 - (AFOAuthCredential *)getCurrentFirstAccount;
 - (AFOAuthCredential *)getFirstAccount:(long)service;
 - (NSString *)getUserid;
@@ -90,6 +91,7 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 - (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service;
 - (void)resetinfo;
 - (void)setNotifier;
+- (void)sendDiscordPresence;
 // Unit Testing Only
 - (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end

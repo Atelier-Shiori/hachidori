@@ -283,7 +283,7 @@
                         break;
                     }
                 }
-                if (service == [_haengine currentService]) {
+                if (service == [Hachidori currentService]) {
                     // Only reset UI if the service id of the account being removed is the same as the current account
                     [_appdelegate resetUI];
                 }

@@ -102,7 +102,7 @@
 
 - (bool)hasUserInfoCurrentService {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case serviceKitsu:
             return ([defaults valueForKey:@"loggedinusername"] && [defaults valueForKey:@"UserID"]);
         case serviceAniList:

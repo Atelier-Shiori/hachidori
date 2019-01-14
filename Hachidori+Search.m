@@ -59,7 +59,7 @@
     NSURLSessionDataTask *task;
     NSError *error;
     id responseObject;
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil task:&task error:&error];
             if (responseObject) {
@@ -282,7 +282,7 @@
         NSNumber * totalepisodes;
         totalepisodes = found[@"episodes"] ? (NSNumber *)found[@"episodes"] : @(0);
         //Save AniID
-        [ExceptionsCache addtoCache:self.detectedscrobble.DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes: totalepisodes.intValue detectedSeason:self.detectedscrobble.DetectedSeason withService:(int)self.currentService];
+        [ExceptionsCache addtoCache:self.detectedscrobble.DetectedTitle showid:titleid actualtitle:(NSString *)found[@"title"] totalepisodes: totalepisodes.intValue detectedSeason:self.detectedscrobble.DetectedSeason withService:(int)[Hachidori currentService]];
     }
     //Return the AniID
     return titleid;

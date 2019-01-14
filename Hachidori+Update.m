@@ -9,8 +9,6 @@
 #import "Hachidori+Update.h"
 #import "Hachidori+KitsuUpdate.h"
 #import "Hachidori+AniListUpdate.h"
-#import "Hachidori+Twitter.h"
-#import "Hachidori+Discord.h"
 #import <AFNetworking/AFNetworking.h>
 
 @implementation Hachidori (Update)
@@ -55,7 +53,7 @@
 }
 - (int)performupdate:(NSString *)titleid {
     int status;
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             status = [self kitsuperformupdate:titleid];
             break;
@@ -67,10 +65,10 @@
     }
     switch (status) {
         case ScrobblerAddTitleSuccessful:
-            [self postaddanimetweet];
+            [self.twittermanager postaddanimetweet:self.lastscrobble];
             break;
         case ScrobblerUpdateSuccessful:
-            [self postupdateanimetweet];
+            [self.twittermanager postupdateanimetweet:self.lastscrobble];
             break;
         default:
             break;
@@ -86,7 +84,7 @@
           isPrivate:(BOOL)privatevalue
           completion:(void (^)(bool success))completionhandler
 {
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             [self kitsuupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note isPrivate:privatevalue completion:completionhandler];
             break;
@@ -100,7 +98,7 @@
 }
 - (BOOL)stopRewatching:(NSString *)titleid {
     int status;
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             status = [self kitsustopRewatching:titleid];
             break;
@@ -114,7 +112,7 @@
     return status;
 }
 - (bool)removetitle:(NSString *)titleid {
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             return [self kitsuremovetitle:titleid];
         case 1:
@@ -124,7 +122,7 @@
     }
 }
 - (void)storeLastScrobbled {
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             [self kitsustoreLastScrobbled];
             break;

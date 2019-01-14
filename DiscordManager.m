@@ -12,6 +12,32 @@ static const char* APPLICATION_ID = "451384588405571585";
 
 @implementation DiscordManager
 
+- (instancetype)init {
+    if (self = [super init]) {
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(recieveNotification:) name:@"DiscordStateChanged" object:nil];
+        if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
+            [self startDiscordRPC];
+        }
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
+- (void)recieveNotification:(NSNotification *)notification {
+    if ([notification.name isEqualToString:@"DiscordStateChanged"]) {
+        if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
+            [self startDiscordRPC];
+        }
+        else {
+            [self removePresence];
+            [self shutdownDiscordRPC];
+        }
+    }
+}
+
 void InitDiscord()
 {
     DiscordEventHandlers handlers;

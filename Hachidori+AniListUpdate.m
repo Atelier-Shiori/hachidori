@@ -6,8 +6,6 @@
 //
 #import <AFNetworking/AFNetworking.h>
 #import "Hachidori+AniListUpdate.h"
-#import "Hachidori+Twitter.h"
-#import "Hachidori+Discord.h"
 
 @implementation Hachidori (AniListUpdate)
 - (int)anilistperformupdate:(NSString *)titleid {
@@ -166,7 +164,7 @@
         self.lastscrobble.LastScrobbledEpisode = episode;
         self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
         [self sendDiscordPresence];
-        [self postupdatestatustweet];
+        [self.twittermanager postupdatestatustweet:self.lastscrobble];
         completionhandler(true);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);

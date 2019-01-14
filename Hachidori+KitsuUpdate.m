@@ -7,8 +7,6 @@
 
 #import "Hachidori+KitsuUpdate.h"
 #import <AFNetworking/AFNetworking.h>
-#import "Hachidori+Twitter.h"
-#import "Hachidori+Discord.h"
 
 @implementation Hachidori (KitsuUpdate)
 - (int)kitsuperformupdate:(NSString *)titleid {
@@ -102,8 +100,8 @@
         case 201:
         case 200:
             // Store Scrobbled Title and Episode
-        self.lastscrobble = [LastScrobbleStatus new];
-        [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+            self.lastscrobble = [LastScrobbleStatus new];
+            [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
             self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
             self.lastscrobble.rewatching = tmprewatching;
             self.lastscrobble.WatchStatus = tmpWatchStatus;
@@ -173,7 +171,7 @@
         self.lastscrobble.isPrivate = privatevalue;
         self.lastscrobble.LastScrobbledEpisode = episode;
         self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
-        [self postupdatestatustweet];
+        [self.twittermanager postupdatestatustweet:self.lastscrobble];
         [self sendDiscordPresence];
         completionhandler(true);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -248,6 +246,7 @@
     self.lastscrobble.slug = self.lastscrobble.LastScrobbledInfo[@"slug"];
     self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
 }
+
 - (NSString *)convertKitsuWatchStatus:(NSString *)status {
     if ([status isEqualToString:@"watching"]) {
         return @"current";

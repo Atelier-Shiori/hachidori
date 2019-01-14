@@ -34,12 +34,9 @@
         [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
         [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
         // Init Twitter Manager
-        self.twittermanager = [[TwitterManager alloc] initWithConsumerKeyUsingFirstAccount:kConsumerKey withConsumerSecret:kConsumerSecret];
+        _twittermanager = [HachidoriTwitterManager new];
         // Init Discord
         self.discordmanager = [DiscordManager new];
-        if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
-            [self.discordmanager startDiscordRPC];
-        }
         // Init AFNetworking
         _syncmanager = [AFHTTPSessionManager manager];
         _syncmanager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -65,7 +62,7 @@
     NSManagedObjectContext * moc = self.managedObjectContext;
     [moc performBlockAndWait:^{
         NSError * error;
-        NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (status == %i) AND (service == %li)", false, 23, [self currentService]];
+        NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (status == %i) AND (service == %li)", false, 23, [Hachidori currentService]];
         NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
         queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
         queuefetch.predicate = predicate;
@@ -74,11 +71,11 @@
     }];
     return count;
 }
-- (long)currentService {
++ (long)currentService {
     return [NSUserDefaults.standardUserDefaults integerForKey:@"currentservice"];
 }
 
-- (NSString *)currentServiceName {
++ (NSString *)currentServiceName {
     switch ([self currentService]) {
         case 0:
             return @"Kitsu";
@@ -91,7 +88,7 @@
 }
 
 - (AFOAuthCredential *)getCurrentFirstAccount {
-    return [self getFirstAccount:[self currentService]];
+    return [self getFirstAccount:[Hachidori currentService]];
 }
     
 - (AFOAuthCredential *)getFirstAccount: (long)service {
@@ -106,7 +103,7 @@
 }
 - (NSString *)getUserid {
     NSString * userid;
-    switch ([self currentService]) {
+    switch ([Hachidori currentService]) {
         case 0: {
             userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID"];
             if (userid) {
@@ -168,7 +165,7 @@
                     [obj setValue:@(_detectedscrobble.DetectedTitleisEpisodeZero) forKey:@"iszeroepisode"];
                     [obj setValue:@23 forKey:@"status"];
                     [obj setValue:@NO forKey:@"scrobbled"];
-                        [obj setValue:@(self.currentService) forKey:@"service"];
+                    [obj setValue:@([Hachidori currentService]) forKey:@"service"];
                     //Save
                     [managedObjectContext save:&error];
                 }];
@@ -202,7 +199,7 @@
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
     __block NSArray * queue;
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (service == %li) AND ((status == %i) OR (status == %i))", false, self.currentService, 23, 3];
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (service == %li) AND ((status == %i) OR (status == %i))", false, [Hachidori currentService], 23, 3];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     queuefetch.predicate = predicate;
@@ -451,7 +448,7 @@
     NSManagedObjectContext *moc = managedObjectContext;
     NSFetchRequest *allCaches = [[NSFetchRequest alloc] init];
     allCaches.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@  AND service == %i", _detectedscrobble.DetectedTitle, self.currentService];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@  AND service == %i", _detectedscrobble.DetectedTitle, [Hachidori currentService]];
     allCaches.predicate = predicate;
     NSError *error = nil;
     NSArray *cache = [moc executeFetchRequest:allCaches error:&error];
@@ -589,7 +586,7 @@
     // Return existing offline queue item
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@) AND (service == %li)", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedEpisode, _detectedscrobble.DetectedType, _detectedscrobble.DetectedTitleisMovie, _detectedscrobble.DetectedTitleisEpisodeZero, _detectedscrobble.DetectedSeason, _detectedscrobble.DetectedSource, self.currentService];
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@) AND (service == %li)", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedEpisode, _detectedscrobble.DetectedType, _detectedscrobble.DetectedTitleisMovie, _detectedscrobble.DetectedTitleisEpisodeZero, _detectedscrobble.DetectedSeason, _detectedscrobble.DetectedSource, [Hachidori currentService]];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     queuefetch.predicate = predicate;
@@ -717,7 +714,7 @@
         [_reach stopNotifier];
     }
     //Create Reachability Object
-    switch (self.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             _reach = [Reachability reachabilityWithHostname:@"kitsu.io"];
             break;
@@ -725,21 +722,25 @@
             _reach = [Reachability reachabilityWithHostname:@"anilist.co"];
             break;
     }
-    __weak Hachidori *weakSelf = self;
     _reach.reachableBlock = ^(Reachability*reach)
     {
         online = true;
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@ is reachable.", weakSelf.currentServiceName);
+            NSLog(@"%@ is reachable.", [Hachidori currentServiceName]);
         });
     };
     _reach.unreachableBlock = ^(Reachability*reach)
     {
         online = false;
-        NSLog(@"Computer not connected to internet or %@ is down", weakSelf.currentServiceName);
+        NSLog(@"Computer not connected to internet or %@ is down", [Hachidori currentServiceName]);
     };
     // Start notifier
     [_reach startNotifier];
 }
 
+- (void)sendDiscordPresence {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"] && self.discordmanager.discordrpcrunning) {
+        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", self.lastscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  self.lastscrobble.LastScrobbledActualTitle ]];
+    }
+}
 @end

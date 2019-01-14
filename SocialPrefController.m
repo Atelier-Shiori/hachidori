@@ -22,9 +22,8 @@
     return [super initWithNibName:@"SocialPrefController" bundle:nil];
 }
 
-- (instancetype)initWithTwitterManager:(TwitterManager *)tm withDiscordManager:(DiscordManager *)dm{
+- (instancetype)initWithTwitterManager:(TwitterManager *)tm {
     self.tw = tm;
-    self.dm = dm;
     return [self init];
 }
 
@@ -77,13 +76,7 @@
 }
 
 - (IBAction)togglepresence:(id)sender {
-    if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
-        [_dm startDiscordRPC];
-    }
-    else {
-        [_dm removePresence];
-        [_dm shutdownDiscordRPC];
-    }
+    [NSNotificationCenter.defaultCenter postNotificationName:@"DiscordStateChanged" object:nil];
 }
 
 #pragma mark MASPreferences

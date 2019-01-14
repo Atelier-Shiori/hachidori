@@ -351,7 +351,7 @@
     __weak AppDelegate *weakself = self;
     _servicemenu.actionblock = ^(int selected, int previousservice) {
         [weakself.haengine setNotifier];
-        [weakself showNotification:@"Changed Services" message:[NSString stringWithFormat:@"Now using %@", [weakself.haengine currentServiceName]]];
+        [weakself showNotification:@"Changed Services" message:[NSString stringWithFormat:@"Now using %@", [Hachidori currentServiceName]]];
         [weakself.haengine resetinfo];
         [weakself resetUI];
         weakself.servicenamemenu.enabled = NO;
@@ -397,7 +397,7 @@
         NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
         NSViewController *plexviewController = [PlexPrefs new];
         NSViewController *advancedViewController = [[AdvancedPrefController alloc] initwithAppDelegate:self];
-        NSViewController *socialViewController = [[SocialPrefController alloc] initWithTwitterManager:haengine.twittermanager withDiscordManager:haengine.discordmanager];
+        NSViewController *socialViewController = [[SocialPrefController alloc] initWithTwitterManager:haengine.twittermanager.twittermanager];
         NSArray *controllers;
 #ifdef oss
         controllers = @[generalViewController, loginViewController, socialViewController, hotkeyViewController , plexviewController, exceptionsViewController, suViewController, advancedViewController];
@@ -691,7 +691,7 @@
             NSDictionary * ainfo = haengine.lastscrobble.LastScrobbledInfo;
             if (ainfo !=nil) { // Checks if Hachidori already populated info about the just updated title.
                 [self showAnimeInfo:ainfo];
-                switch (haengine.currentService) {
+                switch ([Hachidori currentService]) {
                     case 0:
                         [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.lastscrobble.AniID]]]];
                         break;
@@ -985,7 +985,7 @@
                         [findtitle setHidden:YES];
                         [confirmupdate setHidden:true];
 						//Regenerate Share Items
-                        switch (haengine.currentService) {
+                        switch ([Hachidori currentService]) {
                             case 0:
                                 [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.lastscrobble.AniID]]]];
                                 break;
@@ -1120,7 +1120,7 @@
 - (void)updateDidEnd:(int)returnCode {
     NSString * tmpepisode = _updatewindow.episodefield.stringValue;
     int tmpscore = 0;
-    switch (haengine.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
             tmpscore = (int)_updatewindow.showscore.selectedTag;
             break;
@@ -1373,7 +1373,7 @@
 }
 - (IBAction)showLastScrobbledInformation:(id)sender {
     //Open the anime's page on Kitsu in the default web browser
-    switch (haengine.currentService) {
+    switch ([Hachidori currentService]) {
         case 0:
              [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.lastscrobble.AniID]]];
             break;
