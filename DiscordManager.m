@@ -63,11 +63,13 @@ static void handleDiscordError(int errcode, const char* message)
 }
 
 - (void)startDiscordRPC {
+    NSLog(@"Discord Rich Presence enabled");
     InitDiscord();
     _discordrpcrunning = true;
 }
 
 - (void)shutdownDiscordRPC {
+    NSLog(@"Discord Rich Presence disabled");
     Discord_Shutdown();
     _discordrpcrunning = false;
 }
