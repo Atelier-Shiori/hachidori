@@ -164,15 +164,17 @@
     [tmpd setValue:attributes forKey:@"attributes"];
     // Do Update
     [self.asyncmanager PATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data":tmpd} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        //Set New Values
-        self.lastscrobble.TitleScore = showscore;
-        self.lastscrobble.WatchStatus = showwatchstatus;
-        self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
-        self.lastscrobble.isPrivate = privatevalue;
-        self.lastscrobble.LastScrobbledEpisode = episode;
-        self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
-        [self.twittermanager postupdatestatustweet:self.lastscrobble];
-        [self sendDiscordPresence];
+        if ([Hachidori currentService] == 0) {
+            //Set New Values
+            self.lastscrobble.TitleScore = showscore;
+            self.lastscrobble.WatchStatus = showwatchstatus;
+            self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
+            self.lastscrobble.isPrivate = privatevalue;
+            self.lastscrobble.LastScrobbledEpisode = episode;
+            self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
+            [self.twittermanager postupdatestatustweet:self.lastscrobble];
+            [self sendDiscordPresence];
+        }
         completionhandler(true);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);

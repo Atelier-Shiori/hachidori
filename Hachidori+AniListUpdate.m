@@ -97,19 +97,23 @@
     switch (statusCode) {
         case 201:
         case 200:
-            // Store Scrobbled Title and Episode
-            self.lastscrobble = [LastScrobbleStatus new];
-            [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
-            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
-            self.lastscrobble.rewatching = tmprewatching;
-            self.lastscrobble.WatchStatus = tmpWatchStatus;
-            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
-                // Store Actual Title
-                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
+            if ([Hachidori currentService] == 1) {
+                // Store Scrobbled Title and Episode
+                self.lastscrobble = [LastScrobbleStatus new];
+                [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+                self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
+                self.lastscrobble.rewatching = tmprewatching;
+                self.lastscrobble.WatchStatus = tmpWatchStatus;
+                if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
+                    // Store Actual Title
+                    self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
+                }
+                self.lastscrobble.confirmed = true;
             }
-            self.lastscrobble.confirmed = true;
             if (self.lastscrobble.LastScrobbledTitleNew) {
-                self.lastscrobble.EntryID = ((NSNumber *)responseobject[@"data"][@"SaveMediaListEntry"][@"id"]).stringValue;
+                if ([Hachidori currentService] == 1) {
+                    self.lastscrobble.EntryID = ((NSNumber *)responseobject[@"data"][@"SaveMediaListEntry"][@"id"]).stringValue;
+                }
                 return ScrobblerAddTitleSuccessful;
             }
             // Update Successful
@@ -156,15 +160,17 @@
     [attributes setValue:@(privatevalue) forKey:@"private"];
     // Do Update
     [self.asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistUpdateAnimeListEntryAdvanced, @"variables" : attributes} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        //Set New Values
-        self.lastscrobble.TitleScore = showscore;
-        self.lastscrobble.WatchStatus = showwatchstatus;
-        self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
-        self.lastscrobble.isPrivate = privatevalue;
-        self.lastscrobble.LastScrobbledEpisode = episode;
-        self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
-        [self sendDiscordPresence];
-        [self.twittermanager postupdatestatustweet:self.lastscrobble];
+        if ([Hachidori currentService] == 1) {
+            //Set New Values
+            self.lastscrobble.TitleScore = showscore;
+            self.lastscrobble.WatchStatus = showwatchstatus;
+            self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
+            self.lastscrobble.isPrivate = privatevalue;
+            self.lastscrobble.LastScrobbledEpisode = episode;
+            self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
+            [self sendDiscordPresence];
+            [self.twittermanager postupdatestatustweet:self.lastscrobble];
+        }
         completionhandler(true);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
@@ -195,11 +201,13 @@
     switch (statusCode) {
         case 200:
         case 201:
-            //Set New Values
-            self.lastscrobble.rewatching = false;
-            self.lastscrobble.WatchStatus = @"completed";
-            self.lastscrobble.LastScrobbledEpisode = @(self.lastscrobble.TotalEpisodes).stringValue;
-            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.TotalEpisodes;
+            if ([Hachidori currentService] == 1) {
+                //Set New Values
+                self.lastscrobble.rewatching = false;
+                self.lastscrobble.WatchStatus = @"completed";
+                self.lastscrobble.LastScrobbledEpisode = @(self.lastscrobble.TotalEpisodes).stringValue;
+                self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.TotalEpisodes;
+            }
             return true;
         default:
             // Rewatch revert unsuccessful

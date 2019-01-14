@@ -44,7 +44,7 @@
     _completedairing = haengine.lastscrobble.completedairing;
     _currentwatchedepisode = haengine.lastscrobble.DetectedCurrentEpisode;
     // Set rating menu based on user's rating preferences
-    switch (haengine.currentService) {
+    switch ([Hachidori currentService]) {
         case 0: {
             _showscore.hidden = NO;
             _advancedscorefield.hidden = YES;
