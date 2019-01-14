@@ -7,10 +7,6 @@
 //
 
 #import "AdvancedPrefController.h"
-#import <AFNetworking/AFNetworking.h>
-#import "Utility.h"
-#import "Base64Category.h"
-#import <DetectionKit/DetectionKit.h>
 
 @interface AdvancedPrefController ()
 
@@ -18,15 +14,7 @@
 
 @implementation AdvancedPrefController
 
-@synthesize appdelegate;
-@synthesize haengine;
-
 - (instancetype)init {
-    return [super initWithNibName:@"AdvancedPrefController" bundle:nil];
-}
-
-- (id)initwithAppDelegate:(AppDelegate *)adelegate {
-    appdelegate = adelegate;
     return [super initWithNibName:@"AdvancedPrefController" bundle:nil];
 }
 
@@ -57,19 +45,12 @@
 - (void)controlTextDidChange:(NSNotification *)notification {
     NSTextField * textfield = notification.object;
     if ([textfield.identifier isEqualToString:@"kodiaddress"]) {
-        [appdelegate.haengine.detection setKodiReachAddress:textfield.stringValue];
+        [NSNotificationCenter.defaultCenter postNotificationName:@"KodiAddressChanged" object:textfield.stringValue];
     }
     
 }
 - (IBAction)setKodiReach:(id)sender {
-    if (_kodicheck.state == 0) {
-        // Turn off reachability notification for Kodi
-        [appdelegate.haengine.detection setKodiReach:false];
-    }
-    else {
-        // Turn on reachability notification for Kodi
-        [appdelegate.haengine.detection setKodiReach:true];
-    }
+    [NSNotificationCenter.defaultCenter postNotificationName:@"KodiToggled" object:nil];
 }
 
 @end

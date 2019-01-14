@@ -9,7 +9,6 @@
 #import "PlexPrefs.h"
 #import <DetectionKit/DetectionKit.h>
 #import "PlexLogin.h"
-#import "AppDelegate.h"
 #import "Hachidori.h"
 
 @interface PlexPrefs ()
@@ -18,11 +17,9 @@
 @property (strong) IBOutlet NSButton *plexcheck;
 @property (strong) IBOutlet NSTextField *plexusernamelabel;
 @property (strong) PlexLogin *plexloginwindowcontroller;
-@property (strong) Hachidori *HaEngine;
 @end
 
 @implementation PlexPrefs
-@synthesize HaEngine;
 @synthesize plexlogin;
 @synthesize plexlogout;
 @synthesize plexusernamelabel;
@@ -33,11 +30,7 @@
     // Load Login State for Plex
     [self loadplexlogin];
 }
-- (instancetype)init
-{
-    // Initalize MAL Engine value
-    AppDelegate *appdelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    HaEngine = appdelegate.haengine;
+- (instancetype)init {
     return [super initWithNibName:@"PlexPrefs" bundle:nil];
 }
 #pragma mark -
@@ -75,19 +68,11 @@
 
 - (void)controlTextDidChange:(NSNotification *)notification {
     NSTextField * textfield = notification.object;
-    [HaEngine.detection setPlexReachAddress:textfield.stringValue];
-    
+    [NSNotificationCenter.defaultCenter postNotificationName:@"PlexAddressChanged" object:textfield.stringValue];
 }
 
 - (IBAction)setPlexReach:(id)sender {
-    if (_plexcheck.state == 0) {
-        // Turn off reachability notification for Kodi
-        [HaEngine.detection setPlexReach:false];
-    }
-    else {
-        // Turn on reachability notification for Kodi
-        [HaEngine.detection setPlexReach:true];
-    }
+    [NSNotificationCenter.defaultCenter postNotificationName:@"PlexToggled" object:nil];
 }
 
 - (IBAction)plexlogin:(id)sender {

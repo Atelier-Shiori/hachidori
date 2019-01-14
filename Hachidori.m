@@ -49,9 +49,41 @@
         _asyncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
         _asyncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
         [_asyncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
+        // Set Observers
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"PlexToggled" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"PlexAddressChanged" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"KodiToggled" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"KodiAddressChanged" object:nil];
     }
     return self;
 }
+
+- (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
+- (void)recieveNotification:(NSNotification *)notification {
+    if ([notification.name isEqualToString:@"PlexToggled"]) {
+        [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
+    }
+    else if ([notification.name isEqualToString:@"PlexAddressChanged"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]) {
+            NSString *newaddress = (NSString *)notification.object;
+            [_detection setPlexReachAddress:newaddress];
+        }
+    }
+    if ([notification.name isEqualToString:@"KodiToggled"]) {
+        [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
+    }
+    else if ([notification.name isEqualToString:@"KodiAddressChanged"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]) {
+            NSString *newaddress = (NSString *)notification.object;
+            [_detection setKodiReachAddress:newaddress];
+        }
+    }
+    
+}
+
 /* 
  
  Accessors
