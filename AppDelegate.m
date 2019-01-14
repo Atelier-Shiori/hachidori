@@ -180,8 +180,7 @@
 	
     return managedObjectContext;
 }
-+ (void)initialize
-{
++ (void)initialize {
 	//Create a Dictionary
 	NSMutableDictionary * defaultValues = [NSMutableDictionary dictionary];
 	
@@ -236,7 +235,7 @@
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
 }
-- (void) awakeFromNib{
+- (void) awakeFromNib {
     // Register queue
     _privateQueue = dispatch_queue_create("moe.ateliershiori.Hachidori", DISPATCH_QUEUE_CONCURRENT);
     

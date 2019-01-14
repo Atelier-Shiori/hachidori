@@ -81,14 +81,8 @@
             [_detection setKodiReachAddress:newaddress];
         }
     }
-    
 }
 
-/* 
- 
- Accessors
- 
- */
 - (int)getQueueCount {
     __block int count = 0;
     NSManagedObjectContext * moc = self.managedObjectContext;
@@ -154,11 +148,6 @@
     }
     return nil;
 }
-/*
- 
- Update Methods
- 
- */
 
 - (int)startscrobbling {
     int detectstatus = [self detectmedia];
