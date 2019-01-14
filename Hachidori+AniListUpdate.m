@@ -11,7 +11,7 @@
 - (int)anilistperformupdate:(NSString *)titleid {
     // Update the title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
@@ -133,7 +133,7 @@
 {
     NSLog(@"Updating Status for %@", titleid);
     // Update the title
-    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     [attributes setValue:self.lastscrobble.AniID forKey:@"mediaid"];
@@ -177,7 +177,7 @@
     NSLog(@"Reverting rewatch for %@", titleid);
     // Update the title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     [attributes setValue:self.lastscrobble.AniID forKey:@"mediaid"];
@@ -212,7 +212,7 @@
     NSLog(@"Removing %@", titleid);
     // Removes title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;

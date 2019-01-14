@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #import "Scrobble.h"
 
-NS_ASSUME_NONNULL_BEGIN
 @class DetectedScrobbleStatus;
 
 @interface LastScrobbleStatus : Scrobble
@@ -17,5 +16,3 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, getter=getLastScrobbledSource) NSString *LastScrobbledSource;
 - (void)transferDetectedScrobble:(DetectedScrobbleStatus *)detected;
 @end
-
-NS_ASSUME_NONNULL_END

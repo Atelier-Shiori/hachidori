@@ -8,8 +8,6 @@
 #import <Foundation/Foundation.h>
 #import "Scrobble.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface DetectedScrobbleStatus : Scrobble
     @property (strong) NSString *DetectedTitle;
     @property (strong) NSString *DetectedEpisode;
@@ -23,4 +21,3 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)checkzeroEpisode;
 @end
 
-NS_ASSUME_NONNULL_END

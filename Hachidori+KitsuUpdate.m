@@ -14,7 +14,7 @@
     //Set library/scrobble API
     NSString * updatemethod = self.detectedscrobble.EntryID ? [NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.detectedscrobble.EntryID] : @"https://kitsu.io/api/edge/library-entries/";
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
@@ -141,7 +141,7 @@
 {
     NSLog(@"Updating Status for %@", titleid);
     // Update the title
-    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -183,7 +183,7 @@
     NSLog(@"Reverting rewatch for %@", titleid);
     // Update the title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -223,7 +223,7 @@
     NSLog(@"Removing %@", titleid);
     // Removes title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
