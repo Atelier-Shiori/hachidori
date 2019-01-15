@@ -44,6 +44,7 @@
 		59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9E21ED1952004A52CE /* SyncPrefs.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		59F1425621EE4A3B008C7511 /* ScoreConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425521EE4A3B008C7511 /* ScoreConversion.m */; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
 		5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C07DA6E1A815C8B0003A827 /* HistoryWindow.m */; };
 		5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C07DA741A815F4B0003A827 /* HistoryWindow.xib */; };
@@ -244,6 +245,8 @@
 		59A38E9D21ED1952004A52CE /* SyncPrefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPrefs.h; sourceTree = "<group>"; };
 		59A38E9E21ED1952004A52CE /* SyncPrefs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncPrefs.m; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		59F1425421EE4A3B008C7511 /* ScoreConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreConversion.h; sourceTree = "<group>"; };
+		59F1425521EE4A3B008C7511 /* ScoreConversion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreConversion.m; sourceTree = "<group>"; };
 		5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftwareUpdatesPref.h; sourceTree = "<group>"; };
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
 		5C07DA6D1A815C8B0003A827 /* HistoryWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryWindow.h; sourceTree = "<group>"; };
@@ -572,6 +575,8 @@
 				2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */,
 				6FAA87821A7EB6B200EFFAC1 /* Support Classes */,
 				5C07DA691A815C2C0003A827 /* Window Controllers */,
+				59F1425421EE4A3B008C7511 /* ScoreConversion.h */,
+				59F1425521EE4A3B008C7511 /* ScoreConversion.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1253,6 +1258,7 @@
 				9137603B212AF92D0093919F /* PatreonController.m in Sources */,
 				F88D55DD20B3178D00DB84B9 /* AnimeRelations.m in Sources */,
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,
+				59F1425621EE4A3B008C7511 /* ScoreConversion.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
 				91D1170520BCB4D7006E4271 /* Hachidori+AniListUpdate.m in Sources */,

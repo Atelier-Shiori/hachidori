@@ -100,21 +100,23 @@
         case 201:
         case 200:
             // Store Scrobbled Title and Episode
-            self.lastscrobble = [LastScrobbleStatus new];
-            [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
-            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
-            self.lastscrobble.rewatching = tmprewatching;
-            self.lastscrobble.WatchStatus = tmpWatchStatus;
-            if (!self.lastscrobble.EntryID) {
-                // Retrieve new entry id
-                NSDictionary *d = responseObject[@"data"];
-                self.lastscrobble.EntryID = d[@"id"];
+            if ([Hachidori currentService] == 0) {
+                self.lastscrobble = [LastScrobbleStatus new];
+                [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+                self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
+                self.lastscrobble.rewatching = tmprewatching;
+                self.lastscrobble.WatchStatus = tmpWatchStatus;
+                if (!self.lastscrobble.EntryID) {
+                    // Retrieve new entry id
+                    NSDictionary *d = responseObject[@"data"];
+                    self.lastscrobble.EntryID = d[@"id"];
+                }
+                if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
+                    // Store Actual Title
+                    self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
+                }
+                self.lastscrobble.confirmed = true;
             }
-            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
-                // Store Actual Title
-                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
-            }
-            self.lastscrobble.confirmed = true;
             if (self.lastscrobble.LastScrobbledTitleNew) {
                 return ScrobblerAddTitleSuccessful;
             }

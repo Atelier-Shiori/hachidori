@@ -48,12 +48,16 @@
         return ScrobblerConfirmNeeded;
     }
     else {
-        return [self performupdate:titleid];
+        int status = [self performupdate:titleid withService:[Hachidori currentService]];
+        if (status == ScrobblerAddTitleSuccessful || status == ScrobblerUpdateSuccessful) {
+            
+        }
+        return status;
     }
 }
-- (int)performupdate:(NSString *)titleid {
+- (int)performupdate:(NSString *)titleid withService:(long)service{
     int status;
-    switch ([Hachidori currentService]) {
+    switch (service) {
         case 0:
             status = [self kitsuperformupdate:titleid];
             break;
@@ -63,17 +67,19 @@
         default:
             return ScrobblerFailed;
     }
-    switch (status) {
-        case ScrobblerAddTitleSuccessful:
-            [self.twittermanager postaddanimetweet:self.lastscrobble];
-            break;
-        case ScrobblerUpdateSuccessful:
-            [self.twittermanager postupdateanimetweet:self.lastscrobble];
-            break;
-        default:
-            break;
+    if (service == [Hachidori currentService]) {
+        switch (status) {
+            case ScrobblerAddTitleSuccessful:
+                [self.twittermanager postaddanimetweet:self.lastscrobble];
+                break;
+            case ScrobblerUpdateSuccessful:
+                [self.twittermanager postupdateanimetweet:self.lastscrobble];
+                break;
+            default:
+                break;
+        }
+        [self sendDiscordPresence];
     }
-    [self sendDiscordPresence];
     return status;
 }
 - (void)updatestatus:(NSString *)titleid
@@ -83,8 +89,9 @@
               notes:(NSString*)note
           isPrivate:(BOOL)privatevalue
           completion:(void (^)(bool success))completionhandler
+         withService:(long)service
 {
-    switch ([Hachidori currentService]) {
+    switch (service) {
         case 0:
             [self kitsuupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note isPrivate:privatevalue completion:completionhandler];
             break;
@@ -96,9 +103,9 @@
             break;
     }
 }
-- (BOOL)stopRewatching:(NSString *)titleid {
+- (BOOL)stopRewatching:(NSString *)titleid withService:(long)service {
     int status;
-    switch ([Hachidori currentService]) {
+    switch (service) {
         case 0:
             status = [self kitsustopRewatching:titleid];
             break;
@@ -108,11 +115,13 @@
         default:
             return ScrobblerFailed;
     }
-    [self sendDiscordPresence];
+    if (service == [Hachidori currentService]) {
+        [self sendDiscordPresence];
+    }
     return status;
 }
-- (bool)removetitle:(NSString *)titleid {
-    switch ([Hachidori currentService]) {
+- (bool)removetitle:(NSString *)titleid withService:(long)service {
+    switch (service) {
         case 0:
             return [self kitsuremovetitle:titleid];
         case 1:

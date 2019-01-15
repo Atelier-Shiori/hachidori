@@ -7,17 +7,19 @@
 //
 
 #import "Hachidori.h"
+#import "Hachidori+MultiScrobble.h"
 
 @interface Hachidori (Update)
 - (int)updatetitle:(NSString *)titleid;
-- (int)performupdate:(NSString *)titleid;
+- (int)performupdate:(NSString *)titleid  withService:(int)service;
 - (void)updatestatus:(NSString *)titleid
              episode:(NSString *)episode
                score:(int)showscore
          watchstatus:(NSString*)showwatchstatus
                notes:(NSString*)note
            isPrivate:(BOOL)privatevalue
-          completion:(void (^)(bool success))completionhandler;
-- (BOOL)stopRewatching:(NSString *)titleid;
-- (bool)removetitle:(NSString *)titleid;
+          completion:(void (^)(bool success))completionhandler
+         withService:(long)service;
+- (BOOL)stopRewatching:(NSString *)titleid withService:(long)service;
+- (bool)removetitle:(NSString *)titleid withService:(long)service;
 @end

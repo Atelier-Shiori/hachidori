@@ -113,7 +113,7 @@
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)getHelp:(id)sender;
 - (void)appendToAnimeInfo:(NSString*)text;
-- (void)showNotification:(NSString *)title message:(NSString *) message;
+- (void)showNotification:(NSString *)title message:(NSString *) message withIdentifier:(NSString *)identifier;
 - (IBAction)showAboutWindow:(id)sender;
 - (void)enterDonationKey;
 - (NSDictionary *)getNowPlaying;
