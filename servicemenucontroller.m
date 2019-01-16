@@ -34,7 +34,7 @@
 - (IBAction)setService:(id)sender {
     AppDelegate *del = (AppDelegate *)NSApplication.sharedApplication.delegate;
     if (del.scrobbling) {
-        [del showNotification:@"Can't Change Service" message:@"Please disable Auto Scrobble before changing services"];
+        [del showNotification:@"Can't Change Service" message:@"Please disable Auto Scrobble before changing services" withIdentifier:@"servicechangefailed"];
         return;
     }
     NSMenuItem *selectedmenuitem = (NSMenuItem *)sender;

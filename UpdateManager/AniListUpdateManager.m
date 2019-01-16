@@ -1,17 +1,22 @@
 //
-//  Hachidori+AniListUpdate.m
+//  AniListUpdateManager.m
 //  Hachidori
 //
-//  Created by 天々座理世 on 2018/05/28.
+//  Created by 香風智乃 on 1/15/19.
 //
-#import <AFNetworking/AFNetworking.h>
-#import "Hachidori+AniListUpdate.h"
 
-@implementation Hachidori (AniListUpdate)
+#import "AniListUpdateManager.h"
+#import "DetectedScrobbleStatus.h"
+#import "AniListConstants.h"
+#import "LastScrobbleStatus.h"
+#import <AFNetworking/AFNetworking.h>
+#import "Hachidori.h"
+
+@implementation AniListUpdateManager
 - (int)anilistperformupdate:(NSString *)titleid {
     // Update the title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
@@ -97,19 +102,17 @@
     switch (statusCode) {
         case 201:
         case 200:
-            if ([Hachidori currentService] == 1) {
-                // Store Scrobbled Title and Episode
-                self.lastscrobble = [LastScrobbleStatus new];
-                [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
-                self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
-                self.lastscrobble.rewatching = tmprewatching;
-                self.lastscrobble.WatchStatus = tmpWatchStatus;
-                if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
-                    // Store Actual Title
-                    self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
-                }
-                self.lastscrobble.confirmed = true;
+            // Store Scrobbled Title and Episode
+            self.lastscrobble = [LastScrobbleStatus new];
+            [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
+            self.lastscrobble.rewatching = tmprewatching;
+            self.lastscrobble.WatchStatus = tmpWatchStatus;
+            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
+                // Store Actual Title
+                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
             }
+            self.lastscrobble.confirmed = true;
             if (self.lastscrobble.LastScrobbledTitleNew) {
                 if ([Hachidori currentService] == 1) {
                     self.lastscrobble.EntryID = ((NSNumber *)responseobject[@"data"][@"SaveMediaListEntry"][@"id"]).stringValue;
@@ -137,7 +140,7 @@
 {
     NSLog(@"Updating Status for %@", titleid);
     // Update the title
-    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     [attributes setValue:self.lastscrobble.AniID forKey:@"mediaid"];
@@ -160,7 +163,6 @@
     [attributes setValue:@(privatevalue) forKey:@"private"];
     // Do Update
     [self.asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistUpdateAnimeListEntryAdvanced, @"variables" : attributes} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([Hachidori currentService] == 1) {
             //Set New Values
             self.lastscrobble.TitleScore = showscore;
             self.lastscrobble.WatchStatus = showwatchstatus;
@@ -168,8 +170,9 @@
             self.lastscrobble.isPrivate = privatevalue;
             self.lastscrobble.LastScrobbledEpisode = episode;
             self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
-            [self sendDiscordPresence];
-            [self.twittermanager postupdatestatustweet:self.lastscrobble];
+        if ([Hachidori currentService] == 1) {
+            [NSNotificationCenter.defaultCenter postNotificationName:@"UpdateDiscordStatus" object:self.lastscrobble];
+            [NSNotificationCenter.defaultCenter postNotificationName:@"TwitterUpdateStatusTweet" object:self.lastscrobble];
         }
         completionhandler(true);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -183,7 +186,7 @@
     NSLog(@"Reverting rewatch for %@", titleid);
     // Update the title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     [attributes setValue:self.lastscrobble.AniID forKey:@"mediaid"];
@@ -201,13 +204,11 @@
     switch (statusCode) {
         case 200:
         case 201:
-            if ([Hachidori currentService] == 1) {
-                //Set New Values
-                self.lastscrobble.rewatching = false;
-                self.lastscrobble.WatchStatus = @"completed";
-                self.lastscrobble.LastScrobbledEpisode = @(self.lastscrobble.TotalEpisodes).stringValue;
-                self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.TotalEpisodes;
-            }
+            //Set New Values
+            self.lastscrobble.rewatching = false;
+            self.lastscrobble.WatchStatus = @"completed";
+            self.lastscrobble.LastScrobbledEpisode = @(self.lastscrobble.TotalEpisodes).stringValue;
+            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.TotalEpisodes;
             return true;
         default:
             // Rewatch revert unsuccessful
@@ -220,7 +221,7 @@
     NSLog(@"Removing %@", titleid);
     // Removes title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;

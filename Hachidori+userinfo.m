@@ -12,7 +12,7 @@
 @implementation Hachidori (userinfo)
 - (void)savekitsuinfo {
     // Retrieves missing user information and populates it before showing the UI.
-    AFOAuthCredential *cred = [self getFirstAccount:0];
+    AFOAuthCredential *cred = [Hachidori getFirstAccount:0];
     if (cred && cred.expired) {
         [self refreshtokenWithService:0 successHandler:^(bool success) {
             if (success) {
@@ -54,7 +54,7 @@
 
 - (void)saveanilistuserinfo {
     // Retrieves missing user information and populates it before showing the UI.
-    AFOAuthCredential *cred = [self getFirstAccount:1];
+    AFOAuthCredential *cred = [Hachidori getFirstAccount:1];
     if (cred && cred.expired) {
         return;
     }
@@ -84,14 +84,14 @@
 
 - (void)checkaccountinformation {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    if ([self getFirstAccount:0]) {
+    if ([Hachidori getFirstAccount:0]) {
         bool refreshKitsu = (![defaults valueForKey:@"kitsu-userinformationrefresh"] || ((NSDate *)[defaults objectForKey:@"kitsu-userinformationrefresh"]).timeIntervalSinceNow < 0);
         if ((![defaults valueForKey:@"loggedinusername"] && ![defaults valueForKey:@"UserID"]) || ((NSString *)[defaults valueForKey:@"loggedinusername"]).length == 0 || refreshKitsu) {
             [self savekitsuinfo];
             [NSUserDefaults.standardUserDefaults setObject:[NSDate dateWithTimeIntervalSinceNow:259200] forKey:@"kitsu-userinformationrefresh"];
         }
     }
-    if ([self getFirstAccount:2]) {
+    if ([Hachidori getFirstAccount:2]) {
         bool refreshAniList = (![defaults valueForKey:@"anilist-userinformationrefresh"] || ((NSDate *)[defaults objectForKey:@"anilist-userinformationrefresh"]).timeIntervalSinceNow < 0);
         if ((![defaults valueForKey:@"loggedinusername-anilist"] || ![defaults valueForKey:@"UserID-anilist"]) || ((NSString *)[defaults valueForKey:@"loggedinusername-anilist"]).length == 0 || refreshAniList) {
             [self saveanilistuserinfo];

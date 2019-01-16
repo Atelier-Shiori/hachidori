@@ -1,20 +1,23 @@
 //
-//  Hachidori+KitsuUpdate.m
+//  KitsuUpdateManager.m
 //  Hachidori
 //
-//  Created by 天々座理世 on 2018/05/28.
+//  Created by 香風智乃 on 1/15/19.
 //
 
-#import "Hachidori+KitsuUpdate.h"
+#import "KitsuUpdateManager.h"
+#import "DetectedScrobbleStatus.h"
+#import "LastScrobbleStatus.h"
 #import <AFNetworking/AFNetworking.h>
+#import "Hachidori.h"
 
-@implementation Hachidori (KitsuUpdate)
+@implementation KitsuUpdateManager
 - (int)kitsuperformupdate:(NSString *)titleid {
     // Update the title
     //Set library/scrobble API
     NSString * updatemethod = self.detectedscrobble.EntryID ? [NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.detectedscrobble.EntryID] : @"https://kitsu.io/api/edge/library-entries/";
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     //Set Status
     BOOL tmprewatching;
     long tmprewatchedcount;
@@ -26,7 +29,7 @@
     }
     else {
         //Create relationship JSON for a new library entry
-        NSDictionary * userd =  @{@"data" : @{@"id" : [self getUserid], @"type" : @"users"}};
+        NSDictionary * userd =  @{@"data" : @{@"id" : [Hachidori getUserid:0], @"type" : @"users"}};
         NSDictionary * mediad = @{@"data" : @{@"id" : self.detectedscrobble.AniID, @"type" : @"anime"}};
         NSDictionary * relationshipsd = @{@"user" : userd, @"media" : mediad};
         tmpd[@"relationships"] = relationshipsd;
@@ -100,23 +103,21 @@
         case 201:
         case 200:
             // Store Scrobbled Title and Episode
-            if ([Hachidori currentService] == 0) {
-                self.lastscrobble = [LastScrobbleStatus new];
-                [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
-                self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
-                self.lastscrobble.rewatching = tmprewatching;
-                self.lastscrobble.WatchStatus = tmpWatchStatus;
-                if (!self.lastscrobble.EntryID) {
-                    // Retrieve new entry id
-                    NSDictionary *d = responseObject[@"data"];
-                    self.lastscrobble.EntryID = d[@"id"];
-                }
-                if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
-                    // Store Actual Title
-                    self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
-                }
-                self.lastscrobble.confirmed = true;
+            self.lastscrobble = [LastScrobbleStatus new];
+            [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+            self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
+            self.lastscrobble.rewatching = tmprewatching;
+            self.lastscrobble.WatchStatus = tmpWatchStatus;
+            if (!self.lastscrobble.EntryID) {
+                // Retrieve new entry id
+                NSDictionary *d = responseObject[@"data"];
+                self.lastscrobble.EntryID = d[@"id"];
             }
+            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
+                // Store Actual Title
+                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
+            }
+            self.lastscrobble.confirmed = true;
             if (self.lastscrobble.LastScrobbledTitleNew) {
                 return ScrobblerAddTitleSuccessful;
             }
@@ -134,16 +135,16 @@
     }
 }
 - (void)kitsuupdatestatus:(NSString *)titleid
-             episode:(NSString *)episode
-               score:(int)showscore
-         watchstatus:(NSString*)showwatchstatus
-               notes:(NSString*)note
-           isPrivate:(BOOL)privatevalue
-          completion:(void (^)(bool success))completionhandler
+                  episode:(NSString *)episode
+                    score:(int)showscore
+              watchstatus:(NSString*)showwatchstatus
+                    notes:(NSString*)note
+                isPrivate:(BOOL)privatevalue
+               completion:(void (^)(bool success))completionhandler
 {
     NSLog(@"Updating Status for %@", titleid);
     // Update the title
-    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -166,16 +167,16 @@
     [tmpd setValue:attributes forKey:@"attributes"];
     // Do Update
     [self.asyncmanager PATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data":tmpd} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //Set New Values
+        self.lastscrobble.TitleScore = showscore;
+        self.lastscrobble.WatchStatus = showwatchstatus;
+        self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
+        self.lastscrobble.isPrivate = privatevalue;
+        self.lastscrobble.LastScrobbledEpisode = episode;
+        self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
         if ([Hachidori currentService] == 0) {
-            //Set New Values
-            self.lastscrobble.TitleScore = showscore;
-            self.lastscrobble.WatchStatus = showwatchstatus;
-            self.lastscrobble.TitleNotes = note.length > 0 ? note : @"";
-            self.lastscrobble.isPrivate = privatevalue;
-            self.lastscrobble.LastScrobbledEpisode = episode;
-            self.lastscrobble.DetectedCurrentEpisode = episode.intValue;
-            [self.twittermanager postupdatestatustweet:self.lastscrobble];
-            [self sendDiscordPresence];
+            [NSNotificationCenter.defaultCenter postNotificationName:@"UpdateDiscordStatus" object:self.lastscrobble];
+            [NSNotificationCenter.defaultCenter postNotificationName:@"TwitterUpdateStatusTweet" object:self.lastscrobble];
         }
         completionhandler(true);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -187,7 +188,7 @@
     NSLog(@"Reverting rewatch for %@", titleid);
     // Update the title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     NSMutableDictionary * tmpd = [NSMutableDictionary new];
@@ -227,7 +228,7 @@
     NSLog(@"Removing %@", titleid);
     // Removes title
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:0].accessToken] forHTTPHeaderField:@"Authorization"];
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;

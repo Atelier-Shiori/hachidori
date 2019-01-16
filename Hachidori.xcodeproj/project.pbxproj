@@ -45,6 +45,8 @@
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		59F1425621EE4A3B008C7511 /* ScoreConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425521EE4A3B008C7511 /* ScoreConversion.m */; };
+		59F1425921EE5690008C7511 /* AniListUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425821EE5690008C7511 /* AniListUpdateManager.m */; };
+		59F1425C21EE56A2008C7511 /* KitsuUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425B21EE56A2008C7511 /* KitsuUpdateManager.m */; };
 		5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */; };
 		5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C07DA6E1A815C8B0003A827 /* HistoryWindow.m */; };
 		5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C07DA741A815F4B0003A827 /* HistoryWindow.xib */; };
@@ -135,8 +137,6 @@
 		91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D116F720BC4BCD006E4271 /* AuthWebView.m */; };
 		91D116FC20BC5502006E4271 /* AniListConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D116FB20BC5502006E4271 /* AniListConstants.m */; };
 		91D116FF20BC7D43006E4271 /* Hachidori+userinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D116FE20BC7D43006E4271 /* Hachidori+userinfo.m */; };
-		91D1170220BCB4C8006E4271 /* Hachidori+KitsuUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */; };
-		91D1170520BCB4D7006E4271 /* Hachidori+AniListUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */; };
 		91FA52091E79EC98002DF0AB /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91041A671E79EC8000F268FE /* AFNetworking.framework */; };
 		F8531F1320D2A80700CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */; };
@@ -234,6 +234,7 @@
 		592AE56A21ED2986009163CF /* Hachidori+MultiScrobble.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+MultiScrobble.m"; sourceTree = "<group>"; };
 		593B55821CC41DC200B7B254 /* Base64Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Category.h; sourceTree = "<group>"; };
 		593B55831CC41DC200B7B254 /* Base64Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Category.m; sourceTree = "<group>"; };
+		593E7D4B21EF9BDB007CD248 /* MAL_Updater_OS_X_DataModel 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 9.xcdatamodel"; sourceTree = "<group>"; };
 		594F0A1B21E50414001875AF /* DetectedScrobbleStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectedScrobbleStatus.h; sourceTree = "<group>"; };
 		594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetectedScrobbleStatus.m; sourceTree = "<group>"; };
 		594F0A1E21E50427001875AF /* LastScrobbleStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LastScrobbleStatus.h; sourceTree = "<group>"; };
@@ -247,6 +248,10 @@
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		59F1425421EE4A3B008C7511 /* ScoreConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreConversion.h; sourceTree = "<group>"; };
 		59F1425521EE4A3B008C7511 /* ScoreConversion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreConversion.m; sourceTree = "<group>"; };
+		59F1425721EE5690008C7511 /* AniListUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AniListUpdateManager.h; sourceTree = "<group>"; };
+		59F1425821EE5690008C7511 /* AniListUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AniListUpdateManager.m; sourceTree = "<group>"; };
+		59F1425A21EE56A2008C7511 /* KitsuUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KitsuUpdateManager.h; sourceTree = "<group>"; };
+		59F1425B21EE56A2008C7511 /* KitsuUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KitsuUpdateManager.m; sourceTree = "<group>"; };
 		5C000E4219F30EA50026F350 /* SoftwareUpdatesPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftwareUpdatesPref.h; sourceTree = "<group>"; };
 		5C000E4319F30EA50026F350 /* SoftwareUpdatesPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftwareUpdatesPref.m; sourceTree = "<group>"; };
 		5C07DA6D1A815C8B0003A827 /* HistoryWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryWindow.h; sourceTree = "<group>"; };
@@ -468,10 +473,6 @@
 		91D116FB20BC5502006E4271 /* AniListConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AniListConstants.m; sourceTree = "<group>"; };
 		91D116FD20BC7D43006E4271 /* Hachidori+userinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+userinfo.h"; sourceTree = "<group>"; };
 		91D116FE20BC7D43006E4271 /* Hachidori+userinfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+userinfo.m"; sourceTree = "<group>"; };
-		91D1170020BCB4C8006E4271 /* Hachidori+KitsuUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+KitsuUpdate.h"; sourceTree = "<group>"; };
-		91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+KitsuUpdate.m"; sourceTree = "<group>"; };
-		91D1170320BCB4D7006E4271 /* Hachidori+AniListUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+AniListUpdate.h"; sourceTree = "<group>"; };
-		91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+AniListUpdate.m"; sourceTree = "<group>"; };
 		F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DonationCheck_KeyOnly.framework; sourceTree = "<group>"; };
 		F88D55DA20B3121F00DB84B9 /* MAL_Updater_OS_X_DataModel 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 7.xcdatamodel"; sourceTree = "<group>"; };
 		F88D55DB20B3178C00DB84B9 /* AnimeRelations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimeRelations.m; sourceTree = "<group>"; };
@@ -546,12 +547,8 @@
 				918C4F9C1E79C819001E7B30 /* ClientConstants.m */,
 				3AFEF127120DF8CE0098B59D /* Hachidori.h */,
 				3AFEF128120DF8CE0098B59D /* Hachidori.m */,
-				91D1170320BCB4D7006E4271 /* Hachidori+AniListUpdate.h */,
-				91D1170420BCB4D7006E4271 /* Hachidori+AniListUpdate.m */,
 				912B575620B5CB7D0002C7BD /* Hachidori+AnimeRelations.h */,
 				912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */,
-				91D1170020BCB4C8006E4271 /* Hachidori+KitsuUpdate.h */,
-				91D1170120BCB4C8006E4271 /* Hachidori+KitsuUpdate.m */,
 				592AE56921ED2986009163CF /* Hachidori+MultiScrobble.h */,
 				592AE56A21ED2986009163CF /* Hachidori+MultiScrobble.m */,
 				8245D75F1A8B265900B1ED73 /* Hachidori+Search.h */,
@@ -568,15 +565,17 @@
 				91376039212AF92D0093919F /* PatreonController.h */,
 				9137603A212AF92D0093919F /* PatreonController.m */,
 				5CD36B9419F2EA91007BB6B6 /* Preferences */,
+				59F1425421EE4A3B008C7511 /* ScoreConversion.h */,
+				59F1425521EE4A3B008C7511 /* ScoreConversion.m */,
 				6F0F849F1B34699100EEEC32 /* Scripting Support */,
+				594F0A1A21E503E5001875AF /* ScrobbleObjects */,
 				9191FC3C20BDAF4A00F48DD0 /* servicemenucontroller.h */,
 				9191FC3D20BDAF4A00F48DD0 /* servicemenucontroller.m */,
 				2D226B2A1EF312BC0030E9C5 /* ShareMenu.h */,
 				2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */,
 				6FAA87821A7EB6B200EFFAC1 /* Support Classes */,
+				59A38E8A21ECD48C004A52CE /* UpdateManager */,
 				5C07DA691A815C2C0003A827 /* Window Controllers */,
-				59F1425421EE4A3B008C7511 /* ScoreConversion.h */,
-				59F1425521EE4A3B008C7511 /* ScoreConversion.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -638,8 +637,6 @@
 		29B97314FDCFA39411CA2CEA /* MAL Updater OS X */ = {
 			isa = PBXGroup;
 			children = (
-				59A38E8A21ECD48C004A52CE /* UpdateManager */,
-				594F0A1A21E503E5001875AF /* ScrobbleObjects */,
 				916207242110C78D008AFAC5 /* Hachidori.entitlements */,
 				91CF573F20B705E70044DC9F /* AtarashiiDataFormatters */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -719,6 +716,10 @@
 			children = (
 				59A38E9121ECD722004A52CE /* HachidoriTwitterManager.h */,
 				59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */,
+				59F1425721EE5690008C7511 /* AniListUpdateManager.h */,
+				59F1425821EE5690008C7511 /* AniListUpdateManager.m */,
+				59F1425A21EE56A2008C7511 /* KitsuUpdateManager.h */,
+				59F1425B21EE56A2008C7511 /* KitsuUpdateManager.m */,
 			);
 			path = UpdateManager;
 			sourceTree = "<group>";
@@ -1232,8 +1233,8 @@
 				912B575820B5CB7D0002C7BD /* Hachidori+AnimeRelations.m in Sources */,
 				5C07DA701A815C8B0003A827 /* HistoryWindow.m in Sources */,
 				91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */,
-				91D1170220BCB4C8006E4271 /* Hachidori+KitsuUpdate.m in Sources */,
 				3A2DCCB61210B3BF00C920F1 /* PFMoveApplication.m in Sources */,
+				59F1425921EE5690008C7511 /* AniListUpdateManager.m in Sources */,
 				594F0A2321E65800001875AF /* Scrobble.m in Sources */,
 				91D116FC20BC5502006E4271 /* AniListConstants.m in Sources */,
 				8245D7671A8B294100B1ED73 /* Hachidori+UserStatus.m in Sources */,
@@ -1252,6 +1253,7 @@
 				592AE56B21ED2986009163CF /* Hachidori+MultiScrobble.m in Sources */,
 				59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */,
 				91D116F920BC4BCD006E4271 /* AuthWebView.m in Sources */,
+				59F1425C21EE56A2008C7511 /* KitsuUpdateManager.m in Sources */,
 				594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */,
 				9106873421061B1E001A93BE /* NSString_stripHtml.m in Sources */,
 				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
@@ -1261,7 +1263,6 @@
 				59F1425621EE4A3B008C7511 /* ScoreConversion.m in Sources */,
 				5CBE9EC319F2F0E300CA3E5D /* LoginPref.m in Sources */,
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
-				91D1170520BCB4D7006E4271 /* Hachidori+AniListUpdate.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				9126067820BEEC710052CB30 /* SocialPrefController.m in Sources */,
 				59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */,
@@ -1817,6 +1818,7 @@
 		2D61676B1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				593E7D4B21EF9BDB007CD248 /* MAL_Updater_OS_X_DataModel 9.xcdatamodel */,
 				9126066A20BEDE0B0052CB30 /* MAL_Updater_OS_X_DataModel 8.xcdatamodel */,
 				F88D55DA20B3121F00DB84B9 /* MAL_Updater_OS_X_DataModel 7.xcdatamodel */,
 				2D8E2FEB1F8D0AF7009F8967 /* MAL_Updater_OS_X_DataModel 6.xcdatamodel */,
@@ -1826,9 +1828,10 @@
 				2D61676C1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel 2.xcdatamodel */,
 				2D61676D1E0213A800A73F3A /* MAL_Updater_OS_X_DataModel.xcdatamodel */,
 			);
-			currentVersion = 9126066A20BEDE0B0052CB30 /* MAL_Updater_OS_X_DataModel 8.xcdatamodel */;
+			currentVersion = 593E7D4B21EF9BDB007CD248 /* MAL_Updater_OS_X_DataModel 9.xcdatamodel */;
 			path = MAL_Updater_OS_X_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
+			usesTabs = 0;
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */

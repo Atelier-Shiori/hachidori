@@ -10,6 +10,7 @@
 #import "Hachidori.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+userinfo.h"
+#import "Hachidori+MultiScrobble.h"
 #import "OfflineViewQueue.h"
 #import "PFMoveApplication.h"
 #import "Preferences.h"
@@ -361,13 +362,23 @@
     _servicemenu.actionblock = ^(int selected, int previousservice) {
         [weakself.haengine setNotifier];
         [weakself showNotification:@"Changed Services" message:[NSString stringWithFormat:@"Now using %@", [Hachidori currentServiceName]] withIdentifier:@"servicechanged"];
-        [weakself.haengine resetinfo];
-        [weakself resetUI];
+        [weakself.haengine switchScrobbleStatus];
+        if (!weakself.haengine.lastscrobble) {
+            [weakself resetUI];
+        }
+        else {
+            [weakself performRefreshUI:1];
+            dispatch_async(weakself.privateQueue, ^{
+                weakself.haengine.ratingtype = [weakself.haengine getRatingType];
+            });
+        }
+        //[weakself.haengine resetinfo];
+        //
         weakself.servicenamemenu.enabled = NO;
     };
     [haengine checkaccountinformation];
 	// Notify User if there is no Account Info
-	if (![haengine getCurrentFirstAccount]) {
+	if (![Hachidori getCurrentFirstAccount]) {
         // First time prompt
         NSAlert * alert = [[NSAlert alloc] init] ;
         [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
@@ -759,7 +770,6 @@
     seperator2.hidden = YES;
     updatecorrectmenu.hidden = YES;
     shareMenuItem.hidden = YES;
-    [haengine resetinfo];
     _nowplayingview.hidden = YES;
     _nothingplayingview.hidden = NO;
     _servicenamemenu.enabled = NO;
@@ -770,7 +780,7 @@
 
 - (IBAction)toggletimer:(id)sender {
 	//Check to see if a token exist
-	if (![haengine getCurrentFirstAccount]) {
+	if (![Hachidori getCurrentFirstAccount]) {
         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Please log in with your account in Preferences before you enable scrobbling",nil) withIdentifier:@"noaccount"];
     }
 	else {
@@ -795,7 +805,7 @@
 }
 - (void)autostarttimer {
 	//Check to see if there is an API Key stored
-	if (![haengine getCurrentFirstAccount]) {
+	if (![Hachidori getCurrentFirstAccount]) {
          [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Unable to start scrobbling since there is no login. Please verify your login in Preferences.",nil) withIdentifier:@"noaccount"];
 	}
 	else {
@@ -902,7 +912,7 @@
 }
 
 - (IBAction)updatenow:(id)sender{
-    if ([haengine getCurrentFirstAccount]) {
+    if ([Hachidori getCurrentFirstAccount]) {
         dispatch_async(_privateQueue, ^{
             [self firetimer];
         });
@@ -1179,6 +1189,7 @@
                     [self setStatusMenuTitleEpisode:haengine.lastscrobble.LastScrobbledActualTitle episode:haengine.lastscrobble.LastScrobbledEpisode];
                     [self updateLastScrobbledTitleStatus:false];
                 }
+                [self.haengine multiscrobbleWithType:MultiScrobbleTypeEntryupdate withTitleID:haengine.lastscrobble.AniID];
             }
             else {
                 [self setStatusText:NSLocalizedString(@"Scrobble Status: Unable to update Watch Status/Score.",nil)];
@@ -1230,6 +1241,7 @@
     notification.title = title;
     notification.informativeText = message;
     notification.soundName = nil;
+    notification.identifier = [NSString stringWithFormat:@"%@-%@",identifier, [NSDate date]];
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
@@ -1237,6 +1249,7 @@
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = message;
+    notification.identifier = [NSString stringWithFormat:@"%@-%@",identifier, [NSDate date]];
     notification.soundName = NSUserNotificationDefaultSoundName;
     notification.userInfo = d;
     
@@ -1299,7 +1312,7 @@
      bindShortcutWithDefaultsKey:kPreferenceScrobbleNowShortcut toAction:^{
          // Scrobble Now Global Hotkey
          dispatch_async(_privateQueue, ^{
-             if ([haengine getCurrentFirstAccount] && !panelactive) {
+             if ([Hachidori getCurrentFirstAccount] && !panelactive) {
                  [self firetimer];
              }
          });

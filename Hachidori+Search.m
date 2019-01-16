@@ -55,7 +55,7 @@
         return @"";
     }
     // Set up Request
-    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [self getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
     NSURLSessionDataTask *task;
     NSError *error;
     id responseObject;

@@ -21,4 +21,19 @@
         self.DetectedTitleisEpisodeZero = false;
     }
 }
+- (id)copyWithZone:(NSZone *)zone {
+    DetectedScrobbleStatus *detectedscrobblecopy = [[DetectedScrobbleStatus allocWithZone:zone] init];
+    detectedscrobblecopy.DetectedTitle = _DetectedTitle;
+    detectedscrobblecopy.DetectedEpisode = _DetectedEpisode;
+    detectedscrobblecopy.DetectedSource = _DetectedSource;
+    detectedscrobblecopy.DetectedGroup = _DetectedGroup;
+    detectedscrobblecopy.DetectedType = _DetectedType;
+    detectedscrobblecopy.FailedTitle = _FailedTitle;
+    detectedscrobblecopy.FailedEpisode = _FailedEpisode;
+    detectedscrobblecopy.FailedSource = _FailedSource;
+    detectedscrobblecopy.DetectedSeason = self.DetectedSeason;
+    detectedscrobblecopy.DetectedTitleisMovie = self.DetectedTitleisMovie;
+    detectedscrobblecopy.DetectedTitleisEpisodeZero = self.DetectedTitleisEpisodeZero;
+    return detectedscrobblecopy;
+}
 @end

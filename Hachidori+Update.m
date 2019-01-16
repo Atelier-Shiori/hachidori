@@ -7,8 +7,6 @@
 //
 
 #import "Hachidori+Update.h"
-#import "Hachidori+KitsuUpdate.h"
-#import "Hachidori+AniListUpdate.h"
 #import <AFNetworking/AFNetworking.h>
 
 @implementation Hachidori (Update)
@@ -24,22 +22,24 @@
     NSLog(@"Updating Title");
     if (self.detectedscrobble.LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmNewTitle"] && !self.detectedscrobble.confirmed && !self.correcting) {
         // Confirm before updating title
-        //[self storeLastScrobbled];
+        [self storeLastScrobbled];
         return ScrobblerConfirmNeeded;
     }
     if (self.detectedscrobble.DetectedEpisode.intValue <= self.detectedscrobble.DetectedCurrentEpisode && (![self.detectedscrobble.WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
         // Already Watched, no need to scrobble
         // Store Scrobbled Title and Episode
         [self storeLastScrobbled];
-        [self sendDiscordPresence];
+        [self sendDiscordPresence:self.lastscrobble];
         self.detectedscrobble.confirmed = true;
+        [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:titleid];
         return ScrobblerUpdateNotNeeded;
     }
     else if (self.detectedscrobble.DetectedEpisode.intValue == self.detectedscrobble.DetectedCurrentEpisode && self.detectedscrobble.DetectedCurrentEpisode == self.detectedscrobble.TotalEpisodes && self.detectedscrobble.TotalEpisodes > 1 && [self.detectedscrobble.WatchStatus isEqualToString:@"completed"]) {
        //Do not set rewatch status for current episode equal to total episodes.
         [self storeLastScrobbled];
-        [self sendDiscordPresence];
+        [self sendDiscordPresence:self.lastscrobble];
         self.detectedscrobble.confirmed = true;
+        [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:titleid];
         return ScrobblerUpdateNotNeeded;
     }
     else if (!self.detectedscrobble.LastScrobbledTitleNew && [[NSUserDefaults standardUserDefaults] boolForKey:@"ConfirmUpdates"] && !self.detectedscrobble.confirmed && !self.correcting) {
@@ -48,21 +48,22 @@
         return ScrobblerConfirmNeeded;
     }
     else {
-        int status = [self performupdate:titleid withService:[Hachidori currentService]];
+        int status = [self performupdate:titleid withService:(int)[Hachidori currentService]];
         if (status == ScrobblerAddTitleSuccessful || status == ScrobblerUpdateSuccessful) {
-            
+            [self setLastScrobble];
+            [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:titleid];
         }
         return status;
     }
 }
-- (int)performupdate:(NSString *)titleid withService:(long)service{
+- (int)performupdate:(NSString *)titleid withService:(long)service {
     int status;
     switch (service) {
         case 0:
-            status = [self kitsuperformupdate:titleid];
+            status = [self.kitsumanager kitsuperformupdate:titleid];
             break;
         case 1:
-            status = [self anilistperformupdate:titleid];
+            status = [self.anilistmanager anilistperformupdate:titleid];
             break;
         default:
             return ScrobblerFailed;
@@ -78,7 +79,7 @@
             default:
                 break;
         }
-        [self sendDiscordPresence];
+        [self sendDiscordPresence:self.lastscrobble];
     }
     return status;
 }
@@ -93,10 +94,10 @@
 {
     switch (service) {
         case 0:
-            [self kitsuupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note isPrivate:privatevalue completion:completionhandler];
+            [self.kitsumanager kitsuupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note isPrivate:privatevalue completion:completionhandler];
             break;
         case 1:
-            [self anilistupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note isPrivate:privatevalue completion:completionhandler];
+            [self.anilistmanager anilistupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note isPrivate:privatevalue completion:completionhandler];
             break;
         default:
             completionhandler(false);
@@ -107,25 +108,25 @@
     int status;
     switch (service) {
         case 0:
-            status = [self kitsustopRewatching:titleid];
+            status = [self.kitsumanager kitsustopRewatching:titleid];
             break;
         case 1:
-            status = [self aniliststopRewatching:titleid];
+            status = [self.anilistmanager aniliststopRewatching:titleid];
             break;
         default:
             return ScrobblerFailed;
     }
     if (service == [Hachidori currentService]) {
-        [self sendDiscordPresence];
+        [self sendDiscordPresence:self.lastscrobble];
     }
     return status;
 }
 - (bool)removetitle:(NSString *)titleid withService:(long)service {
     switch (service) {
         case 0:
-            return [self kitsuremovetitle:titleid];
+            return [self.kitsumanager kitsuremovetitle:titleid];
         case 1:
-            return [self anilistremovetitle:titleid];
+            return [self.anilistmanager anilistremovetitle:titleid];
         default:
             return NO;
     }
@@ -133,13 +134,14 @@
 - (void)storeLastScrobbled {
     switch ([Hachidori currentService]) {
         case 0:
-            [self kitsustoreLastScrobbled];
+            [self.kitsumanager kitsustoreLastScrobbled];
             break;
         case 1:
-            [self aniliststoreLastScrobbled];
+            [self.anilistmanager aniliststoreLastScrobbled];
             break;
         default:
             break;
     }
+    [self setLastScrobble];
 }
 @end

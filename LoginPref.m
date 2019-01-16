@@ -61,7 +61,7 @@
 - (void)loadlogin
 {
     // Load Username
-    if ([_haengine getFirstAccount:0]) {
+    if ([Hachidori getFirstAccount:0]) {
         [_clearbut setEnabled: YES];
         [_savebut setEnabled: NO];
         [_loggedinview setHidden:NO];
@@ -74,7 +74,7 @@
         [_savebut setEnabled: YES];
     }
     // Anilist
-    if ([_haengine getFirstAccount:1]) {
+    if ([Hachidori getFirstAccount:1]) {
         [_anilistclearbut setEnabled: YES];
         [_anilistauthorizebtn setEnabled: NO];
         [_anilistloggedinview setHidden:NO];
@@ -285,6 +285,7 @@
                 }
                 if (service == [Hachidori currentService]) {
                     // Only reset UI if the service id of the account being removed is the same as the current account
+                    [NSNotificationCenter.defaultCenter postNotificationName:@"AccountLoggedOut" object:@(service)];
                     [_appdelegate resetUI];
                 }
             }

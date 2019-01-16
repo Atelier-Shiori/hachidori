@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "Scrobble.h"
 
-@interface DetectedScrobbleStatus : Scrobble
+@interface DetectedScrobbleStatus : Scrobble <NSCopying>
     @property (strong) NSString *DetectedTitle;
     @property (strong) NSString *DetectedEpisode;
     @property (strong) NSString *DetectedSource;

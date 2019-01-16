@@ -11,7 +11,7 @@
 
 @interface Hachidori (Update)
 - (int)updatetitle:(NSString *)titleid;
-- (int)performupdate:(NSString *)titleid  withService:(int)service;
+- (int)performupdate:(NSString *)titleid withService:(long)service;
 - (void)updatestatus:(NSString *)titleid
              episode:(NSString *)episode
                score:(int)showscore

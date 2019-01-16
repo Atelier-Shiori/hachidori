@@ -6,6 +6,7 @@
 //
 
 #import "Hachidori+MultiScrobble.h"
+#import "Hachidori+UserStatus.h"
 #import "Hachidori+Update.h"
 #import <AFNetworking/AFNetworking.h>
 #import "ScoreConversion.h"
@@ -16,11 +17,11 @@
     if ([defaults boolForKey:@"multiscrobbleenabled"]) {
         NSDictionary *mapping = [self lookupmappings:titleid];
         switch (scrobbletype) {
-            case scrobble:
-            case correction:
+            case MultiScrobbleTypeScrobble:
+            case MultiScrobbleTypeCorrection:
                 [self performMultiScrobbleScrobbleWithMapping:mapping withScrobbleType:scrobbletype];
                 break;
-            case entryupdate:
+            case MultiScrobbleTypeEntryupdate:
                 [self performMultiScrobbleEntryUpdateWithMapping:mapping];
                 break;
             default:
@@ -31,41 +32,55 @@
 
 - (void)performMultiScrobbleScrobbleWithMapping:(NSDictionary *)mapping withScrobbleType:(MultiScrobbleType)type {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    if (type == correction && self.correcting && ![defaults boolForKey:@"multiscrobblescorrectionsenabled"]) {
+    if (type == MultiScrobbleTypeCorrection && self.correcting && ![defaults boolForKey:@"multiscrobblescorrectionsenabled"]) {
         return;
     }
-    else if (type == scrobble && !self.correcting && ![defaults boolForKey:@"multiscrobblescrobblesenabled"]) {
+    else if (type == MultiScrobbleTypeScrobble && !self.correcting && ![defaults boolForKey:@"multiscrobblescrobblesenabled"]) {
         return;
     }
     // Perform MultiScrobble Scrobble
     if ([defaults boolForKey:@"multiscrobblekitsuenabled"] && [Hachidori currentService] != 0) {
-        if ([self getFirstAccount:0]) {
+        if ([Hachidori getFirstAccount:0]) {
             if (mapping[@"kitsu_id"] != [NSNull null] && ((NSNumber *)mapping[@"kitsu_id"]).intValue > 0) {
-                int status = [self performupdate:((NSNumber *)mapping[@"kitsu_id"]).stringValue withService:0];
-                switch (status) {
-                    case 21:
-                    case 22:
-                        [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was successful on Kitsu" : @"Scrobble was successful on Kitsu", @"identifier" : @"multiscrobble-kitsu"}];
-                        break;
-                    default:
-                        [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was not successful on Kitsu" : @"Scrobble was not successful on Kitsu", @"identifier" : @"multiscrobble-kitsu"}];
-                        break;
+                // Obtain Entry
+                self.kitsumanager.detectedscrobble = self.detectedscrobble.copy;
+                self.kitsumanager.detectedscrobble.AniID = ((NSNumber *)mapping[@"kitsu_id"]).stringValue;
+                if ([self checkstatus:self.kitsumanager.detectedscrobble.AniID withService:0]) {
+                    if ([self shouldMultiScrobble:self.kitsumanager.detectedscrobble]) {
+                        int status = [self performupdate:self.kitsumanager.detectedscrobble.AniID withService:0];
+                        switch (status) {
+                            case 21:
+                            case 22:
+                                [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was successful on Kitsu" : @"Scrobble was successful on Kitsu", @"identifier" : @"multiscrobble-kitsu"}];
+                                break;
+                            default:
+                                [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was not successful on Kitsu" : @"Scrobble was not successful on Kitsu", @"identifier" : @"multiscrobble-kitsu"}];
+                                break;
+                        }
+                    }
                 }
             }
         }
     }
     else if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
-        if ([self getFirstAccount:1]) {
+        if ([Hachidori getFirstAccount:1]) {
             if (mapping[@"anilist_id"] != [NSNull null] && ((NSNumber *)mapping[@"anilist_id"]).intValue > 0) {
-                int status = [self performupdate:((NSNumber *)mapping[@"anilist_id"]).stringValue withService:0];
-                switch (status) {
-                    case 21:
-                    case 22:
-                        [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was successful on AniList" : @"Scrobble was successful on AniList", @"identifier" : @"multiscrobble-anilist"}];
-                        break;
-                    default:
-                        [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was not successful on AniList" : @"Scrobble was not successful on AniList", @"identifier" : @"multiscrobble-anilist"}];
-                        break;
+                // Obtain Entry
+                self.anilistmanager.detectedscrobble = self.detectedscrobble.copy;
+                self.anilistmanager.detectedscrobble.AniID = ((NSNumber *)mapping[@"anilist_id"]).stringValue;
+                if ([self checkstatus:self.anilistmanager.detectedscrobble.AniID withService:1]) {
+                    if ([self shouldMultiScrobble:self.anilistmanager.detectedscrobble]) {
+                        int status = [self performupdate:self.anilistmanager.detectedscrobble.AniID withService:1];
+                        switch (status) {
+                            case 21:
+                            case 22:
+                                [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was successful on AniList" : @"Scrobble was successful on AniList", @"identifier" : @"multiscrobble-anilist"}];
+                                break;
+                            default:
+                                [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was not successful on AniList" : @"Scrobble was not successful on AniList", @"identifier" : @"multiscrobble-anilist"}];
+                                break;
+                        }
+                    }
                 }
             }
         }
@@ -77,7 +92,7 @@
     if ([defaults boolForKey:@"multiscrobbleentryupdatesenabled"]) {
         // Perform entry update
         if ([defaults boolForKey:@"multiscrobblekitsuenabled"] && [Hachidori currentService] != 0) {
-            if ([self getFirstAccount:0]) {
+            if ([Hachidori getFirstAccount:0] && self.kitsumanager.lastscrobble) {
                 if (mapping[@"kitsu_id"] != [NSNull null] && ((NSNumber *)mapping[@"kitsu_id"]).intValue > 0) {
                     int convertedscore;
                     switch ([Hachidori currentService]) {
@@ -93,7 +108,7 @@
             }
         }
         else if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
-            if ([self getFirstAccount:1]) {
+            if ([Hachidori getFirstAccount:1] && self.anilistmanager.lastscrobble) {
                 if (mapping[@"anilist_id"] != [NSNull null] && ((NSNumber *)mapping[@"anilist_id"]).intValue > 0) {
                     int convertedscore;
                     switch ([Hachidori currentService]) {
@@ -208,6 +223,24 @@
     }
     return nil;
 }
-                     
 
+- (bool)shouldMultiScrobble:(DetectedScrobbleStatus *)dstatus {
+    // Checks if Hachidori should proceed with doing a multiscrobble.
+    if (!dstatus.airing && !dstatus.completedairing) {
+        // User attempting to update title that haven't been aired.
+        return NO;
+    }
+    else if ((dstatus.DetectedEpisode).intValue == dstatus.TotalEpisodes && dstatus.airing && !dstatus.completedairing) {
+        // User attempting to complete a title, which haven't finished airing
+        return NO;
+    }
+    else if (dstatus.DetectedEpisode.intValue <= dstatus.DetectedCurrentEpisode && (![dstatus.WatchStatus isEqualToString:@"completed"] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"RewatchEnabled"])) {
+        return NO;
+    }
+    else if (dstatus.DetectedEpisode.intValue == dstatus.DetectedCurrentEpisode && dstatus.DetectedCurrentEpisode == dstatus.TotalEpisodes && dstatus.TotalEpisodes > 1 && [dstatus.WatchStatus isEqualToString:@"completed"]) {
+        //Do not set rewatch status for current episode equal to total episodes.
+        return NO;
+    }
+    return YES;
+}
 @end

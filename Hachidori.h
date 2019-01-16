@@ -15,6 +15,8 @@
 #import "DetectedScrobbleStatus.h"
 #import "LastScrobbleStatus.h"
 #import "HachidoriTwitterManager.h"
+#import "AniListUpdateManager.h"
+#import "KitsuUpdateManager.h"
 
 @class Reachability;
 @class Detection;
@@ -53,34 +55,36 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
     serviceKitsu = 0,
     serviceAniList = 1
 };
-    @property (strong) AFHTTPSessionManager *syncmanager;
-    @property (strong) AFHTTPSessionManager *asyncmanager;
-    @property (strong) NSString *username;
-    @property (strong) NSString *malusername;
-    @property BOOL _online;
-    @property BOOL testing;
-    @property (getter=getSuccess) BOOL Success;
-    @property (strong) NSString *MALID;
-    @property (strong) NSString *MALApiUrl;
-    @property BOOL correcting;
-    @property BOOL unittesting;
-    @property (strong) Reachability* reach;
-    @property (strong, setter=setManagedObjectContext:) NSManagedObjectContext *managedObjectContext;
-    @property (getter=getOnlineStatus) bool online;
-    @property (getter=getRatingType) int ratingtype;
-    @property (strong) Detection *detection;
-    @property (strong) HachidoriTwitterManager *twittermanager;
-    @property (strong) DiscordManager *discordmanager;
-    @property (strong) DetectedScrobbleStatus *detectedscrobble;
-    @property (strong) LastScrobbleStatus *lastscrobble;
+@property (strong) AFHTTPSessionManager *syncmanager;
+@property (strong) AFHTTPSessionManager *asyncmanager;
+@property (strong) NSString *username;
+@property (strong) NSString *malusername;
+@property BOOL _online;
+@property BOOL testing;
+@property (getter=getSuccess) BOOL Success;
+@property (strong) NSString *MALID;
+@property (strong) NSString *MALApiUrl;
+@property BOOL correcting;
+@property BOOL unittesting;
+@property (strong) Reachability* reach;
+@property (strong, setter=setManagedObjectContext:) NSManagedObjectContext *managedObjectContext;
+@property (getter=getOnlineStatus) bool online;
+@property (getter=getRatingType) int ratingtype;
+@property (strong) Detection *detection;
+@property (strong) HachidoriTwitterManager *twittermanager;
+@property (strong) DiscordManager *discordmanager;
+@property (strong) DetectedScrobbleStatus *detectedscrobble;
+@property (strong) LastScrobbleStatus *lastscrobble;
+@property (strong) AniListUpdateManager *anilistmanager;
+@property (strong) KitsuUpdateManager *kitsumanager;
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)context;
 - (int)getQueueCount;
 + (long)currentService;
 + (NSString *)currentServiceName;
-- (AFOAuthCredential *)getCurrentFirstAccount;
-- (AFOAuthCredential *)getFirstAccount:(long)service;
-- (NSString *)getUserid;
++ (AFOAuthCredential *)getCurrentFirstAccount;
++ (AFOAuthCredential *)getFirstAccount:(long)service;
++ (NSString *)getUserid:(int)service;
 - (int)startscrobbling;
 - (NSDictionary *)scrobblefromqueue;
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)onetime;
@@ -90,8 +94,11 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler;
 - (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service;
 - (void)resetinfo;
+- (void)setLastScrobble;
+- (void)switchScrobbleStatus;
+- (int)getUserRatingType;
 - (void)setNotifier;
-- (void)sendDiscordPresence;
+- (void)sendDiscordPresence:(LastScrobbleStatus *)lscrobble;
 // Unit Testing Only
 - (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
 @end

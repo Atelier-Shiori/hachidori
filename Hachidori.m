@@ -49,11 +49,23 @@
         _asyncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
         _asyncmanager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"application/vnd.api+json", @"text/javascript", @"text/html", @"text/plain", nil];
         [_asyncmanager.requestSerializer setValue:@"application/vnd.api+json" forHTTPHeaderField:@"Content-Type"];
+        // Setup Update Managers
+        _anilistmanager = [AniListUpdateManager new];
+        _anilistmanager.syncmanager = _syncmanager;
+        _anilistmanager.asyncmanager = _asyncmanager;
+        _kitsumanager = [KitsuUpdateManager new];
+        _kitsumanager.syncmanager = _syncmanager;
+        _kitsumanager.asyncmanager = _asyncmanager;
         // Set Observers
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"PlexToggled" object:nil];
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"PlexAddressChanged" object:nil];
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"KodiToggled" object:nil];
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector((recieveNotification:)) name:@"KodiAddressChanged" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotification:) name:@"PlexToggled" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotification:) name:@"PlexAddressChanged" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotification:) name:@"KodiToggled" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotification:) name:@"KodiAddressChanged" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotification:) name:@"AccountLoggedOut" object:nil];
+        //[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveSocialNotification:) name:@"TwitterAddTweet" object:nil];
+        //[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveSocialNotification:) name:@"TwitterUpdateTweet" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveSocialNotification:) name:@"TwitterUpdateStatusTweet" object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveSocialNotification:) name:@"UpdateDiscordStatus" object:nil];
     }
     return self;
 }
@@ -62,7 +74,7 @@
     [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
-- (void)recieveNotification:(NSNotification *)notification {
+- (void)receiveNotification:(NSNotification *)notification {
     if ([notification.name isEqualToString:@"PlexToggled"]) {
         [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
     }
@@ -72,13 +84,35 @@
             [_detection setPlexReachAddress:newaddress];
         }
     }
-    if ([notification.name isEqualToString:@"KodiToggled"]) {
+    else if ([notification.name isEqualToString:@"KodiToggled"]) {
         [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
     }
     else if ([notification.name isEqualToString:@"KodiAddressChanged"]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]) {
             NSString *newaddress = (NSString *)notification.object;
             [_detection setKodiReachAddress:newaddress];
+        }
+    }
+    else if ([notification.name isEqualToString:@"AccountLoggedOut"]) {
+        NSNumber *loggedoutservice = notification.object;
+        [self resetInfoWithService:loggedoutservice.intValue];
+    }
+}
+
+- (void)receiveSocialNotification:(NSNotification *)notification {
+    LastScrobbleStatus *lscrobbled = notification.object;
+    if (lscrobbled) {
+        if ([notification.name isEqualToString:@"TwitterAddTweet"]) {
+            [_twittermanager postaddanimetweet:lscrobbled];
+        }
+        else if ([notification.name isEqualToString:@"TwitterUpdateTweet"]) {
+            [_twittermanager postupdateanimetweet:lscrobbled];
+        }
+        else if ([notification.name isEqualToString:@"TwitterUpdateStatusTweet"]) {
+            [_twittermanager postupdatestatustweet:lscrobbled];
+        }
+        else if ([notification.name isEqualToString:@"UpdateDiscordStatus"]) {
+            [self sendDiscordPresence:lscrobbled];
         }
     }
 }
@@ -97,6 +131,7 @@
     }];
     return count;
 }
+
 + (long)currentService {
     return [NSUserDefaults.standardUserDefaults integerForKey:@"currentservice"];
 }
@@ -113,11 +148,11 @@
     return @"";
 }
 
-- (AFOAuthCredential *)getCurrentFirstAccount {
++ (AFOAuthCredential *)getCurrentFirstAccount {
     return [self getFirstAccount:[Hachidori currentService]];
 }
     
-- (AFOAuthCredential *)getFirstAccount: (long)service {
++ (AFOAuthCredential *)getFirstAccount: (long)service {
     switch (service) {
         case 0:
             return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
@@ -127,9 +162,9 @@
             return nil;
     }
 }
-- (NSString *)getUserid {
++ (NSString *)getUserid:(int)service {
     NSString * userid;
-    switch ([Hachidori currentService]) {
+    switch (service) {
         case 0: {
             userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID"];
             if (userid) {
@@ -162,7 +197,7 @@
             //_DetectedType = nil;
             //_DetectedSeason = 0;
             if (_lastscrobble.confirmed) {
-                self.detectedscrobble = nil;
+                [self clearDetectedScrobbled];
             }
             // Reset correcting Value
             _correcting = false;
@@ -201,7 +236,7 @@
             //_LastScrobbledActualTitle = _DetectedTitle;
             _lastscrobble.confirmed = true;
             // Reset Detected Info
-            _detectedscrobble = nil;
+            [self clearDetectedScrobbled];
             //_DetectedTitle = nil;
             //_DetectedEpisode = nil;
             //_DetectedSource = nil;
@@ -233,7 +268,7 @@
     if (queue.count > 0) {
         for (NSManagedObject * item in queue) {
             // Restore detected title and episode from coredata
-            _detectedscrobble = [DetectedScrobbleStatus new];
+            [self setDetectScrobble:[DetectedScrobbleStatus new]];
             _detectedscrobble.DetectedTitle = [item valueForKey:@"detectedtitle"];
             _detectedscrobble.DetectedEpisode = [item valueForKey:@"detectedepisode"];
             _detectedscrobble.DetectedSource = [item valueForKey:@"source"];
@@ -284,7 +319,7 @@
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)correctonce{
     _correcting = true;
     if (!_detectedscrobble.FailedSource) {
-        _detectedscrobble = [DetectedScrobbleStatus new];
+        [self setDetectScrobble:[DetectedScrobbleStatus new]];
     }
     NSString * lasttitle;
     if (correctonce) {
@@ -342,7 +377,7 @@
         //_detectedscrobble.FailedSource = nil;
         //_detectedscrobble.FailedSeason = 0;
         // Check Status and Update
-        BOOL UpdateBool = [self checkstatus:_detectedscrobble.AniID];
+        BOOL UpdateBool = [self checkstatus:_detectedscrobble.AniID withService:(int)[Hachidori currentService]];
         if (UpdateBool == 1) {
             if (_detectedscrobble.LastScrobbledTitleNew) {
                 //Title is not on list. Add Title
@@ -396,7 +431,7 @@
 }
 - (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type{
     //For unit testing only
-    _detectedscrobble = [DetectedScrobbleStatus new];
+    [self setDetectScrobble:[DetectedScrobbleStatus new]];
     _detectedscrobble.DetectedTitle = title;
     _detectedscrobble.DetectedEpisode = episode;
     _detectedscrobble.DetectedSeason = season;
@@ -408,7 +443,7 @@
     //Check for Exceptions
     [self checkExceptions];
     //Retrieve Info
-    NSDictionary * d = [self retrieveAnimeInfo:[self searchanime]];
+    NSDictionary * d = [self retrieveAnimeInfo:[self searchanime] withService:(int)[Hachidori currentService]];
     return d;
 }
 - (int)detectmedia {
@@ -418,7 +453,7 @@
 - (int)populatevalues:(NSDictionary *) result{
     if (result !=nil) {
         //Populate Data
-        _detectedscrobble = [DetectedScrobbleStatus new];
+        [self setDetectScrobble:[DetectedScrobbleStatus new]];
         _detectedscrobble.DetectedTitle = result[@"detectedtitle"];
         _detectedscrobble.DetectedEpisode = result[@"detectedepisode"];
         _detectedscrobble.DetectedSeason = ((NSNumber *)result[@"detectedseason"]).intValue;
@@ -451,15 +486,16 @@
 - (BOOL)checkBlankDetectedEpisode{
     return [_lastscrobble.LastScrobbledEpisode isEqualToString:@"1"] && _detectedscrobble.DetectedEpisode.length == 0;
 }
-- (BOOL)confirmupdate{
+- (BOOL)confirmupdate {
     NSLog(@"=============");
     NSLog(@"Confirming: %@ - %@",_lastscrobble.LastScrobbledActualTitle, _lastscrobble.LastScrobbledEpisode);
-    int status = [self performupdate:_detectedscrobble.AniID];
+    int status = [self performupdate:_detectedscrobble.AniID withService:(int)[Hachidori currentService]];
     switch (status) {
         case ScrobblerAddTitleSuccessful:
         case ScrobblerUpdateSuccessful:
             // Clear Detected Episode and Title
-            _detectedscrobble = nil;
+            [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:_detectedscrobble.AniID];
+            [self clearDetectedScrobbled];
             return true;
         default:
             return false;
@@ -624,7 +660,7 @@
  Token Refresh
  */
 - (bool)checkexpired{
-    AFOAuthCredential * cred = [self getCurrentFirstAccount];
+    AFOAuthCredential * cred = [Hachidori getCurrentFirstAccount];
     return cred.expired;
 }
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler {
@@ -660,7 +696,7 @@
 }
 
 - (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service {
-    AFOAuthCredential *cred = [self getFirstAccount:service];
+    AFOAuthCredential *cred = [Hachidori getFirstAccount:service];
     if (cred && cred.expired) {
         errorHandler(nil);
         return;
@@ -759,9 +795,143 @@
     [_reach startNotifier];
 }
 
-- (void)sendDiscordPresence {
+- (void)sendDiscordPresence:(LastScrobbleStatus *)lscrobble {
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"] && self.discordmanager.discordrpcrunning) {
-        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", self.lastscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  self.lastscrobble.LastScrobbledActualTitle ]];
+        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", lscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  lscrobble.LastScrobbledActualTitle]];
     }
+}
+
+- (void)setLastScrobble {
+    switch ([Hachidori currentService]) {
+        case 0:
+            _lastscrobble = _kitsumanager.lastscrobble;
+            break;
+        case 1:
+            _lastscrobble = _anilistmanager.lastscrobble;
+            break;
+    }
+}
+
+- (void)setDetectScrobble:(DetectedScrobbleStatus *)dscrobble {
+    switch ([Hachidori currentService]) {
+        case 0:
+            _kitsumanager.detectedscrobble = dscrobble;
+            _detectedscrobble = _kitsumanager.detectedscrobble;
+            break;
+        case 1:
+            _anilistmanager.detectedscrobble = dscrobble;
+            _detectedscrobble = _anilistmanager.detectedscrobble;
+            break;
+    }
+}
+
+- (void)clearLastScrobbled {
+    _lastscrobble = nil;
+    _kitsumanager.lastscrobble = nil;
+    _anilistmanager.lastscrobble = nil;
+}
+
+- (void)clearDetectedScrobbled {
+    _detectedscrobble = nil;
+    _kitsumanager.detectedscrobble = nil;
+    _anilistmanager.detectedscrobble = nil;
+}
+
+- (void)resetInfoWithService:(int)service {
+    _lastscrobble = nil;
+    _detectedscrobble = nil;
+    switch (service) {
+        case 0:
+            _kitsumanager.detectedscrobble = nil;
+            _kitsumanager.detectedscrobble = nil;
+            break;
+        case 1:
+            _anilistmanager.detectedscrobble = nil;
+            _anilistmanager.detectedscrobble = nil;
+            break;
+    }
+}
+
+- (void)switchScrobbleStatus {
+    switch ([Hachidori currentService]) {
+        case 0:
+            _lastscrobble = _kitsumanager.lastscrobble;
+            _detectedscrobble = _kitsumanager.detectedscrobble;
+            break;
+        case 1:
+            _lastscrobble = _anilistmanager.lastscrobble;
+            _detectedscrobble = _anilistmanager.detectedscrobble;
+            break;
+    }
+}
+
+- (int)getUserRatingType {
+    //Set OAuth Token
+    [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getCurrentFirstAccount].accessToken] forHTTPHeaderField:@"Authorization"];
+    NSURLSessionDataTask *task;
+    NSError *error;
+    id responseObject;
+    switch ([Hachidori currentService]) {
+        case 0:
+            responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true" parameters:nil task:&task error:&error];
+            break;
+        case 1:
+            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} task:&task error:&error];
+            break;
+        default:
+            return 0;
+    }
+    // Get Status Code
+    long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+    if (statusCode == 200 || statusCode == 201 ) {
+        switch ([Hachidori currentService]) {
+            case 0: {
+                if (((NSArray *)responseObject[@"data"]).count > 0) {
+                    NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];
+                    NSString *ratingtype = d[@"attributes"][@"ratingSystem"];
+                    if ([ratingtype isEqualToString:@"simple"]) {
+                        return ratingSimple;
+                    }
+                    else if ([ratingtype isEqualToString:@"standard"]) {
+                        return ratingStandard;
+                    }
+                    else if ([ratingtype isEqualToString:@"advanced"]) {
+                        return ratingAdvanced;
+                    }
+                }
+                break;
+            }
+            case 1: {
+                if (responseObject[@"data"][@"Viewer"] != [NSNull null]) {
+                    NSDictionary *d = responseObject[@"data"][@"Viewer"];
+                    NSString *ratingtype = d[@"mediaListOptions"][@"scoreFormat"];
+                    if ([ratingtype isEqualToString:@"POINT_100"]) {
+                        return ratingPoint100;
+                    }
+                    else if ([ratingtype isEqualToString:@"POINT_10_DECIMAL"]) {
+                        return ratingPoint10Decimal;
+                    }
+                    else if ([ratingtype isEqualToString:@"POINT_10"]) {
+                        return ratingPoint10;
+                    }
+                    else if ([ratingtype isEqualToString:@"POINT_5"]) {
+                        return ratingPoint5;
+                    }
+                    else if ([ratingtype isEqualToString:@"POINT_3"]) {
+                        return ratingPoint3;
+                    }
+                    else {
+                        return ratingPoint100;
+                    }
+                }
+                else {
+                    return ratingPoint100;
+                }
+                break;
+            }
+        }
+        
+    }
+    return ratingSimple;
 }
 @end
