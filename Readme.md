@@ -5,8 +5,7 @@ Requires latest SDK (10.14) and XCode 10 or later to compile. Deployment target 
 
 ## Supporting this Project
 
-Like this program and want to support the development of this program? You can [Donate](https://malupdaterosx.moe/donate/) $5 and you will recieve a donation key to remove the reminder message at startup every two weeks and enable additional features like the Bittorrent browser.
-
+Like this program and want to support the development of this program? You can [Donate](https://malupdaterosx.moe/donate/) $5  and you will recieve a donation key to remove the reminder message at startup every two weeks and enable additional features like the Bittorrent browser. You may also choose to support us on [Patreon](https://www.patreon.com/malupdaterosx) as well.
 
 ## How to use
 See [Getting Started Guide](https://github.com/Atelier-Shiori/wiki/Getting-Started).
@@ -38,10 +37,11 @@ All the frameworks are included. Just build! Here are the frameworks that are us
 Licenses for these frameworks and related classes can be seen [here](https://github.com/Atelier-Shiori/wiki/Credits).
 
 ## Related Projects
-Hachidori depends on these frameworks, which provides core functionality.
+Hachidori depends on these frameworks and services, which provides core functionality.
 * [DetectionKit](https://github.com/Atelier-Shiori/DetectionKit) - Cocoa Framework responsible for all media detection.
 * [detectstream](https://github.com/Atelier-Shiori/detectstream) - A Cocoa Framework that detects legal streaming sites from web browser. Provides parsing for streamlink as well, which is handled by DetectionKit.
 * [anitomy-for-cocoa](https://github.com/Atelier-Shiori/anitomy-for-cocoa) - Anitomy wrapper for Objective-C to parse video file names.
+* [Hato](https://github.com/Atelier-Shiori/Hato) - Web API that makes looking up Title Identifiers for Anime and Manga on other Media Discovery services easy.
 
 ## License
 
