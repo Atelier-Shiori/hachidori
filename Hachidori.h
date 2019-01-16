@@ -82,6 +82,7 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 - (int)getQueueCount;
 + (long)currentService;
 + (NSString *)currentServiceName;
++ (NSString *)serviceNameWithServiceID:(int)service;
 + (AFOAuthCredential *)getCurrentFirstAccount;
 + (AFOAuthCredential *)getFirstAccount:(long)service;
 + (NSString *)getUserid:(int)service;

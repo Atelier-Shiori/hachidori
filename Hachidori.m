@@ -137,7 +137,11 @@
 }
 
 + (NSString *)currentServiceName {
-    switch ([self currentService]) {
+    return [Hachidori serviceNameWithServiceID:[Hachidori currentService]];
+}
+
++ (NSString *)serviceNameWithServiceID:(int)service {
+    switch (service) {
         case 0:
             return @"Kitsu";
         case 1:
