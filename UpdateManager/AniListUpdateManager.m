@@ -23,7 +23,7 @@
     NSString * tmpWatchStatus;
     NSMutableDictionary * attributes = [NSMutableDictionary new];
     [attributes setValue:titleid forKey:@"mediaid"];
-    [attributes setValue:self.detectedscrobble.DetectedEpisode forKey:@"progress"];
+    [attributes setValue:@(self.detectedscrobble.DetectedEpisode.intValue) forKey:@"progress"];
     // Set Start Date
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd";
@@ -95,7 +95,7 @@
     else  if (attributes[@"startedAt"] && attributes[@"completedAt"]) {
         query = kAnilistUpdateAnimeListEntryAdvancedBothDate;
     }
-    NSDictionary *parameters = @{@"query" : query, @"variables" : attributes.copy};
+    NSDictionary *parameters = @{@"query" : query, @"variables" : attributes};
     id responseobject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;

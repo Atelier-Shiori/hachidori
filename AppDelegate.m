@@ -1432,6 +1432,7 @@
     //Since LSUIElement is set to 1 to hide the dock icon, it causes unattended behavior of having the program windows not show to the front.
     [NSApp activateIgnoringOtherApps:YES];
     [_tbc.window makeKeyAndOrderFront:self];
+    [_tbc showwarning];
 #endif
 }
 @end

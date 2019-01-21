@@ -1,4 +1,0 @@
-language: objective-c
-xcode_project: Hachidori.xcodeproj 
-xcode_scheme: Hachidori
-script: "xcodebuild -scheme Hachidori CODE_SIGNING_REQUIRED=NO | xcpretty -c && exit ${PIPESTATUS[0]}"

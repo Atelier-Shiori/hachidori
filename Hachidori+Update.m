@@ -116,6 +116,9 @@
         default:
             return ScrobblerFailed;
     }
+    if (status == 1) {
+        [self multiscrobbleWithType:MultiScrobbleTypeRevertRewatch withTitleID:titleid];
+    }
     if (service == [Hachidori currentService]) {
         [self sendDiscordPresence:self.lastscrobble];
     }

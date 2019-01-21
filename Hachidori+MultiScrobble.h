@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(unsigned int, MultiScrobbleType) {
     MultiScrobbleTypeScrobble = 1,
     MultiScrobbleTypeEntryupdate = 2,
-    MultiScrobbleTypeCorrection = 3
+    MultiScrobbleTypeCorrection = 3,
+    MultiScrobbleTypeRevertRewatch = 4
 };
 - (void)multiscrobbleWithType:(MultiScrobbleType)scrobbletype withTitleID:(NSString *)titleid;
 @end

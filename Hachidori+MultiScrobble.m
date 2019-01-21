@@ -24,6 +24,9 @@
             case MultiScrobbleTypeEntryupdate:
                 [self performMultiScrobbleEntryUpdateWithMapping:mapping];
                 break;
+            case MultiScrobbleTypeRevertRewatch:
+                [self performMultiScrobbleRevertRewatchingWithMapping:mapping];
+                break;
             default:
                 break;
         }
@@ -124,6 +127,29 @@
             }
         }
     }
+}
+
+- (void)performMultiScrobbleRevertRewatchingWithMapping:(NSDictionary *)mapping {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    if ([defaults boolForKey:@"multiscrobblescrobblesenabled"]) {
+        if ([defaults boolForKey:@"multiscrobblekitsuenabled"] && [Hachidori currentService] != 0) {
+            if (mapping[@"kitsu_id"] != [NSNull null] && ((NSNumber *)mapping[@"kitsu_id"]).intValue > 0 && self.kitsumanager.lastscrobble) {
+                if ([self.kitsumanager.lastscrobble.AniID isEqualToString:((NSNumber *)mapping[@"kitsu_id"]).stringValue] && self.kitsumanager.lastscrobble.rewatching) {
+                    bool success = [self.kitsumanager kitsustopRewatching:self.kitsumanager.lastscrobble.AniID];
+                    [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : success ? @"Rewatch revert on Kitsu is successful" : @"Rewatch revert had failed on Kitsu", @"identifier" : @"multiscrobble-kitsu"}];
+                }
+            }
+        }
+        else if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
+            if (mapping[@"anilist_id"] != [NSNull null] && ((NSNumber *)mapping[@"anilist_id"]).intValue > 0 && self.anilistmanager.lastscrobble) {
+                if ([self.anilistmanager.lastscrobble.AniID isEqualToString:((NSNumber *)mapping[@"anilist_id"]).stringValue] && self.anilistmanager.lastscrobble.rewatching) {
+                    bool success = [self.anilistmanager aniliststopRewatching:self.anilistmanager.lastscrobble.AniID];
+                    [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : success ? @"Rewatch revert on AniList is successful" : @"Rewatch revert had failed on AniList", @"identifier" : @"multiscrobble-anilist"}];
+                }
+            }
+        }
+    }
+    
 }
 
 - (NSDictionary *)lookupmappings:(NSString *)titleid {
