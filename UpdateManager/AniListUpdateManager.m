@@ -95,7 +95,7 @@
     else  if (attributes[@"startedAt"] && attributes[@"completedAt"]) {
         query = kAnilistUpdateAnimeListEntryAdvancedBothDate;
     }
-    NSDictionary *parameters = @{@"query" : query, @"variables" : attributes.copy};
+    NSDictionary *parameters = @{@"query" : query, @"variables" : attributes};
     id responseobject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
