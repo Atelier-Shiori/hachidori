@@ -25,4 +25,10 @@ FOUNDATION_EXPORT NSString *const kAnilistUpdateAnimeListEntryAdvancedStartDate;
 FOUNDATION_EXPORT NSString *const kAnilistUpdateAnimeListEntryAdvancedEndDate;
 FOUNDATION_EXPORT NSString *const kAnilistUpdateAnimeListEntryAdvancedBothDate;
 FOUNDATION_EXPORT NSString *const kAnilistAnimeSingleEntry;
+FOUNDATION_EXPORT NSString *const kAnilistExUpdateAnimeListEntrySimple;
+FOUNDATION_EXPORT NSString *const kAnilistExUpdateAnimeListEntryAdvanced;
+FOUNDATION_EXPORT NSString *const kAnilistExUpdateAnimeListEntryAdvancedStartDate;
+FOUNDATION_EXPORT NSString *const kAnilistExUpdateAnimeListEntryAdvancedEndDate;
+FOUNDATION_EXPORT NSString *const kAnilistExUpdateAnimeListEntryAdvancedBothDate;
+
 @end

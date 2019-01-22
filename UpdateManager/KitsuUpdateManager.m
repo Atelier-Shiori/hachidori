@@ -113,10 +113,7 @@
                 NSDictionary *d = responseObject[@"data"];
                 self.lastscrobble.EntryID = d[@"id"];
             }
-            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
-                // Store Actual Title
-                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
-            }
+            self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
             self.lastscrobble.confirmed = true;
             if (self.lastscrobble.LastScrobbledTitleNew) {
                 return ScrobblerAddTitleSuccessful;

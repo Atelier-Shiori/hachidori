@@ -22,8 +22,13 @@
     long tmprewatchedcount;
     NSString * tmpWatchStatus;
     NSMutableDictionary * attributes = [NSMutableDictionary new];
-    [attributes setValue:titleid forKey:@"mediaid"];
-    [attributes setValue:self.detectedscrobble.DetectedEpisode forKey:@"progress"];
+    if (self.detectedscrobble.EntryID) {
+        [attributes setValue:self.detectedscrobble.EntryID forKey:@"id"];
+    }
+    else {
+        [attributes setValue:titleid forKey:@"mediaid"];
+    }
+    [attributes setValue:@(self.detectedscrobble.DetectedEpisode.intValue) forKey:@"progress"];
     // Set Start Date
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd";
@@ -85,15 +90,15 @@
     NSURLSessionDataTask *task;
     NSError *error;
     // Use the appropriate graphQL query to update list entry.
-    NSString *query = kAnilistUpdateAnimeListEntryAdvanced;
+    NSString *query = self.detectedscrobble.EntryID ? kAnilistExUpdateAnimeListEntryAdvanced : kAnilistUpdateAnimeListEntryAdvanced;
     if (attributes[@"startedAt"] && !attributes[@"completedAt"]) {
-        query = kAnilistUpdateAnimeListEntryAdvancedStartDate;
+        query = self.detectedscrobble.EntryID ? kAnilistExUpdateAnimeListEntryAdvancedStartDate : kAnilistUpdateAnimeListEntryAdvancedStartDate;
     }
     if (!attributes[@"startedAt"] && attributes[@"completedAt"]) {
-        query = kAnilistUpdateAnimeListEntryAdvancedEndDate;
+        query = self.detectedscrobble.EntryID ? kAnilistExUpdateAnimeListEntryAdvancedEndDate : kAnilistUpdateAnimeListEntryAdvancedEndDate;
     }
-    else  if (attributes[@"startedAt"] && attributes[@"completedAt"]) {
-        query = kAnilistUpdateAnimeListEntryAdvancedBothDate;
+    else if (attributes[@"startedAt"] && attributes[@"completedAt"]) {
+        query = self.detectedscrobble.EntryID ? kAnilistExUpdateAnimeListEntryAdvancedBothDate : kAnilistUpdateAnimeListEntryAdvancedBothDate;
     }
     NSDictionary *parameters = @{@"query" : query, @"variables" : attributes};
     id responseobject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
@@ -108,10 +113,7 @@
             self.lastscrobble.DetectedCurrentEpisode = self.lastscrobble.LastScrobbledEpisode.intValue;
             self.lastscrobble.rewatching = tmprewatching;
             self.lastscrobble.WatchStatus = tmpWatchStatus;
-            if (self.lastscrobble.confirmed) { // Will only store actual title if confirmation feature is not turned on
-                // Store Actual Title
-                self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
-            }
+            self.lastscrobble.LastScrobbledActualTitle = [NSString stringWithFormat:@"%@",self.lastscrobble.LastScrobbledInfo[@"title"]];
             self.lastscrobble.confirmed = true;
             if (self.lastscrobble.LastScrobbledTitleNew) {
                 if ([Hachidori currentService] == 1) {
@@ -143,7 +145,7 @@
     [self.asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:1].accessToken] forHTTPHeaderField:@"Authorization"];
     //generate json
     NSMutableDictionary * attributes = [NSMutableDictionary new];
-    [attributes setValue:self.lastscrobble.AniID forKey:@"mediaid"];
+    [attributes setValue:self.lastscrobble.EntryID forKey:@"id"];
     //Set current episode
     if (episode.intValue != self.lastscrobble.DetectedCurrentEpisode) {
         [attributes setValue:episode forKey:@"progress"];
@@ -162,7 +164,7 @@
     //Privacy
     [attributes setValue:@(privatevalue) forKey:@"private"];
     // Do Update
-    [self.asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistUpdateAnimeListEntryAdvanced, @"variables" : attributes} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistExUpdateAnimeListEntryAdvanced, @"variables" : attributes} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             //Set New Values
             self.lastscrobble.TitleScore = showscore;
             self.lastscrobble.WatchStatus = showwatchstatus;

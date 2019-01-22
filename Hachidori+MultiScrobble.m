@@ -61,6 +61,9 @@
                                 break;
                         }
                     }
+                    else {
+                        [self.kitsumanager kitsustoreLastScrobbled];
+                    }
                 }
             }
         }
@@ -83,6 +86,9 @@
                                 [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was not successful on AniList" : @"Scrobble was not successful on AniList", @"identifier" : @"multiscrobble-anilist"}];
                                 break;
                         }
+                    }
+                    else {
+                        [self.anilistmanager aniliststoreLastScrobbled];
                     }
                 }
             }
