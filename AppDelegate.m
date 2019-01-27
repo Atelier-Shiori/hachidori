@@ -291,6 +291,11 @@
             NSLog(@"Failed to start timer.");
         }
     }
+    
+    // Check Beta
+    if ([Utility checkBeta]) {
+        [self showNotification:@"Experimental Update Branch is Enabled" message:@"Hachidori will use the prerelease branch since you are using a prerelease version." withIdentifier:[NSString stringWithFormat:@"betanotif-%@", [NSDate date]]];
+    }
 #endif
     
     // Initalize Patreon Controller

@@ -397,4 +397,18 @@
     }
     return tmpstr;
 }
+
++ (bool)checkBeta {
+    // Check if user is using beta. If so, use the experimental Appcast branch.
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *versionString = bundle.infoDictionary[@"CFBundleShortVersionString"];
+    if ([versionString containsString:@"beta"] || [versionString containsString:@"alpha"] || [versionString containsString:@"pre"] || [versionString containsString:@"rc"]) {
+        NSString *betaurl = @"https://updates.malupdaterosx.moe/hachidori-beta/profileInfo.php";
+        if (![[NSUserDefaults.standardUserDefaults stringForKey:@"SUFeedURL"] isEqualToString:betaurl]) {
+            [NSUserDefaults.standardUserDefaults setObject:betaurl forKey:@"SUFeedURL"];
+            return true;
+        }
+    }
+    return false;
+}
 @end

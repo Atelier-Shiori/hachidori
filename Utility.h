@@ -45,4 +45,5 @@ typedef NS_ENUM(unsigned int, matchtype) {
 + (double)calculatedays:(NSArray *)list;
 + (NSString *)dateIntervalToDateString:(double)timeinterval;
 + (NSString *)convertAnimeType:(NSString *)type;
++ (bool)checkBeta;
 @end

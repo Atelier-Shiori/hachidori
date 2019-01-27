@@ -32,4 +32,19 @@
 {
     return NSLocalizedString(@"Software Updates", @"Toolbar item name for the Software Updatespreference pane");
 }
+
+- (void)loadView{
+    [super loadView];
+    if([(NSString *)[[NSUserDefaults standardUserDefaults] valueForKey:@"SUFeedURL"] isEqualToString:@"https://updates.malupdaterosx.moe/hachidori-beta/profileInfo.php"]) {
+        _betacheck.state = 1;
+    }
+}
+- (IBAction)setBetaChannel:(id)sender{
+    if (_betacheck.state == 1) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"https://updates.malupdaterosx.moe/hachidori-beta/profileInfo.php" forKey:@"SUFeedURL"];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults] setObject:@"https://updates.malupdaterosx.moe/hachidori/profileInfo.php" forKey:@"SUFeedURL"];
+    }
+}
 @end
