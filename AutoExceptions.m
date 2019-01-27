@@ -79,7 +79,7 @@
                     bool iszeroepisode = ((NSNumber *)d[@"iszeroepisode"]).boolValue;
                     int offset = ((NSNumber *)d[@"offset"]).intValue;
                     NSError *derror = nil;
-                    NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode offset:offset];
+                    NSManagedObject *obj = [self checkAutoExceptionsEntry:detectedtitle group:group correcttitle:correcttitle hcorrecttitle:hcorrecttitle zeroepisode:iszeroepisode];
                     if (obj) {
                         // Update Entry
                         [obj setValue:d[@"offset"] forKey:@"episodeOffset"];
@@ -124,7 +124,7 @@
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = delegate.managedObjectContext;
     NSFetchRequest * allExceptions = [[NSFetchRequest alloc] init];
-    allExceptions.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
+    allExceptions.entity = [NSEntityDescription entityForName:@"AutoCorrection" inManagedObjectContext:moc];
     
     NSError * error = nil;
     NSArray * exceptions = [moc executeFetchRequest:allExceptions error:&error];
@@ -139,8 +139,7 @@
 group:(NSString *)group
 correcttitle:(NSString *)correcttitle
 hcorrecttitle:(NSString *)hcorrecttitle
-zeroepisode:(bool)zeroepisode
-offset:(int)offset{
+zeroepisode:(bool)zeroepisode {
     // Return existing offline queue item
     NSError * error;
     AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
@@ -152,9 +151,9 @@ offset:(int)offset{
     else {
         rctitle = correcttitle;
     }
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (correctTitle == %@) AND (group ==[c] %@) AND (iszeroepisode == %i) AND (episodeOffset == %i)", ctitle,rctitle, group, zeroepisode, offset] ;
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (correctTitle == %@) AND (group ==[c] %@) AND (iszeroepisode == %i)", ctitle,rctitle, group, zeroepisode] ;
     NSFetchRequest * exfetch = [[NSFetchRequest alloc] init];
-    exfetch.entity = [NSEntityDescription entityForName:@"AutoExceptions" inManagedObjectContext:moc];
+    exfetch.entity = [NSEntityDescription entityForName:@"AutoCorrection" inManagedObjectContext:moc];
     exfetch.predicate = predicate;
     NSArray * exceptions = [moc executeFetchRequest:exfetch error:&error];
     if (exceptions.count > 0) {
