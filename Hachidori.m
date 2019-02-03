@@ -691,9 +691,25 @@
                                                        }];
             break;
         }
-        case 1:
-            successHandler(false);
+        case 1: {
+            [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - AniList"];
+            AFOAuth2Manager *OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://anilist.co/"]
+                                                                             clientID:kanilistclient
+                                                                               secret:kanilistsecretkey];
+            [OAuth2Manager setUseHTTPBasicAuthentication:NO];
+            [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token"
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} success:^(AFOAuthCredential *credential) {
+                                                        NSLog(@"Token refreshed");
+                                                        [AFOAuthCredential storeCredential:credential
+                                                                            withIdentifier:@"Hachidori - AniList"];
+                                                        successHandler(true);
+                                                    }
+                                                       failure:^(NSError *error) {
+                                                           NSLog(@"Token cannot be refreshed: %@", error);
+                                                           successHandler(false);
+                                                       }];
             break;
+        }
         default:
             break;
     }
