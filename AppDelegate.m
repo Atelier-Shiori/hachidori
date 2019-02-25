@@ -33,6 +33,7 @@
 #import "servicemenucontroller.h"
 #import "AniListScoreConvert.h"
 #import "PatreonController.h"
+#import "PatreonLicenseManager.h"
 
 @implementation AppDelegate
 
@@ -309,7 +310,11 @@
     
     // Show Donation Message
     if (_pc.pamanager.getFirstAccount) {
+        [Utility showsheetmessage:@"Notice" explaination:@"The old system to unlock Donor features with a Patreon Account is being deprecated in favor of a Patreon License. \n\nTo switch to the new system, deauthorize your Patreon account from Hachidori's menu. From the Hachidori's menu, select Add Donation Key. Click Patreon License Portal and follow the instructions to obtain a Patreon License. \n\nOnce you have authorized your account with the website, use the Patreon license details to register."  window:nil];
         [_pc checkPatreonAccount:nil];
+    }
+    else if ([NSUserDefaults.standardUserDefaults boolForKey:@"donated"] && [NSUserDefaults.standardUserDefaults boolForKey:@"patreon_license"]) {
+        [Utility patreonDonateCheck:self];
     }
     else {
         [Utility donateCheck:self];
@@ -626,7 +631,6 @@
     [NSApp activateIgnoringOtherApps:YES];
     if (!_dwindow) {
         _dwindow = [[DonationWindowController alloc] init];
-        [_dwindow setPatreonController:_pc];
     }
     [_dwindow.window makeKeyAndOrderFront:nil];
     
@@ -634,6 +638,21 @@
 - (IBAction)enterDonationKey:(id)sender {
     [self enterDonationKey];
 }
+
+- (IBAction)deactivatePatreonLicense:(id)sender {
+    NSAlert *alert = [[NSAlert alloc] init] ;
+    [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+    [alert setMessageText:NSLocalizedString(@"Do you want to deauthorize your Patreon license?",nil)];
+    alert.informativeText = NSLocalizedString(@"By deauthorizing your Patreon license, you will lose access to donor features. However, you may reauthorize your license by registering it again.",nil);
+    // Set Message type to Warning
+    alert.alertStyle = NSAlertStyleInformational;
+    NSModalResponse returncode = [alert runModal];
+    if (returncode == NSAlertFirstButtonReturn) {
+        [Utility deactivatePatreonLicense:self];
+    }
+}
+
 - (void)performsendupdatenotification:(int)status{
     dispatch_async(dispatch_get_main_queue(), ^{
         //Enable the Update button if a title is detected

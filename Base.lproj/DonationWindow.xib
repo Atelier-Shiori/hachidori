@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.13.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="key" destination="lcf-76-WNf" id="tX0-Jj-7DQ"/>
                 <outlet property="name" destination="6z8-j0-psS" id="qzs-Z2-hPg"/>
+                <outlet property="patreonlicense" destination="KxQ-WA-avl" id="Ouf-QS-znE"/>
                 <outlet property="window" destination="1Et-No-nIp" id="WiY-Ze-8Mh"/>
             </connections>
         </customObject>
@@ -18,14 +19,14 @@
         <window title="Add Donation Key" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="1Et-No-nIp">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="736" y="713" width="480" height="427"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <rect key="contentRect" x="736" y="713" width="480" height="414"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="xqJ-Af-Fpc">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="427"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="414"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dZa-JK-LbO">
-                        <rect key="frame" x="20" y="298" width="444" height="28"/>
+                        <rect key="frame" x="20" y="259" width="444" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Hachidori will accept MAL Updater OS X Donation Keys (from 2.4.5 or later)" id="H8L-Lf-9MU">
                             <font key="font" metaFont="smallSystem"/>
@@ -34,7 +35,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pvf-4z-k3P">
-                        <rect key="frame" x="20" y="396" width="93" height="17"/>
+                        <rect key="frame" x="20" y="383" width="93" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="bJG-ti-OU9">
                             <font key="font" metaFont="system"/>
@@ -43,7 +44,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6z8-j0-psS">
-                        <rect key="frame" x="119" y="394" width="339" height="22"/>
+                        <rect key="frame" x="119" y="381" width="339" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Suzukaze Aoba" drawsBackground="YES" id="bRk-dn-5iy">
                             <font key="font" metaFont="system"/>
@@ -52,7 +53,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFc-Rl-tjQ">
-                        <rect key="frame" x="20" y="371" width="93" height="17"/>
+                        <rect key="frame" x="20" y="358" width="93" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Donation Key:" id="ZSS-dw-G1r">
                             <font key="font" metaFont="system"/>
@@ -61,7 +62,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcf-76-WNf">
-                        <rect key="frame" x="119" y="327" width="339" height="61"/>
+                        <rect key="frame" x="119" y="314" width="339" height="61"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" lineBreakMode="charWrapping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="FFFFF-FFFFF-88FF4-FFF2F-FFFF0-F2FFF-FF8F2-2F2FF-FF4F2-F88F4-FFF2F-9F2F2-FFFFF-FFFFF-FF0F" drawsBackground="YES" id="D2i-zZ-JL7">
                             <font key="font" size="13" name="Menlo-Regular"/>
@@ -70,7 +71,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sHj-Bp-s3w">
-                        <rect key="frame" x="374" y="270" width="94" height="32"/>
+                        <rect key="frame" x="374" y="231" width="94" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Register" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DEl-Kn-nLo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -84,7 +85,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZN-zN-Naa">
-                        <rect key="frame" x="280" y="270" width="94" height="32"/>
+                        <rect key="frame" x="280" y="231" width="94" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0Pe-Ch-3WI">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -98,7 +99,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="atp-Mf-j8R">
-                        <rect key="frame" x="291" y="117" width="179" height="32"/>
+                        <rect key="frame" x="295" y="127" width="179" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="View Donation Options" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kUc-yh-8A3">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -109,7 +110,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mhl-PT-549">
-                        <rect key="frame" x="10" y="191" width="272" height="17"/>
+                        <rect key="frame" x="14" y="201" width="272" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Need a Donation License?" id="1wX-Qj-Fjt">
                             <font key="font" metaFont="systemBold"/>
@@ -118,7 +119,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0a4-tH-xvk">
-                        <rect key="frame" x="10" y="93" width="272" height="50"/>
+                        <rect key="frame" x="14" y="103" width="272" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Shows other options to obtain a donation license." id="krU-qq-jhV">
                             <font key="font" metaFont="system"/>
@@ -127,7 +128,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NjU-Xc-ivO">
-                        <rect key="frame" x="291" y="160" width="179" height="32"/>
+                        <rect key="frame" x="295" y="170" width="179" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Purchase" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5t7-Bp-slz">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -138,7 +139,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E9n-Bg-Z0f">
-                        <rect key="frame" x="10" y="168" width="272" height="17"/>
+                        <rect key="frame" x="14" y="178" width="272" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Allows you to purchase a new license." id="Vyd-6k-NqV">
                             <font key="font" metaFont="system"/>
@@ -146,16 +147,12 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4Yu-0b-90F">
-                        <rect key="frame" x="22" y="214" width="440" height="5"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    </box>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="h3b-ny-Wqy">
-                        <rect key="frame" x="22" y="266" width="440" height="5"/>
+                        <rect key="frame" x="22" y="227" width="440" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Pa-CO-PoP">
-                        <rect key="frame" x="291" y="75" width="179" height="32"/>
+                        <rect key="frame" x="295" y="85" width="179" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Lookup License Key" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yw1-0p-ekZ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -166,7 +163,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G2j-9y-4rY">
-                        <rect key="frame" x="10" y="46" width="272" height="50"/>
+                        <rect key="frame" x="14" y="56" width="272" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Lost your key? You can retrieve it with this option." id="Bhg-89-ZPb">
                             <font key="font" metaFont="system"/>
@@ -175,7 +172,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YH1-2C-rMs">
-                        <rect key="frame" x="291" y="29" width="179" height="32"/>
+                        <rect key="frame" x="295" y="39" width="179" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Become a Patron" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rmu-FI-n0G">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -186,7 +183,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vyE-B8-dah">
-                        <rect key="frame" x="10" y="5" width="272" height="50"/>
+                        <rect key="frame" x="14" y="15" width="272" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Want to support us monthly and unlock donor features? Become a Patron." id="wOa-Rf-vZF">
                             <font key="font" metaFont="system"/>
@@ -194,32 +191,31 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="omU-t9-fHw">
-                        <rect key="frame" x="10" y="237" width="290" height="17"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hWQ-bt-Acy">
+                        <rect key="frame" x="295" y="8" width="179" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Patreon User? Sign In to unlock features." id="EMp-7k-dbW">
-                            <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jmc-uX-rHA">
-                        <rect key="frame" x="291" y="227" width="179" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Sign In" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sRQ-l9-HVc">
+                        <buttonCell key="cell" type="push" title="Patreon License Portal" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="n5P-ic-8Qj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                         <connections>
-                            <action selector="signinPatreon:" target="-2" id="81s-k6-3Hm"/>
+                            <action selector="openpatreonlicenseportal:" target="-2" id="LUT-ff-dl7"/>
                         </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KxQ-WA-avl">
+                        <rect key="frame" x="120" y="290" width="192" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Patreon License" bezelStyle="regularSquare" imagePosition="left" inset="2" id="uQe-nR-Inr">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
                     </button>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="Rtg-Sx-LGj"/>
             </connections>
-            <point key="canvasLocation" x="264" y="194.5"/>
+            <point key="canvasLocation" x="264" y="188"/>
         </window>
     </objects>
 </document>

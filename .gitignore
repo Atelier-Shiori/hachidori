@@ -21,3 +21,5 @@ PatreonConstants.h
 PatreonConstants.m
 PatreonController.h
 PatreonController.m
+PatreonLicenseManager.h
+PatreonLicenseManager.m

@@ -46,4 +46,6 @@ typedef NS_ENUM(unsigned int, matchtype) {
 + (NSString *)dateIntervalToDateString:(double)timeinterval;
 + (NSString *)convertAnimeType:(NSString *)type;
 + (bool)checkBeta;
++ (void)patreonDonateCheck:(AppDelegate*)delegate;
++ (void)deactivatePatreonLicense:(AppDelegate *)delegate;
 @end

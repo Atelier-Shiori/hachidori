@@ -9,6 +9,7 @@
 #import "Utility.h"
 #import <AFNetworking/AFNetworking.h>
 #import <DonationCheck_KeyOnly/DonationKeyVerify.h>
+#import "PatreonLicenseManager.h"
 
 @implementation Utility
 + (int)checkMatch:(NSString *)title
@@ -410,5 +411,33 @@
         }
     }
     return false;
+}
+
++ (void)patreonDonateCheck:(AppDelegate*)delegate {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    [[PatreonLicenseManager sharedInstance] validateLicense:[defaults valueForKey:@"donation_name"] withLicenseKey:[defaults valueForKey:@"donation_license"] withCompletion:^(bool success, bool error) {
+        if (success && !error) {
+            [defaults setValue:[NSDate date] forKey:@"patreon_license_last_checked"];
+        }
+        else if (!success && error) {
+            NSDate *lastchecked = (NSDate *)[defaults valueForKey:@"patreon_license_last_checked"];
+            if (lastchecked) {
+                if (lastchecked.timeIntervalSinceNow < -172800) {
+                    [Utility showsheetmessage:@"Donation Key Error" explaination:@"Failed to check Patreon License within 48 hours. Please reauthorize Patreon License." window:nil];
+                    [Utility deactivatePatreonLicense:delegate];
+                    [Utility showDonateReminder:delegate];
+                }
+            }
+        }
+        else {
+            [Utility showsheetmessage:@"Donation Key Error" explaination:@"License revoked since you are no longer an active patron. Donation features are only available for active patrons and donors." window:nil];
+            [self deactivatePatreonLicense:delegate];
+            [Utility showDonateReminder:delegate];
+        }
+    }];
+}
+
++ (void)deactivatePatreonLicense:(AppDelegate *)delegate {
+    [[PatreonLicenseManager sharedInstance] removeLicense];
 }
 @end

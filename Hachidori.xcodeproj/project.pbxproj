@@ -44,6 +44,7 @@
 		59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9E21ED1952004A52CE /* SyncPrefs.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		59DFFF1F2224615E00FC1D99 /* PatreonLicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DFFF1E2224615E00FC1D99 /* PatreonLicenseManager.m */; };
 		59F1425621EE4A3B008C7511 /* ScoreConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425521EE4A3B008C7511 /* ScoreConversion.m */; };
 		59F1425921EE5690008C7511 /* AniListUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425821EE5690008C7511 /* AniListUpdateManager.m */; };
 		59F1425C21EE56A2008C7511 /* KitsuUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425B21EE56A2008C7511 /* KitsuUpdateManager.m */; };
@@ -246,6 +247,8 @@
 		59A38E9D21ED1952004A52CE /* SyncPrefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPrefs.h; sourceTree = "<group>"; };
 		59A38E9E21ED1952004A52CE /* SyncPrefs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncPrefs.m; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		59DFFF1D2224615E00FC1D99 /* PatreonLicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatreonLicenseManager.h; sourceTree = "<group>"; };
+		59DFFF1E2224615E00FC1D99 /* PatreonLicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatreonLicenseManager.m; sourceTree = "<group>"; };
 		59F1425421EE4A3B008C7511 /* ScoreConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreConversion.h; sourceTree = "<group>"; };
 		59F1425521EE4A3B008C7511 /* ScoreConversion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreConversion.m; sourceTree = "<group>"; };
 		59F1425721EE5690008C7511 /* AniListUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AniListUpdateManager.h; sourceTree = "<group>"; };
@@ -537,6 +540,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				59DFFF1C2224614800FC1D99 /* PatreonLicenseCheck */,
 				91D116FA20BC5502006E4271 /* AniListConstants.h */,
 				91D116FB20BC5502006E4271 /* AniListConstants.m */,
 				9191FC3F20BDBB9000F48DD0 /* AniListScoreConvert.h */,
@@ -722,6 +726,15 @@
 				59F1425B21EE56A2008C7511 /* KitsuUpdateManager.m */,
 			);
 			path = UpdateManager;
+			sourceTree = "<group>";
+		};
+		59DFFF1C2224614800FC1D99 /* PatreonLicenseCheck */ = {
+			isa = PBXGroup;
+			children = (
+				59DFFF1D2224615E00FC1D99 /* PatreonLicenseManager.h */,
+				59DFFF1E2224615E00FC1D99 /* PatreonLicenseManager.m */,
+			);
+			name = PatreonLicenseCheck;
 			sourceTree = "<group>";
 		};
 		5C07DA691A815C2C0003A827 /* Window Controllers */ = {
@@ -1268,6 +1281,7 @@
 				59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */,
 				6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
+				59DFFF1F2224615E00FC1D99 /* PatreonLicenseManager.m in Sources */,
 				914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */,
 				5C000E4419F30EA50026F350 /* SoftwareUpdatesPref.m in Sources */,
 				2DDFFEE11EEEE4AF00EB1509 /* StatusUpdateWindow.m in Sources */,
