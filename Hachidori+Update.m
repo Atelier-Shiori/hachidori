@@ -11,6 +11,10 @@
 
 @implementation Hachidori (Update)
 - (int)updatetitle:(NSString *)titleid {
+    if (!titleid || titleid.length == 0) {
+        NSLog(@"Internal Error. Title: %@, Episode: %@", self.detectedscrobble.DetectedTitle, self.detectedscrobble.DetectedEpisode);
+        return ScrobblerFailed;
+    }
     if (!self.detectedscrobble.airing && !self.detectedscrobble.completedairing) {
         // User attempting to update title that haven't been aired.
         return ScrobblerInvalidScrobble;
