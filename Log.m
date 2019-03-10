@@ -11,9 +11,12 @@
 void append(NSString *msg){
     NSString *documentsDirectory = [Log retrieveApplicationSupportDirectory:@""];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Hachidori.log"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path]){
-        fprintf(stderr,"Creating file at %s",[path UTF8String]);
+    NSDate *clearlogdate = [NSUserDefaults.standardUserDefaults valueForKey:@"NextLogClearDate"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]
+        || !clearlogdate || (clearlogdate && [clearlogdate timeIntervalSinceNow] <= 0)){
+        fprintf(stderr,"Creating new log file at %s",[path UTF8String]);
         [[NSData data] writeToFile:path atomically:YES];
+        [NSUserDefaults.standardUserDefaults setValue:[NSDate dateWithTimeIntervalSinceNow:1209600] forKey:@"NextLogClearDate"];
     }
     NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:path];
     [handle truncateFileAtOffset:[handle seekToEndOfFile]];
