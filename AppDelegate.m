@@ -5,6 +5,9 @@
 //  Created by James M. on 8/7/10.
 //  Copyright 2009-2018 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
+@import AppCenter;
+@import AppCenterAnalytics;
+@import AppCenterCrashes;
 
 #import "AppDelegate.h"
 #import "Hachidori.h"
@@ -25,8 +28,6 @@
 #import <MSWeakTimer_macOS/MSWeakTimer.h>
 #import "ClientConstants.h"
 #import "StatusUpdateWindow.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 #import <TorrentBrowser/TorrentBrowser.h>
 #import "ShareMenu.h"
 #import "PFAboutWindowController.h"
@@ -272,7 +273,10 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [Fabric with:@[[Crashlytics class]]];
+    [MSAppCenter start:@"d37cc407-6d11-42e6-84e7-222899deb28c" withServices:@[
+                                                                              [MSAnalytics class],
+                                                                              [MSCrashes class]
+                                                                              ]];
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
 	haengine.managedObjectContext = managedObjectContext;

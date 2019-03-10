@@ -44,6 +44,9 @@
 		59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9E21ED1952004A52CE /* SyncPrefs.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		59D5ACDF2235743400FAE0CA /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5ACDC2235743400FAE0CA /* AppCenterCrashes.framework */; };
+		59D5ACE02235743400FAE0CA /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5ACDD2235743400FAE0CA /* AppCenter.framework */; };
+		59D5ACE12235743400FAE0CA /* AppCenterAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5ACDE2235743400FAE0CA /* AppCenterAnalytics.framework */; };
 		59DA3C9022356C8F0063778B /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DA3C8F22356C8F0063778B /* Log.m */; };
 		59DFFF1F2224615E00FC1D99 /* PatreonLicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DFFF1E2224615E00FC1D99 /* PatreonLicenseManager.m */; };
 		59F1425621EE4A3B008C7511 /* ScoreConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F1425521EE4A3B008C7511 /* ScoreConversion.m */; };
@@ -128,8 +131,6 @@
 		91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; };
 		91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043B1E901494006B0727 /* Fabric.framework */; };
-		91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CA043C1E901494006B0727 /* Crashlytics.framework */; };
 		91CC23D91E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */; };
 		91CC23DF1E7C3773008E47F6 /* OfflineViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DC1E7C3773008E47F6 /* OfflineViewQueue.m */; };
 		91CC23E01E7C3773008E47F6 /* InttoStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC23DE1E7C3773008E47F6 /* InttoStatus.m */; };
@@ -248,6 +249,9 @@
 		59A38E9D21ED1952004A52CE /* SyncPrefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPrefs.h; sourceTree = "<group>"; };
 		59A38E9E21ED1952004A52CE /* SyncPrefs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncPrefs.m; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		59D5ACDC2235743400FAE0CA /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterCrashes.framework; sourceTree = "<group>"; };
+		59D5ACDD2235743400FAE0CA /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenter.framework; sourceTree = "<group>"; };
+		59D5ACDE2235743400FAE0CA /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterAnalytics.framework; sourceTree = "<group>"; };
 		59DA3C8E22356C8F0063778B /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		59DA3C8F22356C8F0063778B /* Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Log.m; sourceTree = "<group>"; };
 		59DFFF1D2224615E00FC1D99 /* PatreonLicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatreonLicenseManager.h; sourceTree = "<group>"; };
@@ -458,8 +462,6 @@
 		9191FC4020BDBB9000F48DD0 /* AniListScoreConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AniListScoreConvert.m; sourceTree = "<group>"; };
 		91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOniguruma.framework; path = Frameworks/CocoaOniguruma.framework; sourceTree = "<group>"; };
 		91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
-		91CA043B1E901494006B0727 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
-		91CA043C1E901494006B0727 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		91CC23D71E7C3742008E47F6 /* NSNumberFormatterNumberOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberFormatterNumberOnly.m; sourceTree = "<group>"; };
 		91CC23D81E7C3742008E47F6 /* NSNumberFormatterNumberOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberFormatterNumberOnly.h; sourceTree = "<group>"; };
 		91CC23DB1E7C3773008E47F6 /* OfflineViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineViewQueue.h; sourceTree = "<group>"; };
@@ -498,19 +500,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				9126067A20BEED8C0052CB30 /* DiscordRPC.framework in Frameworks */,
+				59D5ACE02235743400FAE0CA /* AppCenter.framework in Frameworks */,
 				2D621ECB1F8143EB003274F2 /* PingNotifier.framework in Frameworks */,
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
 				91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */,
+				59D5ACDF2235743400FAE0CA /* AppCenterCrashes.framework in Frameworks */,
 				91376035212AF6C60093919F /* Patreon.framework in Frameworks */,
 				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
 				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
 				F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */,
 				F8531F1420D2A84F00CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */,
 				9126066B20BEE0150052CB30 /* TorrentBrowser.framework in Frameworks */,
+				59D5ACE12235743400FAE0CA /* AppCenterAnalytics.framework in Frameworks */,
 				912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */,
-				91CA043D1E901494006B0727 /* Fabric.framework in Frameworks */,
 				82F3E7F61A47A877001DC9A1 /* CoreServices.framework in Frameworks */,
-				91CA043E1E901494006B0727 /* Crashlytics.framework in Frameworks */,
 				91A609F71EA3F61500EF40AB /* CocoaOniguruma.framework in Frameworks */,
 				916207262110C88B008AFAC5 /* DetectStreamKit.framework in Frameworks */,
 				2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */,
@@ -610,12 +613,10 @@
 				91041A671E79EC8000F268FE /* AFNetworking.framework */,
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
 				91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */,
-				91CA043C1E901494006B0727 /* Crashlytics.framework */,
 				2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */,
 				916207252110C88B008AFAC5 /* DetectStreamKit.framework */,
 				9126067920BEED8C0052CB30 /* DiscordRPC.framework */,
 				F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */,
-				91CA043B1E901494006B0727 /* Fabric.framework */,
 				2D621EC41F814234003274F2 /* GBPing.framework */,
 				912859551E7B2F0E005E9A2B /* MASPreferences.framework */,
 				912859591E7B3599005E9A2B /* MASShortcut.framework */,
@@ -700,6 +701,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				59D5ACDB2235740D00FAE0CA /* AppCenter */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -730,6 +732,16 @@
 				59F1425B21EE56A2008C7511 /* KitsuUpdateManager.m */,
 			);
 			path = UpdateManager;
+			sourceTree = "<group>";
+		};
+		59D5ACDB2235740D00FAE0CA /* AppCenter */ = {
+			isa = PBXGroup;
+			children = (
+				59D5ACDD2235743400FAE0CA /* AppCenter.framework */,
+				59D5ACDE2235743400FAE0CA /* AppCenterAnalytics.framework */,
+				59D5ACDC2235743400FAE0CA /* AppCenterCrashes.framework */,
+			);
+			name = AppCenter;
 			sourceTree = "<group>";
 		};
 		59DA3C8D22356C780063778B /* Logging */ = {
@@ -1063,8 +1075,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				3A4C6253120DF5580032F63A /* CopyFiles */,
-				6F2F77971A8E4B8800AFA135 /* ShellScript */,
-				91CA043A1E901475006B0727 /* ShellScript */,
+				6F2F77971A8E4B8800AFA135 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -1198,31 +1209,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6F2F77971A8E4B8800AFA135 /* ShellScript */ = {
+		6F2F77971A8E4B8800AFA135 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#! /bin/bash\n\n# Put this in a 'run script' run phase in xcode\n# Delete all framework headers\ncd \"${BUILD_DIR}/${CONFIGURATION}/${PRODUCT_NAME}.app/Contents/Frameworks\"\n\nif [ $? = 0 ]; then\nfind . -name \"*.h\" -print0 | xargs -0 rm\nfi";
-		};
-		91CA043A1E901475006B0727 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Frameworks/Fabric.framework/run edf1f68ef4cfd794c1422ddd2479104d63a34c60 ade433e882a67945940f2ec881e3037340dd4257128bf5ded4a841135d3800ad";
+			shellScript = "#! /bin/bash\n\n# Put this in a 'run script' run phase in xcode\n# Delete all framework headers\ncd \"${BUILD_DIR}/${CONFIGURATION}/${PRODUCT_NAME}.app/Contents/Frameworks\"\n\nif [ $? = 0 ]; then\nfind . -name \"*.h\" -print0 | xargs -0 rm\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
