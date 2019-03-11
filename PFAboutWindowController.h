@@ -51,6 +51,8 @@
  *  The current text shown.
  */
 @property (copy) NSAttributedString *textShown;
+    
+@property (strong) NSAttributedString *patronsList;
 
 @property int windowState;
 
@@ -82,6 +84,8 @@
  */
 - (IBAction)showCopyright:(id)sender;
 
+- (IBAction)showPatrons:(id)sender;
+    
 /**
  *  Called when window is about to close.
  *

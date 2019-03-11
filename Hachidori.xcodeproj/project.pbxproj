@@ -36,6 +36,7 @@
 		3AFEF129120DF8CE0098B59D /* Hachidori.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFEF128120DF8CE0098B59D /* Hachidori.m */; };
 		592AE56621ED2904009163CF /* SyncPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 592AE56821ED2904009163CF /* SyncPrefs.xib */; };
 		592AE56B21ED2986009163CF /* Hachidori+MultiScrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 592AE56A21ED2986009163CF /* Hachidori+MultiScrobble.m */; };
+		592B8C7A2236BB63007D43F4 /* NSString+HTMLtoNSAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 592B8C792236BB63007D43F4 /* NSString+HTMLtoNSAttributedString.m */; };
 		593B55841CC41DC200B7B254 /* Base64Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 593B55831CC41DC200B7B254 /* Base64Category.m */; };
 		594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */; };
 		594F0A2021E50427001875AF /* LastScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1F21E50427001875AF /* LastScrobbleStatus.m */; };
@@ -235,6 +236,8 @@
 		592AE56721ED2904009163CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SyncPrefs.xib; sourceTree = "<group>"; };
 		592AE56921ED2986009163CF /* Hachidori+MultiScrobble.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+MultiScrobble.h"; sourceTree = "<group>"; };
 		592AE56A21ED2986009163CF /* Hachidori+MultiScrobble.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+MultiScrobble.m"; sourceTree = "<group>"; };
+		592B8C782236BB63007D43F4 /* NSString+HTMLtoNSAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTMLtoNSAttributedString.h"; sourceTree = "<group>"; };
+		592B8C792236BB63007D43F4 /* NSString+HTMLtoNSAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTMLtoNSAttributedString.m"; sourceTree = "<group>"; };
 		593B55821CC41DC200B7B254 /* Base64Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Category.h; sourceTree = "<group>"; };
 		593B55831CC41DC200B7B254 /* Base64Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Category.m; sourceTree = "<group>"; };
 		593E7D4B21EF9BDB007CD248 /* MAL_Updater_OS_X_DataModel 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 9.xcdatamodel"; sourceTree = "<group>"; };
@@ -794,6 +797,8 @@
 		5C8ACEB619F409C60001A101 /* Other Classes */ = {
 			isa = PBXGroup;
 			children = (
+				592B8C782236BB63007D43F4 /* NSString+HTMLtoNSAttributedString.h */,
+				592B8C792236BB63007D43F4 /* NSString+HTMLtoNSAttributedString.m */,
 				9106873221061B1D001A93BE /* NSString_stripHtml.h */,
 				9106873321061B1D001A93BE /* NSString_stripHtml.m */,
 				91D116F820BC4BCD006E4271 /* AuthWebView.h */,
@@ -1246,6 +1251,7 @@
 				914EFF1820B8E7E40050B716 /* AniListAuthWindow.m in Sources */,
 				6FAA0C1C1A7E8CE800416079 /* ExceptionsCache.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				592B8C7A2236BB63007D43F4 /* NSString+HTMLtoNSAttributedString.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
 				593B55841CC41DC200B7B254 /* Base64Category.m in Sources */,
 				5C8C22F01A85E80000D2FCC5 /* string_score.c in Sources */,

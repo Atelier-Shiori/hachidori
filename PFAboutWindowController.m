@@ -5,6 +5,8 @@
 //
 
 #import "PFAboutWindowController.h"
+#import <AFNetworking/AFNetworking.h>
+#import "NSString+HTMLtoNSAttributedString.h"
 
 @interface PFAboutWindowController()
 
@@ -28,7 +30,9 @@
 
 /** The button that opens the EULA. */
 @property (assign) IBOutlet NSButton *EULAButton;
-
+    
+@property (strong) IBOutlet NSButton *PatronsButton;
+    
 /** The button that opens the credits. */
 @property (assign) IBOutlet NSButton *creditsButton;
 
@@ -121,7 +125,10 @@
 			NSLog(@"PFAboutWindowController did handle exception: %@",exception);
 		}
 	}
-
+    self.patronsList = [NSAttributedString new];
+    [self generatePatronsList:^(NSAttributedString *patrons) {
+        self.patronsList = patrons;
+    }];
 	[self.textField.textStorage setAttributedString:self.appCopyright];
 	self.creditsButton.title = NSLocalizedString(@"Credits", @"Caption of the 'Credits' button in the about window");
 	self.EULAButton.title = NSLocalizedString(@"License Agreement", @"Caption of the 'License Agreement' button in the about window");
@@ -174,6 +181,19 @@
 	[self.textField.textStorage setAttributedString:self.appCopyright];
     _textField.textColor = self.textColor;
 }
+    
+- (void) showPatrons:(id)sender {
+    if (self.windowState!=1) {
+        CGFloat amountToIncreaseHeight = 100;
+        NSRect oldFrame = [self.window frame];
+        oldFrame.size.height += amountToIncreaseHeight;
+        oldFrame.origin.y -= amountToIncreaseHeight;
+        [self.window setFrame:oldFrame display:YES animate:NSAnimationLinear];
+        self.windowState = 1;
+    }
+    [self.textField.textStorage setAttributedString:self.patronsList];
+    _textField.textColor = self.textColor;
+}
 
 - (IBAction)visitWebsite:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:self.appURL];
@@ -188,6 +208,21 @@
     [super showWindow:sender];
 }
 
+- (void)generatePatronsList:(void (^)(NSAttributedString *patrons)) completionHandler  {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:@"https://patreonlicensing.malupdaterosx.moe/patronslist.php" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSMutableString *tmpstr = [NSMutableString new];
+        [tmpstr appendString:@"<p>Here are the list of Patrons that support the development of our programs:</p><ul>"];
+        for (NSDictionary *patron in responseObject) {
+            [tmpstr appendFormat:@"<li>%@</li>", patron[@"name"]];
+        }
+        [tmpstr appendString:@"</ul><p>You can learn more on how to become a Patron on <a href='https://malupdaterosx.moe'>our website</a></p>"];
+        completionHandler([tmpstr convertHTMLtoAttStr]);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completionHandler([(@"Unable to load Patrons list") convertHTMLtoAttStr]);
+    }];
+}
+    
 #pragma mark - Public Methods
 
 - (id)initWithBackgroundColor:(NSColor*)background titleColor:(NSColor*)title textColor:(NSColor*)text {

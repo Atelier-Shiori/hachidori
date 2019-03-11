@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14306.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PFAboutWindowController">
             <connections>
                 <outlet property="EULAButton" destination="g3a-Su-h5L" id="mxl-ap-ACT"/>
+                <outlet property="PatronsButton" destination="vLf-Py-Zo0" id="UIT-Ga-dNM"/>
                 <outlet property="creditsButton" destination="jVa-hc-yOo" id="L1D-W1-NtB"/>
                 <outlet property="infoView" destination="2" id="Kwd-k6-cGS"/>
                 <outlet property="nameField" destination="EGl-r9-3F1" id="Ie8-A0-K3q"/>
@@ -57,7 +58,7 @@
                                 </connections>
                             </button>
                             <button id="vfk-bf-9S1">
-                                <rect key="frame" x="12" y="31" width="146" height="160"/>
+                                <rect key="frame" x="12" y="48" width="130" height="143"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSApplicationIcon" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Kc3-6V-hfG">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -117,6 +118,17 @@
                                     <binding destination="-2" name="value" keyPath="self.appVersion" id="3vd-zw-C4E"/>
                                 </connections>
                             </textField>
+                            <button verticalHuggingPriority="750" id="vLf-Py-Zo0">
+                                <rect key="frame" x="6" y="10" width="149" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Patrons" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jBK-xu-N5N">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showPatrons:" target="-2" id="Nyq-kg-bej"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </visualEffectView>
                 </subviews>
@@ -124,10 +136,10 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="4"/>
             </connections>
-            <point key="canvasLocation" x="244.5" y="199"/>
+            <point key="canvasLocation" x="-24" y="124"/>
         </window>
     </objects>
     <resources>
-        <image name="NSApplicationIcon" width="128" height="128"/>
+        <image name="NSApplicationIcon" width="32" height="32"/>
     </resources>
 </document>
