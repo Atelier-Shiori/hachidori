@@ -64,10 +64,13 @@
             [tmparray addObjectsFromArray:_other_titles[@"english"]];
             [tmparray addObjectsFromArray:_other_titles[@"japanese"]];
             for (NSString *title in tmparray) {
-                tmpseason = [Utility parseSeason:title];
-                if (tmpseason > 0) {
-                    _parsedseason = tmpseason;
-                    break;
+                @try {
+                    tmpseason = [Utility parseSeason:title];
+                    if (tmpseason > 0) {
+                        _parsedseason = tmpseason;
+                        break;
+                    }
+                } @catch (NSException *exception) {
                 }
             }
         }
