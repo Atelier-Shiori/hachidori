@@ -184,7 +184,7 @@
     [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://anilist.co/"]
                                     clientID:kanilistclient
                                       secret:kanilistsecretkey];
-    [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token" parameters:@{@"grant_type":@"authorization_code", @"code" : pin} success:^(AFOAuthCredential *credential) {
+    [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token" parameters:@{@"grant_type":@"authorization_code", @"code" : pin, @"redirect_uri" : @"hachidoriauth://anilistauth/"} success:^(AFOAuthCredential *credential) {
         // Update your UI
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
         [self showServiceMenuReminder:1];
@@ -217,6 +217,8 @@
                                                    //Login Failed, show error message
                                                    [Utility showsheetmessage:@"Hachidori was unable to log you in since it can't retrieve user metadata." explaination:@"Please try again later." window:self.view.window];
                                                    NSLog(@"%@",error);
+                                                   NSString* errResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
+                                                   NSLog(@"%@",errResponse);
                                                    [_anilistauthorizebtn setEnabled: YES];
                                                    _anilistauthorizebtn.keyEquivalent = @"\r";
                                                    [_anilistloggedinview setHidden:YES];

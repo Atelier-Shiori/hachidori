@@ -698,7 +698,7 @@
                                                                                secret:kanilistsecretkey];
             [OAuth2Manager setUseHTTPBasicAuthentication:NO];
             [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token"
-                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} success:^(AFOAuthCredential *credential) {
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri" : @"hachidoriauth%3A%2F%2Fanilistauth%2F"} success:^(AFOAuthCredential *credential) {
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                                             withIdentifier:@"Hachidori - AniList"];
