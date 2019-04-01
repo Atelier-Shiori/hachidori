@@ -433,7 +433,7 @@
         }
         
     }
-    [MSAnalytics trackEvent:(ScrobblerNothingPlaying||ScrobblerSameEpisodePlaying||ScrobblerUpdateNotNeeded||ScrobblerConfirmNeeded||ScrobblerAddTitleSuccessful||ScrobblerUpdateSuccessful||ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:@{@"detectedTitle" : _lastscrobble.LastScrobbledTitle, @"actualtitle" : _lastscrobble.LastScrobbledActualTitle, @"season" : @(_lastscrobble.DetectedSeason).stringValue, @"source":_lastscrobble.LastScrobbledSource, @"episode" : _lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue}];
+    [MSAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:@{@"detectedTitle" : _lastscrobble.LastScrobbledTitle, @"actualtitle" : _lastscrobble.LastScrobbledActualTitle, @"season" : @(_lastscrobble.DetectedSeason).stringValue, @"source":_lastscrobble.LastScrobbledSource, @"episode" : _lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue}];
     NSLog(@"Scrobble Complete with Status Code: %i", status);
     NSLog(@"=============");
     // Release Detected Title/Episode.
