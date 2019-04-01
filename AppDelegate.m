@@ -241,6 +241,7 @@
     defaultValues[@"multiscrobblescorrectionsenabled"] = @NO;
     defaultValues[@"multiscrobbleanilistenabled"] = @NO;
     defaultValues[@"multiscrobblekitsuenabled"] = @NO;
+    defaultValues[@"sendanalytics"] = @YES;
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -277,6 +278,8 @@
                                                                               [MSAnalytics class],
                                                                               [MSCrashes class]
                                                                               ]];
+    [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
 	haengine.managedObjectContext = managedObjectContext;

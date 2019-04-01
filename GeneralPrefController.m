@@ -12,6 +12,8 @@
 #import "AnimeRelations.h"
 #import "NSBundle+LoginItem.h"
 
+@import AppCenterAnalytics;
+@import AppCenterCrashes;
 
 @implementation GeneralPrefController
 
@@ -170,5 +172,12 @@
         [delegate stoptimer];
         [delegate starttimer];
     }
+}
+- (IBAction)sendstatstoggle:(id)sender {
+        [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+        [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+}
+- (IBAction)viewprivacypolicy:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://malupdaterosx.moe/hachidori/privacy-policy/"]];
 }
 @end

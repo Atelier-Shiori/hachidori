@@ -11,6 +11,9 @@
 #import <DonationCheck_KeyOnly/DonationKeyVerify.h>
 #import "PatreonLicenseManager.h"
 
+@import AppCenterAnalytics;
+@import AppCenterCrashes;
+
 @implementation Utility
 + (int)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
@@ -85,6 +88,7 @@
                 [self showsheetmessage:NSLocalizedString(@"Donation Key Error",nil) explaination:NSLocalizedString(@"This key has been revoked. Please contact the author of this program or enter a valid key.",nil) window:nil];
                 [self showDonateReminder:delegate];
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"donated"];
+                [self resetAnalyticsSettings];
             }
         }];
         return;
@@ -439,5 +443,12 @@
 
 + (void)deactivatePatreonLicense:(AppDelegate *)delegate {
     [[PatreonLicenseManager sharedInstance] removeLicense];
+    [self resetAnalyticsSettings];
+}
+
++ (void)resetAnalyticsSettings {
+    [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"sendanalytics"];
+    [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 }
 @end
