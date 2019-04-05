@@ -421,6 +421,9 @@
     // Temporarily disable MAL Sync
     [defaults setBool:FALSE forKey:@"MALSyncEnabled"];
     _servicenamemenu.enabled = NO;
+    
+    [MSAnalytics trackEvent:@"App Loaded" withProperties:@{@"donated" : [NSUserDefaults.standardUserDefaults boolForKey:@"donated"] ? @"YES" : @"NO"}];
+    
 }
 
 - (void)dealloc {
