@@ -420,7 +420,7 @@
         if (online) {
             // Not Successful
             NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", _detectedscrobble.DetectedTitle);
-            [MSAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle, @"group" : self.detectedscrobble.DetectedGroup, @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource, @"service" : [Hachidori currentServiceName]}];
+            [MSAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
             // Used for Exception Adding
             _detectedscrobble.FailedTitle = _detectedscrobble.DetectedTitle;
             _detectedscrobble.FailedEpisode = _detectedscrobble.DetectedEpisode;
