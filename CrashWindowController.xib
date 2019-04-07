@@ -18,14 +18,14 @@
         <window title="Error Reporting" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="1056" y="634" width="454" height="285"/>
+            <rect key="contentRect" x="1056" y="634" width="454" height="293"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="454" height="285"/>
+                <rect key="frame" x="0.0" y="0.0" width="454" height="293"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yc-uk-f4b">
-                        <rect key="frame" x="80" y="256" width="191" height="17"/>
+                        <rect key="frame" x="80" y="264" width="191" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Now that was embarassing..." id="MCb-FP-bVN">
                             <font key="font" metaFont="systemBold"/>
@@ -34,12 +34,12 @@
                         </textFieldCell>
                     </textField>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pEX-wP-gG7">
-                        <rect key="frame" x="11" y="210" width="63" height="63"/>
+                        <rect key="frame" x="11" y="218" width="63" height="63"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="Su9-G9-ded"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHg-SN-4mf">
-                        <rect key="frame" x="82" y="197" width="354" height="51"/>
+                        <rect key="frame" x="82" y="205" width="354" height="51"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" selectable="YES" title="Hachidori unfortinately crashed. You can help us solve this bug by providing some information." id="AOm-2t-68U">
                             <font key="font" metaFont="system"/>
@@ -48,7 +48,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wTY-9I-KaQ">
-                        <rect key="frame" x="23" y="185" width="333" height="17"/>
+                        <rect key="frame" x="23" y="193" width="333" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Describe what happened before the program crashed:" id="gSu-9J-dH3">
                             <font key="font" metaFont="system"/>
@@ -57,7 +57,7 @@
                         </textFieldCell>
                     </textField>
                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66U-Nz-icx">
-                        <rect key="frame" x="25" y="83" width="409" height="94"/>
+                        <rect key="frame" x="25" y="91" width="409" height="94"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="gjk-YW-TZm">
                             <rect key="frame" x="0.0" y="0.0" width="394" height="94"/>
@@ -69,7 +69,7 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="394" height="94"/>
-                                    <size key="maxSize" width="394" height="10000000"/>
+                                    <size key="maxSize" width="409" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
@@ -83,16 +83,8 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxf-ys-pK2">
-                        <rect key="frame" x="23" y="22" width="190" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Include Hachidori.log" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jjR-e2-gPa">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="00e-zc-VC4">
-                        <rect key="frame" x="364" y="13" width="71" height="32"/>
+                        <rect key="frame" x="364" y="11" width="71" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Send" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vSf-S4-dGU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -106,7 +98,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nip-yS-1Aq">
-                        <rect key="frame" x="280" y="13" width="79" height="32"/>
+                        <rect key="frame" x="280" y="11" width="79" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Ignore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0yj-uB-nci">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -117,7 +109,7 @@ DQ
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dPl-gI-dZQ">
-                        <rect key="frame" x="23" y="49" width="418" height="26"/>
+                        <rect key="frame" x="23" y="57" width="418" height="26"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" selectable="YES" title="By including the Hachidori.log, we can figure out the issue easier." id="WDc-Ih-jfW">
                             <font key="font" metaFont="system"/>
@@ -125,12 +117,31 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5m6-dc-sgM">
+                        <rect key="frame" x="19" y="10" width="125" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Privacy Policy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iPz-cx-z77">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="privacypolicy:" target="-2" id="AsB-X3-sRb"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxf-ys-pK2">
+                        <rect key="frame" x="23" y="43" width="190" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Include Hachidori.log" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jjR-e2-gPa">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="128" y="154.5"/>
+            <point key="canvasLocation" x="128" y="158.5"/>
         </window>
     </objects>
     <resources>

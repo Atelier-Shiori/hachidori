@@ -43,6 +43,8 @@
 		594F0A2321E65800001875AF /* Scrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A2221E65800001875AF /* Scrobble.m */; };
 		59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */; };
 		59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9E21ED1952004A52CE /* SyncPrefs.m */; };
+		59AFD124225A2F460044C8DA /* CrashWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59AFD122225A2F460044C8DA /* CrashWindowController.xib */; };
+		59AFD125225A2F460044C8DA /* CrashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD123225A2F460044C8DA /* CrashWindowController.m */; };
 		59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; };
 		59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 59D5037A1CB016840002532D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		59D5ACDF2235743400FAE0CA /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D5ACDC2235743400FAE0CA /* AppCenterCrashes.framework */; };
@@ -251,6 +253,9 @@
 		59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HachidoriTwitterManager.m; sourceTree = "<group>"; };
 		59A38E9D21ED1952004A52CE /* SyncPrefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPrefs.h; sourceTree = "<group>"; };
 		59A38E9E21ED1952004A52CE /* SyncPrefs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncPrefs.m; sourceTree = "<group>"; };
+		59AFD121225A2F460044C8DA /* CrashWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashWindowController.h; sourceTree = "<group>"; };
+		59AFD122225A2F460044C8DA /* CrashWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CrashWindowController.xib; sourceTree = "<group>"; };
+		59AFD123225A2F460044C8DA /* CrashWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashWindowController.m; sourceTree = "<group>"; };
 		59D5037A1CB016840002532D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		59D5ACDC2235743400FAE0CA /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterCrashes.framework; sourceTree = "<group>"; };
 		59D5ACDD2235743400FAE0CA /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenter.framework; sourceTree = "<group>"; };
@@ -737,6 +742,16 @@
 			path = UpdateManager;
 			sourceTree = "<group>";
 		};
+		59AFD120225A2F380044C8DA /* CrashWindowController */ = {
+			isa = PBXGroup;
+			children = (
+				59AFD121225A2F460044C8DA /* CrashWindowController.h */,
+				59AFD123225A2F460044C8DA /* CrashWindowController.m */,
+				59AFD122225A2F460044C8DA /* CrashWindowController.xib */,
+			);
+			name = CrashWindowController;
+			sourceTree = "<group>";
+		};
 		59D5ACDB2235740D00FAE0CA /* AppCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -768,6 +783,7 @@
 		5C07DA691A815C2C0003A827 /* Window Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				59AFD120225A2F380044C8DA /* CrashWindowController */,
 				914EFF1420B8E7CF0050B716 /* AniList Auth */,
 				2D7CD47A1F2109C700171028 /* PFAboutWindowController.h */,
 				2D7CD47B1F2109C700171028 /* PFAboutWindowController.m */,
@@ -1185,6 +1201,7 @@
 				6FBA5A0D1ABE486500B6DB79 /* AdvancedPrefController.xib in Resources */,
 				6F0F84A41B3469A800EEEC32 /* hachidori.sdef in Resources */,
 				8294C45E19F99B2F009DE98B /* Images.xcassets in Resources */,
+				59AFD124225A2F460044C8DA /* CrashWindowController.xib in Resources */,
 				8249249F1A184C4200A01761 /* FixSearchDialog.xib in Resources */,
 				9126068320BEEFE20052CB30 /* SocialPrefController.xib in Resources */,
 				5C07DA721A815F4B0003A827 /* HistoryWindow.xib in Resources */,
@@ -1306,6 +1323,7 @@
 				2DDFFEE11EEEE4AF00EB1509 /* StatusUpdateWindow.m in Sources */,
 				8245D7641A8B27AA00B1ED73 /* Hachidori+Update.m in Sources */,
 				91D116FF20BC7D43006E4271 /* Hachidori+userinfo.m in Sources */,
+				59AFD125225A2F460044C8DA /* CrashWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

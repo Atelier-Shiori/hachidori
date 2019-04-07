@@ -34,5 +34,8 @@
     [NSApp stopModalWithCode:0];
     [self.window close];
 }
+- (IBAction)privacypolicy:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://malupdaterosx.moe/hachidori/privacy-policy/"]];
+}
 
 @end
