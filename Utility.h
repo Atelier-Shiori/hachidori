@@ -48,4 +48,5 @@ typedef NS_ENUM(unsigned int, matchtype) {
 + (bool)checkBeta;
 + (void)patreonDonateCheck:(AppDelegate*)delegate;
 + (void)deactivatePatreonLicense:(AppDelegate *)delegate;
++ (NSString *)retrieveApplicationSupportDirectory:(NSString*)append;
 @end

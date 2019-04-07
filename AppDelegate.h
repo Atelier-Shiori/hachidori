@@ -9,6 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import <AFNetworking/AFOAuth2Manager.h>
 
+@import AppCenter;
+@import AppCenterAnalytics;
+@import AppCenterCrashes;
+
 @class Hachidori;
 @class FixSearchDialog;
 @class HistoryWindow;
@@ -26,7 +30,7 @@
 @class PatreonController;
 #endif
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, NSSharingServiceDelegate, MSCrashesDelegate> {
     NSManagedObjectModel *managedObjectModel;
 	NSManagedObjectContext *managedObjectContext;
 	NSPersistentStoreCoordinator *persistentStoreCoordinator;

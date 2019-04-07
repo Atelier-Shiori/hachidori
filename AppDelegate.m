@@ -5,9 +5,6 @@
 //  Created by James M. on 8/7/10.
 //  Copyright 2009-2018 MAL Updater OS X Group and James Moy All rights reserved. Code licensed under New BSD License
 //
-@import AppCenter;
-@import AppCenterAnalytics;
-@import AppCenterCrashes;
 
 #import "AppDelegate.h"
 #import "Hachidori.h"
@@ -35,6 +32,11 @@
 #import "AniListScoreConvert.h"
 #import "PatreonController.h"
 #import "PatreonLicenseManager.h"
+#import "CrashWindowController.h"
+
+@interface AppDelegate ()
+@property (strong) CrashWindowController *cwincontroller;
+@end
 
 @implementation AppDelegate
 
@@ -278,6 +280,7 @@
                                                                               [MSAnalytics class],
                                                                               [MSCrashes class]
                                                                               ]];
+    [MSCrashes setDelegate:self];
     [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
     [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 	// Initialize haengine
@@ -428,6 +431,44 @@
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
+- (BOOL)crashes:(MSCrashes *)crashes shouldProcessErrorReport:(MSErrorReport *)errorReport {
+    __block bool send = false;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _cwincontroller = [CrashWindowController new];
+        if ([NSApp runModalForWindow:_cwincontroller.window]) {
+            send = true;
+        }
+        dispatch_semaphore_signal(sema);
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    return send;
+}
+
+- (NSArray<MSErrorAttachmentLog *> *)attachmentsWithCrashes:(MSCrashes *)crashes forErrorReport:(MSErrorReport *)errorReport {
+    NSString *log = [NSString stringWithContentsOfFile:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"] encoding:NSUTF8StringEncoding error:NULL];
+    __block NSString *additionalInfo = @"";
+    __block bool sendlog;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        sendlog = _cwincontroller.includelog.state;
+        additionalInfo = _cwincontroller.commentstextview.string;
+        dispatch_semaphore_signal(sema);
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    NSString *finalstring = [NSString stringWithFormat:@"Comments: \n%@\n\n Log:\n%@", additionalInfo, log && sendlog ? log : @"Log file not included"];
+    MSErrorAttachmentLog *attach1 = [MSErrorAttachmentLog attachmentWithText:finalstring filename:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"]];
+    return @[attach1];
+}
+
+- (void)crashes:(MSCrashes *)crashes didSucceedSendingErrorReport:(MSErrorReport *)errorReport {
+    [self showNotification:@"Crash Report Sent" message:@"Thanks for reporting an issue." withIdentifier:[NSString stringWithFormat:@"error-%f", NSDate.date.timeIntervalSince1970]];
+}
+
+- (void)crashes:(MSCrashes *)crashes didFailSendingErrorReport:(MSErrorReport *)errorReport withError:(NSError *)error {
+    [self showNotification:@"Crash Report Fauked" message:@"Couldn't send crash report." withIdentifier:[NSString stringWithFormat:@"error-%f", NSDate.date.timeIntervalSince1970]];
 }
 
 - (void)recievedNotification:(NSNotification *)notification {
