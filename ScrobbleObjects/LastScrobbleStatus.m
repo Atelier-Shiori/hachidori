@@ -10,9 +10,9 @@
 
 @implementation LastScrobbleStatus
 - (void)transferDetectedScrobble:(DetectedScrobbleStatus *)detected {
-    _LastScrobbledTitle = detected.DetectedTitle;
-    _LastScrobbledEpisode = detected.DetectedEpisode;
-    _LastScrobbledSource = detected.DetectedSource;
+    self.LastScrobbledTitle = detected.DetectedTitle;
+    self.LastScrobbledEpisode = detected.DetectedEpisode;
+    self.LastScrobbledSource = detected.DetectedSource;
     self.DetectedCurrentEpisode = detected.DetectedCurrentEpisode;
     self.LastScrobbledInfo = detected.LastScrobbledInfo;
     self.LastScrobbledTitleNew = detected.LastScrobbledTitleNew;

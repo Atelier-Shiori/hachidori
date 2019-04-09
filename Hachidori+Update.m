@@ -54,7 +54,6 @@
     else {
         int status = [self performupdate:titleid withService:(int)[Hachidori currentService]];
         if (status == ScrobblerAddTitleSuccessful || status == ScrobblerUpdateSuccessful) {
-            [self setLastScrobble];
             [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:titleid];
         }
         return status;
@@ -149,6 +148,5 @@
         default:
             break;
     }
-    [self setLastScrobble];
 }
 @end

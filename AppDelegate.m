@@ -385,7 +385,6 @@
     _servicemenu.actionblock = ^(int selected, int previousservice) {
         [weakself.haengine setNotifier];
         [weakself showNotification:@"Changed Services" message:[NSString stringWithFormat:@"Now using %@", [Hachidori currentServiceName]] withIdentifier:@"servicechanged"];
-        [weakself.haengine switchScrobbleStatus];
         if (!weakself.haengine.lastscrobble) {
             [weakself resetUI];
         }

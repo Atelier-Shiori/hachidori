@@ -73,8 +73,6 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 @property (strong) Detection *detection;
 @property (strong) HachidoriTwitterManager *twittermanager;
 @property (strong) DiscordManager *discordmanager;
-@property (strong) DetectedScrobbleStatus *detectedscrobble;
-@property (strong) LastScrobbleStatus *lastscrobble;
 @property (strong) AniListUpdateManager *anilistmanager;
 @property (strong) KitsuUpdateManager *kitsumanager;
 
@@ -95,11 +93,18 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler;
 - (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service;
 - (void)resetinfo;
-- (void)setLastScrobble;
-- (void)switchScrobbleStatus;
 - (int)getUserRatingType;
 - (void)setNotifier;
 - (void)sendDiscordPresence:(LastScrobbleStatus *)lscrobble;
 // Unit Testing Only
 - (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type;
+
+// Scrobble Status
+- (DetectedScrobbleStatus *)getDetectedScrobbleForService:(int)service;
+- (void)setDetectedScrobbleStatus:(DetectedScrobbleStatus *)dscrobble withService:(int)service;
+- (LastScrobbleStatus *)getLastScrobbleForService:(int)service;
+- (void)setLastScrobbleStatus:(LastScrobbleStatus *)lscrobble withService:(int)service;
+- (void)resetDetected;
+- (LastScrobbleStatus *)lastscrobble;
+- (DetectedScrobbleStatus *)detectedscrobble;
 @end

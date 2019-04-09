@@ -101,6 +101,69 @@
     }
 }
 
+- (DetectedScrobbleStatus *)getDetectedScrobbleForService:(int)service {
+    switch (service) {
+        case 0: // Kitsu
+            return _kitsumanager.detectedscrobble;
+        case 1:
+            return _anilistmanager.detectedscrobble;
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (void)setDetectedScrobbleStatus:(DetectedScrobbleStatus *)dscrobble withService:(int)service {
+    switch (service) {
+        case 0: // Kitsu
+            _kitsumanager.detectedscrobble = dscrobble;
+            break;
+        case 1:
+            _anilistmanager.detectedscrobble = dscrobble;
+            break;
+        default:
+            break;
+    }
+}
+
+- (LastScrobbleStatus *)getLastScrobbleForService:(int)service {
+    switch (service) {
+        case 0: // Kitsu
+            return _kitsumanager.lastscrobble;
+        case 1:
+            return _anilistmanager.lastscrobble;
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (void)setLastScrobbleStatus:(LastScrobbleStatus *)lscrobble withService:(int)service {
+    switch (service) {
+        case 0: // Kitsu
+            _kitsumanager.lastscrobble = lscrobble;
+            break;
+        case 1:
+            _anilistmanager.lastscrobble = lscrobble;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)resetDetected {
+    _kitsumanager.detectedscrobble = nil;
+    _anilistmanager.detectedscrobble = nil;
+}
+
+- (LastScrobbleStatus *)lastscrobble {
+    return [self getLastScrobbleForService:(int)[Hachidori currentService]];
+}
+
+- (DetectedScrobbleStatus *)detectedscrobble {
+    return [self getDetectedScrobbleForService:(int)[Hachidori currentService]];
+}
+
 - (void)receiveSocialNotification:(NSNotification *)notification {
     LastScrobbleStatus *lscrobbled = notification.object;
     if (lscrobbled) {
@@ -202,7 +265,7 @@
             //_DetectedGroup = nil;
             //_DetectedType = nil;
             //_DetectedSeason = 0;
-            if (_lastscrobble.confirmed) {
+            if (self.lastscrobble.confirmed) {
                 [self clearDetectedScrobbled];
             }
             // Reset correcting Value
@@ -218,13 +281,13 @@
                                             insertNewObjectForEntityForName:@"OfflineQueue"
                                             inManagedObjectContext: managedObjectContext];
                     // Set values in the new record
-                    [obj setValue:_detectedscrobble.DetectedTitle forKey:@"detectedtitle"];
-                    [obj setValue:_detectedscrobble.DetectedEpisode forKey:@"detectedepisode"];
-                    [obj setValue:_detectedscrobble.DetectedType forKey:@"detectedtype"];
-                    [obj setValue:_detectedscrobble.DetectedSource forKey:@"source"];
-                    [obj setValue:@(_detectedscrobble.DetectedSeason) forKey:@"detectedseason"];
-                    [obj setValue:@(_detectedscrobble.DetectedTitleisMovie) forKey:@"ismovie"];
-                    [obj setValue:@(_detectedscrobble.DetectedTitleisEpisodeZero) forKey:@"iszeroepisode"];
+                    [obj setValue:self.detectedscrobble.DetectedTitle forKey:@"detectedtitle"];
+                    [obj setValue:self.detectedscrobble.DetectedEpisode forKey:@"detectedepisode"];
+                    [obj setValue:self.detectedscrobble.DetectedType forKey:@"detectedtype"];
+                    [obj setValue:self.detectedscrobble.DetectedSource forKey:@"source"];
+                    [obj setValue:@(self.detectedscrobble.DetectedSeason) forKey:@"detectedseason"];
+                    [obj setValue:@(self.detectedscrobble.DetectedTitleisMovie) forKey:@"ismovie"];
+                    [obj setValue:@(self.detectedscrobble.DetectedTitleisEpisodeZero) forKey:@"iszeroepisode"];
                     [obj setValue:@23 forKey:@"status"];
                     [obj setValue:@NO forKey:@"scrobbled"];
                     [obj setValue:@([Hachidori currentService]) forKey:@"service"];
@@ -233,14 +296,14 @@
                 }];
             }
             // Store Last Scrobbled Title
-            _lastscrobble = [LastScrobbleStatus new];
-            [_lastscrobble transferDetectedScrobble:_detectedscrobble];
-            //_LastScrobbledTitle = _DetectedTitle;
-            //_LastScrobbledEpisode = _DetectedEpisode;
+            [self setLastScrobbleStatus:[LastScrobbleStatus new] withService:[Hachidori currentService]];
+            [self.lastscrobble transferDetectedScrobble:self.detectedscrobble];
+            //self.lastscrobbledTitle = _DetectedTitle;
+            //self.lastscrobbledEpisode = _DetectedEpisode;
             //_DetectedCurrentEpisode = _DetectedEpisode.intValue;
-            //_LastScrobbledSource = _DetectedSource;
-            //_LastScrobbledActualTitle = _DetectedTitle;
-            _lastscrobble.confirmed = true;
+            //self.lastscrobbledSource = _DetectedSource;
+            //self.lastscrobbledActualTitle = _DetectedTitle;
+            self.lastscrobble.confirmed = true;
             // Reset Detected Info
             [self clearDetectedScrobbled];
             //_DetectedTitle = nil;
@@ -274,14 +337,14 @@
     if (queue.count > 0) {
         for (NSManagedObject * item in queue) {
             // Restore detected title and episode from coredata
-            [self setDetectScrobble:[DetectedScrobbleStatus new]];
-            _detectedscrobble.DetectedTitle = [item valueForKey:@"detectedtitle"];
-            _detectedscrobble.DetectedEpisode = [item valueForKey:@"detectedepisode"];
-            _detectedscrobble.DetectedSource = [item valueForKey:@"source"];
-            _detectedscrobble.DetectedType = [item valueForKey:@"detectedtype"];
-            _detectedscrobble.DetectedSeason = [[item valueForKey:@"detectedseason"] intValue];
-            _detectedscrobble.DetectedTitleisMovie = [[item valueForKey:@"ismovie"] boolValue];
-            _detectedscrobble.DetectedTitleisEpisodeZero = [[item valueForKey:@"iszeroepisode"] boolValue];
+            [self setDetectedScrobbleStatus:[DetectedScrobbleStatus new] withService:[Hachidori currentService]];
+            self.detectedscrobble.DetectedTitle = [item valueForKey:@"detectedtitle"];
+            self.detectedscrobble.DetectedEpisode = [item valueForKey:@"detectedepisode"];
+            self.detectedscrobble.DetectedSource = [item valueForKey:@"source"];
+            self.detectedscrobble.DetectedType = [item valueForKey:@"detectedtype"];
+            self.detectedscrobble.DetectedSeason = [[item valueForKey:@"detectedseason"] intValue];
+            self.detectedscrobble.DetectedTitleisMovie = [[item valueForKey:@"ismovie"] boolValue];
+            self.detectedscrobble.DetectedTitleisEpisodeZero = [[item valueForKey:@"iszeroepisode"] boolValue];
             int result = [self scrobble];
             bool scrobbled;
             NSManagedObject * record = [self checkifexistinqueue];
@@ -324,29 +387,29 @@
 }
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)correctonce{
     _correcting = true;
-    if (!_detectedscrobble.FailedSource) {
-        [self setDetectScrobble:[DetectedScrobbleStatus new]];
+    if (!self.detectedscrobble.FailedSource) {
+        [self setDetectedScrobbleStatus:[DetectedScrobbleStatus new] withService:[Hachidori currentService]];
     }
     NSString * lasttitle;
     if (correctonce) {
-        lasttitle = _lastscrobble.LastScrobbledTitle;
+        lasttitle = self.lastscrobble.LastScrobbledTitle;
     }
     
-    _detectedscrobble.DetectedTitle = showtitle;
-    _detectedscrobble.DetectedEpisode = episode;
-    _detectedscrobble.DetectedSeason = !_detectedscrobble.FailedSource ? _detectedscrobble.FailedSeason : _lastscrobble.DetectedSeason;
-    if (!_detectedscrobble.FailedSource) {
-        _detectedscrobble.DetectedSource = _lastscrobble.LastScrobbledSource;
+    self.detectedscrobble.DetectedTitle = showtitle;
+    self.detectedscrobble.DetectedEpisode = episode;
+    self.detectedscrobble.DetectedSeason = !self.detectedscrobble.FailedSource ? self.detectedscrobble.FailedSeason : self.lastscrobble.DetectedSeason;
+    if (!self.detectedscrobble.FailedSource) {
+        self.detectedscrobble.DetectedSource = self.lastscrobble.LastScrobbledSource;
     }
     else {
-        _detectedscrobble.DetectedSource = _detectedscrobble.FailedSource;
+        self.detectedscrobble.DetectedSource = self.detectedscrobble.FailedSource;
     }
     // Check Exceptions
     [self checkExceptions];
     // Scrobble and return status code
     int status = [self scrobble];
     if (correctonce) {
-        //_LastScrobbledTitle = lasttitle; //Set the Last Scrobbled Title to exact title.
+        //self.lastscrobbledTitle = lasttitle; //Set the Last Scrobbled Title to exact title.
     }
     return status;
 }
@@ -364,32 +427,32 @@
         // Check Cache
         NSString *theid = [self checkCache];
         if (theid.length == 0)
-            _detectedscrobble.AniID = [self searchanime]; // Not in cache, search
+            self.detectedscrobble.AniID = [self searchanime]; // Not in cache, search
         else {
-            _detectedscrobble.AniID = theid; // Set cached show id as AniID
+            self.detectedscrobble.AniID = theid; // Set cached show id as AniID
             //If Detected Episode is missing, set it to 1 for sanity
-            if (_detectedscrobble.DetectedEpisode.length == 0) {
-                _detectedscrobble.DetectedEpisode = @"1";
+            if (self.detectedscrobble.DetectedEpisode.length == 0) {
+                self.detectedscrobble.DetectedEpisode = @"1";
             }
         }
     }
     else {
-        _detectedscrobble.AniID = [self searchanime]; // Search Cache Disabled
+        self.detectedscrobble.AniID = [self searchanime]; // Search Cache Disabled
     }
-    if (_detectedscrobble.AniID.length > 0 && [self hasUserInfoCurrentService]) {
-        NSLog(@"Found %@", _detectedscrobble.AniID);
+    if (self.detectedscrobble.AniID.length > 0 && [self hasUserInfoCurrentService]) {
+        NSLog(@"Found %@", self.detectedscrobble.AniID);
         [MSAnalytics trackEvent:@"Found ID." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle, @"group" : self.detectedscrobble.DetectedGroup, @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource, @"titleid" : self.detectedscrobble.AniID, @"service" : [Hachidori currentServiceName]}];
         // Nil out Failed Title and Episode
-        //_detectedscrobble.FailedTitle = nil;
-        //_detectedscrobble.FailedEpisode = nil;
-        //_detectedscrobble.FailedSource = nil;
-        //_detectedscrobble.FailedSeason = 0;
+        //self.detectedscrobble.FailedTitle = nil;
+        //self.detectedscrobble.FailedEpisode = nil;
+        //self.detectedscrobble.FailedSource = nil;
+        //self.detectedscrobble.FailedSeason = 0;
         // Check Status and Update
-        BOOL UpdateBool = [self checkstatus:_detectedscrobble.AniID withService:(int)[Hachidori currentService]];
+        BOOL UpdateBool = [self checkstatus:self.detectedscrobble.AniID withService:(int)[Hachidori currentService]];
         if (UpdateBool == 1) {
-            if (_detectedscrobble.LastScrobbledTitleNew) {
+            if (self.detectedscrobble.LastScrobbledTitleNew) {
                 //Title is not on list. Add Title
-                int s = [self updatetitle:_detectedscrobble.AniID];
+                int s = [self updatetitle:self.detectedscrobble.AniID];
                 if (s == ScrobblerAddTitleSuccessful || s == ScrobblerConfirmNeeded) {
                     _Success = true;}
                 else {
@@ -398,7 +461,7 @@
             }
             else {
                 // Update Title as Usual
-                int s = [self updatetitle:_detectedscrobble.AniID];
+                int s = [self updatetitle:self.detectedscrobble.AniID];
                 if (s == ScrobblerUpdateNotNeeded || s == ScrobblerConfirmNeeded ||s == ScrobblerUpdateSuccessful ) {
                     _Success = true;
                 }
@@ -419,13 +482,13 @@
     else {
         if (online) {
             // Not Successful
-            NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", _detectedscrobble.DetectedTitle);
+            NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", self.detectedscrobble.DetectedTitle);
             [MSAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
             // Used for Exception Adding
-            _detectedscrobble.FailedTitle = _detectedscrobble.DetectedTitle;
-            _detectedscrobble.FailedEpisode = _detectedscrobble.DetectedEpisode;
-            _detectedscrobble.FailedSource = _detectedscrobble.DetectedSource;
-            _detectedscrobble.FailedSeason = _detectedscrobble.DetectedSeason;
+            self.detectedscrobble.FailedTitle = self.detectedscrobble.DetectedTitle;
+            self.detectedscrobble.FailedEpisode = self.detectedscrobble.DetectedEpisode;
+            self.detectedscrobble.FailedSource = self.detectedscrobble.DetectedSource;
+            self.detectedscrobble.FailedSeason = self.detectedscrobble.DetectedSeason;
             status = ScrobblerTitleNotFound;
         }
         else {
@@ -433,7 +496,7 @@
         }
         
     }
-    [MSAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:_lastscrobble ? @{@"detectedTitle" : _lastscrobble.LastScrobbledTitle, @"actualtitle" : _lastscrobble.LastScrobbledActualTitle, @"season" : @(_lastscrobble.DetectedSeason).stringValue, @"source":_lastscrobble.LastScrobbledSource, @"episode" : _lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue, @"service" : [Hachidori currentServiceName]} : @{ @"status" : @(status).stringValue, @"detectedTitle" : _detectedscrobble.DetectedTitle, @"source" : _detectedscrobble.DetectedSource, @"service" : [Hachidori currentServiceName] }];
+    [MSAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:self.lastscrobble ? @{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource, @"episode" : self.lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue, @"service" : [Hachidori currentServiceName]} : @{ @"status" : @(status).stringValue, @"detectedTitle" : self.detectedscrobble.DetectedTitle, @"source" : self.detectedscrobble.DetectedSource, @"service" : [Hachidori currentServiceName] }];
     NSLog(@"Scrobble Complete with Status Code: %i", status);
     NSLog(@"=============");
     // Release Detected Title/Episode.
@@ -441,12 +504,12 @@
 }
 - (NSDictionary *)runUnitTest:(NSString *)title episode:(NSString *)episode season:(int)season group:(NSString *)group type:(NSString *)type{
     //For unit testing only
-    [self setDetectScrobble:[DetectedScrobbleStatus new]];
-    _detectedscrobble.DetectedTitle = title;
-    _detectedscrobble.DetectedEpisode = episode;
-    _detectedscrobble.DetectedSeason = season;
-    _detectedscrobble.DetectedGroup = group;
-    _detectedscrobble.DetectedType = type;
+    [self setDetectedScrobbleStatus:[DetectedScrobbleStatus new] withService:[Hachidori currentService]];
+    self.detectedscrobble.DetectedTitle = title;
+    self.detectedscrobble.DetectedEpisode = episode;
+    self.detectedscrobble.DetectedSeason = season;
+    self.detectedscrobble.DetectedGroup = group;
+    self.detectedscrobble.DetectedType = type;
     _unittesting = true;
     //Check for zero episode as the detected episode
     [self.detectedscrobble checkzeroEpisode];
@@ -463,23 +526,23 @@
 - (int)populatevalues:(NSDictionary *) result{
     if (result !=nil) {
         //Populate Data
-        [self setDetectScrobble:[DetectedScrobbleStatus new]];
-        _detectedscrobble.DetectedTitle = result[@"detectedtitle"];
-        _detectedscrobble.DetectedEpisode = result[@"detectedepisode"];
-        _detectedscrobble.DetectedSeason = ((NSNumber *)result[@"detectedseason"]).intValue;
-        _detectedscrobble.DetectedGroup = result[@"group"];
-        _detectedscrobble.DetectedSource = result[@"detectedsource"];
+        [self setDetectedScrobbleStatus:[DetectedScrobbleStatus new] withService:[Hachidori currentService]];
+        self.detectedscrobble.DetectedTitle = result[@"detectedtitle"];
+        self.detectedscrobble.DetectedEpisode = result[@"detectedepisode"];
+        self.detectedscrobble.DetectedSeason = ((NSNumber *)result[@"detectedseason"]).intValue;
+        self.detectedscrobble.DetectedGroup = result[@"group"];
+        self.detectedscrobble.DetectedSource = result[@"detectedsource"];
         if (((NSArray *)result[@"types"]).count > 0) {
-            _detectedscrobble.DetectedType = (result[@"types"])[0];
+            self.detectedscrobble.DetectedType = (result[@"types"])[0];
         }
         else {
-            _detectedscrobble.DetectedType = @"";
+            self.detectedscrobble.DetectedType = @"";
         }
         //Check for zero episode as the detected episode
         [self.detectedscrobble checkzeroEpisode];
         // Check if the title was previously scrobbled
         [self checkExceptions];
-        if ([_detectedscrobble.DetectedTitle isEqualToString:_lastscrobble.LastScrobbledTitle] && ([_detectedscrobble.DetectedEpisode isEqualToString: _lastscrobble.LastScrobbledEpisode]||[self checkBlankDetectedEpisode]) && _Success == 1) {
+        if ([self.detectedscrobble.DetectedTitle isEqualToString:self.lastscrobble.LastScrobbledTitle] && ([self.detectedscrobble.DetectedEpisode isEqualToString: self.lastscrobble.LastScrobbledEpisode]||[self checkBlankDetectedEpisode]) && _Success == 1) {
             // Do Nothing
             return ScrobblerSameEpisodePlaying;
         }
@@ -494,18 +557,18 @@
 
 }
 - (BOOL)checkBlankDetectedEpisode{
-    return [_lastscrobble.LastScrobbledEpisode isEqualToString:@"1"] && _detectedscrobble.DetectedEpisode.length == 0;
+    return [self.lastscrobble.LastScrobbledEpisode isEqualToString:@"1"] && self.detectedscrobble.DetectedEpisode.length == 0;
 }
 - (BOOL)confirmupdate {
     NSLog(@"=============");
-    NSLog(@"Confirming: %@ - %@",_lastscrobble.LastScrobbledActualTitle, _lastscrobble.LastScrobbledEpisode);
-    [MSAnalytics trackEvent:@"Confirming title." withProperties:@{@"detectedTitle" : _lastscrobble.LastScrobbledTitle, @"actualtitle" : _lastscrobble.LastScrobbledActualTitle, @"season" : @(_lastscrobble.DetectedSeason).stringValue, @"source":_lastscrobble.LastScrobbledSource, @"episode" : _lastscrobble.LastScrobbledEpisode, @"service" : [Hachidori currentServiceName]}];
-    int status = [self performupdate:_detectedscrobble.AniID withService:(int)[Hachidori currentService]];
+    NSLog(@"Confirming: %@ - %@",self.lastscrobble.LastScrobbledActualTitle, self.lastscrobble.LastScrobbledEpisode);
+    [MSAnalytics trackEvent:@"Confirming title." withProperties:@{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource, @"episode" : self.lastscrobble.LastScrobbledEpisode, @"service" : [Hachidori currentServiceName]}];
+    int status = [self performupdate:self.detectedscrobble.AniID withService:(int)[Hachidori currentService]];
     switch (status) {
         case ScrobblerAddTitleSuccessful:
         case ScrobblerUpdateSuccessful:
             // Clear Detected Episode and Title
-            [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:_detectedscrobble.AniID];
+            [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:self.detectedscrobble.AniID];
             [self clearDetectedScrobbled];
             return true;
         default:
@@ -516,7 +579,7 @@
     NSManagedObjectContext *moc = managedObjectContext;
     NSFetchRequest *allCaches = [[NSFetchRequest alloc] init];
     allCaches.entity = [NSEntityDescription entityForName:@"Cache" inManagedObjectContext:moc];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@  AND service == %i", _detectedscrobble.DetectedTitle, [Hachidori currentService]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"detectedTitle == %@  AND service == %i", self.detectedscrobble.DetectedTitle, [Hachidori currentService]];
     allCaches.predicate = predicate;
     NSError *error = nil;
     NSArray *cache = [moc executeFetchRequest:allCaches error:&error];
@@ -524,11 +587,11 @@
         for (NSManagedObject *cacheentry in cache) {
             NSString *title = [cacheentry valueForKey:@"detectedTitle"];
             NSNumber *season = [cacheentry valueForKey:@"detectedSeason"];
-            if ([title isEqualToString:_detectedscrobble.DetectedTitle] && _detectedscrobble.DetectedSeason == season.intValue) {
+            if ([title isEqualToString:self.detectedscrobble.DetectedTitle] && self.detectedscrobble.DetectedSeason == season.intValue) {
                 NSLog(@"%@", season.intValue > 1 ? [NSString stringWithFormat:@"%@ Season %i is found in cache.", title, season.intValue] : [NSString stringWithFormat:@"%@ is found in cache.", title]);
                 // Total Episode check
                 NSNumber *totalepisodes = [cacheentry valueForKey:@"totalEpisodes"];
-                if ( _detectedscrobble.DetectedEpisode.intValue <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
+                if ( self.detectedscrobble.DetectedEpisode.intValue <= totalepisodes.intValue || totalepisodes.intValue == 0 ) {
                     return [cacheentry valueForKey:@"id"];
                 }
                 else {
@@ -557,25 +620,25 @@
         if (i == 0) {
             NSLog(@"Check Exceptions List");
             allExceptions.entity = [NSEntityDescription entityForName:@"Exceptions" inManagedObjectContext:moc];
-            if (_detectedscrobble.DetectedSeason > 1) {
-                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (detectedSeason == %i)", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedSeason];
+            if (self.detectedscrobble.DetectedSeason > 1) {
+                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND (detectedSeason == %i)", self.detectedscrobble.DetectedTitle, self.detectedscrobble.DetectedSeason];
             }
             else {
-                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((detectedSeason == %i) OR (detectedSeason == %i))", _detectedscrobble.DetectedTitle, 0, 1];
+                predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((detectedSeason == %i) OR (detectedSeason == %i))", self.detectedscrobble.DetectedTitle, 0, 1];
             }
         }
         else if (i < 3 && [[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
                 NSLog(@"Checking Auto Exceptions");
                 allExceptions.entity = [NSEntityDescription entityForName:@"AutoCorrection" inManagedObjectContext:moc];
-                if (_detectedscrobble.DetectedSeason == 1 || _detectedscrobble.DetectedSeason == 0) {
-                    predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedGroup, @"ALL"];
+                if (self.detectedscrobble.DetectedSeason == 1 || self.detectedscrobble.DetectedSeason == 0) {
+                    predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", self.detectedscrobble.DetectedTitle, self.detectedscrobble.DetectedGroup, @"ALL"];
                 }
                 else {
                     if (i == 1) {
-                        predicate = [NSPredicate predicateWithFormat: @"((detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@)) AND ((group == %@) OR (group == %@))", [NSString stringWithFormat:@"%@ %i", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedSeason], [NSString stringWithFormat:@"%@ S%i", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedSeason], [NSString stringWithFormat:@"%@ %@ Season", _detectedscrobble.DetectedTitle, [Utility numbertoordinal:_detectedscrobble.DetectedSeason]], _detectedscrobble.DetectedGroup, @"ALL"];
+                        predicate = [NSPredicate predicateWithFormat: @"((detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@) OR (detectedTitle ==[c] %@)) AND ((group == %@) OR (group == %@))", [NSString stringWithFormat:@"%@ %i", self.detectedscrobble.DetectedTitle, self.detectedscrobble.DetectedSeason], [NSString stringWithFormat:@"%@ S%i", self.detectedscrobble.DetectedTitle, self.detectedscrobble.DetectedSeason], [NSString stringWithFormat:@"%@ %@ Season", self.detectedscrobble.DetectedTitle, [Utility numbertoordinal:self.detectedscrobble.DetectedSeason]], self.detectedscrobble.DetectedGroup, @"ALL"];
                     }
                     else {
-                        predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedGroup, @"ALL"];
+                        predicate = [NSPredicate predicateWithFormat: @"(detectedTitle ==[c] %@) AND ((group == %@) OR (group == %@))", self.detectedscrobble.DetectedTitle, self.detectedscrobble.DetectedGroup, @"ALL"];
                     }
                 }
         }
@@ -592,12 +655,12 @@
             NSString * correcttitle;
             for (NSManagedObject * entry in exceptions) {
                 NSLog(@"%@",(NSString *)[entry valueForKey:@"detectedTitle"]);
-                if ([_detectedscrobble.DetectedTitle caseInsensitiveCompare:(NSString *)[entry valueForKey:@"detectedTitle"]] == NSOrderedSame) {
+                if ([self.detectedscrobble.DetectedTitle caseInsensitiveCompare:(NSString *)[entry valueForKey:@"detectedTitle"]] == NSOrderedSame) {
                     correcttitle = (NSString *)[entry valueForKey:@"correctTitle"];
                     // Set Correct Title and Episode offset (if any)
                     int threshold = ((NSNumber *)[entry valueForKey:@"episodethreshold"]).intValue;
                     int offset = ((NSNumber *)[entry valueForKey:@"episodeOffset"]).intValue;
-                    int tmpepisode = _detectedscrobble.DetectedEpisode.intValue - offset;
+                    int tmpepisode = self.detectedscrobble.DetectedEpisode.intValue - offset;
                     int mappedepisode;
 					
 					if (i==1) {
@@ -614,31 +677,31 @@
 						iszeroepisode = false;
 					}
                     
-                    if (i==1 && _detectedscrobble.DetectedTitleisEpisodeZero == true && iszeroepisode == true) {
-                        NSLog(@"%@ zero episode is found on exceptions list as %@.", _detectedscrobble.DetectedTitle, correcttitle);
-                        _detectedscrobble.DetectedTitle = correcttitle;
-                        _detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", mappedepisode];
-                        _detectedscrobble.DetectedTitleisEpisodeZero = true;
+                    if (i==1 && self.detectedscrobble.DetectedTitleisEpisodeZero == true && iszeroepisode == true) {
+                        NSLog(@"%@ zero episode is found on exceptions list as %@.", self.detectedscrobble.DetectedTitle, correcttitle);
+                        self.detectedscrobble.DetectedTitle = correcttitle;
+                        self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", mappedepisode];
+                        self.detectedscrobble.DetectedTitleisEpisodeZero = true;
                         found = true;
                         break;
                     }
-                    else if (i==1 && _detectedscrobble.DetectedTitleisEpisodeZero == false && iszeroepisode == true) {
+                    else if (i==1 && self.detectedscrobble.DetectedTitleisEpisodeZero == false && iszeroepisode == true) {
                         continue;
                     }
                     if ((tmpepisode > threshold && threshold != 0) || (tmpepisode <= 0 && threshold != 1 && i==0)||(tmpepisode <= 0 && i==1)) {
                         continue;
                     }
                     else {
-                        NSLog(@"%@ found on exceptions list as %@.", _detectedscrobble.DetectedTitle, correcttitle);
+                        NSLog(@"%@ found on exceptions list as %@.", self.detectedscrobble.DetectedTitle, correcttitle);
                         if (tmpepisode > 0) {
-                            _detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
+                            self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
                         }
-                        if (_detectedscrobble.DetectedSeason > 0 && i != 2) {
-                            _detectedscrobble.DetectedSeason = 0;
+                        if (self.detectedscrobble.DetectedSeason > 0 && i != 2) {
+                            self.detectedscrobble.DetectedSeason = 0;
                         }
-                        _detectedscrobble.DetectedType = @"";
-                        _detectedscrobble.DetectedTitle = correcttitle;
-                        _detectedscrobble.DetectedTitleisEpisodeZero = false;
+                        self.detectedscrobble.DetectedType = @"";
+                        self.detectedscrobble.DetectedTitle = correcttitle;
+                        self.detectedscrobble.DetectedTitleisEpisodeZero = false;
                         found = true;
 						break;
                     }
@@ -654,7 +717,7 @@
     // Return existing offline queue item
     __block NSError * error;
     NSManagedObjectContext * moc = self.managedObjectContext;
-    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@) AND (service == %li)", _detectedscrobble.DetectedTitle, _detectedscrobble.DetectedEpisode, _detectedscrobble.DetectedType, _detectedscrobble.DetectedTitleisMovie, _detectedscrobble.DetectedTitleisEpisodeZero, _detectedscrobble.DetectedSeason, _detectedscrobble.DetectedSource, [Hachidori currentService]];
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(detectedtitle ==[c] %@) AND (detectedepisode ==[c] %@) AND (detectedtype ==[c] %@) AND (ismovie == %i) AND (iszeroepisode == %i) AND (detectedseason == %i) AND (source == %@) AND (service == %li)", self.detectedscrobble.DetectedTitle, self.detectedscrobble.DetectedEpisode, self.detectedscrobble.DetectedType, self.detectedscrobble.DetectedTitleisMovie, self.detectedscrobble.DetectedTitleisEpisodeZero, self.detectedscrobble.DetectedSeason, self.detectedscrobble.DetectedSource, [Hachidori currentService]];
     NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
     queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
     queuefetch.predicate = predicate;
@@ -789,8 +852,8 @@
 
 - (void)resetinfo {
     // Resets Hachidori Engine when user logs out
-    _lastscrobble = nil;
-    _detectedscrobble = nil;
+    [self setDetectedScrobbleStatus:nil withService:[Hachidori currentService]];
+    [self setLastScrobbleStatus:nil withService:[Hachidori currentService]];
 }
 
 - (void)setNotifier {
@@ -828,45 +891,17 @@
     }
 }
 
-- (void)setLastScrobble {
-    switch ([Hachidori currentService]) {
-        case 0:
-            _lastscrobble = _kitsumanager.lastscrobble;
-            break;
-        case 1:
-            _lastscrobble = _anilistmanager.lastscrobble;
-            break;
-    }
-}
-
-- (void)setDetectScrobble:(DetectedScrobbleStatus *)dscrobble {
-    switch ([Hachidori currentService]) {
-        case 0:
-            _kitsumanager.detectedscrobble = dscrobble;
-            _detectedscrobble = _kitsumanager.detectedscrobble;
-            break;
-        case 1:
-            _anilistmanager.detectedscrobble = dscrobble;
-            _detectedscrobble = _anilistmanager.detectedscrobble;
-            break;
-    }
-}
-
 - (void)clearLastScrobbled {
-    _lastscrobble = nil;
     _kitsumanager.lastscrobble = nil;
     _anilistmanager.lastscrobble = nil;
 }
 
 - (void)clearDetectedScrobbled {
-    _detectedscrobble = nil;
     _kitsumanager.detectedscrobble = nil;
     _anilistmanager.detectedscrobble = nil;
 }
 
 - (void)resetInfoWithService:(int)service {
-    _lastscrobble = nil;
-    _detectedscrobble = nil;
     switch (service) {
         case 0:
             _kitsumanager.detectedscrobble = nil;
@@ -875,19 +910,6 @@
         case 1:
             _anilistmanager.detectedscrobble = nil;
             _anilistmanager.detectedscrobble = nil;
-            break;
-    }
-}
-
-- (void)switchScrobbleStatus {
-    switch ([Hachidori currentService]) {
-        case 0:
-            _lastscrobble = _kitsumanager.lastscrobble;
-            _detectedscrobble = _kitsumanager.detectedscrobble;
-            break;
-        case 1:
-            _lastscrobble = _anilistmanager.lastscrobble;
-            _detectedscrobble = _anilistmanager.detectedscrobble;
             break;
     }
 }
