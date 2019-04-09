@@ -29,7 +29,7 @@
             lentry.watched_status = (NSString *)entry[@"attributes"][@"status"];
         }
         lentry.watched_episodes = ((NSNumber *)entry[@"attributes"][@"progress"]).intValue;
-        if (entry[@"attributes"][@"ratingTwenty"] != [NSNull null]) {
+        if (entry[@"attributes"][@"ratingTwenty"] && entry[@"attributes"][@"ratingTwenty"] != [NSNull null]) {
             lentry.score = ((NSNumber *)entry[@"attributes"][@"ratingTwenty"]).intValue;
         }
         lentry.watching_start = entry[@"attributes"][@"startedAt"] != [NSNull null] ? [(NSString *)entry[@"attributes"][@"startedAt"] substringToIndex:10] : @"";
