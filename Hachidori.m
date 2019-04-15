@@ -984,13 +984,14 @@
 
 - (void)checkType {
     NSString *dtitle = self.detectedscrobble.DetectedTitle;
-    if ([dtitle caseInsensitiveCompare:@"Movie"] == NSOrderedSame) {
+    if ([dtitle localizedCaseInsensitiveContainsString:@"Movie"]) {
         self.detectedscrobble.DetectedType = @"Movie";
     }
-    else if (([dtitle caseInsensitiveCompare:@"OAD"] == NSOrderedSame) || ([dtitle caseInsensitiveCompare:@"OVA"] == NSOrderedSame) || ([dtitle caseInsensitiveCompare:@"OAV"] == NSOrderedSame)) {
+    else if ([dtitle localizedCaseInsensitiveContainsString:@"OAD"] || [dtitle localizedCaseInsensitiveContainsString:@"OVA"]  ||
+             [dtitle localizedCaseInsensitiveContainsString:@"OAV"]) {
         self.detectedscrobble.DetectedType = @"OVA";
     }
-    else if (([dtitle caseInsensitiveCompare:@"Specials"] == NSOrderedSame) || [dtitle caseInsensitiveCompare:@"Special"] == NSOrderedSame) {
+    else if ([dtitle localizedCaseInsensitiveContainsString:@"Specials"] || [dtitle localizedCaseInsensitiveContainsString:@"Special"] ) {
         self.detectedscrobble.DetectedType = @"Special";
     }
 }
