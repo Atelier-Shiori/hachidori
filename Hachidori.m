@@ -679,6 +679,7 @@
                         self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", mappedepisode];
                         self.detectedscrobble.DetectedTitleisEpisodeZero = true;
                         found = true;
+                        [self checkType];
                         break;
                     }
                     else if (i==1 && self.detectedscrobble.DetectedTitleisEpisodeZero == false && iszeroepisode == true) {
@@ -699,6 +700,7 @@
                         self.detectedscrobble.DetectedTitle = correcttitle;
                         self.detectedscrobble.DetectedTitleisEpisodeZero = false;
                         found = true;
+                        [self checkType];
 						break;
                     }
                 }
@@ -978,5 +980,18 @@
         
     }
     return ratingSimple;
+}
+
+- (void)checkType {
+    NSString *dtitle = self.detectedscrobble.DetectedTitle;
+    if ([dtitle caseInsensitiveCompare:@"Movie"] == NSOrderedSame) {
+        self.detectedscrobble.DetectedType = @"Movie";
+    }
+    else if (([dtitle caseInsensitiveCompare:@"OAD"] == NSOrderedSame) || ([dtitle caseInsensitiveCompare:@"OVA"] == NSOrderedSame) || ([dtitle caseInsensitiveCompare:@"OAV"] == NSOrderedSame)) {
+        self.detectedscrobble.DetectedType = @"OVA";
+    }
+    else if (([dtitle caseInsensitiveCompare:@"Specials"] == NSOrderedSame) || [dtitle caseInsensitiveCompare:@"Special"] == NSOrderedSame) {
+        self.detectedscrobble.DetectedType = @"Special";
+    }
 }
 @end
