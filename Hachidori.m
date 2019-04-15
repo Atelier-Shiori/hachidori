@@ -387,22 +387,18 @@
 }
 - (int)scrobbleagain:(NSString *)showtitle Episode:(NSString *)episode correctonce:(BOOL)correctonce{
     _correcting = true;
-    if (!self.detectedscrobble.FailedSource) {
-        [self setDetectedScrobbleStatus:[DetectedScrobbleStatus new] withService:[Hachidori currentService]];
-    }
     NSString * lasttitle;
-    if (correctonce) {
+    if (correctonce && self.lastscrobble) {
         lasttitle = self.lastscrobble.LastScrobbledTitle;
     }
-    
     self.detectedscrobble.DetectedTitle = showtitle;
     self.detectedscrobble.DetectedEpisode = episode;
     self.detectedscrobble.DetectedSeason = !self.detectedscrobble.FailedSource ? self.detectedscrobble.FailedSeason : self.lastscrobble.DetectedSeason;
-    if (!self.detectedscrobble.FailedSource) {
+    if (!self.detectedscrobble.FailedSource && self.lastscrobble) {
         self.detectedscrobble.DetectedSource = self.lastscrobble.LastScrobbledSource;
     }
     else {
-        self.detectedscrobble.DetectedSource = self.detectedscrobble.FailedSource;
+        self.detectedscrobble.DetectedSource = !self.lastscrobble ? self.detectedscrobble.FailedSource : @"Unknown";
     }
     // Check Exceptions
     [self checkExceptions];
