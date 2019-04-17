@@ -437,7 +437,7 @@
     }
     if (self.detectedscrobble.AniID.length > 0 && [self hasUserInfoCurrentService]) {
         NSLog(@"Found %@", self.detectedscrobble.AniID);
-        [MSAnalytics trackEvent:@"Found ID." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle, @"group" : self.detectedscrobble.DetectedGroup, @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource, @"titleid" : self.detectedscrobble.AniID, @"service" : [Hachidori currentServiceName]}];
+        [MSAnalytics trackEvent:@"Found ID." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"UNKNOWN", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource, @"titleid" : self.detectedscrobble.AniID, @"service" : [Hachidori currentServiceName]}];
         // Nil out Failed Title and Episode
         //self.detectedscrobble.FailedTitle = nil;
         //self.detectedscrobble.FailedEpisode = nil;
@@ -479,7 +479,7 @@
         if (online) {
             // Not Successful
             NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", self.detectedscrobble.DetectedTitle);
-            [MSAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
+            [MSAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown)", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
             // Used for Exception Adding
             self.detectedscrobble.FailedTitle = self.detectedscrobble.DetectedTitle;
             self.detectedscrobble.FailedEpisode = self.detectedscrobble.DetectedEpisode;
