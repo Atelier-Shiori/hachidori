@@ -6,6 +6,7 @@
 //
 
 #import "DetectedScrobbleStatus.h"
+#import "LastScrobbleStatus.h"
 
 @implementation DetectedScrobbleStatus
 - (void)checkzeroEpisode {
@@ -35,5 +36,31 @@
     detectedscrobblecopy.DetectedTitleisMovie = self.DetectedTitleisMovie;
     detectedscrobblecopy.DetectedTitleisEpisodeZero = self.DetectedTitleisEpisodeZero;
     return detectedscrobblecopy;
+}
+
+- (void)transferLastScrobbled:(LastScrobbleStatus *)lscrobbled {
+    self.DetectedTitle = lscrobbled.LastScrobbledTitle;
+    self.DetectedEpisode = lscrobbled.LastScrobbledEpisode;
+    self.DetectedSource = lscrobbled.LastScrobbledSource;
+    self.DetectedCurrentEpisode = lscrobbled.DetectedCurrentEpisode;
+    self.LastScrobbledInfo = lscrobbled.LastScrobbledInfo;
+    self.LastScrobbledTitleNew = lscrobbled.LastScrobbledTitleNew;
+    self.isPrivate = lscrobbled.isPrivate;
+    self.startDate = lscrobbled.startDate;
+    self.endDate = lscrobbled.endDate;
+    self.airing = lscrobbled.airing;
+    self.completedairing = lscrobbled.completedairing;
+    self.TotalEpisodes = lscrobbled.TotalEpisodes;
+    self.DetectedTitleisMovie = lscrobbled.DetectedTitleisMovie;
+    self.DetectedTitleisEpisodeZero = lscrobbled.DetectedTitleisEpisodeZero;
+    self.WatchStatus = lscrobbled.WatchStatus;
+    self.TitleScore = lscrobbled.TitleScore;
+    self.rewatchcount = lscrobbled.rewatchcount;
+    self.rewatching = lscrobbled.rewatching;
+    self.TitleNotes = lscrobbled.TitleNotes;
+    self.AniID = lscrobbled.AniID;
+    self.EntryID = lscrobbled.EntryID;
+    self.slug = lscrobbled.slug;
+    self.confirmed = lscrobbled.confirmed;
 }
 @end

@@ -559,7 +559,10 @@
     NSLog(@"=============");
     NSLog(@"Confirming: %@ - %@",self.lastscrobble.LastScrobbledActualTitle, self.lastscrobble.LastScrobbledEpisode);
     [MSAnalytics trackEvent:@"Confirming title." withProperties:@{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource, @"episode" : self.lastscrobble.LastScrobbledEpisode, @"service" : [Hachidori currentServiceName]}];
-    int status = [self performupdate:self.detectedscrobble.AniID withService:(int)[Hachidori currentService]];
+    DetectedScrobbleStatus *tmpdetected = [DetectedScrobbleStatus new];
+    [tmpdetected transferLastScrobbled:[self getLastScrobbleForService:[Hachidori currentService]]];
+    [self setDetectedScrobbleStatus:tmpdetected withService:[Hachidori currentService]];
+    int status = [self performupdate:self.lastscrobble.AniID withService:(int)[Hachidori currentService]];
     switch (status) {
         case ScrobblerAddTitleSuccessful:
         case ScrobblerUpdateSuccessful:

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Scrobble.h"
-
+@class LastScrobbleStatus;
 @interface DetectedScrobbleStatus : Scrobble <NSCopying>
     @property (strong) NSString *DetectedTitle;
     @property (strong) NSString *DetectedEpisode;
@@ -19,5 +19,6 @@
     @property (strong) NSString *FailedSource;
     @property (getter=getFailedSeason) int FailedSeason;
     - (void)checkzeroEpisode;
+    - (void)transferLastScrobbled:(LastScrobbleStatus *)lscrobbled;
 @end
 
