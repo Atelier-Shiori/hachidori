@@ -6,9 +6,24 @@
 //
 
 #import "DiscordManager.h"
-#import <DiscordRPC/DiscordRPC.h>
+#include "discord_game_sdk.h"
+#import <MSWeakTimer_macOS/MSWeakTimer.h>
 
-static const char* APPLICATION_ID = "451384588405571585";
+#define DISCORD_REQUIRE(x) assert(x == DiscordResult_Ok)
+
+static const long APPLICATION_ID = 451384588405571585;
+struct Application {
+    struct IDiscordCore* core;
+    struct IDiscordActivityManager* activities;
+    struct IDiscordUsers* users;
+};
+
+struct Application app;
+
+@interface DiscordManager ()
+@property (strong, nonatomic) dispatch_queue_t callbackQueue;
+@property (strong) MSWeakTimer *timer;
+@end
 
 @implementation DiscordManager
 
@@ -18,6 +33,7 @@ static const char* APPLICATION_ID = "451384588405571585";
         if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"]) {
             [self startDiscordRPC];
         }
+        _callbackQueue =  dispatch_queue_create( "moe.malupdaterosx.hachidori.callbackQueue", NULL );
     }
     return self;
 }
@@ -40,67 +56,74 @@ static const char* APPLICATION_ID = "451384588405571585";
 
 void InitDiscord()
 {
-    DiscordEventHandlers handlers;
-    memset(&handlers, 0, sizeof(handlers));
-    handlers.ready = handleDiscordReady;
-    handlers.errored = handleDiscordError;
-    handlers.disconnected = handleDiscordDisconnected;
-    Discord_Initialize(APPLICATION_ID, &handlers, 1, NULL);
-}
-static void handleDiscordReady(void)
-{
-    printf("\nDiscord: ready\n");
+    // Don't forget to memset or otherwise initialize your classes!
+    memset(&app, 0, sizeof(app));
+    
+    IDiscordCoreEvents events;
+    memset(&events, 0, sizeof(events));
+    
+    struct IDiscordActivityEvents activities_events;
+    memset(&activities_events, 0, sizeof(activities_events));
+    
+    struct DiscordCreateParams params;
+    params.client_id = APPLICATION_ID;
+    params.flags = DiscordCreateFlags_Default;
+    params.events = &events;
+    params.activity_events = &activities_events;
+    params.event_data = &app;
+    DiscordCreate(DISCORD_VERSION, &params, &app.core);
+    
+    app.activities = app.core->get_activity_manager(app.core);
 }
 
-static void handleDiscordDisconnected(int errcode, const char* message)
+void UpdateActivityCallback(void* data, enum EDiscordResult result)
 {
-    printf("\nDiscord: disconnected (%d: %s)\n", errcode, message);
-}
-
-static void handleDiscordError(int errcode, const char* message)
-{
-    printf("\nDiscord: error (%d: %s)\n", errcode, message);
+    DISCORD_REQUIRE(result);
 }
 
 - (void)startDiscordRPC {
     NSLog(@"Discord Rich Presence enabled");
-    InitDiscord();
+    if ([self checkDiscordRunning]) {
+        if (!_discordsdkinitalized) {
+            InitDiscord();
+        }
+        [self startCallback];
+    }
     _discordrpcrunning = true;
 }
 
 - (void)shutdownDiscordRPC {
     NSLog(@"Discord Rich Presence disabled");
-    Discord_Shutdown();
+    [self stopCallback];
+    [self removePresence];
     _discordrpcrunning = false;
 }
 
 - (void)UpdatePresence:(NSString *)state withDetails:(NSString *)details {
     if ([self checkDiscordRunning]) {
-        Discord_ClearPresence();
-        DiscordRichPresence discordPresence;
-        discordPresence.state = state.UTF8String;
-        discordPresence.details = details.UTF8String;
-        discordPresence.startTimestamp = [NSDate date].timeIntervalSince1970;
-        discordPresence.endTimestamp = [NSDate dateWithTimeIntervalSinceNow:86400].timeIntervalSince1970;
-        discordPresence.largeImageKey = "default";
-        discordPresence.smallImageKey = "default";
-        discordPresence.largeImageText = "";
-        discordPresence.smallImageText = "";
-        discordPresence.partyId = NULL;
-        discordPresence.partySize = 0;
-        discordPresence.joinSecret = NULL;
-        discordPresence.spectateSecret = NULL;
-        discordPresence.matchSecret = NULL;
-        discordPresence.spectateSecret = NULL;
-        Discord_UpdatePresence(&discordPresence);
-        Discord_RunCallbacks();
+        if (!_discordsdkinitalized) {
+            InitDiscord();
+            _discordsdkinitalized = true;
+        }
+        app.activities->clear_activity(app.activities, 0, 0);
+        struct DiscordActivity activity;
+        strcpy(activity.state, state.UTF8String);
+        strcpy(activity.details, details.UTF8String);
+        activity.timestamps.start = [NSDate date].timeIntervalSince1970;
+        activity.timestamps.end = [NSDate dateWithTimeIntervalSinceNow:86400].timeIntervalSince1970;
+        strcpy(activity.assets.large_image, "default");
+        strcpy(activity.assets.small_image, "default");
+        strcpy(activity.assets.large_text, "");
+        strcpy(activity.assets.small_text, "");
+        activity.type = DiscordActivityType_Watching;
+        app.activities->update_activity(app.activities, &activity, 0, UpdateActivityCallback);
+
     }
 }
 
 - (void)removePresence {
-    if ([self checkDiscordRunning]) {
-        Discord_ClearPresence();
-        Discord_RunCallbacks();
+    if ([self checkDiscordRunning] && _discordsdkinitalized) {
+            app.activities->clear_activity(app.activities, 0, 0);
     }
 }
 
@@ -114,5 +137,24 @@ static void handleDiscordError(int errcode, const char* message)
         }
     }
     return false;
+}
+
+- (void)startCallback {
+    _timer = [MSWeakTimer scheduledTimerWithTimeInterval:16
+                                                 target:self
+                                               selector:@selector(firetimer)
+                                               userInfo:nil
+                                                repeats:YES
+                                          dispatchQueue:_callbackQueue];
+}
+
+- (void)stopCallback {
+    [_timer invalidate];
+}
+
+- (void)firetimer {
+    if (_discordsdkinitalized) {
+        DISCORD_REQUIRE(app.core->run_callbacks(app.core));
+    }
 }
 @end

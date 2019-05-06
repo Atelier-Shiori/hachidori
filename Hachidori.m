@@ -317,6 +317,9 @@
             return ScrobblerOfflineQueued;
         }
 	}
+    else {
+        [_discordmanager removePresence];
+    }
     return detectstatus;
 }
 - (NSDictionary *)scrobblefromqueue {

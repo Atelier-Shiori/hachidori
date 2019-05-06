@@ -41,6 +41,8 @@
 		594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */; };
 		594F0A2021E50427001875AF /* LastScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1F21E50427001875AF /* LastScrobbleStatus.m */; };
 		594F0A2321E65800001875AF /* Scrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A2221E65800001875AF /* Scrobble.m */; };
+		5999AF67228075CE001FBF85 /* discord_game_sdk.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */; };
+		5999AF9822808645001FBF85 /* discord_game_sdk.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */; };
 		59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9E21ED1952004A52CE /* SyncPrefs.m */; };
 		59AFD124225A2F460044C8DA /* CrashWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59AFD122225A2F460044C8DA /* CrashWindowController.xib */; };
@@ -100,9 +102,6 @@
 		9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126066820BEDD900052CB30 /* TorrentBrowser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9126067520BEE5C20052CB30 /* DiscordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126067320BEE5C20052CB30 /* DiscordManager.m */; };
 		9126067820BEEC710052CB30 /* SocialPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126067620BEEC710052CB30 /* SocialPrefController.m */; };
-		9126067A20BEED8C0052CB30 /* DiscordRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067920BEED8C0052CB30 /* DiscordRPC.framework */; };
-		9126067B20BEED920052CB30 /* DiscordRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067920BEED8C0052CB30 /* DiscordRPC.framework */; };
-		9126067C20BEED920052CB30 /* DiscordRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126067920BEED8C0052CB30 /* DiscordRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9126067E20BEEFAC0052CB30 /* TwitterManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; };
 		9126067F20BEEFAE0052CB30 /* TwitterManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; };
 		9126068020BEEFAE0052CB30 /* TwitterManagerKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -172,10 +171,10 @@
 				9134C39B212B0BD800F4982D /* Patreon.framework in CopyFiles */,
 				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
 				9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */,
-				9126067C20BEED920052CB30 /* DiscordRPC.framework in CopyFiles */,
 				916207272110C88B008AFAC5 /* DetectStreamKit.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */,
+				5999AF9822808645001FBF85 /* discord_game_sdk.dylib in CopyFiles */,
 				91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */,
 				2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */,
 				2D621EC71F814364003274F2 /* GBPing.framework in CopyFiles */,
@@ -249,6 +248,8 @@
 		594F0A1F21E50427001875AF /* LastScrobbleStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LastScrobbleStatus.m; sourceTree = "<group>"; };
 		594F0A2121E65800001875AF /* Scrobble.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scrobble.h; sourceTree = "<group>"; };
 		594F0A2221E65800001875AF /* Scrobble.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Scrobble.m; sourceTree = "<group>"; };
+		5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = discord_game_sdk.dylib; sourceTree = "<group>"; };
+		5999AF9722807F20001FBF85 /* discord_game_sdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = discord_game_sdk.h; sourceTree = "<group>"; };
 		59A38E9121ECD722004A52CE /* HachidoriTwitterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HachidoriTwitterManager.h; sourceTree = "<group>"; };
 		59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HachidoriTwitterManager.m; sourceTree = "<group>"; };
 		59A38E9D21ED1952004A52CE /* SyncPrefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPrefs.h; sourceTree = "<group>"; };
@@ -435,7 +436,6 @@
 		9126067420BEE5C20052CB30 /* DiscordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscordManager.h; sourceTree = "<group>"; };
 		9126067620BEEC710052CB30 /* SocialPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialPrefController.m; sourceTree = "<group>"; };
 		9126067720BEEC710052CB30 /* SocialPrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialPrefController.h; sourceTree = "<group>"; };
-		9126067920BEED8C0052CB30 /* DiscordRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiscordRPC.framework; path = Frameworks/DiscordRPC.framework; sourceTree = "<group>"; };
 		9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterManagerKit.framework; path = Frameworks/TwitterManagerKit.framework; sourceTree = "<group>"; };
 		9126068420BEEFE20052CB30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SocialPrefController.xib; sourceTree = "<group>"; };
 		912859551E7B2F0E005E9A2B /* MASPreferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASPreferences.framework; path = Frameworks/MASPreferences.framework; sourceTree = "<group>"; };
@@ -507,7 +507,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9126067A20BEED8C0052CB30 /* DiscordRPC.framework in Frameworks */,
 				59D5ACE02235743400FAE0CA /* AppCenter.framework in Frameworks */,
 				2D621ECB1F8143EB003274F2 /* PingNotifier.framework in Frameworks */,
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
@@ -526,6 +525,7 @@
 				916207262110C88B008AFAC5 /* DetectStreamKit.framework in Frameworks */,
 				2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
+				5999AF67228075CE001FBF85 /* discord_game_sdk.dylib in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				F8531F1320D2A80700CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */,
@@ -535,7 +535,6 @@
 				2D621EC61F814364003274F2 /* GBPing.framework in Frameworks */,
 				9126067F20BEEFAE0052CB30 /* TwitterManagerKit.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
-				9126067B20BEED920052CB30 /* DiscordRPC.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
 			);
@@ -623,7 +622,6 @@
 				91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */,
 				2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */,
 				916207252110C88B008AFAC5 /* DetectStreamKit.framework */,
-				9126067920BEED8C0052CB30 /* DiscordRPC.framework */,
 				F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */,
 				2D621EC41F814234003274F2 /* GBPing.framework */,
 				912859551E7B2F0E005E9A2B /* MASPreferences.framework */,
@@ -709,6 +707,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */,
 				59D5ACDB2235740D00FAE0CA /* AppCenter */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -888,6 +887,7 @@
 		6FAA87821A7EB6B200EFFAC1 /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5999AF9722807F20001FBF85 /* discord_game_sdk.h */,
 				9128595D1E7B37A1005E9A2B /* HotKeyConstants.h */,
 				912859611E7B394D005E9A2B /* Hotkeys.h */,
 				9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */,
@@ -1688,6 +1688,10 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Debug";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
@@ -1728,6 +1732,10 @@
 				INFOPLIST_FILE = "Hachidori-info.plist";
 				INSTALL_PATH = "$(HOME)/Documents/Build/Release";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;

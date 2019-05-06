@@ -9,6 +9,8 @@
 
 @interface DiscordManager : NSObject
 @property (getter=getStarted) bool discordrpcrunning;
+@property bool discordsdkinitalized;
+
 - (void)startDiscordRPC;
 - (void)shutdownDiscordRPC;
 - (void)UpdatePresence:(NSString *)state withDetails:(NSString *)details;
