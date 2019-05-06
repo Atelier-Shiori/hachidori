@@ -166,9 +166,9 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RaW-Bt-oQn">
-                    <rect key="frame" x="108" y="18" width="383" height="18"/>
+                    <rect key="frame" x="108" y="18" width="438" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Enable Discord Rich Presence" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="N3y-Ee-ZKq">
+                    <buttonCell key="cell" type="check" title="Enable Discord Activities (Formerly Rich Presence)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="N3y-Ee-ZKq">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -182,7 +182,7 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="229" y="246"/>
+            <point key="canvasLocation" x="229" y="245.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="KDI-Kg-aXE"/>
     </objects>

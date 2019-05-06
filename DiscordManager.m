@@ -99,7 +99,7 @@ void UpdateActivityCallback(void* data, enum EDiscordResult result)
     _discordrpcrunning = false;
 }
 
-- (void)UpdatePresence:(NSString *)state withDetails:(NSString *)details {
+- (void)UpdatePresence:(NSString *)state withDetails:(NSString *)details isStreaming:(bool)isStreaming {
     if ([self checkDiscordRunning]) {
         if (!_discordsdkinitalized) {
             InitDiscord();
@@ -115,15 +115,15 @@ void UpdateActivityCallback(void* data, enum EDiscordResult result)
         strcpy(activity.assets.small_image, "default");
         strcpy(activity.assets.large_text, "");
         strcpy(activity.assets.small_text, "");
-        activity.type = DiscordActivityType_Watching;
+        activity.type = isStreaming ? DiscordActivityType_Streaming : DiscordActivityType_Watching;
         app.activities->update_activity(app.activities, &activity, 0, UpdateActivityCallback);
-
+        
     }
 }
 
 - (void)removePresence {
     if ([self checkDiscordRunning] && _discordsdkinitalized) {
-            app.activities->clear_activity(app.activities, 0, 0);
+        app.activities->clear_activity(app.activities, 0, 0);
     }
 }
 
@@ -132,7 +132,7 @@ void UpdateActivityCallback(void* data, enum EDiscordResult result)
     NSArray *runningApps = ws.runningApplications;
     NSRunningApplication *a;
     for (a in runningApps) {
-        if ([a.bundleIdentifier isEqualToString:@"com.hnc.Discord"]) {
+        if ([a.bundleIdentifier localizedCaseInsensitiveContainsString:@"com.hnc.Discord"]) {
             return true;
         }
     }
@@ -141,11 +141,11 @@ void UpdateActivityCallback(void* data, enum EDiscordResult result)
 
 - (void)startCallback {
     _timer = [MSWeakTimer scheduledTimerWithTimeInterval:16
-                                                 target:self
-                                               selector:@selector(firetimer)
-                                               userInfo:nil
-                                                repeats:YES
-                                          dispatchQueue:_callbackQueue];
+                                                  target:self
+                                                selector:@selector(firetimer)
+                                                userInfo:nil
+                                                 repeats:YES
+                                           dispatchQueue:_callbackQueue];
 }
 
 - (void)stopCallback {
@@ -153,7 +153,7 @@ void UpdateActivityCallback(void* data, enum EDiscordResult result)
 }
 
 - (void)firetimer {
-    if (_discordsdkinitalized) {
+    if (_discordsdkinitalized && [self checkDiscordRunning]) {
         DISCORD_REQUIRE(app.core->run_callbacks(app.core));
     }
 }
