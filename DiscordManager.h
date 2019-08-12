@@ -13,6 +13,6 @@
 
 - (void)startDiscordRPC;
 - (void)shutdownDiscordRPC;
-- (void)UpdatePresence:(NSString *)state withDetails:(NSString *)details;
+- (void)UpdatePresence:(NSString *)state withDetails:(NSString *)details isStreaming:(bool)isStreaming;
 - (void)removePresence;
 @end
