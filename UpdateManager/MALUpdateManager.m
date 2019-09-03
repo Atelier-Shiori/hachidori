@@ -12,6 +12,18 @@
 #import "Hachidori.h"
 
 @implementation MALUpdateManager
+- (instancetype)init {
+    if ([super init]) {
+        _syncmanager = [AFHTTPSessionManager manager];
+        _syncmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        _syncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+        _syncmanager.completionQueue = dispatch_queue_create("AFNetworking+Synchronous", NULL);
+        _asyncmanager = [AFHTTPSessionManager manager];
+        _asyncmanager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        _asyncmanager.responseSerializer = [AFJSONResponseSerializer serializer];
+    }
+    return self;
+}
 - (int)malperformupdate:(NSString *)titleid {
     BOOL tmprewatching;
     long tmprewatchedcount;

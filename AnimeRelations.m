@@ -196,6 +196,9 @@
         case 1:
             predicate = [NSPredicate predicateWithFormat: @"(source_anilistid == %i)", titleid];
             break;
+        case 2:
+            predicate = [NSPredicate predicateWithFormat: @"(source_malid == %i)", titleid];
+            break;
         default:
             break;
     }

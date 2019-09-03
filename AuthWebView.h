@@ -12,6 +12,7 @@
 @interface AuthWebView : NSViewController <WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic, copy) void (^completion)(NSString *pin);
 @property int service;
+@property (strong) NSString *verifier;
 - (void)loadAuthorization:(int)service;
 - (void)resetWebView;
 @end

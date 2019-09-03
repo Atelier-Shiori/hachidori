@@ -27,6 +27,9 @@
                 case 1:
                     targetid = [relation valueForKey:@"target_anilistid"];
                     break;
+                case 2:
+                    targetid = [relation valueForKey:@"target_malid"];
+                    break;
                 default:
                     break;
             }

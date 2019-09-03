@@ -23,6 +23,8 @@
                 return @"Kitsu";
             case 1:
                 return @"AniList";
+            case 2:
+                return @"MyAnimeList";
             default:
                 break;
         }

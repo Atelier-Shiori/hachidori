@@ -14,11 +14,6 @@
 #import "ClientConstants.h"
 #import "AppDelegate.h"
 #import "Hachidori.h"
-#import "PKCEGenerator.h"
-
-@interface LoginPref ()
-@property (strong) NSString *verifier;
-@end
 
 @implementation LoginPref
 
@@ -91,6 +86,7 @@
         [_anilistclearbut setEnabled: NO];
         [_anilistauthorizebtn setEnabled: YES];
     }
+    // MyAnimeList
     if ([Hachidori getFirstAccount:2]) {
         [_malclearbut setEnabled: YES];
         [_malauthorizebtn setEnabled: NO];
@@ -131,13 +127,15 @@
 - (IBAction)authorize:(id)sender {
     if (!_anilistauthw) {
         _anilistauthw = [AniListAuthWindow new];
+        [_anilistauthw windowDidLoad];
+        [_anilistauthw loadAuthorizationForService:(int)((NSButton *)sender).tag];
     }
     else {
         [_anilistauthw.window makeKeyAndOrderFront:self];
         [_anilistauthw loadAuthorizationForService:(int)((NSButton *)sender).tag];
         [_anilistauthw close];
     }
-    _anilistauthorizebtn.enabled = NO;
+    ((NSButton *)sender).enabled = NO;
     [self.view.window beginSheet:_anilistauthw.window completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSModalResponseOK) {
             NSString *pin = _anilistauthw.pin.copy;
@@ -145,7 +143,7 @@
             [self authorizeWithPin:pin withService:(int)((NSButton *)sender).tag];
         }
         else {
-            _anilistauthorizebtn.enabled = YES;
+            ((NSButton *)sender).enabled = YES;
         }
     }];
 }
@@ -215,7 +213,7 @@
             clientID:kmalclient
               secret:@""];
             tokenurl = @"v1/oauth2/token";
-            parameters = @{@"grant_type":@"authorization_code", @"code" : pin, @"redirect_uri": @"hachidoriauth://malauth/", @"code_verifier" : _verifier};
+            parameters = @{@"grant_type":@"authorization_code", @"code" : pin, @"redirect_uri": @"hachidoriauth://malauth/", @"code_verifier" : [_anilistauthw getVerifierString]};
             break;
         default:
             break;

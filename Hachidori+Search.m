@@ -76,7 +76,7 @@
         case 2:
             responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchterm, @"limit" : @(25), @"fields" : @"num_episodes,status,media_type,nsfw"} task:&task error:&error];
             if (responseObject) {
-                responseObject = [AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject[@"data"]];
+                responseObject = [AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject];
             }
             break;
         default:

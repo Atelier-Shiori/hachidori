@@ -58,6 +58,7 @@
         _kitsumanager = [KitsuUpdateManager new];
         _kitsumanager.syncmanager = _syncmanager;
         _kitsumanager.asyncmanager = _asyncmanager;
+        _malmanger = [MALUpdateManager new];
         // Set Observers
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotification:) name:@"PlexToggled" object:nil];
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotification:) name:@"PlexAddressChanged" object:nil];
@@ -155,6 +156,7 @@
             break;
         case 2:
             _malmanger.lastscrobble = lscrobble;
+            break;
         default:
             break;
     }
@@ -578,6 +580,7 @@
 - (BOOL)checkBlankDetectedEpisode{
     return [self.lastscrobble.LastScrobbledEpisode isEqualToString:@"1"] && self.detectedscrobble.DetectedEpisode.length == 0;
 }
+
 - (BOOL)confirmupdate {
     NSLog(@"=============");
     NSLog(@"Confirming: %@ - %@",self.lastscrobble.LastScrobbledActualTitle, self.lastscrobble.LastScrobbledEpisode);

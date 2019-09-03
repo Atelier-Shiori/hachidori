@@ -866,7 +866,7 @@
         
         if ([haengine checkexpired]) {
             __weak AppDelegate *weakself = self;
-            [haengine refreshtokenWithService:0 successHandler:^(bool success) {
+            [haengine refreshtokenWithService:[Hachidori currentService] successHandler:^(bool success) {
                 if (success) {
                     [weakself firetimer];
                 }

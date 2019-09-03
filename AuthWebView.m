@@ -13,7 +13,6 @@
 
 @interface AuthWebView ()
 @property (strong) WKWebView *webView;
-@property (strong) NSString *verifier;
 @end
 
 @implementation AuthWebView
@@ -31,9 +30,9 @@
     [self loadAuthorization:_service];
 }
 
-- (NSURL *)authURL:(int)service {
+- (NSURL *)authURL {
     NSString *authurl;
-    switch (service) {
+    switch (_service) {
         case 1:
             authurl = [NSString stringWithFormat:@"https://anilist.co/api/v2/oauth/authorize?client_id=%@&response_type=code",kanilistclient];
             break;
@@ -47,8 +46,9 @@
     return [NSURL URLWithString:authurl];
 }
 
-- (void)loadAuthorization:(int)service {
-    [_webView loadRequest:[NSURLRequest requestWithURL:[self authURL:service]]];
+- (void)loadAuthorization:(int)nservice {
+    _service = nservice;
+    [_webView loadRequest:[NSURLRequest requestWithURL:[self authURL]]];
 }
 
 - (void)webView:(WKWebView *)webView

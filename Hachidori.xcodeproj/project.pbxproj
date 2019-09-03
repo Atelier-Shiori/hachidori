@@ -246,7 +246,7 @@
 		593B55831CC41DC200B7B254 /* Base64Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Category.m; sourceTree = "<group>"; };
 		593E7D4B21EF9BDB007CD248 /* MAL_Updater_OS_X_DataModel 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MAL_Updater_OS_X_DataModel 9.xcdatamodel"; sourceTree = "<group>"; };
 		594F0A1B21E50414001875AF /* DetectedScrobbleStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectedScrobbleStatus.h; sourceTree = "<group>"; };
-		594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetectedScrobbleStatus.m; sourceTree = "<group>"; };
+		594F0A1C21E50414001875AF /* DetectedScrobbleStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetectedScrobbleStatus.m; sourceTree = "<group>"; wrapsLines = 0; };
 		594F0A1E21E50427001875AF /* LastScrobbleStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LastScrobbleStatus.h; sourceTree = "<group>"; };
 		594F0A1F21E50427001875AF /* LastScrobbleStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LastScrobbleStatus.m; sourceTree = "<group>"; };
 		594F0A2121E65800001875AF /* Scrobble.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scrobble.h; sourceTree = "<group>"; };

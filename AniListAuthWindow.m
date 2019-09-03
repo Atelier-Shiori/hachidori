@@ -24,6 +24,10 @@
     return self;
 }
 
+- (NSString *)getVerifierString {
+    return _awebview.verifier;
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
     
