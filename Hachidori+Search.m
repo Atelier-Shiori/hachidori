@@ -10,6 +10,7 @@
 #import "Hachidori+AnimeRelations.h"
 #import "AtarashiiAPIListFormatKitsu.h"
 #import "AtarashiiAPIListFormatAniList.h"
+#import "AtarashiiAPIListFormatMAL.h"
 #import "Utility.h"
 #import <AFNetworking/AFNetworking.h>
 #import "ExceptionsCache.h"
@@ -70,6 +71,12 @@
             responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : [self cleanupsearchterm:searchtitle], @"type" : @"ANIME"}} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject];
+            }
+            break;
+        case 2:
+            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchterm, @"limit" : @(25), @"fields" : @"num_episodes,status,media_type,nsfw"} task:&task error:&error];
+            if (responseObject) {
+                responseObject = [AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject[@"data"]];
             }
             break;
         default:

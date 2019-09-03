@@ -47,8 +47,8 @@
     [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseCancel];
 }
 
-- (void)loadAuthorization {
-    [_awebview loadAuthorization];
+- (void)loadAuthorizationForService:(int)service {
+    [_awebview loadAuthorization:service];
 }
 
 @end

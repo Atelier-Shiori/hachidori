@@ -17,6 +17,7 @@
 #import "HachidoriTwitterManager.h"
 #import "AniListUpdateManager.h"
 #import "KitsuUpdateManager.h"
+#import "MALUpdateManager.h"
 
 @class Reachability;
 @class Detection;
@@ -53,7 +54,8 @@ typedef NS_ENUM(unsigned int, anilistRatingType) {
 };
 typedef NS_ENUM(unsigned int, hachidoriservice) {
     serviceKitsu = 0,
-    serviceAniList = 1
+    serviceAniList = 1,
+    serviceMAL = 2
 };
 @property (strong) AFHTTPSessionManager *syncmanager;
 @property (strong) AFHTTPSessionManager *asyncmanager;
@@ -75,6 +77,7 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 @property (strong) DiscordManager *discordmanager;
 @property (strong) AniListUpdateManager *anilistmanager;
 @property (strong) KitsuUpdateManager *kitsumanager;
+@property (strong) MALUpdateManager *malmanger;
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)context;
 - (int)getQueueCount;

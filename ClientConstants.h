@@ -16,6 +16,7 @@
     FOUNDATION_EXPORT NSString *const kclient;
     FOUNDATION_EXPORT NSString *const kanilistsecretkey;
     FOUNDATION_EXPORT NSString *const kanilistclient;
+    FOUNDATION_EXPORT NSString *const kmalclient;
     FOUNDATION_EXPORT NSString *const kConsumerKey;
     FOUNDATION_EXPORT NSString *const kConsumerSecret;
 @end

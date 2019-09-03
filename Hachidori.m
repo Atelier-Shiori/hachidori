@@ -107,6 +107,8 @@
             return _kitsumanager.detectedscrobble;
         case 1:
             return _anilistmanager.detectedscrobble;
+        case 2:
+            return _malmanger.detectedscrobble;
         default:
             break;
     }
@@ -121,6 +123,9 @@
         case 1:
             _anilistmanager.detectedscrobble = dscrobble;
             break;
+        case 2:
+            _malmanger.detectedscrobble = dscrobble;
+            break;
         default:
             break;
     }
@@ -132,6 +137,8 @@
             return _kitsumanager.lastscrobble;
         case 1:
             return _anilistmanager.lastscrobble;
+        case 2:
+            return _malmanger.lastscrobble;
         default:
             break;
     }
@@ -146,6 +153,8 @@
         case 1:
             _anilistmanager.lastscrobble = lscrobble;
             break;
+        case 2:
+            _malmanger.lastscrobble = lscrobble;
         default:
             break;
     }
@@ -154,6 +163,7 @@
 - (void)resetDetected {
     _kitsumanager.detectedscrobble = nil;
     _anilistmanager.detectedscrobble = nil;
+    _malmanger.detectedscrobble = nil;
 }
 
 - (LastScrobbleStatus *)lastscrobble {
@@ -211,6 +221,8 @@
             return @"Kitsu";
         case 1:
             return @"AniList";
+        case 2:
+            return @"MyAnimeList";
         default:
             break;
     }
@@ -227,6 +239,8 @@
             return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori"];
         case 1:
             return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - AniList"];
+        case 2:
+            return [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - MyAnimeList"];
         default:
             return nil;
     }
@@ -242,6 +256,12 @@
         }
         case 1: {
             userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID-anilist"];
+            if (userid) {
+                return userid;
+            }
+        }
+        case 2: {
+            userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserID-mal"];
             if (userid) {
                 return userid;
             }

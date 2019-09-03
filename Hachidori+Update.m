@@ -68,6 +68,9 @@
         case 1:
             status = [self.anilistmanager anilistperformupdate:titleid];
             break;
+        case 2:
+            status = [self.malmanger malperformupdate:titleid];
+            break;
         default:
             return ScrobblerFailed;
     }
@@ -102,6 +105,8 @@
         case 1:
             [self.anilistmanager anilistupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note isPrivate:privatevalue completion:completionhandler];
             break;
+        case 2:
+            [self.malmanger malupdatestatus:titleid episode:episode score:showscore watchstatus:showwatchstatus notes:note completion:completionhandler];
         default:
             completionhandler(false);
             break;
@@ -115,6 +120,9 @@
             break;
         case 1:
             status = [self.anilistmanager aniliststopRewatching:titleid];
+            break;
+        case 2:
+            status = [self.malmanger malstopRewatching:titleid];
             break;
         default:
             return ScrobblerFailed;
@@ -133,6 +141,8 @@
             return [self.kitsumanager kitsuremovetitle:titleid];
         case 1:
             return [self.anilistmanager anilistremovetitle:titleid];
+        case 2:
+            return [self.malmanger malremovetitle:titleid];
         default:
             return NO;
     }
@@ -144,6 +154,9 @@
             break;
         case 1:
             [self.anilistmanager aniliststoreLastScrobbled];
+            break;
+        case 2:
+            [self.malmanger malstoreLastScrobbled];
             break;
         default:
             break;

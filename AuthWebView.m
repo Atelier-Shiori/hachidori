@@ -8,9 +8,12 @@
 
 #import "AuthWebView.h"
 #import "ClientConstants.h"
+#import "PKCEGenerator.h"
+#import "Utility.h"
 
 @interface AuthWebView ()
 @property (strong) WKWebView *webView;
+@property (strong) NSString *verifier;
 @end
 
 @implementation AuthWebView
@@ -25,25 +28,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    [self loadAuthorization];
+    [self loadAuthorization:_service];
 }
 
-- (NSURL *)authURL {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/api/v2/oauth/authorize?client_id=%@&response_type=code",kanilistclient]];
+- (NSURL *)authURL:(int)service {
+    NSString *authurl;
+    switch (service) {
+        case 1:
+            authurl = [NSString stringWithFormat:@"https://anilist.co/api/v2/oauth/authorize?client_id=%@&response_type=code",kanilistclient];
+            break;
+        case 2:
+            _verifier = [PKCEGenerator generateCodeChallenge:[PKCEGenerator createVerifierString]];
+            authurl = [NSString stringWithFormat:@"https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=%@&redirect_uri=%@&code_challenge=%@&code_challenge_method=plain", kmalclient, [Utility urlEncodeString:@"hachidoriauth://malauth/"], _verifier];
+            break;
+        default:
+            break;
+    }
+    return [NSURL URLWithString:authurl];
 }
 
-- (void)loadAuthorization {
-    [_webView loadRequest:[NSURLRequest requestWithURL:[self authURL]]];
+- (void)loadAuthorization:(int)service {
+    [_webView loadRequest:[NSURLRequest requestWithURL:[self authURL:service]]];
 }
 
 - (void)webView:(WKWebView *)webView
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    if ([navigationAction.request.URL.absoluteString containsString:@"hachidoriauth://anilistauth/?code="]) {
+    NSString *redirectURL;
+    switch (_service) {
+        case 1:
+            redirectURL = @"hachidoriauth://anilistauth/?code=";
+            break;
+        case 2:
+            redirectURL = @"hachidoriauth://malauth/?code=";
+            break;
+        default:
+            break;
+    }
+    if ([navigationAction.request.URL.absoluteString containsString:redirectURL]) {
         // Save Pin
         decisionHandler(WKNavigationActionPolicyCancel);
         [self resetWebView];
-        _completion([navigationAction.request.URL.absoluteString stringByReplacingOccurrencesOfString:@"hachidoriauth://anilistauth/?code=" withString:@""]);
+        _completion([navigationAction.request.URL.absoluteString stringByReplacingOccurrencesOfString:redirectURL withString:@""]);
     }
     else {
         decisionHandler(WKNavigationActionPolicyAllow);

@@ -14,6 +14,11 @@
 #import "ClientConstants.h"
 #import "AppDelegate.h"
 #import "Hachidori.h"
+#import "PKCEGenerator.h"
+
+@interface LoginPref ()
+@property (strong) NSString *verifier;
+@end
 
 @implementation LoginPref
 
@@ -85,6 +90,18 @@
         //Disable Clearbut
         [_anilistclearbut setEnabled: NO];
         [_anilistauthorizebtn setEnabled: YES];
+    }
+    if ([Hachidori getFirstAccount:2]) {
+        [_malclearbut setEnabled: YES];
+        [_malauthorizebtn setEnabled: NO];
+        [_malloggedinview setHidden:NO];
+        [_malloginview setHidden:YES];
+        _malloggedinuser.stringValue = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"loggedinusername-mal"]];
+    }
+    else {
+        //Disable Clearbut
+        [_malclearbut setEnabled: NO];
+        [_malauthorizebtn setEnabled: YES];
     }
 }
 - (IBAction)startlogin:(id)sender
@@ -180,11 +197,30 @@
                                                }];
 }
 - (void)authorizeWithPin:(NSString *)pin withService: (int)service {
-    AFOAuth2Manager *OAuth2Manager =
-    [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://anilist.co/"]
-                                    clientID:kanilistclient
-                                      secret:kanilistsecretkey];
-    [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token" parameters:@{@"grant_type":@"authorization_code", @"code" : pin, @"redirect_uri" : @"hachidoriauth://anilistauth/"} success:^(AFOAuthCredential *credential) {
+    AFOAuth2Manager *OAuth2Manager;
+    NSString *tokenurl;
+    NSDictionary *parameters;
+    switch (service) {
+        case 1:
+            OAuth2Manager =
+            [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://anilist.co/"]
+                                            clientID:kanilistclient
+                                              secret:kanilistsecretkey];
+            tokenurl = @"api/v2/oauth/token";
+            parameters = @{@"grant_type":@"authorization_code", @"code" : pin, @"redirect_uri" : @"hachidoriauth://anilistauth/"};
+            break;
+        case 2:
+            OAuth2Manager =
+            [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://myanimelist.net/"]
+            clientID:kmalclient
+              secret:@""];
+            tokenurl = @"v1/oauth2/token";
+            parameters = @{@"grant_type":@"authorization_code", @"code" : pin, @"redirect_uri": @"hachidoriauth://malauth/", @"code_verifier" : _verifier};
+            break;
+        default:
+            break;
+    }
+    [OAuth2Manager authenticateUsingOAuthWithURLString:tokenurl parameters:parameters success:^(AFOAuthCredential *credential) {
         // Update your UI
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
         [self showServiceMenuReminder:1];
@@ -236,6 +272,11 @@
 - (IBAction)registerAnilist:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://anilist.co/register"]];
 }
+
+- (IBAction)registerMAL:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://anilist.co/register"]];
+}
+
 
 - (IBAction) showgettingstartedpage:(id)sender
 {
@@ -311,6 +352,9 @@
             break;
         case 1:
             servicename = @"AniList";
+            break;
+        case 2:
+            servicename = @"MyAnimeList";
             break;
         default:
             break;
