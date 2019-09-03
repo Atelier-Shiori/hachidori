@@ -13,6 +13,7 @@
 @property (strong) IBOutlet NSMenu *servicemenu;
 @property (strong) IBOutlet NSMenuItem *kitsuserviceitem;
 @property (strong) IBOutlet NSMenuItem *anilistserviceitem;
+@property (strong) IBOutlet NSMenuItem *malserviceitem;
 @property (strong) IBOutlet NSMenuItem *servicemenuitem;
 typedef void (^action)(int selected, int previousservice);
 @property action actionblock;

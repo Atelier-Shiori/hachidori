@@ -9,6 +9,7 @@
 #import "Hachidori+UserStatus.h"
 #import "AtarashiiAPIListFormatKitsu.h"
 #import "AtarashiiAPIListFormatAniList.h"
+#import "AtarashiiAPIListFormatMAL.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Utility.h"
 
@@ -29,6 +30,9 @@
         case 1:
             responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistAnimeSingleEntry, @"variables" : @{@"id" : [Hachidori getUserid:service], @"mediaid" : titleid}} task:&task error:&error];
             break;
+        case 2:
+            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://api.myanimelist.net/v2/anime/%@?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status%%7Bstart_date,finish_date,comments,num_times_rewatched%%7D,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics",titleid] parameters:nil task:&task error:&error];
+            break;
         default:
             return NO;
     }
@@ -45,6 +49,8 @@
                     entry = [AtarashiiAPIListFormatAniList AniListtoAtarashiiAnimeSingle:responseObject[@"data"][@"AnimeList"][@"mediaList"]];
                 }
                 break;
+            case 2:
+                entry = [AtarashiiAPIListFormatMAL MALtoAtarashiiAnimeEntry:responseObject];
             default:
                 return NO;
         }
@@ -124,6 +130,9 @@
         case 1:
             responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistTitleIdInformation, @"variables" : @{@"id" : aid, @"type" : @"ANIME"}} task:&task error:&error];
             break;
+        case 2:
+            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://api.myanimelist.net/v2/anime/%@?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics",aid] parameters:nil task:&task error:&error];
+            break;
         default:
             return @{};
     }
@@ -135,6 +144,8 @@
                 return [AtarashiiAPIListFormatKitsu KitsuAnimeInfotoAtarashii:responseObject];
             case 1:
                 return [AtarashiiAPIListFormatAniList AniListAnimeInfotoAtarashii:responseObject];
+            case 2:
+                return [AtarashiiAPIListFormatMAL MALAnimeInfotoAtarashii:responseObject];
             default:
                 return @{};
         }
@@ -168,7 +179,9 @@
     dscrobble.rewatching = ((NSNumber *)d[@"rewatching"]).boolValue;
     dscrobble.rewatchcount = ((NSNumber *)d[@"rewatch_count"]).longValue;
     // Privacy Settings
-    dscrobble.isPrivate = ((NSNumber *)d[@"private"]).boolValue;
+    if (service != 2) {
+        dscrobble.isPrivate = ((NSNumber *)d[@"private"]).boolValue;
+    }
     dscrobble.DetectedCurrentEpisode = ((NSNumber *)d[@"watched_episodes"]).intValue;
     dscrobble.LastScrobbledInfo = tmpinfo;
     dscrobble.LastScrobbledTitleNew = false;
@@ -185,6 +198,8 @@
             return self.kitsumanager.detectedscrobble;
         case 1:
             return self.anilistmanager.detectedscrobble;
+        case 2:
+            return self.malmanger.detectedscrobble;
         default:
             return nil;
     }

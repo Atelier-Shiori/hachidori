@@ -786,7 +786,7 @@
             break;
         }
         case 1: {
-            [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - AniList"];
+            cred = [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - AniList"];
             AFOAuth2Manager *OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://anilist.co/"]
                                                                              clientID:kanilistclient
                                                                                secret:kanilistsecretkey];
@@ -801,6 +801,25 @@
                                                        failure:^(NSError *error) {
                                                            NSLog(@"Token cannot be refreshed: %@", error);
                                                            successHandler(false);
+                                                       }];
+            break;
+        }
+        case 2: {
+            cred = [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - MyAnimeList"];
+            AFOAuth2Manager *OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:[NSURL URLWithString:@"https://myanimelist.net/"]
+                                                                             clientID:kmalclient
+                                                                               secret:@""];
+            [OAuth2Manager setUseHTTPBasicAuthentication:NO];
+            [OAuth2Manager authenticateUsingOAuthWithURLString:@"v1/oauth2/token"
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri": @"hachidoriauth://malauth/"} success:^(AFOAuthCredential *credential) {
+                                                        NSLog(@"Token refreshed");
+                                                        [AFOAuthCredential storeCredential:credential
+                                                        withIdentifier:@"Hachidori - MyAnimeList"];
+                                                        successHandler(true);
+                                                    }
+                                                       failure:^(NSError *error) {
+                                                           successHandler(false);
+                      NSLog(@"Token cannot be refreshed: %@", error);
                                                        }];
             break;
         }
@@ -868,6 +887,14 @@
             }];
             break;
         }
+        case 2: {
+            [_asyncmanager GET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                completionHandler(((NSNumber *)responseObject[@"id"]).intValue, responseObject[@"name"], @"");
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                errorHandler(error);
+            }];
+            break;
+        }
         default:
             break;
     }
@@ -891,6 +918,9 @@
             break;
         case 1:
             _reach = [Reachability reachabilityWithHostname:@"anilist.co"];
+            break;
+        case 2:
+            _reach = [Reachability reachabilityWithHostname:@"myanimelist.com"];
             break;
     }
     _reach.reachableBlock = ^(Reachability*reach)

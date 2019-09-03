@@ -31,6 +31,7 @@
         aentry.score = ((NSNumber *)listStatus[@"score"]).intValue;
         aentry.watched_episodes = ((NSNumber *)listStatus[@"num_episodes_watched"]).intValue;
         aentry.rewatching = ((NSNumber *)listStatus[@"is_rewatching"]).boolValue;
+        aentry.rewatch_count = ((NSNumber *)listStatus[@"num_times_rewatched"]).intValue;
         aentry.watching_start = listStatus[@"start_date"] ? listStatus[@"start_date"] : @"";
         aentry.watching_end = listStatus[@"finish_date"] ? listStatus[@"finish_date"] : @"";
         aentry.personal_comments = listStatus[@"comments"];

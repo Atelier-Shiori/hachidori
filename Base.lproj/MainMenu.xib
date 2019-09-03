@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -149,6 +149,7 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="139" y="154"/>
         </menu>
         <arrayController mode="entity" entityName="History" automaticallyPreparesContent="YES" id="582">
             <declaredKeys>
@@ -165,6 +166,7 @@
             <connections>
                 <outlet property="anilistserviceitem" destination="V1g-Ab-K09" id="Bd7-4I-qI2"/>
                 <outlet property="kitsuserviceitem" destination="gfE-Ea-BJ8" id="RlV-nQ-ARA"/>
+                <outlet property="malserviceitem" destination="50v-y5-Qm8" id="feT-Ez-I7f"/>
                 <outlet property="servicemenuitem" destination="Ffd-xt-7ta" id="tti-y7-nUM"/>
             </connections>
         </customObject>
@@ -252,6 +254,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="setService:" target="n9r-J5-biA" id="alO-dE-ypT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="MyAnimeList" tag="2" id="50v-y5-Qm8">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setService:" target="n9r-J5-biA" id="uQd-AO-hja"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -410,29 +418,29 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="584" y="499" width="440" height="253"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="440" height="253"/>
             <value key="maxSize" type="size" width="440" height="253"/>
             <view key="contentView" id="791">
                 <rect key="frame" x="0.0" y="0.0" width="440" height="253"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" id="6po-93-3UB">
+                    <visualEffectView fixedFrame="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6po-93-3UB">
                         <rect key="frame" x="0.0" y="22" width="440" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView hidden="YES" id="rQb-tD-j5e">
+                            <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQb-tD-j5e">
                                 <rect key="frame" x="0.0" y="0.0" width="440" height="234"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Flw-vm-3Ig">
+                                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-vm-3Ig">
                                         <rect key="frame" x="149" y="1" width="291" height="190"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <clipView key="contentView" copiesOnScroll="NO" id="ypk-hd-jNn">
+                                        <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="ypk-hd-jNn">
                                             <rect key="frame" x="1" y="1" width="274" height="188"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
+                                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
                                                     <rect key="frame" x="0.0" y="0.0" width="274" height="188"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -452,12 +460,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gfr-73-DLn">
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfr-73-DLn">
                                         <rect key="frame" x="4" y="8" width="137" height="183"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="SDe-v8-QB2"/>
                                     </imageView>
-                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="792">
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="792">
                                         <rect key="frame" x="8" y="191" width="424" height="35"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Title Epispode X" id="796">
@@ -468,11 +476,11 @@
                                     </textField>
                                 </subviews>
                             </customView>
-                            <customView id="QBj-Ek-7Tw">
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBj-Ek-7Tw">
                                 <rect key="frame" x="0.0" y="1" width="440" height="232"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" id="g2C-hu-jDc">
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g2C-hu-jDc">
                                         <rect key="frame" x="-2" y="154" width="444" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Nothing Scrobbled Yet" id="ax6-aQ-n4d">
@@ -485,7 +493,7 @@
                             </customView>
                         </subviews>
                     </visualEffectView>
-                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="793">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="793">
                         <rect key="frame" x="4" y="6" width="431" height="12"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Scrobble Status: Stopped" id="795">

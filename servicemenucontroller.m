@@ -16,19 +16,27 @@
         case 0: {
             _kitsuserviceitem.state = NSOnState;
             _anilistserviceitem.state = NSOffState;
+            _malserviceitem.state = NSOffState;
             break;
         }
         case 1: {
             _kitsuserviceitem.state = NSOffState;
             _anilistserviceitem.state = NSOnState;
+            _malserviceitem.state = NSOffState;
             break;
+        }
+        case 2: {
+            _kitsuserviceitem.state = NSOffState;
+            _anilistserviceitem.state = NSOffState;
+            _malserviceitem.state = NSOnState;
+            break;
+        }
         default:
             [NSUserDefaults.standardUserDefaults setInteger:0 forKey:@"currentservice"];
             _kitsuserviceitem.state = NSOnState;
             _anilistserviceitem.state = NSOffState;
             break;
         }
-    }
 }
 
 - (IBAction)setService:(id)sender {

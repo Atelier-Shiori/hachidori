@@ -9,6 +9,7 @@
 #import "FixSearchDialog.h"
 #import "AtarashiiAPIListFormatKitsu.h"
 #import "AtarashiiAPIListFormatAniList.h"
+#import "AtarashiiAPIListFormatMAL.h"
 #import "AniListConstants.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Utility.h"
@@ -107,6 +108,7 @@
 }
 - (IBAction)search:(id)sender{
     if (search.stringValue.length> 0) {
+        [_searchmanager.requestSerializer clearAuthorizationHeader];
         NSString *searchterm = [Utility urlEncodeString:search.stringValue];
         switch (self.currentservice) {
             case 0: {
@@ -124,6 +126,14 @@
                     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
                 }];
                 break;
+            }
+            case 2: {
+                [_searchmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - MyAnimeList"].accessToken] forHTTPHeaderField:@"Authorization"];
+                [_searchmanager GET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchterm, @"limit" : @(25), @"fields" : @"num_episodes,status,media_type,nsfw"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    [self populateData:[AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject]];
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
+                }];
             }
             default: {
                 break;
