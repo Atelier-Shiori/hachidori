@@ -134,7 +134,7 @@
     }
     else {
         [_anilistauthw.window makeKeyAndOrderFront:self];
-        [_anilistauthw loadAuthorization];
+        [_anilistauthw loadAuthorizationForService:(int)((NSButton *)sender).tag];
         [_anilistauthw close];
     }
     _anilistauthorizebtn.enabled = NO;
@@ -142,7 +142,7 @@
         if (returnCode == NSModalResponseOK) {
             NSString *pin = _anilistauthw.pin.copy;
             _anilistauthw.pin = nil;
-            [self authorizeWithPin:pin withService:1];
+            [self authorizeWithPin:pin withService:(int)((NSButton *)sender).tag];
         }
         else {
             _anilistauthorizebtn.enabled = YES;
@@ -223,28 +223,67 @@
     [OAuth2Manager authenticateUsingOAuthWithURLString:tokenurl parameters:parameters success:^(AFOAuthCredential *credential) {
         // Update your UI
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
-        [self showServiceMenuReminder:1];
+        [self showServiceMenuReminder:service];
+        NSString *keychainidentifier;
+        switch (service) {
+            case 1:
+                keychainidentifier = @"Hachidori - AniList";
+                break;
+            case 2:
+                keychainidentifier = @"Hachidori - MyAnimeList";
+                break;
+            default:
+                break;
+        }
         [AFOAuthCredential storeCredential:credential
-                            withIdentifier:@"Hachidori - AniList"];
+                            withIdentifier:keychainidentifier];
         [_haengine retrieveUserID:^(int userid, NSString *username, NSString *scoreformat) {
-            [[NSUserDefaults standardUserDefaults] setValue:@(userid) forKey:@"UserID-anilist"];
-            [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"loggedinusername-anilist"];
-            [_anilistauthorizebtn setEnabled: YES];
-            [_anilistclearbut setEnabled: YES];
-            _anilistloggedinuser.stringValue = username;
-            [_anilistloggedinview setHidden:NO];
-            [_anilistloginview setHidden:YES];
+            switch (service) {
+                case 1:
+                    [[NSUserDefaults standardUserDefaults] setValue:@(userid) forKey:@"UserID-anilist"];
+                    [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"loggedinusername-anilist"];
+                    [_anilistauthorizebtn setEnabled: YES];
+                    [_anilistclearbut setEnabled: YES];
+                    _anilistloggedinuser.stringValue = username;
+                    [_anilistloggedinview setHidden:NO];
+                    [_anilistloginview setHidden:YES];
+                    break;
+                case 2:
+                    [[NSUserDefaults standardUserDefaults] setValue:@(userid) forKey:@"UserID-mal"];
+                    [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"loggedinusername-mal"];
+                    [_malauthorizebtn setEnabled: YES];
+                    [_malclearbut setEnabled: YES];
+                    _malloggedinuser.stringValue = username;
+                    [_malloggedinview setHidden:NO];
+                    [_malloginview setHidden:YES];
+                    break;
+                default:
+                    break;
+            }
+
         } error:^(NSError *error) {
             NSLog(@"Error: %@", error);
             // Do something with the error
             //Login Failed, show error message
             [Utility showsheetmessage:@"Hachidori was unable to authorize your account." explaination:@"Please try again later." window:self.view.window];
             NSLog(@"%@",error);
-            [_anilistauthorizebtn setEnabled: YES];
-            _anilistauthorizebtn.keyEquivalent = @"\r";
-            [_anilistloggedinview setHidden:YES];
-            [_anilistloginview setHidden:NO];
-        } withService:1];
+            switch (service) {
+                case 1:
+                    [_anilistauthorizebtn setEnabled: YES];
+                    _anilistauthorizebtn.keyEquivalent = @"\r";
+                    [_anilistloggedinview setHidden:YES];
+                    [_anilistloginview setHidden:NO];
+                    break;
+                case 2:
+                    [_malauthorizebtn setEnabled: YES];
+                    _malauthorizebtn.keyEquivalent = @"\r";
+                    [_malloggedinview setHidden:YES];
+                    [_malloginview setHidden:NO];
+                    break;
+                default:
+                    break;
+            }
+        } withService:service];
 
     }
                                                failure:^(NSError *error) {
@@ -255,11 +294,24 @@
                                                    NSLog(@"%@",error);
                                                    NSString* errResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
                                                    NSLog(@"%@",errResponse);
-                                                   [_anilistauthorizebtn setEnabled: YES];
-                                                   _anilistauthorizebtn.keyEquivalent = @"\r";
-                                                   [_anilistloggedinview setHidden:YES];
-                                                   [_anilistloginview setHidden:NO];
-                                                   [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - AniList"];
+        switch (service) {
+            case 1:
+                [_anilistauthorizebtn setEnabled: YES];
+                _anilistauthorizebtn.keyEquivalent = @"\r";
+                [_anilistloggedinview setHidden:YES];
+                [_anilistloginview setHidden:NO];
+                [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - AniList"];
+                break;
+            case 2:
+                [_malauthorizebtn setEnabled: YES];
+                _malauthorizebtn.keyEquivalent = @"\r";
+                [_malloggedinview setHidden:YES];
+                [_malloginview setHidden:NO];
+                [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - MyAnimeList"];
+                break;
+            default:
+                break;
+        }
                                                }];
 }
 
@@ -323,6 +375,19 @@
                         _anilistloggedinuser.stringValue = @"";
                         [_anilistloggedinview setHidden:YES];
                         [_anilistloginview setHidden:NO];
+                        break;
+                    }
+                    case 2: {
+                        // Remove Oauth Account
+                        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - MyAnimeList"];
+                        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"loggedinusername-mal"];
+                        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"UserID-mal"];
+                        //Disable Clearbut
+                        [_malclearbut setEnabled: NO];
+                        [_malauthorizebtn setEnabled: YES];
+                        _malloggedinuser.stringValue = @"";
+                        [_malloggedinview setHidden:YES];
+                        [_malloginview setHidden:NO];
                         break;
                     }
                 }

@@ -11,5 +11,5 @@
 
 @interface AniListAuthWindow : NSWindowController <WKUIDelegate,WKNavigationDelegate>
 @property (strong) NSString *pin;
-- (void)loadAuthorization;
+- (void)loadAuthorizationForService:(int)service;
 @end

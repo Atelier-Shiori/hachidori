@@ -82,6 +82,29 @@
     }
 }
 
+- (void)savemaluserinfo {
+    // Retrieves missing user information and populates it before showing the UI.
+    AFOAuthCredential *cred = [Hachidori getFirstAccount:1];
+    if (cred && cred.expired) {
+        return;
+    }
+    if (cred) {
+        [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
+    }
+    NSError *error;
+    
+    id responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil task:NULL error:&error];
+    if (!error) {
+        NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+        [defaults setValue:responseObject[@"id"] forKey:@"UserID-mal"];
+        [defaults setValue:responseObject[@"name"] forKey:@"loggedinusername-mal"];
+    }
+    else {
+        // Remove Account, invalid token
+        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - MyAnimeList"];
+    }
+}
+
 - (void)checkaccountinformation {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
     if ([Hachidori getFirstAccount:0]) {
@@ -91,11 +114,18 @@
             [NSUserDefaults.standardUserDefaults setObject:[NSDate dateWithTimeIntervalSinceNow:259200] forKey:@"kitsu-userinformationrefresh"];
         }
     }
-    if ([Hachidori getFirstAccount:2]) {
+    if ([Hachidori getFirstAccount:1]) {
         bool refreshAniList = (![defaults valueForKey:@"anilist-userinformationrefresh"] || ((NSDate *)[defaults objectForKey:@"anilist-userinformationrefresh"]).timeIntervalSinceNow < 0);
         if ((![defaults valueForKey:@"loggedinusername-anilist"] || ![defaults valueForKey:@"UserID-anilist"]) || ((NSString *)[defaults valueForKey:@"loggedinusername-anilist"]).length == 0 || refreshAniList) {
             [self saveanilistuserinfo];
             [NSUserDefaults.standardUserDefaults setObject:[NSDate dateWithTimeIntervalSinceNow:259200] forKey:@"anilist-userinformationrefresh"];
+        }
+    }
+    if ([Hachidori getFirstAccount:2]) {
+        bool refreshAniList = (![defaults valueForKey:@"mal-userinformationrefresh"] || ((NSDate *)[defaults objectForKey:@"mal-userinformationrefresh"]).timeIntervalSinceNow < 0);
+        if ((![defaults valueForKey:@"loggedinusername-mal"] || ![defaults valueForKey:@"UserID-anilist"]) || ((NSString *)[defaults valueForKey:@"loggedinusername-mal"]).length == 0 || refreshAniList) {
+            [self savemaluserinfo];
+            [NSUserDefaults.standardUserDefaults setObject:[NSDate dateWithTimeIntervalSinceNow:259200] forKey:@"mal-userinformationrefresh"];
         }
     }
 }
@@ -107,6 +137,8 @@
             return ([defaults valueForKey:@"loggedinusername"] && [defaults valueForKey:@"UserID"]);
         case serviceAniList:
             return ([defaults valueForKey:@"loggedinusername-anilist"] && [defaults valueForKey:@"UserID-anilist"]);
+        case serviceMAL:
+            return ([defaults valueForKey:@"loggedinusername-mal"] && [defaults valueForKey:@"UserID-mal"]);
     }
     return NO;
 }

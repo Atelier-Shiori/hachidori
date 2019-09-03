@@ -177,7 +177,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="AniList" identifier="" id="LPs-8w-wO3">
-                            <view key="view" id="mVn-WH-dUf">
+                            <view key="view" ambiguous="YES" id="mVn-WH-dUf">
                                 <rect key="frame" x="10" y="33" width="382" height="191"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -243,7 +243,7 @@
                                                             <action selector="registerAnilist:" target="-2" id="yIW-kq-2Gf"/>
                                                         </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DjG-2p-Iv8">
+                                                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="DjG-2p-Iv8">
                                                         <rect key="frame" x="139" y="72" width="96" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Authorize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IpP-LV-ai4">
@@ -271,7 +271,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="MyAnimeList" identifier="" id="S8O-Ij-Tqv">
-                            <view key="view" ambiguous="YES" id="5CP-zK-ISc">
+                            <view key="view" id="5CP-zK-ISc">
                                 <rect key="frame" x="10" y="33" width="382" height="191"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -291,7 +291,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="fiY-Hb-FCM">
+                                                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="fiY-Hb-FCM">
                                                         <rect key="frame" x="108" y="71" width="160" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Remove Account" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VuH-Kt-Cjl">
@@ -337,7 +337,7 @@
                                                             <action selector="registerAnilist:" target="-2" id="ZOj-RC-ewQ"/>
                                                         </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="haH-TL-vYj">
+                                                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="haH-TL-vYj">
                                                         <rect key="frame" x="139" y="72" width="96" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Authorize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NPj-SW-75y">

@@ -68,7 +68,7 @@
             }
         }
     }
-    else if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
+    if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
         if ([Hachidori getFirstAccount:1]) {
             if (mapping[@"anilist_id"] != [NSNull null] && ((NSNumber *)mapping[@"anilist_id"]).intValue > 0) {
                 // Obtain Entry
@@ -94,6 +94,30 @@
             }
         }
     }
+    if ([defaults boolForKey:@"multiscrobblemalenabled"] && [Hachidori currentService] != 2) {
+        if (mapping[@"mal_id"] != [NSNull null] && ((NSNumber *)mapping[@"mal_id"]).intValue > 0) {
+                       // Obtain Entry
+                       self.malmanger.detectedscrobble = self.detectedscrobble.copy;
+                       self.malmanger.detectedscrobble.AniID = ((NSNumber *)mapping[@"mal_id"]).stringValue;
+                       if ([self checkstatus:self.malmanger.detectedscrobble.AniID withService:2]) {
+                           if ([self shouldMultiScrobble:self.malmanger.detectedscrobble]) {
+                               int status = [self performupdate:self.malmanger.detectedscrobble.AniID withService:1];
+                               switch (status) {
+                                   case 21:
+                                   case 22:
+                                       [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was successful on MyAnimeList" : @"Scrobble was successful on MyAnimeList", @"identifier" : @"multiscrobble-mal"}];
+                                       break;
+                                   default:
+                                       [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : self.correcting ? @"Correction was not successful on MyAnimeList" : @"Scrobble was not successful on MyAnimeList", @"identifier" : @"multiscrobble-mal"}];
+                                       break;
+                               }
+                           }
+                           else {
+                               [self.malmanger malstoreLastScrobbled];
+                           }
+                       }
+                   }
+    }
 }
 
 - (void)performMultiScrobbleEntryUpdateWithMapping:(NSDictionary *)mapping  {
@@ -109,6 +133,10 @@
                             // Raw Score to Rating Twenty
                             convertedscore = [ScoreConversion translateadvancedKitsuRatingtoRatingTwenty:(int)(self.lastscrobble.TitleScore/10)];
                             break;
+                        case 2:
+                            // Raw Score to Rating Twenty
+                            convertedscore = [ScoreConversion translateadvancedKitsuRatingtoRatingTwenty:self.lastscrobble.TitleScore];
+                            break;
                     }
                     [self updatestatus:((NSNumber *)mapping[@"kitsu_id"]).stringValue episode:@(self.lastscrobble.DetectedCurrentEpisode).stringValue score:convertedscore watchstatus:self.lastscrobble.WatchStatus notes:self.lastscrobble.TitleNotes isPrivate:self.lastscrobble.isPrivate completion:^(bool success) {
                         [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : success ? @"Entry Update on Kitsu is successful" : @"Entry Update had failed on Kitsu", @"identifier" : @"multiscrobble-kitsu"}];
@@ -116,7 +144,7 @@
                 }
             }
         }
-        else if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
+        if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
             if ([Hachidori getFirstAccount:1] && self.anilistmanager.lastscrobble) {
                 if (mapping[@"anilist_id"] != [NSNull null] && ((NSNumber *)mapping[@"anilist_id"]).intValue > 0) {
                     int convertedscore;
@@ -125,11 +153,31 @@
                             // Rating Twenty to Raw Score
                             convertedscore = [ScoreConversion ratingTwentytoAdvancedScore:self.lastscrobble.TitleScore];
                             break;
+                        case 2:
+                            convertedscore = self.lastscrobble.TitleScore * 10;
+                            break;
                     }
                     [self updatestatus:((NSNumber *)mapping[@"anilist_id"]).stringValue episode:@(self.lastscrobble.DetectedCurrentEpisode).stringValue score:convertedscore watchstatus:self.lastscrobble.WatchStatus notes:self.lastscrobble.TitleNotes isPrivate:self.lastscrobble.isPrivate completion:^(bool success) {
                         [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : success ? @"Entry Update on AniList is successful" : @"Entry Update had failed on AniList", @"identifier" : @"multiscrobble-anilist"}];
                     } withService:1];
                 }
+            }
+        }
+        if ([defaults boolForKey:@"multiscrobblemalenabled"] && [Hachidori currentService] != 2) {
+            if ([Hachidori getFirstAccount:2] && self.malmanger.lastscrobble) {
+                int convertedscore;
+                switch ([Hachidori currentService]) {
+                    case 0:
+                        // Rating Twenty to Raw Score
+                        convertedscore = (int)round([ScoreConversion ratingTwentytoAdvancedScore:self.lastscrobble.TitleScore]);
+                        break;
+                    case 2:
+                        convertedscore = (int)round(self.lastscrobble.TitleScore/10);
+                        break;
+                }
+                [self updatestatus:((NSNumber *)mapping[@"mal_id"]).stringValue episode:@(self.lastscrobble.DetectedCurrentEpisode).stringValue score:convertedscore watchstatus:self.lastscrobble.WatchStatus notes:self.lastscrobble.TitleNotes isPrivate:self.lastscrobble.isPrivate completion:^(bool success) {
+                    [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : success ? @"Entry Update on MyAnimeList is successful" : @"Entry Update had failed on MyAnimeList", @"identifier" : @"multiscrobble-mal"}];
+                    } withService:2];
             }
         }
     }
@@ -146,13 +194,16 @@
                 }
             }
         }
-        else if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
+        if ([defaults boolForKey:@"multiscrobbleanilistenabled"] && [Hachidori currentService] != 1) {
             if (mapping[@"anilist_id"] != [NSNull null] && ((NSNumber *)mapping[@"anilist_id"]).intValue > 0 && self.anilistmanager.lastscrobble) {
                 if ([self.anilistmanager.lastscrobble.AniID isEqualToString:((NSNumber *)mapping[@"anilist_id"]).stringValue] && self.anilistmanager.lastscrobble.rewatching) {
                     bool success = [self.anilistmanager aniliststopRewatching:self.anilistmanager.lastscrobble.AniID];
                     [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : success ? @"Rewatch revert on AniList is successful" : @"Rewatch revert had failed on AniList", @"identifier" : @"multiscrobble-anilist"}];
                 }
             }
+        }
+        if ([defaults boolForKey:@"multiscrobblemalenabled"] && [Hachidori currentService] != 2) {
+            
         }
     }
     
@@ -175,6 +226,8 @@
         case 1:
             site = @"anilist";
             break;
+        case 2:
+            site = @"mal";
         default:
             return nil;
     }
@@ -240,6 +293,9 @@
                 break;
             case 1:
                 predicate = [NSPredicate predicateWithFormat:@"anilist_id == %i", titleid.intValue];
+                break;
+            case 2:
+                predicate = [NSPredicate predicateWithFormat:@"mal_id == %i", titleid.intValue];
                 break;
             default:
                 break;

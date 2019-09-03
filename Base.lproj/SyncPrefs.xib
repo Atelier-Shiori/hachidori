@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,11 +14,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="202"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="228"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ZC-7W-27o">
-                    <rect key="frame" x="142" y="166" width="229" height="18"/>
+                    <rect key="frame" x="142" y="192" width="229" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable MultiScrobble" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Hoa-HI-DGY">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -30,7 +30,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3nx-Wg-hoC">
-                    <rect key="frame" x="325" y="141" width="184" height="18"/>
+                    <rect key="frame" x="325" y="167" width="184" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Scrobbles" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="FDF-NW-m4q">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -42,7 +42,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ym-aL-xAb">
-                    <rect key="frame" x="325" y="121" width="131" height="18"/>
+                    <rect key="frame" x="325" y="147" width="131" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Entry Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Zm2-8m-Di1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -54,7 +54,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zRA-Si-g6x">
-                    <rect key="frame" x="325" y="101" width="131" height="18"/>
+                    <rect key="frame" x="325" y="127" width="131" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Corrections" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="38K-a1-D3F">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -66,7 +66,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n7C-Np-KBt">
-                    <rect key="frame" x="130" y="141" width="185" height="17"/>
+                    <rect key="frame" x="130" y="167" width="185" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Perform MultiScrobble for:" id="qdm-Zg-Kda">
                         <font key="font" metaFont="system"/>
@@ -75,7 +75,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HB9-Bm-w7a">
-                    <rect key="frame" x="107" y="71" width="208" height="17"/>
+                    <rect key="frame" x="107" y="97" width="208" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Enabled Services:" id="ddI-kb-9Mo">
                         <font key="font" metaFont="system"/>
@@ -84,19 +84,19 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuP-DP-UTb">
-                    <rect key="frame" x="325" y="69" width="171" height="18"/>
+                    <rect key="frame" x="325" y="95" width="171" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="AniList" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="DsL-Ye-TT8">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="Zzy-Ge-fQd" name="enabled" keyPath="values.multiscrobbleenabled" id="0us-eo-5zv"/>
                         <binding destination="Zzy-Ge-fQd" name="value" keyPath="values.multiscrobbleanilistenabled" id="Sjj-pP-riA"/>
+                        <binding destination="Zzy-Ge-fQd" name="enabled" keyPath="values.multiscrobbleenabled" id="0us-eo-5zv"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xwT-13-dSN">
-                    <rect key="frame" x="325" y="46" width="184" height="18"/>
+                    <rect key="frame" x="325" y="72" width="184" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Kitsu" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="nWn-j4-GCo">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -107,8 +107,20 @@
                         <binding destination="Zzy-Ge-fQd" name="value" keyPath="values.multiscrobblekitsuenabled" id="CWD-A2-CdW"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M0p-fR-2eR">
+                    <rect key="frame" x="325" y="53" width="180" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="MyAnimeList" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GjA-9g-Xg9">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Zzy-Ge-fQd" name="enabled" keyPath="values.multiscrobbleenabled" id="o0H-jf-4oh"/>
+                        <binding destination="Zzy-Ge-fQd" name="value" keyPath="values.multiscrobblemalenabled" id="dHb-O4-265"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QRs-Bo-48p">
-                    <rect key="frame" x="142" y="14" width="396" height="17"/>
+                    <rect key="frame" x="142" y="20" width="396" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="MultiScrobble allows you to scrobble to multiple services at the same time." id="PjP-jP-cRR">
                         <font key="font" metaFont="smallSystem"/>
@@ -117,7 +129,7 @@
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="141" y="119"/>
+            <point key="canvasLocation" x="141" y="132"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="Zzy-Ge-fQd"/>
     </objects>
