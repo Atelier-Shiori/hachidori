@@ -1,7 +1,9 @@
 # Hachidori
-Hachidori (はちどり) is an open sourced [Kitsu](https://kitsu.io) and [AniList](https://anilist.co) scrobbler for macOS.
+Hachidori (はちどり) is an open sourced [Kitsu](https://kitsu.io), [AniList](https://anilist.co), and [MyAnimeList](https://myanimelist.net) scrobbler for macOS. Hachidori is the successor for MAL Updater OS X.
  
-Requires latest SDK (10.14) and XCode 10 or later to compile. Deployment target is 10.11.
+Requires latest SDK (10.15) and XCode 11 or later to compile. Deployment target is 10.11.
+
+Note: This is the prerelease branch, which contains MyAnimeList support. You won't be able to compile without an MyAnimeList OAuth client key, which is not obtainable until the API reaches open beta.
 
 ## Supporting this Project
 
