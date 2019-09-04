@@ -799,7 +799,6 @@
             }];
         }
     }
-    successHandler(!mainservicerefreshfailed, failcount);
 }
 
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler {
