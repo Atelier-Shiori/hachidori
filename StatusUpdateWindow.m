@@ -48,6 +48,7 @@
         case 0: {
             _showscore.hidden = NO;
             _advancedscorefield.hidden = YES;
+            _isPrivate.hidden = NO;
             switch (haengine.ratingtype){
                 case ratingSimple:
                     _showscore.menu = _simpleratingmenu;
@@ -66,6 +67,7 @@
             break;
         }
         case 1: {
+            _isPrivate.hidden = NO;
             switch (haengine.ratingtype) {
                 case ratingPoint100:
                     _showscore.hidden = YES;
@@ -103,6 +105,13 @@
             else {
                 [_showscore selectItemWithTag:[AniListScoreConvert convertAniListScoreToActualScore:haengine.lastscrobble.TitleScore withScoreType:haengine.ratingtype].intValue];
             }
+            break;
+        }
+        case 2: {
+            _showscore.hidden = NO;
+            _advancedscorefield.hidden = YES;
+            _showscore.menu = _scoremenu;
+            _isPrivate.hidden = YES;
             break;
         }
     }

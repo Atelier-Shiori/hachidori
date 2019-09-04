@@ -129,7 +129,7 @@
             }
             case 2: {
                 [_searchmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - MyAnimeList"].accessToken] forHTTPHeaderField:@"Authorization"];
-                [_searchmanager GET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchterm, @"limit" : @(25), @"fields" : @"num_episodes,status,media_type,nsfw"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [_searchmanager GET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchterm.length > 50 ? [searchterm substringToIndex:50] : searchterm, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     [self populateData:[AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject]];
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
