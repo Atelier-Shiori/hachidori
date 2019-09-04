@@ -177,7 +177,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="AniList" identifier="" id="LPs-8w-wO3">
-                            <view key="view" ambiguous="YES" id="mVn-WH-dUf">
+                            <view key="view" id="mVn-WH-dUf">
                                 <rect key="frame" x="10" y="33" width="382" height="191"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -196,6 +196,9 @@
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="showgettingstartedpage:" target="-2" id="am8-FT-IOe"/>
+                                                        </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="qN6-gu-cwy">
                                                         <rect key="frame" x="108" y="71" width="160" height="32"/>
@@ -271,7 +274,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="MyAnimeList" identifier="" id="S8O-Ij-Tqv">
-                            <view key="view" id="5CP-zK-ISc">
+                            <view key="view" ambiguous="YES" id="5CP-zK-ISc">
                                 <rect key="frame" x="10" y="33" width="382" height="191"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -290,6 +293,9 @@
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="showgettingstartedpage:" target="-2" id="LTx-cM-eWX"/>
+                                                        </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="fiY-Hb-FCM">
                                                         <rect key="frame" x="108" y="71" width="160" height="32"/>
@@ -334,7 +340,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="registerAnilist:" target="-2" id="ZOj-RC-ewQ"/>
+                                                            <action selector="registerMAL:" target="-2" id="6F7-Wd-Ap1"/>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="haH-TL-vYj">
