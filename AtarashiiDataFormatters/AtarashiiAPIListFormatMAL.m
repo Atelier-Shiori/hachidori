@@ -47,11 +47,11 @@
     aobject.popularity_rank = data[@"popularity"] != [NSNull null] ? ((NSNumber *)data[@"popularity"]).intValue : 0;
     #if defined(AppStore)
     if (data[@"main_picture"] != [NSNull null] && data[@"main_picture"]) {
-        aobject.image_url = data[@"main_picture"][@"large"] && data[@"main_picture"] != [NSNull null] && [(NSString *)data[@"nsfw"] isEqualToString:@"white"] ? data[@"main_picture"][@"large"] : @"";
+        aobject.image_url = data[@"main_picture"][@"large"] && data[@"main_picture"] != [NSNull null] && ![(NSString *)data[@"nsfw"] isEqualToString:@"black"] ? data[@"main_picture"][@"large"] : @"";
     }
-    aobject.synposis = [(NSString *)data[@"nsfw"] isEqualToString:@"white"] ? data[@"synopsis"] != [NSNull null] ? data[@"synopsis"] : @"No synopsis available" : @"Synopsis not available for adult titles";
+    aobject.synposis = [(NSString *)data[@"nsfw"] isEqualToString:@"black"] ? data[@"synopsis"] != [NSNull null] ? data[@"synopsis"] : @"No synopsis available" : @"Synopsis not available for adult titles";
     #else
-    bool allowed = ([NSUserDefaults.standardUserDefaults boolForKey:@"showadult"] || [(NSString *)data[@"nsfw"] isEqualToString:@"white"]);
+    bool allowed = ([NSUserDefaults.standardUserDefaults boolForKey:@"showadult"] || ![(NSString *)data[@"nsfw"] isEqualToString:@"black"]);
     if (data[@"main_picture"] != [NSNull null]&& data[@"main_picture"]) {
         aobject.image_url = data[@"main_picture"][@"large"] && data[@"main_picture"] != [NSNull null] && data[@"main_picture"][@"large"] && allowed ?  data[@"main_picture"][@"large"] : @"";
     }
@@ -126,11 +126,11 @@
         @autoreleasepool {
             NSDictionary *titleData = d[@"node"];
 #if defined(AppStore)
-            if (![(NSString *)titleData[@"nsfw"] isEqualToString:@"white"]) {
+            if ([(NSString *)titleData[@"nsfw"] isEqualToString:@"black"]) {
                 continue;
             }
 #else
-            if (![(NSString *)titleData[@"nsfw"] isEqualToString:@"white"] && ![NSUserDefaults.standardUserDefaults boolForKey:@"showadult"]) {
+            if ([(NSString *)titleData[@"nsfw"] isEqualToString:@"black"] && ![NSUserDefaults.standardUserDefaults boolForKey:@"showadult"]) {
                 continue;
             }
 #endif
@@ -158,6 +158,5 @@
     }
     return tmparray;
 }
-
 
 @end
