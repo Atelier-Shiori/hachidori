@@ -882,6 +882,7 @@
                         [weakself firetimer];
                     }
                 }];
+                scrobbleractive = false;
                 return;
             }
         }

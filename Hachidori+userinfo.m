@@ -47,8 +47,10 @@
         }
     }
     else {
-        // Remove Account
-        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
+        if ([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+            // Remove Account
+            [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori"];
+        }
     }
 }
 
@@ -77,14 +79,16 @@
         }
     }
     else {
-        // Remove Account
-        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - AniList"];
+        if ([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+            // Remove Account
+            [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - AniList"];
+        }
     }
 }
 
 - (void)savemaluserinfo {
     // Retrieves missing user information and populates it before showing the UI.
-    AFOAuthCredential *cred = [Hachidori getFirstAccount:1];
+    AFOAuthCredential *cred = [Hachidori getFirstAccount:2];
     if (cred && cred.expired) {
         return;
     }
@@ -100,8 +104,10 @@
         [defaults setValue:responseObject[@"name"] forKey:@"loggedinusername-mal"];
     }
     else {
-        // Remove Account, invalid token
-        [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - MyAnimeList"];
+        if ([[error.userInfo valueForKey:@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+            // Remove Account, invalid token
+            [AFOAuthCredential deleteCredentialWithIdentifier:@"Hachidori - MyAnimeList"];
+        }
     }
 }
 
