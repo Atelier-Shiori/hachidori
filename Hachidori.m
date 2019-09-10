@@ -734,9 +734,44 @@
 /*
  Token Refresh
  */
-- (bool)checkexpired{
-    AFOAuthCredential * cred = [Hachidori getCurrentFirstAccount];
-    return cred.expired;
+- (NSDictionary *)checkexpired {
+    NSMutableDictionary *expireddict = [NSMutableDictionary new];
+    if ([Hachidori getFirstAccount:0]) {
+        AFOAuthCredential *cred = [Hachidori getFirstAccount:0];
+        expireddict[@"kitsu"] = @(cred.expired);
+    }
+    if ([Hachidori getFirstAccount:1]) {
+        AFOAuthCredential *cred = [Hachidori getFirstAccount:1];
+        expireddict[@"anilist"] = @(cred.expired);
+    }
+    return expireddict;
+}
+
+- (void)refreshtokenwithdictionary:(NSDictionary *)servicedict successHandler:(void (^)(bool success, int numfailed)) successHandler {
+    __block int failcount = 0;
+    __block bool mainservicerefreshfailed = false;
+    __block int progress = 0;
+    for (NSString *servicekey in servicedict.allKeys) {
+        int servicenum;
+        if (((NSNumber *)servicedict[servicekey]).boolValue) {
+            servicenum = [servicekey isEqualToString:@"kitsu"] ? 0 : [servicekey isEqualToString:@"anilist"] ? 1 : -1;
+            [self refreshtokenWithService:servicenum successHandler:^(bool success) {
+                if (!success) {
+                    failcount++;
+                    if (servicenum == [Hachidori currentService]) {
+                        mainservicerefreshfailed = true;
+                    }
+                }
+                progress++;
+                if (progress == servicedict.allKeys.count) {
+                    successHandler(!mainservicerefreshfailed, failcount);
+                }
+            }];
+        }
+        else {
+            progress++;
+        }
+    }
 }
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler {
     AFOAuthCredential *cred;

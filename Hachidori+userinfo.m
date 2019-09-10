@@ -91,7 +91,7 @@
             [NSUserDefaults.standardUserDefaults setObject:[NSDate dateWithTimeIntervalSinceNow:259200] forKey:@"kitsu-userinformationrefresh"];
         }
     }
-    if ([Hachidori getFirstAccount:2]) {
+    if ([Hachidori getFirstAccount:1]) {
         bool refreshAniList = (![defaults valueForKey:@"anilist-userinformationrefresh"] || ((NSDate *)[defaults objectForKey:@"anilist-userinformationrefresh"]).timeIntervalSinceNow < 0);
         if ((![defaults valueForKey:@"loggedinusername-anilist"] || ![defaults valueForKey:@"UserID-anilist"]) || ((NSString *)[defaults valueForKey:@"loggedinusername-anilist"]).length == 0 || refreshAniList) {
             [self saveanilistuserinfo];

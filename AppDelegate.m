@@ -863,19 +863,43 @@
         scrobbleractive = true;
         // Disable toggle scrobbler and update now menu items
         [self toggleScrobblingUIEnable:false];
-        
-        if ([haengine checkexpired]) {
-            __weak AppDelegate *weakself = self;
-            [haengine refreshtokenWithService:0 successHandler:^(bool success) {
-                if (success) {
-                    [weakself firetimer];
+        NSDictionary *expireddict = [haengine checkexpired];
+        if ([NSUserDefaults.standardUserDefaults boolForKey:@"multiscrobbleenabled"]) {
+            bool requirerefresh = false;
+            for (NSDictionary *servicekey in expireddict.allKeys) {
+                if (((NSNumber *)expireddict[servicekey]).boolValue) {
+                    requirerefresh = true;
+                    break;
                 }
-                else {
-                    [weakself showNotification:@"Can't Refresh Kitsu Token." message:@"Please reauthorize your Kitsu account and try again." withIdentifier:@"badcredentials"];
-                }
-            }];
-            scrobbleractive = false;
-            return;
+            }
+            if (requirerefresh) {
+                __weak AppDelegate *weakself = self;
+                [haengine refreshtokenwithdictionary:expireddict successHandler:^(bool success, int numfailed) {
+                    if (!success) {
+                        [weakself showNotification:@"Can't Refresh Token." message:@"Please reauthorize your account and try again." withIdentifier:@"badcredentials"];
+                    }
+                    else {
+                        [weakself firetimer];
+                    }
+                }];
+                scrobbleractive = false;
+                return;
+            }
+        }
+        else {
+            if (((NSNumber *)expireddict[Hachidori.currentServiceName.lowercaseString]).boolValue) {
+                __weak AppDelegate *weakself = self;
+                [haengine refreshtokenWithService:0 successHandler:^(bool success) {
+                    if (success) {
+                        [weakself firetimer];
+                    }
+                    else {
+                        [weakself showNotification:@"Can't Refresh Kitsu Token." message:@"Please reauthorize your Kitsu account and try again." withIdentifier:@"badcredentials"];
+                    }
+                }];
+                scrobbleractive = false;
+                return;
+            }
         }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
             // Check for latest list of Auto Exceptions automatically each week
