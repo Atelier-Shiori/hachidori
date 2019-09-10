@@ -887,7 +887,7 @@
             }
         }
         else {
-            if ([haengine checkexpired]) {
+            if (((NSNumber *)expireddict[Hachidori.currentServiceName.lowercaseString]).boolValue) {
                 __weak AppDelegate *weakself = self;
                 [haengine refreshtokenWithService:[Hachidori currentService] successHandler:^(bool success) {
                     if (success) {
