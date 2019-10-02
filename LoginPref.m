@@ -324,7 +324,7 @@
 }
 
 - (IBAction)registerMAL:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://anilist.co/register"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://myanimelist.net/register.php?from=%2F"]];
 }
 
 
