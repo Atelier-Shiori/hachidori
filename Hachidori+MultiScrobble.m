@@ -228,6 +228,7 @@
             break;
         case 2:
             site = @"mal";
+            break;
         default:
             return nil;
     }
