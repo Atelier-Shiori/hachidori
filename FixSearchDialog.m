@@ -143,7 +143,7 @@
 }
 - (IBAction)getHelp:(id)sender{
     //Show Help
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Correction-Exception-Help"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.malupdaterosx.moe/hachidori/correction-exception-help/"]];
 }
 - (void)populateData:(id)data{
     //Remove all existing Data

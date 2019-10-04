@@ -39,7 +39,7 @@
 }
 - (IBAction)getHelp:(id)sender {
     //Show Help
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Advanced-Options"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.malupdaterosx.moe/hachidori/advanced-options/"]];
 }
     
 - (void)controlTextDidChange:(NSNotification *)notification {

@@ -542,7 +542,7 @@
 }
 - (IBAction)getHelp:(id)sender{
     //Show Help
- 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
+ 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://help.malupdaterosx.moe/hachidori/"]];
 }
 - (IBAction)showAboutWindow:(id)sender{
     // Properly show the about window in a menu item application

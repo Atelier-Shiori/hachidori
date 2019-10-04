@@ -331,7 +331,7 @@
 - (IBAction) showgettingstartedpage:(id)sender
 {
     //Show Getting Started help page
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/chikorita157/hachidori/wiki/Getting-Started"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.malupdaterosx.moe/hachidori/getting-started/"]];
 }
 
 - (IBAction)clearlogin:(id)sender
