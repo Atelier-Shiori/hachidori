@@ -101,7 +101,7 @@
                        self.malmanger.detectedscrobble.AniID = ((NSNumber *)mapping[@"mal_id"]).stringValue;
                        if ([self checkstatus:self.malmanger.detectedscrobble.AniID withService:2]) {
                            if ([self shouldMultiScrobble:self.malmanger.detectedscrobble]) {
-                               int status = [self performupdate:self.malmanger.detectedscrobble.AniID withService:1];
+                               int status = [self performupdate:self.malmanger.detectedscrobble.AniID withService:2];
                                switch (status) {
                                    case 21:
                                    case 22:
@@ -203,7 +203,10 @@
             }
         }
         if ([defaults boolForKey:@"multiscrobblemalenabled"] && [Hachidori currentService] != 2) {
-            
+            if ([self.malmanger.lastscrobble.AniID isEqualToString:((NSNumber *)mapping[@"mal_id"]).stringValue] && self.malmanger.lastscrobble.rewatching) {
+                   bool success = [self.malmanger malstopRewatching:self.malmanger.lastscrobble.AniID];
+                   [NSNotificationCenter.defaultCenter postNotificationName:@"MultiScrobbleNotification" object:@{@"title" : @"MultiScrobble", @"message" : success ? @"Rewatch revert on MyAnimeList is successful" : @"Rewatch revert had failed on MyAnimeList", @"identifier" : @"multiscrobble-mal"}];
+               }
         }
     }
     

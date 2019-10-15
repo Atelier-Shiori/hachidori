@@ -105,25 +105,30 @@ void UpdateActivityCallback(void* data, enum EDiscordResult result)
             InitDiscord();
             _discordsdkinitalized = true;
         }
-        app.activities->clear_activity(app.activities, 0, 0);
-        struct DiscordActivity activity;
-        strcpy(activity.state, state.UTF8String);
-        strcpy(activity.details, details.UTF8String);
-        activity.timestamps.start = [NSDate date].timeIntervalSince1970;
-        activity.timestamps.end = [NSDate dateWithTimeIntervalSinceNow:86400].timeIntervalSince1970;
-        strcpy(activity.assets.large_image, "default");
-        strcpy(activity.assets.small_image, "default");
-        strcpy(activity.assets.large_text, "");
-        strcpy(activity.assets.small_text, "");
-        activity.type = isStreaming ? DiscordActivityType_Streaming : DiscordActivityType_Watching;
-        app.activities->update_activity(app.activities, &activity, 0, UpdateActivityCallback);
-        
+        @try {
+            app.activities->clear_activity(app.activities, 0, 0);
+            struct DiscordActivity activity;
+            strcpy(activity.state, state.UTF8String);
+            strcpy(activity.details, details.UTF8String);
+            activity.timestamps.start = [NSDate date].timeIntervalSince1970;
+            activity.timestamps.end = [NSDate dateWithTimeIntervalSinceNow:86400].timeIntervalSince1970;
+            strcpy(activity.assets.large_image, "default");
+            strcpy(activity.assets.small_image, "default");
+            strcpy(activity.assets.large_text, "");
+            strcpy(activity.assets.small_text, "");
+            activity.type = isStreaming ? DiscordActivityType_Streaming : DiscordActivityType_Watching;
+            app.activities->update_activity(app.activities, &activity, 0, UpdateActivityCallback);
+        } @catch (NSException *exception) {
+        }
     }
 }
 
 - (void)removePresence {
     if ([self checkDiscordRunning] && _discordsdkinitalized) {
-        app.activities->clear_activity(app.activities, 0, 0);
+        @try {
+            app.activities->clear_activity(app.activities, 0, 0);
+        } @catch (NSException *exception) {
+        }
     }
 }
 
