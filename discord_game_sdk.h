@@ -557,7 +557,7 @@ struct IDiscordAchievementEvents {
 };
 
 struct IDiscordAchievementManager {
-    void (*set_user_achievement)(struct IDiscordAchievementManager* manager, DiscordSnowflake achievement_id, int64_t percent_complete, void* callback_data, void (*callback)(void* callback_data, enum EDiscordResult result));
+    void (*set_user_achievement)(struct IDiscordAchievementManager* manager, DiscordSnowflake achievement_id, uint8_t percent_complete, void* callback_data, void (*callback)(void* callback_data, enum EDiscordResult result));
     void (*fetch_user_achievements)(struct IDiscordAchievementManager* manager, void* callback_data, void (*callback)(void* callback_data, enum EDiscordResult result));
     void (*count_user_achievements)(struct IDiscordAchievementManager* manager, int32_t* count);
     enum EDiscordResult (*get_user_achievement)(struct IDiscordAchievementManager* manager, DiscordSnowflake user_achievement_id, struct DiscordUserAchievement* user_achievement);
