@@ -735,7 +735,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (haengine.Success == 1) {
             [findtitle setHidden:true];
-            [self setStatusMenuTitleEpisode:haengine.lastscrobble.LastScrobbledActualTitle episode:haengine.lastscrobble.LastScrobbledEpisode];
+            [self setStatusMenuTitleEpisode:haengine.lastscrobble.LastScrobbledActualTitle ? haengine.lastscrobble.LastScrobbledActualTitle : haengine.lastscrobble.LastScrobbledTitle episode:haengine.lastscrobble.LastScrobbledEpisode];
             if (status != 3 && haengine.lastscrobble.confirmed) {
                 // Show normal info
                 [self updateLastScrobbledTitleStatus:false];
@@ -1067,7 +1067,7 @@
                     case ScrobblerUpdateSuccessful: {
                         [self setStatusText:NSLocalizedString(@"Scrobble Status: Correction Successful...",nil)];
                         [self showNotification:NSLocalizedString(@"Hachidori",nil) message:NSLocalizedString(@"Correction was successful",nil) withIdentifier:@"correctionsuccess"];
-                        [self setStatusMenuTitleEpisode:haengine.lastscrobble.LastScrobbledActualTitle episode:haengine.lastscrobble.LastScrobbledEpisode];
+                        [self setStatusMenuTitleEpisode:haengine.lastscrobble.LastScrobbledActualTitle ? haengine.lastscrobble.LastScrobbledActualTitle : haengine.lastscrobble.LastScrobbledTitle episode:haengine.lastscrobble.LastScrobbledEpisode];
                         [self updateLastScrobbledTitleStatus:false];
 	                    if (!findtitle.hidden) {
 	                        //Unhide menus and enable functions on the toolbar
@@ -1250,7 +1250,7 @@
                 [self setStatusText:NSLocalizedString(@"Scrobble Status: Updating of Watch Status/Score Successful.",nil)];
                 if (episodechanged) {
                     // Update the tooltip, menu and last scrobbled title
-                    [self setStatusMenuTitleEpisode:haengine.lastscrobble.LastScrobbledActualTitle episode:haengine.lastscrobble.LastScrobbledEpisode];
+                    [self setStatusMenuTitleEpisode:haengine.lastscrobble.LastScrobbledActualTitle ? haengine.lastscrobble.LastScrobbledActualTitle : haengine.lastscrobble.LastScrobbledTitle episode:haengine.lastscrobble.LastScrobbledEpisode];
                     [self updateLastScrobbledTitleStatus:false];
                 }
                 [self.haengine multiscrobbleWithType:MultiScrobbleTypeEntryupdate withTitleID:haengine.lastscrobble.AniID];
