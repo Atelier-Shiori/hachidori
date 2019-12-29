@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Log : NSObject
 void _Log(NSString *prefix, const char *file, int lineNumber, const char *funcName, NSString *format,...);
++ (void)openLogFile;
 @end
 
 NS_ASSUME_NONNULL_END

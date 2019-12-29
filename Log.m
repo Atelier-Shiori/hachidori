@@ -51,4 +51,14 @@ void _Log(NSString *prefix, const char *file, int lineNumber, const char *funcNa
     }
     return dir;
 }
+
++ (void)openLogFile {
+    NSString *path = [self retrieveApplicationSupportDirectory:@""];
+    NSFileManager *filemanger = [NSFileManager defaultManager];
+    NSString *fullfilenamewithpath = [NSString stringWithFormat:@"%@/%@.log",path, [NSBundle mainBundle].infoDictionary[@"CFBundleName"]];
+    if (![filemanger fileExistsAtPath:fullfilenamewithpath]) {
+        return;
+    }
+    [NSWorkspace.sharedWorkspace openFile:fullfilenamewithpath];
+}
 @end

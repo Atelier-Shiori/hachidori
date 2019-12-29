@@ -78,7 +78,11 @@ void InitDiscord()
 
 void UpdateActivityCallback(void* data, enum EDiscordResult result)
 {
-    DISCORD_REQUIRE(result);
+    @try {
+        DISCORD_REQUIRE(result);
+    }
+    @catch (NSException *ex) {
+    }
 }
 
 - (void)startDiscordRPC {

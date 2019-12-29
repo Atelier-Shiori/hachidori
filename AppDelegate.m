@@ -774,6 +774,9 @@
                     case 1:
                         [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.lastscrobble.AniID]]]];
                         break;
+                    case 2:
+                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://myanimelist.net/anime/%@", haengine.lastscrobble.AniID]]]];
+                        break;
                     default:
                         break;
                 }
@@ -874,9 +877,11 @@
             }
             if (requirerefresh) {
                 __weak AppDelegate *weakself = self;
-                [haengine refreshtokenwithdictionary:expireddict successHandler:^(bool success, int numfailed) {
+                [haengine refreshtokenwithdictionary:expireddict successHandler:^(bool success, int numfailed, NSArray *failedservices) {
                     if (!success) {
                         [weakself showNotification:@"Can't Refresh Token." message:@"Please reauthorize your account and try again." withIdentifier:@"badcredentials"];
+                        [weakself performRefreshUI:ScrobblerRefreshTokenFailed];
+                        [weakself showReauthorizePrompt:failedservices];
                     }
                     else {
                         [weakself firetimer];
@@ -894,7 +899,9 @@
                         [weakself firetimer];
                     }
                     else {
-                        [weakself showNotification:@"Can't Refresh Kitsu Token." message:@"Please reauthorize your Kitsu account and try again." withIdentifier:@"badcredentials"];
+                        [weakself showNotification:[NSString stringWithFormat:@"Can't Refresh %@ Token.", Hachidori.currentServiceName] message:[NSString stringWithFormat:@"Please reauthorize your %@ account and try again.", Hachidori.currentServiceName] withIdentifier:@"badcredentials"];
+                        [weakself performRefreshUI:ScrobblerRefreshTokenFailed];
+                        [weakself showReauthorizePrompt:@[Hachidori.currentServiceName]];
                     }
                 }];
                 scrobbleractive = false;
@@ -1498,6 +1505,24 @@
     [_tbc.window makeKeyAndOrderFront:self];
     [_tbc showwarning];
 #endif
+}
+
+#pragma mark Reauthorize Prompt
+- (void)showReauthorizePrompt:(NSArray *)failedservices {
+    NSAlert * alert = [[NSAlert alloc] init];
+    NSString *failedservicesstr = [failedservices componentsJoinedByString:@","];
+    [alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+    [alert setMessageText:NSLocalizedString(@"Unable to Refresh Credentials",nil)];
+    [alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The following accounts for the following services failed to refresh the access token used to access your list's entry status. You need to reauthorize your account by removing and reauthorize your accounts for the following services: \n\n %@ \n Do you want to open Preferences to reauthorize your account now?",nil), failedservicesstr]];
+    // Set Message type to Warning
+    alert.alertStyle = NSInformationalAlertStyle;
+    if ([alert runModal]== NSAlertFirstButtonReturn) {
+        // Show Preference Window and go to Login Preference Pane
+        [NSApp activateIgnoringOtherApps:YES];
+        [self.preferencesWindowController showWindow:nil];
+        [(MASPreferencesWindowController *)self.preferencesWindowController selectControllerAtIndex:1];
+    }
 }
 
 #pragma mark Crash Reporting

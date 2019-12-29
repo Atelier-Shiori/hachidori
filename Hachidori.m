@@ -777,10 +777,11 @@
     return expireddict;
 }
 
-- (void)refreshtokenwithdictionary:(NSDictionary *)servicedict successHandler:(void (^)(bool success, int numfailed)) successHandler {
+- (void)refreshtokenwithdictionary:(NSDictionary *)servicedict successHandler:(void (^)(bool success, int numfailed, NSArray *failedservices)) successHandler {
     __block int failcount = 0;
     __block bool mainservicerefreshfailed = false;
     __block int progress = 0;
+    __block NSMutableArray *tmpfailedservices = [NSMutableArray new];
     for (NSString *servicekey in servicedict.allKeys) {
         int servicenum;
         if (((NSNumber *)servicedict[servicekey]).boolValue) {
@@ -788,13 +789,14 @@
             [self refreshtokenWithService:servicenum successHandler:^(bool success) {
                 if (!success) {
                     failcount++;
+                    [tmpfailedservices addObject:servicekey];
                     if (servicenum == [Hachidori currentService]) {
                         mainservicerefreshfailed = true;
                     }
                 }
                 progress++;
                 if (progress == servicedict.allKeys.count) {
-                    successHandler(!mainservicerefreshfailed, failcount);
+                    successHandler(!mainservicerefreshfailed, failcount, tmpfailedservices);
                 }
             }];
         }

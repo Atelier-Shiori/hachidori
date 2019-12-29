@@ -11,6 +11,7 @@
 #import "AutoExceptions.h"
 #import "AnimeRelations.h"
 #import "NSBundle+LoginItem.h"
+#import "Log.h"
 
 @import AppCenterAnalytics;
 @import AppCenterCrashes;
@@ -179,5 +180,9 @@
 }
 - (IBAction)viewprivacypolicy:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://malupdaterosx.moe/hachidori/privacy-policy/"]];
+}
+
+- (IBAction)openLog:(id)sender {
+    [Log openLogFile];
 }
 @end

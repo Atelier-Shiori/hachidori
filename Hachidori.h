@@ -38,6 +38,7 @@ typedef NS_ENUM(unsigned int, ScrobbleStatus) {
     ScrobblerAddTitleFailed = 52,
     ScrobblerUpdateFailed = 53,
     ScrobblerFailed = 54,
+    ScrobblerRefreshTokenFailed = 55,
     ScrobblerInvalidScrobble = 58
 };
 typedef NS_ENUM(unsigned int, ratingType) {
@@ -93,7 +94,7 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 - (int)scrobble;
 - (BOOL)confirmupdate;
 - (NSDictionary *)checkexpired;
-- (void)refreshtokenwithdictionary:(NSDictionary *)servicedict successHandler:(void (^)(bool success, int numfailed)) successHandler;
+- (void)refreshtokenwithdictionary:(NSDictionary *)servicedict successHandler:(void (^)(bool success, int numfailed, NSArray *failedservices)) successHandler;
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler;
 - (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service;
 - (void)resetinfo;
