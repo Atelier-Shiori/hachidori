@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,7 +39,7 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Anime Title Exceptions" identifier="1" id="dDU-b1-Ua0">
-                            <view key="view" ambiguous="YES" id="mi1-sZ-x1p">
+                            <view key="view" id="mi1-sZ-x1p">
                                 <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -314,7 +314,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Title Ignore" identifier="" id="RJZ-6G-zST">
-                            <view key="view" id="aDo-4b-5DM">
+                            <view key="view" ambiguous="YES" id="aDo-4b-5DM">
                                 <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -323,7 +323,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" ambiguous="YES" id="uQX-ol-vKO">
                                             <rect key="frame" x="1" y="0.0" width="559" height="126"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="Y7w-8K-yca" id="cUG-zP-Xvg">
                                                     <rect key="frame" x="0.0" y="0.0" width="559" height="103"/>
@@ -464,9 +464,6 @@
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                         <menuItem title="Wakanim" id="dbp-6u-MBO">
-                                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                                        </menuItem>
-                                                                        <menuItem title="Yahoo" id="EoI-da-sL3">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                     </items>
