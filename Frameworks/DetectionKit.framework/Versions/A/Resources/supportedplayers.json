@@ -81,6 +81,16 @@
   "process_name":"mplayer"
   },
   {
+  "player_name":"Movist Pro",
+  "player_bundle_identifier":"com.movist.MovistPro",
+  "process_name":"Movist Pro"
+  },
+  {
+  "player_name":"Blu-ray Player Pro",
+  "player_bundle_identifier":"com.macblurayplayer.MacBlurayPlayer3-Pro",
+  "process_name":"Blu-ray Player"
+  },
+  {
   "player_name":"mplayer",
   "process_name":"mplayer"
   }
