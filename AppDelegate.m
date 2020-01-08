@@ -244,6 +244,10 @@
     defaultValues[@"multiscrobbleanilistenabled"] = @NO;
     defaultValues[@"multiscrobblekitsuenabled"] = @NO;
     defaultValues[@"sendanalytics"] = @YES;
+    // Refresh Token Fail State
+    defaultValues[@"AniListRefreshFailed"] = @NO;
+    defaultValues[@"KitsuRefreshFailed"] = @NO;
+    defaultValues[@"MALRefreshFailed"] = @NO;
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -879,6 +883,18 @@
                 __weak AppDelegate *weakself = self;
                 [haengine refreshtokenwithdictionary:expireddict successHandler:^(bool success, int numfailed, NSArray *failedservices) {
                     if (!success) {
+                        for (NSString *failedservicestr in failedservices) {
+                            NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+                            if ([failedservicestr isEqualToString:@"anilist"]) {
+                                [defaults setBool:YES forKey:@"AniListRefreshFailed"];
+                            }
+                            else if ([failedservicestr isEqualToString:@"kitsu"]) {
+                                [defaults setBool:YES forKey:@"KitsuRefreshFailed"];
+                            }
+                            else if ([failedservicestr isEqualToString:@"myanimelist"]) {
+                                [defaults setBool:YES forKey:@"MALRefreshFailed"];
+                            }
+                        }
                         [weakself showNotification:@"Can't Refresh Token." message:@"Please reauthorize your account and try again." withIdentifier:@"badcredentials"];
                         [weakself performRefreshUI:ScrobblerRefreshTokenFailed];
                         [weakself showReauthorizePrompt:failedservices];
@@ -1481,13 +1497,16 @@
 	return output;
 }
 - (IBAction)showLastScrobbledInformation:(id)sender {
-    //Open the anime's page on Kitsu in the default web browser
+    //Open the anime's page on the current service in the default web browser
     switch ([Hachidori currentService]) {
         case 0:
              [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.lastscrobble.AniID]]];
             break;
         case 1:
              [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.lastscrobble.AniID]]];
+            break;
+        case 2:
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://myanimelist.net/anime/%@", haengine.lastscrobble.AniID]]];
             break;
         default:
             break;

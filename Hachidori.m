@@ -782,6 +782,9 @@
     __block bool mainservicerefreshfailed = false;
     __block int progress = 0;
     __block NSMutableArray *tmpfailedservices = [NSMutableArray new];
+    [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"KitsuRefreshFailed"];
+    [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"AniListRefreshFailed"];
+    [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"MALRefreshFailed"];
     for (NSString *servicekey in servicedict.allKeys) {
         int servicenum;
         if (((NSNumber *)servicedict[servicekey]).boolValue) {
@@ -822,6 +825,7 @@
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                                             withIdentifier:@"Hachidori"];
+                                                        [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"KitsuRefreshFailed"];
                                                         successHandler(true);
                                                     }
                                                        failure:^(NSError *error) {
@@ -841,6 +845,7 @@
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                                             withIdentifier:@"Hachidori - AniList"];
+                                                        [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"AniListRefreshFailed"];
                                                         successHandler(true);
                                                     }
                                                        failure:^(NSError *error) {
@@ -860,6 +865,7 @@
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                         withIdentifier:@"Hachidori - MyAnimeList"];
+                                                        [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"MALRefreshFailed"];
                                                         successHandler(true);
                                                     }
                                                        failure:^(NSError *error) {

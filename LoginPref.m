@@ -360,6 +360,7 @@
                         _loggedinuser.stringValue = @"";
                         [_loggedinview setHidden:YES];
                         [_loginview setHidden:NO];
+                        [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"KitsuRefreshFailed"];
                         break;
                     }
                     case 1: {
@@ -373,6 +374,7 @@
                         _anilistloggedinuser.stringValue = @"";
                         [_anilistloggedinview setHidden:YES];
                         [_anilistloginview setHidden:NO];
+                        [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"AniListRefreshFailed"];
                         break;
                     }
                     case 2: {
@@ -386,6 +388,7 @@
                         _malloggedinuser.stringValue = @"";
                         [_malloggedinview setHidden:YES];
                         [_malloginview setHidden:NO];
+                        [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"MALRefreshFailed"];
                         break;
                     }
                 }

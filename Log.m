@@ -28,7 +28,13 @@ void _Log(NSString *prefix, const char *file, int lineNumber, const char *funcNa
     va_list ap;
     va_start (ap, format);
     format = [format stringByAppendingString:@"\n"];
-    NSString *msg = [[NSString alloc] initWithFormat:[NSString stringWithFormat:@"%@",format] arguments:ap];
+    NSDate *date = [NSDate date];
+    
+    NSString *msg = [[NSString alloc] initWithFormat:[NSString stringWithFormat:@"[%@ %@] %@",[NSDateFormatter localizedStringFromDate: date
+    dateStyle: NSDateFormatterShortStyle
+    timeStyle: NSDateFormatterNoStyle], [NSDateFormatter localizedStringFromDate: date
+    dateStyle: NSDateFormatterNoStyle
+    timeStyle: NSDateFormatterShortStyle], format] arguments:ap];
     va_end (ap);
     fprintf(stderr,"%s%50s:%3d - %s",[prefix UTF8String], funcName, lineNumber, [msg UTF8String]);
     append(msg);
