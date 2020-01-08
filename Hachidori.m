@@ -518,7 +518,7 @@
         
     }
     [MSAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:self.lastscrobble ? @{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource ? self.lastscrobble.LastScrobbledSource : @"Unknown Source", @"episode" : self.lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue, @"service" : [Hachidori currentServiceName]} : @{ @"status" : @(status).stringValue, @"detectedTitle" : self.detectedscrobble.DetectedTitle, @"source" : self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName] }];
-    NSLog(@"Scrobble Complete with Status Code: %i", status);
+    NSLog(@"Scrobble Complete with Status Code: %i - %@", status, [self scrobbleStatusToString:status]);
     NSLog(@"=============");
     // Release Detected Title/Episode.
     return status;
@@ -1103,5 +1103,57 @@
     else if ([dtitle localizedCaseInsensitiveContainsString:@"Specials"] || [dtitle localizedCaseInsensitiveContainsString:@"Special"] ) {
         self.detectedscrobble.DetectedType = @"Special";
     }
+}
+
+- (NSString *)scrobbleStatusToString:(ScrobbleStatus)code {
+    NSString *tmpstr;
+    switch (code) {
+        case ScrobblerNothingPlaying:
+            tmpstr = NSLocalizedString(@"Nothing is playing", nil);
+            break;
+        case ScrobblerSameEpisodePlaying:
+            tmpstr = NSLocalizedString(@"Same title and episode is being played.", nil);
+            break;
+        case ScrobblerUpdateNotNeeded:
+            tmpstr = NSLocalizedString(@"Update is not needed.", nil);
+            break;
+        case ScrobblerConfirmNeeded:
+            tmpstr = NSLocalizedString(@"Confirm title", nil);
+            break;
+        case ScrobblerDetectedMedia:
+            tmpstr = NSLocalizedString(@"Media is detected.", nil);
+            break;
+        case ScrobblerAddTitleSuccessful:
+            tmpstr = NSLocalizedString(@"Title Entry has been added.", nil);
+            break;
+        case ScrobblerUpdateSuccessful:
+            tmpstr = NSLocalizedString(@"Title Entry has been updated.", nil);
+            break;
+        case ScrobblerOfflineQueued:
+            tmpstr = NSLocalizedString(@"Title added to the offline queue.", nil);
+            break;
+        case ScrobblerTitleNotFound:
+            tmpstr = NSLocalizedString(@"Title is not found.", nil);
+            break;
+        case ScrobblerAddTitleFailed:
+            tmpstr = NSLocalizedString(@"Couldn't add title entry.", nil);
+            break;
+        case ScrobblerUpdateFailed:
+            tmpstr = NSLocalizedString(@"Couldn't update entry.", nil);
+            break;
+        case ScrobblerFailed:
+            tmpstr = NSLocalizedString(@"Scrobbler Failed", nil);
+            break;
+        case ScrobblerRefreshTokenFailed:
+            tmpstr = NSLocalizedString(@"Token refresh failed", nil);
+            break;
+        case ScrobblerInvalidScrobble:
+            tmpstr = NSLocalizedString(@"Invalid Scrobble - Start or End date", nil);
+            break;
+        default:
+            tmpstr = @"Unkown";
+            break;
+    }
+    return tmpstr;
 }
 @end
