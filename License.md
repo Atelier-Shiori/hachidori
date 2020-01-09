@@ -1,4 +1,4 @@
-Copyright © 2009-2019, Atelier Shiori/Moy IT Solutions.
+Copyright © 2009-2020, Atelier Shiori/Moy IT Solutions.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
