@@ -868,61 +868,21 @@
 	NSLog(@"Starting...");
     if (!scrobbleractive) {
         scrobbleractive = true;
+        __weak AppDelegate *weakSelf = self;
         // Disable toggle scrobbler and update now menu items
         [self toggleScrobblingUIEnable:false];
-        NSDictionary *expireddict = [haengine checkexpired];
-        if ([NSUserDefaults.standardUserDefaults boolForKey:@"multiscrobbleenabled"]) {
-            bool requirerefresh = false;
-            for (NSDictionary *servicekey in expireddict.allKeys) {
-                if (((NSNumber *)expireddict[servicekey]).boolValue) {
-                    requirerefresh = true;
-                    break;
+        __block NSDictionary *expireddict = [haengine checkexpired];
+        if ([self checkRequireRefresh:expireddict]) {
+            scrobbleractive = false;
+            [self refreshToken:^(bool success, NSArray *failedservices) {
+                if (success) {
+                    [weakSelf firetimer];
                 }
-            }
-            if (requirerefresh) {
-                __weak AppDelegate *weakself = self;
-                [haengine refreshtokenwithdictionary:expireddict successHandler:^(bool success, int numfailed, NSArray *failedservices) {
-                    if (!success) {
-                        for (NSString *failedservicestr in failedservices) {
-                            NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-                            if ([failedservicestr isEqualToString:@"anilist"]) {
-                                [defaults setBool:YES forKey:@"AniListRefreshFailed"];
-                            }
-                            else if ([failedservicestr isEqualToString:@"kitsu"]) {
-                                [defaults setBool:YES forKey:@"KitsuRefreshFailed"];
-                            }
-                            else if ([failedservicestr isEqualToString:@"myanimelist"]) {
-                                [defaults setBool:YES forKey:@"MALRefreshFailed"];
-                            }
-                        }
-                        [weakself showNotification:@"Can't Refresh Token." message:@"Please reauthorize your account and try again." withIdentifier:@"badcredentials"];
-                        [weakself performRefreshUI:ScrobblerRefreshTokenFailed];
-                        [weakself showReauthorizePrompt:failedservices];
-                    }
-                    else {
-                        [weakself firetimer];
-                    }
-                }];
-                scrobbleractive = false;
-                return;
-            }
-        }
-        else {
-            if (((NSNumber *)expireddict[Hachidori.currentServiceName.lowercaseString]).boolValue) {
-                __weak AppDelegate *weakself = self;
-                [haengine refreshtokenWithService:[Hachidori currentService] successHandler:^(bool success) {
-                    if (success) {
-                        [weakself firetimer];
-                    }
-                    else {
-                        [weakself showNotification:[NSString stringWithFormat:@"Can't Refresh %@ Token.", Hachidori.currentServiceName] message:[NSString stringWithFormat:@"Please reauthorize your %@ account and try again.", Hachidori.currentServiceName] withIdentifier:@"badcredentials"];
-                        [weakself performRefreshUI:ScrobblerRefreshTokenFailed];
-                        [weakself showReauthorizePrompt:@[Hachidori.currentServiceName]];
-                    }
-                }];
-                scrobbleractive = false;
-                return;
-            }
+                else {
+                    [self showFailedRefreshTokenNotice:failedservices];
+                }
+            } withExpiredDict:expireddict];
+            return;
         }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseAutoExceptions"]) {
             // Check for latest list of Auto Exceptions automatically each week
@@ -1009,7 +969,7 @@
 }
 
 #pragma mark Correction
-- (IBAction)showCorrectionSearchWindow:(id)sender{
+- (IBAction)showCorrectionSearchWindow:(id)sender {
     bool isVisible = window.visible;
     // Stop Timer temporarily if scrobbling is turned on
     if (scrobbling == TRUE) {
@@ -1220,8 +1180,22 @@
 #pragma mark Update Status functions
 
 - (IBAction)updatestatus:(id)sender {
-    [self showUpdateDialog:self.window];
-    [self disableUpdateItems]; //Prevent user from opening up another modal window if access from Status Window
+    __block NSDictionary *expireddict = [haengine checkexpired];
+    if ([self checkRequireRefresh:expireddict]) {
+        [self refreshToken:^(bool success, NSArray *failedservices) {
+            if (success) {
+                [self showUpdateDialog:self.window];
+                [self disableUpdateItems];
+            }
+            else {
+                [self showFailedRefreshTokenNotice:failedservices];
+            }
+        } withExpiredDict:expireddict];
+    }
+    else {
+        [self showUpdateDialog:self.window];
+        [self disableUpdateItems];
+    }
 }
 - (IBAction)updatestatusmenu:(id)sender{
     [self showUpdateDialog:nil];
@@ -1364,8 +1338,21 @@
         [self showCorrectionSearchWindow:nil];
     }
 }
-- (IBAction)confirmupdate:(id)sender{
-    [self performconfirmupdate];
+- (IBAction)confirmupdate:(id)sender {
+    __block NSDictionary *expireddict = [haengine checkexpired];
+    if ([self checkRequireRefresh:expireddict]) {
+        [self refreshToken:^(bool success, NSArray *failedservices) {
+            if (success) {
+                [self performconfirmupdate];
+            }
+            else {
+                [self showFailedRefreshTokenNotice:failedservices];
+            }
+        } withExpiredDict:expireddict];
+    }
+    else {
+        [self performconfirmupdate];
+    }
 }
 - (void)performconfirmupdate{
     dispatch_async(_privateQueue, ^{
@@ -1588,4 +1575,78 @@
     [self showNotification:@"Crash Report Failed" message:@"Couldn't send crash report." withIdentifier:[NSString stringWithFormat:@"error-%f", NSDate.date.timeIntervalSince1970]];
 }
 #endif
+
+#pragma mark Token Refresh
+- (void)refreshToken:(void(^)(bool success, NSArray *failedservices))completion withExpiredDict:(NSDictionary *)expireddict {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"multiscrobbleenabled"]) {
+        bool requirerefresh = [self checkRequireRefresh:expireddict];
+        if (requirerefresh) {
+            __weak AppDelegate *weakself = self;
+            [haengine refreshtokenwithdictionary:expireddict successHandler:^(bool success, int numfailed, NSArray *failedservices) {
+                if (!success) {
+                    for (NSString *failedservicestr in failedservices) {
+                        NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+                        if ([failedservicestr isEqualToString:@"anilist"]) {
+                            [defaults setBool:YES forKey:@"AniListRefreshFailed"];
+                        }
+                        else if ([failedservicestr isEqualToString:@"kitsu"]) {
+                            [defaults setBool:YES forKey:@"KitsuRefreshFailed"];
+                        }
+                        else if ([failedservicestr isEqualToString:@"myanimelist"]) {
+                            [defaults setBool:YES forKey:@"MALRefreshFailed"];
+                        }
+                    }
+                    completion(false, failedservices);
+                }
+                else {
+                    completion(true, nil);
+                }
+                return;
+            }];
+            return;
+        }
+    }
+    else {
+        if (((NSNumber *)expireddict[Hachidori.currentServiceName.lowercaseString]).boolValue) {
+            __weak AppDelegate *weakself = self;
+            [haengine refreshtokenWithService:[Hachidori currentService] successHandler:^(bool success) {
+                if (success) {
+                    completion(true, nil);
+                }
+                else {
+                    completion(false, @[Hachidori.currentServiceName.lowercaseString]);
+                }
+                return;
+            }];
+            return;
+        }
+    }
+}
+- (bool)checkRequireRefresh:(NSDictionary *)expireddict {
+    bool requirerefresh = false;
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"multiscrobbleenabled"]) {
+        for (NSDictionary *servicekey in expireddict.allKeys) {
+            if (((NSNumber *)expireddict[servicekey]).boolValue) {
+                requirerefresh = true;
+                break;
+            }
+        }
+    }
+    else {
+        requirerefresh = ((NSNumber *)expireddict[Hachidori.currentServiceName.lowercaseString]).boolValue;
+    }
+    return requirerefresh;
+}
+- (void)showFailedRefreshTokenNotice:(NSArray *)failedservices {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"multiscrobbleenabled"]) {
+        [self showNotification:@"Can't Refresh Token." message:@"Please reauthorize your account and try again." withIdentifier:@"badcredentials"];
+        [self performRefreshUI:ScrobblerRefreshTokenFailed];
+        [self showReauthorizePrompt:failedservices];
+    }
+    else {
+        [self showNotification:[NSString stringWithFormat:@"Can't Refresh %@ Token.", Hachidori.currentServiceName] message:[NSString stringWithFormat:@"Please reauthorize your %@ account and try again.", Hachidori.currentServiceName] withIdentifier:@"badcredentials"];
+        [self performRefreshUI:ScrobblerRefreshTokenFailed];
+        [self showReauthorizePrompt:@[Hachidori.currentServiceName]];
+    }
+}
 @end
