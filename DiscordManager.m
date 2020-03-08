@@ -163,7 +163,11 @@ void UpdateActivityCallback(void* data, enum EDiscordResult result)
 
 - (void)firetimer {
     if (_discordsdkinitalized && [self checkDiscordRunning]) {
-        DISCORD_REQUIRE(app.core->run_callbacks(app.core));
+        @try {
+            DISCORD_REQUIRE(app.core->run_callbacks(app.core));
+        }
+        @catch(NSException *ex) {
+        }
     }
 }
 @end
