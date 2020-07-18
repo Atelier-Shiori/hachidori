@@ -14,5 +14,7 @@
 @property int service;
 @property (strong) NSString *verifier;
 - (void)loadAuthorization:(int)service;
+- (NSURL *)authURL;
+- (void)reloadAuth;
 - (void)resetWebView;
 @end

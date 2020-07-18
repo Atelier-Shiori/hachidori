@@ -433,6 +433,12 @@
     
     [MSAnalytics trackEvent:@"App Loaded" withProperties:@{@"donated" : [NSUserDefaults.standardUserDefaults boolForKey:@"donated"] ? @"YES" : @"NO"}];
     
+    // Auth URL handling
+    [[NSAppleEventManager sharedAppleEventManager]
+     setEventHandler:self
+     andSelector:@selector(handleURLEvent:withReplyEvent:)
+     forEventClass:kInternetEventClass
+     andEventID:kAEGetURL];
 }
 
 - (void)dealloc {
@@ -449,6 +455,12 @@
             });
         }
     }
+}
+
+- (void)handleURLEvent:(NSAppleEventDescriptor*)event
+    withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
+    NSString* url = [event paramDescriptorForKeyword:keyDirectObject].stringValue;
+    [NSNotificationCenter.defaultCenter postNotificationName:@"hachidori_auth" object:url];
 }
 
 #pragma mark General UI Functions

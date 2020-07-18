@@ -27,8 +27,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(oauthredirectreceived:) name:@"hachidori_auth" object:nil];
     // Do view setup here.
     [self loadAuthorization:_service];
+}
+
+- (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
+- (void)reloadAuth {
+    [self loadAuthorization:_service];
+}
+
+- (void)oauthredirectreceived: (NSNotification *)notification {
+    NSString *redirectURL;
+    switch (_service) {
+        case 1:
+            redirectURL = @"hachidoriauth://anilistauth/?code=";
+            break;
+        case 2:
+            redirectURL = @"hachidoriauth://malauth/?code=";
+            break;
+        default:
+            break;
+    }
+    if ([(NSString *)notification.object containsString:redirectURL]) {
+        // Save Pin
+        [self resetWebView];
+        _completion([(NSString *)notification.object stringByReplacingOccurrencesOfString:redirectURL withString:@""]);
+    }
 }
 
 - (NSURL *)authURL {
@@ -71,6 +99,11 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
         decisionHandler(WKNavigationActionPolicyCancel);
         [self resetWebView];
         _completion([navigationAction.request.URL.absoluteString stringByReplacingOccurrencesOfString:redirectURL withString:@""]);
+    }
+    else if ([navigationAction.request.URL.absoluteString isEqualToString:@"https://myanimelist.net/"]) {
+        // Redirect to OAuth URL for MyAnimeList
+        decisionHandler(WKNavigationActionPolicyCancel);
+        [_webView loadRequest:[NSURLRequest requestWithURL:[self authURL]]];
     }
     else {
         decisionHandler(WKNavigationActionPolicyAllow);
