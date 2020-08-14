@@ -30,7 +30,6 @@
 #import "PFAboutWindowController.h"
 #import "servicemenucontroller.h"
 #import "AniListScoreConvert.h"
-#import "PatreonController.h"
 #import "PatreonLicenseManager.h"
 #import "CrashWindowController.h"
 
@@ -316,9 +315,6 @@
     }
 #endif
     
-    // Initalize Patreon Controller
-    _pc = [PatreonController new];
-    
     #ifdef DEBUG
     #else
         // Check if Application is in the /Applications Folder
@@ -326,11 +322,7 @@
     #endif
     
     // Show Donation Message
-    if (_pc.pamanager.getFirstAccount) {
-        [Utility showsheetmessage:@"Notice" explaination:@"The old system to unlock Donor features with a Patreon Account is being deprecated in favor of a Patreon License. \n\nTo switch to the new system, deauthorize your Patreon account from Hachidori's menu. From the Hachidori's menu, select Add Donation Key. Click Patreon License Portal and follow the instructions to obtain a Patreon License. \n\nOnce you have authorized your account with the website, use the Patreon license details to register."  window:nil];
-        [_pc checkPatreonAccount:nil];
-    }
-    else if ([NSUserDefaults.standardUserDefaults boolForKey:@"donated"] && [NSUserDefaults.standardUserDefaults boolForKey:@"patreon_license"]) {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"donated"] && [NSUserDefaults.standardUserDefaults boolForKey:@"patreon_license"]) {
         [Utility patreonDonateCheck:self];
     }
     else {
@@ -1510,9 +1502,6 @@
         default:
             break;
     }
-}
-- (IBAction)deauthorizepatreon:(id)sender {
-    [_pc deauthorizePatreonAccount];
 }
 #pragma mark Torrent Browser
 - (IBAction)openTorrentBrowser:(id)sender {

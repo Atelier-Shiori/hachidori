@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17140" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17140"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -189,17 +189,6 @@
                     <connections>
                         <action selector="enterDonationKey:" target="560" id="Ttr-gB-znj"/>
                         <binding destination="sLK-0h-cju" name="hidden" keyPath="values.donated" id="x2z-qk-Lcc"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Deauthorize Patreon Account…" id="chM-qq-Zae">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="deauthorizepatreon:" target="560" id="nfJ-sz-0jE"/>
-                        <binding destination="sLK-0h-cju" name="hidden" keyPath="values.activepatron" id="5ig-3d-051">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                            </dictionary>
-                        </binding>
                     </connections>
                 </menuItem>
                 <menuItem title="Deauthorize Patreon License…" id="egN-NP-3CN">
@@ -418,7 +407,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="584" y="499" width="440" height="253"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="440" height="253"/>
             <value key="maxSize" type="size" width="440" height="253"/>
             <view key="contentView" id="791">
@@ -436,22 +425,22 @@
                                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-vm-3Ig">
                                         <rect key="frame" x="149" y="1" width="291" height="190"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="ypk-hd-jNn">
-                                            <rect key="frame" x="1" y="1" width="274" height="188"/>
+                                        <clipView key="contentView" copiesOnScroll="NO" id="ypk-hd-jNn">
+                                            <rect key="frame" x="1" y="1" width="289" height="188"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
-                                                    <rect key="frame" x="0.0" y="0.0" width="274" height="188"/>
+                                                <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="289" height="188"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="274" height="188"/>
+                                                    <size key="minSize" width="289" height="188"/>
                                                     <size key="maxSize" width="463" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="o9x-a3-sU3">
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="o9x-a3-sU3">
                                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -612,7 +601,7 @@
     </objects>
     <resources>
         <image name="Info" width="32" height="32"/>
-        <image name="NSShareTemplate" width="11" height="16"/>
+        <image name="NSShareTemplate" width="16" height="17"/>
         <image name="correct" width="32" height="32"/>
         <image name="history" width="32" height="32"/>
         <image name="update" width="32" height="32"/>

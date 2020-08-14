@@ -992,9 +992,7 @@
 
 - (void)sendDiscordPresence:(LastScrobbleStatus *)lscrobble {
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"] && self.discordmanager.discordrpcrunning) {
-        OnigRegexp *regex = [OnigRegexp compile:@"(Safari|Webkit|Omniweb|Roccat|Chrome|Chromium|Edge)" options:OnigOptionIgnorecase];
-        bool isStreaming = [regex search:lscrobble.LastScrobbledSource].strings.count > 0;
-        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", lscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  lscrobble.LastScrobbledActualTitle] isStreaming:isStreaming];
+        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", lscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  lscrobble.LastScrobbledActualTitle]];
     }
 }
 

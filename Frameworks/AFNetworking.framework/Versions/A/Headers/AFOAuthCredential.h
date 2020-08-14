@@ -106,6 +106,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRefreshToken:(NSString *)refreshToken
              expiration:(NSDate *)expiration;
 
+/**
+ Get Expiration Date
+ **/
+- (NSDate *)getExpirationDate;
+
 ///-----------------------------------------
 /// @name Storing and Retrieving Credentials
 ///-----------------------------------------

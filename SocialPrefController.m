@@ -80,7 +80,7 @@
 }
 
 #pragma mark MASPreferences
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"SocialPreferences";
 }

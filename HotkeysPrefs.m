@@ -29,7 +29,7 @@
     self.statusshortcutView.associatedUserDefaultsKey = kPreferenceShowStatusMenuShortcut;
     self.toggleautoscrobbleshortcutView.associatedUserDefaultsKey = kPreferenceToggleScrobblingShortcut;
 }
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"HotkeyPreferences";
 }

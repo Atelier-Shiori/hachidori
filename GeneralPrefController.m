@@ -54,7 +54,7 @@
     }
     startatlogin.state = [NSBundle.mainBundle isLoginItem]; // Set Launch at Startup State
 }
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"GeneralPreferences";
 }

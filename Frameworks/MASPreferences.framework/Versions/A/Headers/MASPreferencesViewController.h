@@ -14,12 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  * Unique identifier of the Panel represented by the view controller.
  */
-@property (nonatomic, readonly, nullable) NSString *identifier;
-
-/*!
- * Toolbar icon for the Panel represented by the view controller.
- */
-@property (nonatomic, readonly, nullable) NSImage *toolbarItemImage;
+@property (nonatomic, readonly) NSString* viewIdentifier;
 
 /*!
  * Toolbar item label for the Panel represented by the view controller.
@@ -29,6 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSString *toolbarItemLabel;
 
 @optional
+
+/*!
+ * Toolbar icon for the Panel represented by the view controller.
+ *
+ * If you do not implement this then the toolbar will only use labels
+ */
+@property (nonatomic, readonly, nullable) NSImage *toolbarItemImage;
 
 /*!
  * Called when selection goes to the Panel represented by the view controller.

@@ -26,7 +26,7 @@
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
-- (NSString *)identifier {
+- (NSString *)viewIdentifier {
     return @"AdvancedPreferences";
 }
 
