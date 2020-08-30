@@ -31,6 +31,7 @@
 @property (strong) IBOutlet NSView *anilistloggedinview;
 @property (strong) IBOutlet AniListAuthWindow *anilistauthw;
 @property (strong) IBOutlet NSButton *anilistauthorizebtn;
+@property (strong) IBOutlet NSButton *snilistreauth;
 
 // MyAnimeList Auth
 @property (strong) IBOutlet NSButton *malclearbut;
@@ -38,6 +39,7 @@
 @property (strong) IBOutlet NSView *malloginview;
 @property (strong) IBOutlet NSView *malloggedinview;
 @property (strong) IBOutlet NSButton *malauthorizebtn;
+@property (weak) IBOutlet NSButton *malreauthorizebtn;
 
 //Hachidori instance
 @property (strong) Hachidori * haengine;

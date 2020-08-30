@@ -6,13 +6,17 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		F1u5oZhY/sLPd6SSQeCmJL+/v60=
+		b7xM3FzU7s3wkg5fWPUARDICHAg=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
 		<key>Headers/XMLReader.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			suW2lS9pPqOr3AH8KxDRGm4bwZg=
+			</data>
 			<key>hash2</key>
 			<data>
 			ra6CNrRJrOQTVZe3Dw/zuZ19+ii0N+nNf5a8xJGsquA=
@@ -20,6 +24,10 @@
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			RMR2Mfc24xRMQB6DtT1+6fVqqvI=
+			</data>
 			<key>hash2</key>
 			<data>
 			oG6Ju3NpXXwKhAS7xVEDbuQljS9Ai2WonYa7U2lCM38=
@@ -27,9 +35,13 @@
 		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			b7xM3FzU7s3wkg5fWPUARDICHAg=
+			</data>
 			<key>hash2</key>
 			<data>
-			aNQi3r1oF+Xk02sTMwxisweeYFkqgcu4Avry8hHPjMI=
+			gnREre6ZhjMB8iGaI3LQjjqi6VSUfs7Djpbcn6TVcio=
 			</data>
 		</dict>
 	</dict>

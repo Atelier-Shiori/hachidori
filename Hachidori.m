@@ -885,6 +885,10 @@
         errorHandler(nil);
         return;
     }
+    [self retrieveUserID:completionHandler error:errorHandler withService:service withCredential:cred];
+}
+
+- (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service withCredential:(AFOAuthCredential *)cred {
     [_asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
     switch (service) {
         case 0: {

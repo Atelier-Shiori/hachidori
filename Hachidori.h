@@ -97,6 +97,7 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 - (void)refreshtokenwithdictionary:(NSDictionary *)servicedict successHandler:(void (^)(bool success, int numfailed, NSArray *failedservices)) successHandler;
 - (void)refreshtokenWithService:(int)service successHandler:(void (^)(bool success)) successHandler;
 - (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service;
+- (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service withCredential:(AFOAuthCredential *)cred;
 - (void)resetinfo;
 - (int)getUserRatingType;
 - (void)setNotifier;
