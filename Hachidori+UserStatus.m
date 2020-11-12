@@ -32,7 +32,7 @@
             break;
         case 2:
             [self.malmanger.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:service].accessToken] forHTTPHeaderField:@"Authorization"];
-            responseObject = [self.malmanger.syncmanager syncGET:[NSString stringWithFormat:@"https://api.myanimelist.net/v2/anime/%@?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,media_type,status,num_episodes,rating,rank,popularity,my_list_status%%7Bstart_date,finish_date,comments,num_times_rewatched%%7D",titleid] parameters:nil task:&task error:&error];
+            responseObject = [self.malmanger.syncmanager syncGET:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,media_type,status,num_episodes,rating,rank,popularity,my_list_status%%7Bstart_date,finish_date,comments,num_times_rewatched%%7D",titleid] parameters:nil task:&task error:&error];
             break;
         default:
             return NO;
@@ -136,7 +136,7 @@
             break;
         case 2:
             [self.malmanger.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:service].accessToken] forHTTPHeaderField:@"Authorization"];
-            responseObject = [self.malmanger.syncmanager syncGET:[NSString stringWithFormat:@"https://api.myanimelist.net/v2/anime/%@?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics",aid] parameters:nil task:&task error:&error];
+            responseObject = [self.malmanger.syncmanager syncGET:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics",aid] parameters:nil task:&task error:&error];
             break;
         default:
             return @{};
