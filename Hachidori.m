@@ -436,7 +436,7 @@
 }
 
 - (int)scrobble {
-    [MSAnalytics trackEvent:@"Starting Scrobble." withProperties:@{@"service" : [Hachidori currentServiceName]}];
+    [MSACAnalytics trackEvent:@"Starting Scrobble." withProperties:@{@"service" : [Hachidori currentServiceName]}];
     int status;
 	NSLog(@"=============");
 	NSLog(@"Scrobbling...");
@@ -462,7 +462,7 @@
     }
     if (self.detectedscrobble.AniID.length > 0 && [self hasUserInfoCurrentService]) {
         NSLog(@"Found %@", self.detectedscrobble.AniID);
-        [MSAnalytics trackEvent:@"Found ID." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"UNKNOWN", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"titleid" : self.detectedscrobble.AniID ? self.detectedscrobble.AniID : @"-1", @"service" : [Hachidori currentServiceName]}];
+        [MSACAnalytics trackEvent:@"Found ID." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"UNKNOWN", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"titleid" : self.detectedscrobble.AniID ? self.detectedscrobble.AniID : @"-1", @"service" : [Hachidori currentServiceName]}];
         // Nil out Failed Title and Episode
         //self.detectedscrobble.FailedTitle = nil;
         //self.detectedscrobble.FailedEpisode = nil;
@@ -504,7 +504,7 @@
         if (online) {
             // Not Successful
             NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", self.detectedscrobble.DetectedTitle);
-            [MSAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown)", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
+            [MSACAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown)", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
             // Used for Exception Adding
             self.detectedscrobble.FailedTitle = self.detectedscrobble.DetectedTitle;
             self.detectedscrobble.FailedEpisode = self.detectedscrobble.DetectedEpisode;
@@ -517,7 +517,7 @@
         }
         
     }
-    [MSAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:self.lastscrobble ? @{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle ? self.lastscrobble.LastScrobbledTitle : @"Missing Title", @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle ? self.lastscrobble.LastScrobbledActualTitle : @"Missing Title", @"season" : self.lastscrobble.DetectedSeason ? @(self.lastscrobble.DetectedSeason).stringValue : @"0", @"source":self.lastscrobble.LastScrobbledSource ? self.lastscrobble.LastScrobbledSource : @"Unknown Source", @"episode" : self.lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue, @"service" : [Hachidori currentServiceName]} : @{ @"status" : @(status).stringValue, @"detectedTitle" : self.detectedscrobble.DetectedTitle, @"source" : self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName] }];
+    [MSACAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:self.lastscrobble ? @{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle ? self.lastscrobble.LastScrobbledTitle : @"Missing Title", @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle ? self.lastscrobble.LastScrobbledActualTitle : @"Missing Title", @"season" : self.lastscrobble.DetectedSeason ? @(self.lastscrobble.DetectedSeason).stringValue : @"0", @"source":self.lastscrobble.LastScrobbledSource ? self.lastscrobble.LastScrobbledSource : @"Unknown Source", @"episode" : self.lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue, @"service" : [Hachidori currentServiceName]} : @{ @"status" : @(status).stringValue, @"detectedTitle" : self.detectedscrobble.DetectedTitle, @"source" : self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName] }];
     NSLog(@"Scrobble Complete with Status Code: %i - %@", status, [self scrobbleStatusToString:status]);
     NSLog(@"=============");
     // Release Detected Title/Episode.
@@ -584,7 +584,7 @@
 - (BOOL)confirmupdate {
     NSLog(@"=============");
     NSLog(@"Confirming: %@ - %@",self.lastscrobble.LastScrobbledActualTitle, self.lastscrobble.LastScrobbledEpisode);
-    [MSAnalytics trackEvent:@"Confirming title." withProperties:@{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource, @"episode" : self.lastscrobble.LastScrobbledEpisode, @"service" : [Hachidori currentServiceName]}];
+    [MSACAnalytics trackEvent:@"Confirming title." withProperties:@{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource, @"episode" : self.lastscrobble.LastScrobbledEpisode, @"service" : [Hachidori currentServiceName]}];
     DetectedScrobbleStatus *tmpdetected = [DetectedScrobbleStatus new];
     [tmpdetected transferLastScrobbled:[self getLastScrobbleForService:[Hachidori currentService]]];
     [self setDetectedScrobbleStatus:tmpdetected withService:[Hachidori currentService]];

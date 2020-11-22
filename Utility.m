@@ -448,8 +448,8 @@
 
 + (void)resetAnalyticsSettings {
     [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"sendanalytics"];
-    [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
-    [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 }
 
 + (NSString *)retrieveApplicationSupportDirectory:(NSString*)append {

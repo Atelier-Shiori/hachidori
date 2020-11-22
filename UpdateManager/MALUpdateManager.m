@@ -10,6 +10,7 @@
 #import "LastScrobbleStatus.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Hachidori.h"
+#import "Utility.h"
 
 @implementation MALUpdateManager
 - (instancetype)init {
@@ -32,13 +33,11 @@
     [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [Hachidori getFirstAccount:2].accessToken] forHTTPHeaderField:@"Authorization"];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"num_watched_episodes"] = @(self.detectedscrobble.DetectedEpisode.intValue);
-    //parameters[@"num_episodes_watched"] = @(self.DetectedEpisode.intValue);
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.dateFormat = @"yyyy-MM-dd";
     if (([self.detectedscrobble.WatchStatus isEqualToString:@"plan to watch"] && self.detectedscrobble.DetectedCurrentEpisode == 0) || self.detectedscrobble.LastScrobbledTitleNew) {
         // Set the start date if the title's watch status is Plan to Watch and the watched episodes is zero
-        [request addFormData:[Utility todaydatestring] forKey:@"start_date"];
-    }
-    if ([self.WatchStatus isEqualToString:@"completed"]) {
-        parameters[@"end_date"] = [Utility todaydatestring];
+        parameters[@"start_date"] = [df stringFromDate:[NSDate date]];
     }
     //Set Status
     if (self.detectedscrobble.DetectedEpisode.intValue == self.detectedscrobble.TotalEpisodes) {
@@ -49,7 +48,7 @@
         tmprewatching = false;
         // Set end date
         if (self.detectedscrobble.endDate.length == 0  && !self.detectedscrobble.rewatching) {
-            [attributes setValue:[df stringFromDate:[NSDate date]] forKey:@"end_date"];
+            parameters[@"end_date"] = [df stringFromDate:[NSDate date]];
         }
         if (self.detectedscrobble.rewatching) {
             // Increment rewatch count

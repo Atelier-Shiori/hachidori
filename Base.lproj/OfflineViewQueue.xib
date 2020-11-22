@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="783" height="341"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="783" height="341"/>
             <view key="contentView" id="xsz-hb-rIV">
                 <rect key="frame" x="0.0" y="0.0" width="783" height="341"/>
@@ -101,7 +101,7 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="62" minWidth="10" maxWidth="3.4028234663852886e+38" id="Jm9-fR-kfN">
+                                        <tableColumn editable="NO" width="33" minWidth="10" maxWidth="3.4028234663852886e+38" id="Jm9-fR-kfN">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Service">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -139,26 +139,26 @@
                     </scrollView>
                 </subviews>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="FFDEA753-F423-4F7D-A31E-FE49D2A756F5" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="5uq-WE-6f4">
+            <toolbar key="toolbar" implicitIdentifier="FFDEA753-F423-4F7D-A31E-FE49D2A756F5" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="5uq-WE-6f4">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="2ABCFFF1-DBE8-4183-8460-17FBC8EAD49F" label="Clear Queue" paletteLabel="Clear Queue" toolTip="Edit Status" image="clear" id="Rlu-6N-GKk">
+                    <toolbarItem implicitItemIdentifier="AB759B03-E3E2-478A-8D67-404556DDF259" label="Clear Queue" paletteLabel="Clear Queue" toolTip="Clear Queue" image="clear" id="VUD-Iu-bW3">
                         <size key="minSize" width="32" height="25"/>
-                        <size key="maxSize" width="32" height="32"/>
-                        <button key="view" verticalHuggingPriority="750" id="9Gd-ke-WNi">
-                            <rect key="frame" x="17" y="14" width="32" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="Ocq-HD-ahU">
+                            <rect key="frame" x="20" y="14" width="32" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="clear" imagePosition="below" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QfS-xR-vX9">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="clear" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JYp-lZ-cRL">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                         </button>
                         <connections>
-                            <action selector="clearqueue:" target="-2" id="YdW-OD-dUv"/>
+                            <action selector="clearqueue:" target="-2" id="ccq-26-Xgg"/>
                         </connections>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="Rlu-6N-GKk"/>
+                    <toolbarItem reference="VUD-Iu-bW3"/>
                 </defaultToolbarItems>
             </toolbar>
             <contentBorderThickness minY="20"/>

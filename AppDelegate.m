@@ -281,13 +281,13 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 #ifdef oss
 #else
-    [MSAppCenter start:@"d37cc407-6d11-42e6-84e7-222899deb28c" withServices:@[
-                                                                              [MSAnalytics class],
-                                                                              [MSCrashes class]
+    [MSACAppCenter start:@"d37cc407-6d11-42e6-84e7-222899deb28c" withServices:@[
+                                                                              [MSACAnalytics class],
+                                                                              [MSACCrashes class]
                                                                               ]];
-    [MSCrashes setDelegate:self];
-    [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
-    [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACCrashes setDelegate:self];
+    [MSACCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 #endif
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
@@ -347,12 +347,27 @@
     if ([defaults boolForKey:@"DisableYosemiteTitleBar"] != 1) {
         // OS X 10.10 code here.
         //Hide Title Bar
-        self.window.titleVisibility = NSWindowTitleHidden;
+        if (@available(macOS 11, *)) {
+            self.window.titleVisibility = NSWindowTitleVisible;
+            self.window.toolbarStyle = NSWindowToolbarStyleUnified;
+        }
+        else {
+            self.window.titleVisibility = NSWindowTitleHidden;
+        }
         // Fix Window Size
         NSRect frame = window.frame;
         frame.size = CGSizeMake(440, 291);
         [window setFrame:frame display:YES];
-     }
+    }
+    else {
+        if (@available(macOS 11, *)) {
+            self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
+            // Fix Window Size
+            NSRect frame = window.frame;
+            frame.size = CGSizeMake(440, 291);
+            [window setFrame:frame display:YES];
+        }
+    }
     if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
         //Add NSVisualEffectView to Window
         windowcontent.blendingMode = NSVisualEffectBlendingModeBehindWindow;
@@ -423,7 +438,7 @@
     [defaults setBool:FALSE forKey:@"MALSyncEnabled"];
     _servicenamemenu.enabled = NO;
     
-    [MSAnalytics trackEvent:@"App Loaded" withProperties:@{@"donated" : [NSUserDefaults.standardUserDefaults boolForKey:@"donated"] ? @"YES" : @"NO"}];
+    [MSACAnalytics trackEvent:@"App Loaded" withProperties:@{@"donated" : [NSUserDefaults.standardUserDefaults boolForKey:@"donated"] ? @"YES" : @"NO"}];
     
     // Auth URL handling
     [[NSAppleEventManager sharedAppleEventManager]
@@ -1536,7 +1551,7 @@
 
 #ifdef oss
 #else
-- (BOOL)crashes:(MSCrashes *)crashes shouldProcessErrorReport:(MSErrorReport *)errorReport {
+- (BOOL)crashes:(MSACCrashes *)crashes shouldProcessErrorReport:(MSACErrorReport *)errorReport {
     __block bool send = false;
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]) {
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -1552,7 +1567,7 @@
     return send;
 }
 
-- (NSArray<MSErrorAttachmentLog *> *)attachmentsWithCrashes:(MSCrashes *)crashes forErrorReport:(MSErrorReport *)errorReport {
+- (NSArray<MSACErrorAttachmentLog *> *)attachmentsWithCrashes:(MSACCrashes *)crashes forErrorReport:(MSACErrorReport *)errorReport {
     NSString *log = [NSString stringWithContentsOfFile:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"] encoding:NSUTF8StringEncoding error:NULL];
     __block NSString *additionalInfo = @"";
     __block bool sendlog;
@@ -1564,15 +1579,15 @@
     });
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     NSString *finalstring = [NSString stringWithFormat:@"Comments: \n%@\n\n Log:\n%@", additionalInfo, log && sendlog ? log : @"Log file not included"];
-    MSErrorAttachmentLog *attach1 = [MSErrorAttachmentLog attachmentWithText:finalstring filename:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"]];
+    MSACErrorAttachmentLog *attach1 = [MSACErrorAttachmentLog attachmentWithText:finalstring filename:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"]];
     return @[attach1];
 }
 
-- (void)crashes:(MSCrashes *)crashes didSucceedSendingErrorReport:(MSErrorReport *)errorReport {
+- (void)crashes:(MSACCrashes *)crashes didSucceedSendingErrorReport:(MSACErrorReport *)errorReport {
     [self showNotification:@"Crash Report Sent" message:@"Thanks for reporting an issue." withIdentifier:[NSString stringWithFormat:@"error-%f", NSDate.date.timeIntervalSince1970]];
 }
 
-- (void)crashes:(MSCrashes *)crashes didFailSendingErrorReport:(MSErrorReport *)errorReport withError:(NSError *)error {
+- (void)crashes:(MSACCrashes *)crashes didFailSendingErrorReport:(MSACErrorReport *)errorReport withError:(NSError *)error {
     [self showNotification:@"Crash Report Failed" message:@"Couldn't send crash report." withIdentifier:[NSString stringWithFormat:@"error-%f", NSDate.date.timeIntervalSince1970]];
 }
 #endif
