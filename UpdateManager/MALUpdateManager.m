@@ -48,7 +48,7 @@
         tmprewatching = false;
         // Set end date
         if (self.detectedscrobble.endDate.length == 0  && !self.detectedscrobble.rewatching) {
-            parameters[@"end_date"] = [df stringFromDate:[NSDate date]];
+            parameters[@"finish_date"] = [df stringFromDate:[NSDate date]];
         }
         if (self.detectedscrobble.rewatching) {
             // Increment rewatch count
