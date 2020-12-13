@@ -796,6 +796,19 @@
                     if (servicenum == [Hachidori currentService]) {
                         mainservicerefreshfailed = true;
                     }
+                    switch (servicenum) {
+                        case 0:
+                            [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"KitsuRefreshFailed"];
+                            break;
+                        case 1:
+                            [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"AniListRefreshFailed"];
+                            break;
+                        case 2:
+                            [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"MALRefreshFailed"];
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 progress++;
                 if (progress == servicedict.allKeys.count) {
