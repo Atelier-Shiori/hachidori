@@ -1128,7 +1128,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1230;
 				TargetAttributes = {
 					5CD7FF3B1A449A140050E6CC = {
 						CreatedOnToolsVersion = 6.1;
@@ -1666,7 +1666,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20201213;
+				CURRENT_PROJECT_VERSION = 20210109;
 				DEVELOPMENT_TEAM = 9HDZTER525;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1693,7 +1693,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.3.1;
+				MARKETING_VERSION = 3.3.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
@@ -1716,7 +1716,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20201213;
+				CURRENT_PROJECT_VERSION = 20210109;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9HDZTER525;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1741,7 +1741,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.3.1;
+				MARKETING_VERSION = 3.3.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;

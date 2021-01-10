@@ -74,7 +74,7 @@
             }
             break;
         case 2:
-            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v3/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject];
             }
