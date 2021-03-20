@@ -182,6 +182,25 @@
                         return [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
                     }
                 }
+                else if ((episodes < self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0) {
+                    // Check Relations
+                    if ([NSUserDefaults.standardUserDefaults boolForKey:@"UseAnimeRelations"]) {
+                        int newid = [self checkAnimeRelations:((NSNumber *)searchentry[@"id"]).intValue];
+                        if (newid > 0) {
+                            [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                            return @(newid).stringValue;
+                        }
+                        else {
+                            if ([self checkAnimeRelationsForExisting:((NSNumber *)searchentry[@"id"]).intValue]) {
+                                [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                                return @(newid).stringValue;
+                            }
+                            else {
+                                continue;
+                            }
+                        }
+                    }
+                }
                 else {
                     // Detected episodes exceed total episodes
                     continue;

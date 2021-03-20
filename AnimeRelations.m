@@ -209,6 +209,32 @@
     return relations;
 }
 
++ (NSArray *)retrieveTargetRelationsEntriesForTitleID:(int)titleid withService:(int)service {
+    // Return relations for Kitsu ID
+    NSError *error;
+    NSManagedObjectContext *moc = [self mangaObjectContext];
+    
+    NSPredicate *predicate;
+    switch (service) {
+        case 0:
+            predicate = [NSPredicate predicateWithFormat: @"(target_kitsuid == %i)", titleid];
+            break;
+        case 1:
+            predicate = [NSPredicate predicateWithFormat: @"(target_anilistid == %i)", titleid];
+            break;
+        case 2:
+            predicate = [NSPredicate predicateWithFormat: @"(target_malid == %i)", titleid];
+            break;
+        default:
+            break;
+    }
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    fetch.entity = [NSEntityDescription entityForName:@"AnimeRelations" inManagedObjectContext:moc];
+    fetch.predicate = predicate;
+    NSArray *relations = [moc executeFetchRequest:fetch error:&error];
+    return relations;
+}
+
 + (void)clearAnimeRelations {
     // Clears Anime Relations data
     NSManagedObjectContext *moc = [self mangaObjectContext];

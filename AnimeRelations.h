@@ -10,5 +10,6 @@
 @interface AnimeRelations : NSObject
 + (void)updateRelations;
 + (NSArray *)retrieveRelationsEntriesForTitleID:(int)titleid withService:(int)service;
++ (NSArray *)retrieveTargetRelationsEntriesForTitleID:(int)titleid withService:(int)servic;
 + (void)clearAnimeRelations;
 @end
