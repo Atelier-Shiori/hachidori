@@ -6,13 +6,17 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		t5KVRXeMuU9kUrozbpMiG7snnVM=
+		oEXA05M+bt/RPRH4VH7uZAgMjjM=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
 		<key>Headers/BrowserDetection.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			8SJD2VX7RM9VORYiOdAJuPUFsuM=
+			</data>
 			<key>hash2</key>
 			<data>
 			vwvC0jZHF39EjocLggQIODZzEAHyReb/PE1d6m3D1c4=
@@ -20,6 +24,10 @@
 		</dict>
 		<key>Headers/DetectStreamKit.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			Ffi3i3grb16gg/oxgunc8NE7SsE=
+			</data>
 			<key>hash2</key>
 			<data>
 			KaDJmHxMt5ErOrZg/ojENjZcQ6H2g4C1vBpniZoKk0Q=
@@ -27,6 +35,10 @@
 		</dict>
 		<key>Headers/DetectStreamManager.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			UvJkcfB8ay2TxHtNlZ8f6AgNz/w=
+			</data>
 			<key>hash2</key>
 			<data>
 			VU130iQpmNeD+eHF5xs/76r5hUAYP/XR+7sOR+kCNC0=
@@ -34,6 +46,10 @@
 		</dict>
 		<key>Headers/MediaStreamParse.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			vF1V0OdPnZiOneZqK7R1a2pQ3LM=
+			</data>
 			<key>hash2</key>
 			<data>
 			i2tcEo9YAq/BCSwHtB4h8VA/7w5jvYpuzvZc1nNdmM0=
@@ -41,6 +57,10 @@
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			2LcgngPF3wlC+DgVO1HG3ujrTSU=
+			</data>
 			<key>hash2</key>
 			<data>
 			UJKOy6lVToMwagCnk/5e3an7AtpQyCJbG50ZtZZrbCI=
@@ -48,9 +68,13 @@
 		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			oEXA05M+bt/RPRH4VH7uZAgMjjM=
+			</data>
 			<key>hash2</key>
 			<data>
-			ieVGkmstfhyWzxMOrzmlMoW928/J+xO/OClanjKQK2A=
+			X5psPSmUlbbf6RF5q8JjrRBrfELWZPr8fagO/43EMGI=
 			</data>
 		</dict>
 	</dict>

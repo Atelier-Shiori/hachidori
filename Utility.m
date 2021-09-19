@@ -49,6 +49,14 @@
         tmpseason = [tmpseason replaceByRegexp:regex with:@""];
         return tmpseason.intValue;
     }
+    else {
+        for (int i=1; i < 11; i++) {
+            NSString *seasonstring = [NSString stringWithFormat:@"%@ season", [self getSpelledOutOrdinalNumber:i]];
+            if ([string localizedCaseInsensitiveContainsString:seasonstring]) {
+                return i;
+            }
+        }
+    }
     return -1;
 }
 + (void)showsheetmessage:(NSString *)message
@@ -470,4 +478,73 @@
     return dir;
 }
 
+/* From https://stackoverflow.com/questions/6716596/is-there-a-way-in-objective-c-to-take-a-number-and-spell-it-out/6716645 */
++ (NSString*)getSpelledOutNumber:(NSInteger)num {
+    NSNumber *yourNumber = [NSNumber numberWithInt:(int)num];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterSpellOutStyle];
+    [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en"]];
+    return [formatter stringFromNumber:yourNumber];
+}
+
++ (NSString*)removeLastCharOfString:(NSString*)aString {
+    return [aString substringToIndex:[aString length]-1];
+}
+
++ (NSString*)getSpelledOutOrdinalNumber:(NSInteger)num {
+    NSString *spelledOutNumber = [self getSpelledOutNumber:num];
+
+    // replace all '-'
+    spelledOutNumber = [spelledOutNumber stringByReplacingOccurrencesOfString:@"-"
+                                                                   withString:@" "];
+
+    NSArray *numberParts = [spelledOutNumber componentsSeparatedByString:@" "];
+
+    NSMutableString *output = [NSMutableString string];
+
+    NSUInteger numberOfParts = [numberParts count];
+    for (int i=0; i<numberOfParts; i++) {
+        NSString *numberPart = [numberParts objectAtIndex:i];
+
+        if ([numberPart isEqualToString:@"one"])
+            [output appendString:@"first"];
+        else if([numberPart isEqualToString:@"two"])
+            [output appendString:@"second"];
+        else if([numberPart isEqualToString:@"three"])
+            [output appendString:@"third"];
+        else if([numberPart isEqualToString:@"five"])
+            [output appendString:@"fifth"];
+        else {
+            NSUInteger characterCount = [numberPart length];
+            unichar lastChar = [numberPart characterAtIndex:characterCount-1];
+            if (lastChar == 'y')
+            {
+                // check if it is the last word
+                if (numberOfParts-1 == i)
+                { // it is
+                    [output appendString:[NSString stringWithFormat:@"%@ieth ", [self removeLastCharOfString:numberPart]]];
+                }
+                else
+                { // it isn't
+                    [output appendString:[NSString stringWithFormat:@"%@-", numberPart]];
+                }
+            }
+            else if (lastChar == 't' || lastChar == 'e')
+            {
+                [output appendString:[NSString stringWithFormat:@"%@th-", [self removeLastCharOfString:numberPart]]];
+            }
+            else
+            {
+                [output appendString:[NSString stringWithFormat:@"%@th ", numberPart]];
+            }
+        }
+    }
+
+    // eventually remove last char
+    unichar lastChar = [output characterAtIndex:[output length]-1];
+    if (lastChar == '-' || lastChar == ' ')
+        return [self removeLastCharOfString:output];
+    else
+        return output;
+}
 @end
