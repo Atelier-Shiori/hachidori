@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -211,6 +211,18 @@
                         <action selector="getHelp:" target="560" id="Mrr-YX-VxM"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Report Bugs or Issue" id="n18-kf-ekA">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="reportIssue:" target="560" id="AeO-Sb-ch0"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Report a Stream Detection Issue" id="fal-fo-cad">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="reportStreamIssue:" target="560" id="ROd-fO-8Dm"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="XKY-k8-gfz"/>
                 <menuItem title="Preferences…" id="552">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -406,35 +418,35 @@
         <window title="Hachidori" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="StatusWindowPos" animationBehavior="default" id="789" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="584" y="499" width="440" height="253"/>
+            <rect key="contentRect" x="584" y="499" width="460" height="253"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
-            <value key="minSize" type="size" width="440" height="253"/>
-            <value key="maxSize" type="size" width="440" height="253"/>
+            <value key="minSize" type="size" width="460" height="253"/>
+            <value key="maxSize" type="size" width="460" height="253"/>
             <view key="contentView" id="791">
-                <rect key="frame" x="0.0" y="0.0" width="440" height="253"/>
+                <rect key="frame" x="0.0" y="0.0" width="460" height="253"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <visualEffectView fixedFrame="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6po-93-3UB">
-                        <rect key="frame" x="0.0" y="22" width="440" height="233"/>
+                        <rect key="frame" x="0.0" y="22" width="460" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
                             <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQb-tD-j5e">
-                                <rect key="frame" x="0.0" y="0.0" width="440" height="234"/>
+                                <rect key="frame" x="0.0" y="0.0" width="460" height="234"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-vm-3Ig">
-                                        <rect key="frame" x="149" y="1" width="291" height="190"/>
+                                        <rect key="frame" x="156" y="1" width="304" height="190"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="ypk-hd-jNn">
-                                            <rect key="frame" x="1" y="1" width="274" height="188"/>
+                                            <rect key="frame" x="1" y="1" width="302" height="188"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
-                                                    <rect key="frame" x="0.0" y="0.0" width="274" height="188"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="302" height="188"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="274" height="188"/>
+                                                    <size key="minSize" width="302" height="188"/>
                                                     <size key="maxSize" width="463" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -445,7 +457,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="T9f-gy-fHS">
-                                            <rect key="frame" x="275" y="1" width="15" height="188"/>
+                                            <rect key="frame" x="287" y="1" width="16" height="188"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -455,7 +467,7 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="SDe-v8-QB2"/>
                                     </imageView>
                                     <textField wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="792">
-                                        <rect key="frame" x="8" y="191" width="424" height="35"/>
+                                        <rect key="frame" x="8" y="191" width="444" height="35"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Title Epispode X" id="796">
                                             <font key="font" metaFont="cellTitle"/>
@@ -466,11 +478,11 @@
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBj-Ek-7Tw">
-                                <rect key="frame" x="0.0" y="1" width="440" height="232"/>
+                                <rect key="frame" x="0.0" y="1" width="460" height="232"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <textField wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g2C-hu-jDc">
-                                        <rect key="frame" x="-2" y="154" width="444" height="58"/>
+                                        <rect key="frame" x="8" y="154" width="444" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Nothing Scrobbled Yet" id="ax6-aQ-n4d">
                                             <font key="font" metaFont="system" size="30"/>
@@ -506,7 +518,7 @@
                         <popUpButton key="view" verticalHuggingPriority="750" id="ti5-XJ-kVw">
                             <rect key="frame" x="0.0" y="14" width="44" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="yI8-4s-qpd">
@@ -600,10 +612,10 @@
         </customObject>
     </objects>
     <resources>
-        <image name="Info" width="32" height="32"/>
+        <image name="Info" width="16" height="16"/>
         <image name="NSShareTemplate" width="16" height="17"/>
-        <image name="correct" width="32" height="32"/>
-        <image name="history" width="32" height="32"/>
-        <image name="update" width="32" height="32"/>
+        <image name="correct" width="16" height="16"/>
+        <image name="history" width="16" height="16"/>
+        <image name="update" width="16" height="16"/>
     </resources>
 </document>

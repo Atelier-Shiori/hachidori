@@ -356,7 +356,7 @@
         }
         // Fix Window Size
         NSRect frame = window.frame;
-        frame.size = CGSizeMake(440, 291);
+        frame.size = CGSizeMake(460, 291);
         [window setFrame:frame display:YES];
     }
     else {
@@ -364,7 +364,7 @@
             self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
             // Fix Window Size
             NSRect frame = window.frame;
-            frame.size = CGSizeMake(440, 291);
+            frame.size = CGSizeMake(460, 291);
             [window setFrame:frame display:YES];
         }
     }
@@ -567,6 +567,17 @@
     //Show Help
  	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://help.malupdaterosx.moe/hachidori/"]];
 }
+
+- (IBAction)reportIssue:(id)sender{
+    //Show Help
+     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.malupdaterosx.moe/index.php?forums/hachidori-issue-tracker-support.10/"]];
+}
+
+- (IBAction)reportStreamIssue:(id)sender{
+    //Show Help
+     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.malupdaterosx.moe/index.php?forums/hachidori-stream-detection-support.11/"]];
+}
+
 - (IBAction)showAboutWindow:(id)sender{
     // Properly show the about window in a menu item application
     [NSApp activateIgnoringOtherApps:YES];

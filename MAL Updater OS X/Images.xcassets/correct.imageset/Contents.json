@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "correct.png",
+      "filename" : "icons8-iOS-3061-16-171718.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "correctx2.png",
+      "filename" : "icons8-iOS-3061-32-171718.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
