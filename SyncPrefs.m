@@ -32,7 +32,12 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"sync"];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"arrow.left.arrow.right.circle" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:@"sync"];
+    }
 }
 
 - (NSString *)toolbarItemLabel

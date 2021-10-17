@@ -50,7 +50,12 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNameUser];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"person.crop.circle" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:NSImageNameUser];
+    }
 }
 
 - (NSString *)toolbarItemLabel

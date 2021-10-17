@@ -87,7 +87,12 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNameUserAccounts];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"at.circle" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:NSImageNameUserAccounts];
+    }
 }
 
 - (NSString *)toolbarItemLabel

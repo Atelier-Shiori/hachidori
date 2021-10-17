@@ -61,7 +61,12 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNamePreferencesGeneral];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"gear" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:NSImageNamePreferencesGeneral];
+    }
 }
 
 - (NSString *)toolbarItemLabel
