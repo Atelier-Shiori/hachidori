@@ -226,6 +226,7 @@
     defaultValues[@"currentservice"] = @(0);
     defaultValues[@"torrentagreement"] = @NO;
     defaultValues[@"torrentsiteselected"] = @(0);
+    defaultValues[@"useDirectoryAsWhitelist"] = @NO;
     // Social
     defaultValues[@"tweetonscrobble"] = @NO;
     defaultValues[@"twitteraddanime"] = @YES;

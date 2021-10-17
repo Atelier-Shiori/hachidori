@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -93,7 +93,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" id="fLT-H6-Adh">
                                             <rect key="frame" x="1" y="1" width="562" height="152"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="nAC-LU-93c" id="gMF-8j-eH4">
                                                     <rect key="frame" x="0.0" y="0.0" width="562" height="129"/>
@@ -205,7 +205,7 @@
                                 </subviews>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Directory Ignore" identifier="2" id="uj2-sl-IEV">
+                        <tabViewItem label="Directory Exceptions" identifier="2" id="uj2-sl-IEV">
                             <view key="view" id="Pau-QR-GKB">
                                 <rect key="frame" x="10" y="33" width="589" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,9 +213,9 @@
                                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiJ-Bo-TEj">
                                         <rect key="frame" x="11" y="47" width="561" height="162"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <clipView key="contentView" focusRingType="none" ambiguous="YES" id="tOB-JE-5PV">
+                                        <clipView key="contentView" focusRingType="none" id="tOB-JE-5PV">
                                             <rect key="frame" x="1" y="1" width="559" height="160"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="xDf-U7-Rbg">
                                                     <rect key="frame" x="0.0" y="0.0" width="559" height="160"/>
@@ -224,7 +224,7 @@
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn editable="NO" width="527" minWidth="40" maxWidth="1000" id="wqQ-Is-Qm5">
+                                                        <tableColumn editable="NO" width="547" minWidth="40" maxWidth="1000" id="wqQ-Is-Qm5">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -237,7 +237,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="bLw-yV-1Hy">
-                                                                    <rect key="frame" x="11" y="1" width="536" height="17"/>
+                                                                    <rect key="frame" x="1" y="1" width="556" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g88-qa-QcX">
@@ -303,6 +303,17 @@
                                         <connections>
                                             <action selector="removeDirectory:" target="-2" id="Edx-Q9-LwY"/>
                                             <binding destination="3Xl-n2-elJ" name="enabled" keyPath="selectedObjects.@count" id="x5E-W8-E8e"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOm-Ab-UOd">
+                                        <rect key="frame" x="424" y="16" width="148" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Use as Whitelist" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="CgQ-vj-F29">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="smB-oB-DZP" name="value" keyPath="values.useDirectoryAsWhitelist" id="8eg-3Y-iXf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -535,7 +546,7 @@
                     </tabViewItems>
                 </tabView>
             </subviews>
-            <point key="canvasLocation" x="377" y="110"/>
+            <point key="canvasLocation" x="377" y="109.5"/>
         </customView>
         <arrayController mode="entity" entityName="Exceptions" automaticallyPreparesContent="YES" selectsInsertedObjects="NO" id="WNZ-Fa-W8F">
             <declaredKeys>
