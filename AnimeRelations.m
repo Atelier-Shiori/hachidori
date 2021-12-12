@@ -20,7 +20,7 @@
     AFHTTPSessionManager *manager = [self manager];
     NSError *error;
     NSURLSessionDataTask *task;
-    id responseObject = [manager syncGET:@"https://github.com/erengy/anime-relations/raw/master/anime-relations.txt" parameters:nil task:&task error:&error];
+    id responseObject = [manager syncGET:@"https://github.com/erengy/anime-relations/raw/master/anime-relations.txt" parameters:nil headers:@{} task:&task error:&error];
     // Get Status Code
     switch (((NSHTTPURLResponse *)task.response).statusCode) {
         case 200:{

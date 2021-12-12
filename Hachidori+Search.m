@@ -62,19 +62,19 @@
     id responseObject;
     switch ([Hachidori currentService]) {
         case 0:
-            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject];
             }
             break;
         case 1:
-            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : [self cleanupsearchterm:searchtitle], @"type" : @"ANIME"}} task:&task error:&error];
+            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : [self cleanupsearchterm:searchtitle], @"type" : @"ANIME"}} headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject];
             }
             break;
         case 2:
-            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject];
             }

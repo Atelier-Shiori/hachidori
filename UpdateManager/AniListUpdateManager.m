@@ -101,7 +101,7 @@
         query = self.detectedscrobble.EntryID ? kAnilistExUpdateAnimeListEntryAdvancedBothDate : kAnilistUpdateAnimeListEntryAdvancedBothDate;
     }
     NSDictionary *parameters = @{@"query" : query, @"variables" : attributes};
-    id responseobject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
+    id responseobject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters headers:@{} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -164,7 +164,7 @@
     //Privacy
     [attributes setValue:@(privatevalue) forKey:@"private"];
     // Do Update
-    [self.asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistExUpdateAnimeListEntryAdvanced, @"variables" : attributes} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistExUpdateAnimeListEntryAdvanced, @"variables" : attributes} headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             //Set New Values
             self.lastscrobble.TitleScore = showscore;
             self.lastscrobble.WatchStatus = showwatchstatus;
@@ -200,7 +200,7 @@
     NSURLSessionDataTask *task;
     NSError *error;
     NSDictionary *parameters = @{@"query" : kAnilistUpdateAnimeListEntrySimple, @"variables" : attributes.copy};
-    [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters task:&task error:&error];
+    [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:parameters headers:@{} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -227,7 +227,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncPOST:@"https://graphql.anilist.co"  parameters:@{@"query" : kAnilistDeleteListEntry, @"variables" : @{@"id" : self.lastscrobble.EntryID}} task:&task error:&error];
+    [self.syncmanager syncPOST:@"https://graphql.anilist.co"  parameters:@{@"query" : kAnilistDeleteListEntry, @"variables" : @{@"id" : self.lastscrobble.EntryID}} headers:@{} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {

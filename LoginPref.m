@@ -182,7 +182,7 @@
     [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
                                     clientID:kclient
                                       secret:ksecretkey];
-        [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL parameters:@{@"grant_type":@"password", @"username":username, @"password":password} success:^(AFOAuthCredential *credential) {
+    [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL parameters:@{@"grant_type":@"password", @"username":username, @"password":password} headers:@{} success:^(AFOAuthCredential *credential) {
         // Update your UI
         [Utility showsheetmessage:@"Login Successful" explaination: @"Your account has been authenticated." window:self.view.window];
             [self showServiceMenuReminder:0];
@@ -247,7 +247,7 @@
         default:
             break;
     }
-    [OAuth2Manager authenticateUsingOAuthWithURLString:tokenurl parameters:parameters success:^(AFOAuthCredential *credential) {
+    [OAuth2Manager authenticateUsingOAuthWithURLString:tokenurl parameters:parameters headers:@{} success:^(AFOAuthCredential *credential) {
         if (reauthorizing) {
             __block bool sameuser;
             [_haengine retrieveUserID:^(int userid, NSString *username, NSString *scoreformat) {

@@ -81,7 +81,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    id responseObject = [self.syncmanager syncPUT:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:parameters task:&task error:&error];
+    id responseObject = [self.syncmanager syncPUT:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:parameters headers:@{} task:&task error:&error];
     
     switch (((NSHTTPURLResponse *)task.response).statusCode) {
         case 200: {
@@ -123,7 +123,7 @@
     //NSDictionary *parameters = @{@"num_episodes_watched" : @(episode.intValue), @"status" : [showwatchstatus.lowercaseString stringByReplacingOccurrencesOfString:@" " withString:@"_"], @"score" : @(showscore)};
     NSDictionary *parameters = @{@"num_watched_episodes" : @(episode.intValue), @"status" : [[showwatchstatus.lowercaseString stringByReplacingOccurrencesOfString:@" " withString:@"_"] stringByReplacingOccurrencesOfString:@"-" withString:@"_"], @"score" : @(showscore)};
     // Set up request and do update
-    [self.asyncmanager PUT:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.asyncmanager PUT:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:parameters headers:@{} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         self.lastscrobble.TitleScore = showscore;
         self.lastscrobble.WatchStatus = showwatchstatus;
         self.lastscrobble.LastScrobbledEpisode = episode;
@@ -149,7 +149,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncPUT:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:attributes task:&task error:&error];
+    [self.syncmanager syncPUT:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:attributes headers:@{} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -176,7 +176,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:nil task:&task error:&error];
+    [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://api.myanimelist.net/v3/anime/%@/my_list_status", titleid] parameters:nil headers:@{} task:&task error:&error];
     switch (((NSHTTPURLResponse *)task.response).statusCode) {
         case 200:
         case 201:

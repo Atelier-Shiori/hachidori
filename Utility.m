@@ -145,7 +145,7 @@
         return;
     }
     AFHTTPSessionManager *manager = [self jsonmanager];
-    [manager POST:@"https://licensing.malupdaterosx.moe/check_hachidori.php" parameters:@{@"name" : name, @"key" : key} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:@"https://licensing.malupdaterosx.moe/check_hachidori.php" parameters:@{@"name" : name, @"key" : key} headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         int valid = ((NSNumber *)responseObject[@"valid"]).intValue;
         if (valid == 1) {
             // Valid Key

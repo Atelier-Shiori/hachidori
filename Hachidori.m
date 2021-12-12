@@ -834,7 +834,7 @@
                                                                                secret:ksecretkey];
             [OAuth2Manager setUseHTTPBasicAuthentication:NO];
             [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL
-                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} success:^(AFOAuthCredential *credential) {
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} headers:@{} success:^(AFOAuthCredential *credential) {
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                                             withIdentifier:@"Hachidori"];
@@ -854,7 +854,7 @@
                                                                                secret:kanilistsecretkey];
             [OAuth2Manager setUseHTTPBasicAuthentication:NO];
             [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token"
-                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri" : @"hachidoriauth%3A%2F%2Fanilistauth%2F"} success:^(AFOAuthCredential *credential) {
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri" : @"hachidoriauth%3A%2F%2Fanilistauth%2F"} headers:@{} success:^(AFOAuthCredential *credential) {
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                                             withIdentifier:@"Hachidori - AniList"];
@@ -874,7 +874,7 @@
                                                                                secret:@""];
             [OAuth2Manager setUseHTTPBasicAuthentication:NO];
             [OAuth2Manager authenticateUsingOAuthWithURLString:@"v1/oauth2/token"
-                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri": @"hachidoriauth://malauth/"} success:^(AFOAuthCredential *credential) {
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri": @"hachidoriauth://malauth/"} headers:@{} success:^(AFOAuthCredential *credential) {
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                         withIdentifier:@"Hachidori - MyAnimeList"];
@@ -905,7 +905,7 @@
     [_asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
     switch (service) {
         case 0: {
-            [_asyncmanager GET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [_asyncmanager GET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (((NSArray *)responseObject[@"data"]).count > 0) {
                     NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];
                     int scoreformat = 0;
@@ -942,7 +942,7 @@
             break;
         }
         case 1: {
-            [_asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+            [_asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} headers:@{} progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 if (responseObject[@"data"][@"Viewer"] != [NSNull null]) {
                     NSDictionary *d = responseObject[@"data"][@"Viewer"];
                     completionHandler(((NSNumber *)d[@"id"]).intValue,d[@"name"], d[@"mediaListOptions"][@"scoreFormat"]);
@@ -956,7 +956,7 @@
             break;
         }
         case 2: {
-            [_asyncmanager GET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+            [_asyncmanager GET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil headers:@{} progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 completionHandler(((NSNumber *)responseObject[@"id"]).intValue, responseObject[@"name"], @"");
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 errorHandler(error);
@@ -1044,10 +1044,10 @@
     id responseObject;
     switch ([Hachidori currentService]) {
         case 0:
-            responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true" parameters:nil task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true" parameters:nil headers:@{} task:&task error:&error];
             break;
         case 1:
-            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} task:&task error:&error];
+            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} headers:@{} task:&task error:&error];
             break;
         default:
             return 0;

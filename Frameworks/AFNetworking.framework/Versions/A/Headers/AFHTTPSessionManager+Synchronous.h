@@ -4,7 +4,7 @@
  A minimal category which extends AFHTTPSessionManager to support
  synchronous requests.
 
- **This category is for AFNetworking 3.x.**
+ **This category is for AFNetworking 4.x.**
 */
 @interface AFHTTPSessionManager (Synchronous)
 
@@ -14,6 +14,7 @@
  @param URLString The URL string used to create the request URL.
  @param parameters The parameters to be encoded according to the client
    request serializer.
+ @param headers The headers appended to the default headers for this request.
  @param taskPtr The address at which a pointer to the NSURLSessionDataTask is placed.
  @param outError The address at which a pointer to an error object is placed
     when the request operation finishes unsucessfully.
@@ -22,6 +23,7 @@
  */
 - (id)syncGET:(NSString *)URLString
    parameters:(NSDictionary *)parameters
+      headers:(NSDictionary <NSString *, NSString *> *)headers
          task:(NSURLSessionDataTask *__autoreleasing *)taskPtr
         error:(NSError *__autoreleasing *)outError;
 
@@ -31,6 +33,7 @@
  @param URLString The URL string used to create the request URL.
  @param parameters The parameters to be encoded according to the client
     request serializer.
+ @param headers The headers appended to the default headers for this request.
  @param taskPtr The address at which a pointer to the NSURLSessionDataTask is placed.
  @param outError The address at which a pointer to an error object is placed
     when the request operation finishes unsucessfully.
@@ -39,6 +42,7 @@
  */
 - (id)syncPOST:(NSString *)URLString
     parameters:(NSDictionary *)parameters
+       headers:(NSDictionary <NSString *, NSString *> *)headers
           task:(NSURLSessionDataTask *__autoreleasing *)taskPtr
          error:(NSError *__autoreleasing *) outError;
 
@@ -48,6 +52,7 @@
  @param URLString The URL string used to create the request URL.
  @param parameters The parameters to be encoded according to the client
     request serializer.
+ @param headers The headers appended to the default headers for this request.
  @param taskPtr The address at which a pointer to the NSURLSessionDataTask is placed.
  @param outError The address at which a pointer to an error object is placed
     when the request operation finishes unsucessfully.
@@ -56,6 +61,7 @@
  */
 - (id)syncPUT:(NSString *)URLString
    parameters:(NSDictionary *)parameters
+      headers:(NSDictionary <NSString *, NSString *> *)headers
          task:(NSURLSessionDataTask *__autoreleasing *)taskPtr
         error:(NSError *__autoreleasing *) outError;
 /**
@@ -64,6 +70,7 @@
  @param URLString The URL string used to create the request URL.
  @param parameters The parameters to be encoded according to the client
     request serializer.
+ @param headers The headers appended to the default headers for this request.
  @param taskPtr The address at which a pointer to the NSURLSessionDataTask is placed.
  @param outError The address at which a pointer to an error object is placed
     when the request operation finishes unsucessfully.
@@ -72,6 +79,7 @@
  */
 - (id)syncDELETE:(NSString *)URLString
       parameters:(NSDictionary *)parameters
+         headers:(NSDictionary <NSString *, NSString *> *)headers
             task:(NSURLSessionDataTask *__autoreleasing *)taskPtr
            error:(NSError *__autoreleasing *) outError;
 
@@ -81,6 +89,7 @@
  @param URLString The URL string used to create the request URL.
  @param parameters The parameters to be encoded according to the client
     request serializer.
+ @param headers The headers appended to the default headers for this request.
  @param taskPtr The address at which a pointer to the NSURLSessionDataTask is placed.
  @param outError The address at which a pointer to an error object is placed
     when the request operation finishes unsucessfully.
@@ -89,6 +98,7 @@
  */
 - (id)syncPATCH:(NSString *)URLString
      parameters:(NSDictionary *)parameters
+        headers:(NSDictionary <NSString *, NSString *> *)headers
            task:(NSURLSessionDataTask *__autoreleasing *)taskPtr
           error:(NSError *__autoreleasing *) outError;
 
@@ -98,6 +108,7 @@
  @param method The HTTP method.
  @param URLString The URL string used to create the request URL.
  @param parameters The parameters to be encoded and set in the request HTTP body.
+ @param headers The headers appended to the default headers for this request.
  @param taskPtr The address at which a pointer to the NSURLSessionDataTask is placed.
  @param outError The address at which a pointer to an error object is placed
     when the request operation finishes unsucessfully.
@@ -107,6 +118,7 @@
 - (id)synchronouslyPerformMethod:(NSString *)method
                        URLString:(NSString *)URLString
                       parameters:(NSDictionary *)parameters
+                         headers:(NSDictionary <NSString *, NSString *> *)headers
                             task:(NSURLSessionDataTask *__autoreleasing *)taskPtr
                            error:(NSError *__autoreleasing *)outError;
 

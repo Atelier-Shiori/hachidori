@@ -38,6 +38,7 @@ FOUNDATION_EXPORT const unsigned char AFNetworkingVersionString[];
 #import <AFNetworking/AFURLRequestSerialization.h>
 #import <AFNetworking/AFURLResponseSerialization.h>
 #import <AFNetworking/AFSecurityPolicy.h>
+#import <AFNetworking/AFCompatibilityMacros.h>
 #import <AFNetworking/AFOAuth2Manager.h>
 #import <AFNetworking/AFOAuthCredential.h>
 #import <AFNetworking/AFHTTPSessionManager+Synchronous.h>
@@ -54,7 +55,6 @@ FOUNDATION_EXPORT const unsigned char AFNetworkingVersionString[];
 #import <AFNetworking/AFImageDownloader.h>
 #import <AFNetworking/UIActivityIndicatorView+AFNetworking.h>
 #import <AFNetworking/UIButton+AFNetworking.h>
-#import <AFNetworking/UIImage+AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <AFNetworking/UIProgressView+AFNetworking.h>
 #endif
@@ -62,6 +62,7 @@ FOUNDATION_EXPORT const unsigned char AFNetworkingVersionString[];
 #if TARGET_OS_IOS
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import <AFNetworking/UIRefreshControl+AFNetworking.h>
+#import <AFNetworking/WKWebView+AFNetworking.h>
 #endif
 
 
