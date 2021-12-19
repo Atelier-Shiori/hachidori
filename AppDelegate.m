@@ -227,6 +227,7 @@
     defaultValues[@"torrentagreement"] = @NO;
     defaultValues[@"torrentsiteselected"] = @(0);
     defaultValues[@"useDirectoryAsWhitelist"] = @NO;
+    defaultValues[@"youtubedetection"] = @NO;
     // Social
     defaultValues[@"tweetonscrobble"] = @NO;
     defaultValues[@"twitteraddanime"] = @YES;
@@ -248,6 +249,7 @@
     defaultValues[@"AniListRefreshFailed"] = @NO;
     defaultValues[@"KitsuRefreshFailed"] = @NO;
     defaultValues[@"MALRefreshFailed"] = @NO;
+    
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];

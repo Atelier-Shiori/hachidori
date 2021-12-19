@@ -96,6 +96,7 @@
                 [self showsheetmessage:NSLocalizedString(@"Donation Key Error",nil) explaination:NSLocalizedString(@"This key has been revoked. Please contact the author of this program or enter a valid key.",nil) window:nil];
                 [self showDonateReminder:delegate];
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"donated"];
+                [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"youtubedetection"];
                 [self resetAnalyticsSettings];
             }
         }];
