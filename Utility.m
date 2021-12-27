@@ -41,7 +41,7 @@
     OnigRegexp    *regex;
     OnigResult *smatch;
     NSString *tmpseason;
-    regex = [OnigRegexp compile:@"((S|s|Season )\\d+|\\d+(st|nd|rd|th) Season|\\d+)" options:OnigOptionIgnorecase];
+    regex = [OnigRegexp compile:@"((S|s|Season )\\d+|\\d+(st|nd|rd|th) Season|\\s\\d+$)" options:OnigOptionIgnorecase];
     smatch = [regex search:string];
     if (smatch.count > 0) {
         tmpseason = [smatch stringAt:0];

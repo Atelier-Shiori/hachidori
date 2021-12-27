@@ -68,7 +68,6 @@
                     tmpseason = [Utility parseSeason:title];
                     if (tmpseason > 0) {
                         _parsedseason = tmpseason;
-                        break;
                     }
                 } @catch (NSException *exception) {
                 }
