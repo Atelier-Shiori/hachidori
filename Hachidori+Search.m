@@ -74,7 +74,7 @@
             }
             break;
         case 2:
-            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} headers:@{} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(25), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject];
             }
@@ -156,6 +156,9 @@
                 //Return titleid if episode is valid
                 int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
                 if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {
+                    if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason) {
+                        continue;
+                    }
                     NSLog(@"Valid Episode Count");
                     if (sortedArray.count == 1 || self.detectedscrobble.DetectedSeason >= 2) {
                         // Only Result, return

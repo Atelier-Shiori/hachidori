@@ -485,9 +485,13 @@
                 int s = [self updatetitle:self.detectedscrobble.AniID];
                 if (s == ScrobblerUpdateNotNeeded || s == ScrobblerConfirmNeeded ||s == ScrobblerUpdateSuccessful ) {
                     _Success = true;
+                    if (s == ScrobblerUpdateNotNeeded) {
+                        self.lastscrobble.confirmed = true;
+                    }
                 }
                 else {
-                    _Success = false;}
+                    _Success = false;
+                }
                 status = s;
             }
         }
