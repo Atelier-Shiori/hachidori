@@ -133,26 +133,38 @@
             // Populate titles
             theshowtitle = [NSString stringWithFormat:@"%@",searchentry[@"title"]];
             alttitle = ((NSArray *)searchentry[@"other_titles"][@"english"]).count > 0 ? searchentry[@"other_titles"][@"english"][0] : ((NSArray *)searchentry[@"other_titles"][@"japanese"]).count ? searchentry[@"other_titles"][@"japanese"][0] : @"";
-            // Remove colons as they are invalid characters for filenames and to improve accuracy
-            theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
-            alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
-            // Perform Recognition
-            int matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
-            if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
-                if (self.detectedscrobble.DetectedTitleisMovie) {
-                    self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
-                    if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"Special"]) {
-                        self.detectedscrobble.DetectedTitleisMovie = false;
-                    }
+            int matchstatus = 0;
+            if (self.detectedscrobble.corrected) {
+                // Exact match only
+                if ([theshowtitle isEqualToString:self.detectedscrobble.DetectedTitle]) {
+                    matchstatus = PrimaryTitleMatch;
                 }
                 else {
-                    if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
-                        // Used for Season Checking
-                        if (self.detectedscrobble.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.detectedscrobble.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
-                            continue;
+                    continue;
+                }
+            }
+            else {
+                // Remove colons as they are invalid characters for filenames and to improve accuracy
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+                alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+                // Perform Recognition
+                matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
+                if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
+                    if (self.detectedscrobble.DetectedTitleisMovie) {
+                        self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
+                        if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"Special"]) {
+                            self.detectedscrobble.DetectedTitleisMovie = false;
                         }
                     }
-                }
+                    else {
+                        if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
+                            // Used for Season Checking
+                            if (self.detectedscrobble.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.detectedscrobble.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
+                                continue;
+                            }
+                        }
+                    }
+            }
                 //Return titleid if episode is valid
                 int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
                 if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {

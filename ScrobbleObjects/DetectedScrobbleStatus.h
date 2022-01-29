@@ -18,6 +18,7 @@
     @property (strong, getter=getFailedEpisode) NSString *FailedEpisode;
     @property (strong) NSString *FailedSource;
     @property (getter=getFailedSeason) int FailedSeason;
+    @property bool corrected;
     - (void)checkzeroEpisode;
     - (void)transferLastScrobbled:(LastScrobbleStatus *)lscrobbled;
 @end

@@ -708,6 +708,7 @@
                     
                     if (i==1 && self.detectedscrobble.DetectedTitleisEpisodeZero == true && iszeroepisode == true) {
                         NSLog(@"%@ zero episode is found on exceptions list as %@.", self.detectedscrobble.DetectedTitle, correcttitle);
+                        self.detectedscrobble.corrected = true;
                         self.detectedscrobble.DetectedTitle = correcttitle;
                         self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", mappedepisode];
                         self.detectedscrobble.DetectedTitleisEpisodeZero = true;
@@ -723,6 +724,7 @@
                     }
                     else {
                         NSLog(@"%@ found on exceptions list as %@.", self.detectedscrobble.DetectedTitle, correcttitle);
+                        self.detectedscrobble.corrected = true;
                         if (tmpepisode > 0) {
                             self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
                         }
