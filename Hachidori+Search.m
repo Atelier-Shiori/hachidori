@@ -168,7 +168,7 @@
                 //Return titleid if episode is valid
                 int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
                 if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {
-                    if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason && self.detectedscrobble.DetectedSeason > 1) {
+                    if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason && self.detectedscrobble.DetectedSeason != 0) {
                         continue;
                     }
                     NSLog(@"Valid Episode Count");
