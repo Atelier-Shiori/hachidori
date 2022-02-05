@@ -148,7 +148,7 @@
                 theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
                 alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
                 // Perform Recognition
-                matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle origtitle:term regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
+                matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
                 if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
                         if (self.detectedscrobble.DetectedTitleisMovie) {
                             self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.

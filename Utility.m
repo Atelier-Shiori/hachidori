@@ -17,19 +17,14 @@
 @implementation Utility
 + (int)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
-        origtitle:(NSString *)otitle
             regex:(OnigRegexp *)regex
            option:(int)i{
     //Checks for matches
     if ([regex search:title].count > 0) {
-        if ((((NSString *)[[regex search:title] strings][0]).length <= otitle.length + 4 && i == 0 ) || i == 1) {
-            return PrimaryTitleMatch;
-        }
+        return PrimaryTitleMatch;
     }
     else if (([regex search:atitle] && atitle.length >0 && i==0)) {
-        if (((NSString *)[[regex search:atitle] strings][0]).length <= otitle.length + 4) {
-            return AlternateTitleMatch;
-        }
+        return AlternateTitleMatch;
     }
     return NoMatch;
 }
