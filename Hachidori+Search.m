@@ -181,7 +181,7 @@
                         titlematch1 = searchentry;
                         continue;
                     }
-                    else if (titlematch1 && episodes >= self.detectedscrobble.DetectedEpisode.intValue) {
+                    else if (titlematch1 && (episodes >= self.detectedscrobble.DetectedEpisode.intValue || episodes == 0)) {
                         titlematch2 = searchentry;
                         return titlematch1 != titlematch2 ? [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus] : [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
