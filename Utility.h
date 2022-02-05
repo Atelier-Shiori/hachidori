@@ -20,6 +20,7 @@ typedef NS_ENUM(unsigned int, matchtype) {
 };
 + (int)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
+        origtitle:(NSString *)otitle
             regex:(OnigRegexp *)regex
            option:(int)i;
 + (NSString *)desensitizeSeason:(NSString *)title;
