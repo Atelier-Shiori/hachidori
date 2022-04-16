@@ -15,18 +15,29 @@
 @import AppCenterCrashes;
 
 @implementation Utility
-+ (int)checkMatch:(NSString *)title
++ (NSDictionary *)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OnigRegexp *)regex
            option:(int)i{
+    return [self checkMatch:title alttitles:@[atitle] regex:regex option:i];
+}
++ (NSDictionary *)checkMatch:(NSString *)title
+         alttitles:(NSArray *)atitles
+            regex:(OnigRegexp *)regex
+           option:(int)i{
     //Checks for matches
-    if ([regex search:title].count > 0) {
-        return PrimaryTitleMatch;
+    if ([regex search:title].strings.count > 0) {
+        return @{@"matchstatus" : @(PrimaryTitleMatch), @"matchedtitle" : title};
     }
-    else if (([regex search:atitle] && atitle.length >0 && i==0)) {
-        return AlternateTitleMatch;
+    else if (i==1) {
+        for (NSString *atitle in atitles) {
+            NSString *atmptitle = [atitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+            if ([regex search:atmptitle].strings.count > 0) {
+                return @{@"matchstatus" : @(AlternateTitleMatch), @"matchedtitle" : atmptitle};
+            }
+        }
     }
-    return NoMatch;
+    return @{@"matchstatus" : @(NoMatch)};
 }
 + (NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references

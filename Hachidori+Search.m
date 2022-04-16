@@ -90,14 +90,15 @@
             self.Success = NO;
             return @"";
         case 200:
-            return [self findaniid:responseObject searchterm:searchtitle];
+            return [self findaniid:responseObject];
         default:
             self.Success = NO;
             return @"";
     }
     
 }
-- (NSString *)findaniid:(id)responseObject searchterm:(NSString *) term {
+- (NSString *)findaniid:(id)responseObject {
+    NSString *term = self.detectedscrobble.DetectedTitle;
     //Initalize NSString to dump the title temporarily
     NSString *theshowtitle = @"";
     NSString *alttitle = @"";
@@ -116,7 +117,7 @@
     NSDictionary * titlematch2;
     int mstatus = 0;
     // Search
-    for (int i = 0; i < 3; i++) {
+    for (int i = 1; i < 3; i++) {
         switch (i) {
             case 1:
                 regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@)",term] options:OnigOptionIgnorecase];
@@ -132,7 +133,13 @@
         for (NSDictionary *searchentry in sortedArray) {
             // Populate titles
             theshowtitle = [NSString stringWithFormat:@"%@",searchentry[@"title"]];
-            alttitle = ((NSArray *)searchentry[@"other_titles"][@"english"]).count > 0 ? searchentry[@"other_titles"][@"english"][0] : ((NSArray *)searchentry[@"other_titles"][@"japanese"]).count ? searchentry[@"other_titles"][@"japanese"][0] : @"";
+            NSMutableArray *tmptitles = [NSMutableArray new];
+            if (((NSArray *)searchentry[@"other_titles"][@"english"]).count > 0) {
+                [tmptitles addObjectsFromArray:searchentry[@"other_titles"][@"english"]];
+            }
+            if (((NSArray *)searchentry[@"other_titles"][@"japanese"]).count > 0) {
+                [tmptitles addObjectsFromArray:searchentry[@"other_titles"][@"japanese"]];
+            }
             int matchstatus = 0;
             if (self.detectedscrobble.corrected) {
                 // Exact match only
@@ -146,9 +153,27 @@
             else {
                 // Remove colons as they are invalid characters for filenames and to improve accuracy
                 theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
-                alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
                 // Perform Recognition
-                matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
+                NSDictionary * matchstatusdict = [Utility checkMatch:theshowtitle alttitles:tmptitles regex:regex option:i];
+                matchstatus = ((NSNumber *)matchstatusdict[@"matchstatus"]).intValue;
+                if (matchstatus == AlternateTitleMatch) {
+                    alttitle = matchstatusdict[@"matchedtitle"];
+                }
+                if (matchstatus == NoMatch) {
+                    if ([term caseInsensitiveCompare:theshowtitle] == NSOrderedSame) {
+                        matchstatus =  PrimaryTitleMatch;
+                    }
+                    else {
+                        for (NSString *atitle in tmptitles) {
+                            NSString *atmptitle = [atitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+                            if ([term caseInsensitiveCompare:atitle] == NSOrderedSame) {
+                                alttitle = atmptitle;
+                                matchstatus = AlternateTitleMatch;
+                                break;
+                            }
+                        }
+                    }
+                }
                 if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
                         if (self.detectedscrobble.DetectedTitleisMovie) {
                             self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
@@ -170,8 +195,9 @@
                 }
                 //Return titleid if episode is valid
                 int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
+                bool matchestitle = matchstatus == PrimaryTitleMatch ? [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame : [term caseInsensitiveCompare:alttitle] == NSOrderedSame;
                 if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {
-                    if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason && (![self.detectedscrobble.DetectedTitle isEqualToString:theshowtitle])) {
+                    if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason && !matchestitle) {
                         continue;
                     }
                     NSLog(@"Valid Episode Count");
