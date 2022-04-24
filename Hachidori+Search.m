@@ -104,6 +104,10 @@
     NSString *alttitle = @"";
     // Remove Colons
     term = [term stringByReplacingOccurrencesOfString:@":" withString:@""];
+    term = [term stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+    term = [term stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+    term = [term stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+    term = [term stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     //Create Regular Expression
     OnigRegexp   *regex;
     //Retrieve the ID. Note that the most matched title will be on the top
@@ -153,6 +157,10 @@
             else {
                 // Remove colons as they are invalid characters for filenames and to improve accuracy
                 theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+                theshowtitle = [theshowtitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 // Perform Recognition
                 NSDictionary * matchstatusdict = [Utility checkMatch:theshowtitle alttitles:tmptitles regex:regex option:i];
                 matchstatus = ((NSNumber *)matchstatusdict[@"matchstatus"]).intValue;
@@ -166,6 +174,10 @@
                     else {
                         for (NSString *atitle in tmptitles) {
                             NSString *atmptitle = [atitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+                            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+                            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+                            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+                            atmptitle = [atmptitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                             if ([term caseInsensitiveCompare:atitle] == NSOrderedSame) {
                                 alttitle = atmptitle;
                                 matchstatus = AlternateTitleMatch;

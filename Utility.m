@@ -32,6 +32,10 @@
     else if (i==1) {
         for (NSString *atitle in atitles) {
             NSString *atmptitle = [atitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+            atmptitle = [atmptitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             if ([regex search:atmptitle].strings.count > 0) {
                 return @{@"matchstatus" : @(AlternateTitleMatch), @"matchedtitle" : atmptitle};
             }
