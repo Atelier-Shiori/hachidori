@@ -124,10 +124,20 @@
     for (int i = 1; i < 3; i++) {
         switch (i) {
             case 1:
-                regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@)",term] options:OnigOptionIgnorecase];
+                if ([term containsString:@"`"]) {
+                    regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@|%@)",term, [term stringByReplacingOccurrencesOfString:@"`" withString:@"'"]] options:OnigOptionIgnorecase];
+                }
+                else {
+                    regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@)",term] options:OnigOptionIgnorecase];
+                }
                 break;
             case 2:
+                if ([term containsString:@"`"]) {
+                    regex = [OnigRegexp compile:[[NSString stringWithFormat:@"(%@|%@)",term, [term stringByReplacingOccurrencesOfString:@"`" withString:@"'"]] stringByReplacingOccurrencesOfString:@" " withString:@"|"] options:OnigOptionIgnorecase];
+                }
+                else {
                 regex = [OnigRegexp compile:[[NSString stringWithFormat:@"(%@)",term] stringByReplacingOccurrencesOfString:@" " withString:@"|"] options:OnigOptionIgnorecase];
+                }
                 break;
             default:
                 break;
