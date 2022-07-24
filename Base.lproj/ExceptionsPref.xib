@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -93,7 +93,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" focusRingType="none" id="fLT-H6-Adh">
                                             <rect key="frame" x="1" y="1" width="562" height="152"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="nAC-LU-93c" id="gMF-8j-eH4">
                                                     <rect key="frame" x="0.0" y="0.0" width="562" height="129"/>
@@ -437,6 +437,9 @@
                                                                         <menuItem title="Crunchyroll" id="oCS-IM-cwZ">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
+                                                                        <menuItem title="Disneyplus" id="WdX-TW-jLf">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
                                                                         <menuItem title="Funimation" id="JSJ-4a-beg">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
@@ -586,8 +589,8 @@
         <userDefaultsController representsSharedInstance="YES" id="smB-oB-DZP"/>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="15" height="13"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
         <image name="NSFolder" width="32" height="32"/>
-        <image name="NSRemoveTemplate" width="15" height="4"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
     </resources>
 </document>
