@@ -9,4 +9,5 @@
 
 @interface Hachidori (AnimeRelations)
 - (int)checkAnimeRelations:(int)titleid;
+- (bool)checkAnimeRelationsForExisting:(int)titleid;
 @end

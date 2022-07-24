@@ -1,13 +1,13 @@
 {
   "images" : [
     {
+      "filename" : "icons8-iOS-3061-16-171718.png",
       "idiom" : "universal",
-      "filename" : "correct.png",
       "scale" : "1x"
     },
     {
+      "filename" : "icons8-iOS-3061-32-171718.png",
       "idiom" : "universal",
-      "filename" : "correctx2.png",
       "scale" : "2x"
     },
     {
@@ -16,7 +16,10 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

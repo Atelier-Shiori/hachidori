@@ -36,14 +36,19 @@
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"PlexMediaServerPreferences";
 }
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"plex"];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"play.circle" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:@"plex"];
+    }
 }
 
 - (NSString *)toolbarItemLabel

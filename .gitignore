@@ -13,6 +13,8 @@ Hachidori.xcodeproj/xcuserdata/kirimasharo.xcuserdatad/xcschemes/xcschememanagem
 Hachidori.xcodeproj/xcuserdata/tedezarize.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 ClientConstants.m
 DonationCheck_KeyOnly.framework/**
+Frameworks.DonationCheck_KeyOnly.dSYM/**
+Frameworks/DonationCheck_KeyOnly.framework/**
 Frameworks/TorrentBrowser.framework.dSYM/**
 Frameworks/TorrentBrowser.framework/**
 Frameworks/Patreon.framework.dSYM/**
@@ -23,3 +25,4 @@ PatreonController.h
 PatreonController.m
 PatreonLicenseManager.h
 PatreonLicenseManager.m
+/DonationCheck_KeyOnly.framework.dSYM/**

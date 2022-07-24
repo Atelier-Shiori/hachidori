@@ -30,7 +30,6 @@
 #import "PFAboutWindowController.h"
 #import "servicemenucontroller.h"
 #import "AniListScoreConvert.h"
-#import "PatreonController.h"
 #import "PatreonLicenseManager.h"
 #import "CrashWindowController.h"
 
@@ -227,6 +226,8 @@
     defaultValues[@"currentservice"] = @(0);
     defaultValues[@"torrentagreement"] = @NO;
     defaultValues[@"torrentsiteselected"] = @(0);
+    defaultValues[@"useDirectoryAsWhitelist"] = @NO;
+    defaultValues[@"youtubedetection"] = @NO;
     // Social
     defaultValues[@"tweetonscrobble"] = @NO;
     defaultValues[@"twitteraddanime"] = @YES;
@@ -248,6 +249,7 @@
     defaultValues[@"AniListRefreshFailed"] = @NO;
     defaultValues[@"KitsuRefreshFailed"] = @NO;
     defaultValues[@"MALRefreshFailed"] = @NO;
+    
 	//Register Dictionary
 	[[NSUserDefaults standardUserDefaults]
 	 registerDefaults:defaultValues];
@@ -282,13 +284,13 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 #ifdef oss
 #else
-    [MSAppCenter start:@"d37cc407-6d11-42e6-84e7-222899deb28c" withServices:@[
-                                                                              [MSAnalytics class],
-                                                                              [MSCrashes class]
+    [MSACAppCenter start:@"d37cc407-6d11-42e6-84e7-222899deb28c" withServices:@[
+                                                                              [MSACAnalytics class],
+                                                                              [MSACCrashes class]
                                                                               ]];
-    [MSCrashes setDelegate:self];
-    [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
-    [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACCrashes setDelegate:self];
+    [MSACCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 #endif
 	// Initialize haengine
     haengine = [[Hachidori alloc] init];
@@ -316,9 +318,6 @@
     }
 #endif
     
-    // Initalize Patreon Controller
-    _pc = [PatreonController new];
-    
     #ifdef DEBUG
     #else
         // Check if Application is in the /Applications Folder
@@ -326,11 +325,7 @@
     #endif
     
     // Show Donation Message
-    if (_pc.pamanager.getFirstAccount) {
-        [Utility showsheetmessage:@"Notice" explaination:@"The old system to unlock Donor features with a Patreon Account is being deprecated in favor of a Patreon License. \n\nTo switch to the new system, deauthorize your Patreon account from Hachidori's menu. From the Hachidori's menu, select Add Donation Key. Click Patreon License Portal and follow the instructions to obtain a Patreon License. \n\nOnce you have authorized your account with the website, use the Patreon license details to register."  window:nil];
-        [_pc checkPatreonAccount:nil];
-    }
-    else if ([NSUserDefaults.standardUserDefaults boolForKey:@"donated"] && [NSUserDefaults.standardUserDefaults boolForKey:@"patreon_license"]) {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"donated"] && [NSUserDefaults.standardUserDefaults boolForKey:@"patreon_license"]) {
         [Utility patreonDonateCheck:self];
     }
     else {
@@ -355,12 +350,27 @@
     if ([defaults boolForKey:@"DisableYosemiteTitleBar"] != 1) {
         // OS X 10.10 code here.
         //Hide Title Bar
-        self.window.titleVisibility = NSWindowTitleHidden;
+        if (@available(macOS 11, *)) {
+            self.window.titleVisibility = NSWindowTitleVisible;
+            self.window.toolbarStyle = NSWindowToolbarStyleUnified;
+        }
+        else {
+            self.window.titleVisibility = NSWindowTitleHidden;
+        }
         // Fix Window Size
         NSRect frame = window.frame;
-        frame.size = CGSizeMake(440, 291);
+        frame.size = CGSizeMake(460, 291);
         [window setFrame:frame display:YES];
-     }
+    }
+    else {
+        if (@available(macOS 11, *)) {
+            self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
+            // Fix Window Size
+            NSRect frame = window.frame;
+            frame.size = CGSizeMake(460, 291);
+            [window setFrame:frame display:YES];
+        }
+    }
     if ([defaults boolForKey:@"DisableYosemiteVibrance"] != 1) {
         //Add NSVisualEffectView to Window
         windowcontent.blendingMode = NSVisualEffectBlendingModeBehindWindow;
@@ -431,7 +441,7 @@
     [defaults setBool:FALSE forKey:@"MALSyncEnabled"];
     _servicenamemenu.enabled = NO;
     
-    [MSAnalytics trackEvent:@"App Loaded" withProperties:@{@"donated" : [NSUserDefaults.standardUserDefaults boolForKey:@"donated"] ? @"YES" : @"NO"}];
+    [MSACAnalytics trackEvent:@"App Loaded" withProperties:@{@"donated" : [NSUserDefaults.standardUserDefaults boolForKey:@"donated"] ? @"YES" : @"NO"}];
     
     // Auth URL handling
     [[NSAppleEventManager sharedAppleEventManager]
@@ -560,6 +570,17 @@
     //Show Help
  	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://help.malupdaterosx.moe/hachidori/"]];
 }
+
+- (IBAction)reportIssue:(id)sender{
+    //Show Help
+     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.malupdaterosx.moe/index.php?forums/hachidori-issue-tracker-support.10/"]];
+}
+
+- (IBAction)reportStreamIssue:(id)sender{
+    //Show Help
+     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.malupdaterosx.moe/index.php?forums/hachidori-stream-detection-support.11/"]];
+}
+
 - (IBAction)showAboutWindow:(id)sender{
     // Properly show the about window in a menu item application
     [NSApp activateIgnoringOtherApps:YES];
@@ -1511,9 +1532,6 @@
             break;
     }
 }
-- (IBAction)deauthorizepatreon:(id)sender {
-    [_pc deauthorizePatreonAccount];
-}
 #pragma mark Torrent Browser
 - (IBAction)openTorrentBrowser:(id)sender {
 #ifdef oss
@@ -1547,7 +1565,7 @@
 
 #ifdef oss
 #else
-- (BOOL)crashes:(MSCrashes *)crashes shouldProcessErrorReport:(MSErrorReport *)errorReport {
+- (BOOL)crashes:(MSACCrashes *)crashes shouldProcessErrorReport:(MSACErrorReport *)errorReport {
     __block bool send = false;
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]) {
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -1563,7 +1581,7 @@
     return send;
 }
 
-- (NSArray<MSErrorAttachmentLog *> *)attachmentsWithCrashes:(MSCrashes *)crashes forErrorReport:(MSErrorReport *)errorReport {
+- (NSArray<MSACErrorAttachmentLog *> *)attachmentsWithCrashes:(MSACCrashes *)crashes forErrorReport:(MSACErrorReport *)errorReport {
     NSString *log = [NSString stringWithContentsOfFile:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"] encoding:NSUTF8StringEncoding error:NULL];
     __block NSString *additionalInfo = @"";
     __block bool sendlog;
@@ -1575,15 +1593,15 @@
     });
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     NSString *finalstring = [NSString stringWithFormat:@"Comments: \n%@\n\n Log:\n%@", additionalInfo, log && sendlog ? log : @"Log file not included"];
-    MSErrorAttachmentLog *attach1 = [MSErrorAttachmentLog attachmentWithText:finalstring filename:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"]];
+    MSACErrorAttachmentLog *attach1 = [MSACErrorAttachmentLog attachmentWithText:finalstring filename:[Utility retrieveApplicationSupportDirectory:@"Hachidori.log"]];
     return @[attach1];
 }
 
-- (void)crashes:(MSCrashes *)crashes didSucceedSendingErrorReport:(MSErrorReport *)errorReport {
+- (void)crashes:(MSACCrashes *)crashes didSucceedSendingErrorReport:(MSACErrorReport *)errorReport {
     [self showNotification:@"Crash Report Sent" message:@"Thanks for reporting an issue." withIdentifier:[NSString stringWithFormat:@"error-%f", NSDate.date.timeIntervalSince1970]];
 }
 
-- (void)crashes:(MSCrashes *)crashes didFailSendingErrorReport:(MSErrorReport *)errorReport withError:(NSError *)error {
+- (void)crashes:(MSACCrashes *)crashes didFailSendingErrorReport:(MSACErrorReport *)errorReport withError:(NSError *)error {
     [self showNotification:@"Crash Report Failed" message:@"Couldn't send crash report." withIdentifier:[NSString stringWithFormat:@"error-%f", NSDate.date.timeIntervalSince1970]];
 }
 #endif

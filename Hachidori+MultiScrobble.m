@@ -244,7 +244,7 @@
     NSURLSessionDataTask *task;
     NSError *error;
     [self.syncmanager.requestSerializer clearAuthorizationHeader];
-    id responseObject = [self.syncmanager syncGET:hatourl parameters:nil task:&task error:&error];
+    id responseObject = [self.syncmanager syncGET:hatourl parameters:nil headers:@{} task:&task error:&error];
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
         case 200: {

@@ -29,14 +29,19 @@
     self.statusshortcutView.associatedUserDefaultsKey = kPreferenceShowStatusMenuShortcut;
     self.toggleautoscrobbleshortcutView.associatedUserDefaultsKey = kPreferenceToggleScrobblingShortcut;
 }
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"HotkeyPreferences";
 }
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"Hotkeys"];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"command.square" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:@"Hotkeys"];
+    }
 }
 
 - (NSString *)toolbarItemLabel

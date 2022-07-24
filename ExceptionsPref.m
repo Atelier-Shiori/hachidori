@@ -36,14 +36,19 @@
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"ExceptionsPreferences";
 }
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"rules"];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"square.and.pencil" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:@"rules"];
+    }
 }
 
 - (NSString *)toolbarItemLabel

@@ -112,7 +112,7 @@
         NSString *searchterm = [Utility urlEncodeString:search.stringValue];
         switch (self.currentservice) {
             case 0: {
-                [_searchmanager GET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [_searchmanager GET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     [self populateData:[AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject]];
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                      [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
@@ -120,7 +120,7 @@
                 break;
             }
             case 1: {
-                [_searchmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : search.stringValue, @"type" : @"ANIME"}} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [_searchmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : search.stringValue, @"type" : @"ANIME"}} headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     [self populateData:[AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject]];
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];
@@ -129,7 +129,7 @@
             }
             case 2: {
                 [_searchmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [AFOAuthCredential retrieveCredentialWithIdentifier:@"Hachidori - MyAnimeList"].accessToken] forHTTPHeaderField:@"Authorization"];
-                [_searchmanager GET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchterm.length > 50 ? [searchterm substringToIndex:50] : searchterm, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [_searchmanager GET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchterm.length > 50 ? [searchterm substringToIndex:50] : searchterm, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     [self populateData:[AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject]];
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                     [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];

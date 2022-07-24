@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>16G29</string>
+	<string>20B29</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>MSWeakTimer_macOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.mindsnacks.MSWeakTimer.MSWeakTimer-macOS</string>
+	<string>com.mindsnacks.MSWeakTimer</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -27,23 +27,22 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>9A235</string>
+	<string>12B45b</string>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
 	<key>DTPlatformVersion</key>
-	<string>GM</string>
+	<string>11.0</string>
 	<key>DTSDKBuild</key>
-	<string>17A360</string>
+	<string>20A2408</string>
 	<key>DTSDKName</key>
-	<string>macosx10.13</string>
+	<string>macosx11.0</string>
 	<key>DTXcode</key>
-	<string>0900</string>
+	<string>1220</string>
 	<key>DTXcodeBuild</key>
-	<string>9A235</string>
+	<string>12B45b</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.11</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2017年 Mindsnacks, Inc. All rights reserved.</string>
-	<key>UIDeviceFamily</key>
-	<array>
-		<integer>1</integer>
-		<integer>2</integer>
-	</array>
+	<string>Copyright © 2020 Mindsnacks, Inc. All rights reserved.</string>
 </dict>
 </plist>

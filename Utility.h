@@ -18,8 +18,12 @@ typedef NS_ENUM(unsigned int, matchtype) {
     PrimaryTitleMatch = 1,
     AlternateTitleMatch = 2
 };
-+ (int)checkMatch:(NSString *)title
++ (NSDictionary *)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
+            regex:(OnigRegexp *)regex
+                      option:(int)i;
++ (NSDictionary *)checkMatch:(NSString *)title
+         alttitles:(NSArray *)atitles
             regex:(OnigRegexp *)regex
            option:(int)i;
 + (NSString *)desensitizeSeason:(NSString *)title;

@@ -15,18 +15,33 @@
 @import AppCenterCrashes;
 
 @implementation Utility
-+ (int)checkMatch:(NSString *)title
++ (NSDictionary *)checkMatch:(NSString *)title
          alttitle:(NSString *)atitle
             regex:(OnigRegexp *)regex
            option:(int)i{
+    return [self checkMatch:title alttitles:@[atitle] regex:regex option:i];
+}
++ (NSDictionary *)checkMatch:(NSString *)title
+         alttitles:(NSArray *)atitles
+            regex:(OnigRegexp *)regex
+           option:(int)i{
     //Checks for matches
-    if ([regex search:title].count > 0) {
-        return PrimaryTitleMatch;
+    if ([regex search:title].strings.count > 0) {
+        return @{@"matchstatus" : @(PrimaryTitleMatch), @"matchedtitle" : title};
     }
-    else if (([regex search:atitle] && atitle.length >0 && i==0)) {
-        return AlternateTitleMatch;
+    else if (i==1) {
+        for (NSString *atitle in atitles) {
+            NSString *atmptitle = [atitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+            atmptitle = [atmptitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if ([regex search:atmptitle].strings.count > 0) {
+                return @{@"matchstatus" : @(AlternateTitleMatch), @"matchedtitle" : atmptitle};
+            }
+        }
     }
-    return NoMatch;
+    return @{@"matchstatus" : @(NoMatch)};
 }
 + (NSString *)desensitizeSeason:(NSString *)title {
     // Get rid of season references
@@ -41,13 +56,21 @@
     OnigRegexp    *regex;
     OnigResult *smatch;
     NSString *tmpseason;
-    regex = [OnigRegexp compile:@"((S|s|Season )\\d+|\\d+(st|nd|rd|th) Season|\\d+)" options:OnigOptionIgnorecase];
+    regex = [OnigRegexp compile:@"((S|s|Season )\\d+|\\d+(st|nd|rd|th) Season|\\s\\d+$)" options:OnigOptionIgnorecase];
     smatch = [regex search:string];
     if (smatch.count > 0) {
         tmpseason = [smatch stringAt:0];
         regex = [OnigRegexp compile:@"((st|nd|rd|th) Season)|Season |S|s|" options:OnigOptionIgnorecase];
         tmpseason = [tmpseason replaceByRegexp:regex with:@""];
         return tmpseason.intValue;
+    }
+    else {
+        for (int i=1; i < 11; i++) {
+            NSString *seasonstring = [NSString stringWithFormat:@"%@ season", [self getSpelledOutOrdinalNumber:i]];
+            if ([string localizedCaseInsensitiveContainsString:seasonstring]) {
+                return i;
+            }
+        }
     }
     return -1;
 }
@@ -88,6 +111,7 @@
                 [self showsheetmessage:NSLocalizedString(@"Donation Key Error",nil) explaination:NSLocalizedString(@"This key has been revoked. Please contact the author of this program or enter a valid key.",nil) window:nil];
                 [self showDonateReminder:delegate];
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"donated"];
+                [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"youtubedetection"];
                 [self resetAnalyticsSettings];
             }
         }];
@@ -137,7 +161,7 @@
         return;
     }
     AFHTTPSessionManager *manager = [self jsonmanager];
-    [manager POST:@"https://licensing.malupdaterosx.moe/check_hachidori.php" parameters:@{@"name" : name, @"key" : key} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:@"https://licensing.malupdaterosx.moe/check_hachidori.php" parameters:@{@"name" : name, @"key" : key} headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         int valid = ((NSNumber *)responseObject[@"valid"]).intValue;
         if (valid == 1) {
             // Valid Key
@@ -448,8 +472,8 @@
 
 + (void)resetAnalyticsSettings {
     [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"sendanalytics"];
-    [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
-    [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 }
 
 + (NSString *)retrieveApplicationSupportDirectory:(NSString*)append {
@@ -470,4 +494,73 @@
     return dir;
 }
 
+/* From https://stackoverflow.com/questions/6716596/is-there-a-way-in-objective-c-to-take-a-number-and-spell-it-out/6716645 */
++ (NSString*)getSpelledOutNumber:(NSInteger)num {
+    NSNumber *yourNumber = [NSNumber numberWithInt:(int)num];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterSpellOutStyle];
+    [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en"]];
+    return [formatter stringFromNumber:yourNumber];
+}
+
++ (NSString*)removeLastCharOfString:(NSString*)aString {
+    return [aString substringToIndex:[aString length]-1];
+}
+
++ (NSString*)getSpelledOutOrdinalNumber:(NSInteger)num {
+    NSString *spelledOutNumber = [self getSpelledOutNumber:num];
+
+    // replace all '-'
+    spelledOutNumber = [spelledOutNumber stringByReplacingOccurrencesOfString:@"-"
+                                                                   withString:@" "];
+
+    NSArray *numberParts = [spelledOutNumber componentsSeparatedByString:@" "];
+
+    NSMutableString *output = [NSMutableString string];
+
+    NSUInteger numberOfParts = [numberParts count];
+    for (int i=0; i<numberOfParts; i++) {
+        NSString *numberPart = [numberParts objectAtIndex:i];
+
+        if ([numberPart isEqualToString:@"one"])
+            [output appendString:@"first"];
+        else if([numberPart isEqualToString:@"two"])
+            [output appendString:@"second"];
+        else if([numberPart isEqualToString:@"three"])
+            [output appendString:@"third"];
+        else if([numberPart isEqualToString:@"five"])
+            [output appendString:@"fifth"];
+        else {
+            NSUInteger characterCount = [numberPart length];
+            unichar lastChar = [numberPart characterAtIndex:characterCount-1];
+            if (lastChar == 'y')
+            {
+                // check if it is the last word
+                if (numberOfParts-1 == i)
+                { // it is
+                    [output appendString:[NSString stringWithFormat:@"%@ieth ", [self removeLastCharOfString:numberPart]]];
+                }
+                else
+                { // it isn't
+                    [output appendString:[NSString stringWithFormat:@"%@-", numberPart]];
+                }
+            }
+            else if (lastChar == 't' || lastChar == 'e')
+            {
+                [output appendString:[NSString stringWithFormat:@"%@th-", [self removeLastCharOfString:numberPart]]];
+            }
+            else
+            {
+                [output appendString:[NSString stringWithFormat:@"%@th ", numberPart]];
+            }
+        }
+    }
+
+    // eventually remove last char
+    unichar lastChar = [output characterAtIndex:[output length]-1];
+    if (lastChar == '-' || lastChar == ' ')
+        return [self removeLastCharOfString:output];
+    else
+        return output;
+}
 @end

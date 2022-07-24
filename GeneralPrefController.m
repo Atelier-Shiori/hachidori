@@ -54,14 +54,19 @@
     }
     startatlogin.state = [NSBundle.mainBundle isLoginItem]; // Set Launch at Startup State
 }
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"GeneralPreferences";
 }
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNamePreferencesGeneral];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"gear" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:NSImageNamePreferencesGeneral];
+    }
 }
 
 - (NSString *)toolbarItemLabel
@@ -175,8 +180,8 @@
     }
 }
 - (IBAction)sendstatstoggle:(id)sender {
-        [MSCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
-        [MSAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACCrashes setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
+    [MSACAnalytics setEnabled:[NSUserDefaults.standardUserDefaults boolForKey:@"sendanalytics"]];
 }
 - (IBAction)viewprivacypolicy:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://malupdaterosx.moe/hachidori/privacy-policy/"]];

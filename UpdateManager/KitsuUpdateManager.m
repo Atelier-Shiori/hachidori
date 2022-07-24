@@ -92,10 +92,10 @@
     id responseObject;
     NSDictionary *parameters = @{@"data" : tmpd.copy};
     if (self.detectedscrobble.EntryID) {
-        responseObject = [self.syncmanager syncPATCH:updatemethod parameters:parameters task:&task error:&error];
+        responseObject = [self.syncmanager syncPATCH:updatemethod parameters:parameters headers:@{} task:&task error:&error];
     }
     else {
-        responseObject = [self.syncmanager syncPOST:updatemethod parameters:parameters task:&task error:&error];
+        responseObject = [self.syncmanager syncPOST:updatemethod parameters:parameters headers:@{} task:&task error:&error];
     }
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
@@ -163,7 +163,7 @@
     // Assemble JSON
     [tmpd setValue:attributes forKey:@"attributes"];
     // Do Update
-    [self.asyncmanager PATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data":tmpd} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.asyncmanager PATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data":tmpd} headers:@{} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //Set New Values
         self.lastscrobble.TitleScore = showscore;
         self.lastscrobble.WatchStatus = showwatchstatus;
@@ -202,7 +202,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncPATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data" : tmpd} task:&task error:&error];
+    [self.syncmanager syncPATCH:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:@{@"data" : tmpd} headers:@{} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {
@@ -229,7 +229,7 @@
     // Do Update
     NSURLSessionDataTask *task;
     NSError *error;
-    [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:nil task:&task error:&error];
+    [self.syncmanager syncDELETE:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries/%@", self.lastscrobble.EntryID] parameters:nil headers:@{} task:&task error:&error];
     // Get Status Code
     long statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
     switch (statusCode) {

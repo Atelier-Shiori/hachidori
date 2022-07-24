@@ -62,19 +62,19 @@
     id responseObject;
     switch ([Hachidori currentService]) {
         case 0:
-            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject];
             }
             break;
         case 1:
-            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : [self cleanupsearchterm:searchtitle], @"type" : @"ANIME"}} task:&task error:&error];
+            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilisttitlesearch, @"variables" : @{@"query" : [self cleanupsearchterm:searchtitle], @"type" : @"ANIME"}} headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatAniList AniListAnimeSearchtoAtarashii:responseObject];
             }
             break;
         case 2:
-            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(100), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/anime" parameters:@{@"q" : searchtitle.length > 50 ? [searchtitle substringToIndex:50] : searchtitle, @"limit" : @(25), @"fields" : @"num_episodes,status,media_type,nsfw,alternative_titles"} headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatMAL MALAnimeSearchtoAtarashii:responseObject];
             }
@@ -90,19 +90,24 @@
             self.Success = NO;
             return @"";
         case 200:
-            return [self findaniid:responseObject searchterm:searchtitle];
+            return [self findaniid:responseObject];
         default:
             self.Success = NO;
             return @"";
     }
     
 }
-- (NSString *)findaniid:(id)responseObject searchterm:(NSString *) term {
+- (NSString *)findaniid:(id)responseObject {
+    NSString *term = self.detectedscrobble.DetectedTitle;
     //Initalize NSString to dump the title temporarily
     NSString *theshowtitle = @"";
     NSString *alttitle = @"";
     // Remove Colons
     term = [term stringByReplacingOccurrencesOfString:@":" withString:@""];
+    term = [term stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+    term = [term stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+    term = [term stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+    term = [term stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     //Create Regular Expression
     OnigRegexp   *regex;
     //Retrieve the ID. Note that the most matched title will be on the top
@@ -116,13 +121,23 @@
     NSDictionary * titlematch2;
     int mstatus = 0;
     // Search
-    for (int i = 0; i < 3; i++) {
+    for (int i = 1; i < 3; i++) {
         switch (i) {
             case 1:
-                regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@)",term] options:OnigOptionIgnorecase];
+                if ([term containsString:@"`"]) {
+                    regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@|%@)",term, [term stringByReplacingOccurrencesOfString:@"`" withString:@"'"]] options:OnigOptionIgnorecase];
+                }
+                else {
+                    regex = [OnigRegexp compile:[NSString stringWithFormat:@"(%@)",term] options:OnigOptionIgnorecase];
+                }
                 break;
             case 2:
+                if ([term containsString:@"`"]) {
+                    regex = [OnigRegexp compile:[[NSString stringWithFormat:@"(%@|%@)",term, [term stringByReplacingOccurrencesOfString:@"`" withString:@"'"]] stringByReplacingOccurrencesOfString:@" " withString:@"|"] options:OnigOptionIgnorecase];
+                }
+                else {
                 regex = [OnigRegexp compile:[[NSString stringWithFormat:@"(%@)",term] stringByReplacingOccurrencesOfString:@" " withString:@"|"] options:OnigOptionIgnorecase];
+                }
                 break;
             default:
                 break;
@@ -132,30 +147,81 @@
         for (NSDictionary *searchentry in sortedArray) {
             // Populate titles
             theshowtitle = [NSString stringWithFormat:@"%@",searchentry[@"title"]];
-            alttitle = ((NSArray *)searchentry[@"other_titles"][@"english"]).count > 0 ? searchentry[@"other_titles"][@"english"][0] : ((NSArray *)searchentry[@"other_titles"][@"japanese"]).count ? searchentry[@"other_titles"][@"japanese"][0] : @"";
-            // Remove colons as they are invalid characters for filenames and to improve accuracy
-            theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
-            alttitle = [alttitle stringByReplacingOccurrencesOfString:@":" withString:@""];
-            // Perform Recognition
-            int matchstatus = i > 0 ? [Utility checkMatch:theshowtitle alttitle:alttitle regex:regex option:i] : [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame ? PrimaryTitleMatch : [term caseInsensitiveCompare:alttitle] == NSOrderedSame ? AlternateTitleMatch : NoMatch;
-            if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
-                if (self.detectedscrobble.DetectedTitleisMovie) {
-                    self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
-                    if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"Special"]) {
-                        self.detectedscrobble.DetectedTitleisMovie = false;
-                    }
+            NSMutableArray *tmptitles = [NSMutableArray new];
+            if (((NSArray *)searchentry[@"other_titles"][@"english"]).count > 0) {
+                [tmptitles addObjectsFromArray:searchentry[@"other_titles"][@"english"]];
+            }
+            if (((NSArray *)searchentry[@"other_titles"][@"japanese"]).count > 0) {
+                [tmptitles addObjectsFromArray:searchentry[@"other_titles"][@"japanese"]];
+            }
+            int matchstatus = 0;
+            if (self.detectedscrobble.corrected) {
+                // Exact match only
+                if ([theshowtitle isEqualToString:self.detectedscrobble.DetectedTitle]) {
+                    matchstatus = PrimaryTitleMatch;
                 }
                 else {
-                    if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
-                        // Used for Season Checking
-                        if (self.detectedscrobble.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.detectedscrobble.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
-                            continue;
+                    continue;
+                }
+            }
+            else {
+                // Remove colons as they are invalid characters for filenames and to improve accuracy
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+                theshowtitle = [theshowtitle stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+                theshowtitle = [theshowtitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                // Perform Recognition
+                NSDictionary * matchstatusdict = [Utility checkMatch:theshowtitle alttitles:tmptitles regex:regex option:i];
+                matchstatus = ((NSNumber *)matchstatusdict[@"matchstatus"]).intValue;
+                if (matchstatus == AlternateTitleMatch) {
+                    alttitle = matchstatusdict[@"matchedtitle"];
+                }
+                if (matchstatus == NoMatch) {
+                    if ([term caseInsensitiveCompare:theshowtitle] == NSOrderedSame) {
+                        matchstatus =  PrimaryTitleMatch;
+                    }
+                    else {
+                        for (NSString *atitle in tmptitles) {
+                            NSString *atmptitle = [atitle stringByReplacingOccurrencesOfString:@":" withString:@""];
+                            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" - " withString:@" "];
+                            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@" -" withString:@" "];
+                            atmptitle = [atmptitle stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+                            atmptitle = [atmptitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                            if ([term caseInsensitiveCompare:atitle] == NSOrderedSame) {
+                                alttitle = atmptitle;
+                                matchstatus = AlternateTitleMatch;
+                                break;
+                            }
                         }
                     }
                 }
+                if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
+                        if (self.detectedscrobble.DetectedTitleisMovie) {
+                            self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
+                            if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"Special"]) {
+                                self.detectedscrobble.DetectedTitleisMovie = false;
+                            }
+                        }
+                        else {
+                            if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
+                                // Used for Season Checking
+                                if (self.detectedscrobble.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.detectedscrobble.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
+                                    continue;
+                                }
+                            }
+                        }
+                }
+                else if (matchstatus == NoMatch) {
+                    continue;
+                }
                 //Return titleid if episode is valid
                 int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
+                bool matchestitle = matchstatus == PrimaryTitleMatch ? [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame : [term caseInsensitiveCompare:alttitle] == NSOrderedSame;
                 if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {
+                    if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason && !matchestitle) {
+                        continue;
+                    }
                     NSLog(@"Valid Episode Count");
                     if (sortedArray.count == 1 || self.detectedscrobble.DetectedSeason >= 2) {
                         // Only Result, return
@@ -166,7 +232,7 @@
                         titlematch1 = searchentry;
                         continue;
                     }
-                    else if (titlematch1 && episodes >= self.detectedscrobble.DetectedEpisode.intValue) {
+                    else if (titlematch1 && (episodes >= self.detectedscrobble.DetectedEpisode.intValue || episodes == 0)) {
                         titlematch2 = searchentry;
                         return titlematch1 != titlematch2 ? [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus] : [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
@@ -180,6 +246,25 @@
                         }
                         // Only Result, return
                         return [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                    }
+                }
+                else if ((episodes < self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0) {
+                    // Check Relations
+                    if ([NSUserDefaults.standardUserDefaults boolForKey:@"UseAnimeRelations"]) {
+                        int newid = [self checkAnimeRelations:((NSNumber *)searchentry[@"id"]).intValue];
+                        if (newid > 0) {
+                            [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                            return @(newid).stringValue;
+                        }
+                        else {
+                            if ([self checkAnimeRelationsForExisting:((NSNumber *)searchentry[@"id"]).intValue]) {
+                                [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                                return @(newid).stringValue;
+                            }
+                            else {
+                                continue;
+                            }
+                        }
                     }
                 }
                 else {

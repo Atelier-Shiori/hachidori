@@ -210,7 +210,7 @@
 
 - (void)generatePatronsList:(void (^)(NSAttributedString *patrons)) completionHandler  {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:@"https://patreonlicensing.malupdaterosx.moe/patronslist.php" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:@"https://patreonlicensing.malupdaterosx.moe/patronslist.php" parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableString *tmpstr = [NSMutableString new];
         [tmpstr appendString:@"<p>Here are the list of Patrons that support the development of our programs:</p><ul>"];
         for (NSDictionary *patron in responseObject) {

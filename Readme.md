@@ -1,9 +1,9 @@
 # Hachidori
 Hachidori (はちどり) is an open sourced [Kitsu](https://kitsu.io), [AniList](https://anilist.co), and [MyAnimeList](https://myanimelist.net) scrobbler for macOS. Hachidori is the successor for MAL Updater OS X.
  
-Requires latest SDK (10.15) and XCode 11 or later to compile. Deployment target is 10.11.
+Requires latest SDK (11) and XCode 12 or later to compile. Deployment target is 10.11.
 
-Note: This is the prerelease branch, which contains MyAnimeList support. You won't be able to compile without an MyAnimeList OAuth client key, which is not obtainable until the API is out of beta.
+Note: This is the prerelease branch, contains support for macOS Big Sur. Apple Silicon and Universal Binary 2 support is in development and most of the frameworks are now compiled for Intel and ARM, except for AppCenter.
 
 ## Supporting this Project
 
@@ -21,22 +21,6 @@ Notary support will come after macOS Mojave final release.
 2. Type 'xcodebuild' to build
 
 If you are going to distribute your own version and change the name, please change the bundle identifier to something else.
-
-
-## Dependencies
-All the frameworks are included. Just build! Here are the frameworks that are used in this app (excluding related projects):
-
-* AFNetworking.framework
-* GBPing.framework
-* PingNotifier.framework
-* MASPreferences.framework
-* MASShortcut.framework
-* Sparkle.framework
-* CocoaOniguruma.framework
-* Reachability.framework
-* DetectionKit.framework
- 
-Licenses for these frameworks and related classes can be seen [here](https://github.com/Atelier-Shiori/wiki/Credits).
 
 ## Related Projects
 Hachidori depends on these frameworks and services, which provides core functionality.

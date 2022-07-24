@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -149,7 +149,7 @@
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="139" y="154"/>
+            <point key="canvasLocation" x="-116" y="48"/>
         </menu>
         <arrayController mode="entity" entityName="History" automaticallyPreparesContent="YES" id="582">
             <declaredKeys>
@@ -191,17 +191,6 @@
                         <binding destination="sLK-0h-cju" name="hidden" keyPath="values.donated" id="x2z-qk-Lcc"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Deauthorize Patreon Account…" id="chM-qq-Zae">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="deauthorizepatreon:" target="560" id="nfJ-sz-0jE"/>
-                        <binding destination="sLK-0h-cju" name="hidden" keyPath="values.activepatron" id="5ig-3d-051">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </menuItem>
                 <menuItem title="Deauthorize Patreon License…" id="egN-NP-3CN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -220,6 +209,18 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="getHelp:" target="560" id="Mrr-YX-VxM"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Report Bugs or Issue" id="n18-kf-ekA">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="reportIssue:" target="560" id="AeO-Sb-ch0"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Report a Stream Detection Issue" id="fal-fo-cad">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="reportStreamIssue:" target="560" id="ROd-fO-8Dm"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="XKY-k8-gfz"/>
@@ -385,7 +386,7 @@
                 <outlet property="animeinfo" destination="bGm-dl-hOF" id="3tY-bt-kdf"/>
                 <outlet property="animeinfooutside" destination="Flw-vm-3Ig" id="wkc-nr-rYl"/>
                 <outlet property="confirmupdate" destination="ri5-oa-eh7" id="rsP-3s-8gi"/>
-                <outlet property="correcttoolbaritem" destination="q9Q-0H-wSc" id="2bQ-jw-mDj"/>
+                <outlet property="correcttoolbaritem" destination="3iC-Pu-9TY" id="E2u-93-uJq"/>
                 <outlet property="findtitle" destination="CfJ-0Z-4TJ" id="uhY-rw-nZ8"/>
                 <outlet property="img" destination="gfr-73-DLn" id="iLO-3a-xch"/>
                 <outlet property="lastupdateheader" destination="wRW-vV-uul" id="Aoh-J1-uYk"/>
@@ -409,7 +410,7 @@
                 <outlet property="updatedtitle" destination="a2M-Ci-eiK" id="Ijp-3y-bYv"/>
                 <outlet property="updatedupdatestatus" destination="dU4-FY-DLP" id="eyx-8v-XdS"/>
                 <outlet property="updatenow" destination="Swq-JZ-crS" id="wbq-Tb-8xl"/>
-                <outlet property="updatetoolbaritem" destination="k8g-Fn-fps" id="A7q-dc-ToK"/>
+                <outlet property="updatetoolbaritem" destination="DgU-ZE-SoP" id="ElQ-h5-HN5"/>
                 <outlet property="window" destination="789" id="804"/>
                 <outlet property="windowcontent" destination="6po-93-3UB" id="gBR-v4-IxG"/>
             </connections>
@@ -417,56 +418,56 @@
         <window title="Hachidori" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="StatusWindowPos" animationBehavior="default" id="789" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="584" y="499" width="440" height="253"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-            <value key="minSize" type="size" width="440" height="253"/>
-            <value key="maxSize" type="size" width="440" height="253"/>
+            <rect key="contentRect" x="584" y="499" width="460" height="253"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <value key="minSize" type="size" width="460" height="253"/>
+            <value key="maxSize" type="size" width="460" height="253"/>
             <view key="contentView" id="791">
-                <rect key="frame" x="0.0" y="0.0" width="440" height="253"/>
+                <rect key="frame" x="0.0" y="0.0" width="460" height="253"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <visualEffectView fixedFrame="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6po-93-3UB">
-                        <rect key="frame" x="0.0" y="22" width="440" height="233"/>
+                        <rect key="frame" x="0.0" y="22" width="460" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
                             <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQb-tD-j5e">
-                                <rect key="frame" x="0.0" y="0.0" width="440" height="234"/>
+                                <rect key="frame" x="0.0" y="0.0" width="460" height="234"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-vm-3Ig">
-                                        <rect key="frame" x="149" y="1" width="291" height="190"/>
+                                        <rect key="frame" x="156" y="1" width="304" height="190"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="ypk-hd-jNn">
-                                            <rect key="frame" x="1" y="1" width="274" height="188"/>
+                                        <clipView key="contentView" copiesOnScroll="NO" id="ypk-hd-jNn">
+                                            <rect key="frame" x="1" y="1" width="302" height="188"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
-                                                    <rect key="frame" x="0.0" y="0.0" width="274" height="188"/>
+                                                <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="bGm-dl-hOF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="302" height="188"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="274" height="188"/>
+                                                    <size key="minSize" width="302" height="188"/>
                                                     <size key="maxSize" width="463" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="o9x-a3-sU3">
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="o9x-a3-sU3">
                                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="T9f-gy-fHS">
-                                            <rect key="frame" x="275" y="1" width="15" height="188"/>
+                                            <rect key="frame" x="287" y="1" width="16" height="188"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfr-73-DLn">
+                                    <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfr-73-DLn">
                                         <rect key="frame" x="4" y="8" width="137" height="183"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="SDe-v8-QB2"/>
                                     </imageView>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="792">
-                                        <rect key="frame" x="8" y="191" width="424" height="35"/>
+                                    <textField wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="792">
+                                        <rect key="frame" x="8" y="191" width="444" height="35"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Title Epispode X" id="796">
                                             <font key="font" metaFont="cellTitle"/>
@@ -477,11 +478,11 @@
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBj-Ek-7Tw">
-                                <rect key="frame" x="0.0" y="1" width="440" height="232"/>
+                                <rect key="frame" x="0.0" y="1" width="460" height="232"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g2C-hu-jDc">
-                                        <rect key="frame" x="-2" y="154" width="444" height="58"/>
+                                    <textField wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g2C-hu-jDc">
+                                        <rect key="frame" x="8" y="154" width="444" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Nothing Scrobbled Yet" id="ax6-aQ-n4d">
                                             <font key="font" metaFont="system" size="30"/>
@@ -506,63 +507,18 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="DCC0DC7D-FE0D-4AF0-A2AD-D3CF993B3D2A" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="790">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="0E4188FA-8F45-4FA5-9215-564D57735453" label="Edit Status" paletteLabel="Edit Status" toolTip="Edit Status" image="update" id="k8g-Fn-fps">
-                        <size key="minSize" width="32" height="25"/>
-                        <size key="maxSize" width="32" height="32"/>
-                        <button key="view" verticalHuggingPriority="750" id="Meq-3s-3x5">
-                            <rect key="frame" x="13" y="14" width="32" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="update" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bg1-7y-pBr">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="updatestatus:" target="560" id="3Wt-yz-WbX"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="9D874849-1C76-4C4D-888C-5339B9C19B4B" label="Update History" paletteLabel="Update History" toolTip="Update History" image="history" id="eo4-15-Ehk">
-                        <size key="minSize" width="32" height="25"/>
-                        <size key="maxSize" width="32" height="32"/>
-                        <button key="view" verticalHuggingPriority="750" id="sGW-w2-kC0">
-                            <rect key="frame" x="24" y="14" width="32" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="history" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z3h-uy-9hi">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="showhistory:" target="560" id="HCI-hT-Yrn"/>
-                        </connections>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="brg-hf-L73"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="JKl-qD-hH8"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="DUP-IU-qwC"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Kb3-aH-Wfv"/>
-                    <toolbarItem implicitItemIdentifier="B414DFC0-D725-4DA1-8F47-E3784DAE154E" label="Correct Title" paletteLabel="Correct Title" toolTip="Correct Title" image="correct" id="q9Q-0H-wSc">
-                        <size key="minSize" width="32" height="25"/>
-                        <size key="maxSize" width="32" height="32"/>
-                        <button key="view" verticalHuggingPriority="750" id="70X-gD-dGZ">
-                            <rect key="frame" x="17" y="14" width="32" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="correct" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SLP-bm-I4p">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="showCorrectionSearchWindow:" target="560" id="gKH-8G-n32"/>
-                        </connections>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="72D2C79C-A565-4CAB-B2EA-ADB01365294F" label="Share" paletteLabel="Share" image="NSShareTemplate" id="5pz-cj-enZ">
                         <nil key="toolTip"/>
                         <size key="minSize" width="30" height="25"/>
-                        <size key="maxSize" width="40" height="25"/>
+                        <size key="maxSize" width="47" height="25"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="ti5-XJ-kVw">
-                            <rect key="frame" x="0.0" y="14" width="40" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="44" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="NYx-Ks-tPL" id="bL8-ux-lEX">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="yI8-4s-qpd">
@@ -578,11 +534,11 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="14AB25E1-2349-4D89-9A2B-0EA8900F6A47" label="View More Information" paletteLabel="View More Information" toolTip="View More Information" image="Info" id="Wgp-94-tio">
                         <size key="minSize" width="32" height="25"/>
-                        <size key="maxSize" width="32" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="Qjl-L9-xqy">
-                            <rect key="frame" x="43" y="14" width="32" height="25"/>
+                            <rect key="frame" x="47" y="14" width="32" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Info" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Quc-kl-lAO">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Info" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Quc-kl-lAO">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -591,11 +547,56 @@
                             <action selector="showLastScrobbledInformation:" target="560" id="91z-OF-tJy"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="79922CD3-BFFC-4F72-81CA-F02982C1A54E" label="Edit Status" paletteLabel="Edit Status" toolTip="Edit Status" image="update" id="DgU-ZE-SoP">
+                        <size key="minSize" width="32" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="jxp-1B-V77">
+                            <rect key="frame" x="17" y="14" width="32" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="update" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PDQ-md-f6e">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="updatestatus:" target="560" id="Vwl-ZM-LIe"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="199779AE-DA8B-4FF0-A6DC-5A4C40A6D075" label="Update History" paletteLabel="Update History" toolTip="Update History" image="history" id="81r-8f-Mu3">
+                        <size key="minSize" width="32" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="RxW-OW-l9D">
+                            <rect key="frame" x="28" y="14" width="32" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="history" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wok-pI-1E9">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="showhistory:" target="560" id="9W5-Db-s7x"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="D82EC183-4D76-4897-BEC7-548B770004F0" label="Correct Title" paletteLabel="Correct Title" toolTip="Correct Title" image="correct" id="3iC-Pu-9TY">
+                        <size key="minSize" width="32" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="AZB-IO-DUI">
+                            <rect key="frame" x="21" y="14" width="32" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="correct" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E0h-GG-AMG">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="showCorrectionSearchWindow:" target="560" id="7C0-qc-OQm"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="eo4-15-Ehk"/>
-                    <toolbarItem reference="k8g-Fn-fps"/>
-                    <toolbarItem reference="q9Q-0H-wSc"/>
+                    <toolbarItem reference="DgU-ZE-SoP"/>
+                    <toolbarItem reference="81r-8f-Mu3"/>
+                    <toolbarItem reference="3iC-Pu-9TY"/>
                     <toolbarItem reference="5pz-cj-enZ"/>
                     <toolbarItem reference="Wgp-94-tio"/>
                 </defaultToolbarItems>
@@ -611,10 +612,10 @@
         </customObject>
     </objects>
     <resources>
-        <image name="Info" width="32" height="32"/>
-        <image name="NSShareTemplate" width="11" height="16"/>
-        <image name="correct" width="32" height="32"/>
-        <image name="history" width="32" height="32"/>
-        <image name="update" width="32" height="32"/>
+        <image name="Info" width="16" height="16"/>
+        <image name="NSShareTemplate" width="16" height="17"/>
+        <image name="correct" width="16" height="16"/>
+        <image name="history" width="16" height="16"/>
+        <image name="update" width="16" height="16"/>
     </resources>
 </document>

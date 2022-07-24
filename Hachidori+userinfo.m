@@ -25,7 +25,7 @@
         [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
     }
     NSError *error;
-    id responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:@{} task:NULL error:&error];
+    id responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:@{} headers:@{} task:NULL error:&error];
     if (!error) {
         if (((NSArray *)responseObject[@"data"]).count > 0) {
             NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];
@@ -65,7 +65,7 @@
     }
     NSError *error;
     
-    id responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} task:NULL error:&error];
+    id responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} headers:@{} task:NULL error:&error];
     if (!error) {
         if (responseObject[@"data"][@"Viewer"] != [NSNull null]) {
             NSDictionary *d = responseObject[@"data"][@"Viewer"];
@@ -97,7 +97,7 @@
     }
     NSError *error;
     
-    id responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil task:NULL error:&error];
+    id responseObject = [self.syncmanager syncGET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil headers:@{} task:NULL error:&error];
     if (!error) {
         NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
         [defaults setValue:responseObject[@"id"] forKey:@"UserID-mal"];

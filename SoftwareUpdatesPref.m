@@ -18,14 +18,19 @@
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"SoftwareUpdatesPreferences";
 }
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:@"SoftwareUpdates"];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"arrow.triangle.2.circlepath" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:@"SoftwareUpdates"];
+    }
 }
 
 - (NSString *)toolbarItemLabel

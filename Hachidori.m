@@ -436,7 +436,7 @@
 }
 
 - (int)scrobble {
-    [MSAnalytics trackEvent:@"Starting Scrobble." withProperties:@{@"service" : [Hachidori currentServiceName]}];
+    [MSACAnalytics trackEvent:@"Starting Scrobble." withProperties:@{@"service" : [Hachidori currentServiceName]}];
     int status;
 	NSLog(@"=============");
 	NSLog(@"Scrobbling...");
@@ -462,7 +462,7 @@
     }
     if (self.detectedscrobble.AniID.length > 0 && [self hasUserInfoCurrentService]) {
         NSLog(@"Found %@", self.detectedscrobble.AniID);
-        [MSAnalytics trackEvent:@"Found ID." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"UNKNOWN", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"titleid" : self.detectedscrobble.AniID ? self.detectedscrobble.AniID : @"-1", @"service" : [Hachidori currentServiceName]}];
+        [MSACAnalytics trackEvent:@"Found ID." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"Title Unknown", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"UNKNOWN", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"titleid" : self.detectedscrobble.AniID ? self.detectedscrobble.AniID : @"-1", @"service" : [Hachidori currentServiceName]}];
         // Nil out Failed Title and Episode
         //self.detectedscrobble.FailedTitle = nil;
         //self.detectedscrobble.FailedEpisode = nil;
@@ -485,9 +485,13 @@
                 int s = [self updatetitle:self.detectedscrobble.AniID];
                 if (s == ScrobblerUpdateNotNeeded || s == ScrobblerConfirmNeeded ||s == ScrobblerUpdateSuccessful ) {
                     _Success = true;
+                    if (s == ScrobblerUpdateNotNeeded) {
+                        self.lastscrobble.confirmed = true;
+                    }
                 }
                 else {
-                    _Success = false;}
+                    _Success = false;
+                }
                 status = s;
             }
         }
@@ -504,7 +508,7 @@
         if (online) {
             // Not Successful
             NSLog(@"Error: Couldn't find title %@. Please add an Anime Exception rule.", self.detectedscrobble.DetectedTitle);
-            [MSAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown)", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
+            [MSACAnalytics trackEvent:@"Can't find title." withProperties:@{@"detectedTitle" : self.detectedscrobble.DetectedTitle ? self.detectedscrobble.DetectedTitle : @"(Title Unknown)", @"group" : self.detectedscrobble.DetectedGroup ? self.detectedscrobble.DetectedGroup : @"(Group Unknown)", @"season" : @(self.detectedscrobble.DetectedSeason).stringValue, @"source":self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName]}];
             // Used for Exception Adding
             self.detectedscrobble.FailedTitle = self.detectedscrobble.DetectedTitle;
             self.detectedscrobble.FailedEpisode = self.detectedscrobble.DetectedEpisode;
@@ -517,7 +521,7 @@
         }
         
     }
-    [MSAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:self.lastscrobble ? @{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle ? self.lastscrobble.LastScrobbledTitle : @"Missing Title", @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle ? self.lastscrobble.LastScrobbledActualTitle : @"Missing Title", @"season" : self.lastscrobble.DetectedSeason ? @(self.lastscrobble.DetectedSeason).stringValue : @"0", @"source":self.lastscrobble.LastScrobbledSource ? self.lastscrobble.LastScrobbledSource : @"Unknown Source", @"episode" : self.lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue, @"service" : [Hachidori currentServiceName]} : @{ @"status" : @(status).stringValue, @"detectedTitle" : self.detectedscrobble.DetectedTitle, @"source" : self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName] }];
+    [MSACAnalytics trackEvent:(status == ScrobblerNothingPlaying||status == ScrobblerSameEpisodePlaying||status == ScrobblerUpdateNotNeeded||status == ScrobblerConfirmNeeded||status == ScrobblerAddTitleSuccessful||status == ScrobblerUpdateSuccessful||status == ScrobblerOfflineQueued) ? @"Scrobble Successful" : @"Scrobble Failed" withProperties:self.lastscrobble ? @{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle ? self.lastscrobble.LastScrobbledTitle : @"Missing Title", @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle ? self.lastscrobble.LastScrobbledActualTitle : @"Missing Title", @"season" : self.lastscrobble.DetectedSeason ? @(self.lastscrobble.DetectedSeason).stringValue : @"0", @"source":self.lastscrobble.LastScrobbledSource ? self.lastscrobble.LastScrobbledSource : @"Unknown Source", @"episode" : self.lastscrobble.LastScrobbledEpisode, @"result" : @(status).stringValue, @"service" : [Hachidori currentServiceName]} : @{ @"status" : @(status).stringValue, @"detectedTitle" : self.detectedscrobble.DetectedTitle, @"source" : self.detectedscrobble.DetectedSource ? self.detectedscrobble.DetectedSource : @"Unknown Source", @"service" : [Hachidori currentServiceName] }];
     NSLog(@"Scrobble Complete with Status Code: %i - %@", status, [self scrobbleStatusToString:status]);
     NSLog(@"=============");
     // Release Detected Title/Episode.
@@ -584,7 +588,7 @@
 - (BOOL)confirmupdate {
     NSLog(@"=============");
     NSLog(@"Confirming: %@ - %@",self.lastscrobble.LastScrobbledActualTitle, self.lastscrobble.LastScrobbledEpisode);
-    [MSAnalytics trackEvent:@"Confirming title." withProperties:@{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource, @"episode" : self.lastscrobble.LastScrobbledEpisode, @"service" : [Hachidori currentServiceName]}];
+    [MSACAnalytics trackEvent:@"Confirming title." withProperties:@{@"detectedTitle" : self.lastscrobble.LastScrobbledTitle, @"actualtitle" : self.lastscrobble.LastScrobbledActualTitle, @"season" : @(self.lastscrobble.DetectedSeason).stringValue, @"source":self.lastscrobble.LastScrobbledSource, @"episode" : self.lastscrobble.LastScrobbledEpisode, @"service" : [Hachidori currentServiceName]}];
     DetectedScrobbleStatus *tmpdetected = [DetectedScrobbleStatus new];
     [tmpdetected transferLastScrobbled:[self getLastScrobbleForService:[Hachidori currentService]]];
     [self setDetectedScrobbleStatus:tmpdetected withService:[Hachidori currentService]];
@@ -704,6 +708,7 @@
                     
                     if (i==1 && self.detectedscrobble.DetectedTitleisEpisodeZero == true && iszeroepisode == true) {
                         NSLog(@"%@ zero episode is found on exceptions list as %@.", self.detectedscrobble.DetectedTitle, correcttitle);
+                        self.detectedscrobble.corrected = true;
                         self.detectedscrobble.DetectedTitle = correcttitle;
                         self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", mappedepisode];
                         self.detectedscrobble.DetectedTitleisEpisodeZero = true;
@@ -719,6 +724,7 @@
                     }
                     else {
                         NSLog(@"%@ found on exceptions list as %@.", self.detectedscrobble.DetectedTitle, correcttitle);
+                        self.detectedscrobble.corrected = true;
                         if (tmpepisode > 0) {
                             self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
                         }
@@ -796,6 +802,19 @@
                     if (servicenum == [Hachidori currentService]) {
                         mainservicerefreshfailed = true;
                     }
+                    switch (servicenum) {
+                        case 0:
+                            [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"KitsuRefreshFailed"];
+                            break;
+                        case 1:
+                            [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"AniListRefreshFailed"];
+                            break;
+                        case 2:
+                            [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"MALRefreshFailed"];
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 progress++;
                 if (progress == servicedict.allKeys.count) {
@@ -821,7 +840,7 @@
                                                                                secret:ksecretkey];
             [OAuth2Manager setUseHTTPBasicAuthentication:NO];
             [OAuth2Manager authenticateUsingOAuthWithURLString:kTokenURL
-                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} success:^(AFOAuthCredential *credential) {
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken} headers:@{} success:^(AFOAuthCredential *credential) {
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                                             withIdentifier:@"Hachidori"];
@@ -841,7 +860,7 @@
                                                                                secret:kanilistsecretkey];
             [OAuth2Manager setUseHTTPBasicAuthentication:NO];
             [OAuth2Manager authenticateUsingOAuthWithURLString:@"api/v2/oauth/token"
-                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri" : @"hachidoriauth%3A%2F%2Fanilistauth%2F"} success:^(AFOAuthCredential *credential) {
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri" : @"hachidoriauth%3A%2F%2Fanilistauth%2F"} headers:@{} success:^(AFOAuthCredential *credential) {
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                                             withIdentifier:@"Hachidori - AniList"];
@@ -861,7 +880,7 @@
                                                                                secret:@""];
             [OAuth2Manager setUseHTTPBasicAuthentication:NO];
             [OAuth2Manager authenticateUsingOAuthWithURLString:@"v1/oauth2/token"
-                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri": @"hachidoriauth://malauth/"} success:^(AFOAuthCredential *credential) {
+                                                    parameters:@{@"grant_type":@"refresh_token", @"refresh_token":cred.refreshToken, @"redirect_uri": @"hachidoriauth://malauth/"} headers:@{} success:^(AFOAuthCredential *credential) {
                                                         NSLog(@"Token refreshed");
                                                         [AFOAuthCredential storeCredential:credential
                                                         withIdentifier:@"Hachidori - MyAnimeList"];
@@ -885,10 +904,14 @@
         errorHandler(nil);
         return;
     }
+    [self retrieveUserID:completionHandler error:errorHandler withService:service withCredential:cred];
+}
+
+- (void)retrieveUserID:(void (^)(int userid, NSString *username, NSString *scoreformat)) completionHandler error:(void (^)(NSError * error)) errorHandler withService:(int)service withCredential:(AFOAuthCredential *)cred {
     [_asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
     switch (service) {
         case 0: {
-            [_asyncmanager GET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [_asyncmanager GET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (((NSArray *)responseObject[@"data"]).count > 0) {
                     NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];
                     int scoreformat = 0;
@@ -925,7 +948,7 @@
             break;
         }
         case 1: {
-            [_asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+            [_asyncmanager POST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} headers:@{} progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 if (responseObject[@"data"][@"Viewer"] != [NSNull null]) {
                     NSDictionary *d = responseObject[@"data"][@"Viewer"];
                     completionHandler(((NSNumber *)d[@"id"]).intValue,d[@"name"], d[@"mediaListOptions"][@"scoreFormat"]);
@@ -939,7 +962,7 @@
             break;
         }
         case 2: {
-            [_asyncmanager GET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+            [_asyncmanager GET:@"https://api.myanimelist.net/v2/users/@me?fields=avatar" parameters:nil headers:@{} progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 completionHandler(((NSNumber *)responseObject[@"id"]).intValue, responseObject[@"name"], @"");
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 errorHandler(error);
@@ -992,9 +1015,7 @@
 
 - (void)sendDiscordPresence:(LastScrobbleStatus *)lscrobble {
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"usediscordrichpresence"] && self.discordmanager.discordrpcrunning) {
-        OnigRegexp *regex = [OnigRegexp compile:@"(Safari|Webkit|Omniweb|Roccat|Chrome|Chromium|Edge)" options:OnigOptionIgnorecase];
-        bool isStreaming = [regex search:lscrobble.LastScrobbledSource].strings.count > 0;
-        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", lscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  lscrobble.LastScrobbledActualTitle] isStreaming:isStreaming];
+        [self.discordmanager UpdatePresence:[NSString stringWithFormat:@"%@ Episode %@ ", lscrobble.WatchStatus,self.lastscrobble.LastScrobbledEpisode] withDetails:[NSString stringWithFormat:@"%@",  lscrobble.LastScrobbledActualTitle]];
     }
 }
 
@@ -1029,10 +1050,10 @@
     id responseObject;
     switch ([Hachidori currentService]) {
         case 0:
-            responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true" parameters:nil task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true" parameters:nil headers:@{} task:&task error:&error];
             break;
         case 1:
-            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} task:&task error:&error];
+            responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} headers:@{} task:&task error:&error];
             break;
         default:
             return 0;

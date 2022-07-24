@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C82186524E6B8AA00EC92EF /* DiscordRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C82186324E6B89300EC92EF /* DiscordRPC.framework */; };
+		1C82186624E6B8AA00EC92EF /* DiscordRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1C82186324E6B89300EC92EF /* DiscordRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppDelegate.m */; };
 		2D226B2C1EF312BC0030E9C5 /* ShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D226B2B1EF312BC0030E9C5 /* ShareMenu.m */; };
@@ -42,8 +44,6 @@
 		594F0A2021E50427001875AF /* LastScrobbleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A1F21E50427001875AF /* LastScrobbleStatus.m */; };
 		594F0A2321E65800001875AF /* Scrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F0A2221E65800001875AF /* Scrobble.m */; };
 		5964D214231956C5007462F9 /* MALUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5964D213231956C5007462F9 /* MALUpdateManager.m */; };
-		5999AF67228075CE001FBF85 /* discord_game_sdk.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */; };
-		5999AF9822808645001FBF85 /* discord_game_sdk.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		599AEEDA231D6FEC0050FAE7 /* AtarashiiAPIListFormatMAL.m in Sources */ = {isa = PBXBuildFile; fileRef = 599AEED9231D6FEC0050FAE7 /* AtarashiiAPIListFormatMAL.m */; };
 		599AEEDD231D8B310050FAE7 /* PKCEGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 599AEEDC231D8B310050FAE7 /* PKCEGenerator.m */; };
 		59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */; };
@@ -116,10 +116,6 @@
 		9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */; };
 		912B575820B5CB7D0002C7BD /* Hachidori+AnimeRelations.m in Sources */ = {isa = PBXBuildFile; fileRef = 912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */; };
 		9130A63B1E81D77A00E744EF /* OfflineViewQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9130A63D1E81D77A00E744EF /* OfflineViewQueue.xib */; };
-		9134C39B212B0BD800F4982D /* Patreon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91376034212AF6C60093919F /* Patreon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		91376035212AF6C60093919F /* Patreon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91376034212AF6C60093919F /* Patreon.framework */; };
-		91376038212AF7600093919F /* PatreonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 91376037212AF7600093919F /* PatreonConstants.m */; };
-		9137603B212AF92D0093919F /* PatreonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9137603A212AF92D0093919F /* PatreonController.m */; };
 		914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; };
 		914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 914AE2D01F113AD0009E43FC /* XMLReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		914AE2D71F11415C009E43FC /* PlexLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 914AE2D51F11415C009E43FC /* PlexLogin.m */; };
@@ -171,13 +167,12 @@
 			dstSubfolderSpec = 10;
 			files = (
 				91A609F91EA3F61C00EF40AB /* CocoaOniguruma.framework in CopyFiles */,
-				9134C39B212B0BD800F4982D /* Patreon.framework in CopyFiles */,
 				2DF623D91EDB2C0900E9B7AD /* DetectionKit.framework in CopyFiles */,
 				9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */,
+				1C82186624E6B8AA00EC92EF /* DiscordRPC.framework in CopyFiles */,
 				916207272110C88B008AFAC5 /* DetectStreamKit.framework in CopyFiles */,
 				8227C1151A1D8A0B005F3301 /* anitomy-osx.framework in CopyFiles */,
 				914AE2D31F113AD4009E43FC /* XMLReader.framework in CopyFiles */,
-				5999AF9822808645001FBF85 /* discord_game_sdk.dylib in CopyFiles */,
 				91AFCF591F100D8F0029AC09 /* SAMKeychain.framework in CopyFiles */,
 				2DF623D71EDB2C0500E9B7AD /* Reachability.framework in CopyFiles */,
 				2D621EC71F814364003274F2 /* GBPing.framework in CopyFiles */,
@@ -198,6 +193,7 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1C82186324E6B89300EC92EF /* DiscordRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiscordRPC.framework; path = Frameworks/DiscordRPC.framework; sourceTree = "<group>"; };
 		256AC3D80F4B6AC300CF3369 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		256AC3D90F4B6AC300CF3369 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		256AC3F00F4B6AF500CF3369 /* MAL_Updater_OS_X_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MAL_Updater_OS_X_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -253,8 +249,6 @@
 		594F0A2221E65800001875AF /* Scrobble.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Scrobble.m; sourceTree = "<group>"; };
 		5964D212231956C5007462F9 /* MALUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MALUpdateManager.h; sourceTree = "<group>"; };
 		5964D213231956C5007462F9 /* MALUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MALUpdateManager.m; sourceTree = "<group>"; };
-		5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = discord_game_sdk.dylib; sourceTree = "<group>"; };
-		5999AF9722807F20001FBF85 /* discord_game_sdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = discord_game_sdk.h; sourceTree = "<group>"; };
 		599AEED8231D6FEC0050FAE7 /* AtarashiiAPIListFormatMAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtarashiiAPIListFormatMAL.h; sourceTree = "<group>"; };
 		599AEED9231D6FEC0050FAE7 /* AtarashiiAPIListFormatMAL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtarashiiAPIListFormatMAL.m; sourceTree = "<group>"; };
 		599AEEDB231D8B310050FAE7 /* PKCEGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKCEGenerator.h; sourceTree = "<group>"; };
@@ -455,11 +449,6 @@
 		912B575620B5CB7D0002C7BD /* Hachidori+AnimeRelations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hachidori+AnimeRelations.h"; sourceTree = "<group>"; };
 		912B575720B5CB7D0002C7BD /* Hachidori+AnimeRelations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Hachidori+AnimeRelations.m"; sourceTree = "<group>"; };
 		9130A63C1E81D77A00E744EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OfflineViewQueue.xib; sourceTree = "<group>"; };
-		91376034212AF6C60093919F /* Patreon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Patreon.framework; path = Frameworks/Patreon.framework; sourceTree = "<group>"; };
-		91376036212AF7600093919F /* PatreonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatreonConstants.h; sourceTree = "<group>"; };
-		91376037212AF7600093919F /* PatreonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatreonConstants.m; sourceTree = "<group>"; };
-		91376039212AF92D0093919F /* PatreonController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatreonController.h; sourceTree = "<group>"; };
-		9137603A212AF92D0093919F /* PatreonController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatreonController.m; sourceTree = "<group>"; };
 		914AE2D01F113AD0009E43FC /* XMLReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XMLReader.framework; path = Frameworks/XMLReader.framework; sourceTree = "<group>"; };
 		914AE2D41F11415C009E43FC /* PlexLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlexLogin.h; sourceTree = "<group>"; };
 		914AE2D51F11415C009E43FC /* PlexLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlexLogin.m; sourceTree = "<group>"; };
@@ -521,9 +510,9 @@
 				9128595A1E7B3599005E9A2B /* MASShortcut.framework in Frameworks */,
 				91AFCF581F100D8F0029AC09 /* SAMKeychain.framework in Frameworks */,
 				59D5ACDF2235743400FAE0CA /* AppCenterCrashes.framework in Frameworks */,
-				91376035212AF6C60093919F /* Patreon.framework in Frameworks */,
 				914AE2D21F113AD4009E43FC /* XMLReader.framework in Frameworks */,
 				2DF623D81EDB2C0900E9B7AD /* DetectionKit.framework in Frameworks */,
+				1C82186524E6B8AA00EC92EF /* DiscordRPC.framework in Frameworks */,
 				F847DF312022575E005419BE /* AFNetworking.framework in Frameworks */,
 				F8531F1420D2A84F00CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */,
 				9126066B20BEE0150052CB30 /* TorrentBrowser.framework in Frameworks */,
@@ -534,7 +523,6 @@
 				916207262110C88B008AFAC5 /* DetectStreamKit.framework in Frameworks */,
 				2D621EC81F81436C003274F2 /* MSWeakTimer_macOS.framework in Frameworks */,
 				824693A719FD35AE00CFA12A /* Carbon.framework in Frameworks */,
-				5999AF67228075CE001FBF85 /* discord_game_sdk.dylib in Frameworks */,
 				8227C1141A1D89FB005F3301 /* anitomy-osx.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				F8531F1320D2A80700CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */,
@@ -587,10 +575,6 @@
 				8245D7651A8B294100B1ED73 /* Hachidori+UserStatus.h */,
 				8245D7661A8B294100B1ED73 /* Hachidori+UserStatus.m */,
 				5C8ACEB619F409C60001A101 /* Other Classes */,
-				91376036212AF7600093919F /* PatreonConstants.h */,
-				91376037212AF7600093919F /* PatreonConstants.m */,
-				91376039212AF92D0093919F /* PatreonController.h */,
-				9137603A212AF92D0093919F /* PatreonController.m */,
 				5CD36B9419F2EA91007BB6B6 /* Preferences */,
 				59F1425421EE4A3B008C7511 /* ScoreConversion.h */,
 				59F1425521EE4A3B008C7511 /* ScoreConversion.m */,
@@ -630,13 +614,13 @@
 				8227C1131A1D89FB005F3301 /* anitomy-osx.framework */,
 				91A609F61EA3F61500EF40AB /* CocoaOniguruma.framework */,
 				2DF623D41EDB27D300E9B7AD /* DetectionKit.framework */,
+				1C82186324E6B89300EC92EF /* DiscordRPC.framework */,
 				916207252110C88B008AFAC5 /* DetectStreamKit.framework */,
 				F8531F1220D2A80700CE78D9 /* DonationCheck_KeyOnly.framework */,
 				2D621EC41F814234003274F2 /* GBPing.framework */,
 				912859551E7B2F0E005E9A2B /* MASPreferences.framework */,
 				912859591E7B3599005E9A2B /* MASShortcut.framework */,
 				2D621EC51F814234003274F2 /* MSWeakTimer_macOS.framework */,
-				91376034212AF6C60093919F /* Patreon.framework */,
 				2D621ECA1F8143C9003274F2 /* PingNotifier.framework */,
 				2DF623D21EDB27CA00E9B7AD /* Reachability.framework */,
 				91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */,
@@ -716,7 +700,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5999AF66228075CD001FBF85 /* discord_game_sdk.dylib */,
 				59D5ACDB2235740D00FAE0CA /* AppCenter */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -900,7 +883,6 @@
 		6FAA87821A7EB6B200EFFAC1 /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
-				5999AF9722807F20001FBF85 /* discord_game_sdk.h */,
 				9128595D1E7B37A1005E9A2B /* HotKeyConstants.h */,
 				912859611E7B394D005E9A2B /* Hotkeys.h */,
 				9128595E1E7B37A1005E9A2B /* HotKeyConstants.m */,
@@ -1146,7 +1128,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					5CD7FF3B1A449A140050E6CC = {
 						CreatedOnToolsVersion = 6.1;
@@ -1309,7 +1291,6 @@
 				9191FC4120BDBB9100F48DD0 /* AniListScoreConvert.m in Sources */,
 				91CF574820B706030044DC9F /* AtarashiiDataObjects.m in Sources */,
 				5CD36BBA19F2ED88007BB6B6 /* GeneralPrefController.m in Sources */,
-				91376038212AF7600093919F /* PatreonConstants.m in Sources */,
 				6F0CF36C1A7DB89300261A43 /* Utility.m in Sources */,
 				59DA3C9022356C8F0063778B /* Log.m in Sources */,
 				9107644A21052F6100E9B12C /* ServiceIDToServiceTitle.m in Sources */,
@@ -1323,7 +1304,6 @@
 				594F0A1D21E50414001875AF /* DetectedScrobbleStatus.m in Sources */,
 				9106873421061B1E001A93BE /* NSString_stripHtml.m in Sources */,
 				8245D7611A8B265900B1ED73 /* Hachidori+Search.m in Sources */,
-				9137603B212AF92D0093919F /* PatreonController.m in Sources */,
 				F88D55DD20B3178D00DB84B9 /* AnimeRelations.m in Sources */,
 				9128595F1E7B37A1005E9A2B /* HotKeyConstants.m in Sources */,
 				59F1425621EE4A3B008C7511 /* ScoreConversion.m in Sources */,
@@ -1677,15 +1657,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Hachidori.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20200718;
+				CURRENT_PROJECT_VERSION = 20220724;
 				DEVELOPMENT_TEAM = 9HDZTER525;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1712,7 +1693,8 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.2.5;
+				MARKETING_VERSION = 3.3.13;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
@@ -1725,15 +1707,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Hachidori.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20200718;
+				CURRENT_PROJECT_VERSION = 20220724;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9HDZTER525;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1758,12 +1741,14 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.2.5;
+				MARKETING_VERSION = 3.3.13;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = YES;
+				VALID_ARCHS = "arm64 arm64e i386 x86_64";
 			};
 			name = Release;
 		};

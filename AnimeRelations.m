@@ -20,7 +20,7 @@
     AFHTTPSessionManager *manager = [self manager];
     NSError *error;
     NSURLSessionDataTask *task;
-    id responseObject = [manager syncGET:@"https://github.com/erengy/anime-relations/raw/master/anime-relations.txt" parameters:nil task:&task error:&error];
+    id responseObject = [manager syncGET:@"https://github.com/erengy/anime-relations/raw/master/anime-relations.txt" parameters:nil headers:@{} task:&task error:&error];
     // Get Status Code
     switch (((NSHTTPURLResponse *)task.response).statusCode) {
         case 200:{
@@ -198,6 +198,32 @@
             break;
         case 2:
             predicate = [NSPredicate predicateWithFormat: @"(source_malid == %i)", titleid];
+            break;
+        default:
+            break;
+    }
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    fetch.entity = [NSEntityDescription entityForName:@"AnimeRelations" inManagedObjectContext:moc];
+    fetch.predicate = predicate;
+    NSArray *relations = [moc executeFetchRequest:fetch error:&error];
+    return relations;
+}
+
++ (NSArray *)retrieveTargetRelationsEntriesForTitleID:(int)titleid withService:(int)service {
+    // Return relations for Kitsu ID
+    NSError *error;
+    NSManagedObjectContext *moc = [self mangaObjectContext];
+    
+    NSPredicate *predicate;
+    switch (service) {
+        case 0:
+            predicate = [NSPredicate predicateWithFormat: @"(target_kitsuid == %i)", titleid];
+            break;
+        case 1:
+            predicate = [NSPredicate predicateWithFormat: @"(target_anilistid == %i)", titleid];
+            break;
+        case 2:
+            predicate = [NSPredicate predicateWithFormat: @"(target_malid == %i)", titleid];
             break;
         default:
             break;

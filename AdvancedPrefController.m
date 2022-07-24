@@ -26,12 +26,17 @@
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
-- (NSString *)identifier {
+- (NSString *)viewIdentifier {
     return @"AdvancedPreferences";
 }
 
 - (NSImage *)toolbarItemImage {
-    return [NSImage imageNamed:NSImageNameAdvanced];
+    if (@available(macOS 11.0, *)) {
+        return [NSImage imageWithSystemSymbolName:@"gearshape.2" accessibilityDescription:nil];
+    } else {
+        // Fallback on earlier versions
+        return [NSImage imageNamed:NSImageNameAdvanced];
+    }
 }
 
 - (NSString *)toolbarItemLabel {

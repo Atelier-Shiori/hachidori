@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17154"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,7 +25,9 @@
                 <outlet property="malloggedinuser" destination="7oV-ZW-TzI" id="tzs-Vk-ol2"/>
                 <outlet property="malloggedinview" destination="94Z-Kh-34u" id="2Vq-S1-3py"/>
                 <outlet property="malloginview" destination="irG-e5-W69" id="1vb-E6-mJq"/>
+                <outlet property="malreauthorizebtn" destination="Oeh-b7-Zlc" id="I3a-OV-CUy"/>
                 <outlet property="savebut" destination="39" id="45"/>
+                <outlet property="snilistreauth" destination="Cfx-X3-xJB" id="4yJ-5h-n0Z"/>
                 <outlet property="view" destination="3" id="38"/>
             </connections>
         </customObject>
@@ -33,21 +35,21 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="2"/>
         <customView id="3" userLabel="Login">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="327"/>
+            <rect key="frame" x="0.0" y="0.0" width="750" height="327"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54">
-                    <rect key="frame" x="278" y="236" width="94" height="80"/>
+                    <rect key="frame" x="328" y="236" width="94" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="55"/>
                 </imageView>
                 <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xAc-tG-27s">
-                    <rect key="frame" x="124" y="-5" width="402" height="237"/>
+                    <rect key="frame" x="174" y="-5" width="402" height="237"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Kitsu" identifier="" id="jQ8-bN-ftC">
-                            <view key="view" ambiguous="YES" id="2ID-Ye-Kxq">
+                            <view key="view" id="2ID-Ye-Kxq">
                                 <rect key="frame" x="10" y="33" width="382" height="191"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -202,7 +204,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B09-VG-i6U" userLabel="Logged in View">
-                                                <rect key="frame" x="3" y="1" width="376" height="184"/>
+                                                <rect key="frame" x="3" y="3" width="376" height="184"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MRs-N0-hH9">
@@ -222,7 +224,7 @@
                                                         </connections>
                                                     </textField>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8W-4v-4p7">
-                                                        <rect key="frame" x="122" y="41" width="131" height="32"/>
+                                                        <rect key="frame" x="122" y="13" width="131" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Getting Started" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lPg-d9-EhP">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -233,7 +235,7 @@
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="qN6-gu-cwy">
-                                                        <rect key="frame" x="108" y="71" width="160" height="32"/>
+                                                        <rect key="frame" x="108" y="43" width="160" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Remove Account" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="P22-Ea-7pJ">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -261,6 +263,17 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cfx-X3-xJB">
+                                                        <rect key="frame" x="129" y="73" width="120" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="Reauthorize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Iln-PX-MMT">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="reauthorize:" target="-2" id="xc6-aP-wte"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                             </customView>
                                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vOD-pW-VOV" userLabel="Logged out View">
@@ -335,7 +348,7 @@
                                                         </connections>
                                                     </textField>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LvR-Rd-IDW">
-                                                        <rect key="frame" x="122" y="41" width="131" height="32"/>
+                                                        <rect key="frame" x="122" y="13" width="131" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Getting Started" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vtQ-1A-L91">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -345,8 +358,19 @@
                                                             <action selector="showgettingstartedpage:" target="-2" id="LTx-cM-eWX"/>
                                                         </connections>
                                                     </button>
+                                                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Oeh-b7-Zlc">
+                                                        <rect key="frame" x="129" y="73" width="120" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="Reauthorize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Phj-4Z-EJu">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="reauthorize:" target="-2" id="ATh-nU-UaZ"/>
+                                                        </connections>
+                                                    </button>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="fiY-Hb-FCM">
-                                                        <rect key="frame" x="108" y="71" width="160" height="32"/>
+                                                        <rect key="frame" x="108" y="43" width="160" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Remove Account" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VuH-Kt-Cjl">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
