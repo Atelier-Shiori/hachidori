@@ -60,7 +60,7 @@
     smatch = [regex search:string];
     if (smatch.count > 0) {
         tmpseason = [smatch stringAt:0];
-        regex = [OnigRegexp compile:@"((st|nd|rd|th) Season)|Season |S|s|" options:OnigOptionIgnorecase];
+        regex = [OnigRegexp compile:@"(((st|nd|rd|th) Season)|Season |S|s)" options:OnigOptionIgnorecase];
         tmpseason = [tmpseason replaceByRegexp:regex with:@""];
         return tmpseason.intValue;
     }

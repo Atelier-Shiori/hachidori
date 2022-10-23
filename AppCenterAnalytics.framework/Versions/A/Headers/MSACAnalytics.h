@@ -1,8 +1,20 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#import "MSACAnalyticsTransmissionTarget.h"
+#ifndef MSAC_ANALYTICS_H
+#define MSAC_ANALYTICS_H
+
+#if __has_include(<AppCenter/MSACServiceAbstract.h>)
+#import <AppCenter/MSACServiceAbstract.h>
+#else
 #import "MSACServiceAbstract.h"
+#endif
+
+#if __has_include(<AppCenterAnalytics/MSACAnalyticsTransmissionTarget.h>)
+#import <AppCenterAnalytics/MSACAnalyticsTransmissionTarget.h>
+#else
+#import "MSACAnalyticsTransmissionTarget.h"
+#endif
 
 @class MSACEventProperties;
 
@@ -186,6 +198,16 @@ NS_SWIFT_NAME(Analytics)
 + (void)resume;
 
 /**
+ * Start a new session if manual session tracker is enabled, otherwise do nothing.
+ */
++ (void)startSession;
+
+/**
+ * Enable manual session tracker.
+ */
++ (void)enableManualSessionTracker;
+
+/**
  * Get a transmission target.
  *
  * @param token The token of the transmission target to retrieve.
@@ -210,3 +232,5 @@ NS_SWIFT_NAME(Analytics)
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

@@ -3,13 +3,16 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef MSAC_APP_CENTER
+#define MSAC_APP_CENTER
+
+#if __has_include(<AppCenter/MSACConstants.h>)
+#import <AppCenter/MSACConstants.h>
+#else
 #import "MSACConstants.h"
+#endif
 
 @class MSACWrapperSdk;
-
-#if !TARGET_OS_TV
-@class MSACCustomProperties;
-#endif
 
 NS_SWIFT_NAME(AppCenter)
 @interface MSACAppCenter : NSObject
@@ -89,6 +92,14 @@ NS_SWIFT_NAME(AppCenter)
 @property(class, nonatomic, getter=isEnabled, setter=setEnabled:) BOOL enabled NS_SWIFT_NAME(enabled);
 
 /**
+ * Flag indicating whether SDK can send network requests.
+ *
+ * The state is persisted in the device's storage across application launches.
+ */
+@property(class, nonatomic, getter=isNetworkRequestsAllowed, setter=setNetworkRequestsAllowed:)
+    BOOL networkRequestsAllowed NS_SWIFT_NAME(networkRequestsAllowed);
+
+/**
  * The SDK's log level.
  */
 @property(class, nonatomic) MSACLogLevel logLevel;
@@ -96,7 +107,7 @@ NS_SWIFT_NAME(AppCenter)
 /**
  * Base URL to use for backend communication.
  */
-@property(class, nonatomic) NSString *logUrl;
+@property(class, nonatomic, strong) NSString *logUrl;
 
 /**
  * Set log handler.
@@ -107,16 +118,7 @@ NS_SWIFT_NAME(AppCenter)
  * Set wrapper SDK information to use when building device properties. This is intended in case you are building a SDK that uses the App
  * Center SDK under the hood, e.g. our Xamarin SDK or ReactNative SDk.
  */
-@property(class, nonatomic) MSACWrapperSdk *wrapperSdk;
-
-#if !TARGET_OS_TV
-/**
- * Set the custom properties.
- *
- * @param customProperties Custom properties object.
- */
-+ (void)setCustomProperties:(MSACCustomProperties *)customProperties;
-#endif
+@property(class, nonatomic, strong) MSACWrapperSdk *wrapperSdk;
 
 /**
  * Check whether the application delegate forwarder is enabled or not.
@@ -174,13 +176,15 @@ NS_SWIFT_NAME(AppCenter)
  *
  * AppCenter must be configured or started before this API can be used.
  */
-@property(class, nonatomic) NSString *userId;
+@property(class, nonatomic, strong) NSString *userId;
 
 /**
  * Set country code to use when building device properties.
  *
  * @see https://www.iso.org/obp/ui/#search for more information.
  */
-@property(class, nonatomic) NSString *countryCode;
+@property(class, nonatomic, strong) NSString *countryCode;
 
 @end
+
+#endif
