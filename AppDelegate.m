@@ -485,7 +485,7 @@
         NSViewController *hotkeyViewController = [[HotkeysPrefs alloc] init];
         NSViewController *plexviewController = [PlexPrefs new];
         NSViewController *advancedViewController = [[AdvancedPrefController alloc] init];
-        NSViewController *socialViewController = [[SocialPrefController alloc] initWithTwitterManager:haengine.twittermanager.twittermanager];
+        NSViewController *socialViewController = [[SocialPrefController alloc] init];
         NSArray *controllers;
 #ifdef oss
         controllers = @[generalViewController, loginViewController, socialViewController, syncController, hotkeyViewController , plexviewController, exceptionsViewController, suViewController, advancedViewController];

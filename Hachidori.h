@@ -14,7 +14,6 @@
 #import "DiscordManager.h"
 #import "DetectedScrobbleStatus.h"
 #import "LastScrobbleStatus.h"
-#import "HachidoriTwitterManager.h"
 #import "AniListUpdateManager.h"
 #import "KitsuUpdateManager.h"
 #import "MALUpdateManager.h"
@@ -22,7 +21,6 @@
 @class Reachability;
 @class Detection;
 @class AFHTTPSessionManager;
-@class HachidoriTwitterManager;
 
 @interface Hachidori : NSObject
 typedef NS_ENUM(unsigned int, ScrobbleStatus) {
@@ -74,7 +72,6 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 @property (getter=getOnlineStatus) bool online;
 @property (getter=getRatingType) int ratingtype;
 @property (strong) Detection *detection;
-@property (strong) HachidoriTwitterManager *twittermanager;
 @property (strong) DiscordManager *discordmanager;
 @property (strong) AniListUpdateManager *anilistmanager;
 @property (strong) KitsuUpdateManager *kitsumanager;

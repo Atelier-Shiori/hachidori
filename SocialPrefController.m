@@ -6,7 +6,6 @@
 //
 
 #import "SocialPrefController.h"
-#import <TwitterManagerKit/TwitterManagerKit.h>
 #import "DiscordManager.h"
 
 @interface SocialPrefController ()
@@ -33,7 +32,7 @@
     [self checklogin];
 }
 - (void)checklogin {
-    NSDictionary *userinfo = [_tw getFirstAccount];
+    /*NSDictionary *userinfo = [_tw getFirstAccount];
     if (userinfo) {
         _usernamefield.stringValue = userinfo[@"screenname"];
         _authenticatebtn.hidden = true;
@@ -45,19 +44,14 @@
         _authenticatebtn.hidden = false;
         _logoutbtn.hidden = true;
         _twonscrobblecheckbox.enabled = false;
-    }
+    }*/
 }
 
 - (IBAction)authenticate:(id)sender {
-    [_tw startPinAuth:self.view.window completion:^(bool success, NSDictionary *userinfo) {
-        if (success) {
-            [self checklogin];
-        }
-    }];
 }
 
 - (IBAction)logout:(id)sender {
-    // Set Up Prompt Message Window
+    /*// Set Up Prompt Message Window
     NSAlert *alert = [[NSAlert alloc] init] ;
     [alert addButtonWithTitle:@"Yes"];
     [alert addButtonWithTitle:@"No"];
@@ -72,7 +66,7 @@
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tweetonscrobble"];
             }
         }
-    }];
+    }];*/
 }
 
 - (IBAction)togglepresence:(id)sender {

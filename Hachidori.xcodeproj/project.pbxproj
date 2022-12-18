@@ -46,7 +46,6 @@
 		5964D214231956C5007462F9 /* MALUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5964D213231956C5007462F9 /* MALUpdateManager.m */; };
 		599AEEDA231D6FEC0050FAE7 /* AtarashiiAPIListFormatMAL.m in Sources */ = {isa = PBXBuildFile; fileRef = 599AEED9231D6FEC0050FAE7 /* AtarashiiAPIListFormatMAL.m */; };
 		599AEEDD231D8B310050FAE7 /* PKCEGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 599AEEDC231D8B310050FAE7 /* PKCEGenerator.m */; };
-		59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */; };
 		59A38EA021ED1952004A52CE /* SyncPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A38E9E21ED1952004A52CE /* SyncPrefs.m */; };
 		59AFD124225A2F460044C8DA /* CrashWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59AFD122225A2F460044C8DA /* CrashWindowController.xib */; };
 		59AFD125225A2F460044C8DA /* CrashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD123225A2F460044C8DA /* CrashWindowController.m */; };
@@ -105,9 +104,6 @@
 		9126066C20BEE0150052CB30 /* TorrentBrowser.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126066820BEDD900052CB30 /* TorrentBrowser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9126067520BEE5C20052CB30 /* DiscordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126067320BEE5C20052CB30 /* DiscordManager.m */; };
 		9126067820BEEC710052CB30 /* SocialPrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9126067620BEEC710052CB30 /* SocialPrefController.m */; };
-		9126067E20BEEFAC0052CB30 /* TwitterManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; };
-		9126067F20BEEFAE0052CB30 /* TwitterManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; };
-		9126068020BEEFAE0052CB30 /* TwitterManagerKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9126068320BEEFE20052CB30 /* SocialPrefController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9126068520BEEFE20052CB30 /* SocialPrefController.xib */; };
 		912859561E7B2F0E005E9A2B /* MASPreferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; };
 		912859581E7B3033005E9A2B /* MASPreferences.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 912859551E7B2F0E005E9A2B /* MASPreferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -181,7 +177,6 @@
 				2D621EC91F81436C003274F2 /* MSWeakTimer_macOS.framework in CopyFiles */,
 				9128595C1E7B35A3005E9A2B /* MASShortcut.framework in CopyFiles */,
 				F8531F1520D2A84F00CE78D9 /* DonationCheck_KeyOnly.framework in CopyFiles */,
-				9126068020BEEFAE0052CB30 /* TwitterManagerKit.framework in CopyFiles */,
 				2D621ECC1F8143EB003274F2 /* PingNotifier.framework in CopyFiles */,
 				59D5037C1CB016D90002532D /* Sparkle.framework in CopyFiles */,
 			);
@@ -253,8 +248,6 @@
 		599AEED9231D6FEC0050FAE7 /* AtarashiiAPIListFormatMAL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtarashiiAPIListFormatMAL.m; sourceTree = "<group>"; };
 		599AEEDB231D8B310050FAE7 /* PKCEGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKCEGenerator.h; sourceTree = "<group>"; };
 		599AEEDC231D8B310050FAE7 /* PKCEGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKCEGenerator.m; sourceTree = "<group>"; };
-		59A38E9121ECD722004A52CE /* HachidoriTwitterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HachidoriTwitterManager.h; sourceTree = "<group>"; };
-		59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HachidoriTwitterManager.m; sourceTree = "<group>"; };
 		59A38E9D21ED1952004A52CE /* SyncPrefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPrefs.h; sourceTree = "<group>"; };
 		59A38E9E21ED1952004A52CE /* SyncPrefs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncPrefs.m; sourceTree = "<group>"; };
 		59AFD121225A2F460044C8DA /* CrashWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashWindowController.h; sourceTree = "<group>"; };
@@ -439,7 +432,6 @@
 		9126067420BEE5C20052CB30 /* DiscordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscordManager.h; sourceTree = "<group>"; };
 		9126067620BEEC710052CB30 /* SocialPrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialPrefController.m; sourceTree = "<group>"; };
 		9126067720BEEC710052CB30 /* SocialPrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialPrefController.h; sourceTree = "<group>"; };
-		9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterManagerKit.framework; path = Frameworks/TwitterManagerKit.framework; sourceTree = "<group>"; };
 		9126068420BEEFE20052CB30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SocialPrefController.xib; sourceTree = "<group>"; };
 		912859551E7B2F0E005E9A2B /* MASPreferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASPreferences.framework; path = Frameworks/MASPreferences.framework; sourceTree = "<group>"; };
 		912859591E7B3599005E9A2B /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Frameworks/MASShortcut.framework; sourceTree = "<group>"; };
@@ -528,9 +520,7 @@
 				F8531F1320D2A80700CE78D9 /* DonationCheck_KeyOnly.framework in Frameworks */,
 				2DF623D31EDB27CA00E9B7AD /* Reachability.framework in Frameworks */,
 				9126066920BEDD900052CB30 /* TorrentBrowser.framework in Frameworks */,
-				9126067E20BEEFAC0052CB30 /* TwitterManagerKit.framework in Frameworks */,
 				2D621EC61F814364003274F2 /* GBPing.framework in Frameworks */,
-				9126067F20BEEFAE0052CB30 /* TwitterManagerKit.framework in Frameworks */,
 				59D5037B1CB016840002532D /* Sparkle.framework in Frameworks */,
 				3A2DCCBE1210B3D900C920F1 /* Security.framework in Frameworks */,
 				5C2B9DFC1221EB25006DEF0D /* CoreData.framework in Frameworks */,
@@ -626,7 +616,6 @@
 				91AFCF561F100D7E0029AC09 /* SAMKeychain.framework */,
 				59D5037A1CB016840002532D /* Sparkle.framework */,
 				9126066820BEDD900052CB30 /* TorrentBrowser.framework */,
-				9126067D20BEEFAB0052CB30 /* TwitterManagerKit.framework */,
 				914AE2D01F113AD0009E43FC /* XMLReader.framework */,
 			);
 			name = "Other Frameworks";
@@ -723,8 +712,6 @@
 		59A38E8A21ECD48C004A52CE /* UpdateManager */ = {
 			isa = PBXGroup;
 			children = (
-				59A38E9121ECD722004A52CE /* HachidoriTwitterManager.h */,
-				59A38E9221ECD722004A52CE /* HachidoriTwitterManager.m */,
 				59F1425721EE5690008C7511 /* AniListUpdateManager.h */,
 				59F1425821EE5690008C7511 /* AniListUpdateManager.m */,
 				59F1425A21EE56A2008C7511 /* KitsuUpdateManager.h */,
@@ -1311,7 +1298,6 @@
 				6F0F84A21B34699F00EEEC32 /* HachidoriScripting.m in Sources */,
 				5CC744D51A474B0600F65E88 /* HotkeysPrefs.m in Sources */,
 				9126067820BEEC710052CB30 /* SocialPrefController.m in Sources */,
-				59A38E9321ECD722004A52CE /* HachidoriTwitterManager.m in Sources */,
 				6F23664B1ABE31EF00FDC844 /* AdvancedPrefController.m in Sources */,
 				82EBBD1D1A17FD5B009F6179 /* FixSearchDialog.m in Sources */,
 				59DFFF1F2224615E00FC1D99 /* PatreonLicenseManager.m in Sources */,
@@ -1666,7 +1652,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20221023;
+				CURRENT_PROJECT_VERSION = 20221209;
 				DEVELOPMENT_TEAM = 9HDZTER525;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1693,7 +1679,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.3.14;
+				MARKETING_VERSION = "3.3.15-beta3";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;
@@ -1716,7 +1702,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20221023;
+				CURRENT_PROJECT_VERSION = 20221209;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9HDZTER525;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1741,7 +1727,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.3.14;
+				MARKETING_VERSION = "3.3.15-beta3";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "moe.ateliershiori.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Hachidori;

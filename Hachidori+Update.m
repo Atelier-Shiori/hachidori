@@ -77,10 +77,10 @@
     if (service == [Hachidori currentService]) {
         switch (status) {
             case ScrobblerAddTitleSuccessful:
-                [self.twittermanager postaddanimetweet:self.lastscrobble];
+                //[self.twittermanager postaddanimetweet:self.lastscrobble];
                 break;
             case ScrobblerUpdateSuccessful:
-                [self.twittermanager postupdateanimetweet:self.lastscrobble];
+                //[self.twittermanager postupdateanimetweet:self.lastscrobble];
                 break;
             default:
                 break;

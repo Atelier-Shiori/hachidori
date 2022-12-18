@@ -12,7 +12,6 @@
 #import "AniListConstants.h"
 #import <DetectionKit/DetectionKit.h>
 #import <AFNetworking/AFNetworking.h>
-#import <TwitterManagerKit/TwitterManagerKit.h>
 #import "Hachidori+Search.h"
 #import "Hachidori+Update.h"
 #import "Hachidori+UserStatus.h"
@@ -36,7 +35,7 @@
         [_detection setKodiReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enablekodiapi"]];
         [_detection setPlexReach:[[NSUserDefaults standardUserDefaults] boolForKey:@"enableplexapi"]];
         // Init Twitter Manager
-        _twittermanager = [HachidoriTwitterManager new];
+        //_twittermanager = [HachidoriTwitterManager new];
         // Init Discord
         self.discordmanager = [DiscordManager new];
         // Init AFNetworking
@@ -180,13 +179,13 @@
     LastScrobbleStatus *lscrobbled = notification.object;
     if (lscrobbled) {
         if ([notification.name isEqualToString:@"TwitterAddTweet"]) {
-            [_twittermanager postaddanimetweet:lscrobbled];
+            //[_twittermanager postaddanimetweet:lscrobbled];
         }
         else if ([notification.name isEqualToString:@"TwitterUpdateTweet"]) {
-            [_twittermanager postupdateanimetweet:lscrobbled];
+            //[_twittermanager postupdateanimetweet:lscrobbled];
         }
         else if ([notification.name isEqualToString:@"TwitterUpdateStatusTweet"]) {
-            [_twittermanager postupdatestatustweet:lscrobbled];
+            //[_twittermanager postupdatestatustweet:lscrobbled];
         }
         else if ([notification.name isEqualToString:@"UpdateDiscordStatus"]) {
             [self sendDiscordPresence:lscrobbled];
