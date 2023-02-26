@@ -710,6 +710,7 @@
                         self.detectedscrobble.corrected = true;
                         self.detectedscrobble.DetectedTitle = correcttitle;
                         self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", mappedepisode];
+                        self.detectedscrobble.DetectedSeason = 0;
                         self.detectedscrobble.DetectedTitleisEpisodeZero = true;
                         found = true;
                         [self checkType];
@@ -727,9 +728,7 @@
                         if (tmpepisode > 0) {
                             self.detectedscrobble.DetectedEpisode = [NSString stringWithFormat:@"%i", tmpepisode];
                         }
-                        if (self.detectedscrobble.DetectedSeason > 0 && i != 2) {
-                            self.detectedscrobble.DetectedSeason = 0;
-                        }
+                        self.detectedscrobble.DetectedSeason = 0;
                         self.detectedscrobble.DetectedType = @"";
                         self.detectedscrobble.DetectedTitle = correcttitle;
                         self.detectedscrobble.DetectedTitleisEpisodeZero = false;

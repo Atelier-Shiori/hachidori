@@ -196,83 +196,83 @@
                         }
                     }
                 }
-                if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
-                        if (self.detectedscrobble.DetectedTitleisMovie) {
-                            self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
-                            if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"Special"]) {
-                                self.detectedscrobble.DetectedTitleisMovie = false;
-                            }
+            }
+            if (matchstatus == PrimaryTitleMatch || matchstatus == AlternateTitleMatch) {
+                    if (self.detectedscrobble.DetectedTitleisMovie) {
+                        self.detectedscrobble.DetectedEpisode = @"1"; // Usually, there is one episode in a movie.
+                        if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"Special"]) {
+                            self.detectedscrobble.DetectedTitleisMovie = false;
                         }
-                        else {
-                            if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
-                                // Used for Season Checking
-                                if (self.detectedscrobble.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.detectedscrobble.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
-                                    continue;
-                                }
-                            }
-                        }
-                }
-                else if (matchstatus == NoMatch) {
-                    continue;
-                }
-                //Return titleid if episode is valid
-                int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
-                bool matchestitle = matchstatus == PrimaryTitleMatch ? [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame : [term caseInsensitiveCompare:alttitle] == NSOrderedSame;
-                if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {
-                    if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason && !matchestitle) {
-                        continue;
-                    }
-                    NSLog(@"Valid Episode Count");
-                    if (sortedArray.count == 1 || self.detectedscrobble.DetectedSeason >= 2) {
-                        // Only Result, return
-                        return [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
-                    }
-                    else if (episodes >= self.detectedscrobble.DetectedEpisode.intValue && !titlematch1 && sortedArray.count > 1 && ((term.length < theshowtitle.length+1)||(term.length< alttitle.length+1 && alttitle.length > 0 && matchstatus == AlternateTitleMatch))) {
-                        mstatus = matchstatus;
-                        titlematch1 = searchentry;
-                        continue;
-                    }
-                    else if (titlematch1 && (episodes >= self.detectedscrobble.DetectedEpisode.intValue || episodes == 0)) {
-                        titlematch2 = searchentry;
-                        return titlematch1 != titlematch2 ? [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus] : [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
                     }
                     else {
-                        if ([NSUserDefaults.standardUserDefaults boolForKey:@"UseAnimeRelations"]) {
-                            int newid = [self checkAnimeRelations:((NSNumber *)searchentry[@"id"]).intValue];
-                            if (newid > 0) {
-                                [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
-                                return @(newid).stringValue;
+                        if ([[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"TV"]||[[NSString stringWithFormat:@"%@", searchentry[@"type"]] isEqualToString:@"ONA"]) { // Check Seasons if the title is a TV show type
+                            // Used for Season Checking
+                            if (self.detectedscrobble.DetectedSeason != ((NSNumber *)searchentry[@"parsed_season"]).intValue && self.detectedscrobble.DetectedSeason >= 2) { // Season detected, check to see if there is a match. If not, continue.
+                                continue;
                             }
                         }
-                        // Only Result, return
-                        return [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
                     }
+            }
+            else if (matchstatus == NoMatch) {
+                continue;
+            }
+            //Return titleid if episode is valid
+            int episodes = !searchentry[@"episodes"] ? 0 : ((NSNumber *)searchentry[@"episodes"]).intValue;
+            bool matchestitle = matchstatus == PrimaryTitleMatch ? [term caseInsensitiveCompare:theshowtitle] == NSOrderedSame : [term caseInsensitiveCompare:alttitle] == NSOrderedSame;
+            if (episodes == 0 || ((episodes >= self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0)) {
+                if (((NSNumber *)searchentry[@"parsed_season"]).intValue >= 2 && ((NSNumber *)searchentry[@"parsed_season"]).intValue != self.detectedscrobble.DetectedSeason && !matchestitle) {
+                    continue;
                 }
-                else if ((episodes < self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0) {
-                    // Check Relations
+                NSLog(@"Valid Episode Count");
+                if (sortedArray.count == 1 || self.detectedscrobble.DetectedSeason >= 2) {
+                    // Only Result, return
+                    return [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                }
+                else if (episodes >= self.detectedscrobble.DetectedEpisode.intValue && !titlematch1 && sortedArray.count > 1 && ((term.length < theshowtitle.length+1)||(term.length< alttitle.length+1 && alttitle.length > 0 && matchstatus == AlternateTitleMatch))) {
+                    mstatus = matchstatus;
+                    titlematch1 = searchentry;
+                    continue;
+                }
+                else if (titlematch1 && (episodes >= self.detectedscrobble.DetectedEpisode.intValue || episodes == 0)) {
+                    titlematch2 = searchentry;
+                    return titlematch1 != titlematch2 ? [self comparetitle:term match1:titlematch1 match2:titlematch2 mstatus:mstatus mstatus2:matchstatus] : [self foundtitle:[NSString stringWithFormat:@"%@",searchentry[@"id"]] info:searchentry];
+                }
+                else {
                     if ([NSUserDefaults.standardUserDefaults boolForKey:@"UseAnimeRelations"]) {
                         int newid = [self checkAnimeRelations:((NSNumber *)searchentry[@"id"]).intValue];
                         if (newid > 0) {
                             [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
                             return @(newid).stringValue;
                         }
+                    }
+                    // Only Result, return
+                    return [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                }
+            }
+            else if ((episodes < self.detectedscrobble.DetectedEpisode.intValue) && self.detectedscrobble.DetectedEpisode.intValue > 0) {
+                // Check Relations
+                if ([NSUserDefaults.standardUserDefaults boolForKey:@"UseAnimeRelations"]) {
+                    int newid = [self checkAnimeRelations:((NSNumber *)searchentry[@"id"]).intValue];
+                    if (newid > 0) {
+                        [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                        return @(newid).stringValue;
+                    }
+                    else {
+                        if ([self checkAnimeRelationsForExisting:((NSNumber *)searchentry[@"id"]).intValue]) {
+                            [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
+                            return @(newid).stringValue;
+                        }
                         else {
-                            if ([self checkAnimeRelationsForExisting:((NSNumber *)searchentry[@"id"]).intValue]) {
-                                [self foundtitle:((NSNumber *)searchentry[@"id"]).stringValue info:searchentry];
-                                return @(newid).stringValue;
-                            }
-                            else {
-                                continue;
-                            }
+                            continue;
                         }
                     }
                 }
-                else {
-                    // Detected episodes exceed total episodes
-                    continue;
-                }
-                
             }
+            else {
+                // Detected episodes exceed total episodes
+                continue;
+            }
+            
         }
     }
     // If one match is found and not null, then return the id.
