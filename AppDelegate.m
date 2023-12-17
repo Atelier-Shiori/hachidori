@@ -742,7 +742,7 @@
             }
             case ScrobblerOfflineQueued:
                 [self setStatusText:@"Scrobble Status: Scrobble Queued..."];
-                [self showNotification:@"Scrobble Queued." message:[NSString stringWithFormat:@"%@ - %@",haengine.lastscrobble.LastScrobbledActualTitle,haengine.lastscrobble.LastScrobbledEpisode] withIdentifier:@"scrobblequeued"];
+                [self showNotification:@"Scrobble Queued." message:[NSString stringWithFormat:@"%@ - %@",haengine.lastscrobble.LastScrobbledTitle,haengine.lastscrobble.LastScrobbledEpisode] withIdentifier:@"scrobblequeued"];
                 break;
             case ScrobblerTitleNotFound:
                 if (!((NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"showcorrection"]).boolValue) {
@@ -1194,7 +1194,7 @@
         [updatecorrect setAutoenablesItems:NO];
         [lastupdateheader setTitle:NSLocalizedString(@"Queued:",nil)];
         [self setLastScrobbledTitle:[NSString stringWithFormat:NSLocalizedString(@"Queued: %@ - Episode %@ playing from %@",nil),haengine.lastscrobble.LastScrobbledTitle,haengine.lastscrobble.LastScrobbledEpisode, haengine.lastscrobble.LastScrobbledSource]];
-        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Queued)",nil),haengine.lastscrobble.LastScrobbledActualTitle,haengine.lastscrobble.LastScrobbledEpisode]];
+        [self setStatusToolTip:[NSString stringWithFormat:NSLocalizedString(@"Hachidori - %@ - %@ (Queued)",nil),haengine.lastscrobble.LastScrobbledTitle,haengine.lastscrobble.LastScrobbledEpisode]];
     }
     else {
         [updatecorrect setAutoenablesItems:YES];

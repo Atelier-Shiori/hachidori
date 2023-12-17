@@ -67,6 +67,7 @@ typedef NS_ENUM(unsigned int, hachidoriservice) {
 @property (strong) NSString *MALApiUrl;
 @property BOOL correcting;
 @property BOOL unittesting;
+@property BOOL queuescrobbling;
 @property (strong) Reachability* reach;
 @property (strong, setter=setManagedObjectContext:) NSManagedObjectContext *managedObjectContext;
 @property (getter=getOnlineStatus) bool online;

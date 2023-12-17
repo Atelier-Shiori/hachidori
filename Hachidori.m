@@ -359,6 +359,7 @@
     int fail = 0;
     bool confirmneeded = false;
     if (queue.count > 0) {
+        self.queuescrobbling = true;
         for (NSManagedObject * item in queue) {
             // Restore detected title and episode from coredata
             [self setDetectedScrobbleStatus:[DetectedScrobbleStatus new] withService:[Hachidori currentService]];
@@ -406,6 +407,9 @@
     }
     if (successc > 0) {
         _Success = true;
+    }
+    if (confirmneeded == 0) {
+        self.queuescrobbling = false;
     }
     return @{@"success": @(successc), @"fail": @(fail), @"confirmneeded" : @(confirmneeded)};
 }
@@ -598,6 +602,14 @@
             // Clear Detected Episode and Title
             [self multiscrobbleWithType:self.correcting ? MultiScrobbleTypeCorrection : MultiScrobbleTypeScrobble withTitleID:self.detectedscrobble.AniID];
             [self clearDetectedScrobbled];
+            if (self.scrobblefromqueue) {
+                [self clearAwaitingConfirmationFromQueue];
+            }
+            return true;
+        case ScrobblerUpdateNotNeeded:
+            if (self.scrobblefromqueue) {
+                [self clearAwaitingConfirmationFromQueue];
+            }
             return true;
         default:
             return false;
@@ -1174,5 +1186,27 @@
             break;
     }
     return tmpstr;
+}
+
+-(void)clearAwaitingConfirmationFromQueue {
+    self.queuescrobbling = false;
+    __block NSError * error;
+    NSManagedObjectContext * moc = self.managedObjectContext;
+    __block NSArray * queue;
+    NSPredicate * predicate = [NSPredicate predicateWithFormat: @"(scrobbled == %i) AND (service == %li) AND (status == %i)", false, [Hachidori currentService], 3];
+    NSFetchRequest * queuefetch = [[NSFetchRequest alloc] init];
+    queuefetch.entity = [NSEntityDescription entityForName:@"OfflineQueue" inManagedObjectContext:moc];
+    queuefetch.predicate = predicate;
+    [moc performBlockAndWait:^{
+        queue = [moc executeFetchRequest:queuefetch error:&error];
+    }];
+    if (queue.count > 0) {
+        for (NSManagedObject * item in queue) {
+            [item setValue:@(22) forKey:@"status"];
+        }
+        [moc save:&error];
+    }
+    // Continue Scrobbling
+    [self startscrobbling];
 }
 @end
