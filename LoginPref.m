@@ -321,9 +321,11 @@
             switch (service) {
                 case 1:
                     keychainidentifier = @"Hachidori - AniList";
+                    [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"AnilistRefreshFailed"];
                     break;
                 case 2:
                     keychainidentifier = @"Hachidori - MyAnimeList";
+                    [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"MALRefreshFailed"];
                     break;
                 default:
                     break;
