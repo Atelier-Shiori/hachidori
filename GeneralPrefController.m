@@ -89,6 +89,24 @@
     error = nil;
     [moc save:&error];
 }
+
+- (IBAction)clearMappingsCache:(id)sender{
+    // Remove All cache data from Core Data Entity
+    AppDelegate * delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = delegate.managedObjectContext;
+    NSFetchRequest * allCaches = [[NSFetchRequest alloc] init];
+    allCaches.entity = [NSEntityDescription entityForName:@"Titleidmappings" inManagedObjectContext:moc];
+    
+    NSError * error = nil;
+    NSArray * caches = [moc executeFetchRequest:allCaches error:&error];
+    //error handling goes here
+    for (NSManagedObject * cachentry in caches) {
+        [moc deleteObject:cachentry];
+    }
+    error = nil;
+    [moc save:&error];
+}
+
 - (IBAction)updateAutoExceptions:(id)sender{
     // Updates Auto Exceptions List
     dispatch_queue_t queue = dispatch_get_global_queue(
