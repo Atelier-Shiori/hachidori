@@ -806,7 +806,7 @@
                 [self showAnimeInfo:ainfo];
                 switch ([Hachidori currentService]) {
                     case 0:
-                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.lastscrobble.AniID]]]];
+                        [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.app/anime/%@", haengine.lastscrobble.AniID]]]];
                         break;
                     case 1:
                         [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.lastscrobble.AniID]]]];
@@ -1102,7 +1102,7 @@
 						//Regenerate Share Items
                         switch ([Hachidori currentService]) {
                             case 0:
-                                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.lastscrobble.AniID]]]];
+                                [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.app/anime/%@", haengine.lastscrobble.AniID]]]];
                                 break;
                             case 1:
                                 [_shareMenu generateShareMenu:@[[NSString stringWithFormat:@"%@ - %@", haengine.lastscrobble.LastScrobbledActualTitle, haengine.lastscrobble.LastScrobbledEpisode ], [NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.lastscrobble.AniID]]]];
@@ -1520,7 +1520,7 @@
     //Open the anime's page on the current service in the default web browser
     switch ([Hachidori currentService]) {
         case 0:
-             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.io/anime/%@", haengine.lastscrobble.AniID]]];
+             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kitsu.app/anime/%@", haengine.lastscrobble.AniID]]];
             break;
         case 1:
              [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://anilist.co/anime/%@", haengine.lastscrobble.AniID]]];

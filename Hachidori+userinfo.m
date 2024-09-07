@@ -25,7 +25,7 @@
         [self.syncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
     }
     NSError *error;
-    id responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:@{} headers:@{} task:NULL error:&error];
+    id responseObject = [self.syncmanager syncGET:@"https://kitsu.app/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:@{} headers:@{} task:NULL error:&error];
     if (!error) {
         if (((NSArray *)responseObject[@"data"]).count > 0) {
             NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];

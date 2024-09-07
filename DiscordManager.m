@@ -38,7 +38,7 @@ static const char* APPLICATION_ID = "451384588405571585";
     }
 }
 
-void InitDiscord()
+void InitDiscord(void)
 {
     DiscordEventHandlers handlers;
     memset(&handlers, 0, sizeof(handlers));
@@ -47,7 +47,7 @@ void InitDiscord()
     handlers.disconnected = handleDiscordDisconnected;
     Discord_Initialize(APPLICATION_ID, &handlers, 1, NULL);
 }
-static void handleDiscordReady(void)
+static void handleDiscordReady()
 {
     printf("\nDiscord: ready\n");
 }

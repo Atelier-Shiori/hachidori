@@ -112,7 +112,7 @@
         NSString *searchterm = [Utility urlEncodeString:search.stringValue];
         switch (self.currentservice) {
             case 0: {
-                [_searchmanager GET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [_searchmanager GET:[NSString stringWithFormat:@"https://kitsu.app/api/edge/anime?filter[text]=%@", searchterm] parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     [self populateData:[AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject]];
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                      [[arraycontroller mutableArrayValueForKey:@"content"] removeAllObjects];

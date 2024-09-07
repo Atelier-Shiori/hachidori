@@ -80,7 +80,7 @@
             NSDictionary *nowplaying = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jerror];
             NSString * message;
             if (sharelink) {
-                message = [NSString stringWithFormat:@"(Hachidori) Watching %@ Episode %@ from %@ - https://kitsu.io/anime/%@", nowplaying[@"scrobbledactualtitle"], nowplaying[@"scrobbledEpisode"], nowplaying[@"source"], nowplaying[@"id"]];
+                message = [NSString stringWithFormat:@"(Hachidori) Watching %@ Episode %@ from %@ - https://kitsu.app/anime/%@", nowplaying[@"scrobbledactualtitle"], nowplaying[@"scrobbledEpisode"], nowplaying[@"source"], nowplaying[@"id"]];
             }
             else {
                 message = [NSString stringWithFormat:@"(Hachidori) Watching %@ Episode %@ from %@", nowplaying[@"scrobbledactualtitle"], nowplaying[@"scrobbledEpisode"], nowplaying[@"source"]];

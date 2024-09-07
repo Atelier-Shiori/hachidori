@@ -62,7 +62,7 @@
     id responseObject;
     switch ([Hachidori currentService]) {
         case 0:
-            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime?filter[text]=%@", searchterm] parameters:nil headers:@{} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.app/api/edge/anime?filter[text]=%@", searchterm] parameters:nil headers:@{} task:&task error:&error];
             if (responseObject) {
                 responseObject = [AtarashiiAPIListFormatKitsu KitsuAnimeSearchtoAtarashii:responseObject];
             }

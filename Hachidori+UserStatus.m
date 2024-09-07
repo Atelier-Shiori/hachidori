@@ -25,7 +25,7 @@
     id responseObject;
     switch (service) {
         case 0:
-            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [Hachidori getUserid:service], titleid] parameters:nil headers:@{} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.app/api/edge/library-entries?filter[user-id]=%@&filter[media-id]=%@", [Hachidori getUserid:service], titleid] parameters:nil headers:@{} task:&task error:&error];
             break;
         case 1:
             responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistAnimeSingleEntry, @"variables" : @{@"id" : [Hachidori getUserid:service], @"mediaid" : titleid}} headers:@{} task:&task error:&error];
@@ -129,7 +129,7 @@
     id responseObject;
     switch (service) {
         case 0:
-            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.io/api/edge/anime/%@", aid] parameters:nil headers:@{} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:[NSString stringWithFormat:@"https://kitsu.app/api/edge/anime/%@", aid] parameters:nil headers:@{} task:&task error:&error];
             break;
         case 1:
             responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistTitleIdInformation, @"variables" : @{@"id" : aid, @"type" : @"ANIME"}} headers:@{} task:&task error:&error];

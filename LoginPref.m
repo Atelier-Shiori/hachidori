@@ -414,7 +414,7 @@
 - (IBAction)registerhummingbird:(id)sender
 {
     //Show Kitsu Registration Page
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://kitsu.io"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://kitsu.app"]];
 }
 
 - (IBAction)registerAnilist:(id)sender {

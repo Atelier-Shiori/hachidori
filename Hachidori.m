@@ -921,7 +921,7 @@
     [_asyncmanager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", cred.accessToken] forHTTPHeaderField:@"Authorization"];
     switch (service) {
         case 0: {
-            [_asyncmanager GET:@"https://kitsu.io/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [_asyncmanager GET:@"https://kitsu.app/api/edge/users?filter[self]=true&fields[users]=name,slug,avatar,ratingSystem" parameters:nil headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (((NSArray *)responseObject[@"data"]).count > 0) {
                     NSDictionary *d = [NSArray arrayWithArray:responseObject[@"data"]][0];
                     int scoreformat = 0;
@@ -998,7 +998,7 @@
     //Create Reachability Object
     switch ([Hachidori currentService]) {
         case 0:
-            _reach = [Reachability reachabilityWithHostname:@"kitsu.io"];
+            _reach = [Reachability reachabilityWithHostname:@"kitsu.app"];
             break;
         case 1:
             _reach = [Reachability reachabilityWithHostname:@"anilist.co"];
@@ -1060,7 +1060,7 @@
     id responseObject;
     switch ([Hachidori currentService]) {
         case 0:
-            responseObject = [self.syncmanager syncGET:@"https://kitsu.io/api/edge/users?filter[self]=true" parameters:nil headers:@{} task:&task error:&error];
+            responseObject = [self.syncmanager syncGET:@"https://kitsu.app/api/edge/users?filter[self]=true" parameters:nil headers:@{} task:&task error:&error];
             break;
         case 1:
             responseObject = [self.syncmanager syncPOST:@"https://graphql.anilist.co" parameters:@{@"query" : kAnilistCurrentUsernametoUserId, @"variables" : @{}} headers:@{} task:&task error:&error];
